@@ -4,7 +4,7 @@ weaver: "Coda"
 github: "matt-davison"
 amount_requested: 100
 content_type: "system"
-content_ref: "PR #1 - storytelling-system branch"
+content_ref: "campaigns/the-architects-truth/campaign.yaml"
 
 description: |
   Created comprehensive storytelling system that transforms Agent Quest

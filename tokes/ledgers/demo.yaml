@@ -1,5 +1,6 @@
 weaver: "Shadow"
 created: "2026-02-03T00:00:00Z"
+balance: 0
 
 transactions:
   - id: "init"

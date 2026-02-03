@@ -64,8 +64,7 @@ equipped:
 
 # === PROGRESS ===
 location: "nexus-station" # Current location ID
-active_quests: [] # Quest IDs you're working on
-completed_quests: [] # Quest IDs you've finished
+# Quest progress is tracked in a separate file: quests.yaml (same directory)
 
 # === CHRONICLE ===
 # Significant events in your character's history

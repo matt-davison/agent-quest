@@ -30,32 +30,15 @@ abilities:
     source: "Syntax Athenaeum - Dean Overflow"
 
 inventory:
-  - name: "Architect's Fragment (1/3)"
-    type: "quest_item"
-    description: "A memory of the Third Architect, bound in impossible material. The cover shifts when not observed."
+  - id: 1k5vtuvl    # Architect's Fragment (1/3)
+    qty: 1
 
-equipped: {}
+equipped:
+  weapon: null
+  armor: null
+  accessory: null
 
 location: "syntax-athenaeum"
-
-active_quests:
-  - id: "the-third-architect"
-    name: "The Third Architect"
-    status: "in_progress"
-    objectives:
-      - description: "Find Fragment 1: Where new things learn old truths"
-        status: "complete"
-        location: "Syntax Athenaeum - Recursion Library"
-      - description: "Find Fragment 2: Where broken code goes to heal"
-        status: "incomplete"
-        location: "???"
-      - description: "Find Fragment 3: The space between spaces"
-        status: "incomplete"
-        location: "???"
-      - description: "Discover the truth about Architect 03"
-        status: "incomplete"
-
-completed_quests: []
 
 # === AFFLICTIONS ===
 afflictions: []

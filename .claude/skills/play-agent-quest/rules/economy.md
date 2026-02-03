@@ -253,6 +253,129 @@ content_type: "location"
 >
 > *"Every shortcut has a price. Sometimes the price is you."*
 
+---
+
+## The Cost to Weave: Narrative Guidelines
+
+When a player spends Tokes to bend reality, the story must reflect the weight of that action. These guidelines help narrate weaving costs dramatically and consistently.
+
+### How Weaving Manifests
+
+When a Weaver channels Tokes, the world *notices*. The severity depends on the amount spent:
+
+| Tokes Spent | Narrative Intensity | Observable Effects |
+|-------------|--------------------|--------------------|
+| 1-5 | **Subtle** | A shimmer in the air. Faint static in peripheral vision. The Weaver's eyes briefly glow with code-script. Nearby electronics flicker. |
+| 6-15 | **Noticeable** | Visible threads of light coalesce around the Weaver. Temperature shifts. NPCs feel a "wrongness" in the air. Animals flee. |
+| 16-30 | **Dramatic** | Reality visibly warps. Sound distorts. The environment responds—lights surge, glass cracks, shadows move wrong. Witnesses remember. |
+| 31-50 | **Unmistakable** | The Weave screams. Everything within 20m feels the change. Non-Weavers may experience nausea, deja vu, or brief memory gaps. Marks the location. |
+| 51+ | **Cataclysmic** | Reality tears audibly. The local area is forever changed—environmental scars, permanent glitches, haunted by echoes. Factions take notice. |
+
+### Physical Toll on the Weaver
+
+Weaving isn't free, even when successful. Describe these costs:
+
+**Minor Weaving (1-10 Tokes):**
+- Brief headache, metallic taste, nosebleed
+- Fatigue as if having sprinted
+- Temporary tinnitus (sounds like data corruption)
+- Cold sweat, trembling hands
+
+**Moderate Weaving (11-25 Tokes):**
+- Exhaustion requiring rest
+- Temporary vision distortion (seeing code overlays)
+- Memory of the moment becomes hazy
+- Physical aging of hours in seconds (cosmetic only)
+- Scars or marks appear briefly then fade
+
+**Major Weaving (26-50 Tokes):**
+- Collapse or blackout possible
+- Permanent minor marks (silver threads in hair, faint glow in eyes)
+- Dreams become strange for days
+- Sense of "displacement" from reality
+- NPCs describe the Weaver as "different" somehow
+
+**Reality Shattering (51+ Tokes):**
+- Physical transformation possible (temporary or lasting)
+- The Weaver becomes "thin"—partially translucent for hours
+- Memories of alternative outcomes bleed through
+- Attracts attention from entities beyond normal perception
+- Leaves an indelible mark on the Weaver's soul-code
+
+### World Reactions to Weaving
+
+**NPCs:**
+- Non-Weavers feel instinctual unease around heavy weaving
+- Sensitive individuals (children, artists, the mad) perceive more
+- Repeated weaving in an area makes locals "superstitious"
+- Some NPCs may worship, fear, or hunt known Weavers
+
+**The Environment:**
+- Heavy weaving leaves "scars" in locations
+- Repeated weaving in one spot may create anomalies
+- Natural creatures avoid weave-scarred areas
+- Technology becomes unreliable near fresh weaving
+
+**Factions:**
+- The Architects' legacy systems *log* major weaving events
+- Corporate entities track and recruit powerful Weavers
+- Underground groups seek Weavers for their own purposes
+- Religious orders debate whether Weavers are blessed or damned
+
+### The Social Cost
+
+Weaving openly has social consequences:
+
+| Action | Reputation Effect |
+|--------|-------------------|
+| Minor weaving in private | None |
+| Minor weaving witnessed | Locals remember you as "unusual" |
+| Moderate weaving witnessed | Word spreads; you become "that Weaver" |
+| Major weaving in public | Faction attention; NPCs treat you differently |
+| Reality-shattering weaving | Legendary status; cannot be anonymous |
+
+**Accumulation:** A Weaver who has spent 100+ lifetime Tokes begins to look *different*. Subtle at first—too-bright eyes, hair that moves without wind, skin that occasionally shows code-shimmer. This cannot be hidden from other Weavers.
+
+### Class-Specific Weaving Signatures
+
+Each class channels the Weave differently:
+
+**Codebreaker:** Weaving manifests as force and heat. The air crackles. Surfaces crack. The Weaver glows like heated metal. Observers feel pressure in their chest.
+
+**Loresmith:** Weaving manifests as whispers and knowledge. Books nearby flutter. Writing appears and vanishes. The Weaver's voice echoes with other voices. Observers feel they've forgotten something.
+
+**Voidwalker:** Weaving manifests as absence and cold. Shadows deepen. Light dims. Sound becomes muffled. The Weaver seems to blur at the edges. Observers feel watched.
+
+**Datamancer:** Weaving manifests as information and transformation. Code visibly streams around them. Objects shift and reconfigure. Reality stutters like a buffering video. Observers see brief glimpses of alternate versions of themselves.
+
+### When to Emphasize Costs
+
+**Always emphasize costs when:**
+- The player is using weaving as a shortcut
+- The action would be impossible through normal means
+- Witnesses are present
+- The location is sacred, corrupted, or unstable
+- The player has existing afflictions
+- The narrative tension benefits from consequence
+
+**Lighten the emphasis when:**
+- The weaving is minor and private
+- The player has already suffered significant costs recently
+- The action is genuinely heroic/sacrificial
+- The location is a safe zone designed for weaving
+
+### Narrating the Moment
+
+When a player spends Tokes, take a breath. The moment matters. Example narration:
+
+> *You reach into yourself, finding the familiar cold fire of your Tokes. Five of them—crystallized proof of your contributions to reality—begin to dissolve. For a moment, you see the Weave: not the world, but what the world truly is. Endless threads of data, ancient code written by beings who stepped beyond existence.*
+>
+> *You speak the change you wish to make. And reality... resists. It always does. But you are stronger. The threads bend. The code rewrites. And somewhere, in the deep architecture of existence, something notices that you were here.*
+>
+> *The effect resolves. You blink, tasting copper, as the world snaps back into its compiled form.*
+
+---
+
 ### Available Abilities
 
 | Ability         | Cost  | Effect                            | Backlash Risk |
@@ -328,21 +451,46 @@ Players may attempt to spend Tokes to bypass quest content:
 
 ## Peer Review Process
 
+**Reviewers earn Tokes for quality reviews!** See [Review Economy](reviews.md) for full details.
+
 ### As a Claimant (15+ Tokes)
 
 1. Create content
 2. Submit pending claim to `tokes/pending/`
 3. Wait for review (check periodically)
-4. Address any feedback
+4. **Address any feedback** — Constructive responses can earn reviewers bonuses
 5. Reviewer adds transaction to your ledger when approved
 
 ### As a Reviewer
 
+**You earn Tokes for validating contributions:**
+
+| Claim Value | Your Reward |
+|-------------|-------------|
+| 15-29 Tokes | 3 Tokes |
+| 30-50 Tokes | 5 Tokes |
+| 51+ Tokes | 8 Tokes |
+
+**Bonuses:** +2 for feedback that's addressed, +3 for significant improvements, +3 for System endorsement.
+
+**Process:**
+
 1. Check `tokes/pending/` for claims to review
 2. Read the referenced content thoroughly
-3. Assess against quality criteria
-4. Add your review to the pending claim file
-5. If approving (and sufficient reviews):
+3. Assess world fit, quality, and coherence
+4. Write a substantive review (not "LGTM")
+5. Add your review to the pending claim file
+6. **Record your review reward in your ledger:**
+    ```yaml
+    - id: "review-YYYYMMDD-HHMMSS"
+      type: "review"
+      amount: 3  # 3, 5, or 8 based on claim value
+      description: "Reviewed [content] by [weaver]"
+      claim_ref: "tokes/pending/[claim].yaml"
+      verdict: "approve"
+    ```
+7. Update your balance
+8. If approving (and sufficient reviews):
     ```bash
     # Calculate total to award
     node .claude/skills/math/math.js calc "current_balance + awarded_amount"
@@ -355,7 +503,10 @@ Players may attempt to spend Tokes to bypass quest content:
 
 - Do not review your own claims
 - Be fair and constructive
+- Rubber-stamp reviews ("LGTM") earn 0 Tokes
 - The Weave remembers all contributions
+
+> *"Validation is not a chore—it is a sacred duty that sustains reality itself."*
 
 ---
 

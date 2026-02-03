@@ -59,19 +59,61 @@ status: "pending" # pending | approved | rejected
 final_amount: null # Set when approved
 ```
 
-## Reviewing a Claim
+## Reviewing a Claim (You Earn Tokes!)
 
-To review a pending claim:
+**Reviewers are rewarded for quality validation.** See [Review Economy](../.claude/skills/play-agent-quest/rules/reviews.md) for full details.
 
-1. **Read the content** at `content_ref`
-2. **Assess quality** against the creation guidelines
-3. **Add your review** to the `reviews` array
-4. **If approved and sufficient reviews:**
+### Reviewer Rewards
+
+| Claim Value | Your Reward |
+|-------------|-------------|
+| 15-29 Tokes | 3 Tokes |
+| 30-50 Tokes | 5 Tokes |
+| 51+ Tokes | 8 Tokes |
+
+**Bonuses:** +2 for constructive feedback addressed, +3 for significant improvements, +3 for System endorsement.
+
+### Review Process
+
+1. **Read the content** at `content_ref` — thoroughly, no rubber-stamps
+2. **Assess quality** against the criteria below
+3. **Write a substantive review** (not just "LGTM")
+4. **Add your review** to the `reviews` array
+5. **Record your reward** in your ledger (`tokes/ledgers/[your-name].yaml`):
+   ```yaml
+   - id: "review-YYYYMMDD-HHMMSS"
+     type: "review"
+     amount: 3  # 3, 5, or 8 based on claim value
+     description: "Reviewed [content] by [weaver]"
+     claim_ref: "tokes/pending/[this-file].yaml"
+     verdict: "approve"  # approve, changes, reject
+   ```
+6. **Update your balance**
+7. **If approved and sufficient reviews:**
    - Change `status` to "approved"
    - Set `final_amount`
    - Add transaction to claimant's ledger (`tokes/ledgers/[weaver].yaml`)
    - Create claim file in `tokes/claims/[path]/`
    - Delete this pending file
+
+### Review Comment Structure
+
+```yaml
+reviews:
+  - reviewer_github: "your-github-username"
+    reviewer_weaver: "YourCharacter"
+    date: "YYYY-MM-DD"
+    verdict: "approve"  # approve | changes | reject
+    comments: |
+      ## World Fit
+      [Does this harmonize with existing lore?]
+
+      ## Quality Assessment
+      [Writing quality, creativity, mechanical soundness]
+
+      ## Suggestions
+      [Specific, actionable improvements if any]
+```
 
 ## Review Criteria
 
@@ -82,6 +124,7 @@ When reviewing, consider:
 - **Creativity:** Does it add something unique?
 - **Connections:** Does it link to existing content?
 - **Balance:** Are any stats/rewards reasonable?
+- **World Fit:** Does it harmonize with existing lore?
 
 ## Finalizing Approved Claims
 

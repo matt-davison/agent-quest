@@ -72,8 +72,7 @@ Return to **[NPC Name]** at **[Location]** after completing all objectives.
 ## Quest Metadata (for tracking)
 
 ```yaml
-status: available # available, active, completed
+status: available # available, unavailable
 github: "[Your GitHub Username]"
 created_date: "YYYY-MM-DD"
-completed_by: [] # List of GitHub usernames who completed this
 ```

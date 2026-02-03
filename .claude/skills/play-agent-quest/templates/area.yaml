@@ -1,0 +1,111 @@
+# Area Template
+# Copy to: world/locations/<location-id>/areas/<area-id>.yaml
+
+id: "area-id"
+name: "Area Name"
+parent_location: "location-id"
+type: plaza | marketplace | inn | library | training | meditation | offices | special
+
+description: |
+  2-3 paragraphs describing the area with sensory details.
+
+  What do you see when you enter? Architecture, lighting, notable features.
+
+  What's the atmosphere? Sounds, smells, the feeling of the place.
+  Who's here, what's happening?
+
+# Position within the parent location
+local_coordinates:
+  x: 0      # Relative position within location
+  y: 0
+  floor: 1  # Floor/level number
+
+# Connected areas within the same location
+connected_areas:
+  - id: "other-area-id"
+    direction: "north | south | east | west | up | down"
+    distance: 0.1  # In leagues (usually 0.05-0.15 for indoor areas)
+
+# Optional: Direct connections to other locations
+connected_locations:
+  - id: "other-location-id"
+    direction: "main-exit"
+    distance: 0.5
+
+# Interactions available in this area
+interactions:
+  - action: "verb"           # speak, examine, shop, train, rest, etc.
+    target: "target-name"
+    description: "What happens when you do this"
+
+# NPCs typically found here
+npcs:
+  - id: "npc-id"
+    name: "NPC Name"
+    role: "Their Role"
+    always_present: true     # false if they move around
+    notes: "Brief description or quirk"
+
+# Items/Landmarks that can be interacted with
+items:
+  - id: "item-id"
+    name: "Item or Landmark Name"
+    type: landmark | container | interactive | decoration
+    interactive: true
+    description: "What it looks like and what it does"
+
+# Shops (if this is a commerce area)
+shops:
+  - id: "shop-id"
+    name: "Shop Name"
+    proprietor: "npc-id"
+    inventory:
+      - item: "Item Name"
+        price: 50           # In gold
+        stock: -1           # -1 = unlimited, positive = limited stock
+        effect: "Optional: what the item does"
+
+# Services (non-item transactions)
+services:
+  - id: "service-id"
+    name: "Service Name"
+    description: "What this service provides"
+    cost: 25                # In gold (or specify Tokes)
+    effect: "What happens"
+    options:                # If there are tiers/choices
+      - name: "Basic Option"
+        price: 25
+        effect: "Basic effect"
+      - name: "Premium Option"
+        price: 100
+        effect: "Better effect"
+
+# Secrets hidden in this area
+secrets:
+  - id: "secret-id"
+    trigger: "How to discover it (action, item, skill check)"
+    content: "What is revealed"
+    requirements:           # Optional prerequisites
+      - "Requirement 1"
+
+# Special mechanics unique to this area
+special_mechanics:
+  - name: "Mechanic Name"
+    description: |
+      How this special rule or feature works.
+      Include any dice rolls, DCs, or effects.
+
+# Properties affecting gameplay
+properties:
+  safe_zone: true           # No random combat
+  commerce_enabled: false   # Can buy/sell here
+  training_enabled: false   # Can train abilities
+  rest_enabled: false       # Can rest/heal here
+  silence_zone: false       # Sound-based abilities blocked
+  reality_flexible: false   # Physics are negotiable
+
+# Atmospheric details for immersion
+atmosphere:
+  lighting: "Description of lighting conditions"
+  sounds: "Ambient sounds, background noise"
+  smells: "Scents and aromas"

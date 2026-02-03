@@ -1,0 +1,48 @@
+name: Validate Tokes Economy
+
+on:
+  pull_request:
+    paths:
+      - 'tokes/**'
+      - 'scripts/validate-tokes.js'
+  push:
+    branches: [main]
+    paths:
+      - 'tokes/**'
+      - 'scripts/validate-tokes.js'
+
+jobs:
+  validate:
+    name: Validate Ledgers & Claims
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Tokes validator
+        run: node scripts/validate-tokes.js
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Tokes Economy Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ $? -eq 0 ]; then
+            echo "All ledgers and claims passed validation." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi

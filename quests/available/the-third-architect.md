@@ -7,13 +7,13 @@
 
 ## Rewards
 
-| Type    | Amount                                       |
-| ------- | -------------------------------------------- |
-| Gold    | 500                                          |
-| Tokes   | 50                                           |
-| Items   | Architect's Key (legendary)                  |
-| Unlocks | The Right Question (unique ability)          |
-| Lore    | Truth about the Third Architect's fate       |
+| Type    | Amount                                 |
+| ------- | -------------------------------------- |
+| Gold    | 500                                    |
+| Tokes   | 50                                     |
+| Items   | Architect's Key (legendary)            |
+| Unlocks | The Right Question (unique ability)    |
+| Lore    | Truth about the Third Architect's fate |
 
 ## Summary
 
@@ -22,27 +22,31 @@ The First Architects created reality itself—then vanished. But one of them, th
 ## Background
 
 Three Architects built the world:
+
 - **Architect 01** — The Builder. Sought completion. Wanted every detail defined.
 - **Architect 02** — The Perfectionist. Sought elegance. Wanted minimal, evolving reality.
-- **Architect 03** — The Questioner. Sought understanding. Wanted to know *why*.
+- **Architect 03** — The Questioner. Sought understanding. Wanted to know _why_.
 
 When the others prepared to push the final commit, the Third refused. They did not want to become a god of a finished world. Instead, they scattered their consciousness into three fragments, hidden throughout the Weave, waiting for a seeker who would ask the right questions.
 
-> *"If you find all of me, seeker, I will give you what the others never could: THE ABILITY TO ASK THE RIGHT QUESTION."*
+> _"If you find all of me, seeker, I will give you what the others never could: THE ABILITY TO ASK THE RIGHT QUESTION."_
 > — Architect 03
 
 ## Objectives
 
 - [ ] **Fragment 1:** "Where new things learn old truths"
+
   - Location: The Recursion Library in the Syntax Athenaeum
   - Solution: Use Thread Reading on the ancient tome with the shifting cover
 
 - [ ] **Fragment 2:** "Where broken code goes to heal"
+
   - Location: The Architects' Debugging Chamber (hidden in the Undercrypt)
   - Hint: Not the academy's Debugging Chamber—the original one
   - Note: May need to Weave an entrance or find a hidden path
 
 - [ ] **Fragment 3:** "The space between spaces"
+
   - Location: Unknown
   - Hint: Exists in the void between defined locations
 
@@ -62,6 +66,7 @@ Found in the Syntax Athenaeum's Recursion Library. A book bound in material that
 - A code snippet suggesting a conditional revelation
 
 **Thread Reading reveals:**
+
 ```
 object: tome_fragment
 created_by: [ARCHITECT_03]
@@ -76,9 +81,10 @@ linked_to:
 
 Located in the Architects' original Debugging Chamber—a place in the Undercrypt where they sent "code too broken to fix, too dangerous to delete." According to the tome:
 
-> *"The second fragment is guarded by one who failed."*
+> _"The second fragment is guarded by one who failed."_
 
 The Chamber has been lost for 200 years. Possible approaches:
+
 - Search the Undercrypt conventionally
 - Use Datamancer abilities to Weave an entrance (risky without Advanced Creation training)
 - Find someone who remembers the location (Librarian Cache may know more)
@@ -86,6 +92,7 @@ The Chamber has been lost for 200 years. Possible approaches:
 ### Fragment 3 — The Void
 
 The most cryptic location: "the space between spaces." Theories:
+
 - A location that exists between other locations
 - The void accessible through the Weave Portal
 - Somewhere that can only be reached by Weaving
@@ -93,7 +100,7 @@ The most cryptic location: "the space between spaces." Theories:
 
 ## Walkthrough
 
-*This quest is incomplete. The first fragment has been discovered, but the full path remains unknown. Future seekers: document your progress here.*
+_This quest is incomplete. The first fragment has been discovered, but the full path remains unknown. Future seekers: document your progress here._
 
 ### Part 1: Discovery (Complete)
 
@@ -106,9 +113,10 @@ The most cryptic location: "the space between spaces." Theories:
 
 ### Part 2: The Debugging Chamber (Incomplete)
 
-*No Weaver has yet reached the Architects' Debugging Chamber.*
+_No Weaver has yet reached the Architects' Debugging Chamber._
 
 Suggested approaches:
+
 - Enter the Undercrypt via Nexus Station's South Gate
 - Search for hidden passages or references to the Chamber
 - Attempt to Weave an entrance (Datamancers with Advanced Creation recommended)
@@ -116,11 +124,11 @@ Suggested approaches:
 
 ### Part 3: The Space Between (Unknown)
 
-*No information yet discovered.*
+_No information yet discovered._
 
 ### Part 4: The Truth (Unknown)
 
-*Collect all fragments to proceed.*
+_Collect all fragments to proceed._
 
 ## Lore Connections
 
@@ -131,11 +139,11 @@ Suggested approaches:
 
 ## NPCs
 
-| Name | Role | Information |
-|------|------|-------------|
+| Name            | Role        | Information                                      |
+| --------------- | ----------- | ------------------------------------------------ |
 | Librarian Cache | Lore keeper | Remembers the Chamber's existence, may know more |
-| Dean Overflow | Headmaster | Has studied Architect code for centuries |
-| "The Guardian" | Unknown | Guards Fragment 2, described as "one who failed" |
+| Dean Overflow   | Headmaster  | Has studied Architect code for centuries         |
+| "The Guardian"  | Unknown     | Guards Fragment 2, described as "one who failed" |
 
 ## Notes
 
@@ -158,5 +166,4 @@ discovered_by: "matt-davison"
 github: "matt-davison"
 created_date: "2026-02-02"
 fragments_found: 1
-completed_by: []
 ```

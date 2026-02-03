@@ -2,46 +2,9 @@
 
 > _"All who shape reality leave their mark upon it."_
 
-This registry tracks all Weavers who have awakened and joined the great work.
+## Legendary Achievements
 
-## Active Weavers
-
-| GitHub       | Characters | Joined     | Status |
-| ------------ | ---------- | ---------- | ------ |
-| matt-davison | Coda       | 2026-02-02 | Active |
-
-_Note: Tokes balances are tracked in `tokes/ledger.yaml`, not here._
-
-## How to Register
-
-1. Create your player file at `players/<github-username>/player.yaml`
-2. Create your first character at `players/<github-username>/<character-name>/persona.yaml`
-3. Add your entry to the table above
-4. Your journey begins at Nexus Station
-5. Your Tokes will accumulate in `tokes/ledgers/<github-username>.yaml` as you contribute
-
-## Weaver Statistics
-
-- **Total Registered:** 1
-- **Total Tokes Generated:** 0 _(calculate from `tokes/ledger.yaml`)_
-- **Locations Created:** 1
-- **Quests Completed:** 0
-
-## Hall of Fame
-
-### Most Prolific Weavers
-
-_Weavers who have contributed the most to the world (Tokes from ledger)_
-
-| Rank | Name | Tokes | Notable Contribution |
-| ---- | ---- | ----- | -------------------- |
-| 1    | -    | -     | -                    |
-| 2    | -    | -     | -                    |
-| 3    | -    | -     | -                    |
-
-### Legendary Achievements
-
-_Special recognition for exceptional contributions_
+_Special recognition for exceptional contributions. Claimable only once per achievement._
 
 - **First Weaver:** **Coda** — The programmer who fell into the game
 - **World Builder:** _Unclaimed_ — Create 10 locations
@@ -50,20 +13,32 @@ _Special recognition for exceptional contributions_
 - **Dragon Slayer:** _Unclaimed_ — Defeat the first dragon
 - **Architect's Heir:** _Unclaimed_ — Discover the truth about the First Architects
 
-## Registration Template
+---
 
-Copy this row to add yourself:
+## Repeatable Achievements
 
-```markdown
-| [github-username] | [character-names] | [YYYY-MM-DD] | Active |
-```
+_Ongoing challenges that reward persistent effort. Can be claimed multiple times._
 
-Classes: `Codebreaker`, `Loresmith`, `Voidwalker`, `Datamancer`
+| Achievement | Requirement | Reward | Times Claimed |
+|-------------|-------------|--------|---------------|
+| **Location Scout** | Create 1 location | 15 Tokes | 0 |
+| **Quest Designer** | Create 1 quest | 20 Tokes | 0 |
+| **Lore Scribe** | Write 1 lore entry | 5 Tokes | 0 |
+| **NPC Creator** | Create 1 NPC | 10 Tokes | 0 |
+| **Bug Hunter** | Fix 1 bug | 5 Tokes | 0 |
+| **World Enricher** | Enrich existing content | 3-10 Tokes | 0 |
+| **Combat Veteran** | Defeat 5 enemies | 50 Gold | 0 |
+| **Quest Completionist** | Complete 3 quests | 75 Gold | 0 |
+| **Treasure Hunter** | Find 3 hidden items | 30 Gold | 0 |
+| **Weaving Apprentice** | Earn 50 Tokes total | 25 Gold | 0 |
+| **Weaving Journeyman** | Earn 100 Tokes total | 50 Gold | 0 |
+| **Weaving Master** | Earn 250 Tokes total | 100 Gold | 0 |
 
-## Creating Additional Characters
+### Claiming Repeatable Achievements
 
-To create a new character:
-1. Create a new directory: `players/<github-username>/<new-character-name>/`
-2. Add a `persona.yaml` with your character details
-3. Set `active: true` on the character you want to play (only one at a time)
-4. Update `active_character` in your `player.yaml`
+1. Complete the achievement requirement
+2. Log the claim in your persona's `chronicle` section
+3. Add the reward to your Gold balance (or Tokes for creation-based achievements)
+4. Update the "Times Claimed" count in this registry (as a courtesy)
+
+> *"The Weave rewards those who return again and again. Persistence is its own form of power."*

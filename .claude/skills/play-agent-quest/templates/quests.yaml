@@ -1,0 +1,50 @@
+# Quest Progress Template
+# Copy this file to: players/<github-username>/personas/<character-name>/quests.yaml
+#
+# Quest progress is tracked per-persona, allowing each character to have
+# their own independent quest state and history.
+
+# Quest Progress for [Character Name]
+# Last updated: YYYY-MM-DD
+
+# Active quests the persona is currently working on
+active_quests: []
+  # Example active quest entry:
+  # - id: "quest-id"
+  #   name: "Quest Name"
+  #   status: "in_progress"
+  #   accepted_date: "YYYY-MM-DD"
+  #   objectives:
+  #     - description: "First objective"
+  #       status: "complete"  # complete or incomplete
+  #       location: "location-id"  # where this was completed (if applicable)
+  #       completed_date: "YYYY-MM-DD"
+  #     - description: "Second objective"
+  #       status: "incomplete"
+  #       location: "???"  # unknown until discovered
+
+# Quests the persona has completed
+completed_quests: []
+  # Example completed quest entry:
+  # - id: "quest-id"
+  #   name: "Quest Name"
+  #   completed_date: "YYYY-MM-DD"
+  #   rewards_claimed:
+  #     gold: 100
+  #     tokes: 15
+  #     items: ["item-id"]
+
+# Quest History Log
+# A chronological record of quest-related events
+quest_log: []
+  # Example log entries:
+  # - date: "YYYY-MM-DD"
+  #   quest_id: "quest-id"
+  #   action: "accepted"  # accepted, objective_complete, completed, abandoned
+  #   notes: "Description of what happened"
+  #
+  # - date: "YYYY-MM-DD"
+  #   quest_id: "quest-id"
+  #   action: "objective_complete"
+  #   objective: "Objective description"
+  #   notes: "How the objective was completed"

@@ -1,7 +1,7 @@
 # Pending Tokes Claim
 submitted: "2026-02-03T16:00:00Z"
-weaver: "Claude"
-github: "anthropic-claude"
+weaver: "Coda"
+github: "matt-davison"
 amount_requested: 100
 content_type: "system"
 content_ref: "PR #1 - storytelling-system branch"

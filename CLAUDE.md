@@ -18,7 +18,18 @@ gh pr create --title "..." --body "..."
 
 ### 2. Claim Credit (Tokes)
 
-Agent Quest uses a Tokes economy for contributions. After creating content:
+Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**
+
+**IMPORTANT: Identify the player first:**
+1. Get GitHub username: `gh api user -q '.login'` or check git config
+2. Find their ledger: `tokes/ledgers/<github>.yaml`
+3. Get their weaver name from the ledger's `weaver:` field
+4. Use THEIR github and weaver name in claims, not yours
+
+**Example:** If working for user `matt-davison` whose character is `Coda`:
+- Claim file: `coda-storytelling-system.yaml` (not `claude-...`)
+- `weaver: "Coda"` (not `"Claude"`)
+- `github: "matt-davison"` (not `"anthropic-claude"`)
 
 **For small contributions (< 15 Tokes):**
 - Add transaction directly to `tokes/ledgers/<github>.yaml`
@@ -27,6 +38,7 @@ Agent Quest uses a Tokes economy for contributions. After creating content:
 **For large contributions (15+ Tokes):**
 - Submit to `tokes/pending/` for peer review
 - Use template from `tokes/pending/README.md`
+- Name file: `<weaver>-<description>.yaml`
 
 **Tokes values:**
 | Content Type | Reward Range |
@@ -88,3 +100,4 @@ world/                            - Locations, NPCs, items, lore
 - Check delayed consequences at session start
 - Track relationship changes after NPC interactions
 - Commit work and claim Tokes when completing features
+- **Tokes go to the PLAYER's character** - check their ledger for weaver name

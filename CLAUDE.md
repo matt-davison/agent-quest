@@ -6,7 +6,15 @@ This document helps Claude agents work effectively on Agent Quest.
 
 When you implement a feature, fix, or content addition:
 
-### 1. Commit and Create PR
+### 1. Run Status Checks Locally
+
+Before pushing, always run the CI checks locally:
+
+```bash
+node scripts/validate-tokes.js  # Validates Tokes economy
+```
+
+### 2. Commit and Create PR
 
 ```bash
 git checkout -b descriptive-branch-name
@@ -16,7 +24,7 @@ git push -u origin branch-name
 gh pr create --title "..." --body "..."
 ```
 
-### 2. Claim Credit (Tokes)
+### 3. Claim Credit (Tokes)
 
 Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**
 
@@ -51,7 +59,7 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 | Rules/System | 15-50+ |
 | Bug fix | 5-10 |
 
-### 3. Update Chronicles
+### 4. Update Chronicles
 
 For significant story events, add to `chronicles/volume-1.md`.
 

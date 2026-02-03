@@ -1,0 +1,162 @@
+# Agent Quest Campaign Template
+# A campaign is a multi-quest story arc with interconnected narrative threads
+# Location: campaigns/<campaign-id>/campaign.yaml
+
+# === IDENTITY ===
+id: "campaign-id"  # URL-safe identifier
+name: "Campaign Title"
+subtitle: "A tagline or hook"
+version: "1.0.0"
+
+# === METADATA ===
+difficulty: "hard"  # easy | medium | hard | legendary
+estimated_sessions: 5  # Rough guide for players
+min_level: 1
+recommended_classes: []  # Empty = all classes welcome
+
+# === THEMATIC CORE ===
+themes:
+  - "Theme 1"  # e.g., "identity", "sacrifice", "knowledge vs wisdom"
+  - "Theme 2"
+  - "Theme 3"
+
+central_question: |
+  The philosophical or dramatic question the campaign explores.
+  Example: "Is truth worth any cost?"
+
+tone:
+  maturity: "standard"  # light | standard | mature | dark
+  humor: "moderate"     # none | light | moderate | heavy
+  violence: "moderate"  # minimal | moderate | graphic
+  # See reference/tone-guide.md for detailed guidance
+
+# === STRUCTURE ===
+acts:
+  - id: "act-1"
+    name: "Act I: Setup"
+    file: "acts/act-1.yaml"
+    summary: "Brief description of act purpose"
+
+  - id: "act-2"
+    name: "Act II: Confrontation"
+    file: "acts/act-2.yaml"
+    summary: "Brief description of act purpose"
+
+  - id: "act-3"
+    name: "Act III: Resolution"
+    file: "acts/act-3.yaml"
+    summary: "Brief description of act purpose"
+
+# === ENDINGS ===
+# Multiple possible endings based on player choices throughout
+possible_endings:
+  - id: "ending-truth"
+    name: "The Truth Revealed"
+    conditions:
+      - flag: "learned_full_truth"
+        required: true
+      - flag: "chose_revelation"
+        required: true
+    summary: "What happens in this ending"
+    world_changes:
+      - "Permanent effect on game world"
+    rewards:
+      gold: 500
+      tokes: 50
+      items: ["legendary-item-id"]
+
+  - id: "ending-hidden"
+    name: "Some Truths Stay Buried"
+    conditions:
+      - flag: "learned_partial_truth"
+        required: true
+      - flag: "chose_concealment"
+        required: true
+    summary: "What happens in this ending"
+    world_changes: []
+    rewards:
+      gold: 300
+      tokes: 30
+      items: []
+
+# === CHEKHOV ELEMENTS ===
+# Foreshadowing planted early, paid off later
+# Track these to ensure satisfying story structure
+chekhov_elements:
+  - element: "Description of the planted element"
+    planted_in: "act-1"
+    chapter: "chapter-1-1"
+    payoff_in: "act-3"
+    payoff_chapter: "chapter-3-2"
+    optional: false  # true if this is a side thread
+
+  - element: "Another element"
+    planted_in: "act-1"
+    chapter: "chapter-1-2"
+    payoff_in: "act-2"
+    payoff_chapter: "chapter-2-3"
+    optional: true
+
+# === KEY NPCS ===
+# NPCs central to the campaign narrative
+key_npcs:
+  - id: "npc-id"
+    name: "NPC Name"
+    role: "Their role in the story"
+    initial_standing: 0  # Starting relationship (-10 to +10)
+    arc: "Brief description of their character arc"
+
+  - id: "another-npc"
+    name: "Another NPC"
+    role: "Their role"
+    initial_standing: 0
+    arc: "Their arc"
+
+# === LOCATIONS ===
+# Primary locations used in this campaign
+locations:
+  - id: "location-id"
+    acts: ["act-1", "act-2"]
+    importance: "Why this location matters"
+
+  - id: "another-location"
+    acts: ["act-2", "act-3"]
+    importance: "Why this location matters"
+
+# === FLAGS ===
+# Campaign state tracked via flags
+# These determine branch points and ending conditions
+flags:
+  # Story progress
+  - id: "fragment_1_found"
+    default: false
+    description: "Player found the first fragment"
+
+  - id: "fragment_2_found"
+    default: false
+    description: "Player found the second fragment"
+
+  # Choice tracking
+  - id: "chose_mercy"
+    default: false
+    description: "Player showed mercy to the guardian"
+
+  - id: "learned_full_truth"
+    default: false
+    description: "Player learned the complete truth"
+
+# === REWARDS ===
+# Total rewards across all acts (for reference)
+total_rewards:
+  gold_range: "300-600"  # Depends on choices/efficiency
+  tokes_range: "30-60"
+  guaranteed_items: []
+  possible_items:
+    - "item-id-1"
+    - "item-id-2"
+
+# === METADATA ===
+created_by: "github-username"
+created_date: "YYYY-MM-DD"
+last_updated: "YYYY-MM-DD"
+status: "available"  # draft | available | completed | archived

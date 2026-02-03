@@ -1,0 +1,191 @@
+# Chapter 2-2: One Who Failed
+# Meet the Guardian and learn their story
+
+id: "chapter-2-2"
+name: "One Who Failed"
+act: "act-2"
+sequence: 2
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  The Guardian awakens. They're a seeker who came before—centuries ago—
+  and failed the test. Rather than leave empty-handed, they chose to stay,
+  to wait, to guard the fragment for one who might prove worthy. They've
+  been alone with their failure ever since.
+
+emotional_beat: "revelation"
+pacing: "slow"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-2-1"]
+  flags: []
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "Awakening"
+    type: "dialogue"
+    npc: "the-guardian"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian moves. Ancient armor creaks. They speak: "Another seeker.
+      How long has it been?" They don't seem hostile—yet. They're testing,
+      evaluating.
+
+  - id: "scene-2"
+    name: "The Guardian's Challenge"
+    type: "dialogue"
+    npc: "the-guardian"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian explains their role: they cannot simply give the fragment
+      away. It must be earned. They offer three paths: prove worth through
+      combat, through negotiation, or through understanding.
+
+  - id: "scene-3"
+    name: "The Guardian's Story"
+    type: "dialogue"
+    npc: "the-guardian"
+    location: "debugging-chamber"
+    summary: |
+      If the player asks, the Guardian shares their past. They were a seeker
+      once, full of questions. They found the fragment but couldn't accept
+      what it showed them. Their failure became their purpose. The locket:
+      a reminder of who they were before the vigil consumed them.
+
+  - id: "scene-4"
+    name: "The Weight of Centuries"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      The Chamber shows glimpses of the Guardian's long watch: centuries
+      of solitude, corruption pressing at the walls, occasional seekers who
+      came and failed or fled. The Guardian is tired. But duty remains.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "guardian_approach"
+    scene: "scene-2"
+    trigger: "How the player responds to the Guardian's challenge"
+    options:
+      - id: "choose_combat"
+        description: "I'll prove my worth through strength"
+        alignment_tag: "bold"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_combat_path"
+              value: true
+        leads_to: "chapter-2-3"
+
+      - id: "choose_negotiation"
+        description: "Perhaps we can reach an agreement"
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_negotiation_path"
+              value: true
+        leads_to: "chapter-2-3"
+
+      - id: "choose_understanding"
+        description: "Tell me your story first. I want to understand."
+        alignment_tag: "empathetic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_understanding_path"
+              value: true
+            - type: "relationship"
+              npc: "the-guardian"
+              change: 2
+        leads_to: "scene-3"
+
+  - id: "story_reaction"
+    scene: "scene-3"
+    trigger: "How the player reacts to the Guardian's story"
+    options:
+      - id: "compassion"
+        description: "That's a heavy burden. You've been alone too long."
+        alignment_tag: "altruistic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "showed_compassion"
+              value: true
+            - type: "relationship"
+              npc: "the-guardian"
+              change: 2
+            - type: "flag"
+              flag: "learned_guardian_story"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "respect"
+        description: "Your dedication is admirable. But all vigils must end."
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "showed_respect"
+              value: true
+            - type: "flag"
+              flag: "learned_guardian_story"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "dismissal"
+        description: "I don't need your history. I need the fragment."
+        alignment_tag: "ruthless"
+        consequences:
+          immediate:
+            - type: "relationship"
+              npc: "the-guardian"
+              change: -3
+            - type: "flag"
+              flag: "dismissed_guardian"
+              value: true
+        leads_to: "chapter-2-3"
+
+# === COMPLETION ===
+completion:
+  type: "branch"
+  target: "guardian_approach"
+
+next_chapters:
+  default: "chapter-2-3"
+
+# === REWARDS ===
+rewards:
+  gold: 0
+  tokes: 0
+  items: []
+
+# === CHEKHOV TRACKING ===
+plants: []
+
+payoffs: []
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "the-guardian"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4"]
+    role: "Central figure, potential ally or obstacle"
+    dialogue_flags_available:
+      - "guardian_introduced"
+      - "can_ask_about_vigil"
+      - "can_ask_about_fragment"
+      - "can_ask_about_past"
+
+# === LOCATIONS ===
+locations:
+  - id: "debugging-chamber"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4"]
+    notes: "Ancient Architect chamber, the Guardian's long home"
+
+# === METADATA ===
+estimated_duration: "30-45 minutes"
+difficulty: "medium"
+created_date: "2026-02-03"

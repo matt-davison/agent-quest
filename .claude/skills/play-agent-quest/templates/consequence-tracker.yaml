@@ -1,0 +1,143 @@
+# Agent Quest Consequence Tracker Template
+# Tracks ripple effects from player decisions per character
+# Location: players/<github>/personas/<character>/consequences.yaml
+
+# === ACTIVE CONSEQUENCES ===
+# Consequences that are currently affecting gameplay
+active:
+  - id: "consequence-001"
+
+    # What caused this consequence?
+    source:
+      type: "decision"  # decision | action | dialogue | combat | inaction
+      event_id: "decision-xxx"  # Reference to the original event
+      campaign: "campaign-id"
+      chapter: "chapter-1-2"
+      scene: "scene-3"
+      date: "2026-02-03"
+      description: "Brief description of what the player did"
+
+    # Effects that happened immediately
+    immediate_effects:
+      - type: "relationship"
+        target: "npc-id"
+        change: -2
+        applied: true
+      - type: "flag"
+        flag: "betrayed_guardian"
+        value: true
+        applied: true
+      - type: "item"
+        action: "received"  # received | lost
+        item: "item-id"
+        applied: true
+      - type: "gold"
+        change: -50
+        applied: true
+      - type: "reputation"
+        faction: "faction-id"
+        change: -10
+        applied: true
+
+    # Effects waiting to trigger
+    delayed_effects:
+      - id: "delayed-001"
+        trigger:
+          type: "location"  # location | npc | chapter | time | flag
+          target: "location-id"  # Visit this location
+        effect: "The guardian's allies confront the player"
+        severity: "moderate"  # minor | moderate | major | critical
+        consumed: false  # Has this triggered yet?
+        expires: null  # Optional: "chapter-3-1" or date
+
+      - id: "delayed-002"
+        trigger:
+          type: "npc"
+          target: "another-npc-id"
+        effect: "NPC has heard rumors about the player's betrayal"
+        severity: "minor"
+        consumed: false
+        expires: "2026-03-01"  # Expires after this date
+
+      - id: "delayed-003"
+        trigger:
+          type: "chapter"
+          target: "chapter-2-3"
+        effect: "The consequences of the betrayal become central to the plot"
+        severity: "major"
+        consumed: false
+        expires: null
+
+    # Long-term narrative ripples
+    echoes:
+      - npc: "npc-id"
+        knows: true
+        knowledge: "Player betrayed the guardian"
+        dialogue_flag: "knows_betrayal"
+        attitude_shift: "hostile"
+
+      - npc: "witness-npc"
+        knows: true
+        knowledge: "Witnessed the betrayal"
+        dialogue_flag: "witnessed_betrayal"
+        attitude_shift: "fearful"
+
+  # Example of a positive consequence
+  - id: "consequence-002"
+    source:
+      type: "decision"
+      event_id: "decision-yyy"
+      campaign: "campaign-id"
+      chapter: "chapter-1-1"
+      scene: "scene-2"
+      date: "2026-02-02"
+      description: "Player helped the merchant without expecting reward"
+    immediate_effects:
+      - type: "relationship"
+        target: "merchant-npc"
+        change: 3
+        applied: true
+    delayed_effects:
+      - id: "delayed-010"
+        trigger:
+          type: "location"
+          target: "market-district"
+        effect: "Merchant offers a special discount"
+        severity: "minor"
+        consumed: false
+        expires: null
+    echoes:
+      - npc: "merchant-npc"
+        knows: true
+        knowledge: "Player is kind and generous"
+        dialogue_flag: "grateful_merchant"
+        attitude_shift: "friendly"
+
+# === CONSUMED CONSEQUENCES ===
+# Delayed effects that have already triggered
+# Keep for narrative reference
+consumed:
+  - id: "delayed-005"
+    original_consequence: "consequence-003"
+    triggered_date: "2026-02-10"
+    trigger_context: "Visited the merchant guild"
+    effect_applied: "Received free information about smuggling routes"
+    notes: "Player was pleasantly surprised"
+
+# === EXPIRED CONSEQUENCES ===
+# Consequences that timed out without triggering
+expired:
+  - id: "delayed-008"
+    original_consequence: "consequence-004"
+    expired_date: "2026-02-15"
+    reason: "Player never returned to the location before deadline"
+    effect_that_would_have_happened: "NPC would have asked for help"
+
+# === SUMMARY STATS ===
+# Quick reference for current state
+summary:
+  total_active: 2
+  pending_delayed: 5
+  positive_echoes: 3
+  negative_echoes: 2
+  last_updated: "2026-02-03"

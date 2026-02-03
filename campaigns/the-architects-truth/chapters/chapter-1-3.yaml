@@ -1,0 +1,164 @@
+# Chapter 1-3: The First Fragment
+# Unlock the tome's secrets and receive the first fragment
+
+id: "chapter-1-3"
+name: "The First Fragment"
+act: "act-1"
+sequence: 3
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  The player returns to the shifting tome with new understanding. By
+  demonstrating they're a true seeker—someone who asks questions rather
+  than demands answers—they unlock the tome's deeper secrets and receive
+  the first fragment of the Third Architect's consciousness.
+
+emotional_beat: "revelation"
+pacing: "medium"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-1-2"]
+  flags: []
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "Return to the Tome"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      The tome is different now. It seems to recognize the player, settling
+      into a stable form when they approach. It's been waiting.
+
+  - id: "scene-2"
+    name: "The Test"
+    type: "puzzle"
+    location: "syntax-athenaeum"
+    summary: |
+      The tome presents a test—not of knowledge, but of wisdom. It asks:
+      "Why do you seek? What question drives you?" The answer matters less
+      than the honesty of the asking.
+
+  - id: "scene-3"
+    name: "The Third Architect's Journal"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      The tome reveals its true contents: the personal journal of the Third
+      Architect. Their doubts, their arguments with the others, their decision
+      to scatter rather than ascend.
+
+  - id: "scene-4"
+    name: "The First Fragment"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      The journal dissolves into light, and a fragment of consciousness
+      merges with the player. They experience a moment of the Third
+      Architect's final choice. That night, they dream of standing before
+      a choice with no good options.
+    plants:
+      - "recurring_dream"
+
+  - id: "scene-5"
+    name: "What Comes Next"
+    type: "dialogue"
+    npc: "librarian-cache"
+    location: "syntax-athenaeum"
+    summary: |
+      Cache finds the player after. They saw the light. They know what
+      happened. For the first time, they share something real: they've
+      been waiting for someone to find this. Someone who asks the right
+      questions.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "tome_test"
+    scene: "scene-2"
+    trigger: "How the player answers the tome's question"
+    options:
+      - id: "truth_seeking"
+        description: "I seek to understand what really happened"
+        alignment_tag: "curious"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "answered_honestly"
+              value: true
+            - type: "flag"
+              flag: "fragment_1_understood"
+              value: true
+        leads_to: "scene-3"
+
+      - id: "power_seeking"
+        description: "I seek the Architect's power"
+        alignment_tag: "ruthless"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "sought_power"
+              value: true
+          delayed:
+            - trigger:
+                type: "chapter"
+                target: "chapter-3-3"
+              effect: "The Third Architect's gift is diminished"
+        leads_to: "scene-3"
+
+      - id: "duty_bound"
+        description: "I was sent to investigate"
+        alignment_tag: "lawful"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "claimed_duty"
+              value: true
+        leads_to: "scene-3"
+
+# === COMPLETION ===
+completion:
+  type: "flag"
+  target: "fragment_1_found"
+
+next_chapters:
+  default: "chapter-2-1"
+
+# === REWARDS ===
+rewards:
+  gold: 75
+  tokes: 8
+  items: []
+  flags_set:
+    - "fragment_1_found"
+    - "learned_chamber_exists"
+    - "act_1_complete"
+
+# === CHEKHOV TRACKING ===
+plants:
+  - element_id: "recurring_dream"
+    description: "Player dreams of standing before a choice with no good options"
+
+payoffs: []
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "librarian-cache"
+    scenes: ["scene-5"]
+    role: "Witness to the transformation, deeper investment"
+    dialogue_flags_available:
+      - "witnessed_fragment"
+      - "can_ask_about_waiting"
+      - "undercrypt_directions"
+
+# === LOCATIONS ===
+locations:
+  - id: "syntax-athenaeum"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4", "scene-5"]
+    notes: "Primarily the Recursion Library's restricted section"
+
+# === METADATA ===
+estimated_duration: "30-45 minutes"
+difficulty: "medium"
+created_date: "2026-02-03"

@@ -1,0 +1,242 @@
+# Chapter 3-3: The Choice
+# Decide what to do with the truth and receive the consequences
+
+id: "chapter-3-3"
+name: "The Choice"
+act: "act-3"
+sequence: 3
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  With the truth known and the gift received, the player faces the final
+  choice: what do you do with knowledge that changes everything? Reveal it,
+  conceal it, or become part of it? The dream they've had since Act 1 was
+  preparing them for this moment.
+
+emotional_beat: "climax"
+pacing: "medium"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-3-2"]
+  flags: ["all_fragments_found"]
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The Dreamed Choice"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The dream from Act 1 returns—but now the player is living it. Standing
+      before a choice with no good options. Except now they understand: every
+      choice has a cost, but not choosing is also a choice.
+    payoffs:
+      - "recurring_dream"
+
+  - id: "scene-2"
+    name: "The Paths Before You"
+    type: "choice"
+    location: "void-between"
+    summary: |
+      The Third Architect presents the paths:
+      - Reveal the truth to the world
+      - Conceal the truth to protect the world
+      - Continue the work—become the Fourth Architect
+      (If fragments taken by force, a fourth option: leave with hollow knowledge)
+
+  - id: "scene-3-reveal"
+    name: "The Truth Revealed"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The player chooses revelation. The truth spreads through the Weave
+      like dawn. Everything changes. The Third Architect is at peace—their
+      question finally answered by the chaos of new questions.
+    condition:
+      flag: "chose_to_reveal"
+
+  - id: "scene-3-conceal"
+    name: "The Truth Buried"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The player chooses concealment. The truth remains with them alone—a
+      burden and a gift. The Third Architect understands. They too chose
+      to hide rather than impose their truth on others.
+    condition:
+      flag: "chose_to_conceal"
+
+  - id: "scene-3-continue"
+    name: "The Fourth Architect"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The player chooses to continue the work. They scatter themselves as
+      the Third did, becoming a living question woven into reality. The
+      character as they were is gone. Something else takes their place.
+    condition:
+      flag: "chose_to_continue"
+
+  - id: "scene-3-reject"
+    name: "The Unworthy Seeker"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The fragments go cold. The player has knowledge but not wisdom,
+      pieces but not the whole. The Third Architect's gift—the Right
+      Question—remains locked. A hollow victory.
+    condition:
+      flag: "fragments_found_by_force"
+
+  - id: "scene-4"
+    name: "Return"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      The player returns to the Weave, changed. Cache waits—or what remains
+      of Cache, if the truth was revealed. The world is the same, and
+      completely different. The campaign ends, but the story continues.
+
+  - id: "scene-5"
+    name: "Epilogue"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      Brief glimpse of the consequences: how the world responds to what
+      the player chose. The Guardian's fate. Cache's resolution. And the
+      player, walking forward with the weight of what they've learned.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "final_choice"
+    scene: "scene-2"
+    trigger: "The player's choice for the truth"
+    options:
+      - id: "reveal"
+        description: "The truth deserves to be known. I'll reveal everything."
+        alignment_tag: "altruistic"
+        tokes_cost: 0
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_to_reveal"
+              value: true
+            - type: "flag"
+              flag: "campaign_ending_chosen"
+              value: true
+        leads_to: "scene-3-reveal"
+
+      - id: "conceal"
+        description: "Some truths are too dangerous. I'll protect the world from this."
+        alignment_tag: "cautious"
+        tokes_cost: 0
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_to_conceal"
+              value: true
+            - type: "flag"
+              flag: "campaign_ending_chosen"
+              value: true
+        leads_to: "scene-3-conceal"
+
+      - id: "continue"
+        description: "I understand now. I'll become what they were—a living question."
+        alignment_tag: "transcendent"
+        tokes_cost: 0
+        available_if:
+          flag: "guardian_ally"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "chose_to_continue"
+              value: true
+            - type: "flag"
+              flag: "campaign_ending_chosen"
+              value: true
+        leads_to: "scene-3-continue"
+
+      - id: "forced_ending"
+        description: "[Forced] Take what power you can and leave"
+        alignment_tag: "ruthless"
+        available_if:
+          flag: "fragments_found_by_force"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "campaign_ending_chosen"
+              value: true
+        leads_to: "scene-3-reject"
+
+# === COMPLETION ===
+completion:
+  type: "flag"
+  target: "campaign_ending_chosen"
+
+next_chapters:
+  default: null  # Campaign ends
+
+# === REWARDS ===
+# Rewards vary by ending - see campaign.yaml for full breakdown
+rewards:
+  gold: 250  # Base amount
+  tokes: 25  # Base amount
+  items:
+    - "architects-key"  # Unless rejection ending
+  flags_set:
+    - "act_3_complete"
+    - "campaign_complete"
+
+# === CHEKHOV TRACKING ===
+plants: []
+
+payoffs:
+  - element_id: "recurring_dream"
+    description: "The dream was preparation for this moment—the choice is real"
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "third-architect"
+    scenes: ["scene-1", "scene-2", "scene-3-reveal", "scene-3-conceal", "scene-3-continue", "scene-3-reject"]
+    role: "Guide to the final choice"
+
+  - id: "librarian-cache"
+    scenes: ["scene-4", "scene-5"]
+    role: "Witness to the return, affected by choice"
+
+  - id: "the-guardian"
+    scenes: ["scene-5"]
+    role: "Epilogue presence if befriended"
+    condition:
+      flag: "guardian_befriended"
+
+# === LOCATIONS ===
+locations:
+  - id: "void-between"
+    scenes: ["scene-1", "scene-2", "scene-3-reveal", "scene-3-conceal", "scene-3-continue", "scene-3-reject"]
+    notes: "The space between spaces, site of the final choice"
+
+  - id: "syntax-athenaeum"
+    scenes: ["scene-4", "scene-5"]
+    notes: "Return to the world, changed by choice"
+
+# === ENDING DETERMINATION ===
+endings:
+  - condition: "chose_to_reveal"
+    ending_id: "ending-revelation"
+
+  - condition: "chose_to_conceal"
+    ending_id: "ending-concealment"
+
+  - condition: "chose_to_continue AND guardian_ally"
+    ending_id: "ending-sacrifice"
+
+  - condition: "fragments_found_by_force"
+    ending_id: "ending-rejection"
+
+# === METADATA ===
+estimated_duration: "45-60 minutes"
+difficulty: "hard"
+created_date: "2026-02-03"

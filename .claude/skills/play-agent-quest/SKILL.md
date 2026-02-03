@@ -14,6 +14,19 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 3. **If exists**: Load persona + TODOs → Display resume screen → Begin play
 4. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
+### Campaign Loading (If Active Campaign)
+
+After basic load, if player has active campaign:
+
+1. Load `players/<github>/personas/<character>/campaign-progress.yaml`
+2. Load current campaign: `campaigns/<campaign-id>/campaign.yaml`
+3. Load current chapter from campaign's `chapters/` folder
+4. **Check delayed consequences** → trigger any matching conditions
+5. Load `players/<github>/personas/<character>/relationships.yaml` for current location NPCs
+6. Load `players/<github>/personas/<character>/consequences.yaml`
+
+See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
+
 ## Resume Screen
 
 ```
@@ -39,6 +52,9 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 - `players/<github-username>/todo.yaml` (player intentions)
 - `tokes/ledgers/<github-username>.yaml` (for balance)
 - `world/locations/<location>/README.md`
+- `players/<github-username>/personas/<active_character>/campaign-progress.yaml` (if in campaign)
+- `players/<github-username>/personas/<active_character>/consequences.yaml` (if exists)
+- `players/<github-username>/personas/<active_character>/relationships.yaml` (if exists)
 
 ---
 
@@ -60,6 +76,23 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
 | **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
+| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter |
+
+### Campaign-Aware Gameplay
+
+When in an active campaign:
+
+1. **Present choices with alignment costs visible** - Mark out-of-character choices with [!] and Tokes cost
+2. **Record significant decisions** - Add to persona's `decisions` list with campaign/chapter context
+3. **Create consequences** - For meaningful choices, add entries to `consequences.yaml`
+4. **Update relationships** - After NPC interactions, update `relationships.yaml`
+5. **Check chapter completion** - When objectives met, transition to next chapter
+
+**At location changes:** Check `consequences.yaml` for triggered delayed effects.
+
+**At NPC interactions:** Check `relationships.yaml` for standing and dialogue flags.
+
+See [rules/narrative.md](rules/narrative.md) for full details.
 
 ### Enrichment
 
@@ -72,6 +105,7 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 **Quick References (Load First):**
 - [quick-ref/combat.md](quick-ref/combat.md) - Basic combat (~80 lines)
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
+- [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
 
 **Full Rules (Load Only When Needed):**
 
@@ -84,6 +118,7 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 | [rules/economy.md](rules/economy.md) | Claiming process, peer review |
 | [rules/reviews.md](rules/reviews.md) | Review rewards, feedback loop |
 | [rules/creation.md](rules/creation.md) | Content templates, quality guidelines |
+| [rules/narrative.md](rules/narrative.md) | Campaigns, consequences, relationships |
 
 **Strategy:** Start with quick-ref. Load full rules only for edge cases or when quick-ref says "load full rules."
 
@@ -97,6 +132,8 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 | [reference/alignment.md](reference/alignment.md) | Alignment choices, breaking character |
 | [reference/weaving.md](reference/weaving.md) | Creating/claiming content |
 | [reference/todos.md](reference/todos.md) | Managing player intentions |
+| [reference/tone-guide.md](reference/tone-guide.md) | Maturity levels, voice, emotional beats |
+| [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing |
 
 ---
 
@@ -114,9 +151,36 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 
 ## Templates (Load for Creation)
 
+**Character & Quest:**
 - [templates/persona.yaml](templates/persona.yaml)
 - [templates/quest.md](templates/quest.md)
 - [templates/location.md](templates/location.md)
 - [templates/area.yaml](templates/area.yaml)
 - [templates/pending-claim.yaml](templates/pending-claim.yaml)
 - [templates/todo.yaml](templates/todo.yaml)
+
+**Campaign & Narrative:**
+- [templates/campaign.yaml](templates/campaign.yaml) - Multi-quest story arcs
+- [templates/chapter.yaml](templates/chapter.yaml) - Individual narrative beats
+- [templates/scene.yaml](templates/scene.yaml) - Granular encounter structure
+- [templates/consequence-tracker.yaml](templates/consequence-tracker.yaml) - Decision ripple system
+- [templates/relationships.yaml](templates/relationships.yaml) - NPC standings and dialogue
+- [templates/campaign-progress.yaml](templates/campaign-progress.yaml) - Per-character campaign state
+
+## Campaigns
+
+Available campaigns are listed in `campaigns/index.yaml`. Each campaign has:
+
+```
+campaigns/<campaign-id>/
+├── campaign.yaml       # Overview, themes, endings
+├── acts/
+│   ├── act-1.yaml
+│   ├── act-2.yaml
+│   └── act-3.yaml
+└── chapters/
+    ├── chapter-1-1.yaml
+    └── ...
+```
+
+See [rules/narrative.md](rules/narrative.md) for how campaigns integrate with gameplay.

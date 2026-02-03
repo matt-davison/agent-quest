@@ -1,0 +1,128 @@
+# Chapter 1-1: The Shifting Tome
+# Discover the Third Architect's journal in the Recursion Library
+
+id: "chapter-1-1"
+name: "The Shifting Tome"
+act: "act-1"
+sequence: 1
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  The player enters the Recursion Library within the Syntax Athenaeum and
+  discovers a strange tome—its cover shifts when not directly observed.
+  Using Thread Reading (or equivalent ability), they glimpse the book's
+  source code and learn it was created by something called "ARCHITECT_03."
+
+emotional_beat: "curiosity"
+pacing: "slow"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: []
+  flags: []
+  items: []
+  location: "syntax-athenaeum"
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The Recursion Library"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      The player enters the Recursion Library, a place where books read themselves
+      and knowledge loops back on itself. Describe the impossible architecture.
+
+  - id: "scene-2"
+    name: "Meeting Librarian Cache"
+    type: "dialogue"
+    location: "syntax-athenaeum"
+    npc: "librarian-cache"
+    summary: |
+      Cache notices the player's interest. They're cautious but curious—they've
+      seen seekers before. Among their possessions: a crystal that hums faintly.
+    plants:
+      - "cache_crystal"
+
+  - id: "scene-3"
+    name: "The Shifting Tome"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      Deep in the restricted section, a tome that defies observation. Its cover
+      changes—leather, metal, light—whenever not directly watched.
+
+  - id: "scene-4"
+    name: "Thread Reading"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      Using Thread Reading (or equivalent), the player examines the tome's source.
+      They see: created_by: [ARCHITECT_03]. The book is older than the Weave itself.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "tome_approach"
+    scene: "scene-3"
+    trigger: "Player decides how to approach the tome"
+    options:
+      - id: "careful_study"
+        description: "Study the tome carefully before touching"
+        alignment_tag: "cautious"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "studied_tome_first"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "direct_approach"
+        description: "Reach for the tome immediately"
+        alignment_tag: "bold"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "touched_tome_rashly"
+              value: true
+        leads_to: "scene-4"
+
+# === COMPLETION ===
+completion:
+  type: "scene"
+  target: "scene-4"
+
+next_chapters:
+  default: "chapter-1-2"
+
+# === REWARDS ===
+rewards:
+  gold: 0
+  tokes: 0
+  items: []
+
+# === CHEKHOV TRACKING ===
+plants:
+  - element_id: "cache_crystal"
+    description: "Cache's crystal hums when the player is nearby"
+
+payoffs: []
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "librarian-cache"
+    scenes: ["scene-2"]
+    role: "Introduction, cautious interest"
+    dialogue_flags_available:
+      - "introduced"
+      - "library_small_talk"
+
+# === LOCATIONS ===
+locations:
+  - id: "syntax-athenaeum"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4"]
+    notes: "Focus on the Recursion Library section"
+
+# === METADATA ===
+estimated_duration: "30-45 minutes"
+difficulty: "easy"
+created_date: "2026-02-03"

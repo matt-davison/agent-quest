@@ -1,0 +1,98 @@
+# Act III: Truth
+# The final fragment reveals the truth—and demands a choice
+
+id: "act-3"
+name: "Act III: Truth"
+campaign: "the-architects-truth"
+
+# === OVERVIEW ===
+summary: |
+  With two fragments in hand, the player must find "the space between spaces"
+  to claim the final piece. What they learn there will challenge everything
+  they thought they knew—and demand a choice that cannot be undone.
+
+themes:
+  - "the burden of truth"
+  - "legacy and responsibility"
+  - "what we do with knowledge"
+
+emotional_arc:
+  opening: "anticipation"
+  middle: "wonder and vertigo"
+  climax: "revelation"
+  closing: "resolution (varies by ending)"
+
+# === CHAPTERS ===
+chapters:
+  - id: "chapter-3-1"
+    file: "../chapters/chapter-3-1.yaml"
+    name: "The Space Between"
+    summary: "Use the fragments to locate and enter the void between spaces"
+
+  - id: "chapter-3-2"
+    file: "../chapters/chapter-3-2.yaml"
+    name: "The Third Architect"
+    summary: "Meet what remains of the Third Architect and learn the truth"
+
+  - id: "chapter-3-3"
+    file: "../chapters/chapter-3-3.yaml"
+    name: "The Choice"
+    summary: "Decide what to do with the truth and receive the consequences"
+
+# === ACT COMPLETION ===
+completion_conditions:
+  - flag: "fragment_3_found"
+    required: true
+  - flag: "campaign_ending_chosen"
+    required: true
+
+# === KEY EVENTS ===
+key_events:
+  - "The crystal reveals its true nature"
+  - "Entering the void between spaces"
+  - "Encountering the scattered consciousness of the Third Architect"
+  - "Learning the full truth about the Architects"
+  - "The final choice: reveal, conceal, or continue"
+  - "Campaign ending"
+
+# === PAYOFFS ===
+chekhov_payoffs:
+  - element: "cache_crystal"
+    scene: "chapter-3-1"
+    description: "The crystal is a compass to the third fragment"
+
+  - element: "guardian_locket"
+    scene: "chapter-3-2"
+    description: "The Guardian's past self, when they were still seeking"
+    condition: "guardian_befriended"
+
+  - element: "recurring_dream"
+    scene: "chapter-3-3"
+    description: "The dream was a preparation—you now face the choice for real"
+
+# === ENDING BRANCHES ===
+endings_available:
+  - id: "ending-revelation"
+    conditions: ["all_fragments_found", "chose_to_reveal"]
+
+  - id: "ending-concealment"
+    conditions: ["all_fragments_found", "chose_to_conceal"]
+
+  - id: "ending-sacrifice"
+    conditions: ["all_fragments_found", "guardian_ally", "chose_to_continue"]
+
+  - id: "ending-rejection"
+    conditions: ["fragments_found_by_force"]
+    note: "Only available if player took fragments by force"
+
+# === REWARDS ===
+act_rewards:
+  gold: 250  # Base, varies by ending
+  tokes: 25  # Base, varies by ending
+  items:
+    - "architects-key"  # All endings except rejection
+  flags_set:
+    - "fragment_3_found"
+    - "all_fragments_found"
+    - "act_3_complete"
+    - "campaign_complete"

@@ -1,9 +1,3 @@
-TODO:
-
-- Add a TODO system with agentic play. This should be a place for a user to list out their rough intentions and have their agent act on them.
-
-For matt-davison's coda's TODO:
-
 - Improve the storytelling. There should be a rough plan for each larger "Campaign" that has events main quests with branching side quests. It should be very reactive to the user's choices and consistent in maturity and tone. The stories should be masterworks using excellent storytelling techniques to deliver an excellent experience for players.
 - Improve the NPCs. They should have more complex backstories and well defined abilities and stats. They may have attributes and characteristics hidden from the player for storytelling purposes. Every NPC should have the potential to be very well fleshed out. It doesn't need to happen immediately though, only on demand / as it makes sense for the story and the player's actions to generate. NPCs should also sometimes recognize the recent changes to the world when talking with the player, especially if the player has received an achievement recently.
 - Make a world state system. This should track the era, and the current date, time, and environmental states like weather. It should be affected by larger events happening within the story. We also need to improve the NPC system so that they may be found in different locations depending on their schedule and current events.

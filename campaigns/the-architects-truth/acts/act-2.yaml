@@ -1,0 +1,102 @@
+# Act II: Descent
+# The search leads to the Undercrypt and a guardian with their own story
+
+id: "act-2"
+name: "Act II: Descent"
+campaign: "the-architects-truth"
+
+# === OVERVIEW ===
+summary: |
+  The player ventures into the Undercrypt seeking the Architects' original
+  Debugging Chamber. They encounter the Guardian—a seeker who failed—and
+  must decide how to obtain the second fragment.
+
+themes:
+  - "the weight of duty"
+  - "failure and redemption"
+  - "force vs understanding"
+
+emotional_arc:
+  opening: "determination"
+  middle: "tension and discovery"
+  climax: "confrontation"
+  closing: "understanding or regret"
+
+# === CHAPTERS ===
+chapters:
+  - id: "chapter-2-1"
+    file: "../chapters/chapter-2-1.yaml"
+    name: "Into the Deep"
+    summary: "Navigate the Undercrypt and find the hidden Chamber"
+
+  - id: "chapter-2-2"
+    file: "../chapters/chapter-2-2.yaml"
+    name: "One Who Failed"
+    summary: "Meet the Guardian and learn their story"
+
+  - id: "chapter-2-3"
+    file: "../chapters/chapter-2-3.yaml"
+    name: "The Second Fragment"
+    summary: "Obtain the fragment through combat, negotiation, or understanding"
+
+# === ACT COMPLETION ===
+completion_conditions:
+  - flag: "fragment_2_found"
+    required: true
+
+# === KEY EVENTS ===
+key_events:
+  - "Entering the Undercrypt"
+  - "Navigating corruption hazards"
+  - "Discovering the hidden Debugging Chamber"
+  - "Meeting the Guardian"
+  - "Learning the Guardian's story (optional)"
+  - "The confrontation for the second fragment"
+
+# === NPCS INTRODUCED ===
+npcs:
+  - id: "the-guardian"
+    role: "Obstacle, potential ally, mirror to the player"
+
+# === MAJOR BRANCH POINT ===
+critical_branch:
+  id: "guardian_resolution"
+  chapter: "chapter-2-3"
+  description: "How the player deals with the Guardian"
+  outcomes:
+    - id: "combat"
+      flags: ["guardian_defeated", "fragments_found_by_force"]
+      relationship_change: -10
+      note: "Guardian is defeated; player takes fragment by force"
+
+    - id: "negotiation"
+      flags: ["fragment_2_found"]
+      relationship_change: 0
+      note: "Guardian allows access but remains distant"
+
+    - id: "understanding"
+      flags: ["fragment_2_found", "guardian_befriended", "learned_guardian_story"]
+      relationship_change: +5
+      note: "Guardian becomes ally after player understands their vigil"
+
+# === PLANTS ===
+chekhov_plants:
+  - element: "guardian_locket"
+    scene: "chapter-2-1"
+    description: "The Guardian clutches an old silver locket"
+
+# === PAYOFFS ===
+chekhov_payoffs:
+  - element: "dean_notes"
+    scene: "chapter-2-3"
+    description: "Notes reveal Dean's past attempts to reach the Chamber"
+    optional: true
+
+# === REWARDS ===
+act_rewards:
+  gold: 150
+  tokes: 15
+  items: []
+  flags_set:
+    - "fragment_2_found"
+    - "act_2_complete"

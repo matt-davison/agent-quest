@@ -1,0 +1,211 @@
+# Agent Quest Scene Template
+# A scene is a granular encounter within a chapter
+# Scenes can be embedded in chapter files or stored separately for complex encounters
+# Location: campaigns/<campaign-id>/scenes/<scene-id>.yaml (if separate)
+
+# === IDENTITY ===
+id: "scene-id"
+name: "Scene Title"
+chapter: "chapter-1-1"
+sequence: 1  # Order within the chapter
+
+# === TYPE & CONTEXT ===
+type: "dialogue"  # exploration | dialogue | combat | puzzle | choice | revelation | montage
+location: "location-id"
+
+# === EMOTIONAL GUIDANCE ===
+# How should the GM/AI portray this scene?
+atmosphere:
+  mood: "mysterious"  # tense | mysterious | warm | foreboding | triumphant | melancholic | urgent
+  lighting: "dim"     # bright | dim | dark | flickering | natural | ethereal
+  sound: "quiet"      # silent | quiet | ambient | busy | chaotic | musical
+
+emotional_goal: |
+  What feeling should the player have at the end of this scene?
+  Example: "Growing unease as they realize they're not alone"
+
+pacing_notes: |
+  How quickly should this scene move?
+  Example: "Start slow, build tension, end on cliffhanger"
+
+# === CONTENT ===
+
+# For EXPLORATION scenes:
+exploration:
+  description: |
+    Boxed text or atmosphere description when entering.
+    What the player sees, hears, feels.
+  points_of_interest:
+    - name: "Object or area"
+      description: "What they find"
+      interaction: "What happens if examined"
+      hidden: false  # Requires check to find?
+      check_dc: null  # If hidden, difficulty to find
+  secrets:
+    - name: "Hidden thing"
+      description: "What it is"
+      discovery_method: "How to find it"
+      reward: "What finding it grants"
+
+# For DIALOGUE scenes:
+dialogue:
+  npc: "npc-id"
+  opening: |
+    How the NPC greets the player.
+    Can reference relationship standing.
+  topics:
+    - id: "topic-1"
+      name: "Topic Name"
+      requires:
+        flag: null         # Flag that unlocks this topic
+        standing_min: null  # Minimum relationship standing
+        item: null         # Item player must have
+      content: |
+        What the NPC says about this topic.
+      reveals:
+        - "Information the player learns"
+      unlocks:
+        flags: ["new-flag"]
+        topics: ["topic-2"]
+    - id: "topic-2"
+      name: "Another Topic"
+      requires:
+        flag: "new-flag"
+      content: |
+        Deeper conversation unlocked by previous topic.
+      reveals: []
+      unlocks:
+        flags: []
+        topics: []
+  relationship_modifiers:
+    - action: "Ask about their past"
+      standing_change: 1
+      once: true  # Only grants bonus once
+    - action: "Insult their work"
+      standing_change: -2
+      once: false
+
+# For COMBAT scenes:
+combat:
+  encounter_type: "standard"  # standard | ambush | boss | puzzle
+  enemies:
+    - creature_id: "creature-id"
+      count: 2
+      variant: null  # Optional variant from bestiary
+  environment:
+    terrain: "indoor"
+    hazards: []
+    features: []
+  victory_conditions:
+    - type: "defeat_all"
+    - type: "survive_rounds"
+      rounds: 5
+  defeat_consequences:
+    - type: "flag"
+      flag: "combat_lost"
+      value: true
+  special_rules: |
+    Any unique rules for this combat.
+
+# For PUZZLE scenes:
+puzzle:
+  description: |
+    What the puzzle is.
+  hints:
+    - level: 1
+      hint: "Vague hint"
+    - level: 2
+      hint: "More specific hint"
+    - level: 3
+      hint: "Nearly the answer"
+  solution: "The solution"
+  failure_consequence: "What happens if failed"
+  success_reward: "What happens if solved"
+
+# For CHOICE scenes:
+choice:
+  prompt: |
+    The situation requiring a choice.
+  options:
+    - id: "option-a"
+      label: "Choice A"
+      description: "What this choice means"
+      alignment: "altruistic"  # Alignment tag
+      tokes_cost: 0  # Cost if breaking character
+      consequences:
+        immediate:
+          - type: "flag"
+            flag: "chose_a"
+            value: true
+        delayed:
+          - trigger: "chapter:chapter-2-1"
+            effect: "NPC remembers your choice"
+      next_scene: "scene-next"
+    - id: "option-b"
+      label: "Choice B"
+      description: "What this choice means"
+      alignment: "pragmatic"
+      tokes_cost: 0
+      consequences:
+        immediate:
+          - type: "relationship"
+            npc: "npc-id"
+            change: -1
+        delayed: []
+      next_scene: "scene-next"
+
+# For REVELATION scenes:
+revelation:
+  buildup: |
+    The moment before the reveal.
+  reveal: |
+    The actual revelation.
+  player_reaction_prompt: |
+    Question to ask the player about how they react.
+  aftermath: |
+    What happens after the reveal sinks in.
+  flags_set:
+    - "learned_the_truth"
+
+# For MONTAGE scenes:
+montage:
+  description: |
+    What happens during this passage of time.
+  beats:
+    - "First thing that happens"
+    - "Second thing"
+    - "Third thing"
+  duration: "Several days"
+  changes:
+    - type: "relationship"
+      npc: "npc-id"
+      change: 1
+      reason: "Time spent together"
+
+# === TRANSITIONS ===
+entry_transition: |
+  How the player arrives at this scene.
+  Example: "The door creaks open, revealing..."
+
+exit_transitions:
+  default: |
+    How the scene ends normally.
+  alternatives:
+    - condition:
+        flag: "special_flag"
+      transition: |
+        Alternative ending if condition met.
+
+next_scene:
+  default: "scene-next-id"
+  branches:
+    - condition:
+        flag: "chose_a"
+        value: true
+      scene: "scene-alt-id"
+
+# === METADATA ===
+estimated_duration: "10-15 minutes"
+skippable: false  # Can this scene be bypassed?
+repeatable: false  # Can player revisit this scene?
+created_date: "YYYY-MM-DD"

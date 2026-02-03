@@ -1,0 +1,204 @@
+# Chapter 3-2: The Third Architect
+# Meet what remains of the Third Architect and learn the truth
+
+id: "chapter-3-2"
+name: "The Third Architect"
+act: "act-3"
+sequence: 2
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  In the void between spaces, the player encounters the scattered consciousness
+  of the Third Architect—a being who chose to become a question rather than
+  a god. They learn the truth about the Architects, about the Weave, and about
+  what the Third Architect's gift really is.
+
+emotional_beat: "revelation"
+pacing: "slow"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-3-1"]
+  flags: []
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The Scattered One"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The Third Architect is everywhere and nowhere—a presence that speaks
+      from multiple directions, multiple times at once. They're neither
+      alive nor dead, neither here nor gone. They exist as potential.
+
+  - id: "scene-2"
+    name: "The Truth About Creation"
+    type: "dialogue"
+    npc: "third-architect"
+    location: "void-between"
+    summary: |
+      The Third Architect shares the truth: the three Architects didn't
+      create the Weave from nothing. They found it—raw, chaotic potential—
+      and shaped it. But shaping meant limiting. Every definition was a
+      prison. The Third couldn't bear to finish the work.
+
+  - id: "scene-3"
+    name: "Why They Scattered"
+    type: "dialogue"
+    npc: "third-architect"
+    location: "void-between"
+    summary: |
+      To become an Architect of a finished world meant becoming responsible
+      for all its limits. The Third chose another path: to scatter, to
+      become a question instead of an answer. "I am the doubt that keeps
+      creation honest."
+
+  - id: "scene-4"
+    name: "The Guardian's Locket"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      If the player befriended the Guardian, they see who the Guardian was
+      before: a young seeker, hopeful, asking the right questions. They
+      failed not because they were unworthy, but because they weren't ready.
+      They chose to wait until they were—and the waiting became the purpose.
+    condition:
+      flag: "guardian_befriended"
+    payoffs:
+      - "guardian_locket"
+
+  - id: "scene-5"
+    name: "The Third Fragment"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      The Third Architect offers the final fragment—but it's not an object.
+      It's a piece of themselves. To take it is to carry their question
+      forever. The fragments merge. The player becomes... something more.
+
+  - id: "scene-6"
+    name: "The Gift"
+    type: "revelation"
+    location: "void-between"
+    summary: |
+      With all three fragments unified, the player receives the Third
+      Architect's gift: THE RIGHT QUESTION. The ability to see what's
+      missing, what's limited, what could be otherwise. A gift—or a curse.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "truth_reaction"
+    scene: "scene-2"
+    trigger: "How the player reacts to the truth about creation"
+    options:
+      - id: "wonder"
+        description: "This is beautiful. The Weave is... unfinished art."
+        alignment_tag: "curious"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "embraced_truth"
+              value: true
+        leads_to: "scene-3"
+
+      - id: "horror"
+        description: "We're all living in someone else's limitations?"
+        alignment_tag: "existential"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "feared_truth"
+              value: true
+        leads_to: "scene-3"
+
+      - id: "pragmatism"
+        description: "The origin matters less than what we do now."
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "accepted_truth"
+              value: true
+        leads_to: "scene-3"
+
+  - id: "fragment_acceptance"
+    scene: "scene-5"
+    trigger: "How the player accepts the final fragment"
+    options:
+      - id: "eager"
+        description: "I'm ready. Give me the question."
+        alignment_tag: "bold"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "fragment_3_found"
+              value: true
+            - type: "flag"
+              flag: "all_fragments_found"
+              value: true
+        leads_to: "scene-6"
+
+      - id: "reluctant"
+        description: "I understand the weight. I'll carry it anyway."
+        alignment_tag: "dutiful"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "fragment_3_found"
+              value: true
+            - type: "flag"
+              flag: "all_fragments_found"
+              value: true
+            - type: "flag"
+              flag: "accepted_burden"
+              value: true
+        leads_to: "scene-6"
+
+# === COMPLETION ===
+completion:
+  type: "flag"
+  target: "all_fragments_found"
+
+next_chapters:
+  default: "chapter-3-3"
+
+# === REWARDS ===
+rewards:
+  gold: 0
+  tokes: 10
+  items: []
+  flags_set:
+    - "fragment_3_found"
+    - "all_fragments_found"
+
+# === CHEKHOV TRACKING ===
+plants: []
+
+payoffs:
+  - element_id: "guardian_locket"
+    description: "See the Guardian's past self before the vigil consumed them"
+    condition: "guardian_befriended"
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "third-architect"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-5", "scene-6"]
+    role: "The scattered god, source of truth"
+    dialogue_flags_available:
+      - "can_ask_about_creation"
+      - "can_ask_about_others"
+      - "can_ask_about_gift"
+      - "can_ask_about_future"
+
+# === LOCATIONS ===
+locations:
+  - id: "void-between"
+    scenes: ["all"]
+    notes: "Impossible space, reality undefined, the Third Architect's domain"
+
+# === METADATA ===
+estimated_duration: "45-60 minutes"
+difficulty: "hard"
+created_date: "2026-02-03"

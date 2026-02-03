@@ -69,12 +69,22 @@ location: "nexus-station" # Current location ID
 # === CHRONICLE ===
 # Significant events in your character's history
 # Add entries as you play
+# For campaign events, include campaign and chapter context
 chronicle:
   # - date: "YYYY-MM-DD"
   #   event: "Description of what happened"
+  #   campaign: "campaign-id"      # Optional: if part of a campaign
+  #   chapter: "chapter-id"        # Optional: specific chapter
+  #   significance: "major"        # Optional: minor|moderate|major
   # Example:
   # - date: "2026-02-02"
   #   event: "Awakened to Weaver abilities at Nexus Station"
+  # Example with campaign context:
+  # - date: "2026-02-03"
+  #   event: "Found the first fragment of the Third Architect"
+  #   campaign: "the-architects-truth"
+  #   chapter: "chapter-1-3"
+  #   significance: "major"
 
 # === ALIGNMENT ===
 # Your character's behavioral profile based on tracked decisions
@@ -82,12 +92,21 @@ chronicle:
 alignment:
   primary: "neutral"  # altruistic|ruthless|pragmatic|curious|cautious|neutral
   secondary: null      # Optional second trait
-  
+
   # Alignment axes (calculated from decisions, -10 to +10)
   axes:
     empathy: 0      # -10 selfish, +10 altruistic
     order: 0       # -10 chaotic, +10 lawful
     risk: 0         # -10 cautious, +10 bold
+
+  # Alignment history tracks shifts over time (for character arc)
+  # Automatically updated when alignment changes significantly
+  history:
+    # - date: "YYYY-MM-DD"
+    #   previous_primary: "neutral"
+    #   new_primary: "curious"
+    #   trigger: "Description of what caused the shift"
+    #   campaign: "campaign-id"  # Optional
 
 # === AFFLICTIONS ===
 # Status effects and Tokes Backlash afflictions
@@ -113,6 +132,7 @@ afflictions:
 # === DECISIONS ===
 # Key choices that reveal your character's nature
 # These build your alignment profile and affect future options
+# For campaign decisions, link to consequences for full tracking
 decisions:
   # - date: "YYYY-MM-DD"
   #   context: "Brief situation description"
@@ -121,6 +141,10 @@ decisions:
   #   natural: true  # Was this aligned with your character?
   #   tokes_spent: 0  # Cost to break character (0 if natural)
   #   notes: "Optional - how this reflects character growth"
+  #   campaign: "campaign-id"         # Optional: campaign context
+  #   chapter: "chapter-id"           # Optional: chapter context
+  #   consequence_id: "consequence-XXX"  # Optional: link to consequences.yaml
+  #
   # Example - natural aligned choice:
   # - date: "2026-02-02"
   #   context: "Merchant offered smuggled Weave artifacts"
@@ -129,6 +153,7 @@ decisions:
   #   natural: true
   #   tokes_spent: 0
   #   notes: "Character prioritizes order over personal gain"
+  #
   # Example - breaking character:
   # - date: "2026-02-02"
   #   context: "Captured enemy begged for mercy"
@@ -137,3 +162,27 @@ decisions:
   #   natural: false
   #   tokes_spent: 1
   #   notes: "Ruthless character showing unexpected mercy (cost 1 Toka)"
+  #
+  # Example - campaign decision with consequence:
+  # - date: "2026-02-05"
+  #   context: "The Guardian offered three paths to the fragment"
+  #   choice: "Chose to understand rather than fight"
+  #   alignment: "empathetic"
+  #   natural: true
+  #   tokes_spent: 0
+  #   campaign: "the-architects-truth"
+  #   chapter: "chapter-2-2"
+  #   consequence_id: "consequence-012"
+  #   notes: "This unlocked the Guardian ally ending path"
+
+# === RELATED FILES ===
+# Additional per-character tracking (create when needed):
+#
+# consequences.yaml - Tracks decision ripple effects
+#   See templates/consequence-tracker.yaml
+#
+# relationships.yaml - Tracks NPC standings and dialogue
+#   See templates/relationships.yaml
+#
+# campaign-progress.yaml - Tracks campaign state
+#   See templates/campaign-progress.yaml

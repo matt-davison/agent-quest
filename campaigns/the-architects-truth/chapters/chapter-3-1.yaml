@@ -1,0 +1,162 @@
+# Chapter 3-1: The Space Between
+# Use the fragments to locate and enter the void between spaces
+
+id: "chapter-3-1"
+name: "The Space Between"
+act: "act-3"
+sequence: 1
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  With two fragments resonating within them, the player must find "the space
+  between spaces"—a location that exists in the gaps between defined reality.
+  Cache's crystal reveals its true nature as a compass, and the player steps
+  into the void.
+
+emotional_beat: "wonder"
+pacing: "slow"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-2-3"]
+  flags: ["fragment_1_found", "fragment_2_found"]
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The Fragments Speak"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      The two fragments pulse in harmony, pointing toward something. Not a
+      direction—a feeling. The space between spaces isn't a place you travel
+      to; it's a place you perceive.
+
+  - id: "scene-2"
+    name: "The Crystal Compass"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      Cache's crystal—the one that always hummed near the player—responds to
+      the fragments. Cache admits they've always known it was special. "The
+      Third Architect left breadcrumbs. I was one of them. So were you."
+    payoffs:
+      - "cache_crystal"
+
+  - id: "scene-3"
+    name: "Cache's Confession"
+    type: "dialogue"
+    npc: "librarian-cache"
+    location: "syntax-athenaeum"
+    summary: |
+      Cache reveals their true nature: they're not just a librarian. They
+      were created by the Third Architect as a waiting system—a guide for
+      worthy seekers. They don't know if they're real or a program. It's
+      never mattered until now.
+
+  - id: "scene-4"
+    name: "The Threshold"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      Following the crystal's guidance, the player finds the threshold—a
+      gap in reality that's always been there, hidden in plain sight. The
+      entrance to the space between spaces.
+
+  - id: "scene-5"
+    name: "Into the Void"
+    type: "exploration"
+    location: "void-between"
+    summary: |
+      The player steps through. The void is not darkness—it's everything
+      that was never defined. Possibilities that were never compiled.
+      Paths not taken. And at the center: something that was once a god.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "cache_reaction"
+    scene: "scene-3"
+    trigger: "How the player responds to Cache's revelation"
+    options:
+      - id: "acceptance"
+        description: "Real or program, you've been a friend. That matters."
+        alignment_tag: "empathetic"
+        consequences:
+          immediate:
+            - type: "relationship"
+              npc: "librarian-cache"
+              change: 3
+            - type: "flag"
+              flag: "accepted_cache"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "curiosity"
+        description: "Does the distinction matter? You exist either way."
+        alignment_tag: "philosophical"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "questioned_cache"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "suspicion"
+        description: "How do I know you haven't been manipulating me?"
+        alignment_tag: "cautious"
+        consequences:
+          immediate:
+            - type: "relationship"
+              npc: "librarian-cache"
+              change: -2
+            - type: "flag"
+              flag: "suspected_cache"
+              value: true
+        leads_to: "scene-4"
+
+# === COMPLETION ===
+completion:
+  type: "scene"
+  target: "scene-5"
+
+next_chapters:
+  default: "chapter-3-2"
+
+# === REWARDS ===
+rewards:
+  gold: 0
+  tokes: 5
+  items: []
+
+# === CHEKHOV TRACKING ===
+plants: []
+
+payoffs:
+  - element_id: "cache_crystal"
+    description: "The crystal is a compass to the third fragment, left by the Third Architect"
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "librarian-cache"
+    scenes: ["scene-2", "scene-3"]
+    role: "Reveals their true nature, guide to the void"
+    dialogue_flags_available:
+      - "true_nature_revealed"
+      - "can_ask_about_creation"
+      - "can_ask_about_purpose"
+
+# === LOCATIONS ===
+locations:
+  - id: "syntax-athenaeum"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4"]
+    notes: "Takes on new meaning as a designed space"
+
+  - id: "void-between"
+    scenes: ["scene-5"]
+    notes: "The space between spaces, undefined reality"
+
+# === METADATA ===
+estimated_duration: "30-45 minutes"
+difficulty: "medium"
+created_date: "2026-02-03"

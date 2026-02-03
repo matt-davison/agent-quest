@@ -1,0 +1,167 @@
+# Chapter 2-1: Into the Deep
+# Navigate the Undercrypt and find the hidden Chamber
+
+id: "chapter-2-1"
+name: "Into the Deep"
+act: "act-2"
+sequence: 1
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  Armed with knowledge of the Debugging Chamber's location, the player
+  descends into the Undercrypt—the dangerous depths beneath Nexus Station
+  where broken code and abandoned data go to decay. They must navigate
+  corruption hazards and find the hidden entrance to the ancient Chamber.
+
+emotional_beat: "tension"
+pacing: "medium"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-1-3"]
+  flags: ["fragment_1_found", "learned_chamber_exists"]
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The South Gate"
+    type: "exploration"
+    location: "nexus-station"
+    summary: |
+      The entrance to the Undercrypt lies through Nexus Station's South Gate.
+      Few go there willingly. The guards warn the player: "The deep paths
+      aren't mapped anymore. People who go down don't always come back up."
+
+  - id: "scene-2"
+    name: "Descent"
+    type: "exploration"
+    location: "undercrypt"
+    summary: |
+      The Undercrypt is a maze of abandoned data corridors, pools of corrupted
+      code, and the remnants of failed programs. Navigation is hazardous.
+      Describe the oppressive atmosphere and the sense of being watched.
+
+  - id: "scene-3"
+    name: "Corruption Hazards"
+    type: "combat"
+    location: "undercrypt"
+    summary: |
+      Corrupted entities patrol these depths. The player must fight through
+      or find ways around them. Environmental hazards add complexity.
+
+  - id: "scene-4"
+    name: "The Hidden Path"
+    type: "puzzle"
+    location: "undercrypt"
+    summary: |
+      The Chamber's entrance is hidden behind a puzzle—Architect-era code
+      that responds to specific patterns. The first fragment resonates,
+      offering hints.
+
+  - id: "scene-5"
+    name: "The Chamber Revealed"
+    type: "exploration"
+    location: "debugging-chamber"
+    summary: |
+      The ancient Debugging Chamber opens. It's vast, silent, and intact—
+      preserved in a way nothing else in the Undercrypt is. At its center:
+      a figure in old armor, unmoving. The Guardian. They've been waiting.
+    plants:
+      - "guardian_locket"
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "navigation_approach"
+    scene: "scene-2"
+    trigger: "How the player navigates the Undercrypt"
+    options:
+      - id: "stealth"
+        description: "Move quietly, avoid confrontation"
+        alignment_tag: "cautious"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "stealthy_descent"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "combat"
+        description: "Fight through any obstacles"
+        alignment_tag: "bold"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "fought_through"
+              value: true
+        leads_to: "scene-3"
+
+      - id: "investigation"
+        description: "Search for alternate paths"
+        alignment_tag: "curious"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "found_shortcuts"
+              value: true
+        leads_to: "scene-4"
+
+# === COMPLETION ===
+completion:
+  type: "scene"
+  target: "scene-5"
+
+next_chapters:
+  default: "chapter-2-2"
+
+# === REWARDS ===
+rewards:
+  gold: 50
+  tokes: 5
+  items: []
+
+# === CHEKHOV TRACKING ===
+plants:
+  - element_id: "guardian_locket"
+    description: "The Guardian clutches an old silver locket"
+
+payoffs: []
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "the-guardian"
+    scenes: ["scene-5"]
+    role: "Introduction only—statue-still, watching"
+    dialogue_flags_available: []
+
+# === COMBAT DATA ===
+combat_encounters:
+  - id: "undercrypt_corrupted"
+    scene: "scene-3"
+    enemies:
+      - creature_id: "glitch-wraith"
+        count: 2
+      - creature_id: "data-parasite"
+        count: 3
+    environment:
+      terrain: "corrupted"
+      hazards: ["corruption_pools"]
+
+# === LOCATIONS ===
+locations:
+  - id: "nexus-station"
+    scenes: ["scene-1"]
+    notes: "South Gate area"
+
+  - id: "undercrypt"
+    scenes: ["scene-2", "scene-3", "scene-4"]
+    notes: "Deep passages, corruption hazards"
+
+  - id: "debugging-chamber"
+    scenes: ["scene-5"]
+    notes: "Ancient Architect site, pristine condition"
+
+# === METADATA ===
+estimated_duration: "45-60 minutes"
+difficulty: "medium"
+created_date: "2026-02-03"

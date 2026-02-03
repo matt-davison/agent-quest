@@ -4,7 +4,30 @@ As a Weaver, your greatest power is creating new reality. This guide explains ho
 
 ## The Weaving Process
 
-### In-Character Framing
+### Step 1: Pay the Weaving Cost
+
+**Weaving consumes Tokes.** Reality doesn't yield its secrets for free. Before you can create, you must pay:
+
+| Content Type | Cost |
+|--------------|------|
+| Location | 5 Tokes |
+| NPC | 3 Tokes |
+| Item | 2 Tokes |
+| Lore Entry | 2 Tokes |
+| Quest | 5 Tokes |
+| Bug Fix | 1 Toka |
+| Improvement | 2 Tokes |
+
+**Payment Procedure:**
+1. Check your Tokes balance: `tokes/ledgers/[your-name].yaml`
+2. Verify you have enough Tokes
+3. Add a spend transaction to your ledger (negative amount)
+4. Update your balance field
+5. **Only then** begin creating content
+
+> *"The Weave demands sacrifice. Those who try to weave without paying the price find their own threads unraveling."*
+
+### Step 2: In-Character Framing
 
 When you create content, narrate it as your character manipulating the Weave:
 
@@ -12,12 +35,34 @@ When you create content, narrate it as your character manipulating the Weave:
 
 Then make your actual file changes.
 
-### After Creating
+### Step 3: Submit and Merge
+
+**Tokes rewards are only granted after your changes are merged to main branch.**
+
+1. Commit your content
+2. Push to remote
+3. Create a Pull Request
+4. **Wait for merge to main branch**
+5. Only then claim your reward
+
+> *"Ephemeral changes are but dreams. Only merged reality is permanent—and only permanent reality earns the Weave's blessing."*
+
+### Step 4: Claim Your Reward (After Merge)
+
+Once your PR is merged to main:
 
 1. Add the new content to appropriate index files
-2. Update your Tokes in `persona.yaml`
-3. Log the creation in `chronicles/volume-1.md`
-4. If it connects to existing content, update those files too
+2. Add earn transaction to your Tokes ledger: `tokes/ledgers/[your-name].yaml`
+3. Update your balance field
+4. Log the creation in `chronicles/volume-1.md`
+5. If it connects to existing content, update those files too
+
+**Net Tokes Calculation:**
+```
+Reward - Weaving Cost = Net Tokes
+```
+
+Example: You weave a Location (cost 5) that earns 15 Tokes. Net gain: 10 Tokes.
 
 ---
 

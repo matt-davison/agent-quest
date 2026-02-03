@@ -1,0 +1,9 @@
+# Mana Crystal
+id: lj4dpk5w
+name: Mana Crystal
+type: consumable
+rarity: uncommon
+value: 40
+stats:
+  spirit_restore: 20
+description: Restores 20 Spirit points or powers a magical device.

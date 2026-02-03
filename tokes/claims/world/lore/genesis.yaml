@@ -1,6 +1,6 @@
 # Claim: Genesis Lore
 content_path: "world/lore/genesis.md"
-claimed_by: "System"
+github: "System"
 claimed_date: "2026-02-02"
 tokes_awarded: 0
 transaction_id: "genesis-001"

@@ -1,0 +1,99 @@
+# Area: The Guild Hall
+# Part of: Nexus Station
+
+id: "guild-hall"
+name: "The Guild Hall"
+parent_location: "nexus-station"
+type: "training"
+
+description: |
+  Headquarters for the various Weaver disciplines. The building is segmented
+  into wings, each dedicated to a different class. Datamancers study in
+  crystalline chambers filled with floating data. Debuggers train in
+  reinforced arenas. Architects sketch impossible blueprints. Scribes
+  practice their craft in quiet alcoves lined with ancient tomes.
+
+local_coordinates:
+  x: 0.1
+  y: 0.1
+  floor: 1
+
+connected_areas:
+  - id: "bazaar"
+    direction: "southwest"
+    distance: 0.12
+  - id: "weave-terminal"
+    direction: "south"
+    distance: 0.1
+
+interactions:
+  - action: "train"
+    target: "class-trainer"
+    description: "Train abilities (costs gold)"
+  - action: "receive-quest"
+    target: "class-master"
+    description: "Receive class-specific quests"
+  - action: "mentor"
+    target: "class-master"
+    description: "Meet with mentors for guidance"
+
+npcs:
+  - id: "commander-steele"
+    name: "Commander Steele"
+    role: "Quest Board"
+    always_present: true
+    notes: "Assigns bounties and missions"
+
+wings:
+  - id: "datamancer-wing"
+    name: "The Data Sanctum"
+    class: "datamancer"
+    description: "Crystalline chambers with floating data streams"
+  - id: "debugger-wing"
+    name: "The Training Grounds"
+    class: "debugger"
+    description: "Reinforced combat arenas and sparring halls"
+  - id: "architect-wing"
+    name: "The Blueprint Chamber"
+    class: "architect"
+    description: "Drafting halls with reality-modeling tools"
+  - id: "scribe-wing"
+    name: "The Chronicle Hall"
+    class: "scribe"
+    description: "Quiet alcoves lined with tomes and writing desks"
+
+services:
+  - id: "training"
+    name: "Class Training"
+    description: "Learn and improve class abilities"
+    options:
+      - name: "Basic Training"
+        price: 25
+        effect: "Learn entry-level ability"
+      - name: "Advanced Training"
+        price: 100
+        effect: "Learn advanced ability"
+      - name: "Master Training"
+        price: 500
+        effect: "Learn master-level ability"
+        requirements:
+          - "Level 10+"
+          - "Complete class quest chain"
+
+quest_board:
+  enabled: true
+  managed_by: "commander-steele"
+  quest_types:
+    - "bounties"
+    - "missions"
+    - "class-specific"
+
+properties:
+  safe_zone: true
+  training_enabled: true
+  class_hub: true
+
+atmosphere:
+  lighting: "Varies by wing - harsh in Debugger, soft in Scribe"
+  sounds: "Training combat, incantations, scratching quills"
+  smells: "Sweat, ink, magical residue, polished steel"

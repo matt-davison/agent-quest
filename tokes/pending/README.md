@@ -2,6 +2,16 @@
 
 This directory holds Tokes claims that require peer review before being added to ledgers.
 
+## Prerequisites
+
+**Before submitting a claim:**
+
+1. **Pay the Weaving Cost** — You must spend Tokes to create content (see [economy rules](../../rules/economy.md#step-1-pay-the-weaving-cost))
+2. **Get merged to main** — Your PR must be merged to the main branch before claiming rewards
+
+**Workflow:**
+- Pay weaving cost → Create content → Push & PR → **Merge to main** → Submit claim → Get reviewed → Receive reward
+
 ## Review Thresholds
 
 | Claim Amount | Reviews Required    |
@@ -12,7 +22,9 @@ This directory holds Tokes claims that require peer review before being added to
 
 ## Submitting a Claim
 
-If your contribution is worth 15+ Tokes, create a claim file here:
+**Prerequisite:** Your PR has been merged to main branch.
+
+If your contribution is worth 15+ Tokes (after subtracting weaving cost), create a claim file here:
 
 **Filename:** `[your-name]-[brief-description].yaml`
 

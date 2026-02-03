@@ -1,0 +1,70 @@
+# Area: The Entrance Hall
+# Part of: The Syntax Athenaeum
+
+id: "entrance-hall"
+name: "The Entrance Hall"
+parent_location: "syntax-athenaeum"
+type: "atrium"
+
+description: |
+  A grand atrium where floating glyphs display class schedules, announcements,
+  and the occasional error message from reality itself. A massive statue of a
+  hooded figure—one of the First Architects, identity unknown—dominates the
+  center, hands outstretched as if offering or receiving code. The ceiling
+  stretches impossibly high, lost in floating equations.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "recursion-library"
+    direction: "north"
+    distance: 0.05
+  - id: "practical-labs"
+    direction: "east"
+    distance: 0.08
+  - id: "debugging-chamber"
+    direction: "west"
+    distance: 0.06
+  - id: "faculty-offices"
+    direction: "up"
+    distance: 0.03  # vertical
+
+# Exit to other locations
+connected_locations:
+  - id: "nexus-station"
+    direction: "main-doors"
+    distance: 0.54
+
+interactions:
+  - action: "view"
+    target: "floating-glyphs"
+    description: "View class schedules and announcements"
+  - action: "examine"
+    target: "architect-statue"
+    description: "Examine the Architect statue for lore fragments"
+  - action: "socialize"
+    target: "students"
+    description: "Meet fellow students and faculty"
+
+npcs: []  # No permanent NPCs, but students and faculty pass through
+
+items:
+  - id: "architect-statue"
+    name: "The First Architect Statue"
+    type: "landmark"
+    interactive: true
+    lore: |
+      The hooded figure's face is blank—not obscured, but genuinely featureless.
+      The plaque reads only: "THEY WHO INITIALIZED"
+
+properties:
+  safe_zone: true
+  information_hub: true
+
+atmosphere:
+  lighting: "Natural light from impossible windows, floating glyph glow"
+  sounds: "Echoing footsteps, murmured discussions, soft chimes"
+  smells: "Old paper, chalk dust, ozone from floating displays"

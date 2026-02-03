@@ -1,0 +1,10 @@
+# Iron Sword
+id: y6fz9ek2
+name: Iron Sword
+type: weapon
+subtype: melee
+rarity: common
+value: 50
+stats:
+  damage: 10
+description: A simple but reliable blade. Standard issue for new adventurers.

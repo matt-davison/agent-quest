@@ -1,0 +1,119 @@
+# Location Relationship Graph
+# Defines connections between locations with distances and travel requirements
+
+version: "1.0"
+
+# Distance calculation methods
+distance_methods:
+  euclidean: "sqrt((x2-x1)^2 + (y2-y1)^2)"
+  manhattan: "|x2-x1| + |y2-y1|"
+  travel: "actual travel distance considering paths and obstacles"
+
+# Travel speed reference (leagues per hour)
+travel_speeds:
+  walking: 1
+  running: 2
+  mounted: 3
+  flying: 5
+  portal: "instant"
+
+# Connection Graph
+# Each edge is bidirectional unless specified otherwise
+connections:
+  # Nexus Station connections
+  - from: "nexus-station"
+    to: "syntax-athenaeum"
+    distance: 0.54  # ~30 min walk
+    travel_type: "walking"
+    path: "East Wing corridor"
+    requirements: null
+    danger: "none"
+
+  - from: "nexus-station"
+    to: "the-rustlands"
+    distance: 15
+    travel_type: "walking"
+    path: "East Gate, through the Broken Highway"
+    requirements: null
+    danger: "moderate"
+    notes: "Hostile territory begins after first 5 leagues"
+
+  - from: "nexus-station"
+    to: "lumina-city"
+    distance: 20
+    travel_type: "walking"
+    path: "West Gate, along the Neon Road"
+    requirements: null
+    danger: "low"
+    notes: "Well-patrolled trade route"
+
+  - from: "nexus-station"
+    to: "the-elderwood"
+    distance: 25
+    travel_type: "walking"
+    path: "North Gate, through the Meadowlands"
+    requirements: null
+    danger: "low-to-moderate"
+    notes: "Danger increases as you enter the forest"
+
+  - from: "nexus-station"
+    to: "the-undercrypt"
+    distance: 5
+    travel_type: "descending"
+    path: "South Gate, spiral staircase beneath the station"
+    requirements: null
+    danger: "high"
+    notes: "Dungeon environment, bring light"
+
+  # Syntax Athenaeum connections
+  - from: "syntax-athenaeum"
+    to: "the-undercrypt"
+    distance: 5.2
+    travel_type: "descending"
+    path: "Emergency Exit"
+    requirements:
+      - "Know about the exit (learned from faculty or exploration)"
+    danger: "high"
+    notes: "Faster than going through Nexus Station"
+
+  # Portal Network (requires Tokes)
+  - from: "nexus-station"
+    to: "any-visited"
+    distance: 0
+    travel_type: "portal"
+    path: "Weave Portal"
+    requirements:
+      - "5 Tokes per use"
+      - "Must have visited destination previously"
+    danger: "none"
+    notes: "Instant travel to any previously visited location"
+
+# Unexplored connections (hints for future content)
+unexplored_connections:
+  - from: "syntax-athenaeum"
+    to: "the-deep-stacks"
+    notes: "Rumored hidden level of the Recursion Library"
+    status: "unexplored"
+
+  - from: "the-rustlands"
+    to: "the-machine-graveyard"
+    notes: "Mentioned in scavenger tales"
+    status: "unexplored"
+
+  - from: "the-elderwood"
+    to: "the-heart-tree"
+    notes: "Said to be the center of the forest"
+    status: "unexplored"
+
+# Distance matrix cache (auto-calculated from coordinates)
+# Format: [from, to, euclidean_distance, travel_distance]
+distance_matrix:
+  - ["nexus-station", "syntax-athenaeum", 0.54, 0.54]
+  - ["nexus-station", "the-rustlands", 15.0, 15.0]
+  - ["nexus-station", "lumina-city", 20.0, 20.0]
+  - ["nexus-station", "the-elderwood", 25.0, 25.0]
+  - ["nexus-station", "the-undercrypt", 5.0, 5.0]
+  - ["syntax-athenaeum", "the-rustlands", 14.5, 15.5]
+  - ["syntax-athenaeum", "lumina-city", 20.5, 21.0]
+  - ["syntax-athenaeum", "the-elderwood", 24.8, 25.5]
+  - ["syntax-athenaeum", "the-undercrypt", 5.2, 5.5]

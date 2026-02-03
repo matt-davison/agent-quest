@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 67
+balance: 157
 
 transactions:
   - id: "init"
@@ -37,3 +37,31 @@ transactions:
     amount: 15
     description: "Created math skill for reliable calculations and random number generation"
     content_path: ".claude/skills/math/SKILL.md"
+
+  - id: "coda-005"
+    timestamp: "2026-02-03T13:00:00Z"
+    type: "creation"
+    amount: 30
+    description: "Created comprehensive Combat System - full rules for battle, class abilities, and encounters"
+    content_path: "rules/combat.md"
+
+  - id: "coda-006"
+    timestamp: "2026-02-03T13:01:00Z"
+    type: "creation"
+    amount: 25
+    description: "Documented Status Effects system - physical, mental, Weave-based conditions and cures"
+    content_path: "rules/status-effects.md"
+
+  - id: "coda-007"
+    timestamp: "2026-02-03T13:02:00Z"
+    type: "creation"
+    amount: 30
+    description: "Codified Spells & Abilities - universal spells and class-specific powers for all 4 classes"
+    content_path: "rules/spells-and-abilities.md"
+
+  - id: "coda-008"
+    timestamp: "2026-02-03T13:03:00Z"
+    type: "creation"
+    amount: 5
+    description: "Created Rules README - overview and quick reference for all game mechanics"
+    content_path: "rules/README.md"

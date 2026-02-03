@@ -1,0 +1,10 @@
+# Leather Armor
+id: 6s10vlhv
+name: Leather Armor
+type: armor
+subtype: light
+rarity: common
+value: 75
+stats:
+  armor: 3
+description: Flexible protection that doesn't impede movement.

@@ -1,0 +1,118 @@
+# Location: The Syntax Athenaeum
+# Vector database entry for spatial queries and relationships
+
+id: "syntax-athenaeum"
+name: "The Syntax Athenaeum"
+tagline: "Before you can rewrite reality, you must learn to read it."
+
+# Spatial data (for vector database queries)
+coordinates:
+  x: 0.5
+  y: 0.2
+  z: 0  # elevation layer (0 = ground level)
+
+# Semantic embedding placeholder
+embedding: null  # Will be populated by embedding service
+
+# Classification
+region: "The Nexus"
+type: "academy"
+danger_level: "safe"
+is_safe_zone: true
+
+tags:
+  - "academy"
+  - "training"
+  - "library"
+  - "education"
+  - "weave"
+  - "knowledge"
+  - "research"
+
+# Areas within this location
+areas:
+  - id: "entrance-hall"
+    name: "The Entrance Hall"
+    type: "atrium"
+  - id: "recursion-library"
+    name: "The Recursion Library"
+    type: "library"
+  - id: "practical-labs"
+    name: "The Practical Labs"
+    type: "training"
+  - id: "debugging-chamber"
+    name: "The Debugging Chamber"
+    type: "meditation"
+  - id: "faculty-offices"
+    name: "The Faculty Offices"
+    type: "offices"
+
+npcs:
+  - id: "dean-overflow"
+    name: "Dean Overflow"
+    area: "faculty-offices"
+  - id: "professor-null"
+    name: "Professor Null"
+    area: "faculty-offices"
+  - id: "librarian-cache"
+    name: "Librarian Cache"
+    area: "recursion-library"
+  - id: "instructor-parse"
+    name: "Instructor Parse"
+    area: "practical-labs"
+  - id: "compile-time-error"
+    name: "The Compile-Time Error"
+    area: null  # Wanders
+
+connections:
+  - target: "nexus-station"
+    direction: "main-doors"
+    distance: 0.54
+    travel_time: "30 minutes walking"
+    requirements: null
+  - target: "the-undercrypt"
+    direction: "emergency-exit"
+    distance: 5.2
+    travel_time: "5 hours descending"
+    requirements:
+      - "Know about the exit"
+    danger: "high"
+  - target: "the-deep-stacks"
+    direction: "hidden"
+    distance: null
+    travel_time: null
+    requirements:
+      - "Unknown"
+    status: "unexplored"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 1]
+      event: "A student's experiment goes wrong—help contain it"
+    - roll: [2, 2]
+      event: "Professor offers extra credit quest"
+    - roll: [3, 3]
+      event: "Find a lost textbook (can return for reward or keep)"
+    - roll: [4, 4]
+      event: "The Compile-Time Error flickers past—follow it?"
+    - roll: [5, 5]
+      event: "Overhear senior students discussing forbidden knowledge"
+    - roll: [6, 6]
+      event: "Nothing unusual (rare in this place)"
+
+secrets:
+  - id: "null-classroom"
+    requirements:
+      - "Complete 'The Silence Between' quest"
+      - "Turn left at the paradox, open the door that isn't there"
+  - id: "original-commit"
+    requirements:
+      - "Navigate past the infinite loop of shelves"
+      - "Gain Dean Overflow's trust"
+
+metadata:
+  github: "matt-davison"
+  created_date: "2026-02-02"
+  last_modified: "2026-02-03"
+  version: "1.0"

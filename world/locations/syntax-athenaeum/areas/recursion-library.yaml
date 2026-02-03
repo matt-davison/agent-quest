@@ -1,0 +1,81 @@
+# Area: The Recursion Library
+# Part of: The Syntax Athenaeum
+
+id: "recursion-library"
+name: "The Recursion Library"
+parent_location: "syntax-athenaeum"
+type: "library"
+
+description: |
+  An impossible library where the shelves loop back on themselves. Walk far
+  enough in any direction and you'll return to where you started—unless you
+  know the proper paths. Contains texts on Weave theory, histories of reality's
+  patches and updates, and forbidden volumes locked behind permission checks.
+  The air smells of ancient paper and quantum uncertainty.
+
+local_coordinates:
+  x: 0
+  y: 0.05
+  floor: 1  # Though it exists in multiple floors simultaneously
+
+connected_areas:
+  - id: "entrance-hall"
+    direction: "south"
+    distance: 0.05
+  - id: "the-deep-stacks"
+    direction: "hidden"
+    distance: null
+    requirements:
+      - "Unknown path"
+    status: "unexplored"
+
+interactions:
+  - action: "research"
+    target: "texts"
+    description: "Research lore topics (+1 to Mind checks with preparation)"
+  - action: "search"
+    target: "shelves"
+    description: "Find hints for quests"
+  - action: "discover"
+    target: "hidden-knowledge"
+    description: "Discover hidden knowledge (requires specific skill checks)"
+
+npcs:
+  - id: "librarian-cache"
+    name: "Librarian Cache"
+    role: "Recursion Library"
+    always_present: true
+    notes: "Remembers everything. Everything."
+
+services:
+  - id: "research"
+    name: "Assisted Research"
+    description: "Librarian Cache helps you find specific information"
+    cost: 10  # gold
+    effect: "+2 to next lore-related check"
+
+secrets:
+  - id: "original-commit"
+    trigger: "Navigate past the infinite loop to the center"
+    content: |
+      A terminal containing fragments of the Architects' original commit.
+      Reveals truth about the world's creation. Dean Overflow guards
+      its location jealously.
+
+special_mechanics:
+  - name: "Recursive Navigation"
+    description: |
+      The library loops in on itself. To find specific texts:
+      - Common texts: Just browse normally
+      - Rare texts: Requires Mind check (DC 12)
+      - Forbidden texts: Requires special permission or stealth
+
+properties:
+  safe_zone: true
+  research_bonus: true
+  non_euclidean: true
+
+atmosphere:
+  lighting: "Soft reading lamps, bioluminescent bookmark creatures"
+  sounds: "Whispered pages, distant shelving, recursive echoes"
+  smells: "Ancient paper, binding glue, ink, quantum uncertainty"

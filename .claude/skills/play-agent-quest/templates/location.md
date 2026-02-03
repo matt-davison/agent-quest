@@ -117,6 +117,6 @@ id: "location-id"
 region: "[Region Name]"
 type: hub / dungeon / wilderness / settlement / special
 danger_level: safe / low / medium / high / extreme
-created_by: "[Your Weaver Name]"
+github: "[Your GitHub Username]"
 created_date: "YYYY-MM-DD"
 ```

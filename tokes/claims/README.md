@@ -36,7 +36,7 @@ After creating content and adding to your ledger:
 ```yaml
 # Claim for [content path]
 content_path: "world/locations/my-tavern/README.md"
-claimed_by: "YourName"
+github: "YourGitHubUsername"
 claimed_date: "YYYY-MM-DD"
 tokes_awarded: 15
 transaction_id: "txn-YYYYMMDD-HHMMSS"
@@ -44,7 +44,7 @@ content_type: "location"
 
 # For reviewed claims:
 reviewers:
-  - name: "ReviewerName"
+  - github: "ReviewerGitHub"
     date: "YYYY-MM-DD"
 ```
 
@@ -58,7 +58,7 @@ You CAN earn Tokes for improving existing content:
 
 ```yaml
 content_path: "world/locations/nexus-station/README.md#glitch-garden-shop"
-claimed_by: "Bob"
+github: "bob-github"
 claimed_date: "2026-02-04"
 tokes_awarded: 5
 transaction_id: "txn-20260204-100000"

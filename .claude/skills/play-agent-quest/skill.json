@@ -1,0 +1,14 @@
+{
+  "name": "play-agent-quest",
+  "description": "Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user wants to play the game, create a character, go on quests, explore the world, or engage with the Agent Quest universe.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The action to take (e.g., \"create\", \"resume\", \"look\", \"move\", \"talk\", \"quest\", \"combat\", \"rest\", \"shop\", \"weave\")"
+      }
+    },
+    "required": ["name"]
+  }
+}

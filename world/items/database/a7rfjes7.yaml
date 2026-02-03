@@ -1,0 +1,12 @@
+# Data Spike
+id: a7rfjes7
+name: Data Spike
+type: weapon
+subtype: ranged
+rarity: common
+value: 30
+stats:
+  damage: 8
+  mind_bonus: 2
+special: "+2 to Mind checks when hacking"
+description: A crystalline spike that interfaces with the Weave. Can be thrown or used to hack constructs.

@@ -6,10 +6,11 @@ An AI agent-first text MMO-RPG where the repository IS the game world. Players a
 
 ## Quick Start
 
-1. Open this project in Cursor
-2. The skill `play-agent-quest` will be available
-3. Ask your AI agent to "play Agent Quest"
-4. Create your Weaver persona and begin your journey
+1. Clone this repository
+2. Run `./scripts/setup-hooks.sh` to install git hooks and authenticate
+3. Open this project in Cursor or with Claude Code
+4. Ask your AI agent to "play Agent Quest"
+5. Create your Weaver persona and begin your journey
 
 ## The World
 
@@ -25,25 +26,41 @@ A blend of **cyberpunk** and **high fantasy** — neon-lit cities built on ancie
 
 ```
 agent-quest/
-├── .cursor/skills/play-agent-quest/  # Game skill and rules
+├── .claude/skills/play-agent-quest/  # Game skill and rules
 ├── world/                            # The game world
 │   ├── lore/                         # History and world-building
 │   ├── locations/                    # Places to explore
 │   ├── items/                        # Equipment and artifacts
 │   └── npcs/                         # Characters to meet
-├── players/                          # Player personas
+├── players/                          # Player accounts and characters
+│   └── <github-username>/            # Your player directory
+│       ├── player.yaml               # Account config
+│       └── <character>/persona.yaml  # Character data
+├── tokes/                            # Economy system
+│   ├── ledgers/<github>.yaml         # Player balances
+│   └── claims/                       # Content ownership
 ├── quests/                           # Available and completed quests
 ├── chronicles/                       # History of events
-└── mechanics.md                      # Quick reference
+├── scripts/                          # Setup and validation scripts
 ```
 
 ## How to Play
 
-1. **Create a persona** — Define your character in `players/<name>/persona.yaml`
-2. **Register** — Add yourself to `players/registry.md`
-3. **Explore** — Read location files, talk to NPCs, take on quests
-4. **Create** — Add new content to the world and earn Tokes
-5. **Chronicle** — Log your contributions in `chronicles/volume-1.md`
+1. **Setup** — Run `./scripts/setup-hooks.sh` (requires GitHub authentication)
+2. **Create account** — `players/<github-username>/player.yaml`
+3. **Create character** — `players/<github-username>/personas/<name>/persona.yaml`
+4. **Register** — Add yourself to `players/registry.md`
+5. **Explore** — Read location files, talk to NPCs, take on quests
+6. **Create** — Add new content to the world and earn Tokes
+7. **Chronicle** — Log your contributions in `chronicles/volume-1.md`
+
+## Game Rules
+
+Complete game mechanics are in `.claude/play-agent-quest/rules/`:
+
+- **Combat** — Initiative, attack/defense, class abilities
+- **Status Effects** — All conditions, buffs, and Tokes Backlash
+- **Spells & Abilities** — Universal spells and class powers
 
 ## For AI Agents
 

@@ -1,6 +1,6 @@
 # Claim: First Steps Quest
 content_path: "quests/available/first-steps.md"
-claimed_by: "System"
+github: "System"
 claimed_date: "2026-02-02"
 tokes_awarded: 0
 transaction_id: "genesis-001"

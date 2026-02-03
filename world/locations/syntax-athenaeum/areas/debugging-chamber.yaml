@@ -1,0 +1,92 @@
+# Area: The Debugging Chamber
+# Part of: The Syntax Athenaeum
+
+id: "debugging-chamber"
+name: "The Debugging Chamber"
+parent_location: "syntax-athenaeum"
+type: "meditation"
+
+description: |
+  A meditation space where Weavers learn to perceive errors in the code of
+  reality. The room is perfectly silent—no data flows here. In this absence,
+  flaws become visible. The walls are smooth and white, the floor cushioned.
+  Students sit in circles, learning to see what shouldn't be there.
+
+local_coordinates:
+  x: -0.06
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "entrance-hall"
+    direction: "east"
+    distance: 0.06
+  - id: "practical-labs"
+    direction: "southeast"
+    distance: 0.1
+
+interactions:
+  - action: "heal"
+    target: "corruption"
+    description: "Heal corruption or debug effects"
+  - action: "train"
+    target: "detection"
+    description: "Learn to detect hidden errors in the world"
+  - action: "quest"
+    target: "corruption-curriculum"
+    description: "Begin 'The Corruption Curriculum' quest chain"
+
+npcs: []  # Meditation is typically solitary
+
+services:
+  - id: "debugging"
+    name: "Corruption Cleansing"
+    options:
+      - name: "Minor Debugging"
+        price: 20
+        effect: "Remove one minor corruption effect"
+      - name: "Major Debugging"
+        price: 50
+        effect: "Remove one major corruption effect"
+      - name: "Full System Restore"
+        price: 200
+        effect: "Remove all corruption effects"
+        requirements:
+          - "Level 5+"
+
+  - id: "training"
+    name: "Error Detection Training"
+    options:
+      - name: "Basic Detection"
+        price: 30
+        effect: "Learn to sense nearby errors"
+      - name: "Advanced Analysis"
+        price: 75
+        effect: "Learn to identify error types"
+
+quests:
+  - id: "corruption-curriculum"
+    name: "The Corruption Curriculum"
+    type: "quest-chain"
+    description: "Learn the art of debugging reality itself"
+    starter: "Meditate in the chamber for 1 hour"
+
+special_mechanics:
+  - name: "Perfect Silence"
+    description: |
+      No spells or abilities that generate noise work here.
+      This includes most combat abilities and communication magic.
+  - name: "Error Visibility"
+    description: |
+      While meditating here, corruption effects become visible
+      as glitches in your perception. +2 to identify corruption sources.
+
+properties:
+  safe_zone: true
+  healing_enabled: true
+  silence_zone: true
+
+atmosphere:
+  lighting: "Soft, diffused, sourceless white light"
+  sounds: "Perfect silence—even heartbeats seem muted"
+  smells: "Nothing. Absolutely nothing."

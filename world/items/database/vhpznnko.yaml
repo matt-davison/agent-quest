@@ -1,0 +1,10 @@
+# Steel Sword
+id: vhpznnko
+name: Steel Sword
+type: weapon
+subtype: melee
+rarity: uncommon
+value: 100
+stats:
+  damage: 15
+description: Finely crafted steel with a keen edge. A step up from iron.

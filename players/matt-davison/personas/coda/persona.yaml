@@ -57,6 +57,21 @@ active_quests:
 
 completed_quests: []
 
+# === AFFLICTIONS ===
+afflictions: []
+
+# === ALIGNMENT ===
+alignment:
+  primary: "neutral"
+  secondary: null
+  axes:
+    empathy: 0
+    order: 0
+    risk: 0
+
+# === DECISIONS ===
+decisions: []
+
 chronicle:
   - session: 1
     date: "2026-02-02"
@@ -73,3 +88,15 @@ chronicle:
   - session: 1
     date: "2026-02-02"
     event: "Wove 'The Third Architect' quest into the world's permanent records. Earned 25 Tokes."
+  - session: 2
+    date: "2026-02-03"
+    event: "Master Weaving: Created comprehensive Combat System. The rules of battle now bind reality. Earned 30 Tokes."
+  - session: 2
+    date: "2026-02-03"
+    event: "Master Weaving: Documented Status Effects system. All afflictions and blessings now have form. Earned 25 Tokes."
+  - session: 2
+    date: "2026-02-03"
+    event: "Master Weaving: Codified Spells & Abilities for all classes. Magic now flows through defined channels. Earned 30 Tokes."
+  - session: 2
+    date: "2026-02-03"
+    event: "Total session earnings: 90 Tokes. New balance: 157 Tokes. The Weave grows stronger through understanding."

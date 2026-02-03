@@ -154,8 +154,8 @@ id: "the-third-architect"
 status: available
 type: legendary
 difficulty: hard
-discovered_by: "Coda"
-created_by: "Coda"
+discovered_by: "matt-davison"
+github: "matt-davison"
 created_date: "2026-02-02"
 fragments_found: 1
 completed_by: []

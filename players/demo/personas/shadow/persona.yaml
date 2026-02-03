@@ -1,0 +1,26 @@
+name: "Shadow"
+class: "Voidwalker"
+active: true
+backstory: "A former corporate hacker turned rogue, seeking freedom in the nether realms."
+
+stats:
+  strength: 13
+  agility: 15
+  mind: 12
+  spirit: 10
+  # You have 10 bonus points to distribute
+
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 50
+
+abilities: []
+inventory: []
+equipped: {}
+
+location: "nexus-station"
+active_quests: []
+completed_quests: []
+
+chronicle: []

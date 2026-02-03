@@ -1,0 +1,9 @@
+weaver: "Shadow"
+created: "2026-02-03T00:00:00Z"
+
+transactions:
+  - id: "init"
+    timestamp: "2026-02-03T00:00:00Z"
+    type: "genesis"
+    amount: 0
+    description: "Ledger initialized"

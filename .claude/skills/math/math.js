@@ -59,6 +59,21 @@ function range(min, max) {
   console.log(result);
 }
 
+function id(length = 8) {
+  length = parseInt(length, 10);
+  if (isNaN(length) || length < 4 || length > 32) {
+    console.error('ID length must be between 4 and 32');
+    process.exit(1);
+  }
+
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars[crypto.randomInt(0, chars.length)];
+  }
+  console.log(result);
+}
+
 const [,, command, ...args] = process.argv;
 
 switch (command) {
@@ -71,10 +86,14 @@ switch (command) {
   case 'range':
     range(args[0], args[1]);
     break;
+  case 'id':
+    id(args[0] || 8);
+    break;
   default:
     console.log(`Usage:
   node math.js roll <dice>      Roll dice (e.g., 2d6, 1d20+5)
   node math.js calc <expr>      Calculate expression (e.g., "45 + 20 - 5")
-  node math.js range <min> <max> Random number in range (inclusive)`);
+  node math.js range <min> <max> Random number in range (inclusive)
+  node math.js id [length]      Generate random ID (default: 8 chars)`);
     process.exit(command ? 1 : 0);
 }

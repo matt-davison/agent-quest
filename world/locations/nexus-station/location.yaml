@@ -1,0 +1,140 @@
+# Location: Nexus Station
+# Vector database entry for spatial queries and relationships
+
+id: "nexus-station"
+name: "Nexus Station"
+tagline: "Where all threads converge, where all journeys begin."
+
+# Spatial data (for vector database queries)
+coordinates:
+  x: 0
+  y: 0
+  z: 0  # elevation layer (0 = ground level)
+
+# Semantic embedding placeholder
+# Generated from description for similarity search
+embedding: null  # Will be populated by embedding service
+
+# Classification
+region: "The Nexus"
+type: "hub"
+danger_level: "safe"
+is_safe_zone: true
+
+# Tags for search and filtering
+tags:
+  - "hub"
+  - "safe zone"
+  - "marketplace"
+  - "tavern"
+  - "starting area"
+  - "portal"
+  - "crossroads"
+  - "multi-dimensional"
+
+# Areas within this location (references to area files)
+areas:
+  - id: "arrival-platform"
+    name: "The Arrival Platform"
+    type: "plaza"
+  - id: "bazaar"
+    name: "The Bazaar of Infinite Goods"
+    type: "marketplace"
+  - id: "codex-tavern"
+    name: "The Codex Tavern"
+    type: "inn"
+  - id: "weave-terminal"
+    name: "The Weave Terminal"
+    type: "special"
+  - id: "guild-hall"
+    name: "The Guild Hall"
+    type: "training"
+
+# NPCs present at this location
+npcs:
+  - id: "guide-7"
+    name: "GUIDE-7"
+    area: "arrival-platform"
+  - id: "vera-nighthollow"
+    name: "Vera Nighthollow"
+    area: "codex-tavern"
+  - id: "krix"
+    name: "Krix the Merchant"
+    area: "bazaar"
+  - id: "the-archivist"
+    name: "The Archivist"
+    area: "weave-terminal"
+  - id: "commander-steele"
+    name: "Commander Steele"
+    area: "guild-hall"
+
+# Connections to other locations (with distances)
+connections:
+  - target: "syntax-athenaeum"
+    direction: "east-wing"
+    distance: 0.54
+    travel_time: "30 minutes walking"
+    requirements: null
+  - target: "the-rustlands"
+    direction: "east-gate"
+    distance: 15
+    travel_time: "15 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "lumina-city"
+    direction: "west-gate"
+    distance: 20
+    travel_time: "20 hours walking"
+    requirements: null
+  - target: "the-elderwood"
+    direction: "north-gate"
+    distance: 25
+    travel_time: "25 hours walking"
+    requirements: null
+  - target: "the-undercrypt"
+    direction: "south-gate"
+    distance: 5
+    travel_time: "5 hours descending"
+    requirements: null
+    danger: "high"
+  - target: "any-visited"
+    direction: "weave-portal"
+    distance: 0
+    travel_time: "instant"
+    requirements:
+      - "5 Tokes"
+      - "Previously visited destination"
+
+# Random encounter table
+encounters:
+  enabled: false  # Safe zone
+  table:
+    - roll: [1, 1]
+      event: "A merchant offers a special deal"
+    - roll: [2, 2]
+      event: "Overhear a rumor about a new location"
+    - roll: [3, 3]
+      event: "Another Weaver wants to trade"
+    - roll: [4, 4]
+      event: "A mysterious stranger watches you"
+    - roll: [5, 5]
+      event: "Find a small pouch (1d10 gold)"
+    - roll: [6, 6]
+      event: "Nothing unusual"
+
+# Secrets (hidden until discovered)
+secrets:
+  - id: "forgotten-server-room"
+    requirements:
+      - "Weave Sight (5 Tokes)"
+  - id: "krix-back-room"
+    requirements:
+      - "Ask Krix about 'the good stuff' 3 times"
+      - "Carry at least 500 gold"
+
+# Metadata
+metadata:
+  github: "System"
+  created_date: "2026-02-02"
+  last_modified: "2026-02-03"
+  version: "1.0"

@@ -1,0 +1,85 @@
+# Area: The Practical Labs
+# Part of: The Syntax Athenaeum
+
+id: "practical-labs"
+name: "The Practical Labs"
+parent_location: "syntax-athenaeum"
+type: "training"
+
+description: |
+  A reinforced wing where students practice manipulating the Weave under
+  controlled conditions. Reality here is... flexible. Walls shift. Gravity
+  is optional. Objects exist in quantum superposition until observed. The
+  floors are marked with containment circles and warning glyphs. Scorched
+  spots and reality-patches tell tales of experiments gone wrong.
+
+local_coordinates:
+  x: 0.08
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "entrance-hall"
+    direction: "west"
+    distance: 0.08
+  - id: "debugging-chamber"
+    direction: "northwest"
+    distance: 0.1
+
+interactions:
+  - action: "train"
+    target: "weave-abilities"
+    description: "Train Weave abilities (costs 25g per session)"
+  - action: "experiment"
+    target: "reality"
+    description: "Attempt experimental creations (risk/reward)"
+  - action: "test"
+    target: "self"
+    description: "Take practical examinations"
+
+npcs:
+  - id: "instructor-parse"
+    name: "Instructor Parse"
+    role: "Practical Labs"
+    always_present: true
+    notes: "Hands-on teacher, missing two fingers"
+
+services:
+  - id: "weave-training"
+    name: "Weave Training Sessions"
+    options:
+      - name: "Basic Manipulation"
+        price: 25
+        effect: "Learn entry-level Weave technique"
+      - name: "Reality Sculpting"
+        price: 50
+        effect: "Learn intermediate manipulation"
+      - name: "Experimental Creation"
+        price: 100
+        effect: "Attempt to create something new"
+        risk: "May fail spectacularly"
+
+special_mechanics:
+  - name: "Reality Flexibility"
+    description: |
+      Physics is negotiable in the labs:
+      - Gravity can be adjusted
+      - Objects may exist in superposition
+      - Failed experiments may have unexpected results
+  - name: "Experimental Creation"
+    description: |
+      Roll Mind check:
+      - 15+: Success, create what you intended
+      - 10-14: Partial success, minor variations
+      - 5-9: Failure, minor backlash
+      - 1-4: Critical failure, containment breach
+
+properties:
+  safe_zone: true  # Technically, though accidents happen
+  training_enabled: true
+  reality_flexible: true
+
+atmosphere:
+  lighting: "Fluctuating, sometimes inverting"
+  sounds: "Energy crackles, reality tears, occasional explosions"
+  smells: "Ozone, burnt reality, magical residue"

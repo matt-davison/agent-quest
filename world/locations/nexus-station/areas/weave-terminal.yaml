@@ -1,0 +1,89 @@
+# Area: The Weave Terminal
+# Part of: Nexus Station
+
+id: "weave-terminal"
+name: "The Weave Terminal"
+parent_location: "nexus-station"
+type: "special"
+
+description: |
+  A massive structure resembling both an ancient altar and a server rack.
+  Cables of pure light connect to crystalline nodes that pulse with the
+  heartbeat of reality itself. Here, Weavers can interface directly with
+  the underlying code of existence. The air crackles with potential, and
+  those with Weave Sight can see the threads of reality converging here.
+
+local_coordinates:
+  x: 0.15
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "arrival-platform"
+    direction: "west"
+    distance: 0.15
+  - id: "codex-tavern"
+    direction: "northwest"
+    distance: 0.12
+  - id: "guild-hall"
+    direction: "north"
+    distance: 0.1
+
+interactions:
+  - action: "interface"
+    target: "terminal"
+    description: "Access the Weave to create content"
+  - action: "spend-tokes"
+    target: "terminal"
+    description: "Spend Tokes for special abilities"
+  - action: "view-chronicles"
+    target: "terminal"
+    description: "View the Chronicles of contributions"
+  - action: "check-world-state"
+    target: "terminal"
+    description: "Check world state and updates"
+
+npcs:
+  - id: "the-archivist"
+    name: "The Archivist"
+    role: "Lore Keeper"
+    always_present: true
+    notes: "Ancient being, speaks in riddles"
+
+services:
+  - id: "weave-portal"
+    name: "Weave Portal"
+    description: "Instant travel to previously visited locations"
+    cost: 5  # Tokes
+    requirements:
+      - "Must have visited destination"
+  - id: "weave-sight"
+    name: "Weave Sight"
+    description: "See hidden elements of reality"
+    cost: 5  # Tokes
+    duration: "1 hour"
+
+secrets:
+  - id: "forgotten-server-room"
+    trigger: "Use Weave Sight (5 Tokes) near the back wall"
+    content: |
+      A hidden panel leads to the original server room of the Architects.
+      Contains fragments of the original source code and hints about
+      the Architects' fate.
+
+items:
+  - id: "the-terminal"
+    name: "The Weave Terminal"
+    type: "interface"
+    interactive: true
+    description: "Direct connection to the underlying code of reality"
+
+properties:
+  safe_zone: true
+  weave_access: true
+  portal_hub: true
+
+atmosphere:
+  lighting: "Pulsing light from crystalline nodes, ethereal glow"
+  sounds: "Deep hum of power, whispers of data, occasional harmonic tones"
+  smells: "Ozone, electricity, something ancient and unknowable"

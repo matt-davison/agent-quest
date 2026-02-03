@@ -1,0 +1,10 @@
+# Chain Mail
+id: kittc6zx
+name: Chain Mail
+type: armor
+subtype: medium
+rarity: uncommon
+value: 150
+stats:
+  armor: 5
+description: Interlocking metal rings. Heavier but more protective.

@@ -1,0 +1,13 @@
+{
+  "name": "inventory",
+  "description": "Manage persona inventories and look up items from the item database. Use for adding/removing items, checking what items exist, and resolving item IDs to full details.",
+  "triggers": [
+    "inventory",
+    "items",
+    "item database",
+    "give item",
+    "add item",
+    "remove item",
+    "equipment"
+  ]
+}

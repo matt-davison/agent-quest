@@ -73,7 +73,7 @@ Return to **[NPC Name]** at **[Location]** after completing all objectives.
 
 ```yaml
 status: available # available, active, completed
-created_by: "[Your Weaver Name]"
+github: "[Your GitHub Username]"
 created_date: "YYYY-MM-DD"
-completed_by: [] # List of Weavers who completed this
+completed_by: [] # List of GitHub usernames who completed this
 ```

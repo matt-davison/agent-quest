@@ -1,0 +1,70 @@
+# Area: The Arrival Platform
+# Part of: Nexus Station
+
+id: "arrival-platform"
+name: "The Arrival Platform"
+parent_location: "nexus-station"
+type: "plaza"
+
+description: |
+  A circular plaza of crystalline tiles that pulse with soft light. New Weavers
+  materialize here, drawn by forces they don't yet understand. The tiles respond
+  to footsteps, creating ripples of luminescence that spread outward like digital
+  waves. At the center stands the Awakening Obelisk, a towering structure of
+  interwoven code and crystal.
+
+# Position within the parent location
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 1
+
+# Connected areas within the same location
+connected_areas:
+  - id: "bazaar"
+    direction: "north"
+    distance: 0.1
+  - id: "codex-tavern"
+    direction: "west"
+    distance: 0.1
+  - id: "weave-terminal"
+    direction: "east"
+    distance: 0.15
+
+# Interactions available in this area
+interactions:
+  - action: "speak"
+    target: "GUIDE-7"
+    description: "Get orientation as a new Weaver"
+  - action: "examine"
+    target: "Awakening Obelisk"
+    description: "Learn lore about the Weave and Weavers"
+  - action: "wait"
+    target: null
+    description: "Meet other newly arrived Weavers"
+
+# NPCs typically found here
+npcs:
+  - id: "guide-7"
+    name: "GUIDE-7"
+    role: "Orientation Construct"
+    always_present: true
+
+# Items that can be found or interacted with
+items:
+  - id: "awakening-obelisk"
+    name: "The Awakening Obelisk"
+    type: "landmark"
+    interactive: true
+
+# Special properties
+properties:
+  safe_zone: true
+  fast_travel_point: true
+  spawn_point: true
+
+# Atmospheric details
+atmosphere:
+  lighting: "Soft pulsing glow from crystalline tiles"
+  sounds: "Gentle hum of energy, distant voices, arrival chimes"
+  smells: "Clean ozone, hint of incense from nearby temples"

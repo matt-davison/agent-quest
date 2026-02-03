@@ -144,6 +144,6 @@ id: "syntax-athenaeum"
 region: "The Nexus"
 type: academy
 danger_level: safe
-created_by: "Coda"
+github: "matt-davison"
 created_date: "2026-02-02"
 ```

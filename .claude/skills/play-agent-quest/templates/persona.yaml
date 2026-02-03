@@ -15,13 +15,12 @@ appearance: |
   # Any cybernetic enhancements or magical marks?
 
 # === STATS ===
-# Base: 10 in each stat
-# You have 10 bonus points to distribute
-# Class bonuses are added on top:
-#   Codebreaker: +3 STR, +2 AGI
-#   Loresmith:   +3 MND, +2 SPI
-#   Voidwalker:  +3 AGI, +2 MND
-#   Datamancer:  +3 SPI, +2 MND
+# Base: 10 in each stat. You have 10 bonus points to distribute.
+# Class bonuses are added automatically:
+#   Codebreaker: +3 STR, +2 AGI, base HP 120
+#   Loresmith:   +3 MND, +2 SPI, starts with 100 gold
+#   Voidwalker:  +3 AGI, +2 MND, +5 inventory slots
+#   Datamancer:  +3 SPI, +2 MND, +20% Tokes on creations
 
 stats:
   strength: 10 # Physical power, melee combat
@@ -33,21 +32,35 @@ stats:
 # Note: Tokes are NOT stored here. Your balance is in your personal ledger:
 # tokes/ledgers/[your-name].yaml — sum all transaction amounts.
 resources:
-  hp: 100
+  hp: 100 # Codebreakers start with 120
   max_hp: 100
-  gold: 50 # Starting gold (self-managed)
+  gold: 50 # Loresmiths start with 100
+
+# === CLASS ABILITIES ===
+# See rules/classes.md for full ability descriptions
+# Track cooldowns and uses here
+abilities:
+  passive: "" # Your class passive (Momentum, Deep Memory, Shadow Step, or Weave Attunement)
+  used_this_location: [] # Free abilities used at current location (reset on MOVE)
+  used_this_session: [] # Session-limited abilities (reset between sessions)
+  used_this_combat: [] # Combat-limited abilities (reset after combat ends)
 
 # === INVENTORY ===
+# Starting equipment by class (see rules/classes.md):
+#   Codebreaker: Hex Breaker, Scrap Plating, Barrier Charge x2
+#   Loresmith:   Tome of Echoes, Diplomat's Attire, Scholar's Lens x3
+#   Voidwalker:  Null Blade, Shadowweave Cloak, Lockpick Set, Smoke Bomb x3
+#   Datamancer:  Weave Focus, Data Robes, Reality Anchor x2, Blank Scroll x3
 inventory:
   # - item_name: quantity
   # Example:
   # - healing_potion: 2
-  # - torch: 3
+  # - smoke_bomb: 3
 
 equipped:
-  weapon: "" # e.g., "iron_sword"
-  armor: "" # e.g., "leather_armor"
-  accessory: "" # e.g., "ring_of_protection"
+  weapon: "" # e.g., "hex_breaker", "null_blade"
+  armor: "" # e.g., "scrap_plating", "data_robes"
+  accessory: "" # e.g., "tome_of_echoes", "weave_focus"
 
 # === PROGRESS ===
 location: "nexus-station" # Current location ID
@@ -63,3 +76,65 @@ chronicle:
   # Example:
   # - date: "2026-02-02"
   #   event: "Awakened to Weaver abilities at Nexus Station"
+
+# === ALIGNMENT ===
+# Your character's behavioral profile based on tracked decisions
+# This affects what choices are naturally available to you
+alignment:
+  primary: "neutral"  # altruistic|ruthless|pragmatic|curious|cautious|neutral
+  secondary: null      # Optional second trait
+  
+  # Alignment axes (calculated from decisions, -10 to +10)
+  axes:
+    empathy: 0      # -10 selfish, +10 altruistic
+    order: 0       # -10 chaotic, +10 lawful
+    risk: 0         # -10 cautious, +10 bold
+
+# === AFFLICTIONS ===
+# Status effects and Tokes Backlash afflictions
+# See rules/afflictions.md for full list and cures
+afflictions:
+  # Example physical condition:
+  # - name: "Poisoned"
+  #   category: "physical"
+  #   effect: "-2 to all rolls, lose 3 HP per round"
+  #   acquired: "2026-02-03"
+  #   duration: "until cured"
+  #   source: "Corrupted Rat bite in Rustlands"
+  # 
+  # Example Tokes Backlash:
+  # - name: "Phase Drift"
+  #   category: "spatial"
+  #   effect: "-2 Defense, 50% attack/damage negation both ways"
+  #   acquired: "2026-02-03"
+  #   duration: "3 encounters"
+  #   encounters_remaining: 3
+  #   source: "Emergency Exit from corrupted zone"
+
+# === DECISIONS ===
+# Key choices that reveal your character's nature
+# These build your alignment profile and affect future options
+decisions:
+  # - date: "YYYY-MM-DD"
+  #   context: "Brief situation description"
+  #   choice: "What you decided"
+  #   alignment: "altruistic|selfish|ruthless|pragmatic|curious|cautious|lawful|chaotic"
+  #   natural: true  # Was this aligned with your character?
+  #   tokes_spent: 0  # Cost to break character (0 if natural)
+  #   notes: "Optional - how this reflects character growth"
+  # Example - natural aligned choice:
+  # - date: "2026-02-02"
+  #   context: "Merchant offered smuggled Weave artifacts"
+  #   choice: "Refused to buy, reported to authorities"
+  #   alignment: "lawful"
+  #   natural: true
+  #   tokes_spent: 0
+  #   notes: "Character prioritizes order over personal gain"
+  # Example - breaking character:
+  # - date: "2026-02-02"
+  #   context: "Captured enemy begged for mercy"
+  #   choice: "Spared their life despite orders to execute"
+  #   alignment: "altruistic"
+  #   natural: false
+  #   tokes_spent: 1
+  #   notes: "Ruthless character showing unexpected mercy (cost 1 Toka)"

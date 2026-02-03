@@ -1,0 +1,95 @@
+# Area: The Codex Tavern
+# Part of: Nexus Station
+
+id: "codex-tavern"
+name: "The Codex Tavern"
+parent_location: "nexus-station"
+type: "inn"
+
+description: |
+  A three-story establishment where Weavers rest, drink, and share stories.
+  The architecture shifts between rustic fantasy inn and sleek lounge bar
+  depending on which floor you're on. The first floor is a rowdy bar with
+  bards and arm-wrestling contests. The second floor is a quieter lounge
+  for serious conversation. The third floor holds private rooms for rent.
+
+local_coordinates:
+  x: -0.1
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "arrival-platform"
+    direction: "east"
+    distance: 0.1
+  - id: "bazaar"
+    direction: "northeast"
+    distance: 0.08
+  - id: "weave-terminal"
+    direction: "southeast"
+    distance: 0.12
+
+interactions:
+  - action: "rest"
+    target: "rooms"
+    description: "Rest to restore HP"
+  - action: "gather-rumors"
+    target: "patrons"
+    description: "Hear rumors from patrons"
+  - action: "find-quests"
+    target: "quest-givers"
+    description: "Find quest-givers"
+  - action: "socialize"
+    target: "players"
+    description: "Meet other players"
+
+npcs:
+  - id: "vera-nighthollow"
+    name: "Vera Nighthollow"
+    role: "Tavern Keeper"
+    always_present: true
+    notes: "Knows everyone's business"
+
+services:
+  - id: "rooms"
+    name: "Lodging"
+    options:
+      - name: "Common Room"
+        price: 5
+        effect: "Basic rest, restore HP"
+      - name: "Private Room"
+        price: 10
+        effect: "Full rest, restore HP and remove minor conditions"
+      - name: "Suite"
+        price: 25
+        effect: "Luxury rest, restore HP, remove conditions, +1 to next check"
+  - id: "food-drink"
+    name: "Food & Drink"
+    options:
+      - name: "Meal"
+        price: 2
+        effect: "Satisfies hunger"
+      - name: "Strong Drink"
+        price: 3
+        effect: "Liquid courage (+1 Spirit, -1 Mind for 1 hour)"
+
+floors:
+  - floor: 1
+    name: "The Common Room"
+    description: "Rowdy bar with bards, games, and cheap drinks"
+  - floor: 2
+    name: "The Quiet Lounge"
+    description: "Subdued atmosphere for serious conversation"
+  - floor: 3
+    name: "Private Rooms"
+    description: "Rentable rooms for rest and private meetings"
+
+properties:
+  safe_zone: true
+  rest_enabled: true
+  rumor_source: true
+
+atmosphere:
+  lighting: "Warm firelight mixed with neon accents"
+  sounds: "Laughter, music, clinking glasses, murmured stories"
+  smells: "Ale, roasting meat, pipe smoke, exotic drinks"

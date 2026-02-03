@@ -1,0 +1,100 @@
+# Location Vector Database Index
+# Each location has a unique ID and coordinates for spatial relationships
+# Coordinates use a 2D grid system where 1 unit = 1 league (~3 miles)
+
+version: "1.0"
+coordinate_system:
+  type: "cartesian_2d"
+  unit: "leagues"
+  unit_description: "1 league ≈ 3 miles, roughly 1 hour of travel on foot"
+  origin: "nexus-station"
+
+# Location Registry
+# Coordinates are relative to Nexus Station (0, 0)
+locations:
+  nexus-station:
+    name: "Nexus Station"
+    coordinates: [0, 0]
+    region: "The Nexus"
+    type: "hub"
+    danger_level: "safe"
+    searchable_tags:
+      - "hub"
+      - "safe zone"
+      - "marketplace"
+      - "tavern"
+      - "starting area"
+      - "portal"
+
+  syntax-athenaeum:
+    name: "The Syntax Athenaeum"
+    coordinates: [0.5, 0.2]
+    region: "The Nexus"
+    type: "academy"
+    danger_level: "safe"
+    searchable_tags:
+      - "academy"
+      - "training"
+      - "library"
+      - "education"
+      - "weave"
+
+  # Placeholder entries for connected but unexplored locations
+  the-rustlands:
+    name: "The Rustlands"
+    coordinates: [15, 0]
+    region: "The Wastes"
+    type: "wilderness"
+    danger_level: "high"
+    searchable_tags:
+      - "frontier"
+      - "dangerous"
+      - "scavenging"
+      - "technology"
+    status: "unexplored"
+
+  lumina-city:
+    name: "Lumina City"
+    coordinates: [-20, 0]
+    region: "The Sprawl"
+    type: "settlement"
+    danger_level: "medium"
+    searchable_tags:
+      - "cyberpunk"
+      - "metropolis"
+      - "corporations"
+      - "nightlife"
+    status: "unexplored"
+
+  the-elderwood:
+    name: "The Elderwood"
+    coordinates: [0, 25]
+    region: "The Wild"
+    type: "wilderness"
+    danger_level: "medium"
+    searchable_tags:
+      - "forest"
+      - "ancient"
+      - "magical"
+      - "fey"
+    status: "unexplored"
+
+  the-undercrypt:
+    name: "The Undercrypt"
+    coordinates: [0, -5]
+    region: "The Depths"
+    type: "dungeon"
+    danger_level: "high"
+    searchable_tags:
+      - "dungeon"
+      - "underground"
+      - "undead"
+      - "treasure"
+    status: "unexplored"
+
+# Similarity search configuration
+# Used for finding locations by description or context
+embeddings:
+  enabled: false  # Enable when embedding generation is implemented
+  model: "text-embedding-3-small"
+  dimensions: 256

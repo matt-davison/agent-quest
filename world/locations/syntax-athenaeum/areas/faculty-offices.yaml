@@ -1,0 +1,105 @@
+# Area: The Faculty Offices
+# Part of: The Syntax Athenaeum
+
+id: "faculty-offices"
+name: "The Faculty Offices"
+parent_location: "syntax-athenaeum"
+type: "offices"
+
+description: |
+  Where the masters dwell. Each professor specializes in a different aspect
+  of reality manipulation. The corridor seems to extend infinitely, with
+  doors appearing and disappearing based on who you seek. Getting an
+  appointment is half the challenge—some doors only appear at certain
+  times, others require solving a puzzle to reveal.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 3  # Upper floor, accessible by stairs that fold space
+
+connected_areas:
+  - id: "entrance-hall"
+    direction: "down"
+    distance: 0.03
+
+interactions:
+  - action: "visit"
+    target: "professor"
+    description: "Request mentorship from a professor"
+  - action: "quest"
+    target: "mentorship"
+    description: "Receive mentorship quests"
+  - action: "learn"
+    target: "advanced-techniques"
+    description: "Learn advanced techniques"
+  - action: "unlock"
+    target: "specialization"
+    description: "Unlock class specializations"
+
+npcs:
+  - id: "dean-overflow"
+    name: "Dean Overflow"
+    role: "Headmaster"
+    always_present: true
+    notes: "Ancient Datamancer, speaks in functions"
+    dialogue_style: "Programming metaphors only"
+  - id: "professor-null"
+    name: "Professor Null"
+    role: "Void Studies"
+    always_present: false
+    notes: "Teaches what exists between the code"
+    office_hours: "When the clock shows no time"
+
+offices:
+  - id: "dean-office"
+    name: "The Headmaster's Recursion"
+    occupant: "dean-overflow"
+    access: "Always available (if you can find it)"
+    description: "Office loops in on itself, filled with ancient terminals"
+
+  - id: "null-office"
+    name: "The Void Between"
+    occupant: "professor-null"
+    access: "Requires completing 'The Silence Between' quest"
+    description: "A space that doesn't quite exist"
+
+secrets:
+  - id: "null-classroom"
+    trigger: "On the third floor, turn left at the paradox, open the door that isn't there"
+    content: "Professor Null teaches advanced void manipulation"
+    requirements:
+      - "Complete 'The Silence Between' quest"
+
+services:
+  - id: "mentorship"
+    name: "Faculty Mentorship"
+    description: "One-on-one guidance from masters"
+    cost: 100  # gold per session
+    effect: "Receive personalized quest and +1 to related checks"
+
+  - id: "specialization"
+    name: "Class Specialization"
+    description: "Unlock advanced class paths"
+    requirements:
+      - "Level 10+"
+      - "Complete class quest chain"
+      - "Faculty recommendation"
+
+special_mechanics:
+  - name: "Dynamic Corridors"
+    description: |
+      The hallway rearranges based on who you seek.
+      To find a specific professor:
+      - Think clearly of who you need
+      - Walk with purpose
+      - Their door will appear (if they're accepting visitors)
+
+properties:
+  safe_zone: true
+  appointment_required: true  # For most interactions
+
+atmosphere:
+  lighting: "Varies by office—some glow, some are lit by impossible light"
+  sounds: "Muffled discussions, typing, occasional reality glitches"
+  smells: "Coffee, old books, existential dread, chalk"

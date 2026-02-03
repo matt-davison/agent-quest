@@ -58,6 +58,17 @@ node math.js range 10 20    # Random 10-20
 node math.js range 1 100    # Percentile
 ```
 
+### id `[length]`
+
+Generate a random alphanumeric ID (lowercase letters and numbers).
+
+```bash
+node math.js id         # 8-char ID (default): "k7x2m9pq"
+node math.js id 12      # 12-char ID: "a3b5c7d9e1f2"
+```
+
+Length must be between 4 and 32 characters.
+
 ---
 
 ## Agent Quest Examples

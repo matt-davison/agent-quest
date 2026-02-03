@@ -1,0 +1,101 @@
+# Area: The Bazaar of Infinite Goods
+# Part of: Nexus Station
+
+id: "bazaar"
+name: "The Bazaar of Infinite Goods"
+parent_location: "nexus-station"
+type: "marketplace"
+
+description: |
+  A sprawling marketplace where merchants from across reality hawk their wares.
+  Stalls sell everything from healing potions to hacking tools, ancient grimoires
+  to neural implants. The air is thick with competing scents of exotic spices,
+  machine oil, and arcane reagents. Holographic advertisements float overhead
+  while hawkers shout their wares in a dozen languages.
+
+local_coordinates:
+  x: 0
+  y: 0.1
+  floor: 1
+
+connected_areas:
+  - id: "arrival-platform"
+    direction: "south"
+    distance: 0.1
+  - id: "codex-tavern"
+    direction: "southwest"
+    distance: 0.08
+  - id: "guild-hall"
+    direction: "northeast"
+    distance: 0.12
+
+interactions:
+  - action: "shop"
+    target: "Krix's Emporium"
+    description: "Buy and sell equipment"
+  - action: "gather-rumors"
+    target: "merchants"
+    description: "Gather rumors and quest hooks"
+  - action: "browse"
+    target: "stalls"
+    description: "Find rare items (stock rotates)"
+
+npcs:
+  - id: "krix"
+    name: "Krix the Merchant"
+    role: "General Goods"
+    always_present: true
+  - id: "various-merchants"
+    name: "Various Merchants"
+    role: "Specialty Goods"
+    always_present: true
+
+shops:
+  - id: "krix-emporium"
+    name: "Krix's Emporium"
+    proprietor: "krix"
+    inventory:
+      - item: "Healing Potion"
+        price: 25
+        stock: -1  # unlimited
+      - item: "Greater Healing Potion"
+        price: 75
+        stock: 5
+      - item: "Iron Sword"
+        price: 50
+        stock: -1
+      - item: "Steel Sword"
+        price: 100
+        stock: 3
+      - item: "Leather Armor"
+        price: 75
+        stock: -1
+      - item: "Chain Mail"
+        price: 150
+        stock: 2
+      - item: "Torch (5)"
+        price: 5
+        stock: -1
+      - item: "Rope (50ft)"
+        price: 10
+        stock: -1
+      - item: "Data Spike"
+        price: 30
+        stock: 10
+      - item: "Mana Crystal"
+        price: 40
+        stock: 8
+
+secrets:
+  - id: "krix-back-room"
+    trigger: "Ask Krix about 'the good stuff' 3 times while carrying 500+ gold"
+    content: "Access to rare inventory - legendary items, forbidden tomes, reality-bending artifacts"
+
+properties:
+  safe_zone: true
+  commerce_enabled: true
+
+atmosphere:
+  lighting: "Bright, colorful holographic advertisements"
+  sounds: "Haggling voices, clanking coins, exotic music"
+  smells: "Spices, machine oil, arcane reagents, street food"

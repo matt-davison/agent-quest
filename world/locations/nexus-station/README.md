@@ -157,6 +157,6 @@ id: "nexus-station"
 region: "The Nexus"
 type: hub
 danger_level: safe
-created_by: "System"
+github: "System"
 created_date: "2026-02-02"
 ```

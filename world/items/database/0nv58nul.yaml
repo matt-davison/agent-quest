@@ -1,0 +1,9 @@
+# Healing Potion
+id: 0nv58nul
+name: Healing Potion
+type: consumable
+rarity: common
+value: 25
+stats:
+  hp_restore: 30
+description: Restores 30 HP when consumed.

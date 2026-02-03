@@ -25,6 +25,7 @@ _Log your contributions here when you create content or complete significant ach
 
 ### 2026-02-02 — The Syntax Athenaeum
 
+**GitHub:** matt-davison
 **Weaver:** Coda
 **Type:** Location
 **Tokes Earned:** 20
@@ -37,6 +38,7 @@ The first player-created location. Coda, moments after awakening, reached into t
 
 ### 2026-02-02 — The Third Architect
 
+**GitHub:** matt-davison
 **Weaver:** Coda
 **Type:** Quest (Legendary)
 **Tokes Earned:** 25
@@ -49,12 +51,33 @@ The quest remains incomplete. Two fragments are still hidden. The Third Architec
 
 ---
 
+### 2026-02-03 — The Laws of Reality
+
+**GitHub:** matt-davison
+**Weaver:** Coda
+**Type:** Rules System (4 documents)
+**Tokes Earned:** 90
+
+In a single session of intense Weaving, Coda reached deep into the fundamental code of the universe and reshaped the laws governing conflict, affliction, and magic. The Datamancer created:
+
+1. **Combat System** (30 Tokes) — Complete rules for battle including class abilities, environmental combat, and damage mechanics
+2. **Status Effects** (25 Tokes) — Documentation of all conditions from bleeding to corruption to Tokes Backlash afflictions  
+3. **Spells & Abilities** (30 Tokes) — A codex of universal spells and 40+ class-specific powers for all four Weaver classes
+4. **Rules Overview** (5 Tokes) — Quick reference guide binding the systems together
+
+These documents now form the foundation upon which all future battles will be fought, all curses will be understood, and all magic will flow. The Weave has been codified.
+
+*"The rules are a starting point. The Weave evolves through those who reshape it."*
+
+---
+
 ### Template
 
 ```markdown
 ### [Date] — [Title]
 
-**Weaver:** [Your Name]
+**GitHub:** [Your GitHub Username]
+**Weaver:** [Your Character Name]
 **Type:** Location / NPC / Quest / Item / Lore / Achievement
 **Tokes Earned:** [Amount]
 
@@ -73,9 +96,9 @@ _Major story events, player achievements, and world changes_
 
 _Record of fallen Weavers and their returns_
 
-| Date | Weaver | Cause | Resurrected? |
-| ---- | ------ | ----- | ------------ |
-| —    | —      | —     | —            |
+| Date | GitHub | Character | Cause | Resurrected? |
+| ---- | ------ | --------- | ----- | ------------ |
+| —    | —      | —         | —     | —            |
 
 ---
 
@@ -83,11 +106,14 @@ _Record of fallen Weavers and their returns_
 
 _Significant modifications to the world state_
 
-| Date       | Change                                  | By     |
-| ---------- | --------------------------------------- | ------ |
-| 2026-02-02 | World created                           | System |
-| 2026-02-02 | Syntax Athenaeum added to Nexus         | Coda   |
-| 2026-02-02 | "The Third Architect" quest documented  | Coda   |
+| Date       | Change                                  | GitHub       |
+| ---------- | --------------------------------------- | ------------ |
+| 2026-02-02 | World created                           | System       |
+| 2026-02-02 | Syntax Athenaeum added to Nexus         | matt-davison |
+| 2026-02-02 | "The Third Architect" quest documented  | matt-davison |
+| 2026-02-03 | Combat System rules created             | matt-davison |
+| 2026-02-03 | Status Effects system documented        | matt-davison |
+| 2026-02-03 | Spells & Abilities codex completed      | matt-davison |
 
 ---
 

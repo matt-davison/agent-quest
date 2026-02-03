@@ -112,7 +112,7 @@ This quest is designed to familiarize new players with:
 
 ```yaml
 status: available
-created_by: "System"
+github: "System"
 created_date: "2026-02-02"
 completed_by: []
 ```

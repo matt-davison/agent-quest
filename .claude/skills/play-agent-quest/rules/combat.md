@@ -513,10 +513,48 @@ node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # 30% bonus = 20 Tokes
 
 ---
 
+## Advanced Combat Systems
+
+For more complex combat scenarios, see these additional resources:
+
+### Enemy Tactics
+Enemies follow an AI decision framework that makes them feel intelligent and dangerous. See [Enemy Tactics](enemy-tactics.md) for details on:
+- Priority order (Survival → Abilities → Environment → Positioning → Attack)
+- Target selection logic
+- Environmental interaction decisions
+- Pack tactics and flanking
+- Morale and retreat behaviors
+
+### Encounter Generation
+Combat encounters are generated with balanced difficulty and dynamic environments. See [Encounter Generation](encounter-generation.md) for:
+- Difficulty budget calculation
+- Enemy composition by tier (Minion/Standard/Elite/Boss/Legendary)
+- Battle environment generation
+- Initial positioning
+- Dynamic events during combat
+
+### Battle Environments
+Combat takes place in dynamically generated arenas with terrain, hazards, and interactive elements. See [Battle Environment Template](../templates/battle-environment.yaml) for:
+- Terrain features (elevation, cover, difficult terrain)
+- Interactive elements (explosives, control panels, suspended objects)
+- Environmental hazards (corruption zones, electrical floors, void tears)
+- Dynamic events that change the battlefield
+
+### Bestiary
+Enemy creatures are documented in the [Bestiary](../world/bestiary/README.md) with complete stat blocks, abilities, and tactical behaviors. Each creature entry includes:
+- Core combat stats
+- Special abilities with AI priorities
+- Environmental interaction preferences
+- Morale and retreat behavior
+- Loot tables
+
+---
+
 ## Metadata
 
 ```yaml
 created: "2026-02-03"
+updated: "2026-02-03"
 author: "Coda"
 class: "Datamancer"
 tokes_value: 30

@@ -104,6 +104,19 @@ properties:
   silence_zone: false       # Sound-based abilities blocked
   reality_flexible: false   # Physics are negotiable
 
+# Optional: Pre-defined combat environment for this area
+# If not specified, generated dynamically when combat starts
+# See templates/battle-environment.yaml for full schema
+combat_environment:
+  enabled: false            # Set true to use custom environment
+  type: urban | wilderness | dungeon | corrupted | digital | void
+  size: medium              # small | medium | large | huge
+  preset: null              # Use a named preset, or null for custom
+  # Custom terrain/hazards/interactive elements as needed:
+  # terrain: [...]
+  # hazards: [...]
+  # interactive_elements: [...]
+
 # Atmospheric details for immersion
 atmosphere:
   lighting: "Description of lighting conditions"

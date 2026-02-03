@@ -1,0 +1,214 @@
+# Creature Template
+# Copy to: world/bestiary/<category>/<creature-id>.yaml
+
+id: "creature-id"
+name: "Creature Name"
+category: corrupted | mechanical | humanoid | elemental | void | beast | undead | construct | aberration
+tier: minion | standard | elite | boss | legendary
+
+# Flavor text and lore
+description: |
+  2-3 paragraphs describing the creature's appearance, origin, and behavior.
+
+  What does it look like? How does it move? What sounds does it make?
+
+  Where does it come from? What drives it? Is it intelligent or feral?
+
+# Core Combat Stats
+stats:
+  hp: 30                    # Health points
+  defense: 12               # Target number for attacks
+  attack_bonus: +3          # Added to attack rolls
+  damage: 10                # Base damage dealt
+  speed: medium             # slow | medium | fast | very_fast
+  initiative_bonus: +1      # Added to initiative rolls
+
+# Stat guidelines by tier:
+# - Minion:    HP 15-25,  Def 10-12, Atk +1-2,  Dmg 5-8
+# - Standard:  HP 30-50,  Def 12-14, Atk +3-4,  Dmg 10-15
+# - Elite:     HP 60-100, Def 14-16, Atk +5-7,  Dmg 15-25
+# - Boss:      HP 150-300, Def 16-18, Atk +8-10, Dmg 25-40
+# - Legendary: HP 400+,   Def 18-20, Atk +10+,  Dmg 40+
+
+# Combat role determines behavior priorities
+role: brute | skirmisher | controller | sniper | support | swarm
+
+# Role definitions:
+# - Brute:      High HP, high damage, low mobility. Charges in, takes hits.
+# - Skirmisher: Mobile, hit-and-run tactics. Uses environment for advantage.
+# - Controller: Area denial, debuffs, crowd control. Shapes battlefield.
+# - Sniper:     Long range, high single-target damage. Avoids melee.
+# - Support:    Buffs allies, heals, summons. Protects self behind others.
+# - Swarm:      Weak individually, dangerous in numbers. Overwhelm tactics.
+
+# Resistances and vulnerabilities
+defenses:
+  resistances:              # Take half damage
+    - "damage_type"         # physical | fire | ice | lightning | void | corruption
+  immunities:               # Take no damage
+    - "damage_type"
+  vulnerabilities:          # Take double damage
+    - "damage_type"
+
+# Special abilities
+abilities:
+  - name: "Ability Name"
+    type: passive | active | reaction | triggered
+    description: |
+      What this ability does. Include all mechanical effects.
+    cooldown: 0             # Rounds until usable again (0 = always available)
+    cost: 0                 # Resource cost if any
+    range: adjacent         # adjacent | close | medium | long | self | area
+    area: null              # null | 5m_radius | 10m_cone | line_20m | etc.
+    damage: 0               # Additional/special damage if any
+    effects:                # Status effects applied
+      - effect: "effect_name"
+        duration: 2         # Rounds
+        save_dc: 12         # Target rolls d20, must meet or beat
+    ai_priority: high       # low | medium | high | critical
+    ai_condition: "When to use this ability"
+
+# Boss creatures have phase transitions
+phases:                     # Only for boss/legendary tier
+  - name: "Phase 1"
+    hp_threshold: 100       # Percentage HP to trigger (100 = start)
+    description: "Normal combat behavior"
+    abilities_active:       # Which abilities are available
+      - "ability-name"
+    behavior_changes: null
+
+  - name: "Phase 2"
+    hp_threshold: 50        # Triggers at 50% HP
+    description: "Creature becomes enraged/desperate"
+    abilities_active:
+      - "ability-name"
+      - "phase-2-ability"
+    behavior_changes:
+      - "Gains +2 to attack rolls"
+      - "Speed increases to fast"
+      - "New attack pattern"
+    transition_event: |
+      Describe what happens when this phase triggers.
+      Dramatic moment, visual effects, dialogue if any.
+
+# Environmental interaction preferences
+environment:
+  preferred_terrain:        # Where this creature thrives
+    - terrain_type: "elevation"
+      bonus: "+1 to attack from high ground"
+    - terrain_type: "cover"
+      behavior: "Seeks cover when below 50% HP"
+
+  interactions:             # How it uses interactive elements
+    - element: "explosive_barrels"
+      behavior: "Kicks toward enemies when flanked"
+      priority: medium
+      condition: "Multiple enemies in blast radius"
+
+    - element: "control_panels"
+      behavior: "Activates environmental hazards"
+      priority: high
+      condition: "Enemy near hazard trigger zone"
+
+    - element: "suspended_objects"
+      behavior: "Cuts supports to drop on enemies"
+      priority: medium
+      condition: "Enemy directly below"
+
+  hazard_immunity:          # Hazards it ignores
+    - "corruption_zone"     # Corrupted creatures immune to corruption
+
+  hazard_exploitation:      # Hazards it uses against players
+    - hazard: "electrical_floor"
+      tactic: "Drives enemies toward while staying clear"
+
+# Morale and retreat behavior
+morale:
+  break_threshold: 25       # Percentage HP when morale breaks
+  break_behavior: flee | surrender | desperate | fearless
+
+  # flee:      Attempts to escape combat
+  # surrender: Offers to yield (intelligent creatures only)
+  # desperate: +2 to all attacks, ignores defense, fights to death
+  # fearless:  Never breaks, fights until destroyed
+
+  group_morale: true        # Affected by allies dying?
+  leader_dependent: false   # Flees if leader dies?
+  rally_condition: "Condition that restores morale (boss arrives, reinforcements, etc.)"
+
+# Targeting preferences
+targeting:
+  primary: lowest_hp | highest_threat | healer | caster | random | nearest
+  secondary: lowest_hp      # Fallback if primary unavailable
+
+  # lowest_hp:      Focuses weakest enemy (finisher)
+  # highest_threat: Focuses most dangerous enemy
+  # healer:         Prioritizes support/healing classes
+  # caster:         Prioritizes magic users
+  # random:         Unpredictable targeting
+  # nearest:        Attacks closest enemy
+
+  avoids:                   # Targets it won't attack unless necessary
+    - "condition"           # e.g., "heavily armored targets", "enemies in cover"
+  switches_target_when: "Condition to change targets mid-combat"
+
+# Group tactics (when multiple of this creature)
+pack_tactics:
+  enabled: true
+  flanking: true            # Attempts to flank with allies
+  focus_fire: true          # Multiple creatures attack same target
+  protect_leader: false     # Positions to shield boss/elite
+  swarm_threshold: 3        # Number needed for swarm bonus
+  swarm_bonus: "+1 attack per ally adjacent to target"
+
+# What players get for defeating it
+loot:
+  gold:
+    min: 5
+    max: 15
+  xp: 25
+  guaranteed_drops:         # Always drops
+    - item: "item-name"
+      quantity: 1
+  chance_drops:             # Random drops
+    - item: "item-name"
+      chance: 25            # Percentage
+      quantity: 1
+  rare_drops:               # Very rare
+    - item: "item-name"
+      chance: 5
+      quantity: 1
+
+# Special creature type behaviors
+type_traits:                # Category-specific defaults
+  corrupted:
+    - "Spreads corruption on hit (5% chance)"
+    - "Heals in corruption zones"
+    - "Immune to corruption damage"
+  mechanical:
+    - "Immune to poison and disease"
+    - "Vulnerable to lightning"
+    - "Can be hacked (Intelligence check DC 15)"
+  void:
+    - "Ignores physical cover"
+    - "Can phase through walls (1/combat)"
+    - "Vulnerable to light-based attacks"
+  undead:
+    - "Immune to poison, disease, fear"
+    - "Vulnerable to holy damage"
+    - "Cannot heal normally"
+
+# Encounter notes for the GM
+encounter_notes: |
+  Tips for running this creature in combat.
+
+  What makes it interesting? What should players notice?
+
+  Common mistakes and how to avoid them.
+
+# Metadata
+metadata:
+  created: "2026-02-03"
+  author: "Creator Name"
+  source: "Where this creature comes from in lore"
+  cr_equivalent: 2          # Rough challenge rating for encounter building

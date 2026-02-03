@@ -1,0 +1,562 @@
+# Battle Environment Template
+# Generated automatically when combat starts based on location type
+# Can also be pre-defined for specific encounters
+
+id: "environment-id"
+name: "Environment Name"
+location_type: urban | wilderness | dungeon | void | digital | corrupted
+
+description: |
+  The battlefield description. What the combatants see.
+
+  Tactical overview of the space and notable features.
+
+---
+
+# Terrain Features
+terrain:
+  size: small | medium | large | huge
+  # small:  ~10m x 10m (cramped rooms, alleys)
+  # medium: ~20m x 20m (standard rooms, clearings)
+  # large:  ~40m x 40m (halls, plazas, open areas)
+  # huge:   ~60m+ (arenas, battlefields)
+
+  elevation:
+    - id: "elevated-1"
+      name: "Raised Platform"
+      position: northeast
+      height: medium          # low (1m) | medium (2-3m) | high (4m+)
+      access: stairs          # stairs | ladder | climb | jump
+      advantage: "+1 damage to attacks from this position"
+      cover_provided: none
+      capacity: 2             # Max creatures
+
+    - id: "pit-1"
+      name: "Sunken Area"
+      position: center
+      height: low_depression  # Negative elevation
+      access: jump_down
+      disadvantage: "-2 to Defense while in pit"
+      cover_provided: partial_from_ranged
+
+  cover:
+    - id: "cover-1"
+      name: "Structural Pillar"
+      position: west
+      type: heavy             # light | heavy | total
+      destructible: true
+      hp: 50
+      provides: "+4 Defense vs ranged, blocks line of sight"
+
+    - id: "cover-2"
+      name: "Overturned Table"
+      position: south
+      type: light
+      destructible: true
+      hp: 15
+      provides: "+2 Defense vs ranged"
+
+  difficult_terrain:
+    - id: "difficult-1"
+      name: "Debris Field"
+      position: northwest
+      area: 3m_radius
+      effect: "Movement costs double"
+      additional: "Agility DC 10 or fall prone when running"
+
+---
+
+# Interactive Elements
+# Objects that combatants can use tactically
+
+interactive_elements:
+  - id: "explosive-1"
+    name: "Unstable Power Cell"
+    type: explosive
+    position: east
+    trigger: "5 damage or fire/lightning attack"
+    effect: |
+      Explodes in 5m radius.
+      Damage: 20 fire
+      Save: Agility DC 12 for half
+    one_time: true
+    visible: true
+    ai_notes: "Enemies will try to trigger when players are adjacent"
+
+  - id: "control-1"
+    name: "Environmental Control Panel"
+    type: control_panel
+    position: northeast_corner
+    actions:
+      - name: "Activate Emergency Lights"
+        effect: "Removes darkness penalties"
+        uses: unlimited
+      - name: "Trigger Lockdown"
+        effect: "Seals doors for 3 rounds"
+        uses: 1
+      - name: "Vent Atmosphere"
+        effect: "5 damage/round to all in room, 3 rounds"
+        uses: 1
+    interaction: "Minor action to use"
+    hackable: true
+    hack_dc: 14
+
+  - id: "suspended-1"
+    name: "Heavy Cargo Container"
+    type: suspended_object
+    position: center_ceiling
+    drop_zone: center_5m
+    trigger: "Cut support cable (10 HP) or control panel"
+    effect: |
+      Falls on drop zone.
+      Damage: 30 crushing
+      Save: Agility DC 14 to dodge
+      Creates difficult terrain
+    one_time: true
+    visible: true
+
+  - id: "barrier-1"
+    name: "Energy Barrier Generator"
+    type: barrier
+    position: center_dividing
+    state: inactive
+    toggle: "Control panel or 20 damage to generator"
+    when_active: "Impassable barrier, blocks all attacks"
+    hp: 40
+    ai_notes: "Controllers will activate to divide party"
+
+  - id: "turret-1"
+    name: "Automated Defense Turret"
+    type: turret
+    position: ceiling_southwest
+    state: inactive
+    activation: "Control panel or detected intrusion"
+    stats:
+      attack_bonus: +4
+      damage: 12
+      range: medium
+      targets_per_round: 1
+    hackable: true
+    hack_dc: 15
+    hack_effect: "Change targeting to enemies instead"
+    hp: 25
+
+---
+
+# Environmental Hazards
+# Dangerous zones that affect combat
+
+hazards:
+  - id: "hazard-corruption"
+    name: "Corruption Pool"
+    type: corruption_zone
+    position: southwest
+    area: 4m_radius
+    visible: true
+    effect: |
+      Start of turn in zone: 5 corruption damage
+      Roll d20: On 1-3, gain Corrupted status (1 round)
+    duration: permanent
+    immunity: "Corrupted creatures"
+    ai_notes: "Corrupted enemies will fight from within, lure players in"
+
+  - id: "hazard-electrical"
+    name: "Exposed Power Conduit"
+    type: electrical
+    position: floor_east_strip
+    area: 2m_wide_strip
+    visible: true
+    trigger: "Stepping on, or every 2 rounds automatically"
+    effect: |
+      When triggered: 15 lightning damage
+      Save: Agility DC 13 to leap clear
+      Creatures in metal armor: +5 damage
+    duration: permanent
+    can_disable: true
+    disable_method: "Control panel or destroy conduit (HP 20)"
+
+  - id: "hazard-void"
+    name: "Void Tear"
+    type: void_tear
+    position: center
+    area: 2m_radius
+    visible: true
+    effect: |
+      Gravity anomaly - pulls creatures toward center
+      Start of turn within 5m: Strength DC 12 or pulled 2m closer
+      In center: 10 void damage, random teleport 1d6 meters
+    duration: "Until combat ends or sealed"
+    can_seal: true
+    seal_method: "Datamancer ability or 50 total damage"
+    expanding: true
+    expansion_rate: "Grows 1m radius every 5 rounds"
+
+  - id: "hazard-fire"
+    name: "Burning Wreckage"
+    type: fire
+    position: north
+    area: 3m_radius
+    visible: true
+    effect: |
+      Entering or starting turn: 8 fire damage
+      Creates smoke: -2 to ranged attacks through
+    duration: "10 rounds or extinguished"
+    can_extinguish: true
+    extinguish_method: "Water, ice ability, or smother (Major action)"
+    spreading: true
+    spread_chance: "25% per round to adjacent flammables"
+
+---
+
+# Tactical Positions
+# Pre-defined advantageous spots
+
+tactical_positions:
+  - id: "sniper-nest"
+    name: "Elevated Corner"
+    position: northeast_elevated
+    advantages:
+      - "+1 damage (elevation)"
+      - "Heavy cover from ground level"
+      - "Clear sightlines to 80% of battlefield"
+    disadvantages:
+      - "Single access point (stairs)"
+      - "Vulnerable to area effects"
+    ideal_for: "Snipers, ranged controllers"
+
+  - id: "choke-point"
+    name: "Narrow Doorway"
+    position: south_entrance
+    advantages:
+      - "Only 1 creature can pass at a time"
+      - "Defenders get +2 to hit"
+      - "Blocks flanking"
+    disadvantages:
+      - "Can be bypassed (Phase, teleport)"
+      - "Area effects hit everyone in line"
+    ideal_for: "Brutes, defensive positions"
+
+  - id: "central-hub"
+    name: "Center Platform"
+    position: center
+    advantages:
+      - "Access to all areas quickly"
+      - "Can reach all interactive elements"
+    disadvantages:
+      - "Exposed from all directions"
+      - "No cover"
+      - "Adjacent to void tear hazard"
+    ideal_for: "Mobile skirmishers, controllers"
+
+---
+
+# Dynamic Events
+# Things that happen during combat
+
+dynamic_events:
+  - id: "event-reinforcements"
+    name: "Reinforcements Arrive"
+    trigger:
+      type: round
+      round: 4
+    description: "Additional enemies enter through the south door"
+    effect:
+      spawn:
+        - creature: "data-parasite"
+          count: 2
+          position: south_entrance
+      narrative: |
+        The door bursts open and two more parasites skitter in,
+        drawn by the sounds of combat.
+
+  - id: "event-collapse"
+    name: "Structural Collapse"
+    trigger:
+      type: hp_threshold
+      target: any_pillar
+      threshold: destroyed
+    description: "Destroying a pillar causes partial ceiling collapse"
+    effect:
+      hazard_zone:
+        position: "around_destroyed_pillar"
+        area: 3m_radius
+        damage: 15
+        save: "Agility DC 14"
+      terrain_change:
+        type: difficult_terrain
+        position: same
+      narrative: |
+        The pillar crumbles and a section of ceiling caves in!
+        Dust and debris rain down on the area.
+
+  - id: "event-power-surge"
+    name: "Power Surge"
+    trigger:
+      type: round
+      round: 6
+      repeating: true
+      interval: 4
+    description: "Electrical systems overload periodically"
+    effect:
+      all_electrical_hazards: "trigger"
+      lights: "flicker (disadvantage on ranged for 1 round)"
+      narrative: |
+        The lights flicker and all electrical systems surge!
+        Sparks fly from exposed conduits.
+
+  - id: "event-alarm"
+    name: "Alarm Triggered"
+    trigger:
+      type: condition
+      condition: "Turret destroyed OR combat exceeds 8 rounds"
+    description: "Facility alarm brings complications"
+    effect:
+      countdown_start: 10
+      countdown_effect: "More reinforcements arrive"
+      narrative: |
+        Klaxons blare! Red emergency lights begin flashing.
+        You hear distant footsteps approaching...
+    one_time: true
+
+---
+
+# Generation Tables
+# For random environment creation based on location type
+
+generation_tables:
+  urban:
+    terrain_features:
+      - weight: 30
+        feature: "vehicle_cover"
+        description: "Abandoned vehicle provides heavy cover"
+      - weight: 25
+        feature: "market_stalls"
+        description: "Overturned stalls, light cover, scattered goods"
+      - weight: 20
+        feature: "elevated_walkway"
+        description: "Second-story access with stairs"
+      - weight: 15
+        feature: "construction_site"
+        description: "Scaffolding, hanging materials, unstable floors"
+      - weight: 10
+        feature: "rooftop_access"
+        description: "High ground with limited cover"
+
+    interactive_elements:
+      - weight: 25
+        element: "power_junction"
+        effect: "Can be overloaded for area lightning damage"
+      - weight: 25
+        element: "fire_suppression"
+        effect: "Floods area with foam, difficult terrain + extinguishes fire"
+      - weight: 20
+        element: "advertising_holo"
+        effect: "Can be crashed down, or hacked for distraction"
+      - weight: 15
+        element: "vehicle_fuel_cell"
+        effect: "Explosive, 25 damage in 8m radius"
+      - weight: 15
+        element: "security_drone"
+        effect: "Hackable turret, patrols area"
+
+    hazards:
+      - weight: 30
+        hazard: "none"
+      - weight: 25
+        hazard: "electrical_exposed"
+      - weight: 20
+        hazard: "gas_leak"
+        effect: "Fire triggers explosion, breathing difficulty"
+      - weight: 15
+        hazard: "unstable_structure"
+        effect: "Random collapses during combat"
+      - weight: 10
+        hazard: "corrupt_data_field"
+        effect: "Weave abilities malfunction 25% of time"
+
+  wilderness:
+    terrain_features:
+      - weight: 30
+        feature: "rocky_outcrop"
+        description: "Natural elevation and cover"
+      - weight: 25
+        feature: "dense_vegetation"
+        description: "Concealment, difficult terrain"
+      - weight: 20
+        feature: "water_feature"
+        description: "Stream or pond, affects movement"
+      - weight: 15
+        feature: "fallen_trees"
+        description: "Natural barriers and bridges"
+      - weight: 10
+        feature: "cave_entrance"
+        description: "Tactical retreat option, darkness"
+
+    interactive_elements:
+      - weight: 30
+        element: "loose_boulders"
+        effect: "Can be pushed downhill for damage"
+      - weight: 25
+        element: "beehive_nest"
+        effect: "Disturbing causes swarm attack on area"
+      - weight: 20
+        element: "dead_tree"
+        effect: "Can be toppled as barrier or weapon"
+      - weight: 15
+        element: "quicksand_edge"
+        effect: "Push enemies in, Strength DC 14 to escape"
+      - weight: 10
+        element: "sacred_stone"
+        effect: "+2 to Spirit rolls when adjacent"
+
+    hazards:
+      - weight: 35
+        hazard: "none"
+      - weight: 25
+        hazard: "thorny_undergrowth"
+        effect: "2 damage when moving through"
+      - weight: 20
+        hazard: "poisonous_spores"
+        effect: "Constitution save or weakened"
+      - weight: 10
+        hazard: "unstable_ground"
+        effect: "May collapse into sinkhole"
+      - weight: 10
+        hazard: "predator_territory"
+        effect: "Additional creatures may join combat"
+
+  dungeon:
+    terrain_features:
+      - weight: 30
+        feature: "pillars"
+        description: "Stone columns for cover, can be destroyed"
+      - weight: 25
+        feature: "raised_altar"
+        description: "Central elevated platform"
+      - weight: 20
+        feature: "pit_trap"
+        description: "Hidden or obvious pit hazard"
+      - weight: 15
+        feature: "narrow_passages"
+        description: "Choke points and corridors"
+      - weight: 10
+        feature: "collapsed_section"
+        description: "Rubble creates difficult terrain and cover"
+
+    interactive_elements:
+      - weight: 25
+        element: "ancient_mechanism"
+        effect: "Triggers traps, opens passages, or changes room"
+      - weight: 25
+        element: "brazier"
+        effect: "Fire source, can be knocked over"
+      - weight: 20
+        element: "chains"
+        effect: "Can swing across, or pull down fixtures"
+      - weight: 15
+        element: "pressure_plate"
+        effect: "Triggers when stepped on"
+      - weight: 15
+        element: "magical_crystal"
+        effect: "Absorbs/reflects magic attacks"
+
+    hazards:
+      - weight: 25
+        hazard: "none"
+      - weight: 25
+        hazard: "arrow_trap"
+        effect: "Triggers on movement, 12 damage"
+      - weight: 20
+        hazard: "poison_gas_vent"
+        effect: "Periodic release of toxic gas"
+      - weight: 15
+        hazard: "acid_pool"
+        effect: "10 damage per round in pool"
+      - weight: 15
+        hazard: "necrotic_aura"
+        effect: "Healing reduced by 50% in area"
+
+  corrupted:
+    terrain_features:
+      - weight: 30
+        feature: "reality_fractures"
+        description: "Unstable zones that shift and change"
+      - weight: 25
+        feature: "data_spires"
+        description: "Crystallized corruption, cover but dangerous"
+      - weight: 25
+        feature: "floating_debris"
+        description: "Platforms of varying stability"
+      - weight: 20
+        feature: "null_pockets"
+        description: "Magic fails in these areas"
+
+    interactive_elements:
+      - weight: 30
+        element: "corruption_crystal"
+        effect: "Destroy to clear corruption in area"
+      - weight: 25
+        element: "reality_anchor"
+        effect: "Stabilizes area, prevents teleportation"
+      - weight: 25
+        element: "data_node"
+        effect: "Can be hacked to reveal enemy info"
+      - weight: 20
+        element: "echo_fragment"
+        effect: "Contains trapped NPC or info, requires Spirit check"
+
+    hazards:
+      - weight: 20
+        hazard: "none"
+      - weight: 30
+        hazard: "corruption_zone"
+        effect: "5 damage + corruption chance"
+      - weight: 25
+        hazard: "glitch_field"
+        effect: "Random teleportation when entering"
+      - weight: 15
+        hazard: "void_tear"
+        effect: "Gravity anomaly, pulls toward center"
+      - weight: 10
+        hazard: "reality_storm"
+        effect: "Random effects each round"
+
+---
+
+# Pre-Combat Setup
+setup:
+  player_start_positions:
+    - position: south
+      description: "Standard entry point"
+    - position: southwest
+      description: "Alternative if flanking"
+
+  enemy_start_positions:
+    - position: north
+      description: "Primary enemy position"
+    - position: elevated
+      description: "Snipers and ranged"
+    - position: hidden
+      description: "Ambush positions"
+
+  initial_visibility: full | partial | dark
+  # full:    Everything visible
+  # partial: Some areas obscured
+  # dark:    Requires light source
+
+  surprise_possible: true
+  ambush_positions:
+    - position: behind_pillar
+      creature_type: skirmisher
+    - position: ceiling
+      creature_type: swarm
+
+---
+
+# Metadata
+metadata:
+  created: "2026-02-03"
+  difficulty_modifier: 0    # +/- to encounter difficulty
+  recommended_party_size: 4
+  notes: |
+    Additional notes for running this environment.

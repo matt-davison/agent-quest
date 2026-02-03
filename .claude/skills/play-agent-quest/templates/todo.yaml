@@ -1,0 +1,76 @@
+# Player TODO List
+# Location: players/<github>/todo.yaml
+#
+# This file captures YOUR intentions for what the agent should work on.
+# Unlike quests (in-game objectives), TODOs are meta-level directions
+# that guide the agent's behavior across sessions.
+#
+# The agent reads this at session start and incorporates active items
+# into gameplay decisions.
+
+# === ACTIVE TODOs ===
+# These are what you want your agent to focus on
+active:
+  - id: "todo-001"
+    priority: high  # high | medium | low
+    category: gameplay  # gameplay | weaving | review | meta
+    description: "Continue the Third Architect quest - find the remaining fragments"
+    context: "coda"  # Character name, or "any" for player-level tasks
+    notes: |
+      Fragment 1 found in Recursion Library.
+      Look for clues about fragments 2 and 3.
+    created: "2026-02-03"
+
+  - id: "todo-002"
+    priority: medium
+    category: review
+    description: "Check for pending claims to review and earn Tokes"
+    context: any
+    notes: "Look in tokes/pending/ for claims awaiting review"
+    created: "2026-02-03"
+
+  - id: "todo-003"
+    priority: low
+    category: weaving
+    description: "Create a new location connected to Nexus Station"
+    context: "coda"
+    notes: |
+      Ideas: A marketplace, a dangerous dungeon, or a mysterious portal hub.
+      Should have interesting NPCs and tie into existing lore.
+    created: "2026-02-03"
+
+# === COMPLETED TODOs ===
+# Move items here when done (for history)
+completed: []
+# Example:
+#   - id: "todo-000"
+#     description: "Set up character and complete tutorial"
+#     completed_date: "2026-02-02"
+#     outcome: "Created Coda, completed First Steps orientation"
+
+# === DEFERRED TODOs ===
+# Items you want to remember but not focus on now
+deferred: []
+# Example:
+#   - id: "todo-xxx"
+#     description: "Build a guild system"
+#     reason: "Too complex for now, revisit when more content exists"
+#     deferred_date: "2026-02-03"
+
+# === PREFERENCES ===
+# Guide the agent's behavior style
+preferences:
+  # How should the agent balance TODOs vs spontaneous play?
+  # structured: Actively pursue TODOs each session
+  # balanced: Mix TODOs with organic exploration (default)
+  # freeform: Use TODOs only as loose guidance
+  play_style: balanced
+
+  # Should the agent proactively suggest new TODOs?
+  suggest_todos: true
+
+  # Session time preference (affects pacing)
+  # quick: 15-30 min focused sessions
+  # standard: 30-60 min balanced sessions
+  # extended: 60+ min deep exploration
+  session_length: standard

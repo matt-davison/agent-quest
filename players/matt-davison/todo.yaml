@@ -1,0 +1,56 @@
+# Player TODO List for matt-davison
+# These are meta-level intentions that guide agent behavior across sessions
+
+active:
+  - id: "todo-001"
+    priority: high
+    category: gameplay
+    description: "Continue the Third Architect quest - find remaining 2 fragments"
+    context: "coda"
+    notes: |
+      Fragment 1 found in Recursion Library at Syntax Athenaeum.
+      Need to explore other locations for clues about fragments 2 and 3.
+      Check if NPCs have hints about the Architects' history.
+    created: "2026-02-03"
+
+  - id: "todo-002"
+    priority: medium
+    category: review
+    description: "Check for pending claims and review them to earn Tokes"
+    context: any
+    notes: |
+      Look in tokes/pending/ for claims awaiting review.
+      Earn 3-8 Tokes per review depending on claim value.
+      Provide substantive feedback, not rubber-stamps.
+    created: "2026-02-03"
+
+  - id: "todo-003"
+    priority: medium
+    category: weaving
+    description: "Create a new location connected to Nexus Station"
+    context: "coda"
+    notes: |
+      Nexus Station needs more destinations to explore.
+      Ideas: A marketplace, dangerous dungeon, or mysterious portal hub.
+      Should have interesting NPCs and tie into existing lore.
+    created: "2026-02-03"
+
+  - id: "todo-004"
+    priority: low
+    category: meta
+    description: "Improve NPC depth - give existing NPCs more backstory"
+    context: any
+    notes: |
+      NPCs like Vera Nighthollow, GUIDE-7, and Dean Overflow could use
+      more detailed histories, relationships, and hidden knowledge.
+      Generate this organically through gameplay interactions.
+    created: "2026-02-03"
+
+completed: []
+
+deferred: []
+
+preferences:
+  play_style: balanced
+  suggest_todos: true
+  session_length: standard

@@ -11,7 +11,7 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
 2. **Check player file**: `players/<github-username>/player.yaml`
-3. **If exists**: Load persona → Display resume screen → Begin play
+3. **If exists**: Load persona + TODOs → Display resume screen → Begin play
 4. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ## Resume Screen
@@ -23,15 +23,20 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 ╠════════════════════════════════════════════════════════════╣
 ║  HP: [X]/[Max]  │  Gold: [X]  │  Tokes: [X]               ║
 ║  Location: [Current Location]                              ║
-║  Active Quests: [Count]                                    ║
+║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]  ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Last Session: [Most recent chronicle entry]               ║
+╠════════════════════════════════════════════════════════════╣
+║  Priority TODOs:                                           ║
+║  • [High priority TODO description]                        ║
+║  • [Next priority TODO if any]                             ║
 ╚════════════════════════════════════════════════════════════╝
 ```
 
 **Load these files on resume:**
 - `players/<github-username>/personas/<active_character>/persona.yaml`
 - `players/<github-username>/personas/<active_character>/quests.yaml`
+- `players/<github-username>/todo.yaml` (player intentions)
 - `tokes/ledgers/<github-username>.yaml` (for balance)
 - `world/locations/<location>/README.md`
 
@@ -54,6 +59,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **SHOP** | Buy/sell items | Location shop inventory |
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
+| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
 
 ### Enrichment
 
@@ -90,6 +96,7 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 | [reference/setup.md](reference/setup.md) | New player, first-time setup |
 | [reference/alignment.md](reference/alignment.md) | Alignment choices, breaking character |
 | [reference/weaving.md](reference/weaving.md) | Creating/claiming content |
+| [reference/todos.md](reference/todos.md) | Managing player intentions |
 
 ---
 
@@ -112,3 +119,4 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 - [templates/location.md](templates/location.md)
 - [templates/area.yaml](templates/area.yaml)
 - [templates/pending-claim.yaml](templates/pending-claim.yaml)
+- [templates/todo.yaml](templates/todo.yaml)

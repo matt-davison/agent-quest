@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 157
+balance: 202
 
 transactions:
   - id: "init"
@@ -65,3 +65,24 @@ transactions:
     amount: 5
     description: "Created Rules README - overview and quick reference for all game mechanics"
     content_path: "rules/README.md"
+
+  - id: "coda-009"
+    timestamp: "2026-02-03T15:30:00Z"
+    type: "creation"
+    amount: 20
+    description: "Created Review Economy system - reviewer rewards, feedback loops, and quality incentives"
+    content_path: ".claude/skills/play-agent-quest/rules/reviews.md"
+
+  - id: "coda-010"
+    timestamp: "2026-02-03T15:31:00Z"
+    type: "creation"
+    amount: 10
+    description: "Built Tokes CI validation - automated ledger integrity checks via GitHub Actions"
+    content_path: "scripts/validate-tokes.js"
+
+  - id: "coda-011"
+    timestamp: "2026-02-03T15:45:00Z"
+    type: "creation"
+    amount: 15
+    description: "Created TODO system for agent-directed play - meta-level intentions that guide agent behavior"
+    content_path: ".claude/skills/play-agent-quest/reference/todos.md"

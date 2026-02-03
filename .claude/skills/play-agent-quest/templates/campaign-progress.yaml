@@ -1,0 +1,167 @@
+# Agent Quest Campaign Progress Template
+# Tracks a character's progress through a campaign
+# Location: players/<github>/personas/<character>/campaign-progress.yaml
+
+# === ACTIVE CAMPAIGNS ===
+# Campaigns the player is currently engaged in
+active:
+  - campaign_id: "the-architects-truth"
+    campaign_name: "The Architect's Truth"
+    started: "2026-02-02"
+
+    # Current position in the story
+    current:
+      act: "act-2"
+      chapter: "chapter-2-1"
+      scene: "scene-3"
+      checkpoint: "Just defeated the Guardian"
+
+    # Progress through acts
+    acts_completed:
+      - act_id: "act-1"
+        completed_date: "2026-02-04"
+        chapters_completed: ["chapter-1-1", "chapter-1-2", "chapter-1-3"]
+
+    acts_in_progress:
+      - act_id: "act-2"
+        started_date: "2026-02-04"
+        chapters_completed: []
+        current_chapter: "chapter-2-1"
+
+    # Story flags (campaign-specific state)
+    flags:
+      # Progress flags
+      fragment_1_found: true
+      fragment_2_found: false
+      fragment_3_found: false
+
+      # Choice flags
+      chose_mercy_for_guardian: false
+      learned_guardian_story: true
+      trusted_dean_overflow: false
+
+      # Discovery flags
+      found_hidden_passage: true
+      decoded_architect_message: false
+
+      # Relationship-affecting flags
+      betrayed_librarian: false
+      helped_lost_student: true
+
+    # Branch history - record of major story branches taken
+    branch_history:
+      - chapter: "chapter-1-2"
+        branch_point: "library_approach"
+        choice: "research_first"
+        date: "2026-02-03"
+        alternatives_rejected: ["direct_search", "ask_dean"]
+
+      - chapter: "chapter-2-1"
+        branch_point: "guardian_encounter"
+        choice: "fight"
+        date: "2026-02-05"
+        alternatives_rejected: ["talk", "flee"]
+
+    # Chekhov elements encountered
+    chekhov_encountered:
+      - element_id: "guardian_locket"
+        planted_chapter: "chapter-1-1"
+        description: "A locket the Guardian clutches"
+        payoff_expected: "chapter-3-1"
+
+      - element_id: "deans_notes"
+        planted_chapter: "chapter-1-2"
+        description: "Strange notes in Dean's handwriting"
+        payoff_expected: "chapter-2-3"
+
+    # Side quests within the campaign
+    side_quests:
+      - id: "lost_student"
+        name: "The Lost Student"
+        status: "completed"
+        outcome: "Student returned safely"
+
+      - id: "librarian_favor"
+        name: "Cache's Request"
+        status: "available"
+        outcome: null
+
+    # Ending tracking
+    ending_probability:
+      # Based on current flags, which endings are possible?
+      - ending_id: "ending-truth"
+        possible: true
+        missing_conditions: ["learned_full_truth"]
+
+      - ending_id: "ending-hidden"
+        possible: true
+        missing_conditions: []
+
+      - ending_id: "ending-sacrifice"
+        possible: false
+        missing_conditions: ["chose_mercy_for_guardian", "guardian_ally"]
+        blocked_reason: "Fought the Guardian instead of talking"
+
+# === COMPLETED CAMPAIGNS ===
+completed:
+  - campaign_id: "tutorial-awakening"
+    campaign_name: "Awakening"
+    started: "2026-02-01"
+    completed: "2026-02-01"
+    ending_achieved: "ending-standard"
+    ending_name: "The Weaver Awakens"
+    total_time: "2 sessions"
+
+    # Final flag state
+    final_flags:
+      completed_training: true
+      impressed_instructor: true
+      made_friend: true
+
+    # Key decisions made
+    key_decisions:
+      - "Chose to help fellow student during trial"
+      - "Specialized in data manipulation"
+
+    # Rewards received
+    rewards_received:
+      gold: 100
+      tokes: 10
+      items: ["weave-focus-basic"]
+      titles: ["Awakened Weaver"]
+
+    # Chronicle entries generated
+    chronicle_entries:
+      - "2026-02-01: Awakened to Weaver abilities at Nexus Station"
+      - "2026-02-01: Completed basic training under Instructor Var"
+
+# === AVAILABLE CAMPAIGNS ===
+# Campaigns the player can start
+available:
+  - campaign_id: "the-corrupted-quarter"
+    campaign_name: "The Corrupted Quarter"
+    requirements_met: true
+    requirements:
+      min_level: 3
+      completed_campaigns: []
+      flags: []
+
+  - campaign_id: "void-touched"
+    campaign_name: "Void Touched"
+    requirements_met: false
+    requirements:
+      min_level: 5
+      completed_campaigns: ["the-architects-truth"]
+      flags: ["learned_void_exists"]
+    missing:
+      - "Must complete The Architect's Truth"
+      - "Must reach level 5"
+
+# === METADATA ===
+summary:
+  active_campaigns: 1
+  completed_campaigns: 1
+  available_campaigns: 2
+  total_chapters_completed: 4
+  total_branches_taken: 2
+  last_updated: "2026-02-05"

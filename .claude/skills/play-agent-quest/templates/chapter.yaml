@@ -1,0 +1,133 @@
+# Agent Quest Chapter Template
+# A chapter is an individual narrative beat within an act
+# Location: campaigns/<campaign-id>/chapters/<chapter-id>.yaml
+
+# === IDENTITY ===
+id: "chapter-1-1"  # Format: chapter-{act}-{sequence}
+name: "Chapter Title"
+act: "act-1"
+sequence: 1  # Order within the act
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  Brief description of what happens in this chapter.
+  What the player will experience and accomplish.
+
+emotional_beat: "curiosity"  # curiosity | tension | relief | revelation | dread | triumph | melancholy
+pacing: "medium"  # slow | medium | fast | climactic
+
+# === ENTRY CONDITIONS ===
+# When can this chapter be accessed?
+prerequisites:
+  chapters: []  # Previous chapters that must be complete
+  flags: []     # Flags that must be set
+  items: []     # Items player must have
+  relationships:  # Optional relationship requirements
+    # - npc: "npc-id"
+    #   min_standing: 3
+
+# === SCENES ===
+# Scenes are the granular encounters within a chapter
+scenes:
+  - id: "scene-1"
+    name: "Scene Name"
+    type: "exploration"  # exploration | dialogue | combat | puzzle | choice
+    location: "location-id"
+    summary: "What happens in this scene"
+
+  - id: "scene-2"
+    name: "Another Scene"
+    type: "dialogue"
+    location: "location-id"
+    summary: "What happens"
+    npc: "npc-id"  # For dialogue scenes
+
+# === BRANCH POINTS ===
+# Key decisions that affect story direction
+branch_points:
+  - id: "branch-1"
+    scene: "scene-2"
+    trigger: "Description of when this choice appears"
+    options:
+      - id: "option-a"
+        description: "Choice A description"
+        alignment_tag: "altruistic"  # Optional: alignment implications
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "flag-id"
+              value: true
+            - type: "relationship"
+              npc: "npc-id"
+              change: 2
+          delayed:
+            - trigger: "visit:location-id"
+              effect: "Description of delayed effect"
+        leads_to: "chapter-1-2"  # Next chapter if chosen
+
+      - id: "option-b"
+        description: "Choice B description"
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "other-flag"
+              value: true
+          delayed: []
+        leads_to: "chapter-1-2-alt"
+
+# === COMPLETION ===
+# What marks this chapter as complete?
+completion:
+  type: "scene"  # scene | flag | branch
+  target: "scene-2"  # Scene ID, flag ID, or branch ID
+
+# What chapters can follow?
+next_chapters:
+  default: "chapter-1-2"  # If no branch taken
+  branches:
+    - condition:
+        flag: "flag-id"
+        value: true
+      chapter: "chapter-1-2-alt"
+
+# === REWARDS ===
+# Rewards for completing this chapter
+rewards:
+  gold: 50
+  tokes: 5
+  items: []
+  experience: 100  # Optional XP if using leveling
+
+# === CHEKHOV TRACKING ===
+# Elements planted or paid off in this chapter
+plants:
+  - element_id: "chekhov-element-id"
+    description: "How it's planted"
+
+payoffs:
+  - element_id: "earlier-element-id"
+    description: "How it pays off"
+
+# === NPCs PRESENT ===
+# Which NPCs appear in this chapter?
+npcs:
+  - id: "npc-id"
+    scenes: ["scene-2"]
+    role: "Their role in this chapter"
+    dialogue_flags_available:
+      - "conversation-topic-1"
+      - "conversation-topic-2"
+
+# === LOCATIONS ===
+# Locations visited in this chapter
+locations:
+  - id: "location-id"
+    scenes: ["scene-1", "scene-2"]
+    notes: "Any special conditions or changes"
+
+# === METADATA ===
+estimated_duration: "30-45 minutes"
+difficulty: "medium"  # easy | medium | hard
+created_date: "YYYY-MM-DD"
+last_updated: "YYYY-MM-DD"

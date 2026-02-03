@@ -1,0 +1,85 @@
+# Act I: Discovery
+# The seeker learns of the Third Architect and finds the first fragment
+
+id: "act-1"
+name: "Act I: Discovery"
+campaign: "the-architects-truth"
+
+# === OVERVIEW ===
+summary: |
+  The player discovers the mystery of the Third Architect through ancient
+  records in the Syntax Athenaeum. By the act's end, they'll have found
+  the first fragment and understood that this quest will change them.
+
+themes:
+  - "curiosity and its costs"
+  - "the pull of forbidden knowledge"
+
+emotional_arc:
+  opening: "curiosity"
+  middle: "wonder"
+  climax: "revelation"
+  closing: "determination"
+
+# === CHAPTERS ===
+chapters:
+  - id: "chapter-1-1"
+    file: "../chapters/chapter-1-1.yaml"
+    name: "The Shifting Tome"
+    summary: "Discover the Third Architect's journal in the Recursion Library"
+
+  - id: "chapter-1-2"
+    file: "../chapters/chapter-1-2.yaml"
+    name: "Threads of Memory"
+    summary: "Research the Architects and meet key NPCs"
+
+  - id: "chapter-1-3"
+    file: "../chapters/chapter-1-3.yaml"
+    name: "The First Fragment"
+    summary: "Unlock the tome's secrets and receive the first fragment"
+
+# === ACT COMPLETION ===
+completion_conditions:
+  - flag: "fragment_1_found"
+    required: true
+  - flag: "learned_chamber_exists"
+    required: true
+
+# === KEY EVENTS ===
+key_events:
+  - "Discovery of the shifting tome"
+  - "First meeting with Librarian Cache"
+  - "Introduction to the three Architects"
+  - "First dream of the choice"
+  - "Receiving the first fragment"
+
+# === NPCS INTRODUCED ===
+npcs:
+  - id: "librarian-cache"
+    role: "Primary ally and information source"
+  - id: "dean-overflow"
+    role: "Authority figure, potentially obstructive"
+
+# === PLANTS ===
+chekhov_plants:
+  - element: "cache_crystal"
+    scene: "chapter-1-1, scene-2"
+    description: "Cache's crystal hums near the player"
+
+  - element: "dean_notes"
+    scene: "chapter-1-2, scene-3"
+    description: "Torn pages in Dean's office"
+
+  - element: "recurring_dream"
+    scene: "chapter-1-3, scene-4"
+    description: "The dream of standing before a choice"
+
+# === REWARDS ===
+act_rewards:
+  gold: 100
+  tokes: 10
+  items: []
+  flags_set:
+    - "fragment_1_found"
+    - "learned_chamber_exists"
+    - "act_1_complete"

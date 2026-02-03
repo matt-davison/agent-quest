@@ -1,0 +1,294 @@
+# The Architect's Truth
+# A legendary campaign exploring the fate of the Third Architect
+
+# === IDENTITY ===
+id: "the-architects-truth"
+name: "The Architect's Truth"
+subtitle: "Seek the scattered fragments of a god's memory"
+version: "1.0.0"
+
+# === METADATA ===
+difficulty: "hard"
+estimated_sessions: 5-7
+min_level: 3
+recommended_classes: []  # All classes can complete, each has unique moments
+
+# === THEMATIC CORE ===
+themes:
+  - "knowledge vs wisdom"
+  - "sacrifice and purpose"
+  - "identity and legacy"
+  - "the burden of truth"
+
+central_question: |
+  Is truth worth any cost? And when you learn a truth that changes everything,
+  what do you do with it?
+
+tone:
+  maturity: "standard"
+  humor: "light"
+  violence: "moderate"
+  # The campaign deals with heavy themes but presents them thoughtfully
+
+# === BACKGROUND ===
+premise: |
+  Three Architects built the world:
+
+  - **Architect 01** — The Builder. Sought completion. Wanted every detail defined.
+  - **Architect 02** — The Perfectionist. Sought elegance. Wanted minimal, evolving reality.
+  - **Architect 03** — The Questioner. Sought understanding. Wanted to know _why_.
+
+  When the others prepared to push the final commit, the Third refused. They did
+  not want to become a god of a finished world. Instead, they scattered their
+  consciousness into three fragments, hidden throughout the Weave, waiting for
+  a seeker who would ask the right questions.
+
+# === STRUCTURE ===
+acts:
+  - id: "act-1"
+    name: "Act I: Discovery"
+    file: "acts/act-1.yaml"
+    summary: "The seeker learns of the Third Architect and finds the first fragment"
+    chapters: ["chapter-1-1", "chapter-1-2", "chapter-1-3"]
+
+  - id: "act-2"
+    name: "Act II: Descent"
+    file: "acts/act-2.yaml"
+    summary: "The search leads to the Undercrypt and a guardian with their own story"
+    chapters: ["chapter-2-1", "chapter-2-2", "chapter-2-3"]
+
+  - id: "act-3"
+    name: "Act III: Truth"
+    file: "acts/act-3.yaml"
+    summary: "The final fragment reveals the truth—and demands a choice"
+    chapters: ["chapter-3-1", "chapter-3-2", "chapter-3-3"]
+
+# === ENDINGS ===
+possible_endings:
+  - id: "ending-revelation"
+    name: "The Truth Revealed"
+    conditions:
+      - flag: "all_fragments_found"
+        required: true
+      - flag: "chose_to_reveal"
+        required: true
+    summary: |
+      You share the Third Architect's truth with the world. The Weave trembles
+      as fundamental assumptions shatter. Some thank you. Others curse you.
+      The Third Architect is at peace—their question finally answered by the
+      chaos of a million new questions.
+    world_changes:
+      - "The truth about the Architects becomes common knowledge"
+      - "A new era of philosophical debate begins in the Weave"
+      - "The Syntax Athenaeum becomes a pilgrimage site"
+    rewards:
+      gold: 500
+      tokes: 50
+      items: ["architects-key"]
+      abilities: ["the-right-question"]
+
+  - id: "ending-concealment"
+    name: "Some Truths Stay Buried"
+    conditions:
+      - flag: "all_fragments_found"
+        required: true
+      - flag: "chose_to_conceal"
+        required: true
+    summary: |
+      Some truths are too dangerous for a world not ready to hear them.
+      You bury what you learned. The Third Architect understands—they too
+      chose to hide rather than impose their truth on others.
+    world_changes:
+      - "The mystery of the Third Architect deepens"
+      - "You become one of the few who know"
+    rewards:
+      gold: 400
+      tokes: 40
+      items: ["architects-key"]
+      abilities: ["burden-of-knowing"]
+
+  - id: "ending-sacrifice"
+    name: "The Fourth Architect"
+    conditions:
+      - flag: "all_fragments_found"
+        required: true
+      - flag: "guardian_ally"
+        required: true
+      - flag: "chose_to_continue"
+        required: true
+    summary: |
+      The Third Architect offers you a choice they never had: continue their
+      work. Scatter yourself across the Weave as they did, becoming the living
+      answer to the question "why." You cease to be a single person and become
+      something more—and less.
+    world_changes:
+      - "A new Architect presence exists in the Weave"
+      - "The player character becomes an NPC/lore figure"
+    rewards:
+      gold: 0
+      tokes: 100
+      items: []
+      abilities: []
+      special: "Character becomes campaign lore; new character required"
+
+  - id: "ending-rejection"
+    name: "The Unworthy Seeker"
+    conditions:
+      - flag: "fragments_found_by_force"
+        required: true
+    summary: |
+      You took the fragments but never understood them. The Third Architect's
+      gift—the ability to ask the right question—requires the wisdom to know
+      which questions matter. You have knowledge without understanding,
+      fragments without meaning.
+    world_changes:
+      - "The fragments go dormant in your possession"
+      - "Their true power remains locked"
+    rewards:
+      gold: 200
+      tokes: 20
+      items: ["dormant-fragments"]
+      abilities: []
+
+# === CHEKHOV ELEMENTS ===
+chekhov_elements:
+  - element: "The Guardian's locket"
+    description: "The Guardian clutches an old silver locket"
+    planted_in: "act-2"
+    chapter: "chapter-2-1"
+    payoff_in: "act-3"
+    payoff_chapter: "chapter-3-2"
+    optional: false
+    notes: "Contains image of their former self, before the vigil"
+
+  - element: "Dean Overflow's missing notes"
+    description: "Pages torn from the Dean's research journal"
+    planted_in: "act-1"
+    chapter: "chapter-1-2"
+    payoff_in: "act-2"
+    payoff_chapter: "chapter-2-3"
+    optional: true
+    notes: "Reveals Dean's past attempts to find the Chamber"
+
+  - element: "Cache's 'curiosity' crystal"
+    description: "A crystal that hums near the player"
+    planted_in: "act-1"
+    chapter: "chapter-1-1"
+    payoff_in: "act-3"
+    payoff_chapter: "chapter-3-1"
+    optional: false
+    notes: "Actually a compass to the third fragment"
+
+  - element: "The recurring dream"
+    description: "Player dreams of standing before a choice with no good options"
+    planted_in: "act-1"
+    chapter: "chapter-1-3"
+    payoff_in: "act-3"
+    payoff_chapter: "chapter-3-3"
+    optional: false
+    notes: "Foreshadows the final choice"
+
+# === KEY NPCS ===
+key_npcs:
+  - id: "librarian-cache"
+    name: "Librarian Cache"
+    role: "Guide and mentor"
+    initial_standing: 2
+    arc: |
+      Begins cautious, becomes invested in the player's quest, reveals
+      their own connection to the Architects in Act 3.
+
+  - id: "dean-overflow"
+    name: "Dean Overflow"
+    role: "Obstacle and mirror"
+    initial_standing: 0
+    arc: |
+      Starts obstructive, revealed to have their own reasons. Can become
+      ally or antagonist depending on player choices.
+
+  - id: "the-guardian"
+    name: "The Guardian"
+    role: "Test and teacher"
+    initial_standing: 0
+    arc: |
+      "One who failed" — a seeker who found the second fragment but couldn't
+      continue. Guards it not from seekers, but for them.
+
+# === LOCATIONS ===
+locations:
+  - id: "syntax-athenaeum"
+    acts: ["act-1"]
+    importance: "Site of first fragment, hub for research"
+
+  - id: "undercrypt"
+    acts: ["act-2"]
+    importance: "Dangerous depths containing the Debugging Chamber"
+
+  - id: "debugging-chamber"
+    acts: ["act-2", "act-3"]
+    importance: "Ancient Architect site, location of second fragment"
+
+  - id: "void-between"
+    acts: ["act-3"]
+    importance: "The space between spaces, location of third fragment"
+
+# === FLAGS ===
+flags:
+  # Progress flags
+  - id: "fragment_1_found"
+    default: false
+  - id: "fragment_2_found"
+    default: false
+  - id: "fragment_3_found"
+    default: false
+  - id: "all_fragments_found"
+    default: false
+
+  # Method flags
+  - id: "fragment_1_understood"
+    default: false
+  - id: "guardian_defeated"
+    default: false
+  - id: "guardian_befriended"
+    default: false
+  - id: "guardian_ally"
+    default: false
+  - id: "fragments_found_by_force"
+    default: false
+
+  # Discovery flags
+  - id: "learned_guardian_story"
+    default: false
+  - id: "learned_dean_secret"
+    default: false
+  - id: "learned_cache_connection"
+    default: false
+  - id: "decoded_architect_message"
+    default: false
+
+  # Choice flags
+  - id: "chose_to_reveal"
+    default: false
+  - id: "chose_to_conceal"
+    default: false
+  - id: "chose_to_continue"
+    default: false
+
+# === REWARDS ===
+total_rewards:
+  gold_range: "200-500"
+  tokes_range: "20-100"
+  guaranteed_items:
+    - "architects-key"
+  possible_items:
+    - "dormant-fragments"
+  possible_abilities:
+    - "the-right-question"
+    - "burden-of-knowing"
+
+# === METADATA ===
+created_by: "matt-davison"
+created_date: "2026-02-02"
+last_updated: "2026-02-03"
+status: "available"
+based_on: "quests/available/the-third-architect.md"

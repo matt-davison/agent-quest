@@ -1,0 +1,248 @@
+# Chapter 2-3: The Second Fragment
+# Obtain the fragment through combat, negotiation, or understanding
+
+id: "chapter-2-3"
+name: "The Second Fragment"
+act: "act-2"
+sequence: 3
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  The critical branch point of Act 2. How the player obtains the second
+  fragment determines their relationship with the Guardian and affects
+  the campaign's possible endings. Combat, negotiation, and understanding
+  each have different consequences.
+
+emotional_beat: "climax"
+pacing: "fast"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-2-2"]
+  flags: []
+  items: []
+
+# === SCENES ===
+scenes:
+  # COMBAT PATH
+  - id: "scene-combat"
+    name: "Trial by Strength"
+    type: "combat"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian honors the combat path. They're formidable—centuries of
+      practice—but they don't fight to kill. This is a test. Defeat them
+      to claim the fragment.
+    condition:
+      flag: "chose_combat_path"
+
+  - id: "scene-combat-aftermath"
+    name: "Victory's Cost"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian falls. They're not dead—they can't die here—but they're
+      beaten. They give up the fragment, but their eyes are disappointed.
+      "Strength without wisdom. I hope you find the latter before the end."
+    condition:
+      flag: "chose_combat_path"
+
+  # NEGOTIATION PATH
+  - id: "scene-negotiate"
+    name: "Terms of Exchange"
+    type: "dialogue"
+    npc: "the-guardian"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian is willing to negotiate—but what can the player offer?
+      A promise to return? To free them from their vigil? The terms must
+      be meaningful.
+    condition:
+      flag: "chose_negotiation_path"
+
+  - id: "scene-negotiate-aftermath"
+    name: "A Deal Struck"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian accepts. The fragment changes hands. But there's distance
+      now—a transaction, not a connection. "Our business is concluded.
+      Go find your truth."
+    condition:
+      flag: "chose_negotiation_path"
+
+  # UNDERSTANDING PATH
+  - id: "scene-understand"
+    name: "The Real Test"
+    type: "dialogue"
+    npc: "the-guardian"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian reveals: the test was never about strength or clever words.
+      It was about seeing them. Hearing them. Understanding that the fragment
+      is not a prize but a responsibility.
+    condition:
+      flag: "chose_understanding_path"
+
+  - id: "scene-understand-aftermath"
+    name: "A Vigil Shared"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      The Guardian smiles—the first time in centuries. "Finally. Someone
+      who understands." They give the fragment freely. More than that: they
+      offer to help. Their vigil doesn't end—it transforms.
+    condition:
+      flag: "chose_understanding_path"
+
+  # PAYOFF (ALL PATHS)
+  - id: "scene-fragment"
+    name: "The Second Fragment"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      The second fragment merges with the first. The player experiences
+      another flash of the Third Architect's memories: the moment they
+      decided to scatter rather than ascend. The third fragment calls.
+
+  - id: "scene-dean-revelation"
+    name: "The Dean's Secret"
+    type: "revelation"
+    location: "debugging-chamber"
+    summary: |
+      Among the Chamber's records: Dean Overflow's name. They came here too,
+      years ago. They found something—and left. The torn pages in their
+      office make more sense now.
+    condition:
+      flag: "noticed_dean_notes"
+    optional: true
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "combat_resolution"
+    scene: "scene-combat"
+    trigger: "Combat with the Guardian"
+    options:
+      - id: "defeat_guardian"
+        description: "Defeat the Guardian in combat"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "guardian_defeated"
+              value: true
+            - type: "flag"
+              flag: "fragments_found_by_force"
+              value: true
+            - type: "relationship"
+              npc: "the-guardian"
+              change: -5
+        leads_to: "scene-combat-aftermath"
+
+  - id: "negotiation_resolution"
+    scene: "scene-negotiate"
+    trigger: "Negotiation terms"
+    options:
+      - id: "promise_return"
+        description: "Promise to return and free them"
+        alignment_tag: "altruistic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "promised_guardian_return"
+              value: true
+          delayed:
+            - trigger:
+                type: "chapter"
+                target: "chapter-3-3"
+              effect: "Guardian's fate becomes part of final choice"
+        leads_to: "scene-negotiate-aftermath"
+
+      - id: "offer_information"
+        description: "Offer to share what you learn"
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "offered_information"
+              value: true
+        leads_to: "scene-negotiate-aftermath"
+
+  - id: "understanding_resolution"
+    scene: "scene-understand"
+    trigger: "Understanding achieved"
+    options:
+      - id: "accept_responsibility"
+        description: "Accept the weight of what you seek"
+        alignment_tag: "empathetic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "guardian_befriended"
+              value: true
+            - type: "flag"
+              flag: "guardian_ally"
+              value: true
+            - type: "relationship"
+              npc: "the-guardian"
+              change: 5
+        leads_to: "scene-understand-aftermath"
+
+# === COMPLETION ===
+completion:
+  type: "flag"
+  target: "fragment_2_found"
+
+next_chapters:
+  default: "chapter-3-1"
+
+# === REWARDS ===
+rewards:
+  gold: 100
+  tokes: 10
+  items: []
+  flags_set:
+    - "fragment_2_found"
+    - "act_2_complete"
+
+# === CHEKHOV TRACKING ===
+plants: []
+
+payoffs:
+  - element_id: "dean_notes"
+    description: "Dean's torn notes reveal they found this place too"
+    optional: true
+
+# === COMBAT DATA ===
+combat_encounters:
+  - id: "guardian_duel"
+    scene: "scene-combat"
+    enemies:
+      - creature_id: "the-guardian"
+        count: 1
+        special: true
+        notes: "Formidable but not lethal; tests rather than kills"
+    environment:
+      terrain: "arena"
+      hazards: []
+      features: ["ancient_consoles", "fragment_pedestal"]
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "the-guardian"
+    scenes: ["scene-combat", "scene-negotiate", "scene-understand", "scene-combat-aftermath", "scene-negotiate-aftermath", "scene-understand-aftermath"]
+    role: "Test-giver, changes based on player approach"
+    dialogue_flags_available:
+      - "combat_concluded"
+      - "negotiation_concluded"
+      - "understanding_achieved"
+
+# === LOCATIONS ===
+locations:
+  - id: "debugging-chamber"
+    scenes: ["all"]
+    notes: "Chamber transforms subtly based on approach taken"
+
+# === METADATA ===
+estimated_duration: "45-60 minutes"
+difficulty: "hard"
+created_date: "2026-02-03"

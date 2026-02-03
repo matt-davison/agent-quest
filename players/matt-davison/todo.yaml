@@ -46,6 +46,23 @@ active:
       Generate this organically through gameplay interactions.
     created: "2026-02-03"
 
+  - id: "todo-005"
+    priority: medium
+    category: development
+    description: "Create an ASCII scene visualizer"
+    context: any
+    notes: |
+      Build a system to render scenes as ASCII art. Should include:
+      - Location art generated when first arriving at a new location
+      - Area art shown when entering a new area within a location
+      - Battle positioning with terrain/cover/hazards during combat
+      - Dungeon layouts during exploration
+
+      Generate evocative ASCII scenes that capture the atmosphere of
+      each place - a towering station, a corrupted server room, etc.
+      Integrate with battle-environment.yaml for combat visualization.
+    created: "2026-02-03"
+
 completed: []
 
 deferred: []

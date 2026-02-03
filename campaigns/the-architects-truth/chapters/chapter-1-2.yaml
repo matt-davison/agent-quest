@@ -1,0 +1,167 @@
+# Chapter 1-2: Threads of Memory
+# Research the Architects and meet key NPCs
+
+id: "chapter-1-2"
+name: "Threads of Memory"
+act: "act-1"
+sequence: 2
+
+# === NARRATIVE CONTEXT ===
+summary: |
+  With the tome's secrets hinting at the Third Architect, the player researches
+  the three Architects who created the Weave. They'll learn the official history,
+  meet Dean Overflow, and notice discrepancies that suggest the truth is more
+  complex than the records show.
+
+emotional_beat: "curiosity"
+pacing: "medium"
+
+# === ENTRY CONDITIONS ===
+prerequisites:
+  chapters: ["chapter-1-1"]
+  flags: []
+  items: []
+
+# === SCENES ===
+scenes:
+  - id: "scene-1"
+    name: "The Official History"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      Research the Architects in standard texts. Learn the sanitized version:
+      Three Architects built the Weave, then departed, leaving their creation
+      to evolve. No mention of disagreement or the Third's fate.
+
+  - id: "scene-2"
+    name: "Cache's Hints"
+    type: "dialogue"
+    npc: "librarian-cache"
+    location: "syntax-athenaeum"
+    summary: |
+      Cache offers guidance. They're more helpful now, intrigued by the player's
+      persistence. They mention there are "other records" but seem hesitant.
+
+  - id: "scene-3"
+    name: "The Dean's Office"
+    type: "dialogue"
+    npc: "dean-overflow"
+    location: "syntax-athenaeum"
+    summary: |
+      Dean Overflow notices the player's research. They're professionally
+      courteous but ask probing questions. In their office: torn pages from
+      a journal, hastily hidden.
+    plants:
+      - "dean_notes"
+
+  - id: "scene-4"
+    name: "The Restricted Archives"
+    type: "exploration"
+    location: "syntax-athenaeum"
+    summary: |
+      With Cache's help, access older records. Find references to a disagreement
+      among the Architects before the "final commit." The Third "refused."
+
+  - id: "scene-5"
+    name: "The Debugging Chamber"
+    type: "revelation"
+    location: "syntax-athenaeum"
+    summary: |
+      A fragment of a map, a reference to "the Architects' Debugging Chamber"—
+      not the Academy's modern one, but the original, hidden in the Undercrypt.
+      "Where broken code goes to heal." The second fragment's location.
+
+# === BRANCH POINTS ===
+branch_points:
+  - id: "dean_interaction"
+    scene: "scene-3"
+    trigger: "How the player responds to the Dean's questions"
+    options:
+      - id: "honest"
+        description: "Share your research interests openly"
+        alignment_tag: "lawful"
+        consequences:
+          immediate:
+            - type: "relationship"
+              npc: "dean-overflow"
+              change: 1
+            - type: "flag"
+              flag: "told_dean_truth"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "evasive"
+        description: "Be vague about your true interests"
+        alignment_tag: "pragmatic"
+        consequences:
+          immediate:
+            - type: "flag"
+              flag: "evaded_dean"
+              value: true
+        leads_to: "scene-4"
+
+      - id: "deceptive"
+        description: "Lie about what you're researching"
+        alignment_tag: "chaotic"
+        consequences:
+          immediate:
+            - type: "relationship"
+              npc: "dean-overflow"
+              change: -1
+            - type: "flag"
+              flag: "lied_to_dean"
+              value: true
+          delayed:
+            - trigger:
+                type: "chapter"
+                target: "chapter-2-3"
+              effect: "Dean is more suspicious, may interfere"
+        leads_to: "scene-4"
+
+# === COMPLETION ===
+completion:
+  type: "scene"
+  target: "scene-5"
+
+next_chapters:
+  default: "chapter-1-3"
+
+# === REWARDS ===
+rewards:
+  gold: 25
+  tokes: 2
+  items: []
+
+# === CHEKHOV TRACKING ===
+plants:
+  - element_id: "dean_notes"
+    description: "Torn pages in Dean's office hint at their own research"
+
+payoffs: []
+
+# === NPCS PRESENT ===
+npcs:
+  - id: "librarian-cache"
+    scenes: ["scene-2", "scene-4"]
+    role: "Research assistant, grows more invested"
+    dialogue_flags_available:
+      - "architect_history"
+      - "restricted_section_access"
+
+  - id: "dean-overflow"
+    scenes: ["scene-3"]
+    role: "Authority figure, subtly probing"
+    dialogue_flags_available:
+      - "introduced"
+      - "research_questions"
+
+# === LOCATIONS ===
+locations:
+  - id: "syntax-athenaeum"
+    scenes: ["scene-1", "scene-2", "scene-3", "scene-4", "scene-5"]
+    notes: "Various areas: main stacks, Cache's desk, Dean's office, restricted archives"
+
+# === METADATA ===
+estimated_duration: "45-60 minutes"
+difficulty: "easy"
+created_date: "2026-02-03"

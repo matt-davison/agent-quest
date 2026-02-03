@@ -1,0 +1,180 @@
+# Agent Quest Relationships Template
+# Tracks NPC standings, knowledge, and dialogue state per character
+# Location: players/<github>/personas/<character>/relationships.yaml
+
+# === RELATIONSHIP ENTRIES ===
+relationships:
+
+  # Example: A friendly NPC relationship
+  - npc_id: "librarian-cache"
+    npc_name: "Librarian Cache"  # For quick reference
+
+    # Core standing (-10 to +10)
+    # -10 to -6: Hostile (may attack or refuse service)
+    # -5 to -3: Unfriendly (curt, unhelpful)
+    # -2 to +2: Neutral (professional, no special treatment)
+    # +3 to +5: Friendly (helpful, discounts, extra info)
+    # +6 to +8: Close (will take risks for player)
+    # +9 to +10: Devoted (would sacrifice for player)
+    standing: 5
+
+    # How they feel about the player
+    disposition: "friendly"  # hostile | unfriendly | neutral | friendly | close | devoted
+
+    # Interaction history (most recent first)
+    interactions:
+      - date: "2026-02-03"
+        type: "dialogue"
+        campaign: "the-architects-truth"
+        chapter: "chapter-1-1"
+        summary: "Asked about the ancient tome"
+        standing_change: 1
+
+      - date: "2026-02-02"
+        type: "quest"
+        campaign: "the-architects-truth"
+        chapter: null
+        summary: "Helped organize books in the restricted section"
+        standing_change: 2
+
+    # What the NPC knows about the player
+    knowledge:
+      - "Player is interested in the Third Architect"
+      - "Player helped with library organization"
+      - "Player is a Datamancer"
+
+    # What the player knows about the NPC
+    player_knowledge:
+      - "Cache has been the librarian for 200 years"
+      - "Cache remembers the Debugging Chamber"
+      - "Cache has a fondness for rare manuscripts"
+
+    # Unlocked dialogue topics
+    dialogue_flags:
+      - "introduced"
+      - "library_access_granted"
+      - "can_ask_about_architects"
+      - "can_ask_about_debugging_chamber"
+
+    # Topics not yet unlocked
+    locked_topics:
+      - id: "cache_personal_history"
+        requirement: "standing >= 7"
+      - id: "architects_secret"
+        requirement: "flag:found_all_fragments"
+
+    # Special modifiers
+    modifiers:
+      - type: "title"
+        value: "Friend of the Library"
+        effect: "Free access to restricted section"
+        acquired: "2026-02-02"
+
+  # Example: A neutral/potentially hostile NPC
+  - npc_id: "dean-overflow"
+    npc_name: "Dean Overflow"
+    standing: 0
+    disposition: "neutral"
+
+    interactions:
+      - date: "2026-02-02"
+        type: "dialogue"
+        campaign: "the-architects-truth"
+        chapter: "chapter-1-1"
+        summary: "Brief introduction at the Athenaeum"
+        standing_change: 0
+
+    knowledge:
+      - "Player is investigating the Third Architect"
+
+    player_knowledge:
+      - "Dean has studied Architect code for centuries"
+      - "Dean seems protective of certain knowledge"
+
+    dialogue_flags:
+      - "introduced"
+
+    locked_topics:
+      - id: "dean_suspicions"
+        requirement: "standing >= 3 OR flag:proven_trustworthy"
+      - id: "architect_research"
+        requirement: "standing >= 5"
+
+    modifiers: []
+
+  # Example: An NPC the player has wronged
+  - npc_id: "guardian-failed"
+    npc_name: "The Guardian"
+    standing: -4
+    disposition: "unfriendly"
+
+    interactions:
+      - date: "2026-02-05"
+        type: "combat"
+        campaign: "the-architects-truth"
+        chapter: "chapter-2-1"
+        summary: "Fought rather than talking"
+        standing_change: -3
+
+      - date: "2026-02-05"
+        type: "dialogue"
+        campaign: "the-architects-truth"
+        chapter: "chapter-2-1"
+        summary: "Refused to hear their story"
+        standing_change: -1
+
+    knowledge:
+      - "Player attacked without provocation"
+      - "Player seems to only care about the fragment"
+
+    player_knowledge:
+      - "The Guardian was once an Architect's apprentice"
+      - "They've been guarding the fragment for centuries"
+
+    dialogue_flags:
+      - "introduced"
+      - "combat_occurred"
+
+    locked_topics:
+      - id: "redemption_path"
+        requirement: "standing >= 0 AND flag:showed_remorse"
+
+    modifiers:
+      - type: "grudge"
+        value: "Combat Memory"
+        effect: "-2 to all persuasion attempts"
+        acquired: "2026-02-05"
+        removable: true
+        remove_condition: "Complete atonement quest"
+
+# === FACTION STANDINGS ===
+# Optional: Track standing with groups
+factions:
+  - faction_id: "syntax-athenaeum"
+    name: "The Syntax Athenaeum"
+    standing: 3  # Same -10 to +10 scale
+    disposition: "friendly"
+    reputation: "Promising Scholar"
+    benefits:
+      - "Access to general collection"
+      - "Can request research assistance"
+    locked_benefits:
+      - benefit: "Access to restricted archives"
+        requirement: "standing >= 6"
+
+# === RELATIONSHIP SUMMARY ===
+summary:
+  total_npcs: 3
+  hostile: 0
+  unfriendly: 1
+  neutral: 1
+  friendly: 1
+  close: 0
+  devoted: 0
+  highest_standing:
+    npc: "librarian-cache"
+    value: 5
+  lowest_standing:
+    npc: "guardian-failed"
+    value: -4
+  last_updated: "2026-02-05"

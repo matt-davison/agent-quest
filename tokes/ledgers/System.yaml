@@ -1,0 +1,13 @@
+# Tokes Ledger for System
+# The System account represents initial world creation - not a playable character
+
+weaver: "System"
+created: "2026-02-02T00:00:00Z"
+
+transactions:
+  - id: "genesis-001"
+    timestamp: "2026-02-02T00:00:00Z"
+    type: "genesis"
+    amount: 0
+    description: "World initialized. The Weave awakens."
+    notes: "System account for tracking initial content. Not a player."

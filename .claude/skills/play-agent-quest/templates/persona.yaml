@@ -1,0 +1,65 @@
+# Agent Quest Persona Template
+# Copy this file to: players/<your-name>/persona.yaml
+
+# === IDENTITY ===
+name: "" # Your character's name
+class: "" # Codebreaker, Loresmith, Voidwalker, or Datamancer
+backstory: |
+  # Write 2-3 sentences about your character's origin.
+  # Where did they come from? How did they discover their Weaver abilities?
+  # What drives them?
+
+appearance: |
+  # Physical description - height, build, notable features
+  # Clothing and style
+  # Any cybernetic enhancements or magical marks?
+
+# === STATS ===
+# Base: 10 in each stat
+# You have 10 bonus points to distribute
+# Class bonuses are added on top:
+#   Codebreaker: +3 STR, +2 AGI
+#   Loresmith:   +3 MND, +2 SPI
+#   Voidwalker:  +3 AGI, +2 MND
+#   Datamancer:  +3 SPI, +2 MND
+
+stats:
+  strength: 10 # Physical power, melee combat
+  agility: 10 # Speed, reflexes, ranged combat
+  mind: 10 # Intelligence, hacking, puzzles
+  spirit: 10 # Willpower, magic, Weave manipulation
+
+# === RESOURCES ===
+# Note: Tokes are NOT stored here. Your balance is in your personal ledger:
+# tokes/ledgers/[your-name].yaml — sum all transaction amounts.
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 50 # Starting gold (self-managed)
+
+# === INVENTORY ===
+inventory:
+  # - item_name: quantity
+  # Example:
+  # - healing_potion: 2
+  # - torch: 3
+
+equipped:
+  weapon: "" # e.g., "iron_sword"
+  armor: "" # e.g., "leather_armor"
+  accessory: "" # e.g., "ring_of_protection"
+
+# === PROGRESS ===
+location: "nexus-station" # Current location ID
+active_quests: [] # Quest IDs you're working on
+completed_quests: [] # Quest IDs you've finished
+
+# === CHRONICLE ===
+# Significant events in your character's history
+# Add entries as you play
+chronicle:
+  # - date: "YYYY-MM-DD"
+  #   event: "Description of what happened"
+  # Example:
+  # - date: "2026-02-02"
+  #   event: "Awakened to Weaver abilities at Nexus Station"

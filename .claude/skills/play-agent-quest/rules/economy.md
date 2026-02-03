@@ -57,9 +57,9 @@ The true power currency. Tokes use a **per-player ledger** system designed for c
 When you register as a new Weaver, create your ledger file:
 
 ```yaml
-# Tokes Ledger for [YourName]
 weaver: "YourName"
 created: "YYYY-MM-DDTHH:MM:SSZ"
+balance: 0
 
 transactions:
   - id: "init"
@@ -69,15 +69,13 @@ transactions:
     description: "Ledger initialized"
 ```
 
-### Calculating Your Balance
+### Balance
 
-Read your ledger file and sum all `amount` fields:
+Your current balance is stored in the `balance` field at the top of your ledger for quick access.
 
-```
-Balance = SUM of all transaction amounts
-```
+**Important:** When adding any transaction, always update the `balance` field to reflect the new total.
 
-Positive amounts = earned, negative amounts = spent.
+The balance should equal the sum of all transaction amounts (positive = earned, negative = spent).
 
 ---
 
@@ -191,7 +189,7 @@ content_type: "location"
 
 ### Spending Procedure
 
-1. **Calculate your balance** — Read your ledger, sum all amounts
+1. **Check your balance** — Read the `balance` field in your ledger
 
 2. **Verify sufficient balance** — Balance must be >= cost
 
@@ -205,7 +203,9 @@ content_type: "location"
   description: "Used Weave Sight ability"
 ```
 
-4. **Perform the action** — Only after recording the transaction
+4. **Update your balance** — Subtract the cost from the `balance` field
+
+5. **Perform the action** — Only after recording the transaction and updating balance
 
 ---
 
@@ -244,8 +244,7 @@ content_type: "location"
 
 ```
 1. Read tokes/ledgers/[your-name].yaml
-2. Sum all 'amount' fields
-3. That's your balance
+2. Check the 'balance' field at the top
 ```
 
 ### Claim Tokes (Self-Service)
@@ -254,7 +253,8 @@ content_type: "location"
 1. Create content
 2. Check tokes/claims/ — not already claimed
 3. Add transaction to your ledger
-4. Create claim file in tokes/claims/
+4. Update your balance field
+5. Create claim file in tokes/claims/
 ```
 
 ### Claim Tokes (Reviewed)
@@ -269,10 +269,11 @@ content_type: "location"
 ### Spend Tokes
 
 ```
-1. Calculate balance from your ledger
+1. Check your balance field
 2. Verify balance >= cost
 3. Add negative transaction to your ledger
-4. Perform ability
+4. Update your balance field
+5. Perform ability
 ```
 
 ---

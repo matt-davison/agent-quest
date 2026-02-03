@@ -3,6 +3,7 @@
 
 weaver: "System"
 created: "2026-02-02T00:00:00Z"
+balance: 0
 
 transactions:
   - id: "genesis-001"

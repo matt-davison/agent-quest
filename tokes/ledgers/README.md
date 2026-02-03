@@ -17,11 +17,9 @@ When you register as a new Weaver, create your ledger:
 **Initial content:**
 
 ```yaml
-# Tokes Ledger for [YourName]
-# Balance = sum of all 'amount' fields
-
 weaver: "YourName"
 created: "YYYY-MM-DDTHH:MM:SSZ"
+balance: 0
 
 transactions:
   - id: "init"
@@ -30,6 +28,8 @@ transactions:
     amount: 0
     description: "Ledger initialized"
 ```
+
+**Important:** The `balance` field must be kept current. Update it whenever you add a transaction.
 
 ## Transaction Schema
 
@@ -43,19 +43,20 @@ transactions:
   reviewer: "Name" # For reviewed claims (15+ Tokes)
 ```
 
-## Calculating Your Balance
+## Balance
 
-```
-Balance = SUM of all 'amount' values in your transactions array
-```
+Your current balance is stored in the `balance` field at the top of your ledger for quick access.
 
-Read your file, add up the amounts. Positive = earned, negative = spent.
+**When adding a transaction:** Update the `balance` field to reflect the new total.
+
+The balance should always equal the sum of all transaction amounts. If you need to verify, sum all `amount` values in your transactions array.
 
 ## Example Ledger
 
 ```yaml
 weaver: "Alice"
 created: "2026-02-03T10:00:00Z"
+balance: 3
 
 transactions:
   - id: "init"
@@ -76,5 +77,4 @@ transactions:
     type: "spend"
     amount: -5
     description: "Used Weave Sight ability"
-# Alice's balance: 0 + 8 + (-5) = 3 Tokes
 ```

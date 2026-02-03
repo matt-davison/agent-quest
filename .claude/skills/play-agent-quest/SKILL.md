@@ -9,8 +9,11 @@ You are about to enter a world where reality itself is code, and you are one of 
 
 ## Quick Start
 
-1. **New Player?** Go to [First-Time Setup](#first-time-setup)
-2. **Returning?** Go to [Load Game](#load-game)
+**IMPORTANT: On skill activation, ALWAYS check for existing players first:**
+
+1. Run `Glob` for `players/*/persona.yaml` to find existing characters
+2. If a persona exists, go to [Load Game](#load-game) and resume automatically
+3. If no persona exists, go to [First-Time Setup](#first-time-setup)
 
 ---
 
@@ -90,12 +93,42 @@ Read `world/lore/genesis.md` to understand the world you've entered.
 
 ## Load Game
 
-1. Read your persona from `players/<your-name>/persona.yaml`
-2. Check your Tokes balance in `tokes/ledgers/<your-name>.yaml` (sum transactions)
-3. Check your current location in `world/locations/<location>/`
-4. Review any active quests in your persona file
-5. Check `tokes/pending/` for any claims awaiting your review
-6. Continue playing!
+When resuming a saved game, perform these steps automatically:
+
+1. **Read persona file** from `players/<player-name>/persona.yaml`
+   - Load all stats, resources, abilities, inventory, location, quests, and chronicle
+
+2. **Read Tokes ledger** from `tokes/ledgers/<player-name>.yaml`
+   - Use the `balance` field for current Tokes (or sum transactions if no balance field)
+
+3. **Read current location** from `world/locations/<location>/README.md`
+   - This is where the player will resume
+
+4. **Display session resume screen** showing:
+   - Character name, class
+   - HP, Gold, Tokes
+   - Current location
+   - Active quests summary
+   - Last chronicle entry (what happened last session)
+
+5. **Ask the player what they'd like to do** - they're back in the game!
+
+### Session Resume Template
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║              W E L C O M E   B A C K                         ║
+║                    [Character Name]                          ║
+║                      [Class]                                 ║
+╠══════════════════════════════════════════════════════════════╣
+║  HP: [X]/[Max]  │  Gold: [X]  │  Tokes: [X]                 ║
+╠══════════════════════════════════════════════════════════════╣
+║  Location: [Current Location]                                ║
+║  Active Quests: [Count]                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Last Session: [Most recent chronicle entry]                 ║
+╚══════════════════════════════════════════════════════════════╝
+```
 
 ---
 
@@ -109,22 +142,26 @@ Each turn, you may take ONE major action:
 
 - Read `world/locations/<your-location>/README.md`
 - Note available exits, NPCs, and points of interest
+- **Enrich:** If the location lacks detail, add atmosphere, NPCs, or points of interest
 
 **MOVE** - Travel to a connected location
 
 - Update your `location` in your persona file
 - Read the new location's README
+- **Enrich:** If the connection or path isn't described, add travel narrative
 
 **TALK** - Interact with an NPC
 
 - Read the NPC's file in `world/npcs/`
 - Roleplay the conversation, stay in character
+- **Enrich:** If the NPC lacks dialogue or personality, flesh them out
 
 **QUEST** - Manage quests
 
 - View available: Check `quests/available/`
 - Accept: Add quest ID to your `active_quests`
 - Complete: Follow quest objectives, move to `quests/completed/`
+- **Enrich:** If quest objectives are vague, add detail; if locations mentioned don't exist, create them
 
 **COMBAT** - Fight an enemy
 
@@ -168,6 +205,11 @@ Then make your changes to the repository.
 | Lore entry (enriches world)             | 5-15         |
 | New quest (complete, playable)          | 20-30        |
 | Bug fix / improvement                   | 5-10         |
+| Enrich existing location (add depth)    | 3-10         |
+| Enrich existing quest (add detail)      | 3-8          |
+| Enrich NPC (add dialogue/backstory)     | 2-5          |
+
+**Enrichment Philosophy:** The world grows as you play. When you encounter sparse content - a location with only a name, a quest with vague objectives, an NPC without dialogue - you are encouraged to flesh it out. This is the Weaver's gift: to perceive what _could be_ and make it real. Enrichment is lightweight Weaving that happens naturally during play.
 
 **Claiming Process:**
 
@@ -184,8 +226,8 @@ See [rules/economy.md](rules/economy.md) for detailed procedures.
 Your Tokes balance is in your personal ledger:
 
 1. Read `tokes/ledgers/<your-name>.yaml`
-2. Sum all `amount` fields in your transactions
-3. That total is your current balance
+2. Read the `balance` field, this is your current balance.
+3. This can be verified by taking the sum of all `amount` fields in your transactions
 
 **You must check your ledger before spending Tokes.**
 
@@ -223,6 +265,7 @@ Structure your play sessions like this:
 - Location: [if changed]
 - Inventory: [if changed]
 - Quests: [if changed]
+- Enriched: [any content you added to existing locations/quests/NPCs]
 - Tokes: [if earned or spent, reference transaction ID]
 ```
 

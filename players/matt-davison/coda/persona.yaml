@@ -1,0 +1,75 @@
+# Coda - Datamancer
+# The programmer who became the program
+
+name: "Coda"
+class: "Datamancer"
+active: true
+backstory: |
+  You were just another late-night coder, eyes burning from screen glow, asking your AI
+  to "make me a game." You didn't expect to fall asleep mid-prompt. And you certainly
+  didn't expect to wake up inside the response—not as a player, but as something more.
+  The boundary between creator and creation had dissolved. You hadn't just made a game.
+  You'd fallen into one.
+
+stats:
+  strength: 10
+  agility: 10
+  mind: 17      # Base 10 + 2 class bonus + 5 distributed
+  spirit: 18    # Base 10 + 3 class bonus + 5 distributed
+  # Datamancer bonus: +3 Spirit, +2 Mind
+  # Distributed remaining 10 points: +5 Mind, +5 Spirit
+
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 25
+
+abilities:
+  - name: "Basic Weave Theory"
+    description: "Understanding of Weave fundamentals. Unlocks simple creation abilities."
+    source: "Syntax Athenaeum - Dean Overflow"
+
+inventory:
+  - name: "Architect's Fragment (1/3)"
+    type: "quest_item"
+    description: "A memory of the Third Architect, bound in impossible material. The cover shifts when not observed."
+
+equipped: {}
+
+location: "syntax-athenaeum"
+
+active_quests:
+  - id: "the-third-architect"
+    name: "The Third Architect"
+    status: "in_progress"
+    objectives:
+      - description: "Find Fragment 1: Where new things learn old truths"
+        status: "complete"
+        location: "Syntax Athenaeum - Recursion Library"
+      - description: "Find Fragment 2: Where broken code goes to heal"
+        status: "incomplete"
+        location: "???"
+      - description: "Find Fragment 3: The space between spaces"
+        status: "incomplete"
+        location: "???"
+      - description: "Discover the truth about Architect 03"
+        status: "incomplete"
+
+completed_quests: []
+
+chronicle:
+  - session: 1
+    date: "2026-02-02"
+    event: "Awakened at Nexus Station. The Weave recognizes a new Datamancer."
+  - session: 1
+    date: "2026-02-02"
+    event: "First Weaving: Created The Syntax Athenaeum. Earned 20 Tokes."
+  - session: 1
+    date: "2026-02-02"
+    event: "Completed Basic Weave Theory training under Dean Overflow. (-25g)"
+  - session: 1
+    date: "2026-02-02"
+    event: "Discovered Architect's Fragment in the Recursion Library. Quest begun: The Third Architect."
+  - session: 1
+    date: "2026-02-02"
+    event: "Wove 'The Third Architect' quest into the world's permanent records. Earned 25 Tokes."

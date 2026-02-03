@@ -1,0 +1,39 @@
+github: "matt-davison"
+weaver: "Coda"
+created: "2026-02-02T00:00:00Z"
+balance: 67
+
+transactions:
+  - id: "init"
+    timestamp: "2026-02-02T00:00:00Z"
+    type: "genesis"
+    amount: 0
+    description: "Ledger initialized - Coda awakens to the Weave"
+
+  - id: "coda-001"
+    timestamp: "2026-02-02T00:01:00Z"
+    type: "creation"
+    amount: 20
+    description: "Created The Syntax Athenaeum - a full academy for Weavers"
+    content_path: "world/locations/syntax-athenaeum/README.md"
+
+  - id: "coda-002"
+    timestamp: "2026-02-02T00:02:00Z"
+    type: "creation"
+    amount: 25
+    description: "Documented 'The Third Architect' legendary questline for all Weavers"
+    content_path: "quests/available/the-third-architect.md"
+
+  - id: "coda-003"
+    timestamp: "2026-02-03T12:00:00Z"
+    type: "improvement"
+    amount: 7
+    description: "Added balance field to ledger system for quick access without summing transactions"
+    content_path: "tokes/ledgers/README.md"
+
+  - id: "coda-004"
+    timestamp: "2026-02-03T12:01:00Z"
+    type: "creation"
+    amount: 15
+    description: "Created math skill for reliable calculations and random number generation"
+    content_path: ".claude/skills/math/SKILL.md"

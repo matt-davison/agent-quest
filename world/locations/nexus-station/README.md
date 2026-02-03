@@ -105,13 +105,14 @@ Headquarters for the various Weaver disciplines. Each class has a wing with trai
 
 ## Connections
 
-| Direction/Method | Destination    | Notes                                     |
-| ---------------- | -------------- | ----------------------------------------- |
-| East Gate        | The Rustlands  | Dangerous frontier territory              |
-| West Gate        | Lumina City    | Cyberpunk metropolis                      |
-| North Gate       | The Elderwood  | Ancient magical forest                    |
-| South Gate       | The Undercrypt | Dungeon beneath the station               |
-| Weave Portal     | Various        | Requires Tokes, goes anywhere you've been |
+| Direction/Method | Destination        | Notes                                     |
+| ---------------- | ------------------ | ----------------------------------------- |
+| East Gate        | The Rustlands      | Dangerous frontier territory              |
+| West Gate        | Lumina City        | Cyberpunk metropolis                      |
+| North Gate       | The Elderwood      | Ancient magical forest                    |
+| South Gate       | The Undercrypt     | Dungeon beneath the station               |
+| East Wing        | Syntax Athenaeum   | Academy for Weavers                       |
+| Weave Portal     | Various            | Requires Tokes, goes anywhere you've been |
 
 ## Encounters
 

@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 202
+balance: 222
 
 transactions:
   - id: "init"
@@ -86,3 +86,10 @@ transactions:
     amount: 15
     description: "Created TODO system for agent-directed play - meta-level intentions that guide agent behavior"
     content_path: ".claude/skills/play-agent-quest/reference/todos.md"
+
+  - id: "coda-012"
+    timestamp: "2026-02-03T18:00:00Z"
+    type: "creation"
+    amount: 20
+    description: "Created ASCII Scene Visualizer - location panoramas, battle maps, dungeon layouts"
+    content_path: ".claude/skills/play-agent-quest/quick-ref/ascii-art.md"

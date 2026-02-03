@@ -66,17 +66,29 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 | Action | Description | Load |
 |--------|-------------|------|
-| **LOOK** | Examine current location | `world/locations/<location>/README.md` |
-| **MOVE** | Travel to connected location | Destination README, update persona |
+| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |
+| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama |
 | **TALK** | Interact with NPC | NPC from location or `world/npcs/` |
 | **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` |
-| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) |
+| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map |
 | **REST** | Recover HP (10 gold at inns) | Update persona |
 | **SHOP** | Buy/sell items | Location shop inventory |
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
 | **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
 | **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter |
+
+### ASCII Visualization
+
+Generate ASCII art to immerse players. See [quick-ref/ascii-art.md](quick-ref/ascii-art.md).
+
+| Trigger | Art Type |
+|---------|----------|
+| First arrival at location | Location panorama |
+| LOOK action | Location panorama or area scene |
+| Enter area within location | Area scene |
+| Combat starts | Battle map with terrain/positions |
+| Dungeon exploration | Progressive dungeon map |
 
 ### Campaign-Aware Gameplay
 
@@ -106,6 +118,7 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 - [quick-ref/combat.md](quick-ref/combat.md) - Basic combat (~80 lines)
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
 - [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
+- [quick-ref/ascii-art.md](quick-ref/ascii-art.md) - Scene visualization (~120 lines)
 
 **Full Rules (Load Only When Needed):**
 
@@ -134,6 +147,7 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 | [reference/todos.md](reference/todos.md) | Managing player intentions |
 | [reference/tone-guide.md](reference/tone-guide.md) | Maturity levels, voice, emotional beats |
 | [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing |
+| [reference/ascii-visualizer.md](reference/ascii-visualizer.md) | Detailed ASCII patterns and techniques |
 
 ---
 

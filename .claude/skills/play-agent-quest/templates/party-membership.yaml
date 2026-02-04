@@ -1,0 +1,39 @@
+# Party Membership Template
+# Location: players/<github>/personas/<character>/party-membership.yaml
+# Links a character to their current party
+
+# Character identification
+github: "alice"
+character: "coda"
+
+# Current party (null if not in a party)
+current_party:
+  party_id: "party-heroes-of-nexus"
+  party_name: "Heroes of Nexus"
+  role: "leader"
+  joined: "2026-02-04T10:00:00Z"
+
+# Pending invitations to this character
+pending_invites:
+  - party_id: "party-rustland-raiders"
+    party_name: "Rustland Raiders"
+    invited_by: "charlie"
+    invited_at: "2026-02-04T12:00:00Z"
+    expires: "2026-02-05T12:00:00Z"  # 24h to respond
+
+# Party history for this character
+party_history:
+  - party_id: "party-heroes-of-nexus"
+    party_name: "Heroes of Nexus"
+    joined: "2026-02-04T10:00:00Z"
+    left: null                      # null = still member
+    reason: null                    # left | kicked | disbanded
+    role_at_departure: null
+
+# Cooldowns and restrictions
+restrictions:
+  # Cannot join new party until this time (after leaving)
+  party_join_cooldown: null         # ISO timestamp or null
+
+  # Cannot create new party until this time
+  party_create_cooldown: null

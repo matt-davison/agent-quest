@@ -12,14 +12,31 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
 2. **Check player file**: `players/<github-username>/player.yaml`
 3. **Load world state**: `world/state/current.yaml` for time/weather
-4. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-5. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+4. **Load multiplayer state**: Check for pending interactions (see below)
+5. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+6. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World State Loading
 
 At session start, always load:
 - `world/state/current.yaml` - Current time, weather, active events
+- `world/state/presence.yaml` - Other players at current location
 - Check time period to determine NPC availability
+
+### Multiplayer State Loading
+
+Check these for player interactions:
+- `multiplayer/trades/escrow/<github>.yaml` - Items/gold in escrow
+- `multiplayer/trades/active/*.yaml` - Pending trades (grep for player's github)
+- `multiplayer/parties/invites/<github>-*.yaml` - Party invitations
+- `multiplayer/mail/<github>/inbox/` - Unread messages
+- `players/<github>/personas/<char>/party-membership.yaml` - Party status
+
+**Resume screen should show:**
+- Escrow status (if any items/gold locked)
+- Pending trade count
+- Unread mail count
+- Party membership status
 
 Use the `world-state` skill for queries:
 ```bash
@@ -68,6 +85,8 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 - `players/<github-username>/personas/<active_character>/campaign-progress.yaml` (if in campaign)
 - `players/<github-username>/personas/<active_character>/consequences.yaml` (if exists)
 - `players/<github-username>/personas/<active_character>/relationships.yaml` (if exists)
+- `players/<github-username>/personas/<active_character>/party-membership.yaml` (if exists)
+- `multiplayer/trades/escrow/<github-username>.yaml` (if exists)
 
 ---
 
@@ -90,6 +109,12 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
 | **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
 | **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter |
+| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
+| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml |
+| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` |
+| **GUILD** | Guild management | `multiplayer/guilds/` |
+| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
+| **WHO** | See players at location | `world/state/presence.yaml` |
 
 ### ASCII Visualization
 
@@ -188,6 +213,7 @@ node .claude/skills/relationships/relationships.js topics vera-nighthollow playe
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
 - [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
 - [quick-ref/ascii-art.md](quick-ref/ascii-art.md) - Scene visualization (~120 lines)
+- [quick-ref/multiplayer.md](quick-ref/multiplayer.md) - Trading, parties, guilds, duels (~150 lines)
 
 **Full Rules (Load Only When Needed):**
 
@@ -201,6 +227,7 @@ node .claude/skills/relationships/relationships.js topics vera-nighthollow playe
 | [rules/reviews.md](rules/reviews.md) | Review rewards, feedback loop |
 | [rules/creation.md](rules/creation.md) | Content templates, quality guidelines |
 | [rules/narrative.md](rules/narrative.md) | Campaigns, consequences, relationships |
+| [rules/multiplayer.md](rules/multiplayer.md) | Trading, parties, guilds, duels |
 
 **Strategy:** Start with quick-ref. Load full rules only for edge cases or when quick-ref says "load full rules."
 
@@ -251,6 +278,20 @@ node .claude/skills/relationships/relationships.js topics vera-nighthollow playe
 - [templates/consequence-tracker.yaml](templates/consequence-tracker.yaml) - Decision ripple system
 - [templates/relationships.yaml](templates/relationships.yaml) - NPC standings and dialogue
 - [templates/campaign-progress.yaml](templates/campaign-progress.yaml) - Per-character campaign state
+
+**Multiplayer:**
+- [templates/trade.yaml](templates/trade.yaml) - Player-to-player trades
+- [templates/escrow.yaml](templates/escrow.yaml) - Locked items/gold ledger
+- [templates/party.yaml](templates/party.yaml) - Party structure
+- [templates/party-membership.yaml](templates/party-membership.yaml) - Character party link
+- [templates/party-invite.yaml](templates/party-invite.yaml) - Party invitations
+- [templates/party-encounter.yaml](templates/party-encounter.yaml) - Shared combat
+- [templates/mail-message.yaml](templates/mail-message.yaml) - Player messages
+- [templates/guild.yaml](templates/guild.yaml) - Guild info
+- [templates/guild-roster.yaml](templates/guild-roster.yaml) - Guild membership
+- [templates/guild-treasury.yaml](templates/guild-treasury.yaml) - Shared resources
+- [templates/duel.yaml](templates/duel.yaml) - PvP combat
+- [templates/world-event.yaml](templates/world-event.yaml) - Server-wide events
 
 ## Campaigns
 

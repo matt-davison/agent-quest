@@ -1,0 +1,77 @@
+# Guild Roster Template
+# Location: multiplayer/guilds/<guild-id>/roster.yaml
+
+guild_id: "nexus-guardians"
+last_updated: "2026-02-04T14:00:00Z"
+
+# Member count summary
+member_count:
+  total: 5
+  by_rank:
+    founder: 1
+    leader: 0       # Leader role separate from founder
+    officer: 2
+    member: 2
+    recruit: 0
+
+# All guild members
+members:
+  - github: "alice"
+    character: "coda"
+    rank: "founder"         # founder | officer | member | recruit
+    joined: "2026-02-04T10:00:00Z"
+    last_active: "2026-02-04T14:00:00Z"
+    contribution:
+      gold_deposited: 250
+      quests_completed: 8
+      reputation_earned: 150
+    notes: "Guild founder and primary quest leader"
+
+  - github: "bob"
+    character: "shadow"
+    rank: "officer"
+    promoted_by: "coda"
+    promoted_at: "2026-02-04T13:00:00Z"
+    joined: "2026-02-04T10:30:00Z"
+    last_active: "2026-02-04T13:45:00Z"
+    contribution:
+      gold_deposited: 100
+      quests_completed: 5
+      reputation_earned: 80
+    notes: null
+
+  - github: "charlie"
+    character: "spark"
+    rank: "member"
+    joined: "2026-02-04T11:00:00Z"
+    last_active: "2026-02-04T12:00:00Z"
+    contribution:
+      gold_deposited: 50
+      quests_completed: 2
+      reputation_earned: 30
+    notes: null
+
+# Pending applications (if recruitment mode is "apply")
+applications: []
+# - github: "dave"
+#   character: "phoenix"
+#   applied_at: "2026-02-04T15:00:00Z"
+#   message: "I'd love to join the Guardians!"
+#   status: "pending"  # pending | accepted | rejected
+
+# Member history (recent departures/changes)
+roster_history:
+  - timestamp: "2026-02-04T10:00:00Z"
+    action: "join"
+    github: "alice"
+    character: "coda"
+    rank: "founder"
+    by: null
+
+  - timestamp: "2026-02-04T13:00:00Z"
+    action: "promote"
+    github: "bob"
+    character: "shadow"
+    from_rank: "member"
+    to_rank: "officer"
+    by: "coda"

@@ -1,0 +1,114 @@
+# Duel Template
+# Location: multiplayer/duels/<duel-id>.yaml
+
+duel_id: "duel-20260204-150000-abc123"
+
+# Duel type
+type: "ranked"              # friendly | ranked | wagered | tournament
+
+# Participants
+challenger:
+  github: "alice"
+  character: "coda"
+  class: "Datamancer"
+  level: 5
+  rating_before: 1150       # Elo rating (for ranked)
+
+defender:
+  github: "bob"
+  character: "shadow"
+  class: "Ghostrunner"
+  level: 4
+  rating_before: 1200
+
+# Timestamps
+challenged_at: "2026-02-04T14:00:00Z"
+accepted_at: "2026-02-04T14:30:00Z"
+started_at: "2026-02-04T14:31:00Z"
+completed_at: null
+expires: "2026-02-05T14:00:00Z"   # Challenge expires after 24h
+
+# Wager (for wagered type)
+wager:
+  challenger:
+    gold: 100
+    items: []
+    escrow_ref: "multiplayer/trades/escrow/alice.yaml#escrow-010"
+  defender:
+    gold: 100
+    items: []
+    escrow_ref: "multiplayer/trades/escrow/bob.yaml#escrow-005"
+
+# Location
+arena: "nexus-training-grounds"
+
+# Combat state
+combat:
+  round: 3
+  current_turn: "challenger"
+
+  # Combatant states
+  challenger_state:
+    hp: 65
+    max_hp: 100
+    buffs: []
+    debuffs: ["bleeding"]
+    cooldowns:
+      "data-spike": 2       # Turns until available
+
+  defender_state:
+    hp: 40
+    max_hp: 85
+    buffs: ["haste"]
+    debuffs: []
+    cooldowns: {}
+
+# Combat log (append-only)
+combat_log:
+  - round: 1
+    turn: "challenger"
+    action: "attack"
+    ability: "basic-attack"
+    result: "hit"
+    damage: 15
+    notes: null
+
+  - round: 1
+    turn: "defender"
+    action: "ability"
+    ability: "shadow-step"
+    result: "success"
+    damage: 20
+    effect: "Applied bleeding to challenger"
+
+  - round: 2
+    turn: "challenger"
+    action: "ability"
+    ability: "data-spike"
+    result: "critical"
+    damage: 30
+    notes: "Critical hit!"
+
+# Duel status
+status: "in_progress"       # challenged | accepted | in_progress | completed | declined | expired | forfeited
+
+# Result (filled on completion)
+result:
+  winner: null              # github username
+  loser: null
+  method: null              # ko | surrender | forfeit | timeout
+  rounds: null
+
+  # Rating changes (for ranked)
+  rating_change:
+    challenger: null        # +/- points
+    defender: null
+
+  # Wager distribution
+  wager_awarded_to: null
+
+# Spectators (optional)
+spectators:
+  - github: "charlie"
+    character: "spark"
+    joined_at: "2026-02-04T14:32:00Z"

@@ -1,0 +1,3 @@
+# Per-player escrow ledgers
+# File naming: <github>.yaml
+# Each player has one escrow file tracking all locked items/gold

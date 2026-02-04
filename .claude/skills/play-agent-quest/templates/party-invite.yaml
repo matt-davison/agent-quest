@@ -1,0 +1,39 @@
+# Party Invitation Template
+# Location: multiplayer/parties/invites/<github>-<party-id>.yaml
+
+invite_id: "invite-alice-party-heroes"
+
+# Who is being invited
+to:
+  github: "alice"
+  character: "coda"
+
+# What party
+party:
+  party_id: "party-heroes-of-nexus"
+  party_name: "Heroes of Nexus"
+  leader: "bob"
+  member_count: 3
+  max_members: 6
+
+# Who sent the invite
+from:
+  github: "bob"
+  character: "shadow"
+  role: "leader"  # Must have invite permission
+
+# Timestamps
+created: "2026-02-04T14:00:00Z"
+expires: "2026-02-05T14:00:00Z"  # 24h default
+
+# Status
+status: "pending"  # pending | accepted | declined | expired | revoked
+
+# Optional message
+message: "We could use a Datamancer for our Rustlands expedition!"
+
+# Response (filled when acted upon)
+response:
+  timestamp: null
+  action: null    # accept | decline
+  message: null

@@ -1,0 +1,3 @@
+# Completed trades are archived here by month
+# Directory structure: <YYYY-MM>/<trade-id>.yaml
+# Keeps active/ directory clean while preserving history

@@ -1,0 +1,56 @@
+# Leaderboards Index
+# Rankings and statistics for competitive systems
+
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+# PvP Duel Rankings (Elo-based)
+duel_rankings:
+  season: 1
+  season_start: "2026-02-01"
+  season_end: "2026-04-30"
+  rankings: []
+  # Example entry:
+  # - github: "alice"
+  #   character: "coda"
+  #   rating: 1250
+  #   wins: 15
+  #   losses: 8
+  #   streak: 3
+  #   peak_rating: 1280
+
+# Tokes Leaderboard (wealth/contribution)
+tokes_leaders:
+  last_calculated: "2026-02-04T00:00:00Z"
+  top_earners: []
+  # Calculated from tokes/ledgers/ totals
+  # - github: "alice"
+  #   weaver: "Coda"
+  #   lifetime_earned: 250
+  #   current_balance: 200
+
+# Quest Completion
+quest_leaders:
+  total_quests_completed: 0
+  rankings: []
+  # - github: "alice"
+  #   character: "coda"
+  #   quests_completed: 12
+  #   legendary_completions: 2
+
+# Guild Rankings
+guild_rankings:
+  rankings: []
+  # - guild_id: "nexus-guardians"
+  #   name: "Nexus Guardians"
+  #   level: 3
+  #   member_count: 8
+  #   treasury_value: 2500
+
+# World Event Contributions
+event_contributions:
+  current_event: null
+  rankings: []
+  # - github: "alice"
+  #   character: "coda"
+  #   contribution_points: 150

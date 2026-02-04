@@ -1,0 +1,86 @@
+# Guild Template
+# Location: multiplayer/guilds/<guild-id>/guild.yaml
+
+guild_id: "nexus-guardians"
+name: "Nexus Guardians"
+tag: "[NG]"                 # Short tag shown before names
+
+# Guild info
+description: |
+  Protectors of the Nexus Station and guides to new Weavers.
+  Founded to maintain peace in the digital realm.
+
+motto: "In Code We Trust"
+founded: "2026-02-04T10:00:00Z"
+
+# Guild level (determines benefits)
+level: 2
+# Level requirements:
+# 1: Founded
+# 2: 500 gold treasury
+# 3: 2000 gold treasury
+# 4: 5000 gold treasury
+# 5: 10000 gold treasury
+
+# Founder (cannot leave)
+founder:
+  github: "alice"
+  character: "coda"
+
+# Current leader (may differ from founder)
+leader:
+  github: "alice"
+  character: "coda"
+
+# Guild settings
+settings:
+  max_members: 50           # Increases with level
+
+  # Who can invite
+  invite_permission: "officer"  # leader | officer | member
+
+  # Application mode
+  recruitment: "invite-only"    # open | apply | invite-only
+
+  # Minimum level to join
+  min_level_requirement: 1
+
+  # Treasury withdrawal limits (gold per day)
+  withdrawal_limits:
+    officer: 100
+    leader: 1000
+    founder: -1             # Unlimited
+
+# Guild statistics
+stats:
+  total_quests_completed: 45
+  total_tokes_earned: 1250
+  pvp_wins: 12
+  pvp_losses: 8
+
+# Active benefits (based on level)
+benefits:
+  - id: "shop-discount"
+    name: "Merchant's Friend"
+    description: "5% discount at all shops"
+    level_required: 2
+  # Future benefits unlock at higher levels
+
+# Guild hall location (unlocked at level 5)
+guild_hall: null
+# guild_hall:
+#   location_id: "nexus-guild-district"
+#   name: "Guardians' Rest"
+
+# Message of the day
+motd: "Welcome new members! Check the quest board for group activities."
+motd_updated: "2026-02-04T08:00:00Z"
+
+# Guild history (append-only, recent entries)
+history:
+  - timestamp: "2026-02-04T10:00:00Z"
+    event: "Guild founded by coda"
+  - timestamp: "2026-02-04T12:00:00Z"
+    event: "shadow joined as member"
+  - timestamp: "2026-02-04T14:00:00Z"
+    event: "Guild reached level 2"

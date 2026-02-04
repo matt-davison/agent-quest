@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 217
+balance: 229
 
 transactions:
   - id: "init"
@@ -103,3 +103,15 @@ transactions:
     character: "zynita-darkblade"
     pending_reward: true
     reward_range: "15-50 Tokes after PR merge"
+
+  - id: "coda-013"
+    timestamp: "2026-02-04T00:00:00Z"
+    type: "improvement"
+    amount: 12
+    description: "Comprehensive README rewrite and player freedom documentation across skill files"
+    content_paths:
+      - "README.md"
+      - ".claude/skills/play-agent-quest/SKILL.md"
+      - ".claude/skills/play-agent-quest/rules/economy.md"
+      - ".claude/skills/play-agent-quest/reference/weaving.md"
+    pr: "#5"

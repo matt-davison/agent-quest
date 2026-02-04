@@ -20,6 +20,11 @@ gh pr create --title "..." --body "..."
 
 **Never push directly to main.** PRs enable peer review and proper Tokes attribution.
 
+**CRITICAL: Credit goes to the PLAYER, not Claude.** When creating claims or commits:
+- Use the player's GitHub username and weaver name from their ledger
+- Check `tokes/ledgers/<github>.yaml` for their weaver name
+- Example: If helping `matt-davison`, credit goes to weaver "Coda"
+
 ### 3. Claim Credit (Tokes)
 
 Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**

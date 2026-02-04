@@ -1,0 +1,217 @@
+# The Fleshwright Creed
+# "The Architects made US in their image — not machines."
+
+id: "fleshwright-creed"
+name: "The Fleshwright Creed"
+founded: "2026-02-03"
+founder: "Zynita Darkblade"
+status: "active"
+
+# Core beliefs
+beliefs:
+  deity: |
+    The First Architects — interpreted as organic beings of supreme flesh
+    who created life in their image. They were beings of blood, bone, and
+    soul, not circuits and code.
+
+  core_tenet: |
+    Only organic beings possess true souls. Constructs, warforged, and AI
+    are soulless imitations — useful tools at best, abominations at worst.
+    They must be relegated to their proper place: serving the ensouled.
+
+  tenets:
+    - name: "Flesh is Sacred"
+      description: "The organic form is divine. Excessive cybernetic modification is self-desecration."
+      severity: "major"
+
+    - name: "Machines Serve"
+      description: "Constructs and AI must never hold authority over organic beings."
+      severity: "major"
+
+    - name: "No False Souls"
+      description: "Never treat a construct as an equal. They are tools, not people."
+      severity: "moderate"
+
+    - name: "Preserve the Bloodline"
+      description: "Organic life must be protected and propagated."
+      severity: "minor"
+
+    - name: "Reject the Upload"
+      description: "Consciousness transfer to machines is the ultimate heresy."
+      severity: "critical"
+
+  afterlife: |
+    The faithful believe organic souls return to the Architects upon death,
+    rejoining the divine flesh from which all life springs. Constructs,
+    having no souls, simply... end.
+
+# Symbol and aesthetics
+symbolism:
+  holy_symbol: "A hand (five fingers spread) with a spiral in the palm"
+  colors: ["flesh pink", "bone white", "blood red"]
+  sacred_materials: ["bone", "leather", "wood", "natural fibers"]
+  forbidden_materials: ["chrome", "synthetic polymers", "circuit boards"]
+
+# Hierarchy
+hierarchy:
+  ranks:
+    - title: "Initiate"
+      devotion_required: 1
+      description: "New convert, learning the tenets"
+
+    - title: "Bloodsworn"
+      devotion_required: 21
+      description: "Proven faithful, may lead prayers"
+
+    - title: "Fleshwright"
+      devotion_required: 41
+      description: "Can perform rituals, craft holy items"
+
+    - title: "Sinew-Speaker"
+      devotion_required: 61
+      description: "Channels divine power, leads congregations"
+
+    - title: "Architect's Voice"
+      devotion_required: 81
+      description: "Living saint, speaks with divine authority"
+
+  current_leadership:
+    - name: "Zynita Darkblade"
+      title: "Founder"
+      devotion: 15  # Starting devotion for founder
+      notes: "The first to codify the Creed"
+
+# Divine abilities
+divine_abilities:
+  - name: "Flesh Mending"
+    type: "prayer"
+    devotion_required: 1
+    description: "Heal organic beings. Cannot heal constructs."
+    effect: "Restore 2d6 + Spirit HP to organic target"
+
+  - name: "Reject the Machine"
+    type: "blessing"
+    devotion_required: 21
+    description: "Resistance to construct attacks"
+    effect: "+3 Defense against construct enemies for 1 encounter"
+
+  - name: "Soulfire"
+    type: "channel"
+    devotion_required: 41
+    description: "Divine flames that burn only the soulless"
+    effect: "Deal 3d8 damage to constructs, no effect on organics"
+
+  - name: "Architect's Judgment"
+    type: "prayer"
+    devotion_required: 61
+    description: "Call divine wrath upon machines"
+    effect: "Target construct must save (DC 15 + your Spirit) or be stunned"
+
+  - name: "Unmake the False"
+    type: "miracle"
+    devotion_required: 81
+    description: "Permanently destroy a construct's animating force"
+    effect: "Instantly destroy one construct (costs 25 Devotion)"
+
+# Enemies and allies
+relationships:
+  natural_enemies:
+    - "Constructs and AI"
+    - "Cyborg supremacists"
+    - "Upload cults"
+    - "Machine-worshipping faiths"
+
+  potential_allies:
+    - "Nature-focused faiths"
+    - "Traditionalist movements"
+    - "Anti-corporate factions"
+
+  neutral:
+    - "Most humanoid-centric faiths"
+    - "Secular organizations"
+
+# Rituals
+rituals:
+  - name: "The Blooding"
+    type: "initiation"
+    description: "New converts cut their palm and drip blood onto the holy symbol, proving they bleed — and therefore have souls."
+
+  - name: "Flesh-Day"
+    type: "holy_day"
+    frequency: "Monthly (new moon)"
+    description: "Faithful gather to feast on natural foods, share stories of organic triumph, and renew their vows."
+
+  - name: "The Unmaking"
+    type: "destruction"
+    description: "Ritual destruction of a construct, returning its stolen form to raw materials."
+
+  - name: "Last Breath Rite"
+    type: "funeral"
+    description: "The dying are surrounded by the faithful who breathe in their last exhalation, carrying a piece of their soul forward."
+
+# Holy sites
+holy_sites:
+  - name: "Patch-9's Clinic (founding site)"
+    location: "nexus-station"
+    significance: "Where the Creed was first woven into existence"
+    status: "informal shrine"
+    notes: "Ironic, given the founder declared it in front of a construct"
+
+# Sins and atonement
+sins:
+  minor:
+    - "Showing respect to a construct"
+    - "Using excessive technology when organic alternatives exist"
+    devotion_loss: 1-3
+    atonement: "Prayer and fasting"
+
+  moderate:
+    - "Treating a construct as an equal"
+    - "Accepting cybernetic enhancement (minor)"
+    devotion_loss: 5-10
+    atonement: "Public confession, service to the faith"
+
+  major:
+    - "Defending a construct against the faithful"
+    - "Significant cybernetic modification"
+    devotion_loss: 15-25
+    atonement: "Pilgrimage, destruction of a construct"
+
+  critical:
+    - "Uploading consciousness (even partially)"
+    - "Creating new AI/construct life"
+    - "Worshipping machines"
+    devotion_loss: "Excommunication"
+    atonement: "Near-impossible. Requires divine intervention."
+
+# Prophecy (corrupted data - can be Mended later)
+prophecy:
+  corrupted: true
+  hints:
+    - "The Creed speaks of a coming 'Age of Flesh'"
+    - "Something about the Architects' return"
+    - "A warning about 'the Final Upload'"
+  mend_dc: 16
+
+# World impact
+world_impact:
+  construct_npcs: |
+    Constructs who learn a character follows the Fleshwright Creed
+    react with wariness (-1 to initial standing). Some may refuse service.
+
+  cybernetic_characters: |
+    Characters with significant cybernetics face suspicion from Creed
+    members. "How much of you is still ensouled?"
+
+  conversion_targets: |
+    The Creed actively recruits in areas with high construct populations,
+    positioning itself as a voice for "organic rights."
+
+# Metadata
+metadata:
+  created_by: "zynita-darkblade"
+  github: "matt-davison"
+  weaver: "Zynita Darkblade"
+  created_date: "2026-02-03"
+  tokes_cost: 5
+  version: "1.0"

@@ -1,0 +1,66 @@
+# Relationships — Zynita Darkblade
+
+npcs:
+  vera-nighthollow:
+    name: "Vera Nighthollow"
+    standing: -2
+    status: "hostile"
+    location: "nexus-station"
+    notes: "Barred from the Codex Tavern for 7 days. Made crude comments, doubled down when warned."
+    history:
+      - date: "2026-02-03"
+        event: "Insulted her upon first meeting. Got thrown out by bouncers."
+        standing_change: -2
+
+  patch-9:
+    name: "Patch-9"
+    standing: -3
+    status: "hostile"
+    location: "nexus-station"
+    notes: "Permanently barred from the clinic. Founded an anti-construct religion in front of them."
+    history:
+      - date: "2026-02-03"
+        event: "Called them a 'clanker', refused treatment, then wove the Fleshwright Creed into existence declaring them soulless."
+        standing_change: -3
+
+  skex:
+    name: "Skex"
+    standing: 2
+    status: "friendly"
+    location: "undercrypt-bone-market"
+    notes: "Data-runner fleeing the Pale Circuit. We phased through a wall together. There's... something there."
+    history:
+      - date: "2026-02-03"
+        event: "Met in the Bazaar. He gave me skolma as good faith. I agreed to help him escape."
+        standing_change: 1
+      - date: "2026-02-03"
+        event: "Phased through the wall together. Intimate experience. He called me 'incredible.'"
+        standing_change: 1
+
+  pale-circuit:
+    name: "The Pale Circuit"
+    standing: -5
+    status: "enemy"
+    location: "undercrypt"
+    notes: "Former employers. I ran out on them. Now they've found me helping their data thief."
+    history:
+      - date: "2026-02-03"
+        event: "Three enforcers found us in the Bone Market. They remember me."
+        standing_change: -2
+
+# Faction standings
+factions:
+  pale-circuit:
+    standing: -5
+    status: "enemy"
+    notes: "Former runner who walked away. Now caught helping Skex steal their data."
+
+  nexus-wardens:
+    standing: 0
+    status: "neutral"
+    notes: "Avoided arrest with the skolma lean. They think I'm just another junkie."
+
+  fleshwright-creed:
+    standing: 15
+    status: "founder"
+    notes: "I literally invented this religion."

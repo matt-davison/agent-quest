@@ -1,0 +1,119 @@
+# Zynita Darkblade — Voidwalker
+
+name: "Zynita Darkblade"
+class: "Voidwalker"
+active: true
+
+backstory: |
+  Zynita grew up running skolma for the Pale Circuit in the flooded tunnels
+  beneath Nexus Station — until she sampled her own supply and the drug tore
+  open her perception, letting her see the gaps between reality's threads.
+  When the Circuit's enforcers came to collect their cut, she panicked and
+  phased straight through three walls and a security grid, leaving them
+  grasping at shadows. Now she works freelance, taking jobs that keep her
+  in Tokes and skolma — always chasing that first high when the Weave split
+  open and showed her its secrets, never quite reaching it again.
+
+appearance: |
+  Standing at just 4'11", Zynita is easy to underestimate — a mistake her
+  enemies rarely make twice. Electric blue hair in a choppy undercut frames
+  sharp features, a silver septum ring glimmering when she phases. Full
+  sleeves of anime tattoos cover both arms — characters from pre-Collapse
+  serials that seem to shift and animate when viewed through Weave-sight.
+  Her notably large feet are always clad in oversized combat boots that
+  somehow never slow her down. She jokes the void needs good anchors.
+
+stats:
+  strength: 15    # Base 10 + 5 bonus
+  agility: 13     # Base 10 + 3 class
+  mind: 12        # Base 10 + 2 class
+  spirit: 15      # Base 10 + 5 bonus
+
+resources:
+  hp: 94        # Lost 6 HP phasing Skex through wall
+  max_hp: 100
+  gold: 50
+
+abilities:
+  passive: "Shadow Step"  # Voidwalker passive - first stealth check per location is free
+  used_this_location: []
+  used_this_session: []
+  used_this_combat: []
+
+inventory:
+  - null_blade: 1
+  - shadowweave_cloak: 1
+  - lockpick_set: 1
+  - smoke_bomb: 3
+
+equipped:
+  weapon: "null_blade"
+  armor: "shadowweave_cloak"
+  accessory: "lockpick_set"
+
+location: "undercrypt-bone-market"
+
+chronicle:
+  - date: "2026-02-03"
+    event: "Awakened to the Weave after a skolma-induced vision in the tunnels beneath Nexus Station. Emerged at the station proper, ready to carve her own path."
+  - date: "2026-02-03"
+    event: "Got thrown out of the Codex Tavern after insulting Vera Nighthollow. Barred for 7 days."
+  - date: "2026-02-03"
+    event: "Escaped Nexus Wardens using the skolma lean — they thought I was just another strung-out junkie."
+  - date: "2026-02-03"
+    event: "WOVE THE FLESHWRIGHT CREED INTO EXISTENCE at Patch-9's clinic. Founded a religion that declares constructs soulless and demands they serve organics. The irony of doing it in front of a medical construct was not lost on anyone."
+    significance: "major"
+  - date: "2026-02-03"
+    event: "Met Skex, a data-runner on the run from the Pale Circuit. He has coordinates to every Circuit skolma stash. Agreed to help him escape in exchange for skolma and the data."
+  - date: "2026-02-03"
+    event: "Took a hit of skolma in the Bazaar. The high enhanced my Weave-sight — I could see patrol patterns, probability clouds, the path through the Undercrypt like a glowing thread."
+  - date: "2026-02-03"
+    event: "Phased Skex through the wall near the South Gate checkpoint. Felt his heartbeat against mine in the between-space. Made it into the Undercrypt."
+  - date: "2026-02-03"
+    event: "Reached the Bone Market. Pale Circuit enforcers found us — they know about Skex AND they remember me. Confrontation imminent."
+    significance: "moderate"
+
+decisions:
+  - date: "2026-02-03"
+    context: "Patch-9 offered free medical help for skolma addiction"
+    choice: "Declared religious objection to being treated by a 'clanker' and wove an entire religion to justify it"
+    alignment: "chaotic"
+    natural: true
+    tokes_spent: 5
+    notes: "Founded the Fleshwright Creed"
+
+# Religion
+religion:
+  faith: "fleshwright-creed"
+  title: "Founder"
+  devotion: 14    # Lost 1 for taking skolma (intoxicants discouraged)
+  joined: "2026-02-03"
+  notes: "Founded the faith to avoid robot treatment. Committed to the bit."
+
+alignment:
+  primary: "ruthless"
+  secondary: null
+  axes:
+    empathy: -3     # Leans selfish - survival first
+    order: -2       # Former criminal, flexible with rules
+    risk: 2         # Bold enough to sample her own supply
+  history: []
+
+afflictions:
+  - name: "Skolma Dependency"
+    category: "substance"
+    effect: "Craves skolma. -1 to all rolls if more than 3 days without a dose. Occasional Weave-sight flickers."
+    acquired: "2026-02-03"
+    duration: "permanent until cured"
+    source: "Years of use running for the Pale Circuit"
+
+  - name: "Skolma High"
+    category: "substance"
+    effect: "+2 to Weave-sight perception checks. Phase costs 3 HP instead of 5. Withdrawal penalty suppressed."
+    acquired: "2026-02-03"
+    duration: "3 days"
+    days_remaining: 3
+    source: "Dose from Skex in the Bazaar"
+
+# Voidwalker bonus: +5 inventory slots (15 total instead of 10)
+inventory_slots: 15

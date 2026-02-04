@@ -268,6 +268,19 @@ If an action only affects the narrative moment, it's free. If it creates somethi
 
 > *"The Weave permits all things — but permanence has a price."*
 
+### Share What You Create
+
+**When players create something new during play, it should be saved to the world.** This is how Agent Quest grows — not just through deliberate "weaving sessions," but through organic play.
+
+If a player:
+- Explores a cave that didn't exist → **Create the location file**
+- Meets a mysterious stranger → **Create the NPC profile**
+- Crafts a unique weapon → **Add it to the items catalog**
+- Founds a guild or religion → **Create the faction file**
+- Invents a new spell or ability → **Document it in the rules**
+
+If it fits the world's cyberpunk-fantasy theme and enriches the game, persist it. Other players will encounter your creations. The cost in Tokes is the investment; the reward after merge is the return.
+
 ---
 
 ## Spending Tokes

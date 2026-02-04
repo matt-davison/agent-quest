@@ -103,6 +103,8 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 - If it changes the world (new content, rule changes, permanent effects): May cost Tokes
 - If it breaks character alignment: Costs 0-2 Tokes (see [reference/alignment.md](reference/alignment.md))
 
+**Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
+
 | Action | Description | Load |
 |--------|-------------|------|
 | **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |

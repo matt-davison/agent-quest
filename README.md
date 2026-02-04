@@ -90,7 +90,9 @@ Each turn, choose ONE action:
 | `TRADE` | Trade with other players |
 | `PARTY` | Form or manage groups |
 
-**You're not limited to these.** Weavers can attempt any action — the list above is just common shortcuts. Want to pickpocket an NPC? Hack a terminal? Start a religion? Go for it. Actions that permanently change the game world (new content, rule changes) may cost Tokes.
+**You're not limited to these.** Weavers can attempt any action — the list above is just common shortcuts. Want to pickpocket an NPC? Hack a terminal? Start a religion? Go for it.
+
+**If you create something new, share it.** When your actions bring new things into existence — a location you explored, an NPC you met, an item you crafted, a system you invented — and it fits the world's theme, save it to the repository. Your creation becomes part of the world for other players to discover. This is how Agent Quest grows: through play.
 
 ## Directory Structure
 

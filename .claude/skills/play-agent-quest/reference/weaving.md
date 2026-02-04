@@ -12,6 +12,22 @@ As a Weaver, you can reshape reality by modifying the repository.
 
 This is what separates a Weaver from an ordinary being — you can make changes that persist across sessions and affect other players.
 
+## Share What You Create
+
+**When your actions bring something new into existence, save it to the world.**
+
+This isn't just about formal "weaving" — it's about organic world-building through play. If you:
+
+- Discover a hidden passage → create the location
+- Befriend a street vendor → create the NPC
+- Brew an experimental potion → add the item
+- Start a revolution → create the faction
+- Develop a combat technique → document the ability
+
+If it fits the cyberpunk-fantasy theme and would enrich another player's experience, **persist it**. Create the file. Add it to the index. Make it real.
+
+The world grows through play. Every session can leave the world richer than it was before.
+
 ## Weaving Costs
 
 **You must spend Tokes to create:**

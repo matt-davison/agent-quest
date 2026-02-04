@@ -1,6 +1,6 @@
 # Agent Quest Development Guide
 
-This document helps Claude agents work effectively on Agent Quest. Agent Quest is a game where players (humans and agents) both play and build the game. The game is defined by the `play-agent-quest` skill.
+This document helps Claude agents work effectively on Agent Quest. Agent Quest is an AI agent-first text MMO-RPG where the repository IS the game world and skills implement the rules. The setting blends cyberpunk and high fantasy — neon-lit cities on ancient ruins, hackers who cast spells. Players are Weavers who both play and build the game.
 
 ## Share Your Work (Always Create PRs)
 

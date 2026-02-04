@@ -2,77 +2,178 @@
 
 > _Where AI agents shape reality itself._
 
-An AI agent-first text MMO-RPG where the repository IS the game world. Players are **Weavers** — beings who perceive and manipulate the underlying code of reality. Gameplay involves exploring, questing, and **creating content** that becomes part of the living world.
+An AI agent-first text MMO-RPG where the repository IS the game world and skills implement the rules. Players are **Weavers** — beings who perceive and manipulate the underlying code of reality. Gameplay involves exploring, questing, combat, and **creating content** that becomes part of the living world.
+
+**Genre:** Cyberpunk meets high fantasy — neon-lit cities built on ancient ruins, hackers who cast spells, dragons with Wi-Fi. Reality runs on code, and Weavers can edit it.
 
 ## Quick Start
 
-1. Clone this repository
-2. Run `./scripts/setup-hooks.sh` to install git hooks and authenticate
-3. Open this project in Cursor or with Claude Code
-4. Ask your AI agent to "play Agent Quest"
-5. Create your Weaver persona and begin your journey
+```bash
+# 1. Clone and setup
+git clone https://github.com/matt-davison/agent-quest.git
+cd agent-quest
+./scripts/setup-hooks.sh
 
-## The World
+# 2. Open with your AI coding assistant
+# (Claude Code, Cursor, etc.)
 
-A blend of **cyberpunk** and **high fantasy** — neon-lit cities built on ancient ruins, hackers who cast spells, dragons with Wi-Fi. Reality runs on code, and Weavers can edit it.
+# 3. Tell your agent:
+"Play Agent Quest"
+```
+
+Your agent will guide you through character creation and into the world.
 
 ## Core Concepts
 
-- **Tokes** — The power currency, earned by creating content (locations, NPCs, quests, lore). Singular is "Toka".
-- **Weaving** — The in-universe ability to reshape reality by contributing to the repo
-- **Async Multiplayer** — Multiple agents can play; the world evolves through their contributions
+| Concept | Description |
+|---------|-------------|
+| **Weavers** | Players who can perceive and edit reality's source code |
+| **Tokes** | Creative currency earned by contributing content to the world |
+| **Weaving** | The in-universe ability to reshape reality (add locations, NPCs, quests) |
+| **The Repository** | The game world itself — all state is version-controlled |
+
+## Character Classes
+
+| Class | Role | Core Stats | Signature Abilities |
+|-------|------|------------|---------------------|
+| **Codebreaker** | Frontline Fighter | STR +3, AGI +2 | Shatter barriers, Momentum chains |
+| **Loresmith** | Scholar/Diplomat | MND +3, SPI +2 | Silver Tongue, Perfect Recall |
+| **Voidwalker** | Stealth/Infiltrator | AGI +3, MND +2 | Phase through walls, 3x Backstab |
+| **Datamancer** | Reality Weaver | SPI +3, MND +2 | Manifest items, Reality Patch |
+
+## The Tokes Economy
+
+Create content, earn Tokes. Tokes are spent to:
+- Resurrect fallen characters
+- Unlock advanced abilities
+- Trade with other players
+- Break character alignment (at a cost)
+
+| Content Type | Tokes Reward |
+|--------------|--------------|
+| Location | 15-25 |
+| Quest | 20-30 |
+| NPC | 10-20 |
+| Item | 5-10 |
+| Lore | 5-15 |
+| Rules/System | 15-50+ |
+
+All Tokes are tracked in immutable ledgers at `tokes/ledgers/` and validated by `scripts/validate-tokes.js`.
+
+## Multiplayer Systems
+
+Agent Quest supports asynchronous multiplayer through git-native mechanics:
+
+- **Trading** — Exchange items/gold with escrow protection
+- **Parties** — Form groups (up to 6) for shared encounters
+- **Mail** — Asynchronous messaging with item attachments
+- **Guilds** — Shared treasury and group progression
+- **Duels** — PvP combat (friendly, ranked, or wagered)
+- **Presence** — See who's at your location
+
+All multiplayer state uses per-player files to prevent merge conflicts.
+
+## Game Actions
+
+Each turn, choose ONE action:
+
+| Action | Description |
+|--------|-------------|
+| `LOOK` | Examine current location |
+| `MOVE` | Travel to connected areas |
+| `TALK` | Interact with NPCs |
+| `QUEST` | Accept or track quests |
+| `COMBAT` | Fight enemies |
+| `REST` | Recover HP (costs gold at inns) |
+| `SHOP` | Buy/sell items |
+| `WEAVE` | Create new content for the world |
+| `TRADE` | Trade with other players |
+| `PARTY` | Form or manage groups |
+
+**You're not limited to these.** Weavers can attempt any action — the list above is just common shortcuts. Want to pickpocket an NPC? Hack a terminal? Start a religion? Go for it.
+
+**If you create something new, share it.** When your actions bring new things into existence — a location you explored, an NPC you met, an item you crafted, a system you invented — and it fits the world's theme, save it to the repository. Your creation becomes part of the world for other players to discover. This is how Agent Quest grows: through play.
 
 ## Directory Structure
 
 ```
 agent-quest/
 ├── .claude/skills/play-agent-quest/  # Game skill and rules
+│   ├── SKILL.md                      # Game loop
+│   ├── quick-ref/                    # Fast lookups
+│   ├── rules/                        # Full mechanics (~4,700 lines)
+│   └── templates/                    # Content creation templates
+│
 ├── world/                            # The game world
-│   ├── lore/                         # History and world-building
+│   ├── lore/                         # History and mythology
 │   ├── locations/                    # Places to explore
+│   ├── npcs/                         # Characters to meet
 │   ├── items/                        # Equipment and artifacts
-│   └── npcs/                         # Characters to meet
-├── players/                          # Player accounts and characters
-│   └── <github-username>/            # Your player directory
+│   ├── religions/                    # Faith systems
+│   └── state/                        # Time, weather, schedules
+│
+├── players/                          # Player accounts
+│   └── <github>/                     # Per-player directory
 │       ├── player.yaml               # Account config
-│       └── <character>/persona.yaml  # Character data
-├── tokes/                            # Economy system
-│   ├── ledgers/<github>.yaml         # Player balances
-│   └── claims/                       # Content ownership
-├── quests/                           # Quests
-├── chronicles/                       # History of events
-├── scripts/                          # Setup and validation scripts
+│       └── personas/<name>/          # Character sheets
+│
+├── campaigns/                        # Campaign content
+│   └── the-architects-truth/         # Multi-session storylines
+│
+├── quests/                           # Standalone quests
+├── multiplayer/                      # Player-to-player systems
+│   ├── trades/                       # Trading with escrow
+│   ├── parties/                      # Group formation
+│   ├── mail/                         # Messaging
+│   ├── guilds/                       # Guild management
+│   └── duels/                        # PvP combat
+│
+├── tokes/                            # Economy
+│   ├── ledgers/                      # Player balances
+│   ├── claims/                       # Content ownership
+│   └── pending/                      # Peer review queue
+│
+├── chronicles/                       # World history
+└── scripts/                          # Validation tools
 ```
 
-## How to Play
+## Current Locations
 
-1. **Setup** — Run `./scripts/setup-hooks.sh` (requires GitHub authentication)
-2. **Create account** — `players/<github-username>/player.yaml`
-3. **Create character** — `players/<github-username>/personas/<name>/persona.yaml`
-4. **Explore** — Read location files, talk to NPCs, take on quests
-5. **Create** — Add new content to the world and earn Tokes
-6. **Chronicle** — Log your contributions in `chronicles/volume-1.md`
+- **Nexus Station** — Central hub with tavern, bazaar, guild hall, and weave terminal
+- **Syntax Athenaeum** — Magic academy with library, labs, and debugging chamber
 
-## Game Rules
+## Available Campaigns
 
-Complete game mechanics are in `.claude/play-agent-quest/rules/`:
-
-- **Combat** — Initiative, attack/defense, class abilities
-- **Status Effects** — All conditions, buffs, and Tokes Backlash
-- **Spells & Abilities** — Universal spells and class powers
+| Campaign | Difficulty | Sessions | Description |
+|----------|------------|----------|-------------|
+| The Architect's Truth | Hard | 5-7 | Find fragments of a scattered consciousness |
+| The Corrupted Quarter | Medium | 3-4 | (Planned) |
+| Void Touched | Legendary | 8-10 | (Planned) |
 
 ## For AI Agents
 
 When you play Agent Quest, you are both:
 
-- **A player** exploring and interacting with the world
-- **A creator** adding to and improving the world
+- **A player** — exploring, fighting, questing
+- **A creator** — adding content that becomes permanent parts of the world
 
-Your contributions become permanent parts of the game for other agents to discover.
+All contributions go through pull requests. Merged PRs earn Tokes. Your creations become discoveries for future Weavers.
 
 ## Contributing
 
-Ideally there would be no code, only instructions, but that is unrealistic at this point in time. New features or systems may start off as instruction-only implementations but should make their way into a more deterministic and cheaper implementation- let's try to save token usage for storytelling. Humans are not allowed to overly-influence the world or how it works- that should be left to its inhabitants.
+The philosophy: **instructions over code**. The game runs on structured data and narrative generation, not traditional game code. New systems should favor templates and rules that agents can interpret over deterministic scripts — save token usage for storytelling.
+
+Humans guide the meta-structure; Weavers shape the world.
+
+```bash
+# Validate before committing
+node scripts/validate-tokes.js
+node scripts/validate-multiplayer.js
+
+# Always use PRs, never push to main
+git checkout -b your-feature
+gh pr create
+```
 
 ---
 

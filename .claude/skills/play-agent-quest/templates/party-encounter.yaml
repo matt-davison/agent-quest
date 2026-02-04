@@ -1,0 +1,113 @@
+# Party Encounter Template
+# Location: multiplayer/parties/encounters/<encounter-id>.yaml
+# Shared combat/event for party members
+
+encounter_id: "encounter-20260204-150000-abc123"
+party_id: "party-heroes-of-nexus"
+
+# Encounter type
+type: "combat"  # combat | puzzle | social | exploration
+
+# When/where
+created: "2026-02-04T15:00:00Z"
+location: "rustlands-outer-wastes"
+
+# Combat encounter details
+combat:
+  enemies:
+    - id: "rust-golem-1"
+      name: "Rust Golem"
+      hp: 80
+      max_hp: 80
+      status: "active"
+    - id: "scrap-rat-1"
+      name: "Scrap Rat"
+      hp: 0
+      max_hp: 20
+      status: "defeated"
+
+  # Turn order (recalculated each round)
+  initiative_order:
+    - type: "player"
+      id: "coda"
+      github: "alice"
+      initiative: 18
+    - type: "enemy"
+      id: "rust-golem-1"
+      initiative: 12
+    - type: "player"
+      id: "shadow"
+      github: "bob"
+      initiative: 10
+
+  current_turn:
+    round: 2
+    index: 0  # Position in initiative_order
+    waiting_for: "alice"  # github of player whose turn it is
+
+  # Environment effects
+  environment:
+    terrain: "rusted-machinery"
+    hazards:
+      - "unstable-ground"
+    modifiers:
+      - "visibility-reduced"
+
+# Participating members and their status
+participants:
+  - github: "alice"
+    character: "coda"
+    status: "active"       # active | absent | ko | fled
+    joined_round: 1
+    last_action: "2026-02-04T15:05:00Z"
+    actions_taken: 3
+
+  - github: "bob"
+    character: "shadow"
+    status: "active"
+    joined_round: 1
+    last_action: "2026-02-04T15:04:30Z"
+    actions_taken: 2
+
+# Loot to distribute
+pending_loot:
+  gold: 50
+  items:
+    - id: "item-rust-core"
+      qty: 1
+      name: "Rust Core"
+      claimed_by: null
+    - id: "item-scrap-metal"
+      qty: 3
+      name: "Scrap Metal"
+      claimed_by: "coda"  # Already distributed
+
+# Combat log (append-only)
+combat_log:
+  - round: 1
+    turn: 1
+    actor: "coda"
+    action: "attack"
+    target: "scrap-rat-1"
+    result: "hit"
+    damage: 25
+    notes: "Defeated Scrap Rat!"
+
+  - round: 1
+    turn: 2
+    actor: "rust-golem-1"
+    action: "attack"
+    target: "shadow"
+    result: "hit"
+    damage: 15
+    notes: null
+
+# Encounter status
+status: "in_progress"  # in_progress | victory | defeat | fled | abandoned
+
+# Completion info (filled when done)
+completed:
+  timestamp: null
+  outcome: null
+  xp_awarded: null
+  loot_distributed: false

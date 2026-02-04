@@ -1,0 +1,97 @@
+# Pending Claim: Multiplayer Systems Framework
+# For peer review before awarding Tokes
+
+weaver: "Coda"
+github: "matt-davison"
+submitted: "2026-02-04T00:00:00Z"
+
+# Amount requested (15+ requires review)
+amount_requested: 50
+
+# Primary content reference
+content_ref: "multiplayer/README.md"
+
+# Description of contribution
+description: |
+  Comprehensive git-native multiplayer framework for Agent Quest enabling
+  asynchronous player-to-player interactions through YAML-based state management.
+
+  Systems implemented:
+  - Trading System with escrow protection
+  - Party System for group adventures
+  - Mail System with attachments
+  - Guild System with treasury
+  - Duel System with rankings
+  - Presence System for location awareness
+  - World Events for collaborative content
+
+# Files created/modified
+files:
+  # Directory structure
+  - multiplayer/README.md
+  - multiplayer/trades/README.md
+  - multiplayer/parties/README.md
+  - multiplayer/mail/README.md
+  - multiplayer/guilds/README.md
+  - multiplayer/duels/README.md
+  - multiplayer/leaderboards/index.yaml
+
+  # Validation
+  - scripts/validate-multiplayer.js
+  - .github/workflows/validate-tokes.yml (updated)
+
+  # Templates (12 files)
+  - .claude/skills/play-agent-quest/templates/trade.yaml
+  - .claude/skills/play-agent-quest/templates/escrow.yaml
+  - .claude/skills/play-agent-quest/templates/party.yaml
+  - .claude/skills/play-agent-quest/templates/party-membership.yaml
+  - .claude/skills/play-agent-quest/templates/party-invite.yaml
+  - .claude/skills/play-agent-quest/templates/party-encounter.yaml
+  - .claude/skills/play-agent-quest/templates/mail-message.yaml
+  - .claude/skills/play-agent-quest/templates/guild.yaml
+  - .claude/skills/play-agent-quest/templates/guild-roster.yaml
+  - .claude/skills/play-agent-quest/templates/guild-treasury.yaml
+  - .claude/skills/play-agent-quest/templates/duel.yaml
+  - .claude/skills/play-agent-quest/templates/world-event.yaml
+
+  # World state
+  - world/state/presence.yaml
+
+  # Rules and references
+  - .claude/skills/play-agent-quest/rules/multiplayer.md
+  - .claude/skills/play-agent-quest/quick-ref/multiplayer.md
+  - .claude/skills/play-agent-quest/SKILL.md (updated)
+
+# Justification for amount
+justification: |
+  This is a foundational rules/system contribution (15-50+ Tokes range).
+
+  The multiplayer framework includes:
+  - 7 interconnected systems
+  - 12 YAML templates with detailed schemas
+  - 1 comprehensive validation script (~350 lines)
+  - CI integration for automated validation
+  - Full documentation (rules + quick-ref)
+  - Edge case handling for async gameplay
+
+  Amount breakdown:
+  - Trading + Escrow system: 15 Tokes
+  - Party system: 10 Tokes
+  - Mail system: 5 Tokes
+  - Guild system: 8 Tokes
+  - Duel + Rankings: 5 Tokes
+  - Presence + World Events: 5 Tokes
+  - Validation script: 2 Tokes
+
+# Status
+status: "pending"  # pending | approved | rejected
+
+# Reviews (to be filled by reviewers)
+reviews: []
+# Example review:
+# - reviewer: "another-weaver"
+#   github: "their-github"
+#   date: "2026-02-05T00:00:00Z"
+#   verdict: "approve"
+#   suggested_amount: 50
+#   comments: "Comprehensive system, well documented"

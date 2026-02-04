@@ -1,0 +1,73 @@
+# Player Presence System
+# Tracks which players are at each location for multiplayer interactions
+
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+# Players by location
+# Updated when players:
+# - Start a session (mark active)
+# - Travel to new location
+# - End a session (mark inactive or remove)
+locations:
+  nexus-station:
+    players: []
+    # Example entry:
+    # - github: "alice"
+    #   character: "coda"
+    #   area: "codex-tavern"      # Sub-area within location
+    #   status: "active"          # active | idle | away
+    #   visible: true             # Can be hidden for stealth
+    #   arrived: "2026-02-04T10:00:00Z"
+    #   last_action: "2026-02-04T14:30:00Z"
+
+  syntax-athenaeum:
+    players: []
+
+  rustlands:
+    players: []
+
+  elderwood:
+    players: []
+
+  undercrypt:
+    players: []
+
+  lumina-city:
+    players: []
+
+# Players currently traveling between locations
+# Integrates with world/state/current.yaml travelers_in_transit
+in_transit:
+  []
+  # Example:
+  # - github: "bob"
+  #   character: "shadow"
+  #   from: "nexus-station"
+  #   to: "rustlands"
+  #   departed: "2026-02-04T14:00:00Z"
+  #   eta: "2026-02-04T22:00:00Z"
+  #   travel_method: "on-foot"    # on-foot | mount | teleport
+
+# Session tracking for staleness detection
+sessions:
+  []
+  # Example:
+  # - github: "alice"
+  #   character: "coda"
+  #   session_start: "2026-02-04T10:00:00Z"
+  #   last_heartbeat: "2026-02-04T14:30:00Z"
+
+# Configuration
+config:
+  # How long before marking player as "idle"
+  idle_threshold_minutes: 30
+
+  # How long before marking player as "away"
+  away_threshold_minutes: 120
+
+  # How long before removing inactive session entirely
+  session_timeout_minutes: 480   # 8 hours
+
+  # Whether to show player names by default
+  default_visible: true

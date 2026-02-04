@@ -1,0 +1,90 @@
+# Guild Treasury Template
+# Location: multiplayer/guilds/<guild-id>/treasury.yaml
+
+guild_id: "nexus-guardians"
+last_updated: "2026-02-04T14:00:00Z"
+
+# Current balances
+gold: 750
+items:
+  - id: "item-guild-banner"
+    qty: 1
+    name: "Guild Banner"
+    deposited_by: "coda"
+    deposited_at: "2026-02-04T10:00:00Z"
+
+  - id: "item-health-potion"
+    qty: 10
+    name: "Health Potion"
+    deposited_by: "shadow"
+    deposited_at: "2026-02-04T12:00:00Z"
+
+# Daily withdrawal tracking (resets at midnight UTC)
+daily_withdrawals:
+  date: "2026-02-04"
+  by_member:
+    bob: 50     # shadow withdrew 50 gold today
+    # alice (founder) has unlimited withdrawals
+
+# Transaction log (append-only)
+transactions:
+  - id: "treasury-001"
+    timestamp: "2026-02-04T10:00:00Z"
+    type: "deposit"
+    github: "alice"
+    character: "coda"
+    gold: 500
+    items: []
+    note: "Initial guild fund"
+
+  - id: "treasury-002"
+    timestamp: "2026-02-04T11:00:00Z"
+    type: "deposit"
+    github: "bob"
+    character: "shadow"
+    gold: 100
+    items:
+      - id: "item-health-potion"
+        qty: 10
+        name: "Health Potion"
+    note: "Contributing to guild supplies"
+
+  - id: "treasury-003"
+    timestamp: "2026-02-04T12:00:00Z"
+    type: "deposit"
+    github: "charlie"
+    character: "spark"
+    gold: 50
+    items: []
+    note: null
+
+  - id: "treasury-004"
+    timestamp: "2026-02-04T13:00:00Z"
+    type: "deposit"
+    github: "alice"
+    character: "coda"
+    gold: 150
+    items:
+      - id: "item-guild-banner"
+        qty: 1
+        name: "Guild Banner"
+    note: "Quest reward and banner from vendor"
+
+  - id: "treasury-005"
+    timestamp: "2026-02-04T14:00:00Z"
+    type: "withdrawal"
+    github: "bob"
+    character: "shadow"
+    gold: 50
+    items: []
+    note: "Emergency supplies"
+    approved_by: "coda"    # Required for withdrawals
+
+# Running totals for tracking
+totals:
+  total_deposited: 800
+  total_withdrawn: 50
+  deposits_by_member:
+    alice: 650
+    bob: 100
+    charlie: 50

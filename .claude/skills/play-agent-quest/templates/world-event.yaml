@@ -1,0 +1,136 @@
+# World Event Template
+# Location: world/state/events/active/<event-id>.yaml
+# Server-wide collaborative events with shared progress
+
+event_id: "event-corruption-surge-001"
+name: "The Corruption Surge"
+type: "collaborative"       # collaborative | competitive | raid | festival
+
+# Event description
+description: |
+  A wave of corrupted data is spreading through the Weave!
+  All Weavers must work together to cleanse the affected areas
+  before the corruption becomes permanent.
+
+# Timing
+started: "2026-02-04T00:00:00Z"
+ends: "2026-02-11T00:00:00Z"  # 7-day event
+status: "active"            # upcoming | active | completed | failed
+
+# Affected regions
+regions:
+  - "rustlands"
+  - "elderwood"
+
+# Global progress tracking
+progress:
+  # Main objective
+  corruption_cleansed: 450
+  corruption_total: 1000
+  percentage: 45
+
+  # Milestone rewards (unlock at thresholds)
+  milestones:
+    - threshold: 250
+      name: "First Response"
+      reached: true
+      reached_at: "2026-02-05T12:00:00Z"
+      reward:
+        type: "global"
+        description: "All participants receive 10 Tokes"
+
+    - threshold: 500
+      name: "Turning the Tide"
+      reached: false
+      reward:
+        type: "global"
+        description: "Corruption spread halted, +5% XP in affected regions"
+
+    - threshold: 750
+      name: "Cleansing Wave"
+      reached: false
+      reward:
+        type: "unlock"
+        description: "New quest unlocked: 'The Source of Corruption'"
+
+    - threshold: 1000
+      name: "Victory"
+      reached: false
+      reward:
+        type: "permanent"
+        description: "Corrupted areas permanently cleansed, unique title for top contributors"
+
+# How to contribute
+contribution_methods:
+  - id: "cleanse-node"
+    name: "Cleanse Corruption Node"
+    description: "Find and cleanse corruption nodes in affected areas"
+    points_per: 10
+    limit_per_day: 5
+
+  - id: "defeat-corrupted"
+    name: "Defeat Corrupted Enemies"
+    description: "Combat corrupted creatures spawning in the affected zones"
+    points_per: 2
+    limit_per_day: 20
+
+  - id: "gather-essence"
+    name: "Gather Purification Essence"
+    description: "Collect essence from pure areas to aid cleansing"
+    points_per: 5
+    limit_per_day: 10
+
+# Individual contributions (top contributors)
+top_contributors:
+  - github: "alice"
+    character: "coda"
+    total_points: 85
+    contributions:
+      cleanse-node: 5
+      defeat-corrupted: 15
+      gather-essence: 2
+
+  - github: "bob"
+    character: "shadow"
+    total_points: 60
+    contributions:
+      cleanse-node: 3
+      defeat-corrupted: 20
+      gather-essence: 1
+
+# Daily contribution log (for rate limiting)
+daily_contributions:
+  "2026-02-05":
+    alice:
+      cleanse-node: 5
+      defeat-corrupted: 15
+      gather-essence: 2
+    bob:
+      cleanse-node: 3
+      defeat-corrupted: 20
+      gather-essence: 1
+
+# Event-specific spawns/changes
+world_modifications:
+  npcs:
+    - id: "corruption-hunter"
+      location: "nexus-station"
+      role: "Event Quest Giver"
+
+  enemies:
+    - id: "corrupted-data-sprite"
+      spawn_regions: ["rustlands", "elderwood"]
+      spawn_rate: "increased"
+
+  items:
+    - id: "purification-essence"
+      obtainable: true
+      regions: ["nexus", "lumina-city"]
+
+# Event history (major milestones)
+history:
+  - timestamp: "2026-02-04T00:00:00Z"
+    event: "The Corruption Surge begins"
+
+  - timestamp: "2026-02-05T12:00:00Z"
+    event: "First Response milestone reached - 25% cleansed"

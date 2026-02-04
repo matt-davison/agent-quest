@@ -1,0 +1,90 @@
+# Party Template
+# Location: multiplayer/parties/active/<party-id>.yaml
+
+party_id: "party-heroes-of-nexus"
+name: "Heroes of Nexus"
+created: "2026-02-04T10:00:00Z"
+
+# Party leader (has ultimate authority)
+leader:
+  github: "alice"
+  character: "coda"
+
+# All party members including leader
+members:
+  - github: "alice"
+    character: "coda"
+    role: "leader"          # leader | officer | member
+    status: "active"        # active | absent | offline
+    joined: "2026-02-04T10:00:00Z"
+    last_active: "2026-02-04T14:00:00Z"
+
+  - github: "bob"
+    character: "shadow"
+    role: "member"
+    status: "active"
+    joined: "2026-02-04T10:30:00Z"
+    last_active: "2026-02-04T13:45:00Z"
+
+# Party settings
+settings:
+  max_members: 6
+
+  # Loot distribution mode
+  # round-robin: Rotate through members
+  # need-greed: Members roll, highest wins
+  # leader: Leader assigns all loot
+  # free-for-all: First to claim gets it
+  loot_distribution: "round-robin"
+
+  # XP distribution
+  # equal: Split evenly among active members
+  # participation: Based on combat contribution
+  xp_distribution: "equal"
+
+  # Who can invite new members
+  invite_permission: "officer"  # leader | officer | member
+
+  # Auto-promote on leader inactivity (hours)
+  leader_inactivity_threshold: 168  # 7 days
+
+# Current shared state
+shared_state:
+  location: "nexus-station"
+  active_quest: null
+  gold_pool: 0              # Shared party fund
+
+  # Current encounter (if any)
+  active_encounter: null    # Reference to encounters/<id>.yaml
+
+# Pending decisions requiring votes
+pending_decisions:
+  - id: "decision-001"
+    type: "travel"          # travel | quest | loot | kick | settings
+    proposed_by: "coda"
+    proposed_at: "2026-02-04T14:00:00Z"
+    description: "Travel to Rustlands"
+    expires: "2026-02-04T20:00:00Z"
+
+    votes:
+      coda: "yes"
+      shadow: "yes"
+
+    requires: "majority"    # majority | unanimous | leader
+    status: "approved"      # pending | approved | rejected | expired
+
+# Loot rotation tracker (for round-robin)
+loot_rotation:
+  current_index: 0
+  order:
+    - github: "alice"
+      character: "coda"
+    - github: "bob"
+      character: "shadow"
+
+# Party history (append-only)
+history:
+  - timestamp: "2026-02-04T10:00:00Z"
+    event: "Party created by coda"
+  - timestamp: "2026-02-04T10:30:00Z"
+    event: "shadow joined the party"

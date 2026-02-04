@@ -1,0 +1,57 @@
+# Escrow Ledger Template
+# Location: multiplayer/trades/escrow/<github>.yaml
+# One file per player - tracks all locked items/gold
+
+github: "alice"
+
+# Running totals (calculated from escrow_log)
+gold_in_escrow: 100
+items_in_escrow:
+  - trade_id: "trade-20260204-143052-abc123"
+    item_id: "item-abc123"
+    qty: 2
+    name: "Iron Sword"
+  - mail_id: "mail-20260204-150000-def456"
+    item_id: "item-xyz789"
+    qty: 1
+    name: "Rare Gem"
+
+# Append-only transaction log
+escrow_log:
+  - id: "escrow-001"
+    timestamp: "2026-02-04T14:30:52Z"
+    type: "deposit"           # deposit | release | transfer
+    source: "trade"           # trade | mail | duel | guild
+    reference_id: "trade-20260204-143052-abc123"
+    gold: 100
+    items:
+      - id: "item-abc123"
+        qty: 2
+        name: "Iron Sword"
+    note: "Deposited for trade with bob"
+
+  # Example release (trade cancelled)
+  # - id: "escrow-002"
+  #   timestamp: "2026-02-04T16:00:00Z"
+  #   type: "release"
+  #   source: "trade"
+  #   reference_id: "trade-20260204-143052-abc123"
+  #   gold: 100
+  #   items:
+  #     - id: "item-abc123"
+  #       qty: 2
+  #   note: "Trade cancelled, returned to inventory"
+
+  # Example transfer (trade completed)
+  # - id: "escrow-003"
+  #   timestamp: "2026-02-04T17:00:00Z"
+  #   type: "transfer"
+  #   source: "trade"
+  #   reference_id: "trade-20260204-143052-abc123"
+  #   to_github: "bob"
+  #   to_character: "bob-char"
+  #   gold: 100
+  #   items:
+  #     - id: "item-abc123"
+  #       qty: 2
+  #   note: "Trade completed, transferred to bob"

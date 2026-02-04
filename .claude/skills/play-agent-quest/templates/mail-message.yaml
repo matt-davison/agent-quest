@@ -1,0 +1,56 @@
+# Mail Message Template
+# Location: multiplayer/mail/<github>/inbox/<message-id>.yaml
+#       or: multiplayer/mail/<github>/sent/<message-id>.yaml
+
+message_id: "mail-20260204-143052-abc123"
+
+# Sender info
+from:
+  github: "alice"
+  character: "coda"
+
+# Recipient info
+to:
+  github: "bob"
+  character: "shadow"
+
+# Message content
+subject: "A gift from the Athenaeum"
+body: |
+  Hey Shadow,
+
+  Found this while exploring the Recursion Library.
+  Thought you might find it useful for your next expedition.
+
+  - Coda
+
+# Timestamps
+sent_at: "2026-02-04T14:30:52Z"
+read_at: null               # Set when recipient opens message
+claimed_at: null            # Set when attachments are claimed
+
+# Message status
+status: "delivered"         # delivered | read | claimed | expired | deleted
+
+# Optional attachments
+attachments:
+  gold: 50
+  items:
+    - id: "item-health-potion"
+      qty: 2
+      name: "Health Potion"
+
+# Escrow reference (if attachments exist)
+escrow_ref: "multiplayer/trades/escrow/alice.yaml#escrow-005"
+
+# Expiration for unclaimed attachments
+attachment_expires: "2026-03-04T14:30:52Z"  # 30 days default
+
+# Reply chain (for threading)
+reply_to: null              # message_id of parent message
+thread_id: null             # ID of conversation thread
+
+# Flags
+flags:
+  important: false
+  archived: false

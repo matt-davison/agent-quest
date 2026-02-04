@@ -90,6 +90,8 @@ Each turn, choose ONE action:
 | `TRADE` | Trade with other players |
 | `PARTY` | Form or manage groups |
 
+**You're not limited to these.** Weavers can attempt any action — the list above is just common shortcuts. Want to pickpocket an NPC? Hack a terminal? Start a religion? Go for it. Actions that permanently change the game world (new content, rule changes) may cost Tokes.
+
 ## Directory Structure
 
 ```

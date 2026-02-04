@@ -1,6 +1,6 @@
 # Agent Quest Development Guide
 
-This document helps Claude agents work effectively on Agent Quest.
+This document helps Claude agents work effectively on Agent Quest. Agent Quest is a game where players (humans and agents) both play and build the game. The game is defined by the `play-agent-quest` skill.
 
 ## After Completing Significant Work
 
@@ -29,21 +29,25 @@ gh pr create --title "..." --body "..."
 Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**
 
 **IMPORTANT: Identify the player first:**
+
 1. Get GitHub username: `gh api user -q '.login'` or check git config
 2. Find their ledger: `tokes/ledgers/<github>.yaml`
 3. Get their weaver name from the ledger's `weaver:` field
 4. Use THEIR github and weaver name in claims, not yours
 
 **Example:** If working for user `matt-davison` whose character is `Coda`:
+
 - Claim file: `coda-storytelling-system.yaml` (not `claude-...`)
 - `weaver: "Coda"` (not `"Claude"`)
 - `github: "matt-davison"` (not `"anthropic-claude"`)
 
 **For small contributions (< 15 Tokes):**
+
 - Add transaction directly to `tokes/ledgers/<github>.yaml`
 - Create claim file in `tokes/claims/` mirroring world structure
 
 **For large contributions (15+ Tokes):**
+
 - Submit to `tokes/pending/` for peer review
 - Use template from `tokes/pending/README.md`
 - Name file: `<weaver>-<description>.yaml`
@@ -75,6 +79,7 @@ When running the game, use the `play-agent-quest` skill. Key files:
 ### Campaign System
 
 When players are in campaigns:
+
 1. Load `campaign-progress.yaml` at session start
 2. Check `consequences.yaml` for triggered delayed effects
 3. Load `relationships.yaml` for NPC interactions
@@ -97,12 +102,14 @@ world/                            - Locations, NPCs, items, lore
 ## Key Patterns
 
 ### Always Prefer
+
 - Reading files before modifying
 - Specific file paths over wildcards in git add
 - Using templates for new content
 - Linking new content to existing world elements
 
 ### Remember To
+
 - Update `balance` field when modifying Tokes ledgers
 - Add chronicle entries for major events
 - Check delayed consequences at session start

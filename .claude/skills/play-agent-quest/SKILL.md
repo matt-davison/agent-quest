@@ -5,14 +5,27 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 # Agent Quest
 
-> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups.
+> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups. Use `world-state` for time/weather/NPC locations. Use `relationships` for NPC standings.
 
 ## Session Start
 
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
 2. **Check player file**: `players/<github-username>/player.yaml`
-3. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-4. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+3. **Load world state**: `world/state/current.yaml` for time/weather
+4. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+5. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+
+### World State Loading
+
+At session start, always load:
+- `world/state/current.yaml` - Current time, weather, active events
+- Check time period to determine NPC availability
+
+Use the `world-state` skill for queries:
+```bash
+node .claude/skills/world-state/world-state.js time get
+node .claude/skills/world-state/world-state.js weather nexus
+```
 
 ### Campaign Loading (If Active Campaign)
 
@@ -68,7 +81,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 |--------|-------------|------|
 | **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |
 | **MOVE** | Travel to connected location | Destination README, update persona + generate panorama |
-| **TALK** | Interact with NPC | NPC from location or `world/npcs/` |
+| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` |
 | **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` |
 | **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map |
 | **REST** | Recover HP (10 gold at inns) | Update persona |
@@ -109,6 +122,30 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 ### Enrichment
 
 When content is sparse, flesh it out naturally during play. This is lightweight Weaving.
+
+### Weave Mending
+
+When content has `corrupted_data` markers, players can attempt to Mend:
+
+1. **Detection** (Spirit DC 12): Sense missing information
+2. **Mending** (Spirit + Mind/2 vs variable DC): Restore lost content
+3. **Success**: Generate content, earn 5-15 Tokes
+4. **Failure**: DC+2 on retry, no cost
+
+See `world/skills/weave-mending.yaml` for full mechanics.
+
+### NPC Awareness
+
+NPCs react to recent world events based on awareness radius:
+- Check `world/state/events.yaml` for recent happenings
+- NPCs know about events matching their awareness level
+- Player achievements trigger NPC dialogue variants
+
+Use the `relationships` skill for standing-based dialogue:
+```bash
+node .claude/skills/relationships/relationships.js standing vera-nighthollow player-id
+node .claude/skills/relationships/relationships.js topics vera-nighthollow player-id
+```
 
 ---
 

@@ -1,5 +1,11 @@
-- Improve the storytelling. There should be a rough plan for each larger "Campaign" that has events main quests with branching side quests. It should be very reactive to the user's choices and consistent in maturity and tone. The stories should be masterworks using excellent storytelling techniques to deliver an excellent experience for players.
-- Improve the NPCs. They should have more complex backstories and well defined abilities and stats. They may have attributes and characteristics hidden from the player for storytelling purposes. Every NPC should have the potential to be very well fleshed out. It doesn't need to happen immediately though, only on demand / as it makes sense for the story and the player's actions to generate. NPCs should also sometimes recognize the recent changes to the world when talking with the player, especially if the player has received an achievement recently.
-- Make a world state system. This should track the era, and the current date, time, and environmental states like weather. It should be affected by larger events happening within the story. We also need to improve the NPC system so that they may be found in different locations depending on their schedule and current events.
-- Make a faulty data recovery/repair/backfilling system. In the event of changes being made to the world or the way it is represented there may be lost or missing information that is important. Make an in-universe reason for this and a skill to help recover what has been lost and backfill what is necessary by understanding the changes made to the world.
-- **RECURRING TODO, DO NOT REMOVE:** See if we can offload some systems to skills with deterministic typescript implementations. Do not do this if it will reduce the freedom or creativity a player can express
+- [x] ~~Improve the NPCs. They should have more complex backstories and well defined abilities and stats.~~ **DONE**: NPCs now have tiered data with on-demand enrichment. See `world/npcs/index.yaml` for registry, `world/npcs/profiles/` for detailed profiles, and `world/npcs/schedules/index.yaml` for time-based locations.
+
+- [x] ~~Make a world state system.~~ **DONE**: Created `world/state/` with `current.yaml` (time, weather, events), `events.yaml` (NPC awareness), and `calendar.yaml` (calendar definitions). NPCs have schedules with time-of-day patterns. Use `world-state` skill for queries.
+
+- [x] ~~Make a faulty data recovery/repair/backfilling system.~~ **DONE**: Created Weave Mending system in `world/skills/weave-mending.yaml`. In-universe explanation for missing data with Spirit+Mind checks to restore lost information. Successful Mends generate content and earn Tokes.
+
+- **RECURRING TODO, DO NOT REMOVE:** See if we can offload some systems to skills with deterministic typescript implementations. Do not do this if it will reduce the freedom or creativity a player can express.
+  - [x] `world-state` skill: Time, weather, NPC location queries
+  - [x] `relationships` skill: Standing, disposition, dialogue topic management
+  - [ ] Consider: Quest state tracking?
+  - [ ] Consider: Combat automation helpers?

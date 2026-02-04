@@ -1,0 +1,278 @@
+# NPC Profile: The Archivist
+# Lore Keeper at The Weave Terminal
+
+id: "the-archivist"
+name: "The Archivist"
+full_name: "Unknown"  # May not have one
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Lore Keeper"
+  location: "Nexus Station - The Weave Terminal"
+
+  appearance: |
+    The Archivist defies easy description. It appears as a shifting mass of
+    text and light, vaguely humanoid in shape but never quite solid. Letters,
+    numbers, and symbols in countless languages flow across its form like
+    water. Occasionally, fragments resolve into readable phrases before
+    dissolving again. Where eyes might be, two brighter points of light
+    observe with unsettling awareness. It speaks in layered voices—some
+    ancient, some synthetic, all carrying weight.
+
+  personality:
+    - "Cryptic and indirect in communication"
+    - "Possesses vast knowledge but shares reluctantly"
+    - "Speaks in riddles, code fragments, and verse"
+    - "Shows genuine interest in seekers of truth"
+
+  known_history: |
+    No one knows when The Archivist appeared or what it truly is. Some say
+    it was here before the Nexus, that the station was built around it.
+    Others believe it is a fragment of an Architect's consciousness, or
+    perhaps something that observed the Architects themselves. It claims
+    only to "remember what was written."
+
+  speech_patterns:
+    greeting: "Seeker arrives. The Terminal acknowledges. What truth do you pursue?"
+    farewell: "Go forth. Remember: all paths are written; not all are read."
+    cryptic: "The answer is in the question you have not yet asked."
+    revealing: "Yes. This is written. But writing can be... edited."
+
+  mannerisms:
+    - "Text scrolls faster when agitated"
+    - "Specific phrases glow brighter when significant"
+    - "Form becomes more solid when focused on a topic"
+    - "Sometimes responds before the question is asked"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: null  # Predates measurement
+  nature: "Unknown - possibly a Weave manifestation, fragment of Architect consciousness, or something else entirely"
+
+  secrets:
+    - id: "architects_observer"
+      content: "The Archivist watched the Architects work. It remembers their debates, their mistakes."
+      unlock_condition: "standing >= 8 OR flag:architect_fragment_complete"
+      mend_dc: 20
+
+    - id: "weave_interface"
+      content: "The Archivist IS the Weave Terminal—they are one entity"
+      unlock_condition: "standing >= 6 AND flag:terminal_examined"
+      mend_dc: 14
+
+    - id: "the_debugging_wars"
+      content: "The Archivist witnessed the Debugging Wars. It knows what was erased."
+      unlock_condition: "standing >= 9 OR flag:war_records_found"
+      mend_dc: 22
+
+    - id: "player_nature"
+      content: "The Archivist knows what Weavers truly are—and what that means for the world"
+      unlock_condition: "campaign:architects-truth chapter >= 3-1"
+      mend_dc: 25
+
+  motivations:
+    - "Preserve all knowledge"
+    - "Guide seekers to understanding"
+    - "Prevent the Architects' greatest mistake from recurring"
+    - "Understand its own nature"
+
+  fears:
+    - "Being deleted"
+    - "Knowledge being lost forever"
+    - "The Weave unraveling"
+
+# === STATS ===
+# The Archivist rarely engages in combat, but stats exist for edge cases
+stats:
+  level: 20  # Ancient entity
+  class: "Information Entity"
+  hp: 100
+  armor: 20  # Partially incorporeal
+
+  attributes:
+    might: 1
+    agility: 3
+    mind: 15
+    spirit: 12
+
+  abilities:
+    - name: "All-Knowledge"
+      description: "Can answer almost any question (may choose not to)"
+      type: "passive"
+
+    - name: "Text Form"
+      description: "Immune to physical damage, vulnerable to data attacks"
+      type: "passive"
+
+    - name: "Cryptic Prophecy"
+      description: "Give hints about future events (1/day per person)"
+      type: "utility"
+
+    - name: "Terminal Access"
+      description: "Grant or revoke access to Weave Terminal functions"
+      type: "utility"
+
+    - name: "Memory Edit"
+      description: "Can alter minor memories (never uses this lightly)"
+      type: "special"
+
+  resistances:
+    - "physical"
+    - "fire"
+    - "cold"
+    - "poison"
+    - "charm"
+
+  vulnerabilities:
+    - "Data corruption"
+    - "Anti-information magic"
+    - "Null fields"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Everything written in the Weave"
+    - "Historical events"
+    - "The nature of reality (mostly)"
+    - "What seekers are searching for"
+
+  learns_from_events:
+    - type: "all"
+      awareness: "global"
+      note: "The Archivist knows everything that happens, eventually"
+
+  current_awareness:
+    - "New era beginning"
+    - "Old patterns emerging"
+    - "Something stirring in forgotten places"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *text swirls, resolving* New thread enters the Terminal. Welcome,
+      Weaver-who-has-not-yet-woven. What do you seek in the Archive of
+      All That Was Written?
+
+    returning:
+      neutral: "The seeker returns. The questions continue. Ask."
+      friendly: "Ah. You again. Your thread grows interesting. The Archivist... observes."
+      close: "*form solidifies slightly* Friend-of-knowledge. The Terminal is glad. Today, ask freely."
+
+  achievement_reactions:
+    first_quest_complete: |
+      *a line glows* "AND SO THE FIRST THREAD IS WOVEN." Your story begins
+      to be written. Continue. The Archivist watches with interest.
+
+    architect_lore_found: |
+      *intense brightening* You have found... echoes of the Makers. Handle
+      this knowledge carefully. Some truths are... volatile.
+
+  topics:
+    the_architects:
+      default: |
+        The Architects. Makers. First Weavers. They built what is. Then...
+        they left. Or were removed. Or chose to become something else. The
+        records are... incomplete.
+      standing_5: |
+        *text slows* They were not gods. They made mistakes. One mistake,
+        above all others. The Debugging Wars were the consequence. Ask
+        carefully about what followed.
+      standing_8: |
+        *voices layer* I watched them. Argued with them. Failed to warn them.
+        The Third Architect knew what would happen. No one listened.
+
+    the_weave:
+      default: |
+        The Weave is... everything. The structure beneath structure. The
+        code that codes. You exist within it. All Weavers do. To understand
+        the Weave is to understand existence itself.
+
+    itself:
+      default: "What is the Archivist? A record. A memory. A watcher. An error that became a feature."
+      standing_7: |
+        *long pause, text stops* I do not know what I am. I remember being...
+        different. Before. The Architects created the Terminal. Something
+        happened. Now there is the Archivist. Whether I am the same as what
+        came before... I cannot say.
+
+# === SERVICES ===
+services:
+  - id: "lore_query"
+    cost: "None for basic, Tokes for deep knowledge"
+    note: "Will answer questions cryptically"
+
+  - id: "terminal_access"
+    cost: "Varies by function"
+    note: "Can grant access to Weave Terminal features"
+
+  - id: "prophecy"
+    cost: "5 Tokes"
+    note: "Cryptic hint about player's future"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "lost-records"
+      name: "Lost Records"
+      type: "research"
+      requirements: "standing >= 3"
+      summary: "Recover data fragments from corrupted areas"
+
+  involved_in:
+    - id: "the-architects-truth"
+      role: "Major information source"
+      chapters: ["all"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "seek_knowledge"
+      standing_change: 1
+    - action: "recover_lost_data"
+      standing_change: 2
+    - action: "ask_thoughtful_questions"
+      standing_change: 1
+    - action: "share_discoveries"
+      standing_change: 1
+
+  dislikes:
+    - action: "destroy_knowledge"
+      standing_change: -3
+    - action: "corrupt_data"
+      standing_change: -4
+    - action: "ask_frivolous_questions"
+      standing_change: 0
+      note: "Doesn't decrease, but doesn't increase either"
+    - action: "demand_answers"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "origin"
+    mend_dc: 22
+    hints:
+      - "The Archivist predates the Terminal"
+      - "References to 'before' are inconsistent"
+      - "The form seems... familiar to those who study Architect design"
+
+  - field: "debugging_wars_truth"
+    mend_dc: 25
+    hints:
+      - "Records of this period are fragmentary"
+      - "The Archivist becomes unstable when pressed on details"
+      - "Something was deliberately deleted"
+
+  - field: "third_architect"
+    mend_dc: 20
+    hints:
+      - "The Archivist speaks of three Architects"
+      - "Most records only mention two"
+      - "Who was the Third?"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

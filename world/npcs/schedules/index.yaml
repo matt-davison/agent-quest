@@ -1,0 +1,175 @@
+# NPC Schedules
+# Defines where NPCs can be found at different times
+# Used by world-state skill to determine NPC locations
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === SCHEDULE SYSTEM ===
+# NPCs follow schedules unless overridden by world/state/current.yaml
+# Time periods: dawn, morning, midday, afternoon, evening, night, midnight
+
+schedules:
+
+  # --- GUIDE-7 ---
+  guide-7:
+    default_location: "nexus-station/arrival-platform"
+    stationary: true  # Never moves from post
+    notes: "Construct designed to greet arrivals 24/7"
+    patterns: []  # Empty = always at default location
+
+  # --- VERA NIGHTHOLLOW ---
+  vera-nighthollow:
+    default_location: "nexus-station/codex-tavern/floor-1"
+    stationary: false
+    notes: "Runs the tavern, keeps odd hours, meets contacts at night"
+    patterns:
+      - times: ["dawn"]
+        location: "nexus-station/codex-tavern/floor-3"
+        activity: "Sleeping in private quarters"
+        interruptible: false
+
+      - times: ["morning"]
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Preparing for the day, checking inventory"
+        interruptible: true
+        interruptible_note: "May be distracted"
+
+      - times: ["midday", "afternoon"]
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Working the bar, serving customers"
+        interruptible: true
+
+      - times: ["evening"]
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Peak hours, very busy"
+        interruptible: true
+        interruptible_note: "Short conversations only"
+
+      - times: ["night"]
+        location: "nexus-station/codex-tavern/floor-2"
+        activity: "Meeting contacts in the quiet lounge"
+        interruptible: "standing >= 3"
+        interruptible_cost: "Must have friendly standing"
+
+      - times: ["midnight"]
+        location: "nexus-station/codex-tavern/floor-2"
+        activity: "Private meetings, information trading"
+        interruptible: "standing >= 5"
+        interruptible_cost: "Must be close ally"
+
+  # --- KRIX THE MERCHANT ---
+  krix:
+    default_location: "nexus-station/bazaar"
+    stationary: false
+    notes: "Opens shop late, keeps 'special hours' for certain clients"
+    patterns:
+      - times: ["dawn", "morning"]
+        location: null  # Not available
+        activity: "Sleeping somewhere (location unknown)"
+        interruptible: false
+
+      - times: ["midday"]
+        location: "nexus-station/bazaar"
+        activity: "Opening shop, arranging wares"
+        interruptible: true
+        interruptible_note: "Grumpy until fully awake"
+
+      - times: ["afternoon", "evening"]
+        location: "nexus-station/bazaar"
+        activity: "Prime selling hours"
+        interruptible: true
+
+      - times: ["night"]
+        location: "nexus-station/bazaar"
+        activity: "Closing up, counting coins"
+        interruptible: true
+        special_flag: "hidden_inventory_available"
+
+      - times: ["midnight"]
+        location: "nexus-station/bazaar/back-room"
+        activity: "Special transactions"
+        interruptible: "flag:krix_back_room_access"
+        interruptible_cost: "Must have unlocked back room"
+
+  # --- THE ARCHIVIST ---
+  the-archivist:
+    default_location: "nexus-station/weave-terminal"
+    stationary: true
+    notes: "The Archivist's nature transcends normal schedules"
+    patterns:
+      - times: ["dawn", "morning", "midday", "afternoon", "evening", "night"]
+        location: "nexus-station/weave-terminal"
+        activity: "Observing the Weave, cataloguing"
+        interruptible: true
+
+      - times: ["midnight"]
+        location: "nexus-station/weave-terminal"
+        activity: "Most lucid and talkative"
+        interruptible: true
+        special_flag: "cryptic_hints_enhanced"
+        notes: "Better chance of useful information"
+
+  # --- COMMANDER STEELE ---
+  commander-steele:
+    default_location: "nexus-station/guild-hall"
+    stationary: false
+    notes: "Military schedule, inspects areas regularly"
+    patterns:
+      - times: ["dawn"]
+        location: "nexus-station/guild-hall"
+        activity: "Morning briefings"
+        interruptible: false
+
+      - times: ["morning"]
+        location: "nexus-station/arrival-platform"
+        activity: "Inspecting arrivals, security check"
+        interruptible: true
+        interruptible_note: "Brief interactions only"
+
+      - times: ["midday"]
+        location: "nexus-station/guild-hall"
+        activity: "Quest assignments, paperwork"
+        interruptible: true
+
+      - times: ["afternoon"]
+        location: "nexus-station/guild-hall"
+        activity: "Debriefing returning adventurers"
+        interruptible: true
+
+      - times: ["evening"]
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Off-duty, drinking alone"
+        interruptible: "standing >= 0"
+        interruptible_note: "More approachable when off-duty"
+
+      - times: ["night", "midnight"]
+        location: null  # Off-duty
+        activity: "Resting (location private)"
+        interruptible: false
+
+# === SPECIAL EVENTS ===
+# Override normal schedules during events
+event_overrides:
+  awakening-celebration:
+    vera-nighthollow:
+      all_times:
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Extended hours for festival"
+        interruptible: true
+    krix:
+      all_times:
+        location: "nexus-station/bazaar"
+        activity: "24-hour sale event"
+        interruptible: true
+
+# === UTILITIES ===
+# Helper functions for schedule lookups
+time_period_hours:
+  dawn: [5, 6]
+  morning: [7, 8, 9, 10]
+  midday: [11, 12, 13]
+  afternoon: [14, 15, 16]
+  evening: [17, 18, 19]
+  night: [20, 21, 22, 23]
+  midnight: [0, 1, 2, 3, 4]

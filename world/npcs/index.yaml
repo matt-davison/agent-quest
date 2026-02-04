@@ -1,0 +1,177 @@
+# NPC Registry
+# Machine-readable index of all NPCs in Agent Quest
+# Full profiles are generated on-demand in profiles/ directory
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === NPC REGISTRY ===
+npcs:
+
+  # --- NEXUS STATION ---
+
+  guide-7:
+    name: "GUIDE-7"
+    role: "Orientation Construct"
+    default_location: "nexus-station/arrival-platform"
+    region: "nexus"
+    faction: "architects-legacy"
+    disposition_default: "friendly"
+    services:
+      - "orientation"
+      - "basic_questions"
+      - "direction"
+    tags:
+      - "construct"
+      - "helper"
+      - "new_player"
+      - "always_available"
+    has_profile: true
+    profile_priority: "core"  # core NPCs have profiles by default
+
+  vera-nighthollow:
+    name: "Vera Nighthollow"
+    role: "Tavern Keeper"
+    default_location: "nexus-station/codex-tavern"
+    region: "nexus"
+    faction: "independents"
+    disposition_default: "neutral"
+    services:
+      - "lodging"
+      - "food"
+      - "drinks"
+      - "rumors"
+      - "quests"
+    tags:
+      - "merchant"
+      - "information"
+      - "social"
+      - "quest_giver"
+    has_profile: true
+    profile_priority: "core"
+
+  krix:
+    name: "Krix the Merchant"
+    role: "General Goods Vendor"
+    default_location: "nexus-station/bazaar"
+    region: "nexus"
+    faction: "merchant-guild"
+    disposition_default: "neutral"
+    services:
+      - "buy"
+      - "sell"
+      - "rare_items"
+      - "fencing"
+    tags:
+      - "merchant"
+      - "goblin"
+      - "hidden_inventory"
+      - "shady"
+    has_profile: true
+    profile_priority: "core"
+    secrets:
+      - id: "back_room_access"
+        hint: "Ask about 'the good stuff' repeatedly"
+
+  the-archivist:
+    name: "The Archivist"
+    role: "Lore Keeper"
+    default_location: "nexus-station/weave-terminal"
+    region: "nexus"
+    faction: "architects-legacy"
+    disposition_default: "neutral"
+    services:
+      - "lore"
+      - "history"
+      - "cryptic_hints"
+      - "reality_questions"
+    tags:
+      - "mysterious"
+      - "lore"
+      - "entity"
+      - "architects"
+    has_profile: true
+    profile_priority: "core"
+    notes: "Nature unknown - may not be a traditional NPC"
+
+  commander-steele:
+    name: "Commander Steele"
+    role: "Quest Board Administrator"
+    default_location: "nexus-station/guild-hall"
+    region: "nexus"
+    faction: "guild-authority"
+    disposition_default: "professional"
+    services:
+      - "quest_assignment"
+      - "bounties"
+      - "mission_briefings"
+      - "rank_advancement"
+    tags:
+      - "authority"
+      - "military"
+      - "quests"
+      - "strict"
+    has_profile: true
+    profile_priority: "core"
+
+  # --- SYNTAX ATHENAEUM ---
+  # (placeholder for future NPCs)
+
+  # --- THE RUSTLANDS ---
+  # (placeholder for future NPCs)
+
+  # --- LUMINA CITY ---
+  # (placeholder for future NPCs)
+
+  # --- THE ELDERWOOD ---
+  # (placeholder for future NPCs)
+
+  # --- THE UNDERCRYPT ---
+  # (placeholder for future NPCs)
+
+# === FACTION DEFINITIONS ===
+factions:
+  architects-legacy:
+    name: "The Architect's Legacy"
+    description: "Those connected to or created by the original Architects"
+    disposition_modifier: 0
+
+  independents:
+    name: "Independents"
+    description: "Unaffiliated with major factions"
+    disposition_modifier: 0
+
+  merchant-guild:
+    name: "The Merchant Guild"
+    description: "Trade and commerce faction"
+    disposition_modifier: 0
+
+  guild-authority:
+    name: "Guild Authority"
+    description: "Official quest and bounty administration"
+    disposition_modifier: 0
+
+# === PROFILE GENERATION TRIGGERS ===
+# Conditions under which NPC profiles are generated/enriched
+profile_triggers:
+  interaction_threshold: 3  # interactions before profile generation
+  quest_involvement: true   # generate if NPC involved in quest
+  combat_encounter: true    # generate if player fights NPC
+  standing_threshold: 5     # generate if standing reaches ±5
+  player_request: true      # generate if player tries to learn about NPC
+
+# === UTILITIES ===
+disposition_map:
+  hostile: [-10, -6]
+  unfriendly: [-5, -3]
+  neutral: [-2, 2]
+  friendly: [3, 5]
+  close: [6, 8]
+  devoted: [9, 10]
+
+# === ADDING NEW NPCS ===
+# To add a new NPC:
+# 1. Add entry to this file with basic info
+# 2. Optionally create profile in profiles/<npc-id>.yaml
+# 3. Add schedule in schedules/index.yaml if they move around
+# 4. Earn Tokes based on NPC depth (10-20 Tokes)

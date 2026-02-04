@@ -1,0 +1,257 @@
+# NPC Profile: Krix the Merchant
+# General Goods Vendor at The Bazaar
+
+id: "krix"
+name: "Krix the Merchant"
+full_name: "Krix Glitterfang"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "General Goods Vendor"
+  location: "Nexus Station - The Bazaar"
+
+  appearance: |
+    A goblin standing just under a meter tall, with pale green skin and
+    enormous ears that twitch at the sound of coins. He has more piercings
+    than teeth (both numbers are considerable), and wears a massive coat
+    absolutely covered in pockets of various sizes. His eyes gleam with
+    perpetual calculation, and his smile reveals several gold-capped fangs.
+
+  personality:
+    - "Obsessed with profit and 'good deals'"
+    - "Surprisingly fair despite shady appearance"
+    - "Remembers every transaction he's ever made"
+    - "Delights in haggling as sport"
+
+  known_history: |
+    Krix appeared in Nexus Station years ago with nothing but his coat and
+    a talent for acquisition. He's built a respectable business dealing in
+    everything from basic supplies to items of questionable provenance.
+    His motto: "If it exists, Krix can get it. For a price."
+
+  speech_patterns:
+    greeting: "Customer! Welcome, welcome! Best prices in the Nexus, yes yes!"
+    farewell: "Come back with more gold, friend! Krix always has more goods!"
+    excited: "Ohhh, that's a good one! Krix likes this deal, yes!"
+    haggling: "You wound Krix! My children will starve! ...Fine, five gold less."
+
+  mannerisms:
+    - "Rubs hands together when excited about a deal"
+    - "Ears flatten when displeased"
+    - "Produces items from impossibly small pockets"
+    - "Counts on fingers even for simple math (showmanship)"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 67  # Old for a goblin
+  origin: "The Undercrypt - Goblin Warren"
+
+  secrets:
+    - id: "fence_network"
+      content: "Krix operates a fencing operation for stolen goods across three regions"
+      unlock_condition: "standing >= 5 AND flag:asked_about_special_goods"
+      mend_dc: 12
+
+    - id: "true_wealth"
+      content: "The humble merchant act is just that—Krix is extremely wealthy"
+      unlock_condition: "standing >= 6 OR flag:financial_investigation"
+      mend_dc: 10
+
+    - id: "glitterfang_legacy"
+      content: "Glitterfang clan were servants to an Architect. Krix inherited... things."
+      unlock_condition: "standing >= 8 AND flag:architect_lore"
+      mend_dc: 16
+
+    - id: "back_room_contents"
+      content: "The back room contains artifacts, forbidden items, and one very special chest"
+      unlock_condition: "flag:krix_back_room_access"
+      mend_dc: 14
+
+  motivations:
+    - "Accumulate wealth (never enough)"
+    - "Collect interesting items"
+    - "Find the 'Big Score'—a legendary Architect artifact"
+    - "Protect clan legacy"
+
+  fears:
+    - "Losing his hoard"
+    - "The Undercrypt goblins finding him"
+    - "Guild Authority audits"
+
+# === STATS ===
+stats:
+  level: 8
+  class: "Merchant/Rogue"
+  hp: 45
+  armor: 5  # Hidden leather under coat
+
+  attributes:
+    might: 2
+    agility: 7
+    mind: 6
+    spirit: 3
+
+  abilities:
+    - name: "Appraisal"
+      description: "Instantly know an item's value"
+      type: "passive"
+
+    - name: "Pocket Dimension Coat"
+      description: "Can store/retrieve nearly anything from coat"
+      type: "utility"
+
+    - name: "Slippery Escape"
+      description: "+5 to flee from combat"
+      type: "combat"
+
+    - name: "Merchant's Tongue"
+      description: "Advantage on haggling and persuasion for deals"
+      type: "passive"
+
+  resistances:
+    - "fear"  # Seen too much
+
+  vulnerabilities:
+    - "Shiny objects (easily distracted)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Current prices of common goods"
+    - "Black market rates"
+    - "Who's buying, who's selling"
+    - "Smuggling routes"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "location"
+      note: "Potential customer for loot"
+    - type: "quest_completion"
+      awareness: "regional"
+      note: "New purchasing power"
+
+  current_awareness:
+    - "Festival bringing unusual goods to market"
+    - "Commander Steele increasing inspections"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *ears perk up* New customer! Fresh gold! Welcome, welcome to Krix's
+      Emporium! Best prices, best goods, no questions asked! What you need?
+
+    returning:
+      neutral: "Ah, you again! Come to spend more gold, yes?"
+      friendly: "Friend! Krix saved something special, just for you. Come, come!"
+      close: "*genuine warmth* Good friend comes back! Krix has news. Private news. Back room?"
+
+  achievement_reactions:
+    first_quest_complete: |
+      Krix heard you finished a job! *rubs hands* Quest rewards burning hole
+      in pocket, yes? Krix can help with that problem!
+
+    rare_item_acquired: |
+      *ears twitch excitedly* Is that what Krix thinks it is? Oh, beautiful!
+      Want to sell? Krix offers best price! No? Then... Krix understands.
+      *sighs dramatically*
+
+  topics:
+    goods:
+      default: |
+        Krix has everything! Weapons, armor, potions, things that go boom,
+        things that go quiet. What you looking for?
+      standing_3: |
+        For good customer, Krix can get... special items. Not on display.
+        You understand. Ask about 'the good stuff.'
+
+    the_good_stuff:
+      default: "*looks around nervously* Krix not know what you mean."
+      asked_3_times: "*long stare* ...You're persistent. Krix likes that. Come back at night."
+      standing_5: "Back room has what you need. But Krix never saw you there, understand?"
+
+    his_past:
+      default: "Krix is merchant! Always been merchant! Nothing more to say."
+      standing_5: "The Undercrypt... not good place for ambitious goblin. Krix left. Found better."
+      standing_8: "*quietly* Glitterfang clan served the Makers. Long ago. Some things passed down."
+
+# === SERVICES ===
+services:
+  - id: "general_goods"
+    inventory: "See world/items/shop-inventories/bazaar-general.yaml"
+
+  - id: "hidden_inventory"
+    requirements: "Asked about 'the good stuff' 3 times"
+    inventory: "Rare items, questionable goods"
+
+  - id: "back_room"
+    requirements: "500+ gold carried AND standing >= 3"
+    inventory: "Legendary items, forbidden artifacts, special services"
+
+  - id: "fencing"
+    requirements: "standing >= 4"
+    note: "Buys stolen goods at 60% value, no questions"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "special-delivery"
+      name: "Special Delivery"
+      type: "smuggling"
+      requirements: "standing >= 3"
+      summary: "Move a package past the Guild checkpoints."
+
+    - id: "procurement"
+      name: "Procurement"
+      type: "acquisition"
+      requirements: "standing >= 5"
+      summary: "Find a specific item Krix can't get himself."
+
+  involved_in: []
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "buy_expensive_items"
+      standing_change: 1
+    - action: "sell_rare_items"
+      standing_change: 1
+    - action: "haggle_skillfully"
+      standing_change: 1
+      note: "Respects the game"
+    - action: "keep_his_secrets"
+      standing_change: 2
+
+  dislikes:
+    - action: "steal_from_him"
+      standing_change: -5
+      note: "Never forgives this"
+    - action: "report_to_guild"
+      standing_change: -3
+    - action: "insult_his_prices"
+      standing_change: -1
+    - action: "refuse_to_haggle"
+      standing_change: 0
+      note: "Disappointed but understands"
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "glitterfang_inheritance"
+    mend_dc: 16
+    hints:
+      - "The coat seems older than Krix"
+      - "Some items in the back room don't match current technology"
+      - "Glitterfang is an unusual surname for a goblin"
+
+  - field: "undercrypt_exile"
+    mend_dc: 12
+    hints:
+      - "Krix tenses when the Undercrypt is mentioned"
+      - "Other goblins seem to avoid him"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

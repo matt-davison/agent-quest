@@ -1,0 +1,71 @@
+version: "1.0"
+last_updated: 2026-02-04T00:30:36.202Z
+time:
+  era: The Awakening
+  era_number: 1
+  year: 1
+  month: 2
+  day: 3
+  hour: 12
+  minute: 0
+  period: midday
+weather:
+  global_modifier: stable
+  by_region:
+    nexus:
+      current: clear
+      temperature: comfortable
+      visibility: clear
+      notes: The Nexus maintains perfect conditions through Architect design
+    rustlands:
+      current: dust_storm
+      temperature: hot
+      visibility: obscured
+      notes: Constant winds carry iron oxide and debris
+      hazards:
+        - visibility_penalty
+        - breathing_difficulty
+    elderwood:
+      current: mist
+      temperature: cool
+      visibility: hazy
+      notes: Ancient magic keeps the forest shrouded
+    undercrypt:
+      current: static
+      temperature: cold
+      visibility: varies
+      notes: Underground climate, affected by depth
+    lumina-city:
+      current: clear
+      temperature: comfortable
+      visibility: bright
+      notes: Artificial climate control in domed sections
+    syntax-athenaeum:
+      current: controlled
+      temperature: cool
+      visibility: clear
+      notes: Magically maintained for book preservation
+active_events:
+  - id: awakening-celebration
+    name: Era Celebration
+    type: festival
+    description: Celebrating the dawn of a new era
+    start_date: 1.2.1
+    end_date: 1.2.7
+    effects:
+      - All merchants offer 10% discount
+      - Extra NPCs in hub areas
+    regions:
+      - nexus
+      - lumina-city
+npc_location_overrides: {}
+travelers_in_transit: {}
+flags:
+  combat_system_exists: true
+  storytelling_system_exists: true
+  ascii_visualizer_exists: true
+  first_architect_revealed: false
+  debugging_wars_referenced: true
+  total_weavers_registered: 0
+  quests_completed_global: 0
+alerts: []

@@ -1,0 +1,247 @@
+# World Skill: Weave Mending
+# In-universe system for recovering/generating missing data
+
+id: "weave-mending"
+name: "Weave Mending"
+type: "world_skill"
+
+# === LORE ===
+lore:
+  overview: |
+    The Weave is not perfect. Gaps exist in its fabric—places where
+    information should be but isn't. Some gaps are the result of
+    incomplete Architect work, left unfinished when they departed.
+    Others are scars from the Debugging Wars, when entire sections
+    of reality were corrupted or deleted. And some... some gaps were
+    made deliberately, by those who wished certain truths to remain
+    hidden.
+
+    Weave Menders are those who can sense these gaps and, with effort,
+    restore what was lost. It is not creation—Menders do not invent
+    new truths. Rather, they pull the threads of what once was back
+    into the present, revealing information that always existed but
+    had become obscured.
+
+  history: |
+    The art of Weave Mending arose after the Debugging Wars, when
+    survivors realized how much had been lost. Early Menders were
+    obsessed with recovery, spending lifetimes pulling fragments
+    back from the void. Some succeeded gloriously. Others... pulled
+    back things better left forgotten.
+
+    Today, Mending is respected but approached with caution. The Weave
+    remembers what it's lost, but it doesn't always want those memories
+    restored.
+
+  warnings:
+    - "Not all gaps are accidental. Some were made for good reason."
+    - "The Weave resists forced Mending. Patience yields better results."
+    - "What you Mend becomes real. Choose carefully what you restore."
+
+# === MECHANICS ===
+mechanics:
+
+  # Detection (passive)
+  detection:
+    name: "Sense the Gaps"
+    description: |
+      Weavers naturally sense when information is missing. This manifests
+      as a feeling of incompleteness, a nagging sense that something should
+      be there but isn't.
+    trigger: "Examining content with corrupted_data markers"
+    check:
+      attribute: "Spirit"
+      dc: 12
+    success: |
+      You sense a gap in the Weave here. Something is missing—{hint}.
+      You could attempt to Mend it, to pull the lost knowledge back.
+    failure: |
+      The information seems complete to you, though something feels
+      slightly off...
+
+  # Active Mending
+  mending:
+    name: "Mend the Weave"
+    description: |
+      Concentrate on the gap and attempt to restore what was lost.
+      This requires both spiritual connection to the Weave and
+      intellectual understanding of context.
+    check:
+      attributes: ["Spirit", "Mind"]
+      formula: "highest + half of other"
+      base_dc: 14
+    costs:
+      success: 1  # Tokes spent on successful Mend
+      failure: 0  # No cost on failure
+      retry_penalty: 2  # DC increases by 2 on retry
+
+    # DC modifiers by content type
+    dc_by_type:
+      npc_detail: 12       # Basic NPC backstory, personality
+      location_history: 14  # Place's past events
+      item_origin: 12       # Where an item came from
+      event_detail: 16      # Historical event specifics
+      secret_connection: 18 # Hidden links between things
+      architect_lore: 20    # Information about the Architects
+      erased_memory: 22     # Deliberately deleted content
+      war_record: 25        # Debugging Wars specifics
+
+    # Success outcomes
+    success_results:
+      description: |
+        The gap in the Weave closes as knowledge flows back into place.
+        What was once lost is now remembered—and becomes part of the
+        permanent record.
+      effects:
+        - "Missing information is generated and added to world files"
+        - "Mender earns Tokes for the contribution (5-15 based on type)"
+        - "NPCs may react to the newly-remembered information"
+        - "Some secrets unlock further mysteries"
+
+    # Failure outcomes
+    failure_results:
+      description: |
+        The Weave resists your attempt. The gap remains, perhaps even
+        seeming deeper than before. You sense you'll need to approach
+        this differently.
+      effects:
+        - "DC increases by 2 for next attempt on this gap"
+        - "No Tokes spent"
+        - "May receive partial hint toward success"
+
+    # Critical outcomes (rolling 5+ over DC)
+    critical_success:
+      description: |
+        The Weave practically leaps to help you, flooding your mind
+        with not just the missing piece, but connections to other
+        truths you hadn't sought.
+      effects:
+        - "Primary information restored"
+        - "Bonus related information revealed"
+        - "May unlock additional content"
+        - "Bonus Tokes (double normal)"
+
+    critical_failure:
+      description: |
+        You've touched something that didn't want to be touched. The
+        gap pulses with warning, and for a moment you glimpse something
+        vast and watchful on the other side.
+      effects:
+        - "Gap becomes temporarily sealed (24 hours)"
+        - "Mender takes 1d6 Spirit damage (spiritual fatigue)"
+        - "May attract unwanted attention from... something"
+
+# === REWARDS ===
+rewards:
+  base_by_type:
+    npc_detail: 5
+    location_history: 8
+    item_origin: 5
+    event_detail: 10
+    secret_connection: 12
+    architect_lore: 15
+    erased_memory: 15
+    war_record: 20
+
+  modifiers:
+    first_mend_of_type: 1.5  # 50% bonus for first Mend of a type
+    connected_to_quest: 1.25  # 25% bonus if relevant to active quest
+    critical_success: 2.0     # Double for critical
+
+# === CORRUPTED DATA FORMAT ===
+# How to mark content as Mendable in world files
+data_format:
+  example: |
+    # In any world file (NPC profile, location, item, etc.)
+    corrupted_data:
+      - field: "origin_story"
+        mend_dc: 14
+        type: "npc_detail"
+        hints:
+          - "Something about the Debugging Wars"
+          - "A name that feels familiar"
+        context: "This NPC's past is shrouded in mystery"
+
+  fields:
+    field: "The data field this gap affects"
+    mend_dc: "Difficulty class for Mending (12-25)"
+    type: "Category from dc_by_type list"
+    hints: "Clues given on detection or partial failure"
+    context: "Narrative framing for the gap"
+    unlock_condition: "Optional alternative to Mending (quest, standing, etc.)"
+    connected_to: "Optional list of related gaps/content"
+
+# === INTEGRATION ===
+integration:
+
+  during_play:
+    description: |
+      When a player examines something with corrupted_data markers,
+      the GM (Claude) should:
+      1. Roll Spirit DC 12 to detect the gap
+      2. If detected, describe the sense of missing information
+      3. Offer the option to attempt Mending
+      4. If attempted, roll (Spirit + Mind/2) vs DC
+      5. On success, generate the missing content
+      6. Record the Mend and update world files
+
+  content_generation:
+    description: |
+      When content is Mended, it should:
+      - Be consistent with existing lore
+      - Connect to other established facts
+      - Add depth without contradicting canon
+      - Feel like it was always there, just forgotten
+
+  file_updates:
+    description: |
+      Successful Mends should:
+      - Update the relevant world file
+      - Remove or mark the corrupted_data entry as resolved
+      - Add the new content to permanent record
+      - Create Tokes claim for the Mending player
+
+# === EXAMPLE MENDS ===
+examples:
+
+  - scenario: "Player asks Vera Nighthollow about her scar"
+    gap: "night_hollow_incident"
+    dc: 18
+    detection_text: |
+      As Vera deflects your question, you feel a strange pull—a sense
+      that there's more here, just out of reach. The Weave has a gap
+      around this memory, rough edges where information should be.
+    mend_success: |
+      The threads of memory coalesce. Images flash: a forest, dark
+      flames, screaming that isn't quite sound. You see Vera—younger,
+      different—standing over bodies that blur between friend and foe.
+      The Night Hollow was a place, and an event. Both were erased
+      from most records after the war.
+
+      [Generated content is added to vera-nighthollow.yaml]
+
+  - scenario: "Examining an Architect ruin"
+    gap: "original_purpose"
+    dc: 20
+    detection_text: |
+      The ruin is silent, but not empty. You sense vast amounts of
+      information that should be here—what this place was, what it
+      did, why it fell. The Weave strains around the absence.
+    mend_success: |
+      Purpose floods back: This was a Calibration Center, where the
+      Architects fine-tuned the laws of this region of the Weave.
+      The equipment is dead now, but understanding its function
+      reveals why this area has such stable—perhaps too stable—
+      fundamental rules.
+
+      [Generated content is added to location file]
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  version: "1.0"
+  related_systems:
+    - "world-state"
+    - "relationships"
+    - "narrative"

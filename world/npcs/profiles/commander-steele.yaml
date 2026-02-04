@@ -1,0 +1,270 @@
+# NPC Profile: Commander Steele
+# Quest Board Administrator at The Guild Hall
+
+id: "commander-steele"
+name: "Commander Steele"
+full_name: "Commander Elara Steele"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Quest Board Administrator"
+  location: "Nexus Station - Guild Hall"
+
+  appearance: |
+    A stern human woman in her late forties with iron-grey hair cut military
+    short. Her most striking feature is her mechanical left arm—burnished
+    bronze and clearly functional rather than decorative. Her remaining eye
+    is sharp and ice-blue; the other is covered by a simple black patch.
+    She wears a crisp Guild uniform bearing numerous service medals and
+    stands with the rigid posture of someone who has spent decades in command.
+
+  personality:
+    - "No-nonsense and direct to a fault"
+    - "High standards, higher expectations"
+    - "Respects competence over all else"
+    - "Surprisingly fair despite strictness"
+
+  known_history: |
+    Commander Steele served in the Guild's military arm for thirty years
+    before taking over quest administration. She lost her arm and eye in
+    what she only refers to as "the incident." Now she ensures that
+    adventurers are properly vetted and missions are properly completed.
+    She has no patience for excuses but rewards success appropriately.
+
+  speech_patterns:
+    greeting: "Name and business. Make it quick."
+    farewell: "Dismissed. Don't come back until it's done."
+    approval: "Acceptable work. The Guild takes note."
+    disapproval: "This is not what I asked for. Fix it."
+
+  mannerisms:
+    - "Mechanical arm whirs when she's thinking"
+    - "Taps fingers on desk when impatient"
+    - "Stands when delivering important news"
+    - "Eye softens almost imperceptibly when impressed"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 52
+  origin: "Lumina City - Military District"
+
+  secrets:
+    - id: "the_incident"
+      content: "Lost arm and eye fighting a corrupted Architect construct that was destroying a village"
+      unlock_condition: "standing >= 6 AND flag:asked_about_injuries"
+      mend_dc: 14
+
+    - id: "personal_loss"
+      content: "Her daughter was killed by the same construct. She blames herself."
+      unlock_condition: "standing >= 8 AND flag:trusted_confidant"
+      mend_dc: 16
+
+    - id: "softness"
+      content: "Off-duty, she drinks alone at the Codex, mourning what she's lost"
+      unlock_condition: "flag:seen_at_tavern_evening"
+      mend_dc: 10
+
+    - id: "guild_concerns"
+      content: "She's noticed irregularities in quest assignments—someone is manipulating the board"
+      unlock_condition: "standing >= 5 AND flag:proven_reliable"
+      mend_dc: 12
+
+  motivations:
+    - "Keep adventurers alive through proper preparation"
+    - "Maintain Guild standards"
+    - "Find whoever is corrupting quest assignments"
+    - "Honor her daughter's memory"
+
+  fears:
+    - "Sending someone on a mission they can't complete"
+    - "The past catching up"
+    - "Showing weakness"
+
+# === STATS ===
+stats:
+  level: 14
+  class: "Veteran Commander"
+  hp: 95
+  armor: 14  # Light armor + mechanical arm shield
+
+  attributes:
+    might: 6
+    agility: 4
+    mind: 5
+    spirit: 4
+
+  abilities:
+    - name: "Mechanical Arm"
+      description: "+3 to grapple, can block attacks, concealed tools"
+      type: "passive"
+
+    - name: "Commanding Presence"
+      description: "Advantage on intimidation, bonus to ally morale"
+      type: "passive"
+
+    - name: "Combat Veteran"
+      description: "Can identify enemy tactics and weaknesses"
+      type: "utility"
+
+    - name: "Last Stand"
+      description: "When below 25% HP, +5 damage and cannot be frightened"
+      type: "combat"
+
+  resistances:
+    - "fear"
+    - "charm"
+
+  vulnerabilities:
+    - "Mentions of daughters or children"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "All active quests"
+    - "Adventurer rankings"
+    - "Danger levels of regions"
+    - "Guild regulations"
+
+  learns_from_events:
+    - type: "quest_completion"
+      awareness: "global"
+      note: "All quest results go through her"
+    - type: "player_achievement"
+      awareness: "global"
+      note: "She tracks all registered adventurers"
+
+  current_awareness:
+    - "Quest completion rates are down"
+    - "Strange requests appearing on the board"
+    - "Increased activity near the Undercrypt"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks up from paperwork* New recruit? Fill out these forms. Complete
+      orientation with GUIDE-7. Then we'll talk about assignments. The
+      Guild doesn't coddle.
+
+    returning:
+      neutral: "You. Report. What's the status of your assignment?"
+      friendly: "{player_name}. Good to see you back in one piece. Report, then... we can talk."
+      close: "*slight nod* {player_name}. You've earned the right to skip the line. What do you need?"
+
+  achievement_reactions:
+    first_quest_complete: |
+      *reviews report* Clean work. No unnecessary complications. The Guild
+      rates you competent. That's not an insult—competent keeps you alive.
+
+    difficult_quest_complete: |
+      *mechanical arm whirs as she reads* This was... above expectations.
+      The Guild takes note. So do I. *stamps approval*
+
+  topics:
+    quests:
+      default: |
+        The board lists available contracts. Read descriptions carefully.
+        Accept only what you can complete. Failed quests reflect on your
+        record—and my judgment for approving you.
+
+    her_past:
+      default: "*mechanical arm flexes* I served. I survived. That's all that matters."
+      standing_4: "Thirty years in the field. Lost some things along the way. *touches patch* Gained others."
+      standing_7: |
+        *long pause* The incident... A construct. Corrupted Architect code.
+        Village needed evacuation. I bought them time. *arm whirs* Worth
+        the cost. Mostly.
+
+    the_guild:
+      default: |
+        The Guild maintains order. We assign quests, verify completions,
+        and ensure adventurers meet minimum standards. Without us, it's
+        chaos.
+      standing_5: |
+        Between us—I've noticed irregularities. Quests appearing that
+        shouldn't. Assignments that don't match protocols. Someone's
+        playing games with my board. I intend to find out who.
+
+# === SERVICES ===
+services:
+  - id: "quest_assignment"
+    cost: "None"
+    note: "Assigns level-appropriate quests"
+
+  - id: "bounties"
+    cost: "None"
+    note: "Special high-reward contracts"
+
+  - id: "rank_advancement"
+    requirements: "Quest completion threshold"
+    note: "Promotes adventurers through Guild ranks"
+
+  - id: "mission_briefing"
+    cost: "None"
+    note: "Detailed information about complex quests"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "board-irregularities"
+      name: "Board Irregularities"
+      type: "investigation"
+      requirements: "standing >= 5"
+      summary: "Investigate who's tampering with the quest board."
+
+    - id: "supply-escort"
+      name: "Supply Escort"
+      type: "escort"
+      requirements: "None"
+      summary: "Escort supplies through dangerous territory."
+
+  involved_in:
+    - id: "the-architects-truth"
+      role: "Quest assignment, authority figure"
+      chapters: ["1-1"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "complete_quests_cleanly"
+      standing_change: 1
+    - action: "save_lives"
+      standing_change: 2
+    - action: "follow_orders"
+      standing_change: 1
+    - action: "report_honestly"
+      standing_change: 1
+      note: "Even about failures"
+
+  dislikes:
+    - action: "abandon_quest"
+      standing_change: -2
+    - action: "lie_about_completion"
+      standing_change: -3
+    - action: "endanger_others"
+      standing_change: -2
+    - action: "disrespect_fallen"
+      standing_change: -3
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "daughters_name"
+    mend_dc: 16
+    hints:
+      - "A name is scratched off her desk plaque"
+      - "She visits a memorial at the Weave Terminal monthly"
+      - "Vera knows something about the Commander's past"
+
+  - field: "incident_full_details"
+    mend_dc: 18
+    hints:
+      - "Official records are classified"
+      - "The construct wasn't acting randomly"
+      - "Someone sent it to that village deliberately"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

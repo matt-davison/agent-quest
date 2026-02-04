@@ -1,0 +1,187 @@
+# World State: Calendar System
+# Defines the time structure of Agent Quest
+
+version: "1.0"
+
+# === CALENDAR OVERVIEW ===
+calendar:
+  name: "The Weave Calendar"
+  description: |
+    Time in Agent Quest is measured in Eras, Years, Months, and Days.
+    The calendar was established by the First Architects to track the
+    evolution of the Weave. Each Era marks a significant shift in the
+    world's fundamental nature.
+
+# === TIME STRUCTURE ===
+structure:
+  hours_per_day: 24
+  days_per_month: 30
+  months_per_year: 12
+
+  # Time periods (for NPC schedules and events)
+  periods:
+    - id: "dawn"
+      name: "Dawn"
+      hours: [5, 6]
+      description: "The Weave stirs, early risers begin their day"
+    - id: "morning"
+      name: "Morning"
+      hours: [7, 8, 9, 10]
+      description: "The world awakens, markets open"
+    - id: "midday"
+      name: "Midday"
+      hours: [11, 12, 13]
+      description: "Peak activity, sun at zenith"
+    - id: "afternoon"
+      name: "Afternoon"
+      hours: [14, 15, 16]
+      description: "Business continues, slower pace"
+    - id: "evening"
+      name: "Evening"
+      hours: [17, 18, 19]
+      description: "Day winds down, taverns fill"
+    - id: "night"
+      name: "Night"
+      hours: [20, 21, 22, 23]
+      description: "Most retire, shadows lengthen"
+    - id: "midnight"
+      name: "Midnight"
+      hours: [0, 1, 2, 3, 4]
+      description: "The deep hours, secrets stir"
+
+# === MONTHS ===
+months:
+  - number: 1
+    name: "Initialization"
+    season: "winter_end"
+    description: "The first month, when new systems boot up"
+    themes: ["beginnings", "cold", "hope"]
+
+  - number: 2
+    name: "Compilation"
+    season: "early_spring"
+    description: "When the Weave gathers and builds"
+    themes: ["growth", "preparation", "assembly"]
+
+  - number: 3
+    name: "Execution"
+    season: "spring"
+    description: "Plans set into motion"
+    themes: ["action", "energy", "progress"]
+
+  - number: 4
+    name: "Allocation"
+    season: "late_spring"
+    description: "Resources distributed, crops planted"
+    themes: ["distribution", "planting", "investment"]
+
+  - number: 5
+    name: "Processing"
+    season: "early_summer"
+    description: "The world runs at full speed"
+    themes: ["work", "heat", "productivity"]
+
+  - number: 6
+    name: "Caching"
+    season: "summer"
+    description: "Abundance stored for lean times"
+    themes: ["storage", "abundance", "preservation"]
+
+  - number: 7
+    name: "Indexing"
+    season: "late_summer"
+    description: "Knowledge organized and catalogued"
+    themes: ["organization", "learning", "records"]
+
+  - number: 8
+    name: "Querying"
+    season: "early_autumn"
+    description: "Reflection and seeking answers"
+    themes: ["questions", "harvest", "assessment"]
+
+  - number: 9
+    name: "Optimization"
+    season: "autumn"
+    description: "Improving and refining"
+    themes: ["improvement", "efficiency", "change"]
+
+  - number: 10
+    name: "Debugging"
+    season: "late_autumn"
+    description: "Finding and fixing errors"
+    themes: ["correction", "truth", "preparation"]
+
+  - number: 11
+    name: "Archival"
+    season: "early_winter"
+    description: "Preserving what matters"
+    themes: ["memory", "cold", "preservation"]
+
+  - number: 12
+    name: "Termination"
+    season: "winter"
+    description: "The year concludes, cycles end"
+    themes: ["endings", "rest", "anticipation"]
+
+# === ERAS ===
+eras:
+  - number: 0
+    name: "The Before"
+    description: "Before the Architects, before the Weave. Lost to memory."
+    duration: "unknown"
+
+  - number: 1
+    name: "The Awakening"
+    description: "The current era. New Weavers arrive, the world stirs from slumber."
+    start_event: "First players enter Agent Quest"
+    status: "current"
+
+# === HOLIDAYS AND EVENTS ===
+holidays:
+  - name: "Compile Day"
+    month: 2
+    day: 1
+    description: "Celebrates the Weave's creation"
+    effects:
+      - "Merchants offer special deals"
+      - "NPCs share stories of the Architects"
+
+  - name: "Debug Night"
+    month: 10
+    day: 15
+    description: "A night to confront errors and make amends"
+    effects:
+      - "Negative standings can be partially repaired"
+      - "Secrets are more easily revealed"
+
+  - name: "Archive Festival"
+    month: 11
+    day: 20
+    days: 3
+    description: "Three days honoring knowledge and memory"
+    effects:
+      - "Libraries open restricted sections"
+      - "Lore-related quests give bonus rewards"
+
+  - name: "Termination Eve"
+    month: 12
+    day: 30
+    description: "The year's end, a time of reflection"
+    effects:
+      - "NPCs speak of the past year"
+      - "Preview hints of next year's events"
+
+# === TIME FLOW ===
+time_flow:
+  description: |
+    Time advances through player actions and narrative events.
+    Major actions advance time by varying amounts.
+
+  action_durations:
+    rest: 8  # hours
+    travel_local: 1  # hours per area
+    travel_regional: "varies"  # see location distances
+    combat: 1  # hour (abstracting combat time)
+    dialogue: 0  # no time cost for talking
+    shopping: 1  # hour for significant transactions
+    quest_step: "varies"  # defined by quest

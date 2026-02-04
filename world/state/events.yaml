@@ -1,0 +1,83 @@
+# World State: Events Log
+# Records significant world events for NPC awareness
+# NPCs reference this to react to recent happenings
+# Events older than 30 in-game days are archived
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === RECENT EVENTS ===
+# Most recent first, limited to last 30 in-game days
+recent_events:
+  - id: "awakening-begins"
+    date: "1.2.1"  # era.month.day
+    type: "era"
+    title: "The Awakening Begins"
+    description: "A new era dawns in Agent Quest. The world opens to new Weavers."
+    public: true  # Known by all NPCs
+    regions:
+      - "all"
+    witnesses: []  # Specific NPCs who saw it firsthand
+    consequences:
+      - "NPCs speak of new beginnings"
+      - "Merchants expecting increased traffic"
+    npc_reactions:
+      vera-nighthollow: "Business is about to pick up. I can feel it."
+      guide-7: "Welcome, new Weaver! You've arrived at an auspicious time."
+      krix: "New customers! Fresh pockets! Excellent, excellent!"
+
+# === EVENT TEMPLATES ===
+# For generating NPC-aware dialogue
+event_types:
+  player_achievement:
+    awareness_radius: "location"  # local, location, region, global
+    decay_days: 7
+    dialogue_triggers:
+      - "congratulations"
+      - "heard_about"
+
+  quest_completion:
+    awareness_radius: "region"
+    decay_days: 14
+    dialogue_triggers:
+      - "thank_you"
+      - "reputation_change"
+
+  combat_victory:
+    awareness_radius: "location"
+    decay_days: 3
+    dialogue_triggers:
+      - "impressive_fight"
+      - "warning_caution"
+
+  world_change:
+    awareness_radius: "global"
+    decay_days: 30
+    dialogue_triggers:
+      - "concerning_times"
+      - "optimistic_future"
+
+# === PLAYER-SPECIFIC EVENTS ===
+# Events tied to specific players (loaded per-session)
+# Structure: player_events.<github_username>
+player_events: {}
+  # Example:
+  # matt-davison:
+  #   - id: "first-quest-complete"
+  #     date: "1.2.3"
+  #     type: "quest_completion"
+  #     quest: "the-missing-fragment"
+  #     witnesses:
+  #       - "commander-steele"
+
+# === EVENT ARCHIVE ===
+# Reference for historical events (not actively tracked)
+archived_events: []
+
+# === UTILITIES ===
+# Helper data for event generation
+awareness_levels:
+  local: "Only witnesses and nearby NPCs"
+  location: "All NPCs in the same location"
+  region: "All NPCs in the same region"
+  global: "All NPCs everywhere"

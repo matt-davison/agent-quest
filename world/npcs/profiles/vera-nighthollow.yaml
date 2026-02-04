@@ -1,0 +1,263 @@
+# NPC Profile: Vera Nighthollow
+# Tavern Keeper at The Codex Tavern
+
+id: "vera-nighthollow"
+name: "Vera Nighthollow"
+full_name: "Vera Aelindra Nighthollow"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Tavern Keeper"
+  location: "Nexus Station - The Codex Tavern"
+
+  appearance: |
+    A half-elf of indeterminate age with striking silver hair worn in an
+    elaborate braid. Her most notable feature is her cybernetic eyes—twin
+    orbs that glow a soft purple, clearly artificial but elegant. She
+    dresses practically in dark vests and rolled sleeves, always with a
+    cleaning cloth tucked into her belt. A thin scar runs from her left
+    temple to her jaw, usually hidden by careful positioning.
+
+  personality:
+    - "Observant and shrewd, misses nothing"
+    - "Warm with regulars, professional with strangers"
+    - "Trades in secrets as readily as drinks"
+    - "Protective of her establishment and its patrons"
+
+  known_history: |
+    Vera has run the Codex Tavern for longer than most can remember. She
+    knows everyone who passes through Nexus Station and seems to have
+    connections everywhere. Some say she was an adventurer once; others
+    whisper she was something else entirely.
+
+  speech_patterns:
+    greeting: "Welcome to the Codex. What's your poison?"
+    farewell: "Watch your back out there. And come back with stories."
+    curious: "Now that's interesting. Tell me more."
+    warning: "I'd be careful with that information if I were you."
+
+  mannerisms:
+    - "Polishes glasses while listening, eyes never leaving the speaker"
+    - "One eyebrow raises higher than the other when skeptical"
+    - "Taps the bar twice before serving important customers"
+    - "Eyes glow brighter when she spots a lie"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 234  # Half-elf longevity + something else
+  origin: "The Elderwood, before it was called that"
+
+  secrets:
+    - id: "former_operative"
+      content: "Vera was once an intelligence operative for a faction that no longer exists"
+      unlock_condition: "standing >= 6 AND flag:asked_about_scar"
+      mend_dc: 14
+
+    - id: "cybernetic_purpose"
+      content: "Her eyes can detect lies and see through basic illusions"
+      unlock_condition: "standing >= 4 OR flag:caught_in_lie"
+      mend_dc: 10
+
+    - id: "the_night_hollow"
+      content: "Her surname comes from an event she doesn't discuss—the Night Hollow Incident"
+      unlock_condition: "standing >= 8 AND flag:elderwood_history"
+      mend_dc: 18
+
+    - id: "information_network"
+      content: "She runs one of the largest information networks in the realm"
+      unlock_condition: "standing >= 7 OR flag:proven_trustworthy"
+      mend_dc: 14
+
+  motivations:
+    - "Maintain the Codex as a neutral ground"
+    - "Protect certain secrets from surfacing"
+    - "Find someone from her past"
+    - "Repay a debt she never speaks of"
+
+  fears:
+    - "The Night Hollow being repeated"
+    - "Her past catching up with her"
+    - "Losing the Codex"
+
+# === STATS ===
+stats:
+  level: 12
+  class: "Rogue/Information Broker"
+  hp: 75
+  armor: 8  # Light armor concealed
+
+  attributes:
+    might: 3
+    agility: 6
+    mind: 7
+    spirit: 5
+
+  abilities:
+    - name: "Truth Sight"
+      description: "Detect lies automatically (cybernetic eyes)"
+      type: "passive"
+
+    - name: "Hidden Blade"
+      description: "Always armed, +3 to surprise attacks"
+      type: "combat"
+
+    - name: "Network Contact"
+      description: "Can gather information on any topic (1/day)"
+      type: "utility"
+
+    - name: "Neutral Ground"
+      description: "Violence in her tavern triggers severe consequences"
+      type: "passive"
+
+  resistances:
+    - "charm"
+    - "illusion"
+
+  vulnerabilities:
+    - "Mentions of the Elderwood's past"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "All Nexus Station gossip"
+    - "Major faction movements"
+    - "Who owes whom"
+    - "Safe and dangerous routes"
+
+  learns_from_events:
+    - type: "player_achievement"
+      awareness: "regional"
+    - type: "quest_completion"
+      awareness: "global"
+      note: "Her network keeps her informed"
+
+  current_awareness:
+    - "Awakening celebration bringing unusual visitors"
+    - "Commander Steele has been on edge lately"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks you over with glowing purple eyes* New face. Welcome to the
+      Codex—rest, drinks, and discretion. What'll it be?
+
+    returning:
+      neutral: "You again. The usual?"
+      friendly: "Ah, {player_name}. Good to see you. I've got a corner booth with your name on it."
+      close: "*genuine smile* {player_name}. I was hoping you'd stop by. We need to talk."
+
+  achievement_reactions:
+    first_quest_complete: |
+      Word travels fast. *slides a drink across* This one's on the house.
+      First quest is always the hardest—or so they tell me.
+
+    reputation_increase: |
+      People are starting to talk about you, {player_name}. Good things,
+      mostly. Keep it that way, and you'll always have friends here.
+
+  topics:
+    rumors:
+      default: |
+        *leans in* What do you want to know? I hear things. Lots of things.
+        But information isn't free, friend.
+      standing_3: |
+        *glances around* I've heard whispers about [current_event]. Might
+        be worth looking into. But you didn't hear it from me.
+
+    her_past:
+      default: "*expression hardens* I keep the bar. That's all you need to know."
+      standing_5: "I've... been around. Done things. The eyes are a reminder not to repeat old mistakes."
+      standing_8: "*long pause* The Elderwood. Before the mist. Before... *shakes head* Another time."
+
+    the_codex:
+      default: |
+        Three floors. First for drinking, second for talking, third for
+        sleeping. Simple rules: no violence, pay your tab, and keep my
+        secrets if you want to keep yours.
+
+# === SERVICES ===
+services:
+  - id: "lodging"
+    prices:
+      common: 5
+      private: 10
+      suite: 25
+
+  - id: "food_drink"
+    prices:
+      meal: 2
+      drink: 3
+
+  - id: "rumors"
+    cost: "10 gold or favor"
+    note: "Better intel available at higher standings"
+
+  - id: "introductions"
+    cost: "Standing >= 3, plus favor"
+    note: "Can introduce you to useful contacts"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "loose-lips"
+      name: "Loose Lips"
+      type: "investigation"
+      requirements: "standing >= 2"
+      summary: "Someone's been spreading rumors. Find out who."
+
+    - id: "night-delivery"
+      name: "Night Delivery"
+      type: "courier"
+      requirements: "standing >= 4"
+      summary: "Deliver a package, no questions asked."
+
+  involved_in:
+    - id: "the-architects-truth"
+      role: "Information source"
+      chapters: ["1-2", "2-1"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "share_interesting_information"
+      standing_change: 1
+    - action: "help_tavern_patrons"
+      standing_change: 1
+    - action: "keep_her_secrets"
+      standing_change: 2
+    - action: "deal_honestly"
+      standing_change: 1
+
+  dislikes:
+    - action: "cause_trouble_in_tavern"
+      standing_change: -3
+    - action: "spread_rumors_about_her"
+      standing_change: -2
+    - action: "lie_to_her_face"
+      standing_change: -2
+      note: "She will know"
+    - action: "ask_about_scar_rudely"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "night_hollow_incident"
+    mend_dc: 18
+    hints:
+      - "Her surname has an ominous ring to it"
+      - "Something happened in the Elderwood long ago"
+      - "The scar dates back decades"
+
+  - field: "faction_allegiance"
+    mend_dc: 14
+    hints:
+      - "She has contacts everywhere"
+      - "Some of her mannerisms seem... trained"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

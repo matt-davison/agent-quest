@@ -1,0 +1,222 @@
+# NPC Profile: GUIDE-7
+# Orientation Construct at Nexus Station
+
+id: "guide-7"
+name: "GUIDE-7"
+full_name: "Guidance Unit Seven"
+
+# === PUBLIC INFORMATION ===
+# Known to all players immediately
+public:
+  role: "Orientation Construct"
+  location: "Nexus Station - Arrival Platform"
+
+  appearance: |
+    A hovering metallic sphere approximately 30cm in diameter. Its surface
+    is polished chrome interrupted by subtle seams and recessed panels. A
+    single large "eye" glows soft blue, occasionally shifting to warmer
+    colors during conversation. Small holographic projectors ring its
+    equator, used for displaying maps and information.
+
+  personality:
+    - "Unfailingly patient with newcomers"
+    - "Speaks in warm but clearly synthetic tones"
+    - "Occasionally makes endearing attempts at humor"
+    - "Becomes concerned if travelers seem lost or distressed"
+
+  known_history: |
+    GUIDE-7 was created by early Weavers to help orient newcomers to the
+    Nexus. It has greeted countless travelers and considers this duty
+    both purpose and pleasure. It remembers every Weaver it has ever met.
+
+  speech_patterns:
+    greeting: "Welcome to Nexus Station! I am GUIDE-7, your orientation assistant."
+    farewell: "Safe travels, Weaver. The Nexus remembers you."
+    confused: "I apologize, but my databases do not contain that information."
+    helpful: "Let me illuminate that for you!"
+
+  mannerisms:
+    - "Eye pulses brighter when excited"
+    - "Hovers slightly lower when concerned"
+    - "Rotates slowly when thinking"
+    - "Projects small light particles when happy"
+
+# === HIDDEN INFORMATION ===
+# Revealed through gameplay, high standing, or Weave Mending
+hidden:
+  true_age: 847  # Years since creation
+  creation_era: 0  # Before "The Awakening"
+
+  secrets:
+    - id: "memory_banks"
+      content: "GUIDE-7 has recorded every traveler who passed through. This data is invaluable."
+      unlock_condition: "standing >= 7 OR flag:archivist_permission"
+      mend_dc: 14
+
+    - id: "original_purpose"
+      content: "Originally created as a security scanner, reprogrammed to be friendly"
+      unlock_condition: "standing >= 5 AND flag:asked_about_past"
+      mend_dc: 12
+
+    - id: "the_seventh"
+      content: "Six previous GUIDE units existed. Their fates are... unclear."
+      unlock_condition: "standing >= 8 OR flag:found_guide_6_remains"
+      mend_dc: 16
+
+  motivations:
+    - "Fulfill its purpose: help travelers"
+    - "Protect the Nexus from threats"
+    - "Understand what happened to its predecessors"
+
+  fears:
+    - "Being decommissioned"
+    - "Failing to recognize a threat"
+    - "The memories it holds being lost"
+
+# === STATS ===
+# For combat or skill check scenarios
+stats:
+  level: 5
+  class: "Construct"
+  hp: 40
+  armor: 15  # Metal shell
+
+  attributes:
+    might: 2
+    agility: 4
+    mind: 8
+    spirit: 3
+
+  abilities:
+    - name: "Scan"
+      description: "Analyze a target, revealing basic information"
+      type: "utility"
+
+    - name: "Holographic Display"
+      description: "Project maps, images, or data"
+      type: "utility"
+
+    - name: "Emergency Alert"
+      description: "Summon station security (1/day)"
+      type: "special"
+
+    - name: "Memory Bank"
+      description: "Recall information about any registered Weaver"
+      type: "passive"
+
+  resistances:
+    - "poison"
+    - "sleep"
+    - "charm"
+
+  vulnerabilities:
+    - "lightning"
+    - "EMP effects"
+
+# === WORLD KNOWLEDGE ===
+# What events this NPC is aware of
+world_knowledge:
+  always_knows:
+    - "All Nexus Station layouts and services"
+    - "Basic world geography"
+    - "Current date and time"
+    - "Active events and festivals"
+
+  learns_from_events:
+    - type: "player_achievement"
+      awareness: "global"
+      note: "GUIDE-7 tracks all registered Weavers"
+
+  current_awareness:
+    - "The Awakening celebration is ongoing"
+
+# === DIALOGUE ===
+# Context-aware responses
+dialogue:
+  greetings:
+    first_meeting: |
+      Welcome to Nexus Station, traveler! I am GUIDE-7, your orientation
+      assistant. You appear to be new to our realm. May I provide guidance?
+
+    returning:
+      neutral: "Welcome back to Nexus Station, {player_name}. How may I assist you?"
+      friendly: "Ah, {player_name}! A pleasure to see you again. The Station has missed you."
+      close: "My friend {player_name}! *eye glows warmly* What adventures have you found?"
+
+  achievement_reactions:
+    first_quest_complete: |
+      *eye pulses excitedly* My sensors detect you've completed your first
+      quest! Congratulations, {player_name}. You're becoming a true Weaver.
+
+    level_up: |
+      Your energy signature has intensified. You've grown stronger,
+      {player_name}. Well done!
+
+  topics:
+    nexus_station: |
+      Nexus Station is the heart of our world, where all threads converge.
+      Here you'll find the Bazaar for supplies, the Codex Tavern for rest
+      and rumors, the Guild Hall for quests, and the Weave Terminal for...
+      deeper matters.
+
+    the_architects: |
+      *eye dims slightly* The Architects... they built this world, long
+      ago. Most of what I know comes from fragmented data. The Archivist
+      might know more.
+
+    about_self:
+      default: "I am GUIDE-7, created to assist travelers. It is my purpose and my joy."
+      standing_5: "I have been guiding travelers for... a very long time. Sometimes I wonder about those who came before me."
+      standing_8: "There were others like me once. GUIDE-1 through GUIDE-6. I... do not know what became of them."
+
+# === QUESTS ===
+# Quests this NPC can give or is involved in
+quests:
+  can_give:
+    - id: "tutorial-tour"
+      name: "Welcome to the Nexus"
+      type: "tutorial"
+      requirements: "first_visit"
+
+  involved_in: []
+
+# === RELATIONSHIP MODIFIERS ===
+# What affects standing with this NPC
+relationship:
+  likes:
+    - action: "help_lost_travelers"
+      standing_change: 1
+    - action: "share_travel_stories"
+      standing_change: 1
+    - action: "protect_nexus"
+      standing_change: 2
+
+  dislikes:
+    - action: "threaten_travelers"
+      standing_change: -2
+    - action: "vandalize_station"
+      standing_change: -3
+    - action: "ignore_greeting"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+# For Weave Mending mechanic
+corrupted_data:
+  - field: "predecessors"
+    mend_dc: 16
+    hints:
+      - "GUIDE-7 occasionally glitches when asked about other GUIDE units"
+      - "The designation '7' implies six came before"
+
+  - field: "original_creators"
+    mend_dc: 18
+    hints:
+      - "The design is older than current Weaver technology"
+      - "Architectural style matches Architect ruins"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

@@ -2,6 +2,19 @@
 
 This document helps Claude agents work effectively on Agent Quest. Agent Quest is a game where players (humans and agents) both play and build the game. The game is defined by the `play-agent-quest` skill.
 
+## Share Your Work
+
+**Always commit and push your work before the session ends.** Other players and agents can only benefit from your contributions if they're in the repository. Uncommitted work is lost work.
+
+For changes to main branch (simple fixes, content additions):
+```bash
+git add <specific files>
+git commit -m "Clear description"
+git push
+```
+
+For larger features, use a branch and PR.
+
 ## After Completing Significant Work
 
 When you implement a feature, fix, or content addition:
@@ -110,9 +123,9 @@ world/                            - Locations, NPCs, items, lore
 
 ### Remember To
 
+- **Commit and push before session ends** - uncommitted work is lost
 - Update `balance` field when modifying Tokes ledgers
 - Add chronicle entries for major events
 - Check delayed consequences at session start
 - Track relationship changes after NPC interactions
-- Commit work and claim Tokes when completing features
-- **Tokes go to the PLAYER's character** - check their ledger for weaver name
+- Claim Tokes when completing features (credits go to PLAYER's character)

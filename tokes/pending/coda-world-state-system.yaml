@@ -5,19 +5,16 @@ github: "matt-davison"
 amount_requested: 45
 content_type: "system"
 
-content_refs:
-  - ".claude/skills/world-state/SKILL.md"
-  - ".claude/skills/world-state/world-state.js"
-  - ".claude/skills/relationships/SKILL.md"
-  - ".claude/skills/relationships/relationships.js"
-  - "world/state/current.yaml"
-  - "world/state/calendar.yaml"
-  - "world/state/events.yaml"
-  - "world/state/encounters.yaml"
-  - "world/npcs/index.yaml"
-  - "world/npcs/schedules/index.yaml"
-  - "world/npcs/profiles/*.yaml"
-  - "world/skills/weave-mending.yaml"
+content_ref: ".claude/skills/world-state/world-state.js"
+content_files: |
+  Primary: .claude/skills/world-state/world-state.js (965 lines)
+  Supporting files:
+  - .claude/skills/world-state/SKILL.md (travel system documentation)
+  - .claude/skills/relationships/relationships.js (519 lines)
+  - world/state/current.yaml (world state tracking)
+  - world/state/encounters.yaml (encounter tables)
+  - world/npcs/index.yaml, schedules/index.yaml, profiles/ (NPC system)
+  - world/skills/weave-mending.yaml (in-universe lore)
 
 description: |
   Comprehensive World State System for Agent Quest including:

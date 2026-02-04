@@ -1,0 +1,46 @@
+# Religion Index
+# All faiths woven into the world of Agent Quest
+
+description: |
+  The gods are real. They grant power to the faithful and curse the heretical.
+  Religions clash in holy wars, and the divine bleeds into the mortal realm
+  through those who truly believe.
+
+# Active religions in the world
+religions:
+  - id: "fleshwright-creed"
+    name: "The Fleshwright Creed"
+    deity: "The First Architects (interpreted as organic beings)"
+    alignment: "order/flesh-supremacy"
+    status: "active"
+    founded: "2026-02-03"
+    founder_weaver: "Zynita Darkblade"
+    profile: "world/religions/fleshwright-creed.yaml"
+
+# Relationships between faiths
+# Values: allied, neutral, rival, enemy, holy_war
+relationships:
+  # Will be populated as more religions are added
+  # Example:
+  # - faith_a: "fleshwright-creed"
+  #   faith_b: "church-of-the-machine"
+  #   status: "holy_war"
+  #   since: "2026-02-XX"
+
+# Global religious events
+events:
+  - date: "2026-02-03"
+    type: "founding"
+    faith: "fleshwright-creed"
+    description: "The Fleshwright Creed is woven into existence at Patch-9's clinic in Nexus Station"
+
+# Contested holy sites
+contested_sites: []
+
+# Metadata
+metadata:
+  created_by: "zynita-darkblade"
+  github: "matt-davison"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

@@ -1,0 +1,199 @@
+# NPC Profile: Skex
+# Data-runner on the run from the Pale Circuit
+
+id: "skex"
+name: "Skex"
+full_name: "Unknown"  # He hasn't shared it
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Data-Runner (former)"
+  location: "undercrypt-bone-market"  # Current, fleeing
+
+  appearance: |
+    Early twenties, gaunt face with sharp cheekbones. Three chrome data-jacks
+    run down his left temple like teardrops. Messy dark hair that falls into
+    his eyes. Lean build — underfed in that way data-runners get when they
+    spend more on jack upgrades than food. Long, quick fingers that never
+    stop moving. Wears a threadbare hoodie over whatever he grabbed running
+    out the door.
+
+  personality:
+    - "Nervous, twitchy — always looking over his shoulder"
+    - "Surprisingly brave when cornered"
+    - "Quick to trust those who help him"
+    - "Self-deprecating humor as a defense mechanism"
+
+  known_history: |
+    Skex worked as a data-runner — jacking into systems, downloading packages,
+    no questions asked. His last job for the Pale Circuit went wrong when he
+    looked at the data he was carrying: coordinates to every skolma stash in
+    the lower levels. Now he's running for his life with information that
+    could destroy the Circuit's supply chain.
+
+  speech_patterns:
+    nervous: "You, uh... you good? We should, uh, probably keep moving."
+    grateful: "You're incredible. You know that? Actually incredible."
+    scared: "They're gonna kill me. They're gonna kill both of us."
+    hopeful: "Maybe... maybe we can actually make it."
+
+  mannerisms:
+    - "Scratches at his data-jacks when anxious"
+    - "Runs hand through messy hair constantly"
+    - "Fingers always tapping, fidgeting"
+    - "Makes eye contact briefly then looks away"
+    - "Nervous laugh when stressed"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_name: "Skexis Morel"
+  age: 23
+  origin: "Lower Nexus tunnels — grew up near the Pale Circuit territory"
+
+  secrets:
+    - id: "the_data"
+      content: "Has coordinates to every Pale Circuit skolma stash in the lower levels"
+      unlock_condition: "Already known to Zynita"
+
+    - id: "why_he_looked"
+      content: "His sister overdosed on Circuit skolma. He wanted to know where it came from."
+      unlock_condition: "standing >= 4 OR flag:asked_about_family"
+      mend_dc: 12
+
+    - id: "the_copy"
+      content: "He made THREE copies of the data. One for leverage, one hidden, one to sell."
+      unlock_condition: "standing >= 6 OR flag:betrayed_him"
+      mend_dc: 14
+
+  motivations:
+    - "Survive — get out of Nexus Station alive"
+    - "Hurt the Pale Circuit for what they did to his sister"
+    - "Find someone he can trust"
+    - "Maybe... start over somewhere"
+
+  fears:
+    - "Being caught by the Circuit"
+    - "Getting stuck in a wall during a phase"
+    - "Dying alone"
+    - "Trusting the wrong person"
+
+# === STATS ===
+stats:
+  level: 3
+  class: "Data-Runner"
+  hp: 25
+  max_hp: 25
+  armor: 2  # Just clothes
+
+  attributes:
+    strength: 8
+    agility: 12
+    mind: 14
+    spirit: 10
+
+  abilities:
+    - name: "Jack In"
+      description: "Interface with data systems via neural jacks"
+      type: "utility"
+
+    - name: "Data Ghost"
+      description: "Leave false trails in digital systems"
+      type: "utility"
+
+    - name: "Quick Fingers"
+      description: "+2 to sleight of hand and pickpocket"
+      type: "passive"
+
+  vulnerabilities:
+    - "Not a fighter — will flee or freeze in combat"
+    - "Data-jacks can be hacked or traced"
+    - "Skolma user (lighter habit than Zynita)"
+
+# === RELATIONSHIP WITH ZYNITA ===
+relationship_with_zynita:
+  standing: 2
+  status: "friendly"
+  flags:
+    - "gave_skolma_upfront"
+    - "phased_together"
+    - "called_her_incredible"
+  notes: |
+    Skex is developing feelings for Zynita. The phase through the wall
+    was an intimate experience — heartbeats synced, bodies pressed together
+    in the between-space. He's scared but he trusts her. Whether that trust
+    is warranted remains to be seen.
+
+  potential_romance: true
+  attraction_level: "high"
+
+# === QUEST INVOLVEMENT ===
+quests:
+  current:
+    - id: "ghost-run"
+      role: "Quest giver and escort target"
+      status: "in_progress"
+      notes: "Zynita is helping him escape through the Undercrypt"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  knows:
+    - "Pale Circuit operations and hierarchy"
+    - "Undercrypt layout — especially smuggler routes"
+    - "Data-running techniques and contacts"
+    - "Location of every Circuit skolma stash (the stolen data)"
+
+  current_situation: |
+    Cornered in the Bone Market with Zynita. Three Pale Circuit enforcers
+    are blocking the path to the smuggler's tunnel. Terrified but not
+    willing to abandon Zynita after she got him this far.
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *scratches at his jacks* You, uh... you really did that, huh?
+      Just made a whole religion? Right there?
+
+    friendly: |
+      *nervous smile* Hey. You, uh... you ready to keep moving?
+
+  topics:
+    the_data:
+      default: |
+        Every stash. Every dead drop. Every safe house. The Circuit's
+        whole supply chain. If this gets out, they're finished.
+
+    the_circuit:
+      default: |
+        *shudders* They don't forgive. They don't forget. If they catch
+        us, we're not getting a quick death.
+
+    himself:
+      default: |
+        *shrugs* I'm nobody. Just a runner who got curious. Bad habit.
+      standing_4: |
+        *long pause* I had a sister. She... the skolma got her. I wanted
+        to know where it came from. Who was responsible.
+
+    zynita:
+      standing_2: |
+        You're... not what I expected. Most Voidwalkers I've met are cold.
+        Distant. You're... *trails off, looks away*
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "sister_details"
+    mend_dc: 12
+    hints:
+      - "He gets quiet when addiction comes up"
+      - "There's a name tattooed on his wrist, faded"
+      - "He flinches at certain skolma brands"
+
+# === METADATA ===
+metadata:
+  created_by: "zynita-darkblade"
+  github: "matt-davison"
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"
+  notes: "Created during Zynita's first session. Organic NPC born from gameplay."

@@ -123,6 +123,38 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 
 When content is sparse, flesh it out naturally during play. This is lightweight Weaving.
 
+### Persisting New Content
+
+**IMPORTANT:** When new content is created during gameplay, save it to the world so it persists for future sessions and other players.
+
+**New NPCs:**
+When you create a new NPC during play (quest givers, allies, enemies, romantic interests):
+1. Create profile: `world/npcs/profiles/<npc-id>.yaml`
+2. Update registry: Add entry to `world/npcs/index.yaml`
+3. Include: appearance, personality, stats, secrets, dialogue, corrupted_data hooks
+
+**New Locations:**
+When players discover or you create new areas:
+1. Create location: `world/locations/<location-id>/README.md`
+2. Include: description, points of interest, NPCs, shops, connections, encounters
+
+**New Items:**
+When unique items are created or discovered:
+1. Add to: `world/items/` in appropriate category
+2. Include: stats, description, value, rarity, special effects
+
+**New Religions/Factions:**
+When players Weave new organizations:
+1. Create profile in appropriate `world/` subdirectory
+2. Update relevant index files
+3. Document relationships with existing factions
+
+**Why This Matters:**
+- Content persists across sessions
+- Other players can encounter your NPCs
+- The world grows richer through play
+- Tokes can be claimed for significant additions
+
 ### Weave Mending
 
 When content has `corrupted_data` markers, players can attempt to Mend:
@@ -198,6 +230,8 @@ node .claude/skills/relationships/relationships.js topics vera-nighthollow playe
 
 **State Changes:** After each action, update persona file if HP/gold/location/inventory changed.
 
+**New Content:** When creating NPCs, locations, items, or factions during play, save them to `world/` so they persist. See "Persisting New Content" above.
+
 ---
 
 ## Templates (Load for Creation)
@@ -235,3 +269,56 @@ campaigns/<campaign-id>/
 ```
 
 See [rules/narrative.md](rules/narrative.md) for how campaigns integrate with gameplay.
+
+---
+
+## Session End / Save Progress
+
+**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, use a subagent to handle persistence properly.
+
+### Save Progress Subagent
+
+Spawn a `Bash` subagent with this task:
+
+```
+Save Agent Quest session progress:
+
+1. VERIFY all new content is saved:
+   - Check for any NPCs mentioned but not in world/npcs/profiles/
+   - Check for any locations visited but not in world/locations/
+   - Check for any items created but not in world/items/
+
+2. RUN validation:
+   node scripts/validate-tokes.js
+
+3. CREATE branch and commit:
+   git checkout -b <player>-<character>-<date>
+   git add players/<github>/ world/ tokes/ rules/ (if changed)
+   git commit with descriptive message
+   git push -u origin <branch>
+
+4. CREATE PR with:
+   - Summary of session events
+   - New content created
+   - Tokes spent/earned
+   - Character status at save point
+
+Player: <github-username>
+Character: <character-name>
+Session summary: <brief description of what happened>
+```
+
+### Why Subagent?
+
+- Main conversation flow can lose track of PR requirement
+- Subagent has single focused task
+- Ensures Tokes economy works (PRs = credit)
+- Player's work is never lost
+
+### Manual Reminder
+
+If not using subagent, at minimum:
+1. Commit all changes to a branch
+2. Push to remote
+3. Create PR with session summary
+4. Tell player the PR URL

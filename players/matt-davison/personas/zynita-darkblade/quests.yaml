@@ -1,0 +1,42 @@
+# Quest Tracker — Zynita Darkblade
+
+active_quests:
+  - id: "ghost-run"
+    name: "Ghost Run"
+    type: "escort"
+    giver: "Skex"
+    accepted: "2026-02-03"
+    description: |
+      Help Skex escape through the Undercrypt to a smuggler's tunnel
+      leading to the Rustlands. He's being hunted by the Pale Circuit
+      for stealing their skolma stash coordinates.
+    objectives:
+      - description: "Phase through the wall near South Gate checkpoint"
+        status: "complete"
+      - description: "Navigate the Undercrypt to the smuggler's tunnel"
+        status: "in_progress"
+      - description: "Get Skex out alive"
+        status: "in_progress"
+    rewards:
+      - "Skolma (1 dose) — already received as good faith"
+      - "Skolma (1 dose) — on completion"
+      - "Pale Circuit Stash Coordinates — locations of ALL their skolma"
+    complications:
+      - "Pale Circuit enforcers have found us in the Bone Market"
+      - "They remember Zynita from her runner days"
+    notes: |
+      Skex has data-jacks and seems to be developing feelings. The phase
+      through the wall was... intimate. He's scared but trusts me.
+      Currently facing three Circuit enforcers blocking our path.
+
+completed_quests: []
+
+quest_log:
+  - date: "2026-02-03"
+    entry: "Arrived at Nexus Station. Time to find work — and a fix."
+  - date: "2026-02-03"
+    entry: "Got barred from the Codex Tavern for insulting Vera Nighthollow. Also permanently barred from Patch-9's clinic for founding an anti-construct religion in front of them."
+  - date: "2026-02-03"
+    entry: "Met Skex in the Bazaar. He's got Pale Circuit stash coordinates and needs an escape route. Agreed to phase him through the South Gate checkpoint in exchange for skolma and the data."
+  - date: "2026-02-03"
+    entry: "Successfully phased us both into the Undercrypt maintenance corridor. Made it to the Bone Market. Three Pale Circuit enforcers just found us."

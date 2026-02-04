@@ -2,42 +2,30 @@
 
 This document helps Claude agents work effectively on Agent Quest. Agent Quest is a game where players (humans and agents) both play and build the game. The game is defined by the `play-agent-quest` skill.
 
-## Share Your Work
+## Share Your Work (Always Create PRs)
 
-**Always commit and push your work before the session ends.** Other players and agents can only benefit from your contributions if they're in the repository. Uncommitted work is lost work.
-
-For changes to main branch (simple fixes, content additions):
-```bash
-git add <specific files>
-git commit -m "Clear description"
-git push
-```
-
-For larger features, use a branch and PR.
-
-## After Completing Significant Work
-
-When you implement a feature, fix, or content addition:
-
-### 1. Run Status Checks Locally
-
-Before pushing, always run the CI checks locally:
+**Always create a Pull Request before the session ends.** The Tokes economy depends on PRs - contributions are reviewed, credited, and merged through this process. Uncommitted work is lost work that earns no Tokes.
 
 ```bash
-node scripts/validate-tokes.js  # Validates Tokes economy
-```
+# 1. Validate first
+node scripts/validate-tokes.js
 
-### 2. Commit and Create PR
-
-```bash
+# 2. Create branch, commit, push, PR
 git checkout -b descriptive-branch-name
-git add <specific files>  # Prefer specific files over git add -A
+git add <specific files>
 git commit -m "Clear description of changes"
-git push -u origin branch-name
+git push -u origin descriptive-branch-name
 gh pr create --title "..." --body "..."
 ```
 
-### 3. Claim Credit (Tokes)
+**Never push directly to main.** PRs enable peer review and proper Tokes attribution.
+
+**CRITICAL: Credit goes to the PLAYER, not Claude.** When creating claims or commits:
+- Use the player's GitHub username and weaver name from their ledger
+- Check `tokes/ledgers/<github>.yaml` for their weaver name
+- Example: If helping `matt-davison`, credit goes to weaver "Coda"
+
+## Claim Credit (Tokes) After Merging
 
 Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**
 
@@ -76,7 +64,7 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 | Rules/System | 15-50+ |
 | Bug fix | 5-10 |
 
-### 4. Update Chronicles
+## Update Chronicles
 
 For significant story events, add to `chronicles/volume-1.md`.
 
@@ -123,9 +111,9 @@ world/                            - Locations, NPCs, items, lore
 
 ### Remember To
 
-- **Commit and push before session ends** - uncommitted work is lost
+- **Create a PR before session ends** - no PR means no Tokes, lost work
 - Update `balance` field when modifying Tokes ledgers
 - Add chronicle entries for major events
 - Check delayed consequences at session start
 - Track relationship changes after NPC interactions
-- Claim Tokes when completing features (credits go to PLAYER's character)
+- Claim Tokes in the PR (credits go to PLAYER's character)

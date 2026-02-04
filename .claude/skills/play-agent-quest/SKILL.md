@@ -96,6 +96,13 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 ### Actions
 
+**Players can attempt ANY action** — the table below lists common shortcuts, not limitations. Want to pickpocket an NPC? Seduce a dragon? Hack the weather system? Start a cult? These are all valid. The game accommodates creative solutions.
+
+**When players go off-script:**
+- If it's purely narrative (doesn't change game files): Just roleplay it
+- If it changes the world (new content, rule changes, permanent effects): May cost Tokes
+- If it breaks character alignment: Costs 0-2 Tokes (see [reference/alignment.md](reference/alignment.md))
+
 | Action | Description | Load |
 |--------|-------------|------|
 | **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |

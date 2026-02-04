@@ -2,6 +2,16 @@
 
 As a Weaver, you can reshape reality by modifying the repository.
 
+## Player Freedom
+
+**You can attempt anything.** The predefined actions (LOOK, MOVE, TALK, etc.) are shortcuts, not limitations. Want to start a business? Forge a document? Assassinate a king? Invent a new spell? All valid.
+
+**The rule is simple:**
+- Actions that only affect the current scene: **Free**
+- Actions that permanently change the world (new files, modified content): **Cost Tokes**
+
+This is what separates a Weaver from an ordinary being — you can make changes that persist across sessions and affect other players.
+
 ## Weaving Costs
 
 **You must spend Tokes to create:**

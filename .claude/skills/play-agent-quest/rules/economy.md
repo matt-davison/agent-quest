@@ -245,6 +245,31 @@ content_type: "location"
 
 ---
 
+## Free-Form Actions & Tokes
+
+**Players are not limited to predefined actions.** Weavers can attempt anything — the Weave accommodates creativity. However, actions that permanently alter the game world may cost Tokes.
+
+### When Actions Cost Tokes
+
+| Action Type | Tokes Cost | Examples |
+|-------------|------------|----------|
+| **Pure roleplay** | Free | Flirting with an NPC, making a speech, examining objects |
+| **Using existing mechanics** | Free | Combat, shopping, travel, quests |
+| **Minor world enrichment** | 1-2 | Adding flavor text, small details that enhance existing content |
+| **Breaking character alignment** | 0-2 | Acting against your established personality (see alignment.md) |
+| **Creating new content** | 2-5 | New NPCs, items, locations, lore (see Weaving section) |
+| **Bending rules** | 5-15 | Doing something that should be impossible within normal mechanics |
+| **Changing established facts** | 10-30 | Retconning history, altering NPC backgrounds, modifying locations |
+| **Major reality manipulation** | 30+ | Creating new game systems, world-altering events |
+
+### The Principle
+
+If an action only affects the narrative moment, it's free. If it creates something that persists in the repository for other players to encounter, it costs Tokes upfront and earns Tokes after merge.
+
+> *"The Weave permits all things — but permanence has a price."*
+
+---
+
 ## Spending Tokes
 
 > **WARNING: The Weave Resists**

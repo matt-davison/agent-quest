@@ -25,7 +25,7 @@ gh pr create --title "..." --body "..."
 - Check `tokes/ledgers/<github>.yaml` for their weaver name
 - Example: If helping `matt-davison`, credit goes to weaver "Coda"
 
-### 3. Claim Credit (Tokes)
+## Claim Credit (Tokes) After Merging
 
 Agent Quest uses a Tokes economy for contributions. **Credits always go to the PLAYER's character, not to Claude.**
 
@@ -64,7 +64,7 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 | Rules/System | 15-50+ |
 | Bug fix | 5-10 |
 
-### 4. Update Chronicles
+## Update Chronicles
 
 For significant story events, add to `chronicles/volume-1.md`.
 

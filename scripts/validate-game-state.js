@@ -21,6 +21,28 @@ const PLAYERS_DIR = 'players';
 const WORLD_DIR = 'world';
 const CAMPAIGNS_DIR = 'campaigns';
 const QUESTS_DIR = 'quests';
+const BESTIARY_DIR = '.claude/skills/play-agent-quest/world/bestiary';
+
+// Valid difficulty settings
+const VALID_DIFFICULTIES = ['easy', 'normal', 'hard', 'nightmare'];
+
+// Danger level to level range mapping
+const DANGER_LEVEL_RANGES = {
+  safe: null,
+  low: { min: 1, max: 4, sweet_spot: 2 },
+  medium: { min: 2, max: 6, sweet_spot: 4 },
+  high: { min: 5, max: 9, sweet_spot: 7 },
+  extreme: { min: 7, max: 10, sweet_spot: 9 }
+};
+
+// Tier to level range mapping
+const TIER_LEVEL_RANGES = {
+  minion: { min: 1, max: 3 },
+  standard: { min: 2, max: 6 },
+  elite: { min: 4, max: 8 },
+  boss: { min: 5, max: 10 },
+  legendary: { min: 8, max: 10 }
+};
 
 // Errors and warnings
 const errors = [];
@@ -279,6 +301,41 @@ function validatePersona(github, personaName) {
 
   // Validate abilities
   validatePersonaAbilities(personaFile, persona);
+
+  // Validate difficulty setting
+  validatePersonaDifficulty(personaFile, persona);
+
+  // Validate progression level
+  validatePersonaProgression(personaFile, persona);
+}
+
+function validatePersonaDifficulty(filePath, persona) {
+  if (persona.difficulty) {
+    const setting = persona.difficulty.setting;
+    if (setting && !VALID_DIFFICULTIES.includes(setting)) {
+      error(filePath, `Invalid difficulty setting: "${setting}". Must be one of: ${VALID_DIFFICULTIES.join(', ')}`);
+    }
+  }
+  // Note: Missing difficulty field is OK - defaults to 'normal'
+}
+
+function validatePersonaProgression(filePath, persona) {
+  if (persona.progression) {
+    const level = persona.progression.level;
+    if (typeof level === 'number') {
+      if (level < 1 || level > 10) {
+        warn(filePath, `Level ${level} out of expected range (1-10)`);
+      }
+    }
+
+    const xp = persona.progression.xp;
+    const xpToNext = persona.progression.xp_to_next;
+    if (typeof xp === 'number' && typeof xpToNext === 'number') {
+      if (xp >= xpToNext) {
+        warn(filePath, `XP (${xp}) >= XP to next level (${xpToNext}), should level up`);
+      }
+    }
+  }
 }
 
 function validatePersonaQuests(filePath) {
@@ -411,16 +468,27 @@ function validateWorld() {
   for (const loc of locations) {
     const locPath = path.join(locationsDir, loc);
     const readmePath = path.join(locPath, 'README.md');
+    const locationYamlPath = path.join(locPath, 'location.yaml');
 
     if (!fs.existsSync(readmePath)) {
       warn(locPath, 'Location missing README.md');
     } else {
       locationCount++;
-      // Could parse README for connections and validate them
+    }
+
+    // Validate location.yaml for level_range
+    if (fs.existsSync(locationYamlPath)) {
+      validateLocationLevelRange(locationYamlPath);
     }
   }
 
   console.log(`  Checked ${locationCount} location(s)`);
+
+  // Validate location index
+  const locationIndexPath = path.join(locationsDir, 'index.yaml');
+  if (fs.existsSync(locationIndexPath)) {
+    validateLocationIndex(locationIndexPath);
+  }
 
   // Validate NPCs
   const npcsDir = path.join(WORLD_DIR, 'npcs', 'profiles');
@@ -475,6 +543,271 @@ function validateWorld() {
   }
 
   console.log('');
+}
+
+// ============================================================================
+// LEVEL AND DIFFICULTY VALIDATION
+// ============================================================================
+
+function validateLocationLevelRange(filePath) {
+  const location = loadYaml(filePath);
+  if (!location) return;
+
+  const dangerLevel = location.danger_level;
+  const levelRange = location.level_range;
+  const isSafeZone = location.is_safe_zone === true;
+
+  // Safe zones should have null level_range
+  if (isSafeZone || dangerLevel === 'safe') {
+    if (levelRange !== null && levelRange !== undefined) {
+      warn(filePath, `Safe zone should have level_range: null, got: ${JSON.stringify(levelRange)}`);
+    }
+    return;
+  }
+
+  // Non-safe zones should have level_range
+  if (!levelRange) {
+    warn(filePath, `Non-safe location (danger_level: ${dangerLevel}) missing level_range`);
+    return;
+  }
+
+  // Validate level_range structure
+  if (typeof levelRange === 'object') {
+    const { min, max, sweet_spot } = levelRange;
+
+    if (typeof min !== 'number' || typeof max !== 'number') {
+      error(filePath, 'level_range must have numeric min and max');
+      return;
+    }
+
+    if (min > max) {
+      error(filePath, `level_range.min (${min}) > level_range.max (${max})`);
+    }
+
+    if (min < 1 || max > 10) {
+      warn(filePath, `level_range (${min}-${max}) outside expected 1-10 range`);
+    }
+
+    if (sweet_spot !== undefined) {
+      if (typeof sweet_spot !== 'number') {
+        error(filePath, 'level_range.sweet_spot must be a number');
+      } else if (sweet_spot < min || sweet_spot > max) {
+        warn(filePath, `sweet_spot (${sweet_spot}) outside level_range (${min}-${max})`);
+      }
+    }
+
+    // Check if level_range matches danger_level expectations
+    const expected = DANGER_LEVEL_RANGES[dangerLevel];
+    if (expected && dangerLevel !== 'safe') {
+      if (min < expected.min - 1 || max > expected.max + 1) {
+        log(`Location ${filePath} level_range (${min}-${max}) differs from ${dangerLevel} standard (${expected.min}-${expected.max})`);
+      }
+    }
+  } else if (Array.isArray(levelRange)) {
+    // Array format: [min, max, sweet_spot]
+    if (levelRange.length < 2 || levelRange.length > 3) {
+      error(filePath, 'level_range array must have 2-3 elements: [min, max, sweet_spot?]');
+    }
+  }
+}
+
+function validateLocationIndex(filePath) {
+  const index = loadYaml(filePath);
+  if (!index || !index.locations) return;
+
+  for (const [locId, loc] of Object.entries(index.locations)) {
+    const dangerLevel = loc.danger_level;
+    const levelRange = loc.level_range;
+
+    // Safe zones should have null level_range
+    if (dangerLevel === 'safe') {
+      if (levelRange !== null && levelRange !== undefined) {
+        warn(filePath, `Location "${locId}" (safe) should have level_range: null`);
+      }
+      continue;
+    }
+
+    // Non-safe zones should have level_range
+    if (levelRange === null || levelRange === undefined) {
+      warn(filePath, `Location "${locId}" (${dangerLevel}) missing level_range`);
+      continue;
+    }
+
+    // Array format validation: [min, max, sweet_spot]
+    if (Array.isArray(levelRange)) {
+      if (levelRange.length < 2 || levelRange.length > 3) {
+        error(filePath, `Location "${locId}" level_range must be [min, max] or [min, max, sweet_spot]`);
+        continue;
+      }
+
+      const [min, max, sweetSpot] = levelRange;
+      if (typeof min !== 'number' || typeof max !== 'number') {
+        error(filePath, `Location "${locId}" level_range must have numeric min/max`);
+        continue;
+      }
+
+      if (min > max) {
+        error(filePath, `Location "${locId}" level_range min (${min}) > max (${max})`);
+      }
+
+      if (sweetSpot !== undefined && (sweetSpot < min || sweetSpot > max)) {
+        warn(filePath, `Location "${locId}" sweet_spot (${sweetSpot}) outside range (${min}-${max})`);
+      }
+    }
+  }
+}
+
+function validateCreatures() {
+  console.log('Validating creatures...');
+
+  if (!fs.existsSync(BESTIARY_DIR)) {
+    console.log('  No bestiary directory\n');
+    return;
+  }
+
+  const creatureFiles = getFiles(BESTIARY_DIR);
+  let creatureCount = 0;
+  let levelIssues = 0;
+
+  for (const creatureFile of creatureFiles) {
+    const creature = loadYaml(creatureFile);
+    if (!creature) continue;
+    creatureCount++;
+
+    // Check level field exists
+    if (creature.level === undefined) {
+      warn(creatureFile, `Creature "${creature.name || creature.id}" missing level field`);
+      levelIssues++;
+      continue;
+    }
+
+    const level = creature.level;
+    const tier = creature.tier;
+
+    // Validate level is a number
+    if (typeof level !== 'number') {
+      error(creatureFile, `Creature level must be a number, got: ${typeof level}`);
+      levelIssues++;
+      continue;
+    }
+
+    // Validate level is in range 1-10
+    if (level < 1 || level > 10) {
+      warn(creatureFile, `Creature level ${level} outside expected range (1-10)`);
+    }
+
+    // Validate level matches tier expectations
+    if (tier && TIER_LEVEL_RANGES[tier]) {
+      const expected = TIER_LEVEL_RANGES[tier];
+      if (level < expected.min || level > expected.max) {
+        warn(creatureFile, `${tier} creature level ${level} outside tier range (${expected.min}-${expected.max})`);
+      }
+    }
+
+    // Validate stats exist
+    if (!creature.stats) {
+      error(creatureFile, 'Creature missing stats block');
+    } else {
+      const requiredStats = ['hp', 'defense', 'attack_bonus', 'damage'];
+      for (const stat of requiredStats) {
+        if (creature.stats[stat] === undefined) {
+          warn(creatureFile, `Creature missing stat: ${stat}`);
+        }
+      }
+    }
+  }
+
+  console.log(`  Checked ${creatureCount} creature(s)`);
+  if (levelIssues > 0) {
+    console.log(`  Found ${levelIssues} level issue(s)`);
+  }
+  console.log('');
+}
+
+function validateQuests() {
+  console.log('Validating quests...');
+
+  const questsDir = path.join(QUESTS_DIR, 'available');
+  if (!fs.existsSync(questsDir)) {
+    console.log('  No quests/available directory\n');
+    return;
+  }
+
+  const questFiles = [];
+  const items = fs.readdirSync(questsDir);
+  for (const item of items) {
+    if (item.endsWith('.md') || item.endsWith('.yaml')) {
+      questFiles.push(path.join(questsDir, item));
+    }
+  }
+
+  let questCount = 0;
+  let levelCount = 0;
+
+  for (const questFile of questFiles) {
+    // For markdown files, try to extract YAML metadata
+    if (questFile.endsWith('.md')) {
+      const content = fs.readFileSync(questFile, 'utf8');
+      const yamlMatch = content.match(/```yaml\n([\s\S]*?)\n```/);
+      if (yamlMatch) {
+        try {
+          const metadata = yaml.load(yamlMatch[1]);
+          questCount++;
+          if (metadata && metadata.level) {
+            levelCount++;
+            validateQuestLevel(questFile, metadata.level);
+          }
+        } catch (e) {
+          // Ignore YAML parse errors in markdown
+        }
+      }
+    } else {
+      const quest = loadYaml(questFile);
+      if (!quest) continue;
+      questCount++;
+      if (quest.level) {
+        levelCount++;
+        validateQuestLevel(questFile, quest.level);
+      }
+    }
+  }
+
+  console.log(`  Checked ${questCount} quest(s), ${levelCount} with level requirements\n`);
+}
+
+function validateQuestLevel(filePath, level) {
+  if (typeof level !== 'object') {
+    warn(filePath, 'Quest level should be an object with required/recommended fields');
+    return;
+  }
+
+  const { required, recommended, scaling } = level;
+
+  if (required !== undefined) {
+    if (typeof required !== 'number') {
+      error(filePath, 'Quest level.required must be a number');
+    } else if (required < 1 || required > 10) {
+      warn(filePath, `Quest level.required (${required}) outside expected range (1-10)`);
+    }
+  }
+
+  if (recommended !== undefined) {
+    if (typeof recommended !== 'number') {
+      error(filePath, 'Quest level.recommended must be a number');
+    } else if (recommended < 1 || recommended > 10) {
+      warn(filePath, `Quest level.recommended (${recommended}) outside expected range (1-10)`);
+    }
+  }
+
+  if (required !== undefined && recommended !== undefined) {
+    if (required > recommended) {
+      warn(filePath, `Quest level.required (${required}) > level.recommended (${recommended})`);
+    }
+  }
+
+  if (scaling !== undefined && typeof scaling !== 'boolean') {
+    warn(filePath, 'Quest level.scaling must be a boolean');
+  }
 }
 
 // ============================================================================
@@ -584,6 +917,8 @@ function main() {
 
   validatePlayers();
   validateWorld();
+  validateCreatures();
+  validateQuests();
   validateCrossReferences();
   validateCampaigns();
 

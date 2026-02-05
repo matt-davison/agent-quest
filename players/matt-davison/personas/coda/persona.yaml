@@ -38,6 +38,15 @@ equipped:
   armor: null
   accessory: null
 
+# === PROGRESSION ===
+# See rules/progression.md for XP sources and leveling
+progression:
+  level: 2
+  xp: 120               # XP from: location discovery (10), training (25), weaving contributions (85)
+  xp_to_next: 250       # Need 250 total for level 3
+  tier: 1               # Tier 1 until level 3
+  stat_points: 1        # From reaching level 2, unspent
+
 location: "syntax-athenaeum"
 
 # === AFFLICTIONS ===

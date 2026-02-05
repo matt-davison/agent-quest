@@ -1,0 +1,14 @@
+# Debug Potion
+id: w4kv0kd5
+name: Debug Potion
+type: consumable
+subtype: potion
+rarity: uncommon
+value: 40
+stats:
+  removes_corruption: 1
+  removes_glitch: 1
+description: |
+  A shimmering violet liquid that tastes like compiled code smells. When consumed,
+  cleanses one corruption or glitch effect from the drinker. The Debugging Chamber
+  brews these in small batches using purified data essence.

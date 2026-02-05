@@ -1,0 +1,13 @@
+# Scroll of Minor Syntax
+id: 6giny4t3
+name: Scroll of Minor Syntax
+type: consumable
+subtype: scroll
+rarity: common
+value: 30
+stats:
+  weave_bonus: 2
+  uses: 1
+description: |
+  A parchment inscribed with basic Weave notation. When read aloud during
+  a Weave check, the symbols burn away and grant +2 to the roll. Single use.

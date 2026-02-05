@@ -7,6 +7,8 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 > **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups. Use `world-state` for time/weather/NPC locations. Use `relationships` for NPC standings.
 
+> **Shops:** Load inventory from `world/shops/<shop-id>.yaml`. Items reference `world/items/database/` by ID. Use `inventory` skill to resolve item details.
+
 ## Session Start
 
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
@@ -113,7 +115,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
 | **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
 | **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
-| **SHOP** | Buy/sell items | Location shop inventory | `economy-validator`, `state-writer` |
+| **SHOP** | Buy/sell items | `world/shops/<shop-id>.yaml`, check tier requirements | `economy-validator`, `state-writer` |
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
 | **TODO** | View/manage player intentions | `players/<github>/todo.yaml` | - |
@@ -176,8 +178,23 @@ When players discover or you create new areas:
 
 **New Items:**
 When unique items are created or discovered:
-1. Add to: `world/items/` in appropriate category
-2. Include: stats, description, value, rarity, special effects
+1. Generate ID: `node .claude/skills/math/math.js id 8`
+2. Create file: `world/items/database/<id>.yaml`
+3. Include: id, name, type, subtype, rarity, value, stats, description
+4. Use `inventory` skill to verify: `node .claude/skills/inventory/inventory.js get <id>`
+
+**New Shops / Updating Shop Inventory:**
+When a location has a shop, use the merchant system:
+1. Check for existing: `world/shops/<location>-<shop-name>.yaml`
+2. If new, create from template: `templates/shop.yaml`
+3. **ALWAYS reference items by ID**, never by name
+4. Include: shop_id, location, proprietor, inventory with item_ids, prices, stock
+
+**Shop Inventory Rules:**
+- Load shop file when player enters shop: `world/shops/<shop-id>.yaml`
+- Use `inventory` skill to resolve item details: `node .claude/skills/inventory/inventory.js get <id>`
+- Apply event modifiers (e.g., Era Celebration discount) from `world/state/current.yaml`
+- After purchase/sale, update shop stock if not unlimited (-1)
 
 **New Religions/Factions:**
 When players Weave new organizations:
@@ -188,6 +205,7 @@ When players Weave new organizations:
 **Why This Matters:**
 - Content persists across sessions
 - Other players can encounter your NPCs
+- Items in shops reference the central database (consistency)
 - The world grows richer through play
 - Tokes can be claimed for significant additions
 
@@ -354,6 +372,7 @@ Or let `repo-sync` subagent handle this automatically.
 **Quick References (Load First):**
 - [quick-ref/combat.md](quick-ref/combat.md) - Basic combat (~80 lines)
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
+- [quick-ref/progression.md](quick-ref/progression.md) - Levels, XP, tiers (~50 lines)
 - [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
 - [quick-ref/ascii-art.md](quick-ref/ascii-art.md) - Scene visualization (~120 lines)
 - [quick-ref/multiplayer.md](quick-ref/multiplayer.md) - Trading, parties, guilds, duels (~150 lines)
@@ -364,6 +383,7 @@ Or let `repo-sync` subagent handle this automatically.
 |-----------|-----------|
 | [rules/combat.md](rules/combat.md) | Complex maneuvers, environmental combat |
 | [rules/classes.md](rules/classes.md) | Leveling up, advanced abilities |
+| [rules/progression.md](rules/progression.md) | XP sources, level thresholds, tier unlocks |
 | [rules/spells-and-abilities.md](rules/spells-and-abilities.md) | Spell details, ability mechanics |
 | [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions |
 | [rules/economy.md](rules/economy.md) | Claiming process, peer review |

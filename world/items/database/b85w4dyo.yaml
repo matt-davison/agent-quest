@@ -1,0 +1,17 @@
+# Pattern Lens
+id: b85w4dyo
+name: Pattern Lens
+type: misc
+subtype: tool
+rarity: uncommon
+value: 120
+tier: 3
+stats:
+  detection_bonus: 2
+  reveals_weave: true
+special: "Reveals hidden Weave structures, illusions, and corrupted data"
+description: |
+  A monocle crafted from crystallized data essence, rimmed in tarnished
+  silver. When worn, the world gains a subtle overlay of flowing code—
+  the underlying Weave becomes visible. Hidden passages, illusions, and
+  corruption stand out like syntax errors in clean code.

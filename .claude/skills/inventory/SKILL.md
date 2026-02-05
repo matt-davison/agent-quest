@@ -160,7 +160,7 @@ inventory:
 
 ### Tags
 
-Tags enable flexible filtering. See `reference/tags.md` for the full list.
+Tags enable flexible filtering. See [item-tags.md](../play-agent-quest/reference/item-tags.md) for the full list.
 
 Common tags:
 - **Category:** `starter`, `combat`, `utility`, `magic`, `tech`, `quest`
@@ -203,8 +203,9 @@ node inventory.js search "healing" --world=alpha
 # Check for similar items before creating new ones
 node inventory.js similar "Iron Blade" --world=alpha
 
-# Show all available tags
+# Show all available tags with usage counts
 node inventory.js tags --world=alpha
+# Output: weave: 9 item(s), consumable: 9 item(s), ...
 ```
 
 ### Listing with Filters
@@ -309,6 +310,10 @@ Run `node inventory.js list` to see all items in the database.
 | se8pk6td | Scroll of Greater Syntax | consumable | 3 | magic, weave, consumable |
 | 2gsjetvy | Weave Amplifier | consumable | 5 | buff, magic, weave, consumable |
 | 1k5vtuvl | Architect's Fragment (1/3) | quest_item | 1 | quest, legendary, weave |
+| x63kh0ob | Broker's Token | quest_item | 1 | quest, utility |
+| u1py0md2 | Memory Vial | consumable/quest_item | 1 | quest_item, memory, jade_dragon |
+| 88gt1p1c | Vial of Captured Shadows | consumable/utility | 1 | consumable, stealth, shadow, void |
+| dsyp6f6f | Yara's Coordinates | quest_item/data | 1 | quest_item, data, architect, yara_corren |
 | 0j2sntea | Memory Crystal | misc | 1 | magic, utility, weave |
 | b85w4dyo | Pattern Lens | misc | 3 | detection, utility, weave |
 | 160n7ppo | Reality Anchor | misc | 5 | protection, magic, weave |

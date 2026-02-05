@@ -26,7 +26,7 @@ stats:
 resources:
   hp: 100
   max_hp: 100
-  gold: 440               # +500 from quest, -50 bribe, -110 tools
+  gold: 190               # +500 from quest, -50 bribe, -110 tools, -50 lost bet, -200 intel
   willpower: 28
   max_willpower: 28       # spirit (14) × 2
   willpower_multiplier: 2
@@ -88,7 +88,7 @@ difficulty:
   setting: normal
 
 # === LOCATION ===
-location: "lumina-city/black-market"
+location: "lumina-city/info-booth"
 
 # === CHRONICLE ===
 chronicle:
@@ -117,6 +117,13 @@ chronicle:
   - date: "2026-02-05"
     event: "Entered Black Market by bribing Chunk (50g). Met The Middleman and accepted 'The Arcotech Heist' quest to retrieve pre-Architect artifact from corporate facility. Purchased Lock Bypass Kit and Focus serum (110g)."
     significance: "standard"
+    quest: "the-arcotech-heist"
+  - date: "2026-02-05"
+    event: "Visited Chromedome arena, lost 50g betting on Razor-7 vs Glitch Hound. Observed arena mechanics and learned about The Render (creature contained beneath arena) and Seraph (undefeated champion)."
+    significance: "minor"
+  - date: "2026-02-05"
+    event: "CRITICAL: Visited Info Booth, used The Right Question with Madam Circuit. Learned Arcotech facility location (Skyline Sector 7-G), that target artifact is a communication key, and that Governor Axis fears First Server activation. Madam Circuit revealed she's one of the first Weavers (Codebreakers), hostage to Axis."
+    significance: "major"
     quest: "the-arcotech-heist"
 
 # === ALIGNMENT ===

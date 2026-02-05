@@ -5,6 +5,12 @@ active_quests:
     accepted_date: "1.2.3"
     difficulty: "hard"
     location: "arcotech-industries"
+    intel_acquired:
+      - "Location: Skyline Sector 7-G"
+      - "Security: MAXIMUM (corporate military)"
+      - "Target: Pre-Architect communication key"
+      - "Danger: Opens channels to entities beyond reality"
+      - "Source: Madam Circuit via The Right Question"
     objectives:
       - id: "infiltrate-facility"
         description: "Infiltrate Arcotech Industries facility in Lumina City Skyline"

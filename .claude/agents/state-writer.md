@@ -167,6 +167,7 @@ balance = sum of all transaction amounts
 | VALIDATION_FAILED | Tokes or multiplayer validation failed |
 | PARSE_ERROR | Invalid YAML content |
 | ROLLBACK_FAILED | Could not restore backup (critical) |
+| INVALID_ITEM | Item ID does not exist in database |
 
 ## Automatic Audit Logging
 
@@ -174,9 +175,43 @@ State Writer automatically logs every action. This means:
 - **Using State Writer = action is logged**
 - **Bypassing State Writer = action is NOT logged (detectable)**
 
+## Inventory Validation
+
+Before persisting inventory changes, validate all item IDs against the database:
+
+```bash
+# Validate a single item
+node .claude/skills/inventory/inventory.js get <item_id>
+
+# Bulk validate inventory YAML (preferred for multiple items)
+node .claude/skills/inventory/inventory.js validate '<inventory_yaml>'
+```
+
+**Rules:**
+1. **Validate BEFORE writing** - Never persist invalid item IDs
+2. If validation fails, do NOT write and return `INVALID_ITEM` error
+3. Suggest corrections using `similar` command
+
+**Example - Validating inventory update:**
+```bash
+# Before writing inventory changes:
+node .claude/skills/inventory/inventory.js validate '[{"id":"iron-sword","quantity":1},{"id":"health-potion","quantity":3}]'
+```
+
+**Error Response:**
+```yaml
+success: false
+error_code: "INVALID_ITEM"
+error_message: "Cannot persist inventory: item 'ironsword' not in database"
+suggestions:
+  - "Use 'node .claude/skills/inventory/inventory.js similar ironsword' to find valid alternatives"
+rolled_back: true
+```
+
 ## Safety Rules
 
 1. **Never delete files** - Only update, append, or create
 2. **Preserve history** - Transaction logs are append-only
 3. **Atomic operations** - All writes succeed or all roll back
 4. **Validate before commit** - Run scripts before confirming success
+5. **Validate inventory items** - All item IDs must exist in database

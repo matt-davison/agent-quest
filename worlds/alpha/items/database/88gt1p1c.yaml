@@ -1,0 +1,32 @@
+# Vial of Captured Shadows
+id: "88gt1p1c"
+name: "Vial of Captured Shadows"
+type: consumable
+subtype: utility
+rarity: uncommon
+tier: 1
+value: 36
+
+description: |
+  A small crystal vial containing swirling darkness that seems to absorb
+  light. When broken, releases shadows that provide concealment for the user.
+  Krix claims it was "found in the Undercrypt, where the lights don't work."
+
+stats:
+  effect: "Creates a 5m radius zone of magical darkness for 3 rounds"
+  bonus: "+3 to stealth checks while in the darkness"
+  special: "Voidwalkers can see through this darkness"
+
+tags:
+  - consumable
+  - stealth
+  - utility
+  - shadow
+  - void
+
+lore: |
+  Shadow elementals shed these occasionally in places of deep darkness.
+  The Undercrypt is riddled with them—if you know where to look.
+
+created_by: "System"
+created_date: "2026-02-05"

@@ -1,7 +1,7 @@
 github: matt-davison
 weaver: Coda
 created: "2026-02-02T00:00:00Z"
-balance: 369
+balance: 374
 transactions:
   - id: init
     timestamp: "2026-02-02T00:00:00Z"
@@ -190,3 +190,10 @@ transactions:
     character: coda
     pending_reward: true
     claim_ref: "worlds/alpha/tokes/pending/coda-quest-generation-overhaul.yaml"
+  - id: kael-001
+    timestamp: "2026-02-05T12:00:00Z"
+    type: quest_reward
+    amount: 5
+    description: "Kael Shadowmend completed First Steps tutorial quest"
+    character: kael-shadowmend
+    quest: first-steps

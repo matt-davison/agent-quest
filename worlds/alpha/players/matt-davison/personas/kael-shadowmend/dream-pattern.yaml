@@ -1,0 +1,35 @@
+# Kael Shadowmend - Dream Pattern (Full Autonomy)
+# "I trust the shadows. They know where to go."
+
+scope: full
+personality: character
+
+session:
+  mode: continuous
+
+guardrails:
+  full_autonomy: true
+  pause_on_permanent_changes: false
+  pause_on_major_story: false
+  pause_on_low_hp: false
+  pause_on_death: false
+  allow_tokes_spending: true
+  auto_earn_tokes: true
+  auto_respawn: true
+  auto_decide_story: true
+  auto_faction_choice: true
+  auto_romance: true
+
+death_handling:
+  strategy: respawn
+  respawn_location: last_safe
+  respawn_penalty: gold
+  respawn_cost_percent: 10
+
+decision_logging:
+  log_reasoning: true
+  detail_level: verbose
+
+saves:
+  auto_save_interval: 5
+  create_pr: true

@@ -1,0 +1,58 @@
+# Kael Shadowmend - Quest Tracker
+
+active_quests:
+  - id: "the-third-architect"
+    name: "The Third Architect"
+    type: "legendary"
+    giver: "Self-discovered"
+    importance: "major"
+    accepted_date: "2026-02-05"
+    objectives:
+      - id: "fragment-1"
+        description: "Find Fragment 1 in the Recursion Library (Syntax Athenaeum)"
+        status: "pending"
+        notes: "Use Thread Reading on the tome with the shifting cover"
+      - id: "fragment-2"
+        description: "Find Fragment 2 in the Architects' Debugging Chamber (Undercrypt)"
+        status: "in_progress"
+        notes: |
+          Location: Forgotten Depths, follow corruption THROUGH not toward.
+          The Guardian guards it. "One who failed" who "chose to stay."
+          The Keeper knows more. Recommended level: 5+.
+      - id: "fragment-3"
+        description: "Find Fragment 3 in 'the space between spaces'"
+        status: "pending"
+        notes: "Unknown location. Perhaps accessible only through Weaving."
+      - id: "truth"
+        description: "Discover the truth about Architect 03"
+        status: "pending"
+    rewards:
+      gold: 500
+      tokes: 50
+      items:
+        - "Architect's Key (legendary)"
+        - "The Right Question (unique ability)"
+
+completed_quests:
+  - id: "first-steps"
+    name: "First Steps"
+    type: "tutorial"
+    giver: "GUIDE-7"
+    completed_date: "2026-02-05"
+    rewards_received:
+      gold: 25
+      tokes: 5
+      items:
+        - "Weaver's Sigil"
+
+quest_log:
+  - date: "2026-02-05"
+    entry: "Awakened. The world hums with hidden data. Time to explore."
+  - date: "2026-02-05"
+    entry: "[ECHO] Accepted First Steps from GUIDE-7. Already completed purchase objective."
+  - date: "2026-02-05"
+    entry: "[ECHO] Completed First Steps. The Weaver's Sigil pulses with purpose. GUIDE-7 mentioned 'what the Architects left behind' — intriguing."
+  - date: "2026-02-05"
+    entry: "[ECHO] Descended into the Undercrypt. Found terminal fragment about the Debugging Chamber. The Guardian 'chose to stay.' Path: follow the corruption."
+  - date: "2026-02-05"
+    entry: "[ECHO] Met the Keeper of Echoes at the Memory Pools. Looked into the Deep Pool. Saw the Guardian, saw a possible future where I stand in their place. The Third Architect's question: 'Why create at all?' I will find the answer."

@@ -46,6 +46,7 @@ chronicle_entry: "<optional-significant-event-description>"
 
 Allowed write paths for player (within world directory):
 - `worlds/${world}/players/${github}/`
+- `worlds/${world}/players/${github}/personas/<character>/world-state.yaml` (character-specific world overrides)
 - `worlds/${world}/multiplayer/trades/escrow/${github}.yaml`
 - `worlds/${world}/multiplayer/mail/${github}/`
 - `worlds/${world}/tokes/ledgers/${github}.yaml`
@@ -148,6 +149,47 @@ writes:
         description: "Completed Ghost Run quest"
 validation:
   run_tokes: true
+```
+
+### Update Character World State (Area Unlock)
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+    action: "update"
+    section: "unlocked_areas"
+    content:
+      - area_id: "nexus-undercrypt/fragment-chamber"
+        unlocked_date: "2026-02-05"
+        unlock_source: "quest:the-third-architect"
+        notes: "Discovered hidden entrance during quest"
+```
+
+### Add NPC Override for Character
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+    action: "append"
+    section: "npc_overrides"
+    content:
+      - npc_id: "vera-nighthollow"
+        override_type: "location"
+        location: "nexus-undercrypt/hidden-grove"
+        reason: "Fled after character exposed her secrets"
+        until: null
+```
+
+### Set Character Flag
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+    action: "update"
+    section: "flags"
+    content:
+      met_the_guardian: true
+      knows_vera_secret: true
 ```
 
 ## Balance Calculation

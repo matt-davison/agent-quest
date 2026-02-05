@@ -30,7 +30,22 @@ At session start, always load:
 
 - `worlds/<world>/state/current.yaml` - Current time, weather, active events
 - `worlds/<world>/state/presence.yaml` - Other players at current location
+- `worlds/<world>/players/<github>/personas/<character>/world-state.yaml` - Character-specific world overrides (if exists)
 - Check time period to determine NPC availability
+
+**Character World State Merging:**
+
+When a character has `world-state.yaml`, merge it with global state:
+- Character unlocked areas supplement global unlocks
+- Character NPC overrides take priority over global NPC locations
+- Character flags supplement global flags (don't override)
+- Character active events are personal consequences
+
+Use the `world-state` skill with `--player` and `--character` flags to get merged state:
+
+```bash
+node .claude/skills/world-state/world-state.js state get --world=alpha --player=matt-davison --character=coda
+```
 
 ### Multiplayer State Loading
 
@@ -119,6 +134,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | New location/area                            | Create in `worlds/<world>/locations/`                              |
 | State change (HP, gold, location, inventory) | Update `persona.yaml`                                              |
 | Quest progress                               | Update objective status in `quests.yaml`                           |
+| Character-specific world change              | Update character's `world-state.yaml` (see below)                  |
 
 **Generate IDs:** `node .claude/skills/math/math.js id 8`
 
@@ -217,6 +233,53 @@ The world should feel rich and varied, not like every NPC and location ties back
 Create quest **webs**, not quest **chains**.
 
 See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick reference.
+
+### Quest-Triggered World Changes
+
+When quests or character actions modify the world, decide whether the change should be **global** or **character-specific**:
+
+| Change Type | Scope | Where to Store |
+|-------------|-------|----------------|
+| Time/weather changes | Always global | `worlds/<world>/state/current.yaml` |
+| Major world events (war, cataclysm) | Global | `worlds/<world>/state/current.yaml` |
+| Area permanently unlocked for everyone | Global | `worlds/<world>/state/current.yaml` |
+| NPC dies/moves permanently | Usually global | `worlds/<world>/state/current.yaml` |
+| Quest unlocks hidden area | Character | Character's `world-state.yaml` |
+| NPC location change due to character actions | Character | Character's `world-state.yaml` |
+| Personal consequences (bounties, reputation) | Character | Character's `world-state.yaml` |
+| Environmental changes from character choices | Character | Character's `world-state.yaml` |
+
+**Rule of thumb:** If other players should also see this change, make it global. If it's a personal consequence of this character's story, make it character-specific.
+
+**Examples:**
+
+1. **Character completes quest that opens a dungeon**
+   - If dungeon is now open for everyone → Global
+   - If only this character found the secret entrance → Character `unlocked_areas`
+
+2. **Character kills an NPC**
+   - If NPC is dead for everyone → Global `npc_location_overrides` with state "deceased"
+   - If character phase-shifted and NPC is only dead in their timeline → Character `npc_overrides`
+
+3. **Character makes an NPC hostile**
+   - If NPC is now hostile to everyone → Update NPC profile
+   - If only hostile to this character → Character `npc_overrides` with disposition
+
+**Using the world-state CLI:**
+
+```bash
+# Unlock area for character
+node .claude/skills/world-state/world-state.js --world=alpha --player=matt-davison --character=coda \
+  override set area_unlock "nexus-undercrypt/fragment-chamber" "quest:the-third-architect"
+
+# Move NPC for character only
+node .claude/skills/world-state/world-state.js --world=alpha --player=matt-davison --character=coda \
+  override set npc_location vera-nighthollow "nexus-undercrypt/hidden-grove"
+
+# Set character flag
+node .claude/skills/world-state/world-state.js --world=alpha --player=matt-davison --character=coda \
+  override set flag met_the_guardian true
+```
 
 ### Enrichment
 

@@ -6,6 +6,10 @@ subtype: accessory
 rarity: rare
 value: 250
 tier: 5
+tags:
+  - protection
+  - magic
+  - weave
 stats:
   teleport_immunity: true
   stability_bonus: 3

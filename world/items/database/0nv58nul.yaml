@@ -3,7 +3,12 @@ id: 0nv58nul
 name: Healing Potion
 type: consumable
 rarity: common
+tier: 1
 value: 25
+tags:
+  - healing
+  - consumable
+  - starter
 stats:
   hp_restore: 30
 description: Restores 30 HP when consumed.

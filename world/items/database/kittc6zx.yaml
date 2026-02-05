@@ -4,7 +4,11 @@ name: Chain Mail
 type: armor
 subtype: medium
 rarity: uncommon
+tier: 2
 value: 150
+tags:
+  - armor
+  - combat
 stats:
   armor: 5
 description: Interlocking metal rings. Heavier but more protective.

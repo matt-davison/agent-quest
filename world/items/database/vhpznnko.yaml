@@ -4,7 +4,11 @@ name: Steel Sword
 type: weapon
 subtype: melee
 rarity: uncommon
+tier: 2
 value: 100
+tags:
+  - combat
+  - melee
 stats:
   damage: 15
 description: Finely crafted steel with a keen edge. A step up from iron.

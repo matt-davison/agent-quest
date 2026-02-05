@@ -427,27 +427,11 @@ function validateCrossReferences() {
         const itemId = typeof item === 'string' ? item : item.id;
         if (!itemId) continue;
 
-        // Check if item exists in world/items
-        const itemPaths = [
-          path.join(WORLD_DIR, 'items', 'weapons', `${itemId}.yaml`),
-          path.join(WORLD_DIR, 'items', 'armor', `${itemId}.yaml`),
-          path.join(WORLD_DIR, 'items', 'consumables', `${itemId}.yaml`),
-          path.join(WORLD_DIR, 'items', 'misc', `${itemId}.yaml`),
-        ];
-
-        const exists = itemPaths.some(p => fs.existsSync(p));
-        if (!exists) {
-          // Check items index
-          const indexPath = path.join(WORLD_DIR, 'items', 'index.yaml');
-          const index = loadYaml(indexPath);
-          const inIndex = index && Object.values(index).some(
-            category => Array.isArray(category) && category.includes(itemId)
-          );
-
-          if (!inIndex) {
-            log(`  Item "${itemId}" in ${personaName}'s inventory not found in world/items`);
-            issueCount++;
-          }
+        // Check if item exists in world/items/database
+        const itemPath = path.join(WORLD_DIR, 'items', 'database', `${itemId}.yaml`);
+        if (!fs.existsSync(itemPath)) {
+          error(personaFile, `Item "${itemId}" in inventory not found in world/items/database`);
+          issueCount++;
         }
       }
     }

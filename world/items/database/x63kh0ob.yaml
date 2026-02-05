@@ -1,0 +1,16 @@
+# Broker's Token
+id: x63kh0ob
+name: "Broker's Token"
+type: quest_item
+rarity: uncommon
+tier: 1
+value: 0
+sellable: false
+tags:
+  - quest
+  - utility
+description: |
+  A small coin of tarnished copper, one side bearing the symbol of intertwined
+  threads, the other a stylized arena gate. The Broker of Threads gave this to
+  you as an introduction to Pit Boss Korvax at the Chromedome arena. Present it
+  to gain an audience with the Pit Boss and unlock arena opportunities.

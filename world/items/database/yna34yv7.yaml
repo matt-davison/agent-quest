@@ -4,8 +4,13 @@ name: "Textbook: Reality 101"
 type: misc
 subtype: book
 rarity: common
+tier: 1
 value: 50
 sellable: true
+tags:
+  - utility
+  - starter
+  - weave
 stats:
   course_requirement: basic_weave_theory
 description: |

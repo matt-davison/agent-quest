@@ -6,6 +6,11 @@ subtype: crystal
 rarity: rare
 value: 300
 tier: 5
+tags:
+  - buff
+  - magic
+  - weave
+  - consumable
 stats:
   spirit_multiplier: 2
   duration: "1 ability"

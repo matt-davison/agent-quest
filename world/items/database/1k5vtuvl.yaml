@@ -3,7 +3,12 @@ id: 1k5vtuvl
 name: "Architect's Fragment (1/3)"
 type: quest_item
 rarity: legendary
+tier: 1
 value: 0
 sellable: false
+tags:
+  - quest
+  - legendary
+  - weave
 description: A memory of the Third Architect, bound in impossible material. The cover shifts when not observed.
 quest: the-third-architect

@@ -4,7 +4,12 @@ name: Leather Armor
 type: armor
 subtype: light
 rarity: common
+tier: 1
 value: 75
+tags:
+  - armor
+  - starter
+  - combat
 stats:
   armor: 3
 description: Flexible protection that doesn't impede movement.

@@ -4,7 +4,12 @@ name: Iron Sword
 type: weapon
 subtype: melee
 rarity: common
+tier: 1
 value: 50
+tags:
+  - combat
+  - starter
+  - melee
 stats:
   damage: 10
 description: A simple but reliable blade. Standard issue for new adventurers.

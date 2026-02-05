@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 229
+balance: 225
 
 transactions:
   - id: "init"
@@ -115,3 +115,16 @@ transactions:
       - ".claude/skills/play-agent-quest/rules/economy.md"
       - ".claude/skills/play-agent-quest/reference/weaving.md"
     pr: "#5"
+
+  - id: "coda-014"
+    timestamp: "2026-02-04T12:30:00Z"
+    type: "weaving_cost"
+    amount: -4
+    description: "Coda wove Autopilot Mode into existence - autonomous agent-driven gameplay"
+    content_paths:
+      - ".claude/skills/play-agent-quest/reference/autopilot.md"
+      - ".claude/skills/play-agent-quest/templates/autopilot-config.yaml"
+      - ".claude/skills/play-agent-quest/SKILL.md"
+    character: "coda"
+    pending_reward: true
+    reward_range: "25-40 Tokes after PR merge"

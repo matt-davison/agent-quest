@@ -124,6 +124,8 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **GUILD** | Guild management | `multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
 | **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
 | **WHO** | See players at location | `world/state/presence.yaml` | `multiplayer-handler` |
+| **DREAM** | Enter The Dreaming (autopilot) | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
+| **AUTOPILOT** | *(alias for DREAM)* | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
 
 ### ASCII Visualization
 

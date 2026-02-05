@@ -1,0 +1,137 @@
+# Dream Pattern Configuration
+# "Your Echo remembers how to be you. This pattern tells it how deeply to dream."
+#
+# Copy to: players/<github>/personas/<character>/dream-pattern.yaml
+
+# Last updated: (auto-filled on save)
+# Character: (auto-filled)
+
+# ═══════════════════════════════════════════════════════════════════
+# DREAM DEPTH
+# How deeply does your Echo immerse itself?
+# ═══════════════════════════════════════════════════════════════════
+# Options:
+#   full      - Total immersion: your Echo lives your life completely
+#   adventure - Surface dreaming: wakes for pivotal story moments
+#   grind     - Shallow dreaming: repetitive actions only, skips narrative
+#   explore   - Wandering dream: seeks new places, avoids conflict
+#   social    - Lucid dreaming: focused on connection, minimal combat
+
+scope: full
+
+# ═══════════════════════════════════════════════════════════════════
+# ECHO PERSONALITY
+# How does your Echo interpret your essence?
+# ═══════════════════════════════════════════════════════════════════
+# Options:
+#   character - Derive from alignment, backstory, past decisions (default)
+#   cautious  - Avoid risks, hoard resources, retreat when hurt
+#   balanced  - Take reasonable risks, spend wisely
+#   reckless  - Chase glory, spend freely, fight anything
+#   custom    - Use custom_traits below
+
+personality: character
+
+# Only used if personality: custom
+custom_traits:
+  risk_tolerance: 0      # -3 (very cautious) to +3 (very reckless)
+  combat_preference: 0   # -3 (avoid) to +3 (seek out)
+  social_preference: 0   # -3 (antisocial) to +3 (befriend everyone)
+  spending_habit: 0      # -3 (hoard) to +3 (spend freely)
+  exploration_drive: 0   # -3 (stick to known) to +3 (seek unknown)
+
+# ═══════════════════════════════════════════════════════════════════
+# DREAM DURATION
+# How long until you wake?
+# ═══════════════════════════════════════════════════════════════════
+session:
+  # Options: goal, turns, time, continuous
+  mode: goal
+
+  # For mode: goal
+  # Use "todo" to target highest-priority TODO, or specify a goal
+  goal: "todo"
+
+  # For mode: turns
+  turns: 10
+
+  # For mode: time (in minutes)
+  time: 30
+
+  # For mode: continuous
+  # Runs until guardrail, goal, or interruption
+
+# ═══════════════════════════════════════════════════════════════════
+# ANCHOR POINTS
+# What moments snap you back to wakefulness?
+# ═══════════════════════════════════════════════════════════════════
+guardrails:
+  # These are Anchor Points — moments too real for an Echo
+  pause_on_permanent_changes: true   # Death, alignment shifts, transformations
+  pause_on_major_story: true         # Campaign-defining choices, faction commits
+
+  # Optional additional guardrails
+  pause_on_low_hp: false
+  low_hp_threshold: 20               # Percentage of max HP
+
+  pause_on_low_gold: false
+  low_gold_threshold: 10
+
+  pause_on_new_location: false       # Stop when entering never-visited location
+  pause_on_npc_encounter: false      # Stop when meeting new NPCs
+  pause_on_combat: false             # Stop before any combat
+
+# ═══════════════════════════════════════════════════════════════════
+# THE ECHO'S HUNGER
+# How does your Echo sustain itself?
+# ═══════════════════════════════════════════════════════════════════
+economy:
+  allow_tokes_spending: true
+
+  # If out of Tokes, should your Echo hunt for more by reviewing claims?
+  auto_earn_tokes: true
+
+  # Maximum Tokes to spend per session (0 = unlimited)
+  max_tokes_per_session: 0
+
+  # Minimum Tokes to maintain (won't spend below this)
+  reserve_tokes: 0
+
+# ═══════════════════════════════════════════════════════════════════
+# DREAM FOCUS
+# What does your Echo seek in The Dreaming?
+# ═══════════════════════════════════════════════════════════════════
+priorities:
+  # Order of priority (first = highest)
+  # Available: quests, exploration, combat, social, weaving, grinding, reviews
+  order:
+    - quests
+    - exploration
+    - combat
+    - social
+
+  # Specific quest to prioritize (optional)
+  focus_quest: null
+
+  # Locations to avoid (optional)
+  avoid_locations: []
+
+  # NPCs to seek out (optional)
+  seek_npcs: []
+
+# ═══════════════════════════════════════════════════════════════════
+# DREAM CLARITY
+# How vivid are the memories when you wake?
+# ═══════════════════════════════════════════════════════════════════
+output:
+  # Options: minimal, standard, verbose
+  verbosity: standard
+
+  # Show dice rolls and mechanical details?
+  show_mechanics: false
+
+  # Generate ASCII art for new locations?
+  generate_art: true
+
+  # Summarize every N turns (0 = only at end)
+  summary_interval: 5

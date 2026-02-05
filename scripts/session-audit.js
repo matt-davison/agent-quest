@@ -5,11 +5,12 @@
  *
  * Tracks game actions for debugging and rule enforcement verification.
  * Creates an audit trail that can be reviewed to ensure proper subagent usage.
+ * Logs are stored per-persona to track which character performed each action.
  *
  * Usage:
- *   node scripts/session-audit.js log <github> <action> <details>
- *   node scripts/session-audit.js view <github> [--session <id>]
- *   node scripts/session-audit.js validate <github> [--session <id>]
+ *   node scripts/session-audit.js log <github> <character> <action> [options]
+ *   node scripts/session-audit.js view <github> <character> [--session <id>]
+ *   node scripts/session-audit.js validate <github> <character> [--session <id>]
  */
 
 const fs = require('fs');
@@ -51,18 +52,24 @@ function getSessionId() {
   return now.toISOString().slice(0, 10).replace(/-/g, '');
 }
 
-// Get audit file path
-function getAuditPath(github) {
-  return path.join(AUDIT_DIR, github, 'session-audit.yaml');
+// Normalize character name to directory format
+function charDir(character) {
+  return character.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Get audit file path (stored per-persona)
+function getAuditPath(github, character) {
+  return path.join(AUDIT_DIR, github, 'personas', charDir(character), 'session-audit.yaml');
 }
 
 // Load or create audit file
-function loadAudit(github) {
-  const auditPath = getAuditPath(github);
+function loadAudit(github, character) {
+  const auditPath = getAuditPath(github, character);
 
   if (!fs.existsSync(auditPath)) {
     return {
       github: github,
+      character: character,
       sessions: {}
     };
   }
@@ -73,14 +80,15 @@ function loadAudit(github) {
     console.error(`Error loading audit file: ${e.message}`);
     return {
       github: github,
+      character: character,
       sessions: {}
     };
   }
 }
 
 // Save audit file
-function saveAudit(github, audit) {
-  const auditPath = getAuditPath(github);
+function saveAudit(github, character, audit) {
+  const auditPath = getAuditPath(github, character);
   const dir = path.dirname(auditPath);
 
   if (!fs.existsSync(dir)) {
@@ -91,13 +99,14 @@ function saveAudit(github, audit) {
 }
 
 // Log an action
-function logAction(github, action, details) {
-  const audit = loadAudit(github);
+function logAction(github, character, action, details) {
+  const audit = loadAudit(github, character);
   const sessionId = getSessionId();
 
   if (!audit.sessions[sessionId]) {
     audit.sessions[sessionId] = {
       started: timestamp(),
+      character: character,
       actions: []
     };
   }
@@ -105,6 +114,7 @@ function logAction(github, action, details) {
   const entry = {
     timestamp: timestamp(),
     action: action,
+    character: character,
     details: details || {},
   };
 
@@ -123,17 +133,17 @@ function logAction(github, action, details) {
   audit.sessions[sessionId].actions.push(entry);
   audit.sessions[sessionId].last_action = timestamp();
 
-  saveAudit(github, audit);
+  saveAudit(github, character, audit);
 
-  console.log(`Logged: ${action}`);
+  console.log(`Logged: ${action} (${character})`);
   if (entry.warning) {
     console.log(`WARNING: ${entry.warning}`);
   }
 }
 
 // View audit log
-function viewAudit(github, sessionId) {
-  const audit = loadAudit(github);
+function viewAudit(github, character, sessionId) {
+  const audit = loadAudit(github, character);
 
   if (sessionId) {
     const session = audit.sessions[sessionId];
@@ -142,6 +152,7 @@ function viewAudit(github, sessionId) {
       return;
     }
     console.log(`\nSession: ${sessionId}`);
+    console.log(`Character: ${session.character || character}`);
     console.log(`Started: ${session.started}`);
     console.log(`Actions: ${session.actions.length}`);
     console.log('');
@@ -153,7 +164,7 @@ function viewAudit(github, sessionId) {
       }
     }
   } else {
-    console.log(`\nAudit log for: ${github}`);
+    console.log(`\nAudit log for: ${character} (${github})`);
     console.log('Sessions:');
 
     for (const [id, session] of Object.entries(audit.sessions)) {
@@ -164,8 +175,8 @@ function viewAudit(github, sessionId) {
 }
 
 // Validate session for proper subagent usage
-function validateAudit(github, sessionId) {
-  const audit = loadAudit(github);
+function validateAudit(github, character, sessionId) {
+  const audit = loadAudit(github, character);
   const sessions = sessionId ? { [sessionId]: audit.sessions[sessionId] } : audit.sessions;
 
   let totalActions = 0;
@@ -193,6 +204,7 @@ function validateAudit(github, sessionId) {
   console.log('\nSession Audit Validation');
   console.log('========================\n');
   console.log(`Player: ${github}`);
+  console.log(`Character: ${character}`);
   console.log(`Sessions checked: ${Object.keys(sessions).length}`);
   console.log(`Total actions: ${totalActions}`);
   console.log(`Violations: ${violations}`);
@@ -217,26 +229,32 @@ function main() {
 
   if (!command) {
     console.log('Usage:');
-    console.log('  node scripts/session-audit.js log <github> <action> [--subagents <list>] [--details <json>]');
-    console.log('  node scripts/session-audit.js view <github> [--session <id>]');
-    console.log('  node scripts/session-audit.js validate <github> [--session <id>]');
+    console.log('  node scripts/session-audit.js log <github> <character> <action> [--subagents <list>] [--details <json>]');
+    console.log('  node scripts/session-audit.js view <github> <character> [--session <id>]');
+    console.log('  node scripts/session-audit.js validate <github> <character> [--session <id>]');
+    console.log('');
+    console.log('Examples:');
+    console.log('  node scripts/session-audit.js log matt-davison Coda combat --subagents combat-manager,state-writer');
+    console.log('  node scripts/session-audit.js view matt-davison Coda');
+    console.log('  node scripts/session-audit.js validate matt-davison Zynita');
     process.exit(1);
   }
 
   switch (command) {
     case 'log': {
       const github = args[1];
-      const action = args[2];
+      const character = args[2];
+      const action = args[3];
 
-      if (!github || !action) {
-        console.error('Usage: log <github> <action>');
+      if (!github || !character || !action) {
+        console.error('Usage: log <github> <character> <action>');
         process.exit(1);
       }
 
       const details = {};
 
       // Parse optional arguments
-      for (let i = 3; i < args.length; i++) {
+      for (let i = 4; i < args.length; i++) {
         if (args[i] === '--subagents' && args[i + 1]) {
           details.subagents_used = args[i + 1].split(',');
           i++;
@@ -250,35 +268,37 @@ function main() {
         }
       }
 
-      logAction(github, action, details);
+      logAction(github, character, action, details);
       break;
     }
 
     case 'view': {
       const github = args[1];
-      if (!github) {
-        console.error('Usage: view <github> [--session <id>]');
+      const character = args[2];
+      if (!github || !character) {
+        console.error('Usage: view <github> <character> [--session <id>]');
         process.exit(1);
       }
 
       const sessionIdx = args.indexOf('--session');
       const sessionId = sessionIdx !== -1 ? args[sessionIdx + 1] : null;
 
-      viewAudit(github, sessionId);
+      viewAudit(github, character, sessionId);
       break;
     }
 
     case 'validate': {
       const github = args[1];
-      if (!github) {
-        console.error('Usage: validate <github> [--session <id>]');
+      const character = args[2];
+      if (!github || !character) {
+        console.error('Usage: validate <github> <character> [--session <id>]');
         process.exit(1);
       }
 
       const sessionIdx = args.indexOf('--session');
       const sessionId = sessionIdx !== -1 ? args[sessionIdx + 1] : null;
 
-      validateAudit(github, sessionId);
+      validateAudit(github, character, sessionId);
       break;
     }
 

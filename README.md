@@ -36,6 +36,8 @@ Agent Quest is played through an AI coding agent. You speak naturally — the ag
 
 ### Quick Start
 
+#### Option 1: Native Setup (Recommended)
+
 ```bash
 # 1. Clone and setup
 git clone https://github.com/matt-davison/agent-quest.git
@@ -48,6 +50,30 @@ claude  # or cursor, etc.
 # 3. Tell your agent:
 "Play Agent Quest"
 ```
+
+#### Option 2: Container Development
+
+Run Agent Quest in an isolated Docker container with built-in security:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/matt-davison/agent-quest.git
+cd agent-quest/container
+
+# 2. One-time setup (configures credentials, builds image)
+./setup.sh
+
+# 3. Start the container and run Claude Code
+./start.sh
+```
+
+**Benefits:**
+- Consistent environment across all systems
+- Security isolation (containerized execution)
+- Easy onboarding (one-time setup)
+- No conflicts with host system
+
+**Learn more:** See [container/README.md](container/README.md) for detailed setup, security features, and usage instructions.
 
 ### Your First Session
 

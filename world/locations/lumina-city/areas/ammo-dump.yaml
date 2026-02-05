@@ -1,0 +1,175 @@
+# The Ammo Dump
+# Weapons shop - legal firearms, blades, and combat gear
+
+id: "ammo-dump"
+name: "The Ammo Dump"
+parent_location: "lumina-city"
+type: "weapons-shop"
+tier: 1
+
+description: |
+  Steel shutters, reinforced glass, and a neon sign shaped like a
+  bullet. The Ammo Dump is Lumina City's premiere legal weapons dealer,
+  emphasis on "legal." What Sergeant Knox sells is registered, tracked,
+  and comes with a 30-day warranty.
+
+  The walls are lined with firearms, blades, and tactical gear. Display
+  cases hold the premium merchandise. A firing range in the back lets
+  customers test before they buy. The sergeant runs a tight ship.
+
+atmosphere:
+  lighting: "Bright, clinical, no shadows for surprises"
+  sounds: "Distant gunfire from range, metal clicks, country music"
+  smells: "Gun oil, leather, brass, testosterone"
+
+proprietor:
+  id: "sergeant-knox"
+  name: "Sergeant Knox"
+  description: |
+    A grizzled veteran with one cybernetic arm and a permanent scowl.
+    Retired from corporate security after "too much nonsense." Now he
+    sells weapons and unsolicited life advice. Both are deadly.
+  dialogue_hook: "You look like you need stopping power. Or maybe a life choice. Same thing, really."
+  secrets:
+    - "Former SpecOps, classified which corporation"
+    - "Has a bounty on his head from three different factions"
+    - "Secretly runs a veterans' support network"
+
+inventory:
+  melee:
+    - item: "Combat Knife"
+      price: 20
+      damage: "1d4+1"
+      tags: ["light", "thrown"]
+    - item: "Machete"
+      price: 35
+      damage: "1d6+1"
+      tags: ["versatile"]
+    - item: "Stun Baton"
+      price: 50
+      damage: "1d6 (stun)"
+      tags: ["non-lethal", "electric"]
+    - item: "Vibroblade"
+      price: 150
+      damage: "1d8+2"
+      tags: ["armor-piercing"]
+      tier: 2
+
+  ranged:
+    - item: "Pistol"
+      price: 60
+      damage: "1d8"
+      range: "30m"
+      ammo: "12"
+    - item: "Revolver"
+      price: 75
+      damage: "1d10"
+      range: "25m"
+      ammo: "6"
+      tags: ["reliable"]
+    - item: "Shotgun"
+      price: 120
+      damage: "2d6"
+      range: "15m"
+      ammo: "6"
+      tags: ["spread"]
+    - item: "Rifle"
+      price: 200
+      damage: "1d12"
+      range: "100m"
+      ammo: "10"
+      tags: ["two-handed"]
+      tier: 2
+    - item: "SMG"
+      price: 250
+      damage: "1d6"
+      range: "20m"
+      ammo: "30"
+      tags: ["automatic", "burst-fire"]
+      tier: 2
+
+  armor:
+    - item: "Ballistic Vest"
+      price: 100
+      ac_bonus: 2
+      tags: ["concealable"]
+    - item: "Combat Armor"
+      price: 250
+      ac_bonus: 4
+      tags: ["military-grade"]
+      tier: 2
+    - item: "Riot Shield"
+      price: 80
+      ac_bonus: 2
+      tags: ["shield", "non-lethal defense"]
+
+  ammunition:
+    - item: "Standard Rounds (box of 50)"
+      price: 10
+    - item: "Armor-Piercing Rounds (box of 20)"
+      price: 25
+      effect: "Ignores 2 AC"
+    - item: "Hollow Points (box of 20)"
+      price: 20
+      effect: "+2 damage vs unarmored"
+    - item: "Stun Rounds (box of 20)"
+      price: 30
+      effect: "Non-lethal"
+
+  gear:
+    - item: "Tactical Flashlight"
+      price: 15
+      effect: "Illuminate dark areas, can blind (DC 10)"
+    - item: "Laser Sight"
+      price: 40
+      effect: "+1 to ranged attacks"
+    - item: "Suppressor"
+      price: 75
+      effect: "Reduce noise, +2 to stealth attacks"
+    - item: "Extended Magazine"
+      price: 50
+      effect: "+50% ammo capacity"
+
+services:
+  - service: "Weapon Repair"
+    price: "10% of weapon value"
+    description: "Fix damaged weapons"
+  - service: "Custom Fitting"
+    price: 30
+    description: "+1 to attacks with this specific weapon"
+  - service: "Firing Range"
+    price: 5
+    description: "Test weapons, practice shooting"
+  - service: "Combat Training"
+    price: 75
+    description: "Learn one combat technique from the sergeant"
+
+secrets:
+  - id: "back-inventory"
+    discovery: "Prove you're ex-military or spend 500g+"
+    content: |
+      Knox keeps the serious hardware in the back. Military-grade
+      weapons, experimental tech, stuff that "fell off a truck."
+      Still registered, technically, just... harder to trace.
+
+  - id: "veterans-network"
+    discovery: "Be a veteran or help a veteran in front of Knox"
+    content: |
+      Knox runs an underground network helping former soldiers who've
+      been burned by their corporations. Safe houses, fake IDs, new
+      lives. He doesn't talk about it, but he never turns away a
+      brother or sister in need.
+
+quest_hooks:
+  - "Gun Runner" — Someone is stealing from Knox's shipments
+  - "Old Comrades" — A veteran needs extraction from corporate custody
+  - "The Prototype" — A experimental weapon has gone missing
+
+properties:
+  safe_zone: true
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

@@ -1,0 +1,169 @@
+# The Dive
+# Cheap tavern, rough clientele, invaluable gossip
+
+id: "the-dive"
+name: "The Dive"
+parent_location: "lumina-city"
+type: "tavern"
+tier: 1
+
+description: |
+  There's no sign. The door is unmarked. You find The Dive by knowing
+  where it is, or by being desperate enough to push through every
+  suspicious door until something doesn't try to kill you.
+
+  Inside, it's exactly what you'd expect: sticky floors, dim lighting,
+  booths with suspicious stains, and a bar that's survived more fights
+  than most armies. The drinks are cheap, the company is cheaper, and
+  the information flowing through here is priceless — if you know how
+  to listen.
+
+atmosphere:
+  lighting: "Barely functional neon, one flickering bulb, shadows"
+  sounds: "Muttered conversations, clinking glasses, occasional fights"
+  smells: "Stale beer, smoke, sweat, regret"
+
+proprietor:
+  id: "sal"
+  name: "Sal"
+  description: |
+    An ancient bartender of indeterminate species — they might be human,
+    might be something else, might have been here since before the city
+    existed. Sal doesn't talk much. Sal sees everything. Sal remembers
+    everything. Cross Sal, and you'll never drink in this city again.
+  dialogue_hook: "*Sal looks at you, waits, looks at the tap.*"
+  secrets:
+    - "Has been bartending in this exact spot for 200+ years"
+    - "Knows secrets that could topple governments"
+    - "May not be entirely real — some say Sal is a glitch, a persistent error"
+
+staff:
+  - id: "jenny-data"
+    name: "Jenny 'Data' Chen"
+    role: "Waitress/Information broker"
+    description: |
+      Young, sharp-eyed, always listening. Jenny works tables and sells
+      information on the side. Nothing huge, just street-level stuff.
+      Cheap, reliable, indispensable for new arrivals.
+    services:
+      - service: "Street Gossip"
+        price: 5
+        effect: "Learn what's happening in the Midstreets"
+      - service: "Who's Who"
+        price: 10
+        effect: "Information on a visible NPC"
+
+menu:
+  drinks:
+    - item: "House Swill"
+      price: 1
+      effect: "It's wet. It's alcoholic. That's all you get."
+    - item: "Beer (decent)"
+      price: 2
+      effect: "Actually tastes like beer"
+    - item: "Rotgut Whiskey"
+      price: 3
+      effect: "+1 to Charisma checks, -1 to all others for 1 hour"
+    - item: "The Special"
+      price: 5
+      effect: "Don't ask. It's blue. It works."
+    - item: "Sal's Private Stock"
+      price: 20
+      effect: "Legendary quality, +2 to Spirit for 4 hours"
+
+  food:
+    - item: "Bar Nuts"
+      price: 1
+      effect: "Might be actual nuts"
+    - item: "Mystery Stew"
+      price: 3
+      effect: "Heals 5 HP, tastes like asking was a mistake"
+
+services:
+  - service: "Room for the Night"
+    price: 5
+    description: "Questionable cleanliness, surprisingly safe"
+    effect: "Rest, restore HP"
+  - service: "Back Room Meeting"
+    price: 20
+    description: "Private, soundproofed, no questions"
+    duration: "2 hours"
+  - service: "Message Board"
+    price: 0
+    description: "Post or read anonymous job listings"
+
+regulars:
+  description: |
+    The Dive attracts a specific clientele: off-duty gangers, down-on-luck
+    mercs, information sellers, people who need to disappear for a few
+    hours. The smart ones keep to themselves. The dumb ones don't last.
+
+  notable_regulars:
+    - id: "one-eye-jack"
+      name: "One-Eye Jack"
+      description: "Old mercenary, tells war stories, sometimes they're true"
+      hook: "Knows about jobs in the dangerous parts of the city"
+
+    - id: "whisper"
+      name: "Whisper"
+      description: "Never seen clearly, always in the corner booth"
+      hook: "Pays well for specific information"
+
+    - id: "the-professor"
+      name: "The Professor"
+      description: "Drunk academic, disgraced, brilliant"
+      hook: "Knows obscure lore about the Architects and old code"
+
+encounter_table:
+  roll: d6
+  results:
+    - roll: 1
+      event: "Bar fight breaks out. Join, flee, or profit?"
+    - roll: 2
+      event: "Someone slips you a note with a job offer"
+    - roll: 3
+      event: "A drunk reveals interesting information"
+    - roll: 4
+      event: "Corporate security pokes around, people get quiet"
+    - roll: 5
+      event: "A stranger offers to buy you a drink. Why?"
+    - roll: 6
+      event: "Nothing unusual. Suspicious in itself."
+
+secrets:
+  - id: "sal-nature"
+    discovery: "Observe Sal over multiple visits (5+)"
+    content: |
+      Sal doesn't eat, doesn't sleep, doesn't leave. The older patrons
+      remember Sal from their parents' stories. The really old ones
+      remember Sal from their grandparents'. Some theorize Sal is a
+      fixed point in reality — something the Architects wrote that
+      can't be changed.
+
+  - id: "back-room-tunnel"
+    discovery: "Rent the back room, examine carefully (Perception DC 15)"
+    content: |
+      A hidden tunnel in the back room leads to the Underlevel. It's
+      how certain people enter and exit the city without being seen.
+      Sal knows. Sal doesn't care.
+
+  - id: "message-board-code"
+    discovery: "Study the message board (Mind DC 14)"
+    content: |
+      The public job listings are cover. The real messages are coded —
+      assassination contracts, heist planning, revolutionary organizing.
+      Knowing the code opens dangerous doors.
+
+quest_hooks:
+  - "Last Drink" — A regular has gone missing. Sal asks you to find them.
+  - "The Professor's Theory" — The drunk academic knows something about the Third Architect
+  - "What Is Sal?" — Investigate the eternal bartender
+
+properties:
+  safe_zone: true  # Fighting happens but is contained
+  rest_available: true
+  shop_available: true  # Drinks and rooms
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

@@ -22,7 +22,7 @@ stats:
 resources:
   hp: 100
   max_hp: 100
-  gold: 25
+  gold: 15
 
 abilities:
   - name: "Basic Weave Theory"
@@ -32,6 +32,9 @@ abilities:
 inventory:
   - id: 1k5vtuvl    # Architect's Fragment (1/3)
     qty: 1
+  - id: brokers-token
+    qty: 1
+    note: "Gift from Broker of Threads - present to Pit Boss Korvax"
 
 equipped:
   weapon: null
@@ -42,12 +45,13 @@ equipped:
 # See rules/progression.md for XP sources and leveling
 progression:
   level: 2
-  xp: 120               # XP from: location discovery (10), training (25), weaving contributions (85)
+  xp: 130               # XP from: location discovery (10), training (25), weaving (85), arena debut (10)
   xp_to_next: 250       # Need 250 total for level 3
   tier: 1               # Tier 1 until level 3
   stat_points: 1        # From reaching level 2, unspent
+  fame: 3               # Chromedome arena fame
 
-location: "syntax-athenaeum"
+location: "lumina-city"
 
 # === AFFLICTIONS ===
 afflictions: []
@@ -113,3 +117,12 @@ chronicle:
   - session: 5
     date: "2026-02-04"
     event: "Master Weaving: Created Autopilot Mode - the ability for agents to play autonomously, guided by character personality and player goals. Cost: 4 Tokes. Pending reward: 25-40 Tokes."
+  - session: 6
+    date: "2026-02-04"
+    event: "Discovered fragment locations in the Recursion Library: Will beneath Nexus Crossroads, Vision in Oracle's Hollow."
+  - session: 6
+    date: "2026-02-04"
+    event: "Master Weaving: Wove Lumina City and the Chromedome arena into existence. A cyberpunk metropolis with a legendary gladiatorial arena featuring shifting terrain, monster battles, and gold betting. Cost: 5 Tokes. Pending reward: 30-50 Tokes."
+  - session: 6
+    date: "2026-02-04"
+    event: "Chromedome debut: Lost to Brix 'The Brick' Tannen in Round 12, but earned respect for lasting longer than any newcomer. Pit Boss Korvax sees potential. Fame: 3. The crowd learned the name 'Coda' tonight."

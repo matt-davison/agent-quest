@@ -1,0 +1,129 @@
+# Stitch & Co
+# High-end tailor specializing in armor, disguises, and enchanted clothing
+
+id: "stitch-and-co"
+name: "Stitch & Co"
+parent_location: "lumina-city"
+type: "tailor"
+tier: 1
+
+description: |
+  From the outside, it looks like any other Midstreet shop — slightly
+  run-down, neon sign flickering. Step inside, and you enter a world of
+  impossible fabrics and whispered measurements.
+
+  The walls are lined with bolts of cloth that shimmer with embedded
+  circuitry, leather that came from no natural animal, and silk spun from
+  harvested moonlight. Mannequins display outfits that could stop bullets,
+  turn aside blades, or make you invisible at a party.
+
+atmosphere:
+  lighting: "Soft, flattering light that makes everything look better"
+  sounds: "Scissors snipping, sewing machines humming, classical music"
+  smells: "Fine leather, expensive fabric, a hint of magic"
+
+proprietor:
+  id: "needle"
+  name: "Needle"
+  description: |
+    A thin, precise individual of uncertain gender and certain talent.
+    Their fingers move faster than eyes can track, and they can assess
+    your measurements, threat level, and net worth in a single glance.
+    Speaks in clipped, efficient sentences.
+  dialogue_hook: "Hmm. Off the rack won't do. You need... custom work."
+  secrets:
+    - "Former assassin, retired into fashion"
+    - "Every outfit contains a hidden blade. Every. Single. One."
+    - "Can create perfect disguises, including face-changing masks"
+
+inventory:
+  clothing:
+    - item: "Street Clothes (Quality)"
+      price: 15
+      effect: "Blend in with Midstreet crowds"
+    - item: "Corporate Suit"
+      price: 50
+      effect: "Blend in with Skyline types, +1 to social checks in corporate settings"
+    - item: "Underlevel Gear"
+      price: 25
+      effect: "Blend in below, includes hidden pockets"
+
+  armor_modifications:
+    - item: "Reinforced Lining"
+      price: 40
+      effect: "+1 AC to existing armor, invisible"
+    - item: "Thermal Regulation"
+      price: 30
+      effect: "Immunity to environmental heat/cold"
+    - item: "Silent Weave"
+      price: 50
+      effect: "+2 to stealth checks"
+    - item: "Blade-Resistant Thread"
+      price: 60
+      effect: "Reduce slashing damage by 2"
+
+  disguises:
+    - item: "Basic Disguise Kit"
+      price: 35
+      effect: "Change apparent identity, +2 to deception"
+    - item: "Corporate ID Package"
+      price: 100
+      effect: "Fake ID + appropriate clothing for one corporation"
+    - item: "Face Veil"
+      price: 200
+      effect: "Holographic face alteration, 4 hour duration"
+      tier: 2
+
+  special:
+    - item: "Assassin's Formalwear"
+      price: 300
+      effect: "+2 AC, conceals 2 weapons, looks immaculate"
+      tier: 2
+    - item: "Chameleon Cloak"
+      price: 500
+      effect: "+4 to stealth, active camouflage"
+      tier: 2
+
+services:
+  - id: "custom-fitting"
+    name: "Custom Measurements"
+    price: 20
+    description: "Required for high-end purchases, permanent file kept"
+  - id: "armor-repair"
+    name: "Armor Repair"
+    price: "10% of item value"
+    description: "Restore damaged armor to full effectiveness"
+  - id: "identity-package"
+    name: "New Identity"
+    price: 500
+    description: "Complete new identity — clothes, documents, backstory"
+    tier: 2
+
+secrets:
+  - id: "assassin-past"
+    discovery: "Notice hidden blade in purchased item, confront Needle"
+    content: |
+      Needle was the legendary assassin known as "The Seamstress" —
+      twelve confirmed kills, all made to look like accidents involving
+      clothing malfunctions. They retired after falling in love with
+      their final target, who they couldn't bring themselves to kill.
+  - id: "perfect-disguise"
+    discovery: "Reach Trusted standing, pay 1000g"
+    content: |
+      Needle can create a "Second Skin" — a perfect biological disguise
+      that fools even medical scanners. The process takes a week and is
+      extremely painful. Only three exist in the world.
+
+quest_hooks:
+  - "The Copycat" — Someone is using Needle's old techniques
+  - "Fashion Week" — Security job at Skyline fashion show
+  - "The Second Skin" — Retrieve materials for the ultimate disguise
+
+properties:
+  safe_zone: true
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

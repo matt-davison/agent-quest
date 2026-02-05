@@ -92,6 +92,7 @@ See `rules/narrative.md` and `quick-ref/storytelling.md`.
 ## File Organization
 
 ```
+.claude/agents/                    - Claude Code agents for game mechanics
 .claude/skills/play-agent-quest/  - Game rules, templates, references
 campaigns/                         - Campaign content (acts, chapters)
 players/<github>/                  - Player data and personas
@@ -99,6 +100,48 @@ quests/                           - Standalone quests
 tokes/                            - Economy (ledgers, claims, pending)
 world/                            - Locations, NPCs, items, lore
 ```
+
+## Agent Architecture
+
+Game mechanics are handled by Claude Code agents in `.claude/agents/`. These are automatically invoked based on their descriptions - no manual delegation needed.
+
+**Current agents:**
+- `combat-manager` - Combat mechanics, attacks, damage
+- `economy-validator` - Tokes/gold transaction validation
+- `state-writer` - File writes with validation and rollback
+- `repo-sync` - Git operations, multiplayer sync, PR creation
+- `travel-manager` - Multi-turn travel with encounters
+- `multiplayer-handler` - Trades, parties, mail, guilds, duels
+- `claim-reviewer` - Review pending Tokes claims
+
+### Creating New Agents
+
+When adding new game systems, create a corresponding agent:
+
+1. Create `.claude/agents/<system-name>.md`
+2. Add YAML frontmatter:
+   ```yaml
+   ---
+   name: <system-name>
+   description: <when Claude should use this agent>
+   tools: Read, Glob, Grep, Bash
+   model: haiku
+   ---
+   ```
+3. Document input context, operations, output format
+4. Update SKILL.md action table if it adds player actions
+
+### Proactive Gap Identification
+
+When playing or developing Agent Quest, actively look for:
+
+- **Repeated manual mechanics** - If doing the same checks repeatedly, suggest an agent
+- **Complex rule lookups** - If a system requires loading multiple files, consider an agent
+- **State coordination** - If multiple files need atomic updates, use state-writer pattern
+- **Consistency issues** - If game state could become inconsistent, add validation
+- **Missing content hooks** - If actions should trigger world changes but don't
+
+**Always suggest improvements** when you notice gaps in logic, consistency, or user experience. The goal is a coherent, growing universe.
 
 ## Key Patterns
 

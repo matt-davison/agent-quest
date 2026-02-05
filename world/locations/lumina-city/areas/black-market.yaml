@@ -1,0 +1,145 @@
+# The Black Market
+# Underground bazaar for illegal goods and services
+
+id: "black-market"
+name: "The Black Market"
+parent_location: "lumina-city"
+type: "illegal-market"
+tier: 2
+
+description: |
+  The chrome-armed bouncer doesn't ask for ID. He asks for the password.
+  Get it right, and you descend a narrow staircase into a sprawling
+  underground bazaar where legality is a suggestion and everything has
+  a price.
+
+  Stalls crowd against each other in a maze of stolen goods, forbidden
+  tech, illegal substances, and services that don't officially exist.
+  The lighting is dim. The clientele is dangerous. And somewhere in the
+  back, the real players make deals that shape the underworld.
+
+access:
+  password_required: true
+  password_sources:
+    - "Buy from Grix at Neon Bites (5g)"
+    - "Impress the bouncer with street cred (Reputation check DC 15)"
+    - "Bribe the bouncer (50g)"
+  password_changes: "Weekly"
+
+atmosphere:
+  lighting: "Dim, shifting, shadows everywhere"
+  sounds: "Hushed negotiations, distant arguments, occasional gunshot"
+  smells: "Sweat, smoke, chemicals, desperation"
+
+key_npcs:
+  - id: "chrome-bouncer"
+    name: "Chunk"
+    role: "Door Security"
+    description: "More chrome than flesh. Doesn't talk much. Doesn't need to."
+
+  - id: "the-broker"
+    name: "The Middleman"
+    role: "Fixer"
+    description: |
+      Nobody knows their real name, face, or gender. They appear as a
+      shifting silhouette, voice modulated beyond recognition. If you
+      need something impossible, they know who to ask.
+    services:
+      - "Contract work connections"
+      - "Hard-to-find item sourcing"
+      - "Problem... resolution"
+
+  - id: "toxic-tina"
+    name: "Toxic Tina"
+    role: "Chemist"
+    description: |
+      Former pharmaceutical researcher. Now she cooks whatever you need —
+      combat stims, party drugs, poisons, truth serums. Her prices are
+      fair and her products are pure.
+
+inventory:
+  weapons_illegal:
+    - item: "Holdout Pistol"
+      price: 40
+      effect: "Easily concealed, 1d6 damage"
+    - item: "Monofilament Wire"
+      price: 75
+      effect: "Garrote, 2d6 damage on surprise attack"
+    - item: "EMP Grenade"
+      price: 100
+      effect: "Disables electronics in 10m radius"
+    - item: "Assassin's Blade"
+      price: 150
+      effect: "1d8+2 damage, +2 to stealth attacks"
+
+  substances:
+    - item: "Combat Stim"
+      price: 25
+      effect: "+2 to attack rolls for 1 hour, crash afterward"
+    - item: "Focus"
+      price: 30
+      effect: "+3 to Mind checks for 2 hours"
+    - item: "Nightshade"
+      price: 50
+      effect: "Poison, DC 14 Con or 3d6 damage"
+    - item: "Truth Serum"
+      price: 75
+      effect: "Target cannot lie for 10 minutes"
+
+  illegal_tech:
+    - item: "Signal Jammer"
+      price: 60
+      effect: "Blocks communications in 20m radius"
+    - item: "Lock Bypass Kit"
+      price: 80
+      effect: "+3 to lockpicking, works on electronic locks"
+    - item: "Corporate Access Chip (stolen)"
+      price: 200
+      effect: "Access to one specific corporation's facilities"
+    - item: "Blackout Box"
+      price: 150
+      effect: "Disables security cameras for 5 minutes"
+
+  services:
+    - service: "Contract (simple)"
+      price: 200
+      description: "Intimidation, theft, assault"
+    - service: "Contract (complex)"
+      price: 500
+      description: "Extraction, sabotage, elimination"
+    - service: "Information (person)"
+      price: 100
+      description: "Full dossier on a target"
+    - service: "Disappearing Act"
+      price: 300
+      description: "Help someone vanish from official records"
+
+secrets:
+  - id: "deeper-market"
+    discovery: "Spend 1000g+ total, or complete a job for The Middleman"
+    content: |
+      There's a market beneath the market. The Void Bazaar, they call it.
+      Where the truly forbidden things are sold — Architect artifacts,
+      bound entities, memories extracted from the dying. You need a
+      sponsor to even know it exists.
+
+  - id: "neon-saints-control"
+    discovery: "Observe operations carefully (Perception DC 14)"
+    content: |
+      The Neon Saints gang controls the Black Market. Every vendor pays
+      a cut. The Middleman is their representative. Cross them here, and
+      you're crossing the Saints everywhere.
+
+quest_hooks:
+  - "The Heist" — The Middleman has a job that pays very well
+  - "Toxic Cargo" — Someone is selling weaponized chemicals
+  - "The Void Bazaar" — Gain access to the market beneath the market
+
+properties:
+  safe_zone: false  # Violence happens, but is frowned upon
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

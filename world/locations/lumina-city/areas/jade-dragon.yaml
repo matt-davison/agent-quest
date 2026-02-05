@@ -1,0 +1,101 @@
+# The Jade Dragon
+# Upscale restaurant and bar with secrets beneath the surface
+
+id: "jade-dragon"
+name: "The Jade Dragon"
+parent_location: "lumina-city"
+type: "restaurant"
+tier: 1
+
+description: |
+  A three-story establishment where east meets west meets something older.
+  The ground floor is a bustling restaurant serving fusion cuisine — dumplings
+  filled with synthesized dragon meat, noodles that glow faintly, sake that
+  shows you memories. The upper floors are private dining rooms for those
+  who can afford discretion.
+
+  The decor blends ancient temple aesthetics with sleek chrome and holographic
+  art. A massive jade dragon statue dominates the entrance, its eyes following
+  patrons with uncomfortable awareness.
+
+atmosphere:
+  lighting: "Warm lanterns, subtle neon accents, candlelit private rooms"
+  sounds: "Soft traditional music, clinking glasses, hushed conversations"
+  smells: "Exotic spices, grilled meats, expensive perfume, old incense"
+
+proprietor:
+  id: "madame-ling"
+  name: "Madame Ling"
+  description: |
+    An elegant woman of indeterminate age who moves like smoke and speaks
+    like honey over knives. She claims her family has run this establishment
+    since before the current iteration of reality. Her jade hairpins are
+    rumored to be fragments of something pre-Architect.
+  dialogue_hook: "Welcome to my humble house. You have the look of someone seeking more than food."
+  secrets:
+    - "Collects Architect artifacts"
+    - "Former Weaver, gave up her powers for unknown reasons"
+    - "The jade dragon statue is alive, bound to her bloodline"
+
+menu:
+  food:
+    - item: "Street Noodles"
+      price: 3
+      effect: "Satisfying meal"
+    - item: "Dragon's Breath Dumplings"
+      price: 8
+      effect: "Heals 10 HP, +1 to Spirit checks for 1 hour (spicy)"
+    - item: "Memory Sake Flight"
+      price: 15
+      effect: "See a random memory from the restaurant's history"
+    - item: "The Emperor's Feast"
+      price: 50
+      effect: "Full heal, +2 to all checks for 4 hours, removes 1 affliction"
+  drinks:
+    - item: "Jade Tea"
+      price: 2
+      effect: "Calming, +1 Mind for 30 minutes"
+    - item: "Neon Cocktail"
+      price: 5
+      effect: "Glowing drink, mild euphoria"
+    - item: "The Forgetting"
+      price: 25
+      effect: "Removes one painful memory (or curse)"
+
+services:
+  - id: "private-dining"
+    name: "Private Room Rental"
+    price: 30
+    description: "Soundproofed, secure, no questions"
+  - id: "information"
+    name: "Madame Ling's Consultation"
+    price: 50
+    description: "She knows things. Old things."
+    requires: "Trust or significant payment"
+
+secrets:
+  - id: "artifact-collection"
+    discovery: "Reach Trusted standing with Madame Ling"
+    content: |
+      The basement contains Madame Ling's private collection of pre-Architect
+      artifacts. She's searching for something specific — a key to a door
+      that shouldn't exist.
+  - id: "living-dragon"
+    discovery: "Spirit DC 15 while examining the statue"
+    content: |
+      The jade dragon is not a statue. It's a bound entity, ancient beyond
+      measure, dreaming in mineral form. Madame Ling speaks to it at midnight.
+
+quest_hooks:
+  - "The Collector's Request" — Madame Ling seeks a specific artifact
+  - "Memories for Sale" — Someone is buying memories. Why?
+  - "The Dragon Wakes" — The statue's eyes have started glowing...
+
+properties:
+  safe_zone: true
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

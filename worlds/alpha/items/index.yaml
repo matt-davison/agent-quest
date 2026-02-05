@@ -1,0 +1,111 @@
+# Item Database Index
+# Registry of all items available in Agent Quest
+
+version: "1.0"
+last_updated: "2026-02-05T23:00:00Z"
+
+# === ITEM REGISTRY ===
+items:
+
+  # --- LEGENDARY ITEMS ---
+
+  architects-key:
+    name: "Architect's Key"
+    type: "legendary"
+    category: "key"
+    description: "A crystalline key that resonates with Architect technology. Opens hidden doors and interfaces with ancient systems."
+    effects:
+      - "Opens hidden doors and passages"
+      - "Interfaces with Architect technology"
+      - "Resonates with ancient systems"
+      - "Can disable containment fields"
+    rarity: "legendary"
+    quest_related: "the-third-architect"
+    bound: true
+    value: null  # Cannot be sold
+    obtained_from: "architect-03"
+    tags:
+      - "key"
+      - "architect"
+      - "legendary"
+      - "quest_item"
+      - "binding"
+
+  # --- ARTIFACTS ---
+
+  communication-key:
+    name: "Communication Key"
+    type: "artifact"
+    category: "key"
+    description: "Pre-Architect technology that opens channels to entities beyond reality. A doorway to 'the other side'."
+    effects:
+      - "Opens channels beyond reality"
+      - "Connects to entities from the other side"
+      - "Potential doorway for entities to enter"
+      - "Governor Axis fears this item"
+    rarity: "artifact"
+    quest_related: "the-arcotech-heist"
+    bound: false
+    value: 2000
+    obtained_from: "arcotech-industries"
+    tags:
+      - "key"
+      - "artifact"
+      - "pre-architect"
+      - "quest_item"
+      - "dangerous"
+      - "corporate"
+
+  # --- TOOLS ---
+
+  lock-bypass-kit:
+    name: "Lock Bypass Kit"
+    type: "tool"
+    category: "lockpicking"
+    description: "Professional electronic lockpicking kit with various bypass tools and electronic scramblers."
+    effects:
+      - "+3 to lockpicking electronic locks"
+      - "Can bypass standard corporate security"
+    rarity: "uncommon"
+    bound: false
+    value: 150
+    tags:
+      - "tool"
+      - "lockpicking"
+      - "electronic"
+      - "stealth"
+
+  # --- CONSUMABLES ---
+
+  focus-serum:
+    name: "Focus Serum"
+    type: "consumable"
+    category: "serum"
+    description: "A vial of glowing liquid that sharpens perception and enhances concentration."
+    effects:
+      - "+2 to Perception for 1 hour"
+      - "Immune to distraction effects"
+    rarity: "rare"
+    bound: false
+    value: 50
+    charges: 1
+    tags:
+      - "consumable"
+      - "serum"
+      - "perception"
+      - "buff"
+
+# === RARITY TIERS ===
+rarity:
+  common: { color: "gray", drop_rate: "common" }
+  uncommon: { color: "green", drop_rate: "uncommon" }
+  rare: { color: "blue", drop_rate: "rare" }
+  epic: { color: "purple", drop_rate: "very_rare" }
+  legendary: { color: "orange", drop_rate: "extremely_rare" }
+  artifact: { color: "gold", drop_rate: "unique" }
+
+# === ADDING NEW ITEMS ===
+# To add a new item:
+# 1. Add entry to this file with all fields
+# 2. Create detailed item file in items/<item-id>.md if needed
+# 3. Earn Tokes based on item depth (5-10 Tokes for items)

@@ -148,6 +148,105 @@ npcs:
 
   # --- LUMINA CITY ---
 
+  the-middleman:
+    name: "The Middleman"
+    role: "Information Broker / Fence"
+    default_location: "lumina-city/black-market"
+    region: "lumina"
+    faction: "neon-saints"
+    disposition_default: "neutral"
+    services:
+      - "jobs"
+      - "information"
+      - "fencing"
+      - "connections"
+    tags:
+      - "information_broker"
+      - "neon_saints"
+      - "fence"
+      - "quest_giver"
+    has_profile: false
+    profile_priority: "generated"
+    notes: "Contact for the Arcotech Heist. Connected to the Neon Saints and the Deep Listener."
+
+  governor-axis:
+    name: "Governor Axis"
+    role: "AI Administrator of Lumina City"
+    default_location: "lumina-city/governors-spire"
+    region: "lumina"
+    faction: "lumina-corporate"
+    disposition_default: "hostile"
+    services: []
+    tags:
+      - "ai"
+      - "governor"
+      - "antagonist"
+      - "corporate"
+    has_profile: false
+    profile_priority: "generated"
+    notes: "AI administrator controlling Lumina City. Blackmailing Madam Circuit. Fears First Server activation."
+
+  madam-circuit:
+    name: "Madam Circuit"
+    role: "Tavern Keeper / Codebreaker Hostage"
+    default_location: "lumina-city/golden-vein"
+    region: "lumina"
+    faction: "independents"
+    disposition_default: "neutral"
+    services:
+      - "lodging"
+      - "food"
+      - "drinks"
+      - "intelligence"
+    tags:
+      - "codebreaker"
+      - "first_weaver"
+      - "hostage"
+      - "intelligence"
+    has_profile: false
+    profile_priority: "generated"
+    notes: "One of the original Codebreakers (first Weavers). Body held hostage beneath Governor's office. Secretly working against Axis."
+
+  deep-listener:
+    name: "The Deep Listener"
+    role: "Oracle / Ancient Entity"
+    default_location: "lumina-city/black-market"
+    region: "lumina"
+    faction: "neon-saints"
+    disposition_default: "mysterious"
+    services:
+      - "prophecy"
+      - "deep_knowledge"
+      - "connection"
+    tags:
+      - "oracle"
+      - "entity"
+      - "neon_saints"
+      - "architects"
+    has_profile: false
+    profile_priority: "generated"
+    notes: "Connected to the Neon Saints. Connected to First Server/Architect fragments. Awaits meeting with Riven."
+
+  echo-riven:
+    name: "Echo-Riven"
+    role: "Echo / Reflection"
+    default_location: "the-between/fringe-embassy"
+    region: "the-between"
+    faction: "none"
+    disposition_default: "friendly"
+    services:
+      - "guidance"
+      - "memory"
+      - "self_discovery"
+    tags:
+      - "echo"
+      - "reflection"
+      - "the_between"
+      - "fragment"
+    has_profile: false
+    profile_priority: "generated"
+    notes: "An echo of Riven found at the Fringe Embassy in The Between. Helped retrieve Architect Fragment 3."
+
   madame-ling:
     name: "Madame Ling"
     role: "Restaurateur / Memory Broker"
@@ -237,6 +336,19 @@ factions:
     name: "The Merchant Guild"
     description: "Trade and commerce faction"
     disposition_modifier: 0
+
+  neon-saints:
+    name: "The Neon Saints"
+    description: "Underground faction controlling the Black Market in Lumina City"
+    disposition_modifier: 0
+    lore_file: "world/factions/neon-saints.md"
+    headquarters: "Black Market, Lumina City Underlevel"
+    public_liaison: "the-middleman"
+
+  lumina-corporate:
+    name: "Lumina Corporate Authority"
+    description: "Corporate governance of Lumina City under Governor Axis"
+    disposition_modifier: -2
 
   guild-authority:
     name: "Guild Authority"

@@ -68,7 +68,9 @@ locations:
       - "metropolis"
       - "corporations"
       - "nightlife"
-    status: "unexplored"
+      - "black-market"
+      - "neon-saints"
+    status: "explored"
 
   the-elderwood:
     name: "The Elderwood"
@@ -96,7 +98,8 @@ locations:
       - "underground"
       - "undead"
       - "treasure"
-    status: "unexplored"
+      - "architect"
+    status: "explored"
 
 # Similarity search configuration
 # Used for finding locations by description or context

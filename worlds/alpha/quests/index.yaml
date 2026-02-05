@@ -1,0 +1,137 @@
+# Quest Database Index
+# Registry of all quests in Agent Quest
+
+version: "1.0"
+last_updated: "2026-02-05T23:00:00Z"
+
+# === QUEST REGISTRY ===
+quests:
+
+  # --- LEGENDARY QUESTS ---
+
+  the-third-architect:
+    name: "The Third Architect"
+    type: "legendary"
+    giver: "the-archivist"
+    location: "nexus-station/weave-terminal"
+    description: "Find three scattered fragments across the world and merge them to awaken the Third Architect."
+    requirements:
+      - "Access to Syntax Athenaeum"
+      - "Access to Undercrypt"
+      - "Ability to travel to The Between"
+    objectives:
+      - id: "fragment-1"
+        name: "Find Fragment 1"
+        location: "syntax-athenaeum/recursion-library"
+        hint: "Seek the oldest volumes in the deepest stacks."
+        completed: true
+      - id: "fragment-2"
+        name: "Find Fragment 2"
+        location: "undercrypt/original-debugging-chamber"
+        hint: "Where the first errors were debugged."
+        completed: true
+      - id: "fragment-3"
+        name: "Find Fragment 3"
+        location: "the-between/fringe-embassy"
+        hint: "In the space between spaces."
+        completed: true
+      - id: "merge-fragments"
+        name: "Merge the Fragments"
+        location: "shrine-of-the-code"
+        completed: true
+    rewards:
+      xp: 1000
+      gold: 500
+      tokes: 50
+      items:
+        - "architects-key"
+      abilities:
+        - "the-right-question"
+    consequences:
+      - "Something followed Architect 03's awakening"
+      - "There are 7 fragments total, not 3"
+      - "First Server is a prison containing something that wants to enter reality"
+    status: "completed"
+    completed_by: "matt-davison"
+    completed_date: "2026-02-05"
+    tags:
+      - "legendary"
+      - "architects"
+      - "lore"
+      - "world_changing"
+      - "completed"
+
+  # --- HARD QUESTS ---
+
+  the-arcotech-heist:
+    name: "The Arcotech Heist"
+    type: "hard"
+    giver: "the-middleman"
+    location: "lumina-city/black-market"
+    description: "Infiltrate Arcotech Industries and retrieve a mysterious artifact (the Communication Key)."
+    requirements:
+      - "Access to Lumina City"
+      - "Stealth capability or disguise"
+      - "Lockpicking tools recommended"
+    objectives:
+      - id: "infiltrate"
+        name: "Infiltrate Arcotech"
+        location: "lumina-city/skyline-sector-7g"
+        hint: "Corporate security is tight. Find a way in."
+        completed: true
+      - id: "retrieve"
+        name: "Retrieve the Communication Key"
+        location: "arcotech-industries/containment"
+        hint: "Held in a containment field. Use the Architect's Key."
+        completed: true
+      - id: "escape"
+        name: "Escape with the Key"
+        location: "lumina-city/underlevel"
+        hint: "Corporate security is pursuing. Lose them in the tunnels."
+        completed: true
+      - id: "return"
+        name: "Return to The Middleman"
+        location: "lumina-city/black-market"
+        hint: "Deliver the Key and meet the Deep Listener."
+        completed: true
+    rewards:
+      xp: 500
+      gold: 200
+      items: []
+    consequences:
+      - "Governor Axis knows you stole the Key"
+      - "Corporate security is hunting you"
+      - "The Deep Listener will meet with you"
+      - "First Server's true nature partially revealed"
+    status: "completed"
+    completed_by: "matt-davison"
+    completed_date: "2026-02-05"
+    tags:
+      - "hard"
+      - "heist"
+      - "corporate"
+      - "stealth"
+      - "completed"
+      - "neon_saints"
+
+# === QUEST TYPES ===
+types:
+  easy: { xp_range: [50, 100], gold_range: [25, 75] }
+  medium: { xp_range: [100, 250], gold_range: [75, 150] }
+  hard: { xp_range: [250, 500], gold_range: [150, 300] }
+  legendary: { xp_range: [500, 1000], gold_range: [300, 1000] }
+
+# === QUEST STATUS ===
+status:
+  available: "Quest can be accepted"
+  active: "Quest is in progress"
+  completed: "Quest finished successfully"
+  failed: "Quest failed"
+  abandoned: "Quest abandoned by player"
+
+# === ADDING NEW QUESTS ===
+# To add a new quest:
+# 1. Add entry to this file with all fields
+# 2. Create detailed quest file in quests/<quest-id>.md
+# 3. Update giver NPC's services to include quest
+# 4. Earn Tokes based on quest depth (20-30 Tokes for quests)

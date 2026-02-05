@@ -6,6 +6,10 @@ subtype: tool
 rarity: uncommon
 value: 120
 tier: 3
+tags:
+  - detection
+  - utility
+  - weave
 stats:
   detection_bonus: 2
   reveals_weave: true

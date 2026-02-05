@@ -4,7 +4,12 @@ name: Student Robes
 type: armor
 subtype: light
 rarity: common
+tier: 1
 value: 35
+tags:
+  - armor
+  - starter
+  - magic
 stats:
   armor: 0
   spirit: 1

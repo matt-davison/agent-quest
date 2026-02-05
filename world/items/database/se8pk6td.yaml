@@ -6,6 +6,10 @@ subtype: scroll
 rarity: uncommon
 value: 75
 tier: 3
+tags:
+  - magic
+  - weave
+  - consumable
 stats:
   weave_bonus: 4
   uses: 1

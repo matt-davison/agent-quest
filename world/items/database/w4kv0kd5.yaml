@@ -4,7 +4,12 @@ name: Debug Potion
 type: consumable
 subtype: potion
 rarity: uncommon
+tier: 2
 value: 40
+tags:
+  - healing
+  - tech
+  - consumable
 stats:
   removes_corruption: 1
   removes_glitch: 1

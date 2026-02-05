@@ -3,7 +3,11 @@ id: uvwbi8q3
 name: Greater Healing Potion
 type: consumable
 rarity: uncommon
+tier: 2
 value: 75
+tags:
+  - healing
+  - consumable
 stats:
   hp_restore: 60
 description: Restores 60 HP when consumed.

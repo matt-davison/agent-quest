@@ -32,7 +32,7 @@ abilities:
 inventory:
   - id: 1k5vtuvl    # Architect's Fragment (1/3)
     qty: 1
-  - id: brokers-token
+  - id: x63kh0ob    # Broker's Token
     qty: 1
     note: "Gift from Broker of Threads - present to Pit Boss Korvax"
 

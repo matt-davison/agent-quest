@@ -4,7 +4,13 @@ name: Data Spike
 type: weapon
 subtype: ranged
 rarity: common
+tier: 1
 value: 30
+tags:
+  - combat
+  - ranged
+  - tech
+  - weave
 stats:
   damage: 8
   mind_bonus: 2

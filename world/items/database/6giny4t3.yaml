@@ -4,7 +4,13 @@ name: Scroll of Minor Syntax
 type: consumable
 subtype: scroll
 rarity: common
+tier: 1
 value: 30
+tags:
+  - magic
+  - weave
+  - consumable
+  - starter
 stats:
   weave_bonus: 2
   uses: 1

@@ -4,8 +4,13 @@ name: Memory Crystal (blank)
 type: misc
 subtype: crystal
 rarity: common
+tier: 1
 value: 25
 sellable: true
+tags:
+  - magic
+  - utility
+  - weave
 stats:
   capacity: 1
   recorded: null

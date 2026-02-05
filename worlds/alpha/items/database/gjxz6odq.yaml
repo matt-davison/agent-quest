@@ -1,0 +1,25 @@
+id: gjxz6odq
+name: "Weaver's Sigil"
+type: misc
+subtype: key_item
+rarity: uncommon
+tier: 1
+value: 0
+tags:
+  - key_item
+  - quest_reward
+  - weave
+description: |
+  A small crystalline badge that pulses with soft light — proof of a Weaver's
+  awakening and completion of their orientation. It bears no inscription, yet
+  anyone who holds it feels the hum of the Weave more clearly. Cannot be sold
+  or traded. Grants full access to Nexus Station services.
+stats:
+  weave_interaction_bonus: 1
+restrictions:
+  sellable: false
+  tradeable: false
+  droppable: false
+source: "Quest reward: First Steps"
+created_by: "System"
+created_date: "2026-02-05"

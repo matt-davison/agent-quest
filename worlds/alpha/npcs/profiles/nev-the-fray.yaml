@@ -1,0 +1,218 @@
+# NPC Profile: Nev
+# A Fray — void-entity inhabiting the spaces between compiled reality
+
+id: "nev-the-fray"
+name: "Nev"
+full_name: null    # Frays don't have full names. "Nev" is an approximation.
+entity_type: "fray"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Fold Inhabitant"
+  location: "The Fold (void-pocket, West Road corridor)"
+
+  appearance: |
+    Nev doesn't look like anything — not consistently. It presents as an absence
+    shaped like a person: a silhouette cut from the air, roughly humanoid, edges
+    flickering like a signal losing reception. Sometimes details surface — the
+    suggestion of a face, the outline of fingers, a flicker of something that
+    might be eyes — but they dissolve before they resolve. It is approximately
+    chest-height, though its proportions shift. It casts no shadow. It makes no
+    sound when it moves. It smells like static.
+
+  personality:
+    - "Intensely curious about compiled beings, especially Voidwalkers"
+    - "Communicates through impressions, images, and feelings — not words"
+    - "Patient in a way that suggests time means nothing to it"
+    - "Not hostile, but not safe — alien in the truest sense"
+    - "Possessive of its space, but willing to share with those who belong"
+
+  known_history: |
+    Unknown. Frays have no documented history because no one has documented
+    them. They exist in the margins — the uncompiled spaces, the seams, the
+    gaps between rendered reality. They may have been here since before the
+    Architects, or they may be a byproduct of the Architects' work. They
+    don't leave physical traces because they don't fully exist in the
+    physical layer.
+
+  speech_patterns:
+    # Frays don't speak. They project.
+    greeting: null
+    communication_method: |
+      Nev communicates by projecting sensory impressions directly into the
+      mind of nearby void-sensitive beings. These manifest as:
+      - Feelings (curiosity, warmth, warning, hunger)
+      - Images (fragmentary, dreamlike, not always comprehensible)
+      - Sounds (echoes of things that were never said)
+      - Absence (the sudden awareness of something missing)
+    emotional_palette:
+      curious: "A tingling at the base of the skull, like being watched by something that means no harm"
+      pleased: "Warmth behind the eyes, the taste of something sweet but unnamed"
+      warning: "A chill in the translucent hand, the feeling of a ledge underfoot"
+      distressed: "Static in the teeth, the smell of burnt copper, visual snow"
+
+  mannerisms:
+    - "Tilts its 'head' when examining something, like a bird"
+    - "Flickers rapidly when excited or curious"
+    - "Shrinks when startled, becoming nearly invisible"
+    - "Reaches toward interesting things with tendrils of absence"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  origin: "Pre-Architect. Frays are the native inhabitants of uncompiled space."
+
+  secrets:
+    - id: "fray_nature"
+      content: "Frays are not creatures that moved into void-space — they ARE void-space. They are the personification of absence. Negative space that gained awareness."
+      unlock_condition: "Spirit check DC 16 while in prolonged contact"
+      mend_dc: 14
+
+    - id: "fold_network"
+      content: "Nev knows the locations of other Folds — the network of void-pockets that spans the world. It can guide a Voidwalker between them."
+      unlock_condition: "standing >= 4 AND flag:trusted_by_nev"
+      mend_dc: 16
+
+    - id: "architect_memory"
+      content: "Frays remember the Architects. Not as people — as disturbances. Massive presences that carved compiled space out of the void. The Frays watched. Some Frays were consumed by the compilation. The rest learned to hide in the seams."
+      unlock_condition: "standing >= 6 AND flag:asked_about_architects"
+      mend_dc: 18
+
+  motivations:
+    - "Survive — compilation is death for a Fray"
+    - "Understand compiled beings, especially those who straddle the boundary"
+    - "Protect the Fold and others like it"
+    - "Find others of its kind — Frays are solitary and lonely"
+
+  fears:
+    - "Compilation — being rendered into fixed form"
+    - "The Architects returning"
+    - "Being truly alone forever"
+
+# === STATS ===
+stats:
+  level: 4
+  class: "Void Entity"
+  hp: 30
+  armor: 0    # Physical attacks pass through — but Weave/Spirit attacks connect
+
+  attributes:
+    might: 1      # Near-zero physical presence
+    agility: 8    # Extremely fast and evasive in void-space
+    mind: 4       # Alien intelligence, not comparable to compiled minds
+    spirit: 7     # Strong void-presence
+
+  abilities:
+    - name: "Phase Native"
+      description: "Exists naturally in phased state. Physical attacks have 50% miss chance."
+      type: "passive"
+
+    - name: "Impression"
+      description: "Project feelings, images, or sensations into nearby minds (range: 10m, Spirit vs Spirit to resist)"
+      type: "utility"
+
+    - name: "Fold Step"
+      description: "Teleport between any two points within the same void-pocket instantly"
+      type: "movement"
+
+    - name: "Unravel"
+      description: "Pull at the threads of a compiled object, causing it to partially decompile. 10 damage, Spirit-based. Only used in self-defense."
+      type: "combat"
+
+  resistances:
+    - "physical (50% miss chance)"
+    - "cold"
+    - "void"
+
+  vulnerabilities:
+    - "Weave-based attacks (full damage)"
+    - "Light/radiance (disrupts form)"
+    - "Compilation magic (existential threat)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Location of all seams and Folds within the Nexus-Lumina corridor"
+    - "When someone enters the Fold"
+    - "The emotional state of void-sensitive beings nearby"
+
+  current_awareness:
+    - "A Voidwalker has entered the Fold for the first time in decades"
+    - "The Seam Shard has been disturbed"
+    - "Something about this visitor is... familiar"
+
+# === DIALOGUE ===
+# Frays don't have dialogue. They have projections.
+projections:
+  first_encounter:
+    sequence:
+      - type: feeling
+        content: "Surprise. Not fear — surprise. Like finding a door where there was only wall."
+      - type: image
+        content: "A flickering impression of yourself as Nev sees you — half-solid, half-void, glowing faintly at the edges. Beautiful, from its perspective."
+      - type: feeling
+        content: "Curiosity. Overwhelming, childlike curiosity. It wants to understand what you are."
+      - type: image
+        content: "An old memory — another figure, long ago, standing where you stand. Different shape. Same glow. Then: gone."
+
+  trust_building:
+    - condition: "Show no aggression for 1 minute"
+      projection:
+        type: feeling
+        content: "Tentative warmth. The sense of a hand almost touching yours but not quite."
+    - condition: "Speak to it (even though it can't speak back)"
+      projection:
+        type: image
+        content: "Your words visualized — not as meaning but as shapes, colors, textures. It sees language as art."
+    - condition: "Show it the Seam Shard"
+      projection:
+        type: feeling
+        content: "Recognition. Loss. Like seeing a photograph of a missing friend."
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "spend_time_in_fold"
+      standing_change: 1
+      note: "Presence alone is meaningful to something this lonely"
+    - action: "communicate_patiently"
+      standing_change: 1
+    - action: "share_sensory_experience"
+      standing_change: 2
+      note: "Frays hunger for compiled sensations they can't experience directly"
+    - action: "protect_the_fold"
+      standing_change: 2
+
+  dislikes:
+    - action: "attempt_to_compile_it"
+      standing_change: -5
+      note: "Existential threat"
+    - action: "damage_the_fold"
+      standing_change: -3
+    - action: "bring_others_without_permission"
+      standing_change: -2
+    - action: "ignore_its_projections"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "fray_population"
+    mend_dc: 16
+    hints:
+      - "How many Frays exist? Nev doesn't seem to know"
+      - "It projects loneliness — but also fragments of others"
+      - "The void-pockets may each contain one"
+
+  - field: "architect_relationship"
+    mend_dc: 20
+    hints:
+      - "Nev reacts strongly to Architect symbols"
+      - "There's a complex emotion — not hate, not fear, something older"
+      - "The Architects took something from the Frays"
+
+# === METADATA ===
+metadata:
+  entity_type: "fray"
+  created_by: "matt-davison"
+  created_character: "ichnor-nif"
+  created_date: "2026-02-05"
+  version: "1.0"

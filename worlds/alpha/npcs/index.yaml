@@ -189,8 +189,53 @@ npcs:
     notes: "Father of Yara Corren, who vanished 43 years ago hunting Architect 03. Gave Coda her coordinates."
     created_by: "matt-davison"
 
+  # --- VOID-POCKETS / THE FOLD ---
+
+  nev-the-fray:
+    name: "Nev"
+    role: "Fold Inhabitant"
+    entity_type: "fray"
+    default_location: "the-fold"
+    region: "between"
+    faction: "void-native"
+    disposition_default: "curious"
+    services: []
+    tags:
+      - "void-entity"
+      - "fray"
+      - "non-verbal"
+      - "alien"
+      - "lonely"
+      - "fold-network"
+    has_profile: true
+    profile_priority: "player-created"
+    notes: "First documented Fray. Void-entity native to uncompiled space. Communicates through projected impressions. Discovered by Ichnor Nif."
+    created_by: "matt-davison"
+    created_character: "ichnor-nif"
+
   # --- THE ELDERWOOD ---
   # (placeholder for future NPCs)
+
+  # --- LUMINA CITY UNDERLEVEL ---
+
+  dr-tomas-hale:
+    name: "Dr. Tomas Hale"
+    role: "Data Archaeologist (Missing)"
+    default_location: "lumina-city/underlevel-deep-ruins"
+    region: "lumina"
+    faction: "independents"
+    disposition_default: "frightened"
+    services: []
+    tags:
+      - "archaeologist"
+      - "missing_person"
+      - "quest_npc"
+      - "first_server"
+    has_profile: true
+    profile_priority: "player-created"
+    notes: "One of three archaeologists who went missing in the Underlevel. Found alive by Sable Vex."
+    created_by: "matt-davison"
+    created_character: "sable-vex"
 
   # --- THE UNDERCRYPT ---
 
@@ -237,6 +282,11 @@ npcs:
 
 # === FACTION DEFINITIONS ===
 factions:
+  void-native:
+    name: "Void Natives"
+    description: "Entities native to uncompiled space — the gaps between rendered reality. Predate the Architects."
+    disposition_modifier: 0
+
   the-anchorate:
     name: "The Anchorate"
     description: "Ancient order of reality validators who witness and anchor changes to the Weave"

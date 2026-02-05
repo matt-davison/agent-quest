@@ -1,0 +1,121 @@
+# Ichnor Nif - Voidwalker
+# The pickpocket who learned to steal reality itself
+
+name: "Ichnor Nif"
+class: "Voidwalker"
+active: true
+backstory: |
+  You grew up in the data-slums beneath Nexus Station, where the signal bleeds through
+  cracked conduits and the air tastes like burnt copper. You learned to pick pockets before
+  you learned to read — nimble fingers, quicker feet, gone before anyone noticed. But one
+  night you reached into a merchant's coat and your hand kept going — through the fabric,
+  through the lining, through something that wasn't fabric at all. You pulled your hand
+  back holding a shard of pure void. That was the day you stopped stealing wallets and
+  started stealing reality itself.
+
+stats:
+  strength: 12     # Base 10 + 2 distributed
+  agility: 16      # Base 10 + 3 class bonus + 3 distributed
+  mind: 15         # Base 10 + 2 class bonus + 3 distributed
+  spirit: 12       # Base 10 + 2 distributed
+  # Voidwalker bonus: +3 AGI, +2 MND
+  # Distributed 10 points: +2 STR, +3 AGI, +3 MND, +2 SPI
+
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 52      # -3g strong drink, +5g found pouch on West Road
+  willpower: 24              # spirit(12) x multiplier(2) = 24
+  max_willpower: 24
+  willpower_multiplier: 2
+
+# === ABILITIES ===
+abilities:
+  known:
+    - id: xgktne2p            # Phase
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+    - id: lf5fbupm            # Backstab
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+
+  active_effects: []
+
+inventory:
+  - id: igprmwrh    # Seam Shard
+    qty: 1
+    note: "Found in the Fold. Vibrates near void-pockets and reality seams."
+
+equipped:
+  weapon: null
+  armor: null
+  accessory: igprmwrh    # Seam Shard
+
+# === PROGRESSION ===
+progression:
+  level: 1
+  xp: 30               # +10 location discovery, +5 unique item, +10 first contact (Frays), +5 weaving
+  xp_to_next: 100
+  tier: 1
+  stat_points: 0
+  fame: 0
+
+location: "the-fold"
+
+# === DIFFICULTY ===
+difficulty:
+  setting: normal
+
+# === AFFLICTIONS ===
+afflictions: []
+
+# === ALIGNMENT ===
+alignment:
+  primary: "neutral"
+  secondary: null
+  axes:
+    empathy: -1    # Unprovoked aggression toward a stranger
+    order: -2      # Chaos in a neutral zone, broke tavern rules
+    risk: 2        # Reckless provocation on arrival
+
+# === DECISIONS ===
+decisions:
+  - context: "First visit to Codex Tavern"
+    choice: "Slapped a patron and screamed about Commander Steele"
+    alignment_impact: "chaotic, reckless"
+    consequences: "Vera Nighthollow standing -3, final warning issued"
+
+chronicle:
+  - session: 1
+    date: "2026-02-05"
+    event: "Awakened at Nexus Station. A former thief from the data-slums discovers the Weave sees him too."
+  - session: 1
+    date: "2026-02-05"
+    event: "Caused a scene at the Codex Tavern. Slapped a Codebreaker named Harsk, screamed about Commander Steele. Vera Nighthollow issued a final warning. Reputation: off to a legendary start."
+  - session: 1
+    date: "2026-02-05"
+    event: "Apologized to Harsk (sincere — he's a Gear Wars vet). Lied to Vera about having Tourette's and PTSD. Her Truth Sight caught it instantly. She served the drink anyway. Lesson learned: don't lie to Vera."
+  - session: 1
+    date: "2026-02-05"
+    event: "Gathered intel from tavern patrons: Pryx, Renna, and a bald man. Learned about Commander Steele and irregularities on the Quest Board. Teams not reporting back from the Undercrypt."
+  - session: 1
+    date: "2026-02-05"
+    event: "Walked the West Road alone. Found a lost pouch with 5 gold. Kept it. Thought about the kind of person he wants to be in this new world."
+  - session: 1
+    date: "2026-02-05"
+    event: "Discovered the Fold — a void-pocket between Nexus Station and Lumina City. Stepped through a seam in reality with a natural 20. Found a cracked Architect obelisk, a still pool of void-mercury, and a Seam Shard. The first person here in decades. A place not on any map."
+  - session: 1
+    date: "2026-02-05"
+    event: "Wove the Frays into existence — void-entities native to uncompiled space. Met Nev, a Fray inhabiting the Fold. First contact between a Voidwalker and a void-native in living memory. Cost: 3 Tokes."
+  - session: 1
+    date: "2026-02-05"
+    event: "Communed with Nev. First projection overwhelmed — nosebleed, near-dissolution. Learned the truth: Frays are fragments of a single vast awareness that was shattered when the Architects compiled reality. Each Fold holds a piece. Nev hasn't contacted another Fray in ages. Learned of three Fray belief systems: The Unrendered (reverence for original unity), The Rendering as death (grief rituals), and the Hungry Ones (those who want to uncompile reality). Received a vision of the Deep Fold — a convergence point where Frays might gather. Location unknown."

@@ -136,28 +136,27 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
-| Action             | Description                                  | Load                                                                                        | Agents Used                                         |
-| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------- |
-| **LOOK**           | Examine current location                     | `worlds/<world>/locations/<location>/README.md` + generate panorama                         | -                                                   |
-| **MOVE**           | Travel to connected location                 | Destination README, update persona + generate panorama                                      | `travel-manager` (if multi-leg)                     |
-| **TALK**           | Interact with NPC                            | Check NPC availability via `world-state`, load profile from `worlds/<world>/npcs/profiles/` | -                                                   |
-| **QUEST**          | View/accept/update quests                    | `worlds/<world>/quests/available/`, player's `quests.yaml`                                  | `state-writer` (on update)                          |
-| **COMBAT**         | Fight an enemy                               | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map                            | `combat-manager`, `state-writer`                    |
-| **REST**           | Recover HP (10 gold at inns)                 | Update persona                                                                              | `economy-validator` (gold), `state-writer`          |
-| **SHOP**           | Buy/sell items                               | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements                              | `shop-manager`, `economy-validator`, `state-writer` |
-| **WEAVE**          | Create content (costs/earns Tokes)           | [reference/weaving.md](reference/weaving.md)                                                | `economy-validator`, `state-writer`                 |
-| **REVIEW**         | Review pending claims (earns Tokes)          | [rules/reviews.md](rules/reviews.md)                                                        | `claim-reviewer`                                    |
-| **TODO**           | View/manage player intentions                | `worlds/<world>/players/<github>/todo.yaml`                                                 | -                                                   |
-| **CAMPAIGN**       | View campaign progress                       | `campaign-progress.yaml`, current chapter                                                   | -                                                   |
-| **TRADE**          | Trade with other players                     | [quick-ref/multiplayer.md](quick-ref/multiplayer.md)                                        | `multiplayer-handler`, `economy-validator`          |
-| **PARTY**          | Form/manage groups                           | `worlds/<world>/multiplayer/parties/`, party-membership.yaml                                | `multiplayer-handler`                               |
-| **MAIL**           | Send/read messages                           | `worlds/<world>/multiplayer/mail/<github>/`                                                 | `multiplayer-handler`                               |
-| **GUILD**          | Guild management                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
-| **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
-| **WHO**            | See players at location                      | `worlds/<world>/state/presence.yaml`                                                        | `multiplayer-handler`                               |
-| **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
-| **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
-| **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
+| Action         | Description                                                  | Load                                                                                        | Agents Used                                         |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **LOOK**       | Examine current location                                     | `worlds/<world>/locations/<location>/README.md` + generate panorama                         | -                                                   |
+| **MOVE**       | Travel to connected location                                 | Destination README, update persona + generate panorama                                      | `travel-manager` (if multi-leg)                     |
+| **TALK**       | Interact with NPC                                            | Check NPC availability via `world-state`, load profile from `worlds/<world>/npcs/profiles/` | -                                                   |
+| **QUEST**      | View/accept/update quests                                    | `worlds/<world>/quests/available/`, player's `quests.yaml`                                  | `state-writer` (on update)                          |
+| **COMBAT**     | Fight an enemy                                               | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map                            | `combat-manager`, `state-writer`                    |
+| **REST**       | Recover HP (10 gold at inns)                                 | Update persona                                                                              | `economy-validator` (gold), `state-writer`          |
+| **SHOP**       | Buy/sell items                                               | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements                              | `shop-manager`, `economy-validator`, `state-writer` |
+| **WEAVE**      | Create content (costs/earns Tokes)                           | [reference/weaving.md](reference/weaving.md)                                                | `economy-validator`, `state-writer`                 |
+| **REVIEW**     | Review pending claims (earns Tokes)                          | [rules/reviews.md](rules/reviews.md)                                                        | `claim-reviewer`                                    |
+| **TODO**       | View/manage player intentions                                | `worlds/<world>/players/<github>/todo.yaml`                                                 | -                                                   |
+| **CAMPAIGN**   | View campaign progress                                       | `campaign-progress.yaml`, current chapter                                                   | -                                                   |
+| **TRADE**      | Trade with other players                                     | [quick-ref/multiplayer.md](quick-ref/multiplayer.md)                                        | `multiplayer-handler`, `economy-validator`          |
+| **PARTY**      | Form/manage groups                                           | `worlds/<world>/multiplayer/parties/`, party-membership.yaml                                | `multiplayer-handler`                               |
+| **MAIL**       | Send/read messages                                           | `worlds/<world>/multiplayer/mail/<github>/`                                                 | `multiplayer-handler`                               |
+| **GUILD**      | Guild management                                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
+| **DUEL**       | PvP combat                                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
+| **WHO**        | See players at location                                      | `worlds/<world>/state/presence.yaml`                                                        | `multiplayer-handler`                               |
+| **DREAM**      | Enter The Dreaming (autopilot)                               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
+| **DEEP DREAM** | Zero-intervention autonomy (full autopilot, no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 
 ### ASCII Visualization
 
@@ -191,13 +190,14 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 
 **Check player's active quest count before creating new content:**
 
-| Active Quests | Quest Generation Strategy |
-|--------------|--------------------------|
-| **0-2** | Be generous with NEW standalone quests. Most encounters should offer independent stories. |
-| **3-5** | Balance between new and interconnected. Look for natural connections but don't force them. |
-| **6+** | Favor interconnecting existing threads. New encounters can advance multiple questlines. |
+| Active Quests | Quest Generation Strategy                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| **0-2**       | Be generous with NEW standalone quests. Most encounters should offer independent stories.  |
+| **3-5**       | Balance between new and interconnected. Look for natural connections but don't force them. |
+| **6+**        | Favor interconnecting existing threads. New encounters can advance multiple questlines.    |
 
 **Quest Importance Matters:**
+
 - Major/Campaign quests → Reference and tie into frequently
 - Significant quests → Sometimes connected to other content
 - Standard quests → Occasionally connected
@@ -207,10 +207,12 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 The world should feel rich and varied, not like every NPC and location ties back to existing quests. Create standalone content. Not everything needs to be related.
 
 **Example - Player with 1 active quest meets merchant:**
+
 - ❌ Bad: "The merchant knows about your campaign quest and has a clue"
 - ✅ Good: "The merchant has their own problem: supply shortage affecting their business"
 
 **Example - Player with 7 active quests meets merchant:**
+
 - ❌ Bad: "The merchant has a completely unrelated new questline"
 - ✅ Good: "The merchant mentions the trade route corruption you've been investigating"
 
@@ -671,3 +673,5 @@ The `repo-sync` agent also handles fetching new multiplayer content:
 - **Session start**: `operation: "fetch"` - pull latest, check mail/trades/invites
 - **After actions**: `operation: "save"` - push changes for other players to see
 - **Periodically**: Keep multiplayer state in sync during long sessions
+
+## IT IS **CRITICAL** TO RE-READ THIS FILE AFTER EVERY COMPACT

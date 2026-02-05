@@ -252,10 +252,32 @@ fs.writeFileSync(ledgerPath, yaml.dump(ledger));
 | PARSE_ERROR | Invalid YAML content |
 | ROLLBACK_FAILED | Could not restore backup (critical) |
 
+## Automatic Audit Logging
+
+State Writer automatically logs every action to `players/<github>/session-audit.yaml`:
+
+```bash
+# Called internally after successful writes
+node scripts/session-audit.js log <github> <action> \
+  --subagents state-writer,<other-subagents-in-chain> \
+  --details '<json-summary>'
+```
+
+This means:
+- **Using State Writer = action is logged**
+- **Bypassing State Writer = action is NOT logged (and detectable)**
+- Audit trail is created automatically, not voluntarily
+
+The action type is inferred from the files being written:
+- `persona.yaml` changes → combat, rest, level_up
+- `ledger` changes → spend_tokes, earn_tokes
+- `quests.yaml` changes → quest_update
+- `trades/` changes → trade
+
 ## Safety Rules
 
 1. **Never delete files** - Only update, append, or create
 2. **Preserve history** - Transaction logs are append-only
 3. **Atomic operations** - All writes succeed or all roll back
 4. **Validate before commit** - Run scripts before confirming success
-5. **Log all operations** - Maintain audit trail for debugging
+5. **Log all operations** - Audit trail created automatically via session-audit.js

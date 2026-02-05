@@ -25,5 +25,5 @@ gh pr create --title "..." --body "..."
 
 - Read files before modifying
 - Use specific file paths over wildcards in git add
-- Persist all new creations (NPCs, locations, items)
+- Persist all new creations (NPCs, locations, items, abilities)
 - Update chronicle for major story events

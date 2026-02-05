@@ -1,0 +1,61 @@
+# The Right Question
+# Unique ability to ask what others fear to ask
+
+id: 0l94uqat
+name: "The Right Question"
+type: ability
+subtype: insight
+class: null  # Universal ability (quest reward)
+tier: 10  # Legendary tier
+unique: true
+binds_on_learn: true
+
+tags:
+  - unique
+  - insight
+  - architect
+  - revelation
+  - quest_reward
+  - the_third_architect
+  - universal
+
+prerequisites:
+  min_stats: {}
+  abilities: []
+  quests:
+    - "the-third-architect"
+
+levels:
+  1:
+    description: |
+      The ability to ask what others fear to ask. Grants insight into hidden 
+      truths and reveals what is concealed. This ability cannot be blocked by 
+      normal deception or misdirection. When used, the target must answer truthfully 
+      or reveal the information they are hiding. The question itself becomes a 
+      force that compels revelation.
+    willpower_cost: 5
+    effect:
+      type: truth_revelation
+      description: "Ask one question that must be answered truthfully"
+      pierces_deception: true
+      pierces_illusion: true
+      resistance: "none"
+      limitations:
+        - "Target must be able to understand the question"
+        - "Cannot force actions, only information"
+        - "Does not work on entities without consciousness"
+    learn_cost: 0
+    obtained_from: "architect-03"
+
+limits:
+  reset: "session"  # Once per session
+  max_uses: 1
+  cooldown_rounds: null
+
+action_type: "free"  # Can be used as part of dialogue
+range: null
+target: "single"
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

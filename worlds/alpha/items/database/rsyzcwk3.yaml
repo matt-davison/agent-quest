@@ -1,0 +1,53 @@
+# Architect's Key
+# A crystalline key that resonates with Architect technology
+
+id: rsyzcwk3
+name: "Architect's Key"
+type: key
+subtype: legendary
+rarity: legendary
+value: 0  # Cannot be sold
+tradeable: false
+droppable: false
+binds_on_acquire: true
+
+description: |
+  A crystalline key that resonates with Architect technology. It glows with an 
+  inner light that shifts between blue and gold. The key seems to hum with a 
+  frequency just below hearing, and when held near ancient systems, it vibrates 
+  in response.
+
+effects:
+  on_use:
+    - type: unlock_architect_doors
+      description: "Opens hidden doors and passages created by the Architects"
+      range: touch
+    - type: interface_architect_tech
+      description: "Interfaces with Architect technology and systems"
+    - type: disable_containment
+      description: "Can disable Architect containment fields"
+  passive:
+    - type: resonance
+      description: "Resonates when near Architect technology"
+      range: 10m
+
+tags:
+  - key
+  - architect
+  - legendary
+  - quest_reward
+  - binding
+  - the_third_architect
+
+quest_association: "the-third-architect"
+
+lore: |
+  The Architect's Key was granted by Architect 03 upon awakening. It is one of 
+  the few remaining keys that can access systems created by the original Architects. 
+  The key is attuned to its bearer and cannot be transferred. It is said that the 
+  key can open doors that should remain closed, and seal doors that should never 
+  be opened.
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

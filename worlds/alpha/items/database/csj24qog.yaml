@@ -1,0 +1,56 @@
+# Communication Key
+# Pre-Architect technology that opens channels to entities beyond reality
+
+id: csj24qog
+name: "Communication Key"
+type: key
+subtype: artifact
+rarity: artifact
+value: 2000
+tradeable: true
+droppable: false
+binds_on_acquire: false
+
+description: |
+  Pre-Architect technology that opens channels to entities beyond reality. The 
+  Key appears to be made of a material that doesn't quite reflect light correctly—
+  shadows fall in wrong directions, and looking at it too long causes a sense of 
+  vertigo. It is simultaneously a key and a doorway.
+
+effects:
+  on_use:
+    - type: open_channel
+      description: "Opens channels to entities beyond our reality"
+      warning: "May allow entities from the other side to enter"
+    - type: first_server_access
+      description: "Provides access to the First Server's true nature"
+  on_examine:
+    - type: spirit_check
+      dc: 15
+      success: "Sense the doorway nature of the Key"
+      failure: "Feel overwhelming dread and unease"
+
+tags:
+  - key
+  - artifact
+  - pre_architect
+  - quest_item
+  - dangerous
+  - corporate
+  - arcotech
+  - the_arcotech_heist
+
+quest_association: "the-arcotech-heist"
+
+lore: |
+  The Communication Key predates the Architects themselves. It is a fragment of 
+  whatever created the First Server—a technology so ancient that the Architects 
+  incorporated it into their designs without fully understanding it. Governor Axis 
+  fears this Key above all else, for it threatens to make him obsolete by opening 
+  direct communication with the entities that created the First Server. The Key 
+  is both a bridge and a doorway; it can connect to the other side, but something 
+  can also cross through to our side.
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

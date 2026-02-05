@@ -1,0 +1,59 @@
+# Focus Serum
+# Enhances perception and concentration
+
+id: qhdrng9o
+name: "Focus Serum"
+type: consumable
+subtype: serum
+rarity: rare
+value: 50
+tradeable: true
+droppable: true
+binds_on_acquire: false
+uses: 1
+consumable: true
+
+description: |
+  A small vial of glowing liquid that shifts between amber and violet. When 
+  consumed, it sharpens perception to preternatural levels, allowing the user 
+  to notice details invisible to normal sight. The taste is bittersweet with 
+  a metallic aftertaste. Side effects may include mild temporal distortion.
+
+effects:
+  on_use:
+    - type: perception_boost
+      description: "+2 to Perception for 1 hour"
+      stat: perception
+      bonus: 2
+      duration: "1 hour"
+    - type: distraction_immunity
+      description: "Immune to distraction effects"
+      duration: "1 hour"
+    - type: detail_detection
+      description: "Can detect hidden details and patterns"
+      duration: "1 hour"
+  side_effects:
+    - type: temporal_distortion
+      description: "Mild sense of time dilation"
+      severity: minor
+      duration: "30 minutes after effect ends"
+
+tags:
+  - consumable
+  - serum
+  - perception
+  - buff
+  - cognitive
+  - black_market
+
+lore: |
+  Focus Serum is distilled from the neural patterns of deep-code divers—those 
+  who spend extended periods in virtual environments. The Black Market moves 
+  significant quantities of the serum, though the Neon Saints ensure only 
+  approved dealers can trade it. Overuse can lead to permanent hyper-awareness, 
+  a condition where the user cannot stop noticing every detail, every pattern, 
+  every sound—a form of madness that consumes from within.
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

@@ -1,0 +1,52 @@
+# Lock Bypass Kit
+# Professional electronic lockpicking tools
+
+id: v69rsfye
+name: "Lock Bypass Kit"
+type: tool
+subtype: lockpicking
+rarity: uncommon
+value: 150
+tradeable: true
+droppable: true
+binds_on_acquire: false
+uses: 10
+consumable: false
+
+description: |
+  A professional-grade electronic lockpicking kit containing various bypass tools, 
+  electronic scramblers, decoders, and interface probes. The case is weathered 
+  carbon-fiber with compartments for each tool. Faint electromagnetic residue 
+  clings to the components—this kit has seen heavy use.
+
+effects:
+  on_use:
+    - type: lockpicking_bonus
+      description: "+3 to lockpicking attempts on electronic locks"
+      applies_to: "electronic_locks"
+      bonus: 3
+    - type: bypass_corporate
+      description: "Can bypass standard corporate security systems"
+      dc_modifier: -2
+  passive:
+    - type: tool_proficiency
+      description: "Grants proficiency in electronic lockpicking if not already proficient"
+
+tags:
+  - tool
+  - lockpicking
+  - electronic
+  - stealth
+  - heist
+  - criminal
+
+lore: |
+  Lock bypass kits are essential tools for data-runners, thieves, and corporate 
+  espionage agents throughout Lumina City. The best kits are custom-assembled over 
+  years of field work, each tool bearing the marks of past jobs. This particular 
+  kit shows signs of use at multiple Arcotech facilities—someone knew what they 
+  were doing.
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

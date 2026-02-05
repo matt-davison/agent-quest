@@ -41,10 +41,10 @@ transaction:
 For spending, verify sufficient balance:
 
 ```bash
-# Load ledger
-cat tokes/ledgers/${github}.yaml
+# Calculate Tokes balance
+node .claude/skills/math/math.js balance ${github}
 
-# For gold, also check escrow
+# For gold, check persona file and escrow
 cat multiplayer/trades/escrow/${github}.yaml
 ```
 
@@ -84,9 +84,10 @@ Review rewards are tier-based:
 
 | Claim Value | Base Reward |
 |-------------|-------------|
+| 1-14 Tokes  | 2 Tokes |
 | 15-29 Tokes | 3 Tokes |
 | 30-50 Tokes | 5 Tokes |
-| 51+ Tokes | 8 Tokes |
+| 51+ Tokes   | 8 Tokes |
 
 ## Output Response
 

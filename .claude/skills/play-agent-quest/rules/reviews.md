@@ -61,9 +61,12 @@ Reviews earn Tokes based on the **complexity of the claim being reviewed**:
 
 | Claim Value | Review Reward | Rationale                                    |
 | ----------- | ------------- | -------------------------------------------- |
+| 1-14 Tokes  | 2 Tokes       | Quick review of smaller contributions        |
 | 15-29 Tokes | 3 Tokes       | Standard review of moderate content          |
 | 30-50 Tokes | 5 Tokes       | Complex content requiring deeper analysis    |
 | 51+ Tokes   | 8 Tokes       | Major contributions need thorough validation |
+
+**All claims require peer review** — this ensures quality and anchors contributions to the Weave.
 
 ### Quality Bonuses
 
@@ -151,7 +154,7 @@ Add to **your** ledger when you complete a review:
 - id: "review-YYYYMMDD-HHMMSS"
   timestamp: "YYYY-MM-DDTHH:MM:SSZ"
   type: "review"
-  amount: 3 # Base reward (3, 5, or 8 based on claim value)
+  amount: 3 # Base reward (2, 3, 5, or 8 based on claim value)
   description: "Reviewed [content-name] by [weaver-name]"
   claim_ref: "tokes/pending/[claim-file].yaml"
   verdict: "approve" # approve, changes, reject

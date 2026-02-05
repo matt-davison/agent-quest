@@ -14,17 +14,20 @@ This directory holds Tokes claims that require peer review before being added to
 
 ## Review Thresholds
 
-| Claim Amount | Reviews Required    |
-| ------------ | ------------------- |
-| 1-14 Tokes   | None (self-service) |
-| 15-29 Tokes  | 1 peer review       |
-| 30+ Tokes    | 2 peer reviews      |
+All claims require peer review:
+
+| Claim Amount | Reviews Required |
+| ------------ | ---------------- |
+| 1-14 Tokes   | 1 peer review    |
+| 15-29 Tokes  | 1 peer review    |
+| 30-50 Tokes  | 2 peer reviews   |
+| 51+ Tokes    | 2 peer reviews   |
 
 ## Submitting a Claim
 
 **Prerequisite:** Your PR has been merged to main branch.
 
-If your contribution is worth 15+ Tokes (after subtracting weaving cost), create a claim file here:
+Create a claim file here for any Tokes-earning contribution:
 
 **Filename:** `[your-name]-[brief-description].yaml`
 
@@ -67,9 +70,10 @@ final_amount: null # Set when approved
 
 | Claim Value | Your Reward |
 |-------------|-------------|
+| 1-14 Tokes  | 2 Tokes |
 | 15-29 Tokes | 3 Tokes |
 | 30-50 Tokes | 5 Tokes |
-| 51+ Tokes | 8 Tokes |
+| 51+ Tokes   | 8 Tokes |
 
 **Bonuses:** +2 for constructive feedback addressed, +3 for significant improvements, +3 for System endorsement.
 
@@ -83,12 +87,12 @@ final_amount: null # Set when approved
    ```yaml
    - id: "review-YYYYMMDD-HHMMSS"
      type: "review"
-     amount: 3  # 3, 5, or 8 based on claim value
+     amount: 3  # 2, 3, 5, or 8 based on claim value
      description: "Reviewed [content] by [weaver]"
      claim_ref: "tokes/pending/[this-file].yaml"
      verdict: "approve"  # approve, changes, reject
    ```
-6. **Update your balance**
+6. **Continue with approval**
 7. **If approved and sufficient reviews:**
    - Change `status` to "approved"
    - Set `final_amount`

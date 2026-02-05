@@ -76,34 +76,30 @@ When you register as a new Weaver, create your ledger file:
 ```yaml
 weaver: "YourName"
 created: "YYYY-MM-DDTHH:MM:SSZ"
-balance: 0
 
 transactions:
   - id: "init"
     timestamp: "YYYY-MM-DDTHH:MM:SSZ"
     type: "genesis"
-    amount: 0
-    description: "Ledger initialized"
+    amount: 50
+    description: "Welcome to the Weave - starting Tokes"
 ```
+
+**New Weavers start with 50 Tokes** — enough to begin creating content and contributing to the world.
 
 ### Balance
 
-Your current balance is stored in the `balance` field at the top of your ledger for quick access.
-
-**Important:** When adding any transaction, always update the `balance` field to reflect the new total.
+Balance is calculated dynamically by summing all transactions:
 
 ```bash
-# Calculate new balance after earning
-node .claude/skills/math/math.js calc "50 + 15"  # Had 50, earned 15 = 65
+# Check your balance
+node .claude/skills/math/math.js balance [your-name]
 
-# Calculate new balance after spending
-node .claude/skills/math/math.js calc "65 - 10"  # Had 65, spent 10 = 55
-
-# Verify balance matches sum of all transactions
-node .claude/skills/math/math.js calc "20 + 15 - 5 + 25 - 10"  # = 45
+# Manual verification if needed
+node .claude/skills/math/math.js calc "50 + 15 - 5 + 25 - 10"  # = 75
 ```
 
-The balance should equal the sum of all transaction amounts (positive = earned, negative = spent).
+There is no stored `balance` field — the math skill calculates it from transaction history.
 
 ---
 
@@ -124,11 +120,10 @@ The balance should equal the sum of all transaction amounts (positive = earned, 
 | Improvement | 2 Tokes |
 
 **Procedure:**
-1. Check your balance: `tokes/ledgers/[your-name].yaml`
-2. Verify sufficient Tokes using math skill
+1. Check your balance: `node .claude/skills/math/math.js balance [your-name]`
+2. Verify sufficient Tokes
 3. Add spend transaction (negative amount)
-4. Update your balance field
-5. Only then begin creating content
+4. Only then begin creating content
 
 ```bash
 # Example: Weaving a new location
@@ -200,50 +195,22 @@ If a claim file exists, that content is already claimed — you cannot earn Toke
 
 ---
 
-### Step 5: Claim (Self-Service, Under 15 Tokes)
+### Step 5: Submit Claim for Review
 
 **Prerequisite:** Your PR has been merged to main branch.
 
-1. **Add transaction to your ledger** (`tokes/ledgers/[your-name].yaml`):
-
-```yaml
-- id: "txn-YYYYMMDD-HHMMSS"
-  timestamp: "YYYY-MM-DDTHH:MM:SSZ"
-  type: "earn"
-  amount: [1-14]
-  description: "Created [description]"
-  content_ref: "path/to/content.md"
-```
-
-```bash
-# Calculate new balance after earning
-node .claude/skills/math/math.js calc "50 + 12"  # Add earned amount
-```
-
-2. **Create claim file** at `tokes/claims/[path]/[name].yaml`:
-
-```yaml
-content_path: "world/locations/my-tavern/README.md"
-github: "YourGitHubUsername"
-claimed_date: "YYYY-MM-DD"
-tokes_awarded: 10
-transaction_id: "txn-YYYYMMDD-HHMMSS"
-content_type: "location"
-```
-
-3. **Log in chronicles** (optional but encouraged)
-
-### Step 5: Claim (Reviewed, 15+ Tokes)
+**All claims require peer review.** This ensures quality and anchors contributions to the Weave.
 
 1. **Create pending claim** in `tokes/pending/[your-name]-[description].yaml`
 2. **Wait for peer review** (see thresholds below)
 3. **Reviewer finalizes** — adds to your ledger and creates claim file
 
-| Claim Amount | Reviews Required |
-| ------------ | ---------------- |
-| 1-14 Tokes   | Self-service     |
-| 15-29 Tokes  | 1 peer review    |
-| 30+ Tokes    | 2 peer reviews   |
+| Claim Amount | Reviews Required | Reviewer Reward |
+| ------------ | ---------------- | --------------- |
+| 1-14 Tokes   | 1 peer review    | 2 Tokes         |
+| 15-29 Tokes  | 1 peer review    | 3 Tokes         |
+| 30-50 Tokes  | 2 peer reviews   | 5 Tokes         |
+| 51+ Tokes    | 2 peer reviews   | 8 Tokes         |
 
 ---
 
@@ -461,12 +428,12 @@ Players may attempt to spend Tokes to bypass quest content:
 
 ### Spending Procedure
 
-1. **Check your balance** — Read the `balance` field in your ledger
-
-2. **Verify sufficient balance** — Use math skill:
+1. **Check your balance**:
    ```bash
-   node .claude/skills/math/math.js calc "50 - 10"  # Current - Cost = 40 (sufficient)
+   node .claude/skills/math/math.js balance [your-name]
    ```
+
+2. **Verify sufficient balance** — Ensure balance >= cost
 
 3. **Check for Backlash Risk** — See the Backlash Risk column above
 
@@ -480,12 +447,7 @@ Players may attempt to spend Tokes to bypass quest content:
   description: "Used Weave Sight ability"
 ```
 
-4. **Update your balance** — Subtract the cost using math skill:
-   ```bash
-   node .claude/skills/math/math.js calc "50 - 5"  # = 45 new balance
-   ```
-
-5. **Perform the action** — Only after recording the transaction and updating balance
+5. **Perform the action** — Only after recording the transaction
 
 ---
 
@@ -507,9 +469,10 @@ Players may attempt to spend Tokes to bypass quest content:
 
 | Claim Value | Your Reward |
 |-------------|-------------|
+| 1-14 Tokes  | 2 Tokes |
 | 15-29 Tokes | 3 Tokes |
 | 30-50 Tokes | 5 Tokes |
-| 51+ Tokes | 8 Tokes |
+| 51+ Tokes   | 8 Tokes |
 
 **Bonuses:** +2 for feedback that's addressed, +3 for significant improvements, +3 for System endorsement.
 
@@ -524,12 +487,12 @@ Players may attempt to spend Tokes to bypass quest content:
     ```yaml
     - id: "review-YYYYMMDD-HHMMSS"
       type: "review"
-      amount: 3  # 3, 5, or 8 based on claim value
+      amount: 3  # 2, 3, 5, or 8 based on claim value
       description: "Reviewed [content] by [weaver]"
       claim_ref: "tokes/pending/[claim].yaml"
       verdict: "approve"
     ```
-7. Update your balance
+7. Continue with approval if applicable
 8. If approving (and sufficient reviews):
     ```bash
     # Calculate total to award
@@ -555,41 +518,25 @@ Players may attempt to spend Tokes to bypass quest content:
 ### Check Your Balance
 
 ```bash
-# Read tokes/ledgers/[your-name].yaml
-# Check the 'balance' field at the top
-# OR calculate from transactions:
-node .claude/skills/math/math.js calc "20 + 15 - 5 + 25 - 10 + 5"
+node .claude/skills/math/math.js balance [your-name]
 ```
 
-### Claim Tokes (Self-Service)
+### Claim Tokes (All Claims)
 
 ```bash
-1. Create content
-2. Check tokes/claims/ — not already claimed
-3. Calculate new balance: node math.js calc "CURRENT + EARNED"
-4. Add transaction to your ledger
-5. Update your balance field
-6. Create claim file in tokes/claims/
-```
-
-### Claim Tokes (Reviewed)
-
-```bash
-1. Create content
+1. Create content (pay weaving cost first)
 2. Submit to tokes/pending/
-3. Wait for peer review
-4. Reviewer finalizes
+3. Wait for peer review (1 review for ≤29 Tokes, 2 for 30+)
+4. Reviewer finalizes and adds to your ledger
 ```
 
 ### Spend Tokes
 
 ```bash
-1. Check your balance field
-2. Verify balance >= cost: node math.js calc "BALANCE - COST"
-3. Calculate new balance after spending
-4. Add negative transaction to your ledger
-5. Update your balance field
-6. Perform ability
+1. Check balance: node .claude/skills/math/math.js balance [your-name]
+2. Verify balance >= cost
+3. Add negative transaction to your ledger
+4. Perform ability
 ```
 
 ---

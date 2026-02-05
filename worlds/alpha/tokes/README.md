@@ -30,26 +30,31 @@ tokes/
 
 ### Check Your Balance
 
-1. Read `tokes/ledgers/[your-name].yaml`
-2. Sum all `amount` fields
-3. That's your balance
+```bash
+node .claude/skills/math/math.js balance [your-name]
+```
 
-### Earn Tokes (under 15)
+Balance is calculated dynamically by summing all transactions in your ledger.
 
-1. Create content
-2. Create claim file in `tokes/claims/[path]/[name].yaml`
-3. Add earn transaction to your ledger
+### Earn Tokes
 
-### Earn Tokes (15+)
+All Tokes claims require peer review:
 
-1. Create content
+1. Create content (after paying weaving cost)
 2. Submit to `tokes/pending/`
 3. Wait for peer review
 4. Reviewer finalizes claim and adds to your ledger
 
+| Claim Amount | Reviews Required | Reviewer Reward |
+|--------------|------------------|-----------------|
+| 1-14 Tokes   | 1 peer review    | 2 Tokes         |
+| 15-29 Tokes  | 1 peer review    | 3 Tokes         |
+| 30-50 Tokes  | 2 peer reviews   | 5 Tokes         |
+| 51+ Tokes    | 2 peer reviews   | 8 Tokes         |
+
 ### Spend Tokes
 
-1. Calculate balance from your ledger
+1. Check your balance: `node .claude/skills/math/math.js balance [your-name]`
 2. Verify balance >= cost
 3. Add spend transaction to your ledger
 4. Perform the action

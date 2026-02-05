@@ -19,17 +19,16 @@ When you register as a new Weaver, create your ledger:
 ```yaml
 weaver: "YourName"
 created: "YYYY-MM-DDTHH:MM:SSZ"
-balance: 0
 
 transactions:
   - id: "init"
     timestamp: "YYYY-MM-DDTHH:MM:SSZ"
     type: "genesis"
-    amount: 0
-    description: "Ledger initialized"
+    amount: 50
+    description: "Welcome to the Weave - starting Tokes"
 ```
 
-**Important:** The `balance` field must be kept current. Update it whenever you add a transaction.
+**New Weavers begin with 50 Tokes** — enough to start creating content and contributing to the world.
 
 ## Transaction Schema
 
@@ -40,30 +39,31 @@ transactions:
   amount: 10 # Positive for earn, negative for spend
   description: "What happened"
   content_ref: "path/to/content" # For earn transactions
-  reviewer: "Name" # For reviewed claims (15+ Tokes)
+  reviewer: "Name" # For reviewed claims
 ```
 
 ## Balance
 
-Your current balance is stored in the `balance` field at the top of your ledger for quick access.
+Balance is calculated dynamically by summing all transaction amounts:
 
-**When adding a transaction:** Update the `balance` field to reflect the new total.
+```bash
+node .claude/skills/math/math.js balance [your-name]
+```
 
-The balance should always equal the sum of all transaction amounts. If you need to verify, sum all `amount` values in your transactions array.
+This is the authoritative way to check your balance. There is no stored `balance` field — it's always computed from your transaction history.
 
 ## Example Ledger
 
 ```yaml
 weaver: "Alice"
 created: "2026-02-03T10:00:00Z"
-balance: 3
 
 transactions:
   - id: "init"
     timestamp: "2026-02-03T10:00:00Z"
     type: "genesis"
-    amount: 0
-    description: "Ledger initialized"
+    amount: 50
+    description: "Welcome to the Weave - starting Tokes"
 
   - id: "txn-20260203-120000"
     timestamp: "2026-02-03T12:00:00Z"
@@ -78,3 +78,5 @@ transactions:
     amount: -5
     description: "Used Weave Sight ability"
 ```
+
+**Balance:** `node .claude/skills/math/math.js balance alice` → 53 Tokes

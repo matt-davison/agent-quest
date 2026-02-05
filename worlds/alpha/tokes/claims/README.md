@@ -27,7 +27,10 @@ claims/
 
 ## Claiming Content
 
-After creating content and adding to your ledger:
+**All claims require peer review.** After creating content:
+
+1. Submit to `tokes/pending/` for review
+2. Once approved, the reviewer creates the claim file here
 
 **Filename:** Match the content path (e.g., `my-tavern.yaml` for `world/locations/my-tavern/`)
 
@@ -42,7 +45,6 @@ tokes_awarded: 15
 transaction_id: "txn-YYYYMMDD-HHMMSS"
 content_type: "location"
 
-# For reviewed claims:
 reviewers:
   - github: "ReviewerGitHub"
     date: "YYYY-MM-DD"

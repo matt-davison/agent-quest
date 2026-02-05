@@ -89,7 +89,12 @@ You swing your sword and deal 15 damage! The enemy is hurt but still standing!
 
 ### 2. State Writer is Single Point of Truth
 
-All file writes go through State Writer. Direct file writes bypass validation.
+All file writes go through State Writer. This is critical because:
+- State Writer runs validation scripts
+- State Writer automatically logs actions to session audit
+- **Direct file writes bypass both validation AND audit logging**
+
+If an action isn't logged, it means State Writer wasn't used - which is detectable.
 
 ### 3. Player Isolation is Absolute
 

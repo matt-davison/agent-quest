@@ -199,6 +199,24 @@ Chapter 2: Many approaches to reach the Debugging Chamber
 Chapter 3: All paths reach the Chamber (different states)
 ```
 
+**Important:** The funnel is for major campaign beats, not every quest. Most quests should stand alone.
+
+### The Web Structure (For Rich Worlds)
+
+Instead of everything funneling together, create independent story threads that occasionally intersect:
+
+```
+Quest A (Merchant's Problem) ──→ Complete
+                                    ↓
+Quest B (Corrupted Routes) ──┬──→ Optional: Share info with A's merchant
+                              │
+Quest C (Faction Politics) ───┼──→ Optional: Mention B's corruption
+                              │
+Quest D (Personal Mystery) ───┘──→ Optional: Faction from C offers help
+```
+
+**Each quest is playable independently.** Intersections are bonuses, not requirements.
+
 ### Meaningful vs. False Choice
 
 **Meaningful choice:**
@@ -313,6 +331,36 @@ Every campaign element should connect to core themes:
 
 **Problem:** Planted element never pays off
 **Solution:** Track Chekhov elements; resolve or explicitly leave for sequels
+
+### The Everything Connects Syndrome
+
+**Problem:** Every NPC, item, and location ties back to existing quests
+**Solution:** Create standalone content; not everything is related
+
+**Why it's a problem:**
+- World feels small and contrived
+- Reduces player's sense of discovery
+- Makes the game feel on-rails
+- Limits organic exploration
+
+**Example of over-connection:**
+> "The blacksmith you just met? He's the guardian's brother, he has a fragment clue, and he knows about your campaign villain."
+
+**Better:**
+> "The blacksmith is dealing with a metal shortage. It's a local problem with its own causes and solutions. Nothing to do with your other quests."
+
+### The Linear Quest Chain
+
+**Problem:** Every quest leads directly to the next quest in a chain
+**Solution:** Offer multiple simultaneous opportunities; let players choose their path
+
+**Why it's a problem:**
+- Feels like following a script
+- Removes player agency
+- Makes side content feel mandatory
+- Reduces replay value
+
+Create quest **webs**, not quest **chains**.
 
 ---
 

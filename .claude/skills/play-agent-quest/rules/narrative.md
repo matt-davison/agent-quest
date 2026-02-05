@@ -243,11 +243,78 @@ Create chronicle entries automatically for:
 
 ---
 
+## Quest Generation Philosophy
+
+The world should feel alive with opportunities, not like a linear path. Create quests organically based on player exploration and the current narrative load.
+
+### Quest Interconnection Guidelines
+
+**When player has 0-2 active quests:**
+- Be generous with NEW, standalone questlines
+- Most encounters and NPCs should offer independent stories
+- No need to tie everything together
+- Focus on world-building and exploration
+
+**When player has 3-5 active quests:**
+- Balance between new and interconnected content
+- Look for natural connections, but don't force them
+- New NPCs can reference existing questlines if it makes sense
+- Standalone quests are still common
+
+**When player has 6+ active quests:**
+- Favor interconnecting existing threads
+- New encounters can advance multiple questlines
+- NPCs can have knowledge of player's activities
+- Create convergence moments where quests intersect
+
+### Quest Importance Tiers
+
+| Tier | Description | Interconnection Frequency |
+|------|-------------|--------------------------|
+| **Major** | Campaign main quests, world-changing events | Frequently tied to other content |
+| **Significant** | Multi-session arcs, important NPCs | Sometimes connected |
+| **Standard** | Single-session complete quests | Occasionally connected |
+| **Minor** | Side activities, favors, errands | Rarely connected |
+
+**Rule:** More important quests should be referenced and tied into more often than minor ones.
+
+### When to Create Standalone Quests
+
+Create independent questlines when:
+- Player is exploring a new area for the first time
+- An NPC's motivation is self-contained
+- The quest teaches a game mechanic or introduces a faction
+- The world feels too linear or predictable
+- Player has few active quests
+
+**Example:** Player visits a market. Instead of the merchant being connected to an existing quest, they have their own problem (stolen goods, rival merchant, supply shortage).
+
+### When to Interconnect Quests
+
+Tie quests together when:
+- It creates a compelling narrative moment
+- NPCs would realistically know about player's actions
+- The thematic connection is strong and meaningful
+- Player has many active quests that could converge
+- It rewards player attention to detail
+
+**Example:** The corrupted data player investigated in Quest A turns out to be related to the faction in Quest B, and an NPC from Quest C has crucial knowledge about both.
+
+### Forcing vs. Natural Connections
+
+**Forced (Avoid):**
+> "The merchant you're helping happens to be the guardian's cousin who knows about the fragment you're seeking and also has information about the Dean's secret."
+
+**Natural (Good):**
+> "The merchant mentions increased corrupted creature activity in the trade routes—consistent with the corruption spreading from the Undercrypt you've been investigating."
+
+---
+
 ## Side Quests in Campaigns
 
-Campaigns can contain side quests that echo main themes.
+Campaigns can contain side quests, but not all side quests need to be part of campaigns.
 
-### Types
+### Campaign Side Quests
 
 | Type | Relationship to Main Story |
 |------|---------------------------|
@@ -256,18 +323,40 @@ Campaigns can contain side quests that echo main themes.
 | **World** | Expands lore relevant to campaign |
 | **Resource** | Provides tools/allies for main quest |
 
+### Standalone Quests During Campaigns
+
+Even when a player is in a campaign, they can encounter quests unrelated to it:
+- Local problems in areas they visit
+- NPC personal stories
+- Faction activities
+- Random encounters
+
+**Don't assume everything connects to the campaign.** The world has its own problems.
+
 ### Tracking
 
 ```yaml
+# Campaign-related side quest
 side_quests:
   - id: "librarian_favor"
     type: "character"
+    campaign: "third-architect"  # Links to campaign
     status: "available|active|completed|failed"
     discovered_in: "chapter-1-2"
     affects:
       - npc: "librarian-cache"
         relationship: +3
       - flag: "library_full_access"
+
+# Standalone quest (no campaign field)
+side_quests:
+  - id: "merchant_rivalry"
+    type: "standalone"
+    status: "active"
+    discovered_in: "nexus-market"
+    affects:
+      - npc: "merchant-kira"
+        relationship: +2
 ```
 
 ---

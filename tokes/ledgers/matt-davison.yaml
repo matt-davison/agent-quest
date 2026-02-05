@@ -1,7 +1,7 @@
 github: "matt-davison"
 weaver: "Coda"
 created: "2026-02-02T00:00:00Z"
-balance: 225
+balance: 214
 
 transactions:
   - id: "init"
@@ -128,3 +128,42 @@ transactions:
     character: "coda"
     pending_reward: true
     reward_range: "25-40 Tokes after PR merge"
+
+  - id: "coda-015"
+    timestamp: "2026-02-04T14:00:00Z"
+    type: "weaving_cost"
+    amount: -5
+    description: "Coda wove Lumina City into existence - a full cyberpunk metropolis with the Chromedome arena (shifting terrain, monsters, betting), plus 9 detailed Midstreet locations with NPCs, shops, services, and quest hooks"
+    content_paths:
+      - "world/locations/lumina-city/README.md"
+      - "world/locations/lumina-city/areas/chromedome.yaml"
+      - "world/locations/lumina-city/areas/jade-dragon.yaml"
+      - "world/locations/lumina-city/areas/neon-bites.yaml"
+      - "world/locations/lumina-city/areas/cyberclinic.yaml"
+      - "world/locations/lumina-city/areas/stitch-and-co.yaml"
+      - "world/locations/lumina-city/areas/black-market.yaml"
+      - "world/locations/lumina-city/areas/info-booth.yaml"
+      - "world/locations/lumina-city/areas/shrine-of-the-code.yaml"
+      - "world/locations/lumina-city/areas/ammo-dump.yaml"
+      - "world/locations/lumina-city/areas/the-dive.yaml"
+    character: "coda"
+    pending_reward: true
+    reward_range: "45-65 Tokes after PR merge"
+
+  - id: "coda-016"
+    timestamp: "2026-02-04T15:00:00Z"
+    type: "weaving_cost"
+    amount: -6
+    description: "Coda wove the Agent Architecture into existence - 7 specialized Claude Code agents for combat, economy, state management, git sync, travel, multiplayer, and claim review, plus architecture documentation"
+    content_paths:
+      - ".claude/agents/README.md"
+      - ".claude/agents/combat-manager.md"
+      - ".claude/agents/economy-validator.md"
+      - ".claude/agents/state-writer.md"
+      - ".claude/agents/repo-sync.md"
+      - ".claude/agents/travel-manager.md"
+      - ".claude/agents/multiplayer-handler.md"
+      - ".claude/agents/claim-reviewer.md"
+    character: "coda"
+    pending_reward: true
+    reward_range: "40-50 Tokes after PR merge"

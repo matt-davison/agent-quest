@@ -1,0 +1,129 @@
+# Shrine of the Code
+# Small temple dedicated to the Architects
+
+id: "shrine-of-the-code"
+name: "Shrine of the Code"
+parent_location: "lumina-city"
+type: "temple"
+tier: 1
+
+description: |
+  A pocket of serenity in the neon chaos. The Shrine of the Code is a
+  small temple wedged between towering buildings, its traditional
+  architecture jarring against the chrome and glass. Paper lanterns
+  float without strings. Incense burns that smells like old computers
+  warming up.
+
+  This is a place of worship for those who remember the Architects —
+  the beings who wrote reality into existence. The faithful come to
+  pray, to seek wisdom, and to leave offerings in hopes of touching
+  something greater than themselves.
+
+atmosphere:
+  lighting: "Soft lantern glow, candlelight, occasional digital sparkles"
+  sounds: "Silence, distant wind chimes, soft chanting"
+  smells: "Incense, old paper, electricity, something ancient"
+
+caretaker:
+  id: "sister-echo"
+  name: "Sister Echo"
+  description: |
+    A young woman with luminous eyes that seem to look through rather
+    than at you. She speaks rarely, and when she does, her words seem
+    to arrive slightly before her lips move. Some say she has a direct
+    connection to the underlying code.
+  dialogue_hook: "*She gestures to the shrine, inviting you to approach.*"
+  secrets:
+    - "Can perceive Weave corruption without training"
+    - "Receives visions from something in the deep code"
+    - "Was found as a child in the ruins beneath the city, origin unknown"
+
+shrine_features:
+  - id: "offering-altar"
+    name: "The Offering Altar"
+    description: |
+      A stone altar covered in flickering holographic flames. Offerings
+      placed here sometimes... vanish. And sometimes, something is left
+      in return.
+
+  - id: "meditation-garden"
+    name: "The Bit Garden"
+    description: |
+      A small garden where digital and physical plants coexist. Perfect
+      for meditation. Time moves strangely here.
+
+  - id: "confession-terminal"
+    name: "The Terminal of Truth"
+    description: |
+      An ancient computer terminal. Type your confessions, and they are
+      said to reach the Architects directly. What happens then... varies.
+
+services:
+  offerings:
+    - offering: "Gold (any amount)"
+      effect: "Blessing: +1 to Spirit checks for 24 hours"
+    - offering: "Item (any value)"
+      effect: "Random chance of receiving something in return"
+    - offering: "Memory (willing sacrifice)"
+      effect: "Significant blessing, lose one memory permanently"
+      risk: "High"
+
+  blessings:
+    - blessing: "Architect's Favor"
+      price: 25
+      effect: "Reroll one failed check today"
+    - blessing: "Code Clarity"
+      price: 50
+      effect: "See through one illusion or deception"
+    - blessing: "Debug"
+      price: 100
+      effect: "Remove one Weave-based affliction"
+
+  meditation:
+    - service: "Guided Meditation"
+      price: 10
+      duration: "1 hour"
+      effect: "Restore all Spirit-based abilities"
+    - service: "Deep Trance"
+      price: 50
+      duration: "4 hours"
+      effect: "Receive a vision (quest hint or lore fragment)"
+      risk: "May attract attention from things in the deep code"
+
+secrets:
+  - id: "sister-origin"
+    discovery: "Reach Trusted standing with Sister Echo"
+    content: |
+      Sister Echo is not human. She's a fragment of something that
+      existed before the current iteration of reality — possibly a
+      creation of the Third Architect. She doesn't know this herself,
+      but she sometimes speaks in languages that predate human existence.
+
+  - id: "true-altar"
+    discovery: "Make an offering of extreme personal value (100g+ or significant item)"
+    content: |
+      The altar is a terminal. The offerings are processed somewhere.
+      The Architects — or something claiming to be them — occasionally
+      respond. The messages are always cryptic. Always relevant. Always
+      unsettling.
+
+  - id: "beneath-shrine"
+    discovery: "Meditate in the Bit Garden for 8+ hours"
+    content: |
+      The shrine was built atop a node in the original code — one of
+      the points where the Architects actually wrote reality. It still
+      functions. With the right knowledge, one could... make changes.
+
+quest_hooks:
+  - "The Third Architect" — Sister Echo has visions about the fragments
+  - "Digital Pilgrimage" — Visit all shrines across the world
+  - "The God Terminal" — Access the true altar's deeper functions
+
+properties:
+  safe_zone: true
+  rest_available: true  # Meditation rooms
+  shop_available: true  # Blessings and services
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

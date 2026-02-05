@@ -1,0 +1,118 @@
+# The Cyberclinic
+# Back-alley medical services and cybernetic modifications
+
+id: "cyberclinic"
+name: "The Cyberclinic"
+parent_location: "lumina-city"
+type: "medical"
+tier: 1
+
+description: |
+  Squeezed between a pawn shop and a condemned building, the Cyberclinic's
+  flickering sign promises "UPGRADES - REPAIRS - NO QUESTIONS." The interior
+  is surprisingly clean — sterile white tiles, humming medical equipment,
+  and the faint smell of antiseptic and solder.
+
+  Dr. Vex operates here, one of the best street docs in Lumina. She left
+  corporate medicine after seeing too much. Now she patches up anyone who
+  walks through the door, no judgment, cash only.
+
+atmosphere:
+  lighting: "Clinical white LEDs, occasional sparks from equipment"
+  sounds: "Medical monitors beeping, servo whirs, muffled screams from back room"
+  smells: "Antiseptic, ozone, synthetic blood"
+
+proprietor:
+  id: "dr-vex"
+  name: "Dr. Vex"
+  description: |
+    A tall woman with chrome-plated forearms and eyes that see in spectrums
+    humans weren't meant to perceive. Calm, professional, utterly unflappable.
+    She's seen worse than whatever you're bringing in.
+  dialogue_hook: "On the table. Let me see what we're working with."
+  secrets:
+    - "Former NeoMed corporate surgeon, left after ethics violation (theirs, not hers)"
+    - "Has a cybernetic eye that can see Weave corruption"
+    - "Maintains a secret database of corporate experiments gone wrong"
+
+services:
+  healing:
+    - service: "Basic Patch-Up"
+      price: 15
+      effect: "Heal 25 HP"
+    - service: "Full Medical Treatment"
+      price: 40
+      effect: "Full HP restore"
+    - service: "Affliction Removal"
+      price: 30
+      effect: "Remove one physical affliction"
+    - service: "Emergency Resurrection"
+      price: 200
+      effect: "Revive from death (within 1 hour)"
+
+  implants:
+    tier_1:
+      - implant: "Reflex Booster"
+        price: 100
+        effect: "+1 Agility permanently"
+        surgery_risk: "Low"
+      - implant: "Dermal Plating"
+        price: 150
+        effect: "+2 AC, visible chrome patches"
+        surgery_risk: "Low"
+      - implant: "Neural Interface"
+        price: 120
+        effect: "Required for advanced tech, +1 Mind for tech checks"
+        surgery_risk: "Medium"
+      - implant: "Low-Light Eyes"
+        price: 80
+        effect: "See in darkness, eyes glow faintly"
+        surgery_risk: "Low"
+
+    tier_2:
+      requires: "Level 5+"
+      - implant: "Muscle Augmentation"
+        price: 300
+        effect: "+2 Strength permanently"
+        surgery_risk: "Medium"
+      - implant: "Combat Processor"
+        price: 400
+        effect: "+1 to all attack rolls"
+        surgery_risk: "High"
+      - implant: "Subdermal Armor"
+        price: 500
+        effect: "+4 AC, invisible"
+        surgery_risk: "High"
+
+surgery_risks:
+  low: "DC 8 Constitution check or 1d6 damage"
+  medium: "DC 12 Constitution check or 2d6 damage and 1 day recovery"
+  high: "DC 15 Constitution check or 3d6 damage and 3 day recovery"
+
+secrets:
+  - id: "corporate-data"
+    discovery: "Reach Trusted standing with Dr. Vex"
+    content: |
+      Dr. Vex has files on corporate black projects — illegal experiments,
+      coverups, people who "disappeared." She's building a case. She just
+      needs someone to help her expose it.
+  - id: "weave-sight"
+    discovery: "Ask about unusual modifications"
+    content: |
+      For 500g and a dangerous surgery, Dr. Vex can install experimental
+      optics that let you see the Weave without being a natural Weaver.
+      Side effects may include existential horror.
+
+quest_hooks:
+  - "The Chop Shop Ring" — Someone is harvesting implants from victims
+  - "Corporate Whistleblower" — Help Dr. Vex expose NeoMed
+  - "Experimental Subject" — A patient needs extraction from a corporate lab
+
+properties:
+  safe_zone: true
+  rest_available: true  # Recovery rooms available
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

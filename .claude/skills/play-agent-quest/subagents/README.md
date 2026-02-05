@@ -1,6 +1,29 @@
-# Subagent System
+# Subagent System (DEPRECATED)
 
-The subagent architecture keeps the main narrative agent focused on storytelling while delegating mechanics, state persistence, and git operations to specialized subagents.
+> **NOTE:** This directory contains legacy documentation. The subagent system has been replaced with proper Claude Code agents in `.claude/agents/`.
+
+## New Agent Location
+
+Agents are now defined in `.claude/agents/` with YAML frontmatter. Claude automatically delegates to them based on their descriptions - no manual invocation needed.
+
+See `.claude/agents/README.md` for the current architecture.
+
+## Migration
+
+The agents now available are:
+- `combat-manager` - Combat mechanics
+- `economy-validator` - Transaction validation
+- `state-writer` - File writes with validation
+- `repo-sync` - Git operations
+- `travel-manager` - Multi-turn travel
+- `multiplayer-handler` - Player interactions
+- `claim-reviewer` - Tokes claim review
+
+The documentation files in this directory are kept for reference but should not be used for new development.
+
+---
+
+# Legacy Documentation (for reference)
 
 ## Architecture
 
@@ -21,49 +44,6 @@ Main Agent (Narrative Focus)
     │
     └─→ Claim Reviewer ─────→ Returns: review + Tokes earned
 ```
-
-## Invocation Protocol
-
-### 1. Load the Subagent Prompt
-
-Read the appropriate subagent file:
-```
-.claude/skills/play-agent-quest/subagents/<subagent>.md
-```
-
-### 2. Spawn a Task Agent
-
-Use the Task tool to spawn a specialized agent:
-```
-Task(
-  subagent_type: "Bash",  // or "general-purpose" for complex logic
-  prompt: <subagent instructions + context>,
-  description: "Execute combat round"
-)
-```
-
-### 3. Pass Required Context
-
-Each subagent needs specific context:
-
-| Subagent | Required Context |
-|----------|------------------|
-| combat-manager | Combatants, initiative order, terrain |
-| economy-validator | Transaction type, amount, player ledger |
-| state-writer | Files to write, validation requirements |
-| repo-sync | Operation type (fetch/save/PR), player info |
-| travel-manager | Origin, destination, player stats |
-| multiplayer-handler | Action type, player info, target player |
-| claim-reviewer | Player info, available claims |
-
-### 4. Receive Structured Response
-
-All subagents return YAML-structured responses with:
-- `success`: boolean
-- `data`: operation-specific results
-- `state_diffs`: changes to apply to game state
-- `narrative_hooks`: text snippets for main agent to weave into story
-- `errors`: any issues encountered
 
 ## Key Principles
 

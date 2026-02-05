@@ -1,0 +1,451 @@
+# The Chromedome
+# Lumina City's legendary arena - where glory is forged in light
+
+id: "chromedome"
+name: "The Chromedome"
+parent_location: "lumina-city"
+type: "arena"
+tier: 1  # Open to all levels, but higher tiers unlock deadlier matches
+
+description: |
+  Rising from Lumina City's entertainment district like a second sun, the Chromedome
+  is a colossal hemisphere of mirrored chrome that catches every light in the city
+  and scatters it back as pure spectacle. On fight nights, you can see it from
+  anywhere in the Midstreets — a beacon of violence and glory.
+
+  Inside, fifty thousand seats rise in concentric rings around the Arena Floor — a
+  marvel of techno-magical engineering that can transform mid-battle into jungle,
+  glacier, volcano, or void. Champions have risen here. Legends have fallen. And
+  the crowd always, always, demands more.
+
+  "Where legends are forged in light."
+
+atmosphere:
+  lighting: "Blinding spotlights, holographic effects, chrome reflections everywhere"
+  sounds: "Roaring crowds, dramatic announcers, combat impacts, monster roars"
+  smells: "Sweat, ozone, synthetic fog, expensive perfume from the VIP sections"
+
+# === THE ARENA FLOOR ===
+arena_floor:
+  description: |
+    The heart of the Chromedome — a 100-meter diameter platform of smart-matter
+    that can reshape itself on command. One moment it's flat steel, the next it's
+    a forest of crystal spires or a lake of liquid fire.
+
+  shifting_terrain:
+    enabled: true
+    trigger: "Every 3 rounds, or at dramatic moments"
+    terrains:
+      - id: "neutral"
+        name: "The Flat"
+        description: "Clean steel platform. Pure skill decides."
+        effects: []
+
+      - id: "spire_forest"
+        name: "Crystal Spires"
+        description: "Jagged crystals erupt, creating cover and hazards"
+        effects:
+          - "Partial cover available (+2 AC when behind spires)"
+          - "Difficult terrain (half movement)"
+          - "Collision damage: 1d6 if pushed into spire"
+
+      - id: "fire_pits"
+        name: "The Crucible"
+        description: "Sections of floor open to reveal flame jets"
+        effects:
+          - "Fire zones deal 2d6 fire damage per round"
+          - "Zones shift each round"
+          - "+2 damage to fire-based attacks"
+
+      - id: "ice_sheet"
+        name: "Frozen Hell"
+        description: "Floor becomes slick ice with freezing mist"
+        effects:
+          - "Agility DC 12 to avoid falling when moving quickly"
+          - "Cold damage: 1d4 per round without protection"
+          - "+2 damage to cold-based attacks"
+
+      - id: "gravity_flux"
+        name: "The Void"
+        description: "Gravity becomes unpredictable — zones of high, low, zero-G"
+        effects:
+          - "Movement costs vary by zone"
+          - "Ranged attacks: -2 in low-G, +2 in high-G"
+          - "Zero-G zones: Agility check to control movement"
+
+      - id: "urban_ruins"
+        name: "Street Fight"
+        description: "Holographic buildings create an urban battlefield"
+        effects:
+          - "Full cover available"
+          - "Verticality: climb for high ground (+1 attack from above)"
+          - "Ambush opportunities"
+
+      - id: "jungle"
+        name: "The Wilds"
+        description: "Rapid-growth vegetation fills the arena"
+        effects:
+          - "Heavy concealment"
+          - "Difficult terrain throughout"
+          - "Vine hazards: Agility DC 10 or restrained"
+
+# === MONSTER BATTLES ===
+monster_pens:
+  description: |
+    Beneath the arena, the Chromedome maintains a menagerie of captured creatures
+    from across reality. Some are natural beasts, some magical, some glitched
+    abominations that shouldn't exist. The crowd loves monster matches.
+
+  match_types:
+    - id: "gladiator_vs_beast"
+      name: "Beast Trial"
+      description: "Single fighter against increasingly dangerous creatures"
+      format: "Survive 3 waves, difficulty escalates"
+      rewards: "50g base + 25g per wave completed"
+
+    - id: "team_hunt"
+      name: "The Great Hunt"
+      description: "Party of fighters against an apex predator"
+      format: "Cooperative, 3-5 fighters vs 1 legendary creature"
+      rewards: "Split 200g + rare drop chance"
+
+    - id: "chaos_pit"
+      name: "Chaos Unleashed"
+      description: "Multiple monsters released simultaneously"
+      format: "Survival — last fighter standing wins"
+      rewards: "100g winner takes all"
+
+  monster_roster:
+    common:
+      - "Chrono-Wolves (phase in and out of time)"
+      - "Scrap Golems (rebuilt from arena debris)"
+      - "Neon Serpents (bioluminescent, venomous)"
+    rare:
+      - "Glitch Beasts (reality errors given form)"
+      - "Corporate Experiments (classified origins)"
+      - "Void Spawn (from beyond the code)"
+    legendary:
+      - "The Render — a creature that unravels reality around it"
+      - "Titanax — cybernetically enhanced megafauna"
+      - "The Mirror King — reflects all damage back"
+
+# === HANDICAP SYSTEM ===
+handicaps:
+  description: |
+    For balanced matches or dramatic flair, the Chromedome can apply magical and
+    technological handicaps to fighters. Champions often accept handicaps
+    voluntarily to increase their glory (and payouts).
+
+  types:
+    limiting:
+      - id: "magic_null"
+        name: "Null Field"
+        effect: "Cannot cast spells or use magical abilities"
+        payout_modifier: 1.5
+
+      - id: "tech_damper"
+        name: "Tech Damper"
+        effect: "Technological equipment functions at half effectiveness"
+        payout_modifier: 1.3
+
+      - id: "weighted"
+        name: "Heavy Chains"
+        effect: "-2 to Agility, movement halved"
+        payout_modifier: 1.4
+
+      - id: "blinded"
+        name: "Shroud of Darkness"
+        effect: "Magical blindness, must rely on other senses"
+        payout_modifier: 2.0
+
+      - id: "pacifist_weapon"
+        name: "Mercy Blade"
+        effect: "Weapon cannot deal lethal damage (knockout only)"
+        payout_modifier: 1.2
+
+    enhancing:
+      - id: "berserker"
+        name: "Rage Injection"
+        effect: "+2 damage, -2 AC, cannot retreat"
+        payout_modifier: 0.8
+
+      - id: "glass_cannon"
+        name: "Amplification Field"
+        effect: "Double damage dealt and received"
+        payout_modifier: 1.0
+
+# === BETTING SYSTEM ===
+betting:
+  description: |
+    The Chromedome runs a sophisticated betting operation. All bets are in gold,
+    managed by licensed bookmakers throughout the arena. The house takes 10%.
+
+  currency: "gold"
+  house_cut: 0.10
+
+  bet_types:
+    - id: "winner"
+      name: "Victory Bet"
+      description: "Bet on who wins the match"
+      min_bet: 5
+      max_bet: 1000
+      typical_odds: "Varies by matchup"
+
+    - id: "method"
+      name: "Method of Victory"
+      description: "Bet on HOW the winner wins (KO, submission, terrain kill, etc.)"
+      min_bet: 10
+      max_bet: 500
+      typical_odds: "3:1 to 10:1"
+
+    - id: "round"
+      name: "Round Betting"
+      description: "Bet on which round the match ends"
+      min_bet: 10
+      max_bet: 500
+      typical_odds: "2:1 to 8:1"
+
+    - id: "terrain"
+      name: "Terrain Prediction"
+      description: "Bet on which terrain will appear"
+      min_bet: 5
+      max_bet: 200
+      typical_odds: "5:1"
+
+    - id: "parlay"
+      name: "Glory Parlay"
+      description: "Combine multiple bets for multiplied odds"
+      min_bet: 25
+      max_bet: 500
+      typical_odds: "Multiplicative"
+
+  betting_npcs:
+    - id: "odds-maker-vex"
+      name: "Vex the Odds"
+      location: "Main betting hall"
+      specialty: "Standard bets, fair odds"
+
+    - id: "lucky-luna"
+      name: "Lucky Luna"
+      location: "VIP section"
+      specialty: "High-roller bets, inside information"
+
+    - id: "the-fix"
+      name: "The Fix"
+      location: "Underlevel entrance"
+      specialty: "Underground bets, questionable ethics"
+
+# === MATCH TYPES ===
+match_types:
+  - id: "singles"
+    name: "Glory Match"
+    description: "1v1 combat, standard rules"
+    entry_fee: 25
+    prize: 75
+    fame_reward: 10
+
+  - id: "championship"
+    name: "Championship Bout"
+    description: "Title match for ranked champions"
+    entry_fee: 100
+    prize: 500
+    fame_reward: 50
+    requirements: ["Win 5 Glory Matches", "Fame 50+"]
+
+  - id: "tag_team"
+    name: "Brothers in Arms"
+    description: "2v2 team combat"
+    entry_fee: 40  # per person
+    prize: 150  # split
+    fame_reward: 15
+
+  - id: "gauntlet"
+    name: "The Gauntlet"
+    description: "Face 5 opponents in succession, no rest"
+    entry_fee: 50
+    prize: 300
+    fame_reward: 40
+
+  - id: "beast_trial"
+    name: "Beast Trial"
+    description: "Survive waves of monsters"
+    entry_fee: 30
+    prize: "50 + 25/wave"
+    fame_reward: 25
+
+  - id: "exhibition"
+    name: "Exhibition Match"
+    description: "Non-lethal showcase, knockout only"
+    entry_fee: 10
+    prize: 30
+    fame_reward: 5
+
+# === FAME SYSTEM ===
+fame:
+  description: |
+    The Chromedome tracks fighter Fame — a measure of crowd recognition and
+    championship potential. Fame unlocks better matches, sponsorships, and perks.
+
+  ranks:
+    - rank: "Unknown"
+      threshold: 0
+      perks: []
+
+    - rank: "Newcomer"
+      threshold: 10
+      perks: ["Access to Glory Matches"]
+
+    - rank: "Contender"
+      threshold: 50
+      perks: ["Access to Championship qualifiers", "10% betting bonus"]
+
+    - rank: "Champion"
+      threshold: 100
+      perks: ["Title match eligibility", "VIP access", "Sponsor offers"]
+
+    - rank: "Legend"
+      threshold: 250
+      perks: ["Statue in Hall of Champions", "Free lodging", "Choose handicaps for opponents"]
+
+    - rank: "Immortal"
+      threshold: 500
+      perks: ["Name a terrain type", "Train other fighters", "Percentage of house profits"]
+
+# === AREAS WITHIN CHROMEDOME ===
+sub_areas:
+  - id: "entrance_plaza"
+    name: "The Triumphant Gate"
+    description: |
+      A grand entrance flanked by holographic statues of legendary champions.
+      Vendors sell merchandise, food, and fight predictions.
+
+  - id: "betting_hall"
+    name: "Fortune's Edge"
+    description: |
+      A massive hall of screens showing odds, past fights, and live matches.
+      Bookmakers work the crowd. The energy is electric.
+
+  - id: "fighter_quarters"
+    name: "The Waiting Room"
+    description: |
+      Where fighters prepare. Medical staff, equipment checks, last prayers.
+      Champions have private rooms. Newcomers share the common area.
+
+  - id: "monster_pens"
+    name: "The Depths"
+    description: |
+      Beneath the arena, accessible only to staff and special guests.
+      Cages line endless corridors. Some things here have never seen the sun.
+
+  - id: "vip_boxes"
+    name: "The Gilded Cages"
+    description: |
+      Luxury viewing for the wealthy and powerful. Private betting,
+      personal service, soundproofed for... private conversations.
+
+  - id: "hall_of_champions"
+    name: "Eternal Glory"
+    description: |
+      A museum of Chromedome history. Statues, weapons, and recordings of
+      legendary bouts. Names carved in chrome that will outlast empires.
+
+# === NPCs ===
+npcs:
+  - id: "pit-boss-korvax"
+    name: "The Pit Boss (Korvax)"
+    role: "Arena Manager"
+    description: |
+      A massive cybernetic humanoid, more chrome than flesh now. Former
+      champion who retired undefeated. Runs the Chromedome with theatrical
+      flair and iron discipline. His word is law on fight nights.
+    dialogue_hook: "Welcome to glory, fighter. Or to your grave. The crowd doesn't much care which."
+
+  - id: "doctor-stitch"
+    name: "Doctor Stitch"
+    role: "Arena Medic"
+    description: |
+      A nervous Scribe-class Weaver who chose healing over combat. Can
+      resurrect fighters from near-death between matches. Has seen too much.
+    services:
+      - "Full heal between matches: 25g"
+      - "Emergency resurrection: 100g"
+      - "Remove handicap effects: 15g"
+
+  - id: "announcer-voltage"
+    name: "VOLTAGE"
+    role: "Arena Announcer"
+    description: |
+      An AI personality broadcast through every speaker in the Chromedome.
+      Dramatic, biased toward crowd favorites, occasionally prophetic.
+    dialogue_hook: "LAAAADIES AND GENTLEMEN AND ENTITIES OF INDETERMINATE FORM..."
+
+  - id: "champion-seraph"
+    name: "Seraph the Unbroken"
+    role: "Reigning Champion"
+    description: |
+      Current Chromedome champion. A Debugger-class fighter who has never
+      lost. Rumors say she's made a deal with something beyond the code.
+    stats:
+      level: 15
+      class: "Debugger"
+      fame: 487
+
+# === SECRETS ===
+secrets:
+  - id: "fixed_fights"
+    name: "The Deeper Game"
+    discovery_method: "Befriend The Fix, complete underground quest"
+    content: |
+      Some championship matches are predetermined. Corporate interests,
+      political favors, ancient debts. The Pit Boss knows. He doesn't approve,
+      but some powers are beyond even him.
+
+  - id: "the_render_origin"
+    name: "What Sleeps Below"
+    discovery_method: "Reach Legend rank, gain access to The Depths"
+    content: |
+      The Render — the arena's most terrifying monster — wasn't captured.
+      It was found here, dormant, when they built the Chromedome. The arena
+      was constructed specifically to contain it. To study it. To profit from it.
+
+  - id: "seraph_deal"
+    name: "The Champion's Bargain"
+    discovery_method: "Challenge Seraph, survive 10 rounds"
+    content: |
+      Seraph made a deal with a Glitch — a sentient error in reality's code.
+      She cannot be defeated in the arena... but she also cannot leave it.
+      Ever. She's been champion for 47 years.
+
+# === QUEST HOOKS ===
+quest_hooks:
+  - id: "rise_to_glory"
+    name: "Rise to Glory"
+    description: "Climb the ranks from Unknown to Champion"
+    type: "progression"
+
+  - id: "monster_mystery"
+    name: "What Lurks Below"
+    description: "Investigate the origins of the arena's creatures"
+    type: "investigation"
+
+  - id: "fix_the_fix"
+    name: "Broken Odds"
+    description: "Expose or exploit the fixing of championship matches"
+    type: "faction"
+
+  - id: "challenge_seraph"
+    name: "The Unbroken Record"
+    description: "Challenge the eternal champion"
+    type: "boss"
+    requirements: ["Champion rank", "Level 10+"]
+
+# === METADATA ===
+properties:
+  safe_zone: false  # Combat expected
+  rest_available: true  # Fighter quarters
+  shop_available: true  # Various vendors
+  training_available: true  # Learn from champions
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

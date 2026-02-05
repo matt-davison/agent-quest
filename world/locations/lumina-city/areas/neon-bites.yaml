@@ -1,0 +1,75 @@
+# Neon Bites
+# Cheap street food stall - the heart of Midstreet cuisine
+
+id: "neon-bites"
+name: "Neon Bites"
+parent_location: "lumina-city"
+type: "food-stall"
+tier: 1
+
+description: |
+  A hovering food cart surrounded by plastic stools and the permanent smell
+  of frying oil. Neon Bites has been a Midstreet institution for decades,
+  serving cheap, filling food to workers, gangers, and anyone else with a
+  few gold to spare and not too many questions about ingredients.
+
+  The menu changes daily based on what Grix can source. The regulars know
+  not to ask about the "mystery meat Monday" special.
+
+atmosphere:
+  lighting: "Harsh fluorescent from the cart, neon spill from nearby signs"
+  sounds: "Sizzling grill, street traffic, Grix's constant muttering"
+  smells: "Grease, spices, something that might be onions"
+
+proprietor:
+  id: "grix"
+  name: "Grix"
+  description: |
+    A stocky goblin-kin with four arms (two original, two cybernetic) who
+    works the grill with terrifying efficiency. Gruff, impatient, secretly
+    kind. Has fed more hungry kids for free than he'd ever admit.
+  dialogue_hook: "Yeah yeah, whatcha want? I ain't got all day. Well, I do, but YOU don't."
+  secrets:
+    - "Former gang enforcer, retired after 'the incident'"
+    - "The cart is paid off to the Neon Saints for protection"
+    - "Knows every street-level rumor in the Midstreets"
+
+menu:
+  - item: "Mystery Skewer"
+    price: 1
+    effect: "Filling. Don't ask."
+  - item: "Noodle Bowl"
+    price: 2
+    effect: "Hot, satisfying, definitely contains noodles"
+  - item: "Grix's Special"
+    price: 3
+    effect: "Heals 5 HP, tastes better than it looks"
+  - item: "Synth-Burger"
+    price: 2
+    effect: "Tastes like the memory of a burger"
+  - item: "Stimm-Coffee"
+    price: 1
+    effect: "+1 to next Agility check, jittery"
+
+services:
+  - id: "street-rumors"
+    name: "What's the Word?"
+    price: 5
+    description: "Grix shares what he's heard on the street"
+    effect: "Learn one local rumor or quest hook"
+
+secrets:
+  - id: "underground-railroad"
+    discovery: "Help Grix with a personal favor"
+    content: |
+      Grix runs an informal network helping people disappear from corporate
+      attention. The food cart is a dead drop for messages and supplies.
+
+properties:
+  safe_zone: true
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

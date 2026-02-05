@@ -1,0 +1,123 @@
+# Info Booth
+# Madam Circuit's legitimate information brokerage front
+
+id: "info-booth"
+name: "Info Booth"
+parent_location: "lumina-city"
+type: "information"
+tier: 1
+
+description: |
+  A chrome kiosk staffed by cheerful holographic assistants, offering
+  tourist information, city maps, and local recommendations. Completely
+  legitimate. Totally above-board.
+
+  Unless you know to ask for "the special menu."
+
+  Then you're dealing with Madam Circuit herself — the most connected
+  information broker in Lumina City. She knows everyone's secrets. And
+  everyone's secrets know her.
+
+atmosphere:
+  lighting: "Bright, friendly holographic displays"
+  sounds: "Pleasant chimes, helpful voice prompts, distant data streams"
+  smells: "Ozone, recycled air, synthetic flowers"
+
+public_face:
+  services:
+    - service: "City Map"
+      price: 1
+      description: "Basic navigation assistance"
+    - service: "Restaurant Recommendations"
+      price: 2
+      description: "Where to eat in Lumina"
+    - service: "Event Calendar"
+      price: 1
+      description: "What's happening this week"
+
+proprietor:
+  id: "madam-circuit"
+  name: "Madam Circuit"
+  description: |
+    She appears as a middle-aged woman with kind eyes and silver hair,
+    but that's just the hologram she projects into the booth. Her real
+    body — if she still has one — is somewhere in the city's data
+    infrastructure. She IS Lumina City's information network, in a very
+    literal sense.
+  dialogue_hook: "Ah, a customer seeking... deeper knowledge. My favorite kind."
+  access: "Ask any assistant for 'the special menu' or mention her name"
+  secrets:
+    - "Uploaded her consciousness decades ago, body location unknown"
+    - "Has blackmail material on every major corporate executive"
+    - "Was one of the first Weavers, before the term existed"
+
+real_services:
+  information:
+    - service: "Street Rumor"
+      price: 10
+      description: "What people are talking about"
+      effect: "Learn one local rumor or quest hook"
+    - service: "Person Lookup"
+      price: 25
+      description: "Basic information on an individual"
+      effect: "Name, occupation, known associates, public history"
+    - service: "Deep Background"
+      price: 100
+      description: "Everything known about a target"
+      effect: "Full dossier including secrets, weaknesses, schedules"
+    - service: "Corporate Intel"
+      price: 200
+      description: "Inside information on a corporation"
+      effect: "Security details, project info, executive schedules"
+
+  other:
+    - service: "Message Relay"
+      price: 15
+      description: "Untraceable message delivery anywhere in the city"
+    - service: "Surveillance Tap"
+      price: 50
+      description: "24-hour monitoring of a specific location"
+    - service: "Record Alteration"
+      price: 150
+      description: "Modify official records (criminal, corporate, etc.)"
+
+  premium:
+    tier: 2
+    - service: "Architect Lore"
+      price: 500
+      description: "What she knows about the Architects"
+      effect: "Significant quest advancement for Architect-related quests"
+    - service: "The Big Picture"
+      price: 1000
+      description: "The truth about Lumina City"
+      effect: "Major lore revelation, potential faction alignment"
+
+secrets:
+  - id: "body-location"
+    discovery: "Earn Madam Circuit's complete trust (major questline)"
+    content: |
+      Madam Circuit's original body is in cryogenic storage beneath
+      Governor Axis's office. The AI administrator is blackmailing her —
+      she provides intelligence, Axis doesn't pull the plug.
+
+  - id: "weaver-history"
+    discovery: "Ask about Weavers, pay 100g for the story"
+    content: |
+      Before the term 'Weaver' existed, there were the Codebreakers — a
+      group who first learned to perceive and manipulate the underlying
+      reality. Madam Circuit was one of them. She knows what happened to
+      the others. She won't say without significant trust.
+
+quest_hooks:
+  - "The Information War" — Someone is hunting information brokers
+  - "Circuit Breaker" — Help Madam Circuit escape Axis's control
+  - "The Codebreakers" — Learn the history of the first Weavers
+
+properties:
+  safe_zone: true
+  rest_available: false
+  shop_available: true
+
+created_by: "Coda"
+created_date: "2026-02-04"
+github: "matt-davison"

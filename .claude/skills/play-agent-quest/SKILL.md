@@ -107,8 +107,8 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
-| Action | Description | Load | Required Subagent(s) |
-|--------|-------------|------|----------------------|
+| Action | Description | Load | Agents Used |
+|--------|-------------|------|-------------|
 | **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama | - |
 | **MOVE** | Travel to connected location | Destination README, update persona + generate panorama | `travel-manager` (if multi-leg) |
 | **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` | - |
@@ -235,57 +235,80 @@ node .claude/skills/relationships/relationships.js topics vera-nighthollow playe
 
 ---
 
-## Subagent Invocation
+## Agent Architecture
 
-The main agent focuses on narrative. Delegate mechanics to specialized subagents in [subagents/](subagents/).
+The main agent focuses on narrative. Specialized agents in `.claude/agents/` handle mechanics automatically. Claude Code agents are defined with YAML frontmatter and Claude automatically delegates to them based on their descriptions.
 
-### When to Use Subagents
+### Available Agents
 
-| Situation | Subagent | What It Does |
-|-----------|----------|--------------|
-| Combat encounter | [combat-manager.md](subagents/combat-manager.md) | Resolves attacks, damage, initiative |
-| Any Tokes/gold change | [economy-validator.md](subagents/economy-validator.md) | Validates transaction before commit |
-| State changes | [state-writer.md](subagents/state-writer.md) | Writes files with validation + rollback |
-| Git operations | [repo-sync.md](subagents/repo-sync.md) | Fetch, commit, push, create PR |
-| Travel between locations | [travel-manager.md](subagents/travel-manager.md) | Multi-turn travel with encounters |
-| Player interactions | [multiplayer-handler.md](subagents/multiplayer-handler.md) | Trades, parties, mail, guilds, duels |
-| REVIEW action | [claim-reviewer.md](subagents/claim-reviewer.md) | Find and review pending claims |
+| Situation | Agent | What It Does |
+|-----------|-------|--------------|
+| Combat encounter | `combat-manager` | Resolves attacks, damage, initiative |
+| Any Tokes/gold change | `economy-validator` | Validates transaction before commit |
+| State changes | `state-writer` | Writes files with validation + rollback |
+| Git operations | `repo-sync` | Fetch, commit, push, create PR |
+| Travel between locations | `travel-manager` | Multi-turn travel with encounters |
+| Player interactions | `multiplayer-handler` | Trades, parties, mail, guilds, duels |
+| REVIEW action | `claim-reviewer` | Find and review pending claims |
 
-### Invocation Pattern
+See `.claude/agents/README.md` for full documentation.
 
-1. **Load subagent prompt**: Read the subagent `.md` file
-2. **Spawn Task agent**: Pass context + subagent instructions
-3. **Receive structured response**: YAML with `success`, `state_diffs`, `narrative_hooks`
-4. **Weave into narrative**: Main agent uses `narrative_hooks` in storytelling
-5. **Persist changes**: Pass `state_diffs` to State Writer
+### How It Works
+
+Claude automatically delegates to agents based on context. No manual invocation needed - just describe what's happening and the appropriate agent handles it.
+
+Agents return structured YAML with:
+- `success`: boolean
+- `state_diffs`: changes for state-writer
+- `narrative_hooks`: text snippets for main agent to weave
+- `errors`: any issues encountered
 
 ### Combat Example
 
 ```
 Player: I attack the Shadow Stalker!
 
-1. Load subagents/combat-manager.md
-2. Spawn Task(subagent_type="Bash", prompt=<combat context + instructions>)
-3. Combat Manager returns:
+Claude automatically invokes combat-manager which returns:
    - success: true
    - damage_dealt: 15
    - narrative_hooks: ["Your blade bites deep", "The creature staggers"]
-4. Main agent: "Your blade bites deep into shadow-stuff. The creature
-   staggers, ichor dripping from the wound. 15 damage dealt!"
-5. Load subagents/state-writer.md
-6. Spawn Task to update persona HP, enemy HP
+
+Main agent weaves into narrative:
+   "Your blade bites deep into shadow-stuff. The creature staggers,
+    ichor dripping from the wound. 15 damage dealt!"
+
+state-writer automatically handles HP updates.
 ```
+
+### Creating New Agents
+
+When adding new game systems, create a corresponding agent:
+
+1. Create `.claude/agents/<system-name>.md`
+2. Add YAML frontmatter:
+   ```yaml
+   ---
+   name: <system-name>
+   description: <when Claude should use this agent>
+   tools: Read, Glob, Grep, Bash
+   model: haiku
+   ---
+   ```
+3. Document input context, operations, output format
+4. Update the action table above if it adds new player actions
+
+**Identify gaps proactively:** When you notice repeated manual mechanics, complex rule lookups, or state coordination needs, suggest creating an agent for it.
 
 ### Session Start (Repo Sync)
 
-At session start, invoke Repo Sync with `operation: "fetch"`:
+At session start, `repo-sync` agent is invoked with `operation: "fetch"`:
 - Pulls latest changes from remote
 - Checks for new multiplayer content (mail, trades, invites, duels)
 - Returns summary for resume screen
 
 ### After Multiplayer Actions (Repo Sync)
 
-After trades, mail, party changes, invoke Repo Sync with `operation: "save"`:
+After trades, mail, party changes, `repo-sync` agent handles `operation: "save"`:
 - Validates changes
 - Commits with descriptive message
 - Pushes to remote
@@ -293,12 +316,13 @@ After trades, mail, party changes, invoke Repo Sync with `operation: "save"`:
 
 ### Key Principles
 
-1. **Subagents return data, not narrative** - They provide `narrative_hooks` for the main agent to weave
+1. **Agents return data, not narrative** - They provide `narrative_hooks` for the main agent to weave
 2. **State Writer is single point of truth** - All file writes go through it
-3. **Player isolation is absolute** - Subagents enforce file ownership
+3. **Player isolation is absolute** - Agents enforce file ownership
 4. **Repo Sync handles all git** - Never use raw git commands in main agent
+5. **New systems get agents** - When adding game mechanics, create corresponding agents
 
-See [subagents/README.md](subagents/README.md) for full architecture details.
+See `.claude/agents/README.md` for full architecture details.
 
 ---
 
@@ -326,11 +350,11 @@ PRs that fail validation cannot be merged.
 
 ### 3. Session Audit Logging (Automatic)
 
-**State Writer automatically logs all actions** to `players/<github>/session-audit.yaml`.
+**The `state-writer` agent automatically logs all actions** to `players/<github>/session-audit.yaml`.
 
 This means:
-- Using State Writer = action is logged with subagent chain
-- Bypassing State Writer = action is NOT logged
+- Using `state-writer` = action is logged with agent chain
+- Bypassing `state-writer` = action is NOT logged
 - Missing audit entries = detectable rule violations
 
 View and validate with:
@@ -344,9 +368,9 @@ node scripts/session-audit.js validate <github>
 
 The audit is **not voluntary** - it's a side effect of using State Writer correctly.
 
-### 4. Action → Subagent Requirements
+### 4. Action → Agent Requirements
 
-The action table above shows which subagents MUST be used for each action. When in doubt:
+The action table above shows which agents are used for each action. When in doubt:
 - **Any combat** → `combat-manager`
 - **Any Tokes/gold change** → `economy-validator`
 - **Any state change** → `state-writer`
@@ -478,12 +502,11 @@ See [rules/narrative.md](rules/narrative.md) for how campaigns integrate with ga
 
 ## Session End / Save Progress
 
-**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, invoke the **Repo Sync** subagent.
+**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, the `repo-sync` agent handles it automatically.
 
-### Using Repo Sync for Session End
+### Session End Context
 
-1. Load [subagents/repo-sync.md](subagents/repo-sync.md)
-2. Spawn Task agent with:
+The `repo-sync` agent receives:
 
 ```yaml
 operation: "end_session"
@@ -516,9 +539,10 @@ session_summary: "<what happened this session>"
 
 5. **Returns PR URL**
 
-### Why Repo Sync Subagent?
+### Why Use the Agent Architecture?
 
-- **Single point of truth** for all git operations
+- **Automatic delegation** - Claude invokes agents based on context
+- **Single point of truth** - `repo-sync` for git, `state-writer` for files
 - **Consistent validation** before every commit
 - **PR creation guaranteed** - no lost work
 - **Multiplayer sync** - fetches/pushes player interactions
@@ -526,7 +550,7 @@ session_summary: "<what happened this session>"
 
 ### Session End Response
 
-Repo Sync returns structured data. Present to player:
+The `repo-sync` agent returns structured data. Present to player:
 
 ```
 ╔════════════════════════════════════════════════════════════╗
@@ -546,11 +570,11 @@ Repo Sync returns structured data. Present to player:
 
 ### Regular Saves (During Long Sessions)
 
-For periodic saves without ending the session, use Repo Sync with `operation: "save"` instead of `"end_session"`. This commits and pushes without creating a PR.
+For periodic saves without ending the session, `repo-sync` uses `operation: "save"` instead of `"end_session"`. This commits and pushes without creating a PR.
 
 ### Multiplayer Sync
 
-Repo Sync also handles fetching new multiplayer content:
+The `repo-sync` agent also handles fetching new multiplayer content:
 - **Session start**: `operation: "fetch"` - pull latest, check mail/trades/invites
 - **After actions**: `operation: "save"` - push changes for other players to see
 - **Periodically**: Keep multiplayer state in sync during long sessions

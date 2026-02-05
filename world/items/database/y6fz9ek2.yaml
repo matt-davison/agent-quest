@@ -12,4 +12,7 @@ tags:
   - melee
 stats:
   damage: 10
+durability:
+  max: 40
+  wear_rate: 1
 description: A simple but reliable blade. Standard issue for new adventurers.

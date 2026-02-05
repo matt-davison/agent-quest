@@ -11,4 +11,7 @@ tags:
   - melee
 stats:
   damage: 15
+durability:
+  max: 60
+  wear_rate: 1
 description: Finely crafted steel with a keen edge. A step up from iron.

@@ -6,6 +6,7 @@ subtype: scroll
 rarity: common
 tier: 1
 value: 30
+max_uses: 1
 tags:
   - magic
   - weave
@@ -13,7 +14,6 @@ tags:
   - starter
 stats:
   weave_bonus: 2
-  uses: 1
 description: |
   A parchment inscribed with basic Weave notation. When read aloud during
   a Weave check, the symbols burn away and grant +2 to the roll. Single use.

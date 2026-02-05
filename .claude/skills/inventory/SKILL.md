@@ -67,6 +67,85 @@ stats:                # Type-specific stats
 special: "+2 Mind"    # Optional special effects
 description: "..."    # Flavor text
 quest: quest-id       # Optional: linked quest for quest items
+max_uses: 1           # Optional: usage limit (see below)
+durability:           # Optional: for weapons/armor on Hard+ (see below)
+  max: 50
+  wear_rate: 1
+```
+
+### Item Usage Categories (max_uses)
+
+The `max_uses` field determines how items are consumed:
+
+| max_uses | Category | Tracking | Example |
+|----------|----------|----------|---------|
+| `1` | Consumable | Decrement `qty` in inventory | Potions, scrolls |
+| `2-N` | Limited-use | Track `current_uses` per item | Wands (3 charges) |
+| `null` or absent | Reusable | No tracking needed | Weapons, armor |
+
+**Consumable items** (max_uses: 1):
+- When used, decrease `qty` by 1
+- Remove from inventory when qty reaches 0
+- Example: Healing Potion (max_uses: 1)
+
+**Limited-use items** (max_uses > 1):
+- Track remaining uses with `current_uses` in inventory entry
+- When `current_uses` reaches 0, item becomes depleted
+- Example: Wand of Fire (max_uses: 3)
+
+**Reusable items** (max_uses: null or absent):
+- Can be used unlimited times
+- No use tracking required
+- Example: Iron Sword
+
+### Inventory Entry with Usage Tracking
+
+```yaml
+inventory:
+  # Consumable: just track quantity
+  - id: 0nv58nul      # Healing Potion
+    qty: 3
+
+  # Limited-use: track current_uses (starts at max_uses)
+  - id: wand-id
+    qty: 1
+    current_uses: 2   # 2 charges remaining (of 3 max)
+
+  # Reusable: no special tracking
+  - id: y6fz9ek2      # Iron Sword
+    qty: 1
+```
+
+### Durability System (Hard+ Only)
+
+Weapons and armor can have durability that degrades with use. **Only applies on Hard or Nightmare difficulty.**
+
+```yaml
+durability:
+  max: 50           # Maximum durability points
+  wear_rate: 1      # Points lost per use (default: 1)
+```
+
+**Wear Rates by Difficulty:**
+- Hard: 1× base wear_rate
+- Nightmare: 2× base wear_rate
+
+**Durability Effects:**
+
+| Durability % | State | Effect |
+|--------------|-------|--------|
+| 75-100% | Good | Full effectiveness |
+| 50-74% | Worn | -1 damage/armor |
+| 25-49% | Damaged | -2 damage/armor |
+| 1-24% | Failing | -3 damage/armor, 25% fail chance |
+| 0% | Broken | Unusable until repaired |
+
+**Inventory with Durability:**
+```yaml
+inventory:
+  - id: y6fz9ek2      # Iron Sword
+    qty: 1
+    durability: 45    # Current durability (tracked when < max)
 ```
 
 ### Tags

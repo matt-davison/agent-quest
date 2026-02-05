@@ -12,4 +12,7 @@ tags:
   - combat
 stats:
   armor: 3
+durability:
+  max: 50
+  wear_rate: 1
 description: Flexible protection that doesn't impede movement.

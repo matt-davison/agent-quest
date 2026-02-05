@@ -5,10 +5,11 @@ type: consumable
 rarity: uncommon
 tier: 2
 value: 40
+max_uses: 1
 tags:
   - restoration
   - magic
   - consumable
 stats:
-  spirit_restore: 20
-description: Restores 20 Spirit points or powers a magical device.
+  willpower_restore: 20
+description: Restores 20 Willpower when consumed.

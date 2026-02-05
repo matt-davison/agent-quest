@@ -14,5 +14,8 @@ tags:
 stats:
   damage: 8
   mind_bonus: 2
+durability:
+  max: 30
+  wear_rate: 1
 special: "+2 to Mind checks when hacking"
 description: A crystalline spike that interfaces with the Weave. Can be thrown or used to hack constructs.

@@ -6,13 +6,13 @@ subtype: scroll
 rarity: uncommon
 value: 75
 tier: 3
+max_uses: 1
 tags:
   - magic
   - weave
   - consumable
 stats:
   weave_bonus: 4
-  uses: 1
 description: |
   An advanced parchment covered in complex Weave notation that seems to
   shift and reorganize itself. When read aloud during a Weave check, the

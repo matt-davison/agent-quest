@@ -187,6 +187,110 @@ Scaling cannot reduce stats below these minimums:
 
 ---
 
+## Item Wear System (Hard+ Only)
+
+On Hard and Nightmare difficulty, weapons and armor degrade with use. This adds strategic depth around equipment management.
+
+### When Wear Applies
+
+- **Hard difficulty**: 1× wear rate
+- **Nightmare difficulty**: 2× wear rate
+- **Easy/Normal**: No wear mechanics
+
+### Wear Events
+
+**Weapons** lose durability when:
+- Used to make an attack (hit or miss)
+
+**Armor** loses durability when:
+- Player takes damage that the armor reduces
+
+### Durability States
+
+| Durability % | State | Weapon Effect | Armor Effect |
+|--------------|-------|---------------|--------------|
+| 75-100% | Good | Full damage | Full armor value |
+| 50-74% | Worn | -1 damage | -1 armor |
+| 25-49% | Damaged | -2 damage | -2 armor |
+| 1-24% | Failing | -3 damage, 25% fail | -3 armor, 25% fail |
+| 0% | Broken | Unusable | Unusable |
+
+### Calculating Durability State
+
+```bash
+# Example: Iron Sword with 28/40 durability
+node .claude/skills/math/math.js calc "(28 / 40) * 100"  # = 70%
+# 70% is in "Worn" range (50-74%), so -1 damage penalty
+```
+
+### Failing State
+
+When an item is in "Failing" state (1-24% durability):
+- Roll 1d4 before use
+- On a 1, the item fails:
+  - Weapon: Attack automatically misses
+  - Armor: Provides no protection for this hit
+
+### Broken Items
+
+At 0% durability:
+- Item cannot be used
+- Must be repaired before use
+- Appears in inventory with [broken] state
+
+### Repairing Items
+
+Items can be repaired at:
+- **Blacksmiths** in safe zones (costs gold)
+- **Repair kits** (consumable item, partial repair)
+- **Long rest** with appropriate skills
+
+Repair costs scale with item tier and damage:
+```
+repair_cost = item_value × (1 - durability_percent) × 0.5
+```
+
+### Example Combat with Wear
+
+**Player (Hard difficulty) attacks with Iron Sword (30/40 durability = 75% Good):**
+
+1. Attack roll succeeds
+2. Base damage: 10
+3. Durability state: Good (no penalty)
+4. Final damage: 10
+5. Apply 1 wear to sword
+6. New durability: 29/40 (72.5% → now "Worn")
+
+**Next attack (29/40 = 72.5% Worn):**
+
+1. Attack roll succeeds
+2. Base damage: 10
+3. Durability state: Worn (-1 penalty)
+4. Final damage: 9
+5. Apply 1 wear to sword
+6. New durability: 28/40
+
+### Strategic Implications
+
+- **Carry backup weapons** for extended dungeons
+- **Repair before difficult fights**
+- **Higher quality items** have more durability
+- **Magic items** may have special durability properties
+
+### Tracking in Inventory
+
+```yaml
+inventory:
+  - id: y6fz9ek2      # Iron Sword
+    qty: 1
+    durability: 28    # Current durability (40 max)
+  - id: 6s10vlhv      # Leather Armor
+    qty: 1
+    durability: 45    # Current durability (50 max)
+```
+
+---
+
 ## Combined Example
 
 **Scenario**: A level 4 Codebreaker with Hard difficulty enters The Rustlands (level 5-9) and encounters a Guardian Automaton (level 5).

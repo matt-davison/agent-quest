@@ -310,6 +310,62 @@ node .claude/skills/math/math.js roll 1d20+1  # Their mod
 | **Hard** | Level + 2 | Major resource drain |
 | **Deadly** | Level + 5 | High death risk |
 
+---
+
+## Personal Difficulty Settings
+
+Each character has a personal difficulty setting that modifies combat. See [rules/difficulty.md](difficulty.md) for the full system.
+
+### Difficulty Modifiers
+
+| Setting | Damage Taken | Damage Dealt | XP Modifier | Loot Chance |
+|---------|--------------|--------------|-------------|-------------|
+| Easy | 0.6× | 1.1× | 0.8× | 1.0× |
+| Normal | 1.0× | 1.0× | 1.0× | 1.0× |
+| Hard | 1.3× | 0.95× | 1.2× | 1.15× |
+| Nightmare | 1.6× | 0.85× | 1.4× | 1.3× |
+
+### Applying Difficulty
+
+```bash
+# Calculate damage with difficulty modifier
+# Example: Player on Hard (1.3× damage taken) takes 20 base damage
+node .claude/skills/math/math.js calc "20 * 1.3"  # = 26 damage
+
+# Example: Player on Easy (1.1× damage dealt) deals 15 base damage
+node .claude/skills/math/math.js calc "15 * 1.1"  # = 16.5 → 17 damage
+```
+
+**Applying Modifiers:**
+1. Calculate base damage normally
+2. Apply difficulty multiplier to final damage
+3. Round to nearest integer (0.5 rounds up)
+4. Apply to target's HP
+
+### Creature Level Scaling
+
+When player level exceeds creature level, creature stats are reduced to prevent trivial encounters. Creatures **never scale up**.
+
+**Per level below player:**
+- HP: -5%
+- Defense: -0.5
+- Attack: -0.3
+- Damage: -5%
+
+```bash
+# Example: Level 5 player vs Level 2 creature (3 level difference)
+# Creature base: 40 HP, 14 Def, +4 Atk, 12 Dmg
+
+node .claude/skills/math/math.js calc "40 * (1 - 0.05 * 3)"  # HP: 34
+node .claude/skills/math/math.js calc "14 - (0.5 * 3)"       # Def: 12.5 → 12
+node .claude/skills/math/math.js calc "4 - (0.3 * 3)"        # Atk: +3.1 → +3
+node .claude/skills/math/math.js calc "12 * (1 - 0.05 * 3)"  # Dmg: 10.2 → 10
+```
+
+### Changing Difficulty
+
+Players can change their difficulty setting at any **safe zone**. The change takes effect immediately with no penalties.
+
 ### Enemy Morale
 
 Enemies may flee or surrender when:

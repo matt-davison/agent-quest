@@ -42,6 +42,18 @@ type: hub | dungeon | wilderness | settlement | academy | special
 danger_level: safe | low | medium | high | extreme
 is_safe_zone: true | false
 
+# Level range for encounters (null for safe zones)
+# See rules/difficulty.md for danger_level to level mappings
+level_range:
+  min: 2        # Lowest-level creatures spawn here
+  max: 6        # Highest-level creatures spawn here
+  sweet_spot: 4 # Optimal challenge level for this area
+  # Danger level mappings:
+  # - low:     1-4, sweet: 2
+  # - medium:  2-6, sweet: 4
+  # - high:    5-9, sweet: 7
+  # - extreme: 7-10, sweet: 9
+
 # Tags for search and filtering
 tags:
   - "keyword1"

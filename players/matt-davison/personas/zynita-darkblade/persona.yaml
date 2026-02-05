@@ -53,6 +53,10 @@ equipped:
 
 location: "undercrypt-bone-market"
 
+# === DIFFICULTY ===
+difficulty:
+  setting: normal  # easy | normal | hard | nightmare
+
 chronicle:
   - date: "2026-02-03"
     event: "Awakened to the Weave after a skolma-induced vision in the tunnels beneath Nexus Station. Emerged at the station proper, ready to carve her own path."

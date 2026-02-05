@@ -115,4 +115,10 @@ status: available
 github: "System"
 created_date: "2026-02-02"
 completed_by: []
+
+# Level requirements
+level:
+  required: 1      # Tutorial quest, no level requirement
+  recommended: 1   # Designed for new players
+  scaling: false   # Fixed rewards
 ```

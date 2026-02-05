@@ -166,4 +166,10 @@ discovered_by: "matt-davison"
 github: "matt-davison"
 created_date: "2026-02-02"
 fragments_found: 1
+
+# Level requirements
+level:
+  required: 3      # Need some experience before tackling this
+  recommended: 6   # Fragment 2 & 3 involve high-level areas
+  scaling: true    # Legendary rewards scale with player level
 ```

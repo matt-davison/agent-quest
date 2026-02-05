@@ -75,4 +75,10 @@ Return to **[NPC Name]** at **[Location]** after completing all objectives.
 status: available # available, unavailable
 github: "[Your GitHub Username]"
 created_date: "YYYY-MM-DD"
+
+# Level requirements (optional, omit for level-agnostic quests)
+level:
+  required: 1      # Minimum level to accept this quest
+  recommended: 3   # Level for optimal challenge
+  scaling: false   # Whether rewards scale with player level
 ```

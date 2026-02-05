@@ -116,7 +116,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
 | **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
 | **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
-| **SHOP** | Buy/sell items | `world/shops/<shop-id>.yaml`, check tier requirements | `economy-validator`, `state-writer` |
+| **SHOP** | Buy/sell items | `world/shops/<shop-id>.yaml`, check tier requirements | `shop-manager`, `economy-validator`, `state-writer` |
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
 | **TODO** | View/manage player intentions | `players/<github>/todo.yaml` | - |
@@ -192,7 +192,9 @@ When a location has a shop, use the merchant system:
 4. Include: shop_id, location, proprietor, inventory with item_ids, prices, stock
 
 **Shop Inventory Rules:**
+- Use `shop-manager` agent for all shop interactions (browse, buy, sell)
 - Load shop file when player enters shop: `world/shops/<shop-id>.yaml`
+- Shop-manager validates all item_ids exist in database before displaying
 - Use `inventory` skill to resolve item details: `node .claude/skills/inventory/inventory.js get <id>`
 - Apply event modifiers (e.g., Era Celebration discount) from `world/state/current.yaml`
 - After purchase/sale, update shop stock if not unlimited (-1)

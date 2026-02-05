@@ -123,9 +123,12 @@ reviewer_reward:
 
 | Claim Value | Base Reward |
 |-------------|-------------|
+| 1-14 Tokes  | 2 Tokes |
 | 15-29 Tokes | 3 Tokes |
 | 30-50 Tokes | 5 Tokes |
-| 51+ Tokes | 8 Tokes |
+| 51+ Tokes   | 8 Tokes |
+
+**All claims require review** — this ensures quality and anchors contributions to the Weave.
 
 **Return:**
 

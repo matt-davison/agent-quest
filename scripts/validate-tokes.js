@@ -40,14 +40,16 @@ function loadWorlds() {
 
 // Valid transaction types and their rules
 const TRANSACTION_TYPES = {
-  genesis: { amountMustBe: 0 },
+  genesis: { amountMustBeOneOf: [0, 50] },  // Legacy (0) or new players (50)
   creation: { amountRange: [3, 50] },
   earn: { amountRange: [1, 100] },
   spend: { amountRange: [-100, -1] },
-  review: { amountRange: [3, 8] },
+  review: { amountRange: [2, 8] },  // 2 for 1-14 Tokes, 3 for 15-29, 5 for 30-50, 8 for 51+
   'review-bonus': { amountRange: [2, 3] },
   improvement: { amountRange: [3, 30] },
   weaving_cost: { amountRange: [-20, -1] },  // Upfront cost for weaving, pending reward
+  pr_reward: { amountRange: [1, 100] },  // Auto-approved PR reward
+  quest_reward: { amountRange: [1, 50] },  // Quest completion rewards
 };
 
 // Errors and warnings collected during validation
@@ -89,9 +91,8 @@ function validateLedger(filePath) {
     error(filePath, 'Missing required field: weaver');
   }
 
-  if (typeof ledger.balance !== 'number') {
-    error(filePath, 'Missing or invalid balance field (must be a number)');
-  }
+  // Note: balance field is no longer required - it's calculated dynamically
+  // Legacy ledgers may have it, but new ones won't
 
   if (!Array.isArray(ledger.transactions)) {
     error(filePath, 'Missing or invalid transactions array');
@@ -126,6 +127,9 @@ function validateLedger(filePath) {
       if (rules.amountMustBe !== undefined && txn.amount !== rules.amountMustBe) {
         error(filePath, `${txnRef}: ${txn.type} transactions must have amount=${rules.amountMustBe}, got ${txn.amount}`);
       }
+      if (rules.amountMustBeOneOf !== undefined && !rules.amountMustBeOneOf.includes(txn.amount)) {
+        error(filePath, `${txnRef}: ${txn.type} transactions must have amount in [${rules.amountMustBeOneOf.join(', ')}], got ${txn.amount}`);
+      }
       if (rules.amountRange) {
         const [min, max] = rules.amountRange;
         if (txn.amount < min || txn.amount > max) {
@@ -147,10 +151,8 @@ function validateLedger(filePath) {
     }
   }
 
-  // Verify balance matches calculated
-  if (typeof ledger.balance === 'number' && ledger.balance !== calculatedBalance) {
-    error(filePath, `Balance mismatch: stored=${ledger.balance}, calculated=${calculatedBalance}`);
-  }
+  // Note: Balance is now calculated dynamically, so no stored balance validation needed
+  // The calculatedBalance variable above is computed but not compared to a stored value
 
   // Check for self-review (review transactions on own content)
   const reviewTxns = ledger.transactions.filter(t => t.type === 'review');
@@ -186,6 +188,18 @@ function validateClaim(filePath, ledgersDir) {
   // Verify the referenced content exists
   if (claim.content_path && !fs.existsSync(claim.content_path)) {
     error(filePath, `Referenced content does not exist: ${claim.content_path}`);
+  }
+
+  // Validate auto-approved claims
+  if (claim.auto_approved === true) {
+    // Auto-approved claims must have pr_ref
+    if (!claim.pr_ref) {
+      error(filePath, 'Auto-approved claim missing required field: pr_ref');
+    }
+    // Auto-approved claims must be < 15 Tokes
+    if (claim.tokes_awarded >= 15) {
+      error(filePath, `Auto-approved claim cannot be >= 15 Tokes (got ${claim.tokes_awarded})`);
+    }
   }
 
   // Verify the transaction exists in the claimant's ledger

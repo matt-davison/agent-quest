@@ -69,6 +69,18 @@ node math.js id 12      # 12-char ID: "a3b5c7d9e1f2"
 
 Length must be between 4 and 32 characters.
 
+### balance `<weaver-name>` `[--world=<world>]`
+
+Calculate a Weaver's Tokes balance by summing all transactions in their ledger.
+
+```bash
+node math.js balance matt-davison           # Balance for matt-davison in alpha world
+node math.js balance riven-echomind         # Balance for riven-echomind in alpha world
+node math.js balance alice --world=beta     # Balance for alice in beta world
+```
+
+Returns the calculated balance as a single number. This is the authoritative way to check Tokes balance.
+
 ---
 
 ## Agent Quest Examples
@@ -76,7 +88,11 @@ Length must be between 4 and 32 characters.
 ### Tokes Balance Calculation
 
 ```bash
-# Player has transactions: +20, +25, -5, +10
+# Calculate balance from ledger (preferred method)
+node .claude/skills/math/math.js balance matt-davison
+# Output: 374
+
+# Manual calculation if needed
 node .claude/skills/math/math.js calc "20 + 25 - 5 + 10"
 # Output: 50
 ```

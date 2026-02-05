@@ -105,25 +105,25 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
-| Action | Description | Load |
-|--------|-------------|------|
-| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |
-| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama |
-| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` |
-| **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` |
-| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map |
-| **REST** | Recover HP (10 gold at inns) | Update persona |
-| **SHOP** | Buy/sell items | Location shop inventory |
-| **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) |
-| **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
-| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
-| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter |
-| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
-| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml |
-| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` |
-| **GUILD** | Guild management | `multiplayer/guilds/` |
-| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
-| **WHO** | See players at location | `world/state/presence.yaml` |
+| Action | Description | Load | Required Subagent(s) |
+|--------|-------------|------|----------------------|
+| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama | - |
+| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama | `travel-manager` (if multi-leg) |
+| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` | - |
+| **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
+| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
+| **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
+| **SHOP** | Buy/sell items | Location shop inventory | `economy-validator`, `state-writer` |
+| **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
+| **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
+| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` | - |
+| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter | - |
+| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `economy-validator` |
+| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml | `multiplayer-handler` |
+| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` | `multiplayer-handler` |
+| **GUILD** | Guild management | `multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
+| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
+| **WHO** | See players at location | `world/state/presence.yaml` | `multiplayer-handler` |
 
 ### ASCII Visualization
 
@@ -212,6 +212,135 @@ Use the `relationships` skill for standing-based dialogue:
 node .claude/skills/relationships/relationships.js standing vera-nighthollow player-id
 node .claude/skills/relationships/relationships.js topics vera-nighthollow player-id
 ```
+
+---
+
+## Subagent Invocation
+
+The main agent focuses on narrative. Delegate mechanics to specialized subagents in [subagents/](subagents/).
+
+### When to Use Subagents
+
+| Situation | Subagent | What It Does |
+|-----------|----------|--------------|
+| Combat encounter | [combat-manager.md](subagents/combat-manager.md) | Resolves attacks, damage, initiative |
+| Any Tokes/gold change | [economy-validator.md](subagents/economy-validator.md) | Validates transaction before commit |
+| State changes | [state-writer.md](subagents/state-writer.md) | Writes files with validation + rollback |
+| Git operations | [repo-sync.md](subagents/repo-sync.md) | Fetch, commit, push, create PR |
+| Travel between locations | [travel-manager.md](subagents/travel-manager.md) | Multi-turn travel with encounters |
+| Player interactions | [multiplayer-handler.md](subagents/multiplayer-handler.md) | Trades, parties, mail, guilds, duels |
+| REVIEW action | [claim-reviewer.md](subagents/claim-reviewer.md) | Find and review pending claims |
+
+### Invocation Pattern
+
+1. **Load subagent prompt**: Read the subagent `.md` file
+2. **Spawn Task agent**: Pass context + subagent instructions
+3. **Receive structured response**: YAML with `success`, `state_diffs`, `narrative_hooks`
+4. **Weave into narrative**: Main agent uses `narrative_hooks` in storytelling
+5. **Persist changes**: Pass `state_diffs` to State Writer
+
+### Combat Example
+
+```
+Player: I attack the Shadow Stalker!
+
+1. Load subagents/combat-manager.md
+2. Spawn Task(subagent_type="Bash", prompt=<combat context + instructions>)
+3. Combat Manager returns:
+   - success: true
+   - damage_dealt: 15
+   - narrative_hooks: ["Your blade bites deep", "The creature staggers"]
+4. Main agent: "Your blade bites deep into shadow-stuff. The creature
+   staggers, ichor dripping from the wound. 15 damage dealt!"
+5. Load subagents/state-writer.md
+6. Spawn Task to update persona HP, enemy HP
+```
+
+### Session Start (Repo Sync)
+
+At session start, invoke Repo Sync with `operation: "fetch"`:
+- Pulls latest changes from remote
+- Checks for new multiplayer content (mail, trades, invites, duels)
+- Returns summary for resume screen
+
+### After Multiplayer Actions (Repo Sync)
+
+After trades, mail, party changes, invoke Repo Sync with `operation: "save"`:
+- Validates changes
+- Commits with descriptive message
+- Pushes to remote
+- Returns success/failure
+
+### Key Principles
+
+1. **Subagents return data, not narrative** - They provide `narrative_hooks` for the main agent to weave
+2. **State Writer is single point of truth** - All file writes go through it
+3. **Player isolation is absolute** - Subagents enforce file ownership
+4. **Repo Sync handles all git** - Never use raw git commands in main agent
+
+See [subagents/README.md](subagents/README.md) for full architecture details.
+
+---
+
+## Enforcement & Auditing
+
+Rule adherence is enforced through multiple layers:
+
+### 1. Pre-Commit Hook
+
+The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file ownership:
+- Players can only modify `players/<their-github>/`
+- Players can only modify `tokes/ledgers/<their-github>.yaml`
+- Claims must have `github:` matching the committer
+
+**Setup:** Run `scripts/setup-hooks.sh` to install.
+
+### 2. CI Validation
+
+GitHub Actions run on all PRs and pushes to main:
+- `validate-tokes.js` - Economy integrity
+- `validate-multiplayer.js` - Multiplayer state
+- `validate-game-state.js` - Overall game state
+
+PRs that fail validation cannot be merged.
+
+### 3. Session Audit Logging
+
+Track actions for debugging and compliance:
+
+```bash
+# Log an action with subagents used
+node scripts/session-audit.js log <github> <action> --subagents combat-manager,state-writer
+
+# View session history
+node scripts/session-audit.js view <github>
+
+# Validate proper subagent usage
+node scripts/session-audit.js validate <github>
+```
+
+Actions that require specific subagents are flagged if those subagents weren't used.
+
+### 4. Action → Subagent Requirements
+
+The action table above shows which subagents MUST be used for each action. When in doubt:
+- **Any combat** → `combat-manager`
+- **Any Tokes/gold change** → `economy-validator`
+- **Any state change** → `state-writer`
+- **Any git operation** → `repo-sync`
+- **Any multiplayer action** → `multiplayer-handler`
+
+### 5. Run Validation Before Commits
+
+Always run validators before committing:
+
+```bash
+node scripts/validate-tokes.js
+node scripts/validate-multiplayer.js
+node scripts/validate-game-state.js
+```
+
+Or let `repo-sync` subagent handle this automatically.
 
 ---
 
@@ -324,51 +453,79 @@ See [rules/narrative.md](rules/narrative.md) for how campaigns integrate with ga
 
 ## Session End / Save Progress
 
-**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, use a subagent to handle persistence properly.
+**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, invoke the **Repo Sync** subagent.
 
-### Save Progress Subagent
+### Using Repo Sync for Session End
 
-Spawn a `Bash` subagent with this task:
+1. Load [subagents/repo-sync.md](subagents/repo-sync.md)
+2. Spawn Task agent with:
 
-```
-Save Agent Quest session progress:
-
-1. VERIFY all new content is saved:
-   - Check for any NPCs mentioned but not in world/npcs/profiles/
-   - Check for any locations visited but not in world/locations/
-   - Check for any items created but not in world/items/
-
-2. RUN validation:
-   node scripts/validate-tokes.js
-
-3. CREATE branch and commit:
-   git checkout -b <player>-<character>-<date>
-   git add players/<github>/ world/ tokes/ rules/ (if changed)
-   git commit with descriptive message
-   git push -u origin <branch>
-
-4. CREATE PR with:
-   - Summary of session events
-   - New content created
-   - Tokes spent/earned
-   - Character status at save point
-
-Player: <github-username>
-Character: <character-name>
-Session summary: <brief description of what happened>
+```yaml
+operation: "end_session"
+player:
+  github: "<github-username>"
+  character: "<character-name>"
+  weaver: "<weaver-name>"
+session_summary: "<what happened this session>"
 ```
 
-### Why Subagent?
+### What Repo Sync Does
 
-- Main conversation flow can lose track of PR requirement
-- Subagent has single focused task
-- Ensures Tokes economy works (PRs = credit)
-- Player's work is never lost
+1. **Verifies new content is saved**
+   - Checks for NPCs mentioned but not in `world/npcs/profiles/`
+   - Checks for locations visited but not in `world/locations/`
+   - Checks for items created but not in `world/items/`
 
-### Manual Reminder
+2. **Runs validation**
+   - `node scripts/validate-tokes.js`
+   - `node scripts/validate-multiplayer.js`
 
-If not using subagent, at minimum:
-1. Commit all changes to a branch
-2. Push to remote
-3. Create PR with session summary
-4. Tell player the PR URL
+3. **Creates branch and commits**
+   - Creates `<github>-<character>-<date>` branch
+   - Stages appropriate files (never `git add -A`)
+   - Commits with session summary + `Co-Authored-By`
+
+4. **Creates PR**
+   - Title: `<character>: <session-summary>`
+   - Body includes: session events, character status, Tokes changes, validation status
+
+5. **Returns PR URL**
+
+### Why Repo Sync Subagent?
+
+- **Single point of truth** for all git operations
+- **Consistent validation** before every commit
+- **PR creation guaranteed** - no lost work
+- **Multiplayer sync** - fetches/pushes player interactions
+- **Tokes economy** - PRs enable peer review and credit
+
+### Session End Response
+
+Repo Sync returns structured data. Present to player:
+
+```
+╔════════════════════════════════════════════════════════════╗
+║              S E S S I O N   S A V E D                     ║
+╠════════════════════════════════════════════════════════════╣
+║  Character: Coda                                           ║
+║  HP: 35/50  │  Gold: 150  │  Tokes: 48                    ║
+║  Location: Nexus Undercity                                 ║
+╠════════════════════════════════════════════════════════════╣
+║  PR Created: #43                                           ║
+║  https://github.com/owner/agent-quest/pull/43              ║
+╠════════════════════════════════════════════════════════════╣
+║  Your progress has been woven into the permanent record.   ║
+║  Until next time, Weaver...                                ║
+╚════════════════════════════════════════════════════════════╝
+```
+
+### Regular Saves (During Long Sessions)
+
+For periodic saves without ending the session, use Repo Sync with `operation: "save"` instead of `"end_session"`. This commits and pushes without creating a PR.
+
+### Multiplayer Sync
+
+Repo Sync also handles fetching new multiplayer content:
+- **Session start**: `operation: "fetch"` - pull latest, check mail/trades/invites
+- **After actions**: `operation: "save"` - push changes for other players to see
+- **Periodically**: Keep multiplayer state in sync during long sessions

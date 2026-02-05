@@ -1,0 +1,46 @@
+# Memory Vial
+# A crystalline container holding someone else's memory
+
+id: u1py0md2
+name: "Memory Vial"
+type: consumable
+subtype: quest_item
+rarity: uncommon
+value: 0  # Quest item, cannot be sold
+tradeable: false
+droppable: false
+
+description: |
+  A small crystalline vial filled with something that shifts between liquid
+  and light. Colors swirl inside: deep blue, flashes of gold, a pulse of
+  something that might be pain. It's warm to the touch, and holding it too
+  long brings faint echoes of emotion not your own.
+
+effects:
+  on_use:
+    - type: memory_transfer
+      description: "Experience the memory contained within"
+      warning: "Memories have teeth when they're not yours"
+  on_examine:
+    - type: spirit_check
+      dc: 12
+      success: "Sense the emotional tone of the memory"
+      failure: "The vial grows cold, rejecting your probe"
+
+tags:
+  - quest_item
+  - memory
+  - jade_dragon
+  - consumable
+
+quest_association: "memory-courier"
+
+lore: |
+  Memory vials are crafted by those who deal in the currency of experience.
+  The Jade Dragon is known to broker such things — buying painful memories
+  from those who wish to forget, selling precious ones to those who wish
+  to remember what was never theirs.
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

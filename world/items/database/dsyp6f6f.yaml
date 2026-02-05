@@ -1,0 +1,48 @@
+# Yara's Coordinates
+# A data chip containing the last known location of a vanished seeker
+
+id: dsyp6f6f
+name: "Yara's Coordinates"
+type: quest_item
+subtype: data
+rarity: rare
+value: 0  # Priceless to those who understand
+tradeable: false
+droppable: false
+
+description: |
+  An old data chip, scratched and worn, held together by hope. It contains
+  the last known coordinates of Yara Corren — a woman who hunted the Third
+  Architect forty-three years ago and vanished without a trace.
+
+  Her father Vance kept this for decades, too afraid to follow. Now it's
+  in your hands.
+
+contents:
+  type: coordinates
+  location: "Unknown — requires decryption or the right equipment"
+  age: "43 years old"
+  sender: "Yara Corren"
+  notes: |
+    The chip's data is partially corrupted. A skilled technician or
+    Datamancer might be able to extract the full coordinates.
+
+lore: |
+  Yara Corren was one of many who sought the truth about Architect 03.
+  Unlike most, she found something. Her last message to her father
+  contained a memory and these coordinates. Then silence.
+
+  "Everyone who looked for her vanished," Vance said. "Everyone except me."
+
+quest_association: "the-third-architect"
+
+tags:
+  - quest_item
+  - data
+  - architect
+  - coordinates
+  - yara_corren
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

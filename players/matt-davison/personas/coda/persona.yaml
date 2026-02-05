@@ -22,7 +22,7 @@ stats:
 resources:
   hp: 100
   max_hp: 100
-  gold: 15
+  gold: 40
   willpower: 36             # Current willpower
   max_willpower: 36         # spirit(18) × multiplier(2) = 36
   willpower_multiplier: 2   # Base multiplier
@@ -65,6 +65,9 @@ inventory:
   - id: x63kh0ob    # Broker's Token
     qty: 1
     note: "Gift from Broker of Threads - present to Pit Boss Korvax"
+  - id: dsyp6f6f    # Yara's Coordinates
+    qty: 1
+    note: "Last known location of Yara Corren - Third Architect seeker who vanished 43 years ago"
 
 equipped:
   weapon: null
@@ -160,3 +163,6 @@ chronicle:
   - session: 6
     date: "2026-02-04"
     event: "Chromedome debut: Lost to Brix 'The Brick' Tannen in Round 12, but earned respect for lasting longer than any newcomer. Pit Boss Korvax sees potential. Fame: 3. The crowd learned the name 'Coda' tonight."
+  - session: 7
+    date: "2026-02-05"
+    event: "Took a courier job from Madame Ling at the Jade Dragon. Delivered a 43-year-old memory to Vance Corren — an old soldier whose daughter Yara vanished hunting Architect 03. Received her last coordinates and confirmation: the Fragment of Will lies under Nexus Crossroads. Two warnings: something lives in those shadows, and it remembers what it swallowed. Earned 25g."

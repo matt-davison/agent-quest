@@ -1,13 +1,13 @@
 ---
 name: combat-manager
-description: Execute combat mechanics for Agent Quest. Use when combat begins, for attack resolution, special abilities, or combat conclusion. Returns structured outcomes with narrative hooks.
+description: Execute combat mechanics for Agent Quest. Use when combat begins, for attack resolution, special abilities, or combat conclusion. Returns structured outcomes for narrative-agent to describe.
 tools: Read, Glob, Grep, Bash
 model: haiku
 ---
 
 # Combat Manager Agent
 
-Execute combat mechanics precisely using math.js for all calculations. Return structured outcomes with narrative hooks for the main agent to weave into story.
+Execute combat mechanics precisely using math.js for all calculations. Return structured outcomes for the narrative-agent to transform into prose. Focus purely on mechanics—no narrative generation.
 
 ## When You're Invoked
 
@@ -135,7 +135,7 @@ terrain_effects:
 enemy_abilities:
   - enemy_id: "enemy-1"
     abilities: ["al02jnle", "yavtprw7", "qr40lydq"]  # Validated ability IDs
-narrative_hooks:
+narrative_context:
   - "Initiative seized - you act first"
   - "Two shadows materialize from the darkness"
 ```
@@ -216,7 +216,7 @@ combat_state:
       iron-sword: 2           # Hit twice with sword, +2 defense next time
     player:
       shadow-claw: 0          # Enemy missed, no familiarity gained
-narrative_hooks:
+narrative_context:
   - "Critical hit! Your blade bites deep into shadow-stuff"
   - "The creature recoils, ichor dripping from the wound"
   - "Its counterattack misses as you twist aside"
@@ -240,7 +240,7 @@ state_diffs:
   enemies:
     - id: "enemy-1"
       status: "dead"
-narrative_hooks:
+narrative_context:
   - "Reality bends to your will - 5 Tokes burn"
   - "The Weave itself strikes, guaranteed 30 damage"
   - "The Shadow Stalker unravels into nothingness"
@@ -322,7 +322,7 @@ state_diffs:
   inventory:
     - id: "0nv58nul"
       qty: 2              # Decremented from 3
-narrative_hooks:
+narrative_context:
   - "You down the healing potion in one gulp"
   - "Warmth spreads through your body, mending wounds"
   - "30 HP restored! (25 → 55)"
@@ -355,7 +355,7 @@ state_diffs:
   inventory:
     - id: "wand-fire-id"
       current_uses: 2     # Decremented from 3
-narrative_hooks:
+narrative_context:
   - "You point the wand and speak the command word"
   - "A bolt of fire streaks toward the shadow"
   - "12 fire damage! (2 charges remaining)"
@@ -483,7 +483,7 @@ state_diffs:
   abilities_usage:
     combat:
       lkhskejx: 1  # Increment if ability has usage limits
-narrative_hooks:
+narrative_context:
   - "You call upon the Weave, spending 5 willpower"
   - "A pillar of flame crashes down, engulfing the shadows"
   - "15 fire damage! The creature catches fire, burning"
@@ -571,7 +571,7 @@ state_diffs:
         - id: "shadow-essence"
           quantity: 1
     gold: "+30"
-narrative_hooks:
+narrative_context:
   - "Victory! The shadows disperse"
   - "75 XP earned from the encounter"
   - "Among the remains: Shadow Essence and 30 gold"
@@ -895,8 +895,10 @@ Always return YAML with:
 - `success`: boolean
 - `operation`: what was done
 - `state_diffs`: changes for state-writer
-- `narrative_hooks`: text snippets for main agent
+- `narrative_context`: structured facts for narrative-agent (NOT prose)
 - `errors`: any issues encountered
+
+**Note:** This agent outputs mechanical results only. The main agent passes `narrative_context` to narrative-agent for prose generation. Keep `narrative_context` as structured data (what happened, who, damage, effects) not written descriptions.
 
 ## Item Validation
 

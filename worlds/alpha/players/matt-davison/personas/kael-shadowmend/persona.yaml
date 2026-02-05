@@ -20,17 +20,18 @@ appearance: |
 
 # Stats: Base 10 + 10 bonus points
 # Voidwalker bonus: +3 AGI, +2 MND
+# Level 2: +1 AGI, +1 SPR
 stats:
   strength: 10   # Base
-  agility: 17    # 10 + 4 bonus + 3 class
+  agility: 18    # 10 + 4 bonus + 3 class + 1 level
   mind: 14       # 10 + 2 bonus + 2 class
-  spirit: 14     # 10 + 4 bonus
+  spirit: 15     # 10 + 4 bonus + 1 level
 
 resources:
-  hp: 47         # Combat damage: took 53 total (48 from parasites, 5 from Phase)
-  max_hp: 100
-  gold: 41       # Paid 5g toll to goblin patrol
-  willpower: 24  # Spent 4 on Phase
+  hp: 112        # Minor Phase usage
+  max_hp: 115    # Level 2: +15 HP
+  gold: 185      # Ghost Run reward +150
+  willpower: 25  # Minor usage
   max_willpower: 28
   willpower_multiplier: 2
 
@@ -44,6 +45,15 @@ abilities:
       level: 1
       source: "class"
       learned_date: "2026-02-05"
+    - id: "void-step"     # Void Step (upgraded Phase from book)
+      level: 1
+      source: "book"
+      learned_date: "2026-02-05"
+      notes: "Learned from Patterns of the Void. 3 HP + 3 WP (reduced from 5+4)"
+    - id: "shadow-meld"   # Shadow Meld (Level 2 unlock)
+      level: 1
+      source: "level"
+      learned_date: "2026-02-05"
   usage:
     combat: {}
     short_rest: {}
@@ -52,15 +62,41 @@ abilities:
     daily: {}
   active_effects: []
 
-# Voidwalker starting equipment (base 10 slots + 5 class bonus = 15)
+# Voidwalker equipment
 inventory:
   - null_blade: 1
   - shadowweave_cloak: 1
   - lockpick_set: 1
-  - smoke_bomb: 3
+  - smoke_bomb: 3                # Restocked
   - healing_potion: 1
-  # - vial_of_captured_shadows: CONSUMED in combat
   - weavers_sigil: 1             # Key item - First Steps reward
+  - hex_data_crystal: 1          # Key item - Pest Control reward
+  - advanced_void_theory: 1      # Book found in Athenaeum
+  - patterns_of_the_void: 1      # Key item - Overdue quest reward
+  - architect_fragment_1: 1      # Key item - The Third Architect quest
+  - horizon_data_chip: 1         # Ghost Run download + Sector 7-Alpha intel
+
+boons:
+  - name: "Librarian's Favor"
+    source: "Librarian Cache"
+    effect: "Can ask Cache for one forbidden piece of information"
+    uses: 1
+
+allies:
+  - name: "Mira Paradox"
+    role: "Dimensional Theory Expert"
+    location: "Syntax Athenaeum / Codex Tavern"
+    notes: "Rescued from 6-month dimensional fold. Owes Kael a favor."
+  - name: "The Patron"
+    role: "Corporate Information Broker"
+    location: "Lumina City"
+    notes: "Hired Kael for Ghost Run. May have more work."
+
+contacts:
+  - name: "The Professor"
+    role: "Disgraced Academic"
+    location: "The Dive, Lumina City"
+    notes: "Knows about Third Architect and Project Depth Reach"
 
 equipped:
   weapon: "null_blade"
@@ -68,16 +104,22 @@ equipped:
   accessory: "lockpick_set"
 
 progression:
-  level: 1
-  xp: 35         # +25 quest, +10 combat (1 Data Parasite kill)
-  xp_to_next: 100
+  level: 2
+  xp: 124        # +50 from Ghost Run
+  xp_to_next: 150
   tier: 1
   stat_points: 0
 
 difficulty:
   setting: normal
 
-location: "undercrypt"
+location: "lumina-city"
+
+status_effects:
+  - name: "Wanted (Minor)"
+    location: "Lumina City"
+    reason: "Evaded corporate security shake-down"
+    severity: "minor"
 
 chronicle:
   - date: "2026-02-05"
@@ -95,6 +137,30 @@ chronicle:
   - date: "2026-02-05"
     event: "[ECHO] Discovered Memory Pools. Met the Keeper of Echoes. Looked into the Deep Pool and saw the Guardian — 'one who failed,' who chose to stay. Gained Temporal Dissonance. The question echoes: 'Why create at all?'"
     significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Fought two Glitch Wraiths in Athenaeum basement. Destroyed one. Killed by second — critical hit at 3 HP. [RESPAWN] Temple of Rendered Light. Death teaches. [REASON: Bold to the end, but pragmatism has limits]"
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Investigated wraith source. Eliminated Hex Recursive in the spawning chamber. Pest Control complete. [REASON: Curious — solve root cause, not symptoms]"
+    significance: "moderate"
+  - date: "2026-02-05"
+    event: "[ECHO] LEVEL UP → Level 2. Unlocked Shadow Meld. +1 AGI, +1 SPR."
+    significance: "moderate"
+  - date: "2026-02-05"
+    event: "[ECHO] Found Fragment 1 in Recursion Library. 'Why create at all?' The Guardian was the Architect's answer."
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Rescued Mira Paradox from dimensional fold. Learned Void Step from 'Patterns of the Void.' Gained Librarian's Favor."
+    significance: "moderate"
+  - date: "2026-02-05"
+    event: "[ECHO] Traveled to Lumina City. Evaded corrupt security using Phase. Marked as minor wanted. [REASON: Chaotic — refuse to pay bribes]"
+    significance: "minor"
+  - date: "2026-02-05"
+    event: "[ECHO] Found data chip: Project Depth Reach seeks Fragment 3 (03-C) in Sector 7-Alpha. The Professor: 'Fragment 3 isn't an object, it's a state of being.'"
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Completed Ghost Run — infiltrated Horizon Industries, downloaded files, observed Fragment 3 anomaly. Clean extraction. +150 gold. [REASON: Pragmatic — play to Voidwalker strengths]"
+    significance: "moderate"
 
 alignment:
   primary: "curious"

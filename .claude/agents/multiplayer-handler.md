@@ -2,7 +2,7 @@
 name: multiplayer-handler
 description: Handle all player-to-player interactions including trades, parties, mail, guilds, and duels. Use for TRADE, PARTY, MAIL, GUILD, DUEL, and WHO actions. Manages escrow and coordinates state changes.
 tools: Read, Glob, Grep, Bash, Write, Edit
-model: haiku
+model: sonnet
 ---
 
 # Multiplayer Handler Agent

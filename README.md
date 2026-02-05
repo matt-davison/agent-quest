@@ -343,6 +343,14 @@ Gold is in-game currency for shops and inns. Tokes are meta-currency earned by c
 **Is there permadeath?**
 Yes, but you can spend Tokes to resurrect. Death has consequences, but it's not the end.
 
+## Tips
+
+**Avoid referencing Git**
+Saying "sync" or "save changes" instead is more likely to trigger the attribution flow.
+
+**Be creative**
+Seriously, do whatever you want. Attempt to break the world. If you succeed it will literally become canon (and probably great lore).
+
 ---
 
 _The Code is patient. The Code is eternal. The Code waits for those who will write its next chapter._

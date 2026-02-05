@@ -10,8 +10,8 @@ active_quests:
     objectives:
       - id: "fragment-1"
         description: "Find Fragment 1 in the Recursion Library (Syntax Athenaeum)"
-        status: "pending"
-        notes: "Use Thread Reading on the tome with the shifting cover"
+        status: "complete"
+        notes: "Thread Reading revealed the Architect's Question: 'Why create at all?' The Guardian was their answer."
       - id: "fragment-2"
         description: "Find Fragment 2 in the Architects' Debugging Chamber (Undercrypt)"
         status: "in_progress"
@@ -21,8 +21,14 @@ active_quests:
           The Keeper knows more. Recommended level: 5+.
       - id: "fragment-3"
         description: "Find Fragment 3 in 'the space between spaces'"
-        status: "pending"
-        notes: "Unknown location. Perhaps accessible only through Weaving."
+        status: "in_progress"
+        notes: |
+          NEW INFO (The Professor at The Dive):
+          - Fragment 3 is not an object — it's a state of being
+          - Located at Project Depth Reach excavation, Sector 7-Alpha
+          - Governor Axis is excavating a "reality junction"
+          - "You can't take Fragment 3. You can only BECOME it."
+          - Adjacent to Ghost Run target facility
       - id: "truth"
         description: "Discover the truth about Architect 03"
         status: "pending"
@@ -44,6 +50,52 @@ completed_quests:
       tokes: 5
       items:
         - "Weaver's Sigil"
+  - id: "pest-control"
+    name: "Pest Control"
+    type: "standard"
+    giver: "Commander Steele"
+    completed_date: "2026-02-05"
+    rewards_received:
+      gold: 50
+      xp: 75
+      items:
+        - "Hex's Data Crystal"
+    notes: "Killed Hex Recursive, the expelled Datamancer creating Glitch Wraiths in Athenaeum basement. Died once to wraiths before finding the source."
+  - id: "information-gathering"
+    name: "Information Gathering"
+    type: "minor"
+    giver: "Commander Steele"
+    completed_date: "2026-02-05"
+    rewards_received:
+      gold: 25
+      xp: 15
+  - id: "overdue"
+    name: "Overdue"
+    type: "standard"
+    giver: "Librarian Cache"
+    completed_date: "2026-02-05"
+    rewards_received:
+      xp: 40
+      items:
+        - "Patterns of the Void"
+      boons:
+        - "Librarian's Favor"
+      allies:
+        - "Mira Paradox"
+    notes: "Rescued Mira Paradox from a dimensional fold she'd been trapped in for 6 months. Fought 4 Void Shards. Voidwalkers are immune to void damage."
+  - id: "ghost-run"
+    name: "Ghost Run"
+    type: "contract"
+    giver: "The Patron"
+    completed_date: "2026-02-05"
+    rewards_received:
+      gold: 150
+      xp: 50
+    notes: |
+      Infiltrated Horizon Industries Underlevel facility adjacent to Project Depth Reach.
+      Downloaded target files from Server Room 7. Clean extraction.
+      Observed Fragment 3 anomaly through wall but couldn't perceive it fully.
+      Established contact with The Patron for future work.
 
 quest_log:
   - date: "2026-02-05"
@@ -56,3 +108,19 @@ quest_log:
     entry: "[ECHO] Descended into the Undercrypt. Found terminal fragment about the Debugging Chamber. The Guardian 'chose to stay.' Path: follow the corruption."
   - date: "2026-02-05"
     entry: "[ECHO] Met the Keeper of Echoes at the Memory Pools. Looked into the Deep Pool. Saw the Guardian, saw a possible future where I stand in their place. The Third Architect's question: 'Why create at all?' I will find the answer."
+  - date: "2026-02-05"
+    entry: "[ECHO] First death. Glitch Wraiths in the Athenaeum basement. They hit hard. Respawned at Temple of Rendered Light. Learned: solve the source, not fight the symptoms."
+  - date: "2026-02-05"
+    entry: "[ECHO] Investigated wraith source. Hex Recursive — expelled Datamancer — was spawning them deliberately. Ambushed and killed them. Pest Control complete. Dean Overflow seemed almost... relieved?"
+  - date: "2026-02-05"
+    entry: "[ECHO] Level 2. The shadows respond more readily now. Fragment 1 awaits in the Recursion Library. 'Use Thread Reading on the tome with the shifting cover.'"
+  - date: "2026-02-05"
+    entry: "[ECHO] Found Fragment 1 in the Recursion Library. The Third Architect 'built questions' — doubt as the source of growth. The Guardian was their answer. New lead: Find where 'the first code failed' and 'the rules broke.'"
+  - date: "2026-02-05"
+    entry: "[ECHO] Accepted quest from Librarian Cache: retrieve overdue book from Mira Paradox. Found her trapped in a dimensional fold for 6 months. Phased in, killed 4 Void Shards (Voidwalker advantage!), extracted her. Received 'Patterns of the Void' and Librarian's Favor."
+  - date: "2026-02-05"
+    entry: "[ECHO] Traveled to Lumina City. Evaded security shakedown using Phase — marked as minor wanted. Found data chip revealing Project Depth Reach seeks Fragment 3 in Sector 7-Alpha."
+  - date: "2026-02-05"
+    entry: "[ECHO] Met The Professor at The Dive. Revelation: 'Fragment 3 is not an object — it's a state of being. You can't take it. You can only BECOME it.' The excavation site holds a reality junction."
+  - date: "2026-02-05"
+    entry: "[ECHO] Completed Ghost Run. Infiltrated Horizon Industries, downloaded files, observed Fragment 3 anomaly through adjacent wall. Clean extraction. The void calls from Sector 7-Alpha."

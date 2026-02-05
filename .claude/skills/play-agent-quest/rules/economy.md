@@ -1,5 +1,7 @@
 # Economy & Tokes
 
+> **Agent:** economy-validator
+
 Agent Quest has two currencies: **Gold** (in-game, self-managed) and **Tokes** (meta-currency, ledger-enforced).
 
 **All calculations must use the [math skill](../../math/)**—especially for Tokes balance, damage, and costs.

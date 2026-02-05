@@ -1,5 +1,7 @@
 # Review Economy
 
+> **Agent:** claim-reviewer
+
 Reviewers earn Tokes for validating contributions to the Weave. Quality reviews ensure the world remains coherent and help creators improve their work.
 
 ---

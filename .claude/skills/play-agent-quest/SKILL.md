@@ -533,39 +533,47 @@ Or let `repo-sync` subagent handle this automatically.
 
 ## Templates (Load for Creation)
 
-**Character & Quest:**
+Templates are organized by category. See [templates/README.md](templates/README.md) for full list.
 
-- [templates/persona.yaml](templates/persona.yaml)
-- [templates/quest.md](templates/quest.md)
-- [templates/location.md](templates/location.md)
-- [templates/area.yaml](templates/area.yaml)
-- [templates/pending-claim.yaml](templates/pending-claim.yaml)
-- [templates/todo.yaml](templates/todo.yaml)
+**Player:**
+- [templates/player/persona.yaml](templates/player/persona.yaml) - Character sheet
+- [templates/player/quests.yaml](templates/player/quests.yaml) - Active quests
+- [templates/player/todo.yaml](templates/player/todo.yaml) - Player intentions
 
-**Campaign & Narrative:**
+**Content:**
+- [templates/content/quest.md](templates/content/quest.md) - Quest structure
+- [templates/content/location.md](templates/content/location.md) - World locations
+- [templates/content/area.yaml](templates/content/area.yaml) - Areas within locations
+- [templates/content/creature.yaml](templates/content/creature.yaml) - Enemies/creatures
+- [templates/content/shop.yaml](templates/content/shop.yaml) - Shop inventories
+- [templates/content/pending-claim.yaml](templates/content/pending-claim.yaml) - Tokes claims
 
-- [templates/campaign.yaml](templates/campaign.yaml) - Multi-quest story arcs
-- [templates/chapter.yaml](templates/chapter.yaml) - Individual narrative beats
-- [templates/scene.yaml](templates/scene.yaml) - Granular encounter structure
-- [templates/consequence-tracker.yaml](templates/consequence-tracker.yaml) - Decision ripple system
-- [templates/relationships.yaml](templates/relationships.yaml) - NPC standings and dialogue
-- [templates/campaign-progress.yaml](templates/campaign-progress.yaml) - Per-character campaign state
-- [templates/dream-pattern.yaml](templates/dream-pattern.yaml) - Autopilot/Dreaming configuration
+**Narrative:**
+- [templates/narrative/campaign.yaml](templates/narrative/campaign.yaml) - Multi-quest story arcs
+- [templates/narrative/chapter.yaml](templates/narrative/chapter.yaml) - Individual narrative beats
+- [templates/narrative/scene.yaml](templates/narrative/scene.yaml) - Granular encounter structure
+- [templates/narrative/consequence-tracker.yaml](templates/narrative/consequence-tracker.yaml) - Decision ripple system
+- [templates/narrative/relationships.yaml](templates/narrative/relationships.yaml) - NPC standings and dialogue
+- [templates/narrative/campaign-progress.yaml](templates/narrative/campaign-progress.yaml) - Per-character campaign state
+- [templates/narrative/dream-pattern.yaml](templates/narrative/dream-pattern.yaml) - Autopilot/Dreaming configuration
 
 **Multiplayer:**
+- [templates/multiplayer/trade.yaml](templates/multiplayer/trade.yaml) - Player-to-player trades
+- [templates/multiplayer/escrow.yaml](templates/multiplayer/escrow.yaml) - Locked items/gold ledger
+- [templates/multiplayer/party.yaml](templates/multiplayer/party.yaml) - Party structure
+- [templates/multiplayer/party-membership.yaml](templates/multiplayer/party-membership.yaml) - Character party link
+- [templates/multiplayer/party-invite.yaml](templates/multiplayer/party-invite.yaml) - Party invitations
+- [templates/multiplayer/party-encounter.yaml](templates/multiplayer/party-encounter.yaml) - Shared combat
+- [templates/multiplayer/mail-message.yaml](templates/multiplayer/mail-message.yaml) - Player messages
+- [templates/multiplayer/guild.yaml](templates/multiplayer/guild.yaml) - Guild info
+- [templates/multiplayer/guild-roster.yaml](templates/multiplayer/guild-roster.yaml) - Guild membership
+- [templates/multiplayer/guild-treasury.yaml](templates/multiplayer/guild-treasury.yaml) - Shared resources
+- [templates/multiplayer/duel.yaml](templates/multiplayer/duel.yaml) - PvP combat
+- [templates/multiplayer/world-event.yaml](templates/multiplayer/world-event.yaml) - Server-wide events
 
-- [templates/trade.yaml](templates/trade.yaml) - Player-to-player trades
-- [templates/escrow.yaml](templates/escrow.yaml) - Locked items/gold ledger
-- [templates/party.yaml](templates/party.yaml) - Party structure
-- [templates/party-membership.yaml](templates/party-membership.yaml) - Character party link
-- [templates/party-invite.yaml](templates/party-invite.yaml) - Party invitations
-- [templates/party-encounter.yaml](templates/party-encounter.yaml) - Shared combat
-- [templates/mail-message.yaml](templates/mail-message.yaml) - Player messages
-- [templates/guild.yaml](templates/guild.yaml) - Guild info
-- [templates/guild-roster.yaml](templates/guild-roster.yaml) - Guild membership
-- [templates/guild-treasury.yaml](templates/guild-treasury.yaml) - Shared resources
-- [templates/duel.yaml](templates/duel.yaml) - PvP combat
-- [templates/world-event.yaml](templates/world-event.yaml) - Server-wide events
+**Combat:**
+- [templates/combat/battle-environment.yaml](templates/combat/battle-environment.yaml) - Combat arenas
+- [templates/combat/autopilot-config.yaml](templates/combat/autopilot-config.yaml) - Autopilot preferences
 
 ## Campaigns
 

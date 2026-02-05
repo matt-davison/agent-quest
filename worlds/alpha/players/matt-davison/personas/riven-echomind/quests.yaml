@@ -1,4 +1,21 @@
-active_quests: []
+active_quests:
+  - id: "the-arcotech-heist"
+    name: "The Arcotech Heist"
+    giver: "The Middleman"
+    accepted_date: "1.2.3"
+    difficulty: "hard"
+    location: "arcotech-industries"
+    objectives:
+      - id: "infiltrate-facility"
+        description: "Infiltrate Arcotech Industries facility in Lumina City Skyline"
+        status: "active"
+      - id: "retrieve-artifact"
+        description: "Retrieve the pre-Architect artifact from corporate excavation site"
+        status: "locked"
+      - id: "return-artifact"
+        description: "Return artifact to The Middleman at Black Market"
+        status: "locked"
+        reward: "Introduction to the Deep Listener + information about First Server"
 
 completed_quests:
   - id: "the-third-architect"

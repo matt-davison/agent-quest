@@ -26,7 +26,7 @@ stats:
 resources:
   hp: 100
   max_hp: 100
-  gold: 600               # +500 from quest completion
+  gold: 440               # +500 from quest, -50 bribe, -110 tools
   willpower: 28
   max_willpower: 28       # spirit (14) × 2
   willpower_multiplier: 2
@@ -56,6 +56,19 @@ inventory:
     description: "Crystalline key that opens what was closed, finds what was lost. Shifts and pulses with living code."
     acquired: "1.2.3"
     quest_reward: "the-third-architect"
+  - id: "lock-bypass-kit"
+    name: "Lock Bypass Kit"
+    type: "tool"
+    description: "Advanced tools for bypassing electronic locks. +3 to lockpicking checks."
+    acquired: "1.2.3"
+    price: 80
+  - id: "focus-serum"
+    name: "Focus"
+    type: "consumable"
+    description: "Chemical enhancement. +3 to Mind checks for 2 hours."
+    acquired: "1.2.3"
+    price: 30
+    quantity: 1
 
 equipped:
   weapon: ""
@@ -75,7 +88,7 @@ difficulty:
   setting: normal
 
 # === LOCATION ===
-location: "the-between"
+location: "lumina-city/black-market"
 
 # === CHRONICLE ===
 chronicle:
@@ -98,6 +111,13 @@ chronicle:
       - "The Right Question (Unique Ability)"
       - "500 Gold"
       - "Truth: Architects 01 & 02 contained themselves; 03 scattered to remain free"
+  - date: "2026-02-05"
+    event: "Arrived in Lumina City. Witnessed reality glitch at street vendor's cart. Visited Shrine of the Code and used Terminal of Truth—learned there are 7 fragments, not 3. Something followed Architect 03's awakening."
+    significance: "major"
+  - date: "2026-02-05"
+    event: "Entered Black Market by bribing Chunk (50g). Met The Middleman and accepted 'The Arcotech Heist' quest to retrieve pre-Architect artifact from corporate facility. Purchased Lock Bypass Kit and Focus serum (110g)."
+    significance: "standard"
+    quest: "the-arcotech-heist"
 
 # === ALIGNMENT ===
 alignment:

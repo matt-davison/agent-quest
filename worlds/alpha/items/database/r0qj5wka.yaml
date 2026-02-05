@@ -1,0 +1,33 @@
+id: r0qj5wka
+name: "Corrupted Data Chip"
+type: misc
+subtype: quest_item
+rarity: uncommon
+tier: 1
+value: 0
+tags:
+  - quest_item
+  - data
+  - mystery
+  - weave
+description: |
+  A small hexagonal chip with hairline fractures running through its crystal
+  surface. It was found on the highway between Nexus Station and Lumina City,
+  half-buried in road dust. Most of its data is corrupted beyond retrieval,
+  but fragments remain — partial coordinates, a truncated name, and a
+  repeating string: "BENEATH THE FIRST." It hums faintly when held by
+  someone with Weave sensitivity.
+stats:
+  weave_resonance: low
+  data_integrity: 12%
+hints:
+  - "The coordinates point somewhere beneath Lumina City"
+  - "The truncated name begins with 'ARC-0'"
+  - "'BENEATH THE FIRST' may reference the First Server"
+restrictions:
+  sellable: false
+  tradeable: true
+  droppable: true
+source: "Found on Nexus-Lumina Highway"
+created_by: "Sable Vex (Echo)"
+created_date: "2026-02-05"

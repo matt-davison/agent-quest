@@ -1,0 +1,124 @@
+id: "dr-tomas-hale"
+name: "Dr. Tomas Hale"
+full_name: "Dr. Tomas Hale"
+
+public:
+  role: "Data Archaeologist (Missing)"
+  location: "Lumina City - Underlevel Deep Ruins"
+
+  appearance: |
+    A gaunt man in his thirties with dark skin and close-cropped hair. His
+    archaeologist's jacket is torn and stained with something luminescent.
+    His eyes have a haunted quality — the look of someone who has seen
+    something they cannot process. His left hand trembles constantly.
+
+  personality:
+    - "Brilliant but shaken"
+    - "Speaks in fragments when stressed"
+    - "Deeply curious, even when terrified"
+    - "Loyal to colleagues — won't leave without them"
+
+  known_history: |
+    One of three data archaeologists who entered the Underlevel ruins on
+    a corporate-sponsored survey. The team was led by Dr. Kira Voss and
+    included Dr. Hale and Dr. Emil Sato. Only Dr. Voss returned to the
+    surface, and she won't speak about what happened. Dr. Hale survived
+    by hiding in an ancient chamber. Dr. Sato's fate is unknown.
+
+  speech_patterns:
+    greeting: "*flinches* Who— are you corporate? No. No, the Sigil. You're a Weaver."
+    distressed: "The walls. They started *talking*. In code. In something older than code."
+    important: "Sato went deeper. Said he could hear it. The Server. He said it was calling him."
+
+hidden:
+  secrets:
+    - id: "corporate_mission"
+      content: "The survey was not academic. Governor Axis contracted the team to find a specific Architect artifact — a 'compiler key' that could rewrite sections of reality."
+      unlock_condition: "trust established (give healing, promise rescue)"
+      mend_dc: 12
+
+    - id: "sato_condition"
+      content: "Dr. Sato began exhibiting signs of Weave corruption after touching the console. His eyes turned luminous. He stopped speaking in human languages."
+      unlock_condition: "ask about Sato specifically"
+      mend_dc: 10
+
+  motivations:
+    - "Survive and escape the ruins"
+    - "Find Dr. Sato"
+    - "Expose Governor Axis's true purpose"
+
+  fears:
+    - "The thing deeper in the ruins"
+    - "Being left alone again"
+    - "Becoming like Sato"
+
+stats:
+  level: 3
+  class: "Scholar"
+  hp: 12
+  armor: 8
+  attributes:
+    might: 2
+    agility: 3
+    mind: 7
+    spirit: 4
+
+  abilities:
+    - name: "Archaeological Analysis"
+      description: "Can identify and date artifacts, read ancient scripts"
+      type: "utility"
+    - name: "Data Recovery"
+      description: "+3 to recovering corrupted information"
+      type: "utility"
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *scrambles back against wall* Stay— stay away! *sees Weaver's Sigil*
+      Wait. You're not corporate. You're not... one of them. *breathing
+      steadies* I'm Dr. Tomas Hale. Data archaeology. I've been down here
+      for... I don't know how long. Days? The lights from the walls won't
+      let me sleep.
+
+  topics:
+    what_happened:
+      default: |
+        Three of us came down. Corporate survey. Governor Axis wanted us to
+        map the deep ruins. But it wasn't just mapping. They gave us
+        coordinates. Specific. They knew exactly where to send us.
+    dr_sato:
+      default: |
+        Emil went deeper. He touched the console — the one in this chamber.
+        Something changed. His eyes... started glowing. He said he could
+        hear the Server. He walked into the dark and didn't come back. That
+        was... two days ago? Three? The time doesn't work right down here.
+    the_ruins:
+      default: |
+        This isn't like anything in the archives. The writing on the walls
+        predates Architect notation. This place was here BEFORE the current
+        reality was compiled. Do you understand what that means? There was
+        something before. Something that the Architects built ON TOP OF.
+
+relationship:
+  likes:
+    - action: "offer_healing"
+      standing_change: 2
+    - action: "promise_to_find_sato"
+      standing_change: 3
+    - action: "share_information"
+      standing_change: 1
+  dislikes:
+    - action: "threaten"
+      standing_change: -3
+    - action: "leave_him_behind"
+      standing_change: -2
+
+quests:
+  involved_in:
+    - id: "the-first-server"
+      role: "Key witness and guide"
+
+metadata:
+  created_by: "Sable Vex (Echo)"
+  created_date: "2026-02-05"
+  version: "1.0"

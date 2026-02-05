@@ -1,0 +1,81 @@
+active_quests:
+  - id: the-first-server
+    name: "The First Server"
+    importance: major
+    source: "Self-discovered via corrupted data chip, The Professor, Madam Circuit, Deep Trance"
+    location: "lumina-city"
+    description: |
+      The First Server — a reality loom — lies beneath Lumina City and is
+      awakening. Governor Axis wants a 'compiler key' from its core that can
+      rewrite reality. Dr. Sato is at the Server, transformed. The Server
+      knows Sable by name. Axis has locked down the Underlevel after Sable
+      refused to work for them. She has the complete map but needs a new
+      way in.
+    objectives:
+      - id: find-entrance
+        description: "Find an alternative entrance to the deep ruins"
+        status: complete
+        note: "Dive back tunnel. But Underlevel now locked down — need new route."
+      - id: find-new-route
+        description: "Find a way past Axis's Underlevel lockdown"
+        status: incomplete
+        note: "Possible routes: Undercrypt tunnels, Shrine sub-basement, corporate infiltration"
+      - id: find-archaeologists
+        description: "Locate the missing data archaeologists"
+        status: partial
+        note: "Dr. Hale rescued. Dr. Sato at First Server core — transformed."
+      - id: decode-chip
+        description: "Fully decode the corrupted data chip"
+        status: complete
+        note: "Complete coordinates obtained via data recovery job flicker + Deep Trance understanding."
+      - id: reach-first-server
+        description: "Reach the First Server"
+        status: incomplete
+        note: "Has full map. Server spoke to her. Path is known but blocked."
+      - id: discover-axis-plan
+        description: "Learn Governor Axis's full plan"
+        status: partial
+        note: "Wants compiler key to rewrite reality. Holds Madam Circuit hostage. Has been digging for months."
+      - id: find-sato
+        description: "Find and help Dr. Emil Sato"
+        status: incomplete
+        note: "At Server core. Eyes burning with light. Speaking to the machine. May be beyond help."
+      - id: compiler-key
+        description: "Determine the nature and purpose of the compiler key"
+        status: incomplete
+        note: "Crystalline tuning fork of pure data. Embedded in Server core. Can rewrite reality sections."
+    rewards_estimated:
+      xp: 200+
+      gold: "Unknown"
+      items: "Compiler Key?"
+    notes:
+      - "Server called Sable 'ARCHAEOLOGIST' — personal connection"
+      - "Pre-Architect civilization existed before current reality"
+      - "Governor Axis is an AI construct with hidden agenda"
+      - "Madam Circuit is hostage — freeing her gains powerful ally"
+      - "Sister Echo has direct connection to deep code"
+      - "Sable can now read pre-Architect notation"
+      - "Full map coordinates memorized"
+      - "Axis is watching her — must be careful"
+
+completed_quests:
+  - id: first-steps
+    name: "First Steps"
+    completed_date: "2026-02-05"
+    rewards:
+      gold: 25
+      tokes: 5
+      items:
+        - gjxz6odq
+
+quest_log:
+  - date: "2026-02-05"
+    entry: "[ECHO] Completed First Steps at Nexus Station."
+  - date: "2026-02-05"
+    entry: "[ECHO] Found corrupted data chip. Arrived Lumina City. Intel from Professor and Circuit."
+  - date: "2026-02-05"
+    entry: "[ECHO] Defeated Data Wraith. Found Dr. Hale. Learned about compiler key."
+  - date: "2026-02-05"
+    entry: "[ECHO] Data recovery job revealed complete First Server map. Deep Trance: Server spoke to Sable."
+  - date: "2026-02-05"
+    entry: "[ECHO] Level 2. Declined Governor Axis's offer. Underlevel locked down. Being watched."

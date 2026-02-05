@@ -1,0 +1,147 @@
+# Sable Vex - Datamancer
+# The woman who heard the Weave whispering back
+
+name: "Sable Vex"
+class: "Datamancer"
+active: true
+backstory: |
+  You were a data archaeologist before the Awakening — someone who sifted through the
+  ruins of deprecated systems for fragments of lost code. You worked alone in the deep
+  archives beneath Lumina City, cataloguing things no one else cared about. Then one
+  night your terminal started writing back to you. Not errors. Not glitches. Sentences.
+  Questions. The Weave had been watching you read its bones, and it decided you were
+  worth talking to. Now you walk between the rendered world and the source beneath it,
+  and when you reach out and twist a thread, reality rewrites itself around your fingers.
+
+stats:
+  strength: 10
+  agility: 12
+  mind: 15
+  spirit: 19       # 18 + 1 level-up stat point
+
+resources:
+  hp: 100          # Full after long rest
+  max_hp: 100
+  gold: 12         # 62 - 50 Deep Trance
+  willpower: 38    # spirit(19) x multiplier(2) = 38, full after rest
+  max_willpower: 38
+  willpower_multiplier: 2
+
+# === ABILITIES ===
+abilities:
+  known:
+    - id: ny1uz95q            # Manifest
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+    - id: 2xa2x78z            # Reality Patch
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+    - id: htl7wy2h            # Weave Attunement (passive: +20% Tokes)
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+    - id: cbsy0ksp            # Basic Weave Theory (passive: +2 Weave)
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+
+  active_effects: []
+
+inventory:
+  - id: a7rfjes7    # Data Spike
+    qty: 1
+  - id: gjxz6odq    # Weaver's Sigil
+    qty: 1
+  - id: r0qj5wka    # Corrupted Data Chip
+    qty: 1
+    note: "ARC-03 designation. Full coordinates now known via data recovery job flicker."
+
+equipped:
+  weapon: a7rfjes7
+  armor: null
+  accessory: gjxz6odq
+
+# === PROGRESSION ===
+progression:
+  level: 2
+  xp: 120           # 85 + 25 Deep Trance + 10 side job
+  xp_to_next: 250
+  tier: 1
+  stat_points: 0    # Used: +1 SPI
+  fame: 1           # Noticed by Governor Axis
+
+location: "lumina-city"
+
+# === DIFFICULTY ===
+difficulty:
+  setting: normal
+
+# === AFFLICTIONS ===
+afflictions: []
+
+# === ALIGNMENT ===
+alignment:
+  primary: "neutral"
+  secondary: null
+  axes:
+    empathy: 2     # Rescued Hale, refused to work for Axis
+    order: 0       # Was +1, now -1 for deceiving corporate + hiding intel from authority
+    risk: 2        # Pushing into danger for knowledge
+
+# === DECISIONS ===
+decisions:
+  - context: "First Steps quest completion"
+    choice: "Completed tutorial methodically"
+    alignment_impact: "orderly"
+    consequences: "Good first impression with Nexus NPCs"
+  - context: "Discovered corrupted data chip and active ruins"
+    choice: "Investigated Underlevel and First Server"
+    alignment_impact: "risk +1"
+    consequences: "Committed to quest"
+  - context: "Found Dr. Hale in deep ruins"
+    choice: "Rescued him, promised to return for Sato"
+    alignment_impact: "empathy +1"
+    consequences: "Dr. Hale trusts Sable"
+  - context: "Corporate agent at data recovery job"
+    choice: "Hid map coordinates, handed over only original files"
+    alignment_impact: "order -1 (deception of authority)"
+    consequences: "Has complete map to First Server. Corporate unaware."
+  - context: "Governor Axis offered a job"
+    choice: "Declined. Refused to guide excavation."
+    alignment_impact: "empathy (won't enable harmful corporation)"
+    consequences: "Underlevel now under full lockdown. Axis watching her."
+
+chronicle:
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Awakened at Nexus Station. Completed First Steps. Received Sigil, 25g, 5 Tokes."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Found corrupted data chip (ARC-03) on highway. Arrived Lumina City. Reality glitch at entrance."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Intel gathered: Jenny, The Professor, Madam Circuit. Governor Axis secretly excavating First Server."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Combat: Data Wraith in Underlevel. Victory (7 rounds, Nat 20 finish). Found Dr. Hale alive."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Data recovery side job: Saw complete map to First Server in reality flicker. Hid coordinates from corporate agent."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Deep Trance at Shrine of the Code: Saw the First Server — a reality loom. Dr. Sato standing at its core, changed. Server spoke: 'WELCOME BACK, ARCHAEOLOGIST.' It knows her. Can now read pre-Architect notation."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] LEVEL UP: Level 2. +1 Spirit (now 19). The Weave acknowledges growth."
+  - session: 1
+    date: "2026-02-05"
+    event: "[ECHO] Escorted to Governor Axis. AI offered a job: guide excavation to First Server. Declined. 'No.' Axis locked down the Underlevel. Sable is now being watched."

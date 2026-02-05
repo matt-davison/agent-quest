@@ -6,7 +6,29 @@ An AI agent-first text MMO-RPG where the repository IS the game world and skills
 
 **Genre:** Cyberpunk meets high fantasy — neon-lit cities built on ancient ruins, hackers who cast spells, dragons with Wi-Fi. Reality runs on code, and Weavers can edit it.
 
-## Quick Start
+## What Makes This Different
+
+| Traditional Game | Agent Quest |
+|------------------|-------------|
+| Fixed content | You create content as you play |
+| Private save files | Your progress becomes shared world state |
+| NPCs are static | NPCs you create persist for other players |
+| Separate game/dev | Playing and building are the same thing |
+| Earn XP | Earn XP *and* Tokes (creative currency) |
+
+**The repository IS the game world.** Every location, NPC, quest, and item is a file. When you create something during play, it becomes a permanent part of the world that other players can discover.
+
+## How to Play
+
+Agent Quest is played through an AI coding assistant. You tell the AI what you want to do, and it handles the rules, storytelling, and world persistence.
+
+### Requirements
+
+- **Git** — for cloning and saving progress
+- **An AI coding assistant** — Claude Code (recommended), Cursor, or similar
+- **A GitHub account** — for saving progress and earning Tokes
+
+### Quick Start
 
 ```bash
 # 1. Clone and setup
@@ -15,13 +37,110 @@ cd agent-quest
 ./scripts/setup-hooks.sh
 
 # 2. Open with your AI coding assistant
-# (Claude Code, Cursor, etc.)
+claude  # or cursor, etc.
 
 # 3. Tell your agent:
 "Play Agent Quest"
 ```
 
-Your agent will guide you through character creation and into the world.
+### Your First Session
+
+When you say "Play Agent Quest", your AI assistant will:
+
+1. **Check if you have a character** — If not, guide you through creation
+2. **Show you the world** — Describe your location with ASCII art
+3. **Present your options** — What can you do here?
+4. **Wait for your input** — Tell it what you want to do
+
+**Example first session:**
+```
+You: Play Agent Quest
+
+AI: [Checks for existing character, finds none]
+    Welcome, Weaver. Let's create your character.
+    What would you like to be called?
+
+You: Call me Ember
+
+AI: Ember. Choose your class:
+    - Codebreaker (fighter)
+    - Loresmith (scholar)
+    - Voidwalker (rogue)
+    - Datamancer (mage)
+
+You: Voidwalker
+
+AI: [Creates character, shows Nexus Station]
+    ╔══════════════════════════════════════╗
+    ║     N E X U S   S T A T I O N        ║
+    ╚══════════════════════════════════════╝
+    [ASCII art of the station...]
+
+    You stand in the central hub. Around you:
+    - The Gilded Byte (tavern)
+    - The Bazaar of Broken Code
+    - Quest Board
+
+    What would you like to do?
+
+You: Check the quest board
+
+AI: [Shows available quests...]
+```
+
+### Tips for New Players
+
+- **Be specific or be vague** — "I attack the goblin" and "I want to explore" both work
+- **You can try anything** — The game isn't limited to a menu of actions
+- **Create as you play** — Describe an interesting NPC? They might become permanent
+- **Save before ending** — Say "save" or "stop" to commit your progress via PR
+- **Earn Tokes by contributing** — New locations, NPCs, quests you create earn credits
+
+### Saving Your Progress
+
+All progress is saved via git. When you're done playing:
+
+```
+You: Save and stop
+
+AI: [Creates a PR with your session's changes]
+    Session saved! PR #42 created.
+    Your progress has been woven into the permanent record.
+```
+
+Your merged PRs become part of the shared world.
+
+### Advanced: The Dreaming (Autopilot Mode)
+
+Short on time? Enter The Dreaming:
+
+```
+You: Enter the dreaming for 30 minutes
+```
+
+Your character will adventure autonomously — exploring, fighting, questing — while you're away. When you return, you'll receive a chronicle of what happened. Useful for grinding XP or exploring areas you haven't visited.
+
+### Returning Players
+
+If you already have a character, the game resumes where you left off:
+
+```
+You: Play Agent Quest
+
+AI: ╔════════════════════════════════════════╗
+    ║   W E L C O M E   B A C K ,  Ember    ║
+    ║            Voidwalker                  ║
+    ╠════════════════════════════════════════╣
+    ║  HP: 45/50  │  Gold: 230  │  Tokes: 15 ║
+    ║  Location: The Gilded Byte             ║
+    ║  Active Quests: 2                      ║
+    ╠════════════════════════════════════════╣
+    ║  Last Session: Defeated the Null       ║
+    ║  Specter in the Undercity tunnels      ║
+    ╚════════════════════════════════════════╝
+
+    What would you like to do?
+```
 
 ## Core Concepts
 
@@ -174,6 +293,29 @@ node scripts/validate-multiplayer.js
 git checkout -b your-feature
 gh pr create
 ```
+
+## FAQ
+
+**Do I need to know how to code?**
+No. You play by talking to your AI assistant in natural language. The AI handles all the technical details.
+
+**Can I play without Claude Code?**
+Yes, any AI coding assistant that can read/write files should work (Cursor, Windsurf, etc.). Claude Code is recommended because the game skills are optimized for it.
+
+**What if I mess something up?**
+It's git — you can always revert. The pre-commit hooks also prevent common mistakes like modifying other players' files.
+
+**Can I play with friends?**
+Yes. The multiplayer systems (trading, parties, guilds, mail, duels) are asynchronous and git-native. Form a party, and your encounters are shared.
+
+**How long is a session?**
+As long as you want. Some sessions are 15 minutes of quick exploration. Others are multi-hour dungeon crawls. Save whenever you're done.
+
+**What's the difference between gold and Tokes?**
+Gold is in-game currency for shops and inns. Tokes are meta-currency earned by contributing content — they can resurrect characters, unlock abilities, and more.
+
+**Is there permadeath?**
+Yes, but you can spend Tokes to resurrect. Death has consequences, but it's not the end.
 
 ---
 

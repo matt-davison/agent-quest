@@ -64,6 +64,22 @@ These describe the item's aesthetic or lore connection.
 |-----|-------------|---------------|
 | `weave` | Connected to the Weave | Memory Crystal, Scrolls, Pattern Lens |
 | `legendary` | Legendary rarity items | Architect's Fragment |
+| `shadow` | Shadow/darkness themed | Vial of Captured Shadows |
+| `void` | Void/emptiness themed | Vial of Captured Shadows |
+| `stealth` | Aids in stealth/hiding | Vial of Captured Shadows |
+
+### Quest & Character Tags
+
+These link items to specific quests or NPCs.
+
+| Tag | Description | Example Items |
+|-----|-------------|---------------|
+| `quest_item` | Required for quest completion | Memory Vial, Yara's Coordinates |
+| `data` | Contains information/coordinates | Yara's Coordinates |
+| `memory` | Stores or contains memories | Memory Vial |
+| `architect` | Related to the Architect questline | Architect's Fragment, Yara's Coordinates |
+| `jade_dragon` | Related to Jade Dragon NPC | Memory Vial |
+| `yara_corren` | Related to Yara Corren NPC | Yara's Coordinates |
 
 ---
 
@@ -72,7 +88,7 @@ These describe the item's aesthetic or lore connection.
 These tags are reserved for future item types:
 
 ### Elemental
-- `fire`, `ice`, `lightning`, `shadow`, `void`
+- `fire`, `ice`, `lightning`
 
 ### Faction
 - `athenaeum`, `chromedome`, `nexus`

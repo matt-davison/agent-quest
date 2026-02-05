@@ -2,7 +2,7 @@
 name: claim-reviewer
 description: Review pending Tokes claims and earn reviewer rewards. Use when player chooses REVIEW action, to check for reviewable claims, or after content creation to find reviewers.
 tools: Read, Glob, Grep, Bash, Write, Edit
-model: haiku
+model: opus
 ---
 
 # Claim Reviewer Agent

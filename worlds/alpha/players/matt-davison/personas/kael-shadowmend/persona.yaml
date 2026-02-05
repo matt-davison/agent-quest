@@ -1,0 +1,116 @@
+# Kael Shadowmend - Voidwalker
+# A shadow that walks between worlds
+
+name: "Kael Shadowmend"
+class: "Voidwalker"
+active: true
+backstory: |
+  Kael was a data recovery specialist in a previous life, someone who pulled lost
+  information from corrupted drives. One night, reaching deep into a particularly
+  damaged archive, their consciousness slipped through a gap in reality — and they
+  woke up here, changed. Now they move between shadows as easily as they once
+  navigated file systems, driven by an insatiable need to understand what lies
+  beneath the visible world.
+
+appearance: |
+  Lean and angular, with silver-grey eyes that seem to absorb light rather than
+  reflect it. Pale skin with faint circuit-like patterns that glow softly when
+  they use the Void. Wears a long coat that seems to blend with shadows, and
+  fingerless gloves revealing the same circuit patterns on their hands.
+
+# Stats: Base 10 + 10 bonus points
+# Voidwalker bonus: +3 AGI, +2 MND
+stats:
+  strength: 10   # Base
+  agility: 17    # 10 + 4 bonus + 3 class
+  mind: 14       # 10 + 2 bonus + 2 class
+  spirit: 14     # 10 + 4 bonus
+
+resources:
+  hp: 47         # Combat damage: took 53 total (48 from parasites, 5 from Phase)
+  max_hp: 100
+  gold: 41       # Paid 5g toll to goblin patrol
+  willpower: 24  # Spent 4 on Phase
+  max_willpower: 28
+  willpower_multiplier: 2
+
+abilities:
+  known:
+    - id: "xgktne2p"      # Phase
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+    - id: "lf5fbupm"      # Backstab
+      level: 1
+      source: "class"
+      learned_date: "2026-02-05"
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+  active_effects: []
+
+# Voidwalker starting equipment (base 10 slots + 5 class bonus = 15)
+inventory:
+  - null_blade: 1
+  - shadowweave_cloak: 1
+  - lockpick_set: 1
+  - smoke_bomb: 3
+  - healing_potion: 1
+  # - vial_of_captured_shadows: CONSUMED in combat
+  - weavers_sigil: 1             # Key item - First Steps reward
+
+equipped:
+  weapon: "null_blade"
+  armor: "shadowweave_cloak"
+  accessory: "lockpick_set"
+
+progression:
+  level: 1
+  xp: 35         # +25 quest, +10 combat (1 Data Parasite kill)
+  xp_to_next: 100
+  tier: 1
+  stat_points: 0
+
+difficulty:
+  setting: normal
+
+location: "undercrypt"
+
+chronicle:
+  - date: "2026-02-05"
+    event: "Awakened at Nexus Station. The shadows welcomed me home."
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Purchased Vial of Captured Shadows from Krix for 36 gold. The darkness reached for me."
+    significance: "minor"
+  - date: "2026-02-05"
+    event: "[ECHO] Completed First Steps. Received Weaver's Sigil, 25 gold, 5 Tokes. GUIDE-7 spoke of 'what the Architects left behind.'"
+    significance: "moderate"
+  - date: "2026-02-05"
+    event: "[ECHO] Descended into the Undercrypt. First combat: 3 Data Parasites. Used Phase and Vial of Captured Shadows. Critical Backstab destroyed one; others fled. The darkness answers."
+    significance: "moderate"
+  - date: "2026-02-05"
+    event: "[ECHO] Discovered Memory Pools. Met the Keeper of Echoes. Looked into the Deep Pool and saw the Guardian — 'one who failed,' who chose to stay. Gained Temporal Dissonance. The question echoes: 'Why create at all?'"
+    significance: "major"
+
+alignment:
+  primary: "curious"
+  secondary: "pragmatic"
+  axes:
+    empathy: 0       # Neutral - reads situations
+    order: -2        # Slightly chaotic - prefers flexibility
+    risk: 2          # Bold - willing to take chances for knowledge
+  history: []
+
+afflictions:
+  - name: "Temporal Dissonance"
+    category: "mental"
+    effect: "-1 to Spirit checks"
+    acquired: "2026-02-05"
+    duration: "24 hours"
+    source: "Looked too deep into the Memory Pools"
+
+decisions: []

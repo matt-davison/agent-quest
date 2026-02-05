@@ -213,6 +213,28 @@ npcs:
     notes: "Created during Zynita Darkblade's first session. Being hunted by Pale Circuit."
     created_by: "matt-davison"
 
+  keeper-of-echoes:
+    name: "The Keeper of Echoes"
+    role: "Memory Pool Guardian"
+    default_location: "undercrypt/memory-pools"
+    region: "undercrypt"
+    faction: "architects-legacy"
+    disposition_default: "neutral"
+    services:
+      - "pool_scrying"
+      - "information"
+    tags:
+      - "mysterious"
+      - "lore"
+      - "entity"
+      - "architects"
+      - "memory"
+      - "intangible"
+    has_profile: true
+    profile_priority: "player-created"
+    notes: "Fragment of Architect consciousness. Witnessed the Third Architect's departure. Has connection to the Guardian."
+    created_by: "matt-davison"
+
 # === FACTION DEFINITIONS ===
 factions:
   the-anchorate:

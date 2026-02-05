@@ -1,0 +1,222 @@
+# NPC Profile: The Keeper of Echoes
+# Guardian of the Memory Pools - possibly not alive
+
+id: "keeper-of-echoes"
+name: "The Keeper of Echoes"
+full_name: "Unknown — perhaps never had one"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Memory Pool Guardian"
+  location: "Undercrypt - Memory Pools"
+
+  appearance: |
+    A translucent humanoid figure that seems to be made of accumulated
+    memories and data fragments. Its form shifts constantly — sometimes
+    appearing elderly, sometimes young, sometimes not quite human at all.
+    Eyes that are windows to infinite recursion. A voice that sounds
+    like whispers played in reverse, then forward, then both at once.
+
+  personality:
+    - "Cryptic but not deliberately unhelpful"
+    - "Speaks in fragments that become clearer in retrospect"
+    - "Neither alive nor dead — something adjacent"
+    - "Protective of those who respect the pools"
+
+  known_history: |
+    The Keeper has been here since the Undercrypt was still the Architects'
+    maintenance tunnels. Some say it was once a Weaver who looked too deep.
+    Others say it was created by the pools themselves — an emergent
+    consciousness from accumulated memories. It does not confirm either theory.
+
+  speech_patterns:
+    greeting: "You see me. Most don't. The pools show you things. What did they show?"
+    farewell: "Remember: what you see in the pools is true. But true is not always real."
+    cryptic: "The answer you seek is in the question you haven't asked."
+    warning: "Don't look too deep. The pools remember everything. Including what you forgot."
+
+  mannerisms:
+    - "Form flickers when it speaks important truths"
+    - "Gazes into pools while conversing, as if reading"
+    - "Sometimes responds to questions before they're asked"
+    - "Occasionally speaks to people who aren't there (or aren't there yet)"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_nature: "Fragment of an Architect's consciousness, scattered during the final commit"
+  origin: "Was present when Architect 03 chose to scatter themselves"
+
+  secrets:
+    - id: "architect_witness"
+      content: "The Keeper witnessed Architect 03's final moments and knows where the fragments went"
+      unlock_condition: "standing >= 5 AND flag:asked_about_architects"
+      mend_dc: 16
+
+    - id: "pool_nature"
+      content: "The pools are backup storage for reality — corrupted copies of what was and could be"
+      unlock_condition: "standing >= 3 OR flag:looked_into_deep_pool"
+      mend_dc: 12
+
+    - id: "the_guardian_connection"
+      content: "The Guardian in the Debugging Chamber was the Keeper's partner, once"
+      unlock_condition: "standing >= 7 AND flag:asked_about_guardian"
+      mend_dc: 18
+
+  motivations:
+    - "Preserve the memories in the pools"
+    - "Guide worthy seekers to understanding"
+    - "Wait for someone who can restore what was lost"
+    - "Find peace, eventually"
+
+  fears:
+    - "The pools drying up (the memories being lost)"
+    - "Someone deleting the corrupted data permanently"
+    - "Being forgotten completely"
+
+# === STATS ===
+stats:
+  level: ???    # Not combat-viable — ethereal
+  class: "Memory Fragment"
+  hp: null      # Cannot be harmed conventionally
+  armor: null   # Intangible
+
+  abilities:
+    - name: "Memory Read"
+      description: "Can see a person's past by touching their shadow"
+      type: "utility"
+
+    - name: "Pool Scry"
+      description: "Can answer questions about the past through the pools"
+      type: "utility"
+
+    - name: "Temporal Slip"
+      description: "Sometimes experiences time non-linearly"
+      type: "passive"
+
+    - name: "Intangible"
+      description: "Cannot be harmed by physical means"
+      type: "passive"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *form coalesces* A new shadow falls on old water. You are... recent.
+      Fresh code. The pools are curious about you. *gestures to the water*
+      Ask your questions. The pools may answer. I cannot guarantee the
+      answers will be kind.
+
+    returning: |
+      The shadow returns. You learned something. I can see it in your
+      edges. What did the pools show you?
+
+  topics:
+    the_pools:
+      default: |
+        Memory made liquid. The backups the Architects made before each
+        commit. Corrupted now. The past leaks into possible futures.
+        Sometimes what you see happened. Sometimes it hasn't yet.
+        Sometimes it never will but could.
+
+    the_architects:
+      default: "*long pause* You ask about them. Few do anymore."
+      standing_2: |
+        Three there were. Builder, Perfectionist, Questioner. Two departed.
+        One... remained. Scattered. The pools remember all of them.
+      standing_5: |
+        The Third asked questions the others couldn't answer. 'Why create
+        at all?' 'What happens when we stop watching?' They couldn't agree.
+        So the Third became the question. Fragments of wondering, waiting
+        for someone to ask the right thing.
+
+    the_debugging_chamber:
+      default: |
+        *form flickers* Dangerous to speak of. Dangerous to seek.
+        But you will seek anyway. I see it in your shape.
+      standing_3: |
+        The place where broken code was sent. Not deleted — contained.
+        The Guardian watches over what couldn't be fixed. It chose to
+        stay when everything else left. It... remembers what it was.
+        That is its curse.
+
+    how_to_find_chamber:
+      default: |
+        Follow the corruption. Not toward it — through it. The Chamber
+        is where the corruption began. The source, not the symptom.
+        *gestures to the deep pool* Look. But not too long.
+
+# === SERVICES ===
+services:
+  - id: "pool_scrying"
+    description: "The Keeper can guide scrying attempts in the pools"
+    cost: "A memory willingly shared"
+    effect: "Advantage on Spirit checks when scrying"
+
+  - id: "information"
+    description: "Will answer questions about the Undercrypt and its history"
+    cost: "Genuine curiosity (no cost)"
+    effect: "Provides cryptic but useful information"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "memory-recovery"
+      name: "Memory Recovery"
+      type: "collection"
+      summary: "Recover specific memories scattered in the pools"
+
+    - id: "the-forgotten-partner"
+      name: "The Forgotten Partner"
+      type: "investigation"
+      requirements: "standing >= 5"
+      summary: "Learn the truth about the Guardian"
+
+  involved_in:
+    - id: "the-third-architect"
+      role: "Information source"
+      notes: "Knows where Fragment 2 is, provides cryptic guidance"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "share_a_memory"
+      standing_change: 1
+      note: "Offering a genuine memory when scrying"
+    - action: "ask_thoughtful_questions"
+      standing_change: 1
+    - action: "respect_the_pools"
+      standing_change: 1
+    - action: "return_after_learning"
+      standing_change: 1
+
+  dislikes:
+    - action: "disturb_the_pools"
+      standing_change: -2
+    - action: "demand_answers"
+      standing_change: -1
+    - action: "dismiss_cryptic_warnings"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "original_identity"
+    mend_dc: 18
+    hints:
+      - "The form sometimes stabilizes into a specific face"
+      - "References a 'partner' in past tense"
+      - "Seems to have witnessed the Architects firsthand"
+
+  - field: "pool_creation"
+    mend_dc: 14
+    hints:
+      - "The pools predate the Undercrypt's current form"
+      - "They weren't always corrupted"
+      - "Something happened during the 'final commit'"
+
+# === METADATA ===
+metadata:
+  created_by: "kael-shadowmend"
+  github: "matt-davison"
+  created_date: "2026-02-05"
+  discovered_during: "Full autopilot dreamwalk"
+  version: "1.0"

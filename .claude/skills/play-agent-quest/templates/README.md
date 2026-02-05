@@ -12,6 +12,7 @@ Character and player data templates.
 | [persona.yaml](player/persona.yaml) | Character sheet - stats, inventory, location |
 | [quests.yaml](player/quests.yaml) | Active quests and objectives |
 | [todo.yaml](player/todo.yaml) | Player intentions and goals |
+| [world-state.yaml](player/world-state.yaml) | Character-specific world overrides |
 
 ### narrative/
 Campaign and storytelling templates.

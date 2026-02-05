@@ -19,12 +19,16 @@ The default world is `alpha`. See `worlds.yaml` for available worlds.
 
 ## Data Files
 
+**Global State:**
 - `worlds/<world>/state/current.yaml` - Current time, weather, active events, travelers
 - `worlds/<world>/state/events.yaml` - Event log for NPC awareness
 - `worlds/<world>/state/calendar.yaml` - Calendar definitions (months, holidays)
 - `worlds/<world>/state/encounters.yaml` - Random encounter tables by route
 - `worlds/<world>/npcs/schedules/index.yaml` - NPC location patterns
 - `worlds/<world>/locations/graph.yaml` - Location connections and distances
+
+**Per-Character State:**
+- `worlds/<world>/players/<github>/personas/<character>/world-state.yaml` - Character-specific overrides
 
 ## CLI Commands
 
@@ -237,6 +241,101 @@ NPCs react to recent events based on:
 - **decay_days**: How long event stays relevant
 
 Events are automatically pruned after 30 in-game days.
+
+---
+
+## Per-Character World State
+
+Characters can have their own world state overrides that take priority over global state. This enables quest-triggered changes that only affect one character's experience.
+
+### State Resolution Priority
+
+When checking world state for a character:
+
+1. **Character overrides** (highest priority) - from `world-state.yaml`
+2. **Global state** (fallback) - from `state/current.yaml`
+
+### What Can Be Overridden
+
+| Category | Description | Global vs Character |
+|----------|-------------|---------------------|
+| **Time/Weather** | World clock and climate | Always global |
+| **Area Unlocks** | Access to hidden/locked areas | Character supplements global |
+| **NPC Locations** | Where NPCs are located | Character overrides global |
+| **NPC States** | NPC alive/dead/disposition | Character overrides global |
+| **Flags** | World state markers | Character supplements global |
+| **Active Events** | Personal consequences | Character-specific |
+| **Environmental** | Area atmosphere changes | Character-specific |
+
+### CLI Commands for Character State
+
+```bash
+# Get merged state (global + character overrides)
+node .claude/skills/world-state/world-state.js state get --world=alpha \
+  --player=<github> --character=<name>
+
+# Get character-only overrides
+node .claude/skills/world-state/world-state.js state overrides --world=alpha \
+  --player=<github> --character=<name>
+
+# Check if area is unlocked for character
+node .claude/skills/world-state/world-state.js area unlocked <area-id> --world=alpha \
+  --player=<github> --character=<name>
+
+# Set character override
+node .claude/skills/world-state/world-state.js override set <type> <key> <value> --world=alpha \
+  --player=<github> --character=<name>
+
+# Clear character override
+node .claude/skills/world-state/world-state.js override clear <type> <key> --world=alpha \
+  --player=<github> --character=<name>
+```
+
+### Override Types
+
+| Type | Key | Value | Example |
+|------|-----|-------|---------|
+| `flag` | flag name | true/false/string | `override set flag met_guardian true` |
+| `area_unlock` | area-id | unlock source | `override set area_unlock nexus/secret "quest:find-secrets"` |
+| `npc_location` | npc-id | location-id | `override set npc_location vera-nighthollow "undercrypt/grove"` |
+| `npc_state` | npc-id | state name | `override set npc_state iron-marshal deceased` |
+
+### Example: Quest Unlocks Hidden Area
+
+```bash
+# When character completes "The Third Architect" quest:
+node .claude/skills/world-state/world-state.js override set area_unlock \
+  "nexus-undercrypt/fragment-chamber" "quest:the-third-architect" \
+  --world=alpha --player=matt-davison --character=coda
+
+# Later, check if the character can access it:
+node .claude/skills/world-state/world-state.js area unlocked \
+  "nexus-undercrypt/fragment-chamber" \
+  --world=alpha --player=matt-davison --character=coda
+# Output: true
+# Area nexus-undercrypt/fragment-chamber is unlocked for coda
+# Source: character
+# Unlock source: quest:the-third-architect
+
+# Another character without the unlock:
+node .claude/skills/world-state/world-state.js area unlocked \
+  "nexus-undercrypt/fragment-chamber" \
+  --world=alpha --player=other-player --character=other-char
+# Output: false
+# Area nexus-undercrypt/fragment-chamber is NOT unlocked for other-char
+```
+
+### Example: NPC Moved for Character Only
+
+```bash
+# Character's actions caused an NPC to flee:
+node .claude/skills/world-state/world-state.js override set npc_location \
+  vera-nighthollow "nexus-undercrypt/hidden-grove" \
+  --world=alpha --player=matt-davison --character=coda
+
+# Now when this character queries NPC location, they get the override.
+# Other characters see Vera at her normal schedule locations.
+```
 
 ---
 

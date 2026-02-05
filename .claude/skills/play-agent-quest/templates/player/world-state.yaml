@@ -1,0 +1,94 @@
+# Per-Character World State Overrides
+# File: worlds/<world>/players/<github>/personas/<character>/world-state.yaml
+#
+# These overrides take priority over global state in worlds/<world>/state/current.yaml
+# for this specific character. Other characters will not see these changes.
+#
+# Use cases:
+# - Quest unlocks an area only for the character who completed it
+# - NPC moves to a new location due to character's actions
+# - Environmental changes triggered by character-specific events
+# - Flags that track character-specific world discoveries
+
+# Areas unlocked specifically for this character
+# These supplement global area access - character can access if EITHER global OR character unlocked
+unlocked_areas:
+  # - area_id: "nexus-undercrypt/fragment-chamber"
+  #   unlocked_date: "2026-02-05"
+  #   unlock_source: "quest:the-third-architect"
+  #   notes: "Discovered the hidden entrance during The Third Architect quest"
+
+# Character-specific area condition changes
+# These OVERRIDE global area states for this character only
+area_states:
+  # - area_id: "elderwood/corrupted-grove"
+  #   state: "purified"
+  #   changed_date: "2026-02-05"
+  #   change_source: "quest:cleansing-the-grove"
+  #   original_state: "corrupted"
+  #   notes: "Character purified the grove; other players still see corruption"
+
+# NPC location/state overrides for this character
+# When present, these take priority over global NPC locations and schedules
+npc_overrides:
+  # - npc_id: "vera-nighthollow"
+  #   override_type: "location"  # location | state | disposition
+  #   location: "nexus-undercrypt/hidden-grove"
+  #   reason: "Fled to hiding after character exposed her secrets"
+  #   until: null  # null = permanent, or "quest:completion-id" / "time:1.3.10"
+  #
+  # - npc_id: "iron-marshal-krix"
+  #   override_type: "state"
+  #   state: "deceased"
+  #   reason: "Killed during The Iron Rebellion quest"
+  #   death_date: "2026-02-04"
+  #
+  # - npc_id: "merchant-tomas"
+  #   override_type: "disposition"
+  #   disposition: "hostile"  # Overrides relationship system for initial interactions
+  #   reason: "Character stole from his shop"
+
+# Character-specific flags (supplement global flags)
+# These do NOT override global flags - they add character-specific tracking
+flags:
+  # discovered_secret_passage: true
+  # met_the_guardian: true
+  # knows_vera_secret: true
+  # temple_blessing_received: false
+
+# Active events affecting only this character
+# World events that trigger based on character actions
+active_events:
+  # - id: "personal-bounty"
+  #   name: "Wanted in Rustlands"
+  #   type: "consequence"
+  #   description: "Guards in Rustlands are hostile due to past actions"
+  #   start_date: "1.2.5"
+  #   end_date: null  # null = until resolved
+  #   effects:
+  #     - "Guards attack on sight in Rustlands"
+  #     - "Cannot use merchants in Rustlands"
+  #   regions:
+  #     - rustlands
+
+# Environmental changes triggered by character actions
+# These modify how the character experiences specific areas
+environmental:
+  # - area_id: "nexus-station/codex-tavern"
+  #   change_type: "atmosphere"
+  #   description: "Patrons recognize character as the Ghost Run champion"
+  #   effects:
+  #     - "Free drinks from bartender"
+  #     - "NPCs approach with quest offers"
+  #   source: "achievement:ghost-run-champion"
+  #
+  # - area_id: "syntax-athenaeum/restricted-section"
+  #   change_type: "access"
+  #   description: "Character has permanent access pass"
+  #   effects:
+  #     - "No longer need to sneak or bribe for entry"
+  #   source: "quest:the-librarians-favor"
+
+# Metadata
+last_updated: null
+version: "1.0"

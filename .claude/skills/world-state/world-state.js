@@ -15,7 +15,20 @@ function parseWorldArg() {
   return worldArg.split('=')[1];
 }
 
+// Parse optional --player and --character arguments
+function parsePlayerArg() {
+  const playerArg = process.argv.find(arg => arg.startsWith('--player='));
+  return playerArg ? playerArg.split('=')[1] : null;
+}
+
+function parseCharacterArg() {
+  const charArg = process.argv.find(arg => arg.startsWith('--character='));
+  return charArg ? charArg.split('=')[1] : null;
+}
+
 const WORLD_ID = parseWorldArg();
+const PLAYER_ID = parsePlayerArg();
+const CHARACTER_ID = parseCharacterArg();
 const PROJECT_ROOT = path.join(__dirname, '../../..');
 const WORLD_ROOT = path.join(PROJECT_ROOT, 'worlds', WORLD_ID);
 const PLAYERS_ROOT = path.join(WORLD_ROOT, 'players');
@@ -37,8 +50,126 @@ function loadYaml(filePath) {
   return yaml.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+function loadYamlOptional(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
+  return yaml.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
 function saveYaml(filePath, data) {
   fs.writeFileSync(filePath, yaml.stringify(data, { lineWidth: 0 }), 'utf8');
+}
+
+function ensureDir(dirPath) {
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+}
+
+// === CHARACTER WORLD STATE ===
+
+function getCharacterWorldStatePath(player, character) {
+  return path.join(PLAYERS_ROOT, player, 'personas', character, 'world-state.yaml');
+}
+
+function loadCharacterOverrides(player, character) {
+  if (!player || !character) {
+    return null;
+  }
+  const worldStatePath = getCharacterWorldStatePath(player, character);
+  return loadYamlOptional(worldStatePath);
+}
+
+function saveCharacterOverrides(player, character, data) {
+  const worldStatePath = getCharacterWorldStatePath(player, character);
+  ensureDir(path.dirname(worldStatePath));
+  data.last_updated = new Date().toISOString();
+  saveYaml(worldStatePath, data);
+}
+
+function getEmptyCharacterState() {
+  return {
+    unlocked_areas: [],
+    area_states: [],
+    npc_overrides: [],
+    flags: {},
+    active_events: [],
+    environmental: [],
+    last_updated: null,
+    version: "1.0"
+  };
+}
+
+/**
+ * Merge global state with character overrides.
+ * Character overrides take priority for overlapping keys.
+ */
+function mergeWorldState(globalState, characterOverrides) {
+  if (!characterOverrides) {
+    return globalState;
+  }
+
+  const merged = JSON.parse(JSON.stringify(globalState)); // Deep copy
+
+  // Merge flags (character flags supplement global, don't override)
+  if (characterOverrides.flags) {
+    merged.character_flags = characterOverrides.flags;
+  }
+
+  // Add character-specific data as separate sections
+  merged.character_overrides = {
+    unlocked_areas: characterOverrides.unlocked_areas || [],
+    area_states: characterOverrides.area_states || [],
+    npc_overrides: characterOverrides.npc_overrides || [],
+    active_events: characterOverrides.active_events || [],
+    environmental: characterOverrides.environmental || []
+  };
+
+  return merged;
+}
+
+/**
+ * Check if an area is unlocked for a specific character.
+ * Returns true if either globally unlocked or character-unlocked.
+ */
+function isAreaUnlockedForCharacter(areaId, player, character) {
+  const globalState = loadYaml(STATE_PATH);
+  const charOverrides = loadCharacterOverrides(player, character);
+
+  // Check global unlock (if such a system exists)
+  if (globalState.unlocked_areas) {
+    const globalUnlock = globalState.unlocked_areas.find(a => a.area_id === areaId);
+    if (globalUnlock) return { unlocked: true, source: 'global', data: globalUnlock };
+  }
+
+  // Check character-specific unlock
+  if (charOverrides && charOverrides.unlocked_areas) {
+    const charUnlock = charOverrides.unlocked_areas.find(a => a.area_id === areaId);
+    if (charUnlock) return { unlocked: true, source: 'character', data: charUnlock };
+  }
+
+  return { unlocked: false, source: null, data: null };
+}
+
+/**
+ * Get NPC location with character overrides applied.
+ */
+function getNpcLocationForCharacter(npcId, player, character) {
+  const charOverrides = loadCharacterOverrides(player, character);
+
+  // Check for character-specific NPC override first
+  if (charOverrides && charOverrides.npc_overrides) {
+    const override = charOverrides.npc_overrides.find(
+      o => o.npc_id === npcId && (o.override_type === 'location' || o.override_type === 'state')
+    );
+    if (override) {
+      return { override: true, data: override };
+    }
+  }
+
+  // Fall back to global resolution (existing npcLocation function will handle)
+  return { override: false, data: null };
 }
 
 // === TIME FUNCTIONS ===
@@ -830,10 +961,257 @@ function eventsActive() {
   });
 }
 
+// === STATE COMMANDS ===
+
+function stateGet() {
+  const globalState = loadYaml(STATE_PATH);
+
+  if (PLAYER_ID && CHARACTER_ID) {
+    const charOverrides = loadCharacterOverrides(PLAYER_ID, CHARACTER_ID);
+    const merged = mergeWorldState(globalState, charOverrides);
+    console.log(yaml.stringify(merged, { lineWidth: 0 }));
+  } else {
+    console.log(yaml.stringify(globalState, { lineWidth: 0 }));
+  }
+}
+
+function stateOverrides() {
+  if (!PLAYER_ID || !CHARACTER_ID) {
+    console.error('Error: --player and --character are required for state overrides');
+    console.error('Usage: node world-state.js --world=alpha --player=<github> --character=<name> state overrides');
+    process.exit(1);
+  }
+
+  const charOverrides = loadCharacterOverrides(PLAYER_ID, CHARACTER_ID);
+  if (!charOverrides) {
+    console.log(`No character-specific overrides for ${PLAYER_ID}/${CHARACTER_ID}`);
+    console.log('Character uses global world state only.');
+    return;
+  }
+
+  console.log(`Character overrides for ${PLAYER_ID}/${CHARACTER_ID}:`);
+  console.log(yaml.stringify(charOverrides, { lineWidth: 0 }));
+}
+
+function areaUnlocked(areaId) {
+  if (!areaId) {
+    console.error('Usage: node world-state.js --world=<world> area unlocked <area-id> [--player=<github> --character=<name>]');
+    process.exit(1);
+  }
+
+  if (PLAYER_ID && CHARACTER_ID) {
+    const result = isAreaUnlockedForCharacter(areaId, PLAYER_ID, CHARACTER_ID);
+    if (result.unlocked) {
+      console.log(`true`);
+      console.log(`Area ${areaId} is unlocked for ${CHARACTER_ID}`);
+      console.log(`Source: ${result.source}`);
+      if (result.data.unlock_source) console.log(`Unlock source: ${result.data.unlock_source}`);
+      if (result.data.unlocked_date) console.log(`Unlocked: ${result.data.unlocked_date}`);
+    } else {
+      console.log(`false`);
+      console.log(`Area ${areaId} is NOT unlocked for ${CHARACTER_ID}`);
+    }
+  } else {
+    // Check global only
+    const globalState = loadYaml(STATE_PATH);
+    if (globalState.unlocked_areas) {
+      const unlock = globalState.unlocked_areas.find(a => a.area_id === areaId);
+      if (unlock) {
+        console.log(`true`);
+        console.log(`Area ${areaId} is globally unlocked`);
+        return;
+      }
+    }
+    console.log(`false`);
+    console.log(`Area ${areaId} is NOT globally unlocked`);
+    console.log(`(Use --player and --character to check character-specific unlocks)`);
+  }
+}
+
+function overrideSet(type, key, value) {
+  if (!PLAYER_ID || !CHARACTER_ID) {
+    console.error('Error: --player and --character are required for override set');
+    console.error('Usage: node world-state.js --world=alpha --player=<github> --character=<name> override set <type> <key> <value>');
+    process.exit(1);
+  }
+
+  if (!type || !key) {
+    console.error('Usage: override set <type> <key> <value>');
+    console.error('Types: flag, area_unlock, npc_location, npc_state');
+    process.exit(1);
+  }
+
+  let charOverrides = loadCharacterOverrides(PLAYER_ID, CHARACTER_ID);
+  if (!charOverrides) {
+    charOverrides = getEmptyCharacterState();
+  }
+
+  const today = new Date().toISOString().split('T')[0];
+
+  switch (type) {
+    case 'flag':
+      if (!charOverrides.flags) charOverrides.flags = {};
+      // Parse value as boolean if applicable
+      const flagValue = value === 'true' ? true : value === 'false' ? false : value;
+      charOverrides.flags[key] = flagValue;
+      console.log(`Set flag '${key}' = ${flagValue}`);
+      break;
+
+    case 'area_unlock':
+      if (!charOverrides.unlocked_areas) charOverrides.unlocked_areas = [];
+      // Remove existing if present
+      charOverrides.unlocked_areas = charOverrides.unlocked_areas.filter(a => a.area_id !== key);
+      charOverrides.unlocked_areas.push({
+        area_id: key,
+        unlocked_date: today,
+        unlock_source: value || 'manual',
+        notes: null
+      });
+      console.log(`Unlocked area '${key}' for ${CHARACTER_ID}`);
+      break;
+
+    case 'npc_location':
+      if (!charOverrides.npc_overrides) charOverrides.npc_overrides = [];
+      // Remove existing location override if present
+      charOverrides.npc_overrides = charOverrides.npc_overrides.filter(
+        o => !(o.npc_id === key && o.override_type === 'location')
+      );
+      charOverrides.npc_overrides.push({
+        npc_id: key,
+        override_type: 'location',
+        location: value,
+        reason: 'Set via CLI',
+        until: null
+      });
+      console.log(`Set NPC '${key}' location to '${value}' for ${CHARACTER_ID}`);
+      break;
+
+    case 'npc_state':
+      if (!charOverrides.npc_overrides) charOverrides.npc_overrides = [];
+      // Remove existing state override if present
+      charOverrides.npc_overrides = charOverrides.npc_overrides.filter(
+        o => !(o.npc_id === key && o.override_type === 'state')
+      );
+      charOverrides.npc_overrides.push({
+        npc_id: key,
+        override_type: 'state',
+        state: value,
+        reason: 'Set via CLI'
+      });
+      console.log(`Set NPC '${key}' state to '${value}' for ${CHARACTER_ID}`);
+      break;
+
+    default:
+      console.error(`Unknown override type: ${type}`);
+      console.error('Valid types: flag, area_unlock, npc_location, npc_state');
+      process.exit(1);
+  }
+
+  saveCharacterOverrides(PLAYER_ID, CHARACTER_ID, charOverrides);
+  console.log(`Saved to ${getCharacterWorldStatePath(PLAYER_ID, CHARACTER_ID)}`);
+}
+
+function overrideClear(type, key) {
+  if (!PLAYER_ID || !CHARACTER_ID) {
+    console.error('Error: --player and --character are required for override clear');
+    console.error('Usage: node world-state.js --world=alpha --player=<github> --character=<name> override clear <type> <key>');
+    process.exit(1);
+  }
+
+  if (!type || !key) {
+    console.error('Usage: override clear <type> <key>');
+    console.error('Types: flag, area_unlock, npc_location, npc_state, npc (clears all NPC overrides for that NPC)');
+    process.exit(1);
+  }
+
+  let charOverrides = loadCharacterOverrides(PLAYER_ID, CHARACTER_ID);
+  if (!charOverrides) {
+    console.log(`No character overrides exist for ${PLAYER_ID}/${CHARACTER_ID}`);
+    return;
+  }
+
+  let cleared = false;
+
+  switch (type) {
+    case 'flag':
+      if (charOverrides.flags && key in charOverrides.flags) {
+        delete charOverrides.flags[key];
+        console.log(`Cleared flag '${key}'`);
+        cleared = true;
+      }
+      break;
+
+    case 'area_unlock':
+      if (charOverrides.unlocked_areas) {
+        const before = charOverrides.unlocked_areas.length;
+        charOverrides.unlocked_areas = charOverrides.unlocked_areas.filter(a => a.area_id !== key);
+        if (charOverrides.unlocked_areas.length < before) {
+          console.log(`Cleared area unlock '${key}'`);
+          cleared = true;
+        }
+      }
+      break;
+
+    case 'npc_location':
+      if (charOverrides.npc_overrides) {
+        const before = charOverrides.npc_overrides.length;
+        charOverrides.npc_overrides = charOverrides.npc_overrides.filter(
+          o => !(o.npc_id === key && o.override_type === 'location')
+        );
+        if (charOverrides.npc_overrides.length < before) {
+          console.log(`Cleared NPC location override for '${key}'`);
+          cleared = true;
+        }
+      }
+      break;
+
+    case 'npc_state':
+      if (charOverrides.npc_overrides) {
+        const before = charOverrides.npc_overrides.length;
+        charOverrides.npc_overrides = charOverrides.npc_overrides.filter(
+          o => !(o.npc_id === key && o.override_type === 'state')
+        );
+        if (charOverrides.npc_overrides.length < before) {
+          console.log(`Cleared NPC state override for '${key}'`);
+          cleared = true;
+        }
+      }
+      break;
+
+    case 'npc':
+      if (charOverrides.npc_overrides) {
+        const before = charOverrides.npc_overrides.length;
+        charOverrides.npc_overrides = charOverrides.npc_overrides.filter(o => o.npc_id !== key);
+        if (charOverrides.npc_overrides.length < before) {
+          console.log(`Cleared all NPC overrides for '${key}'`);
+          cleared = true;
+        }
+      }
+      break;
+
+    default:
+      console.error(`Unknown override type: ${type}`);
+      console.error('Valid types: flag, area_unlock, npc_location, npc_state, npc');
+      process.exit(1);
+  }
+
+  if (!cleared) {
+    console.log(`No ${type} override found for '${key}'`);
+    return;
+  }
+
+  saveCharacterOverrides(PLAYER_ID, CHARACTER_ID, charOverrides);
+  console.log(`Saved to ${getCharacterWorldStatePath(PLAYER_ID, CHARACTER_ID)}`);
+}
+
 // === MAIN ===
 
-// Filter out --world argument and parse remaining args
-const filteredArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--world='));
+// Filter out --world, --player, --character arguments and parse remaining args
+const filteredArgs = process.argv.slice(2).filter(arg =>
+  !arg.startsWith('--world=') &&
+  !arg.startsWith('--player=') &&
+  !arg.startsWith('--character=')
+);
 const [domain, command, ...args] = filteredArgs;
 
 switch (domain) {
@@ -944,6 +1322,76 @@ Encounters: combat, hazard, discovery, traveler, rest_spot`);
     }
     break;
 
+  case 'state':
+    switch (command) {
+      case 'get':
+        stateGet();
+        break;
+      case 'overrides':
+        stateOverrides();
+        break;
+      default:
+        console.log(`Usage:
+  state get                  Get world state (merged with character overrides if --player/--character provided)
+  state overrides            Get character-specific overrides only (requires --player and --character)
+
+Options:
+  --player=<github>          GitHub username of player
+  --character=<name>         Character name (persona folder name)`);
+    }
+    break;
+
+  case 'area':
+    switch (command) {
+      case 'unlocked':
+        areaUnlocked(args[0]);
+        break;
+      default:
+        console.log(`Usage:
+  area unlocked <area-id>    Check if area is unlocked (optionally for specific character)
+
+Options:
+  --player=<github>          GitHub username of player
+  --character=<name>         Character name (persona folder name)
+
+Example:
+  node world-state.js --world=alpha area unlocked nexus-undercrypt/fragment-chamber
+  node world-state.js --world=alpha --player=matt-davison --character=coda area unlocked nexus-undercrypt/fragment-chamber`);
+    }
+    break;
+
+  case 'override':
+    switch (command) {
+      case 'set':
+        overrideSet(args[0], args[1], args[2]);
+        break;
+      case 'clear':
+        overrideClear(args[0], args[1]);
+        break;
+      default:
+        console.log(`Usage:
+  override set <type> <key> <value>    Set a character-specific override
+  override clear <type> <key>          Remove a character-specific override
+
+Types:
+  flag           Set a character flag (value: true/false/string)
+  area_unlock    Unlock an area for character (value: unlock source)
+  npc_location   Override NPC location (value: location-id)
+  npc_state      Override NPC state (value: state name, e.g., "deceased")
+
+Clear-only types:
+  npc            Clear ALL overrides for an NPC
+
+Requires: --player=<github> --character=<name>
+
+Examples:
+  node world-state.js --world=alpha --player=matt-davison --character=coda override set flag met_the_guardian true
+  node world-state.js --world=alpha --player=matt-davison --character=coda override set area_unlock nexus-undercrypt/fragment-chamber "quest:the-third-architect"
+  node world-state.js --world=alpha --player=matt-davison --character=coda override set npc_location vera-nighthollow "nexus-undercrypt/hidden-grove"
+  node world-state.js --world=alpha --player=matt-davison --character=coda override clear flag met_the_guardian`);
+    }
+    break;
+
   default:
     console.log(`World State Manager
 
@@ -953,9 +1401,16 @@ Usage:
   node world-state.js --world=<world> npc <command>      Manage NPC locations
   node world-state.js --world=<world> events <command>   Manage world events
   node world-state.js --world=<world> travel <command>   Manage player travel
+  node world-state.js --world=<world> state <command>    Manage world state
+  node world-state.js --world=<world> area <command>     Check area access
+  node world-state.js --world=<world> override <command> Manage character overrides
 
 Required:
   --world=<world>       World ID (e.g., alpha)
+
+Optional (for character-specific queries):
+  --player=<github>     GitHub username
+  --character=<name>    Character name (persona folder)
 
 Commands:
   time get              Get current world time
@@ -979,6 +1434,14 @@ Commands:
   travel progress <player> <hours>      Advance travel time
   travel status [player]                Check travel status
   travel complete <player>              Arrive at destination
-  travel resolve <player> <hour>        Resolve encounter`);
+  travel resolve <player> <hour>        Resolve encounter
+
+  state get             Get world state (with character overrides if --player/--character)
+  state overrides       Get character-specific overrides only
+
+  area unlocked <id>    Check if area is unlocked for character
+
+  override set <type> <key> <value>     Set character override
+  override clear <type> <key>           Remove character override`);
     process.exit(domain ? 1 : 0);
 }

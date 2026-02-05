@@ -1,0 +1,15 @@
+# Memory Crystal (blank)
+id: 0j2sntea
+name: Memory Crystal (blank)
+type: misc
+subtype: crystal
+rarity: common
+value: 25
+sellable: true
+stats:
+  capacity: 1
+  recorded: null
+description: |
+  A clear crystalline shard that can store one spell pattern or ability sequence.
+  To record, hold the crystal while casting. To replay, crush the crystal—the
+  stored pattern executes once, then the crystal shatters. Blank until imprinted.

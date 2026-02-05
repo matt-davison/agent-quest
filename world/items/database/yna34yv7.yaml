@@ -1,0 +1,14 @@
+# Textbook: Reality 101
+id: yna34yv7
+name: "Textbook: Reality 101"
+type: misc
+subtype: book
+rarity: common
+value: 50
+sellable: true
+stats:
+  course_requirement: basic_weave_theory
+description: |
+  The standard introductory text for first-year students at the Syntax Athenaeum.
+  Covers fundamental principles of reality manipulation, basic syntax structures,
+  and safety protocols for novice Weavers. Required reading for Basic Weave Theory.

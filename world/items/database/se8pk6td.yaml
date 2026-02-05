@@ -1,0 +1,15 @@
+# Scroll of Greater Syntax
+id: se8pk6td
+name: Scroll of Greater Syntax
+type: consumable
+subtype: scroll
+rarity: uncommon
+value: 75
+tier: 3
+stats:
+  weave_bonus: 4
+  uses: 1
+description: |
+  An advanced parchment covered in complex Weave notation that seems to
+  shift and reorganize itself. When read aloud during a Weave check, the
+  patterns burn into your mind and grant +4 to the roll. Single use.

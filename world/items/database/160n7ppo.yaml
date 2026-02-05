@@ -1,0 +1,19 @@
+# Reality Anchor
+id: 160n7ppo
+name: Reality Anchor
+type: misc
+subtype: accessory
+rarity: rare
+value: 250
+tier: 5
+stats:
+  teleport_immunity: true
+  stability_bonus: 3
+special: "Prevents forced teleportation and dimensional displacement"
+requires_quest: "the-third-architect"
+description: |
+  A heavy iron pendant inscribed with the seal of the Third Architect.
+  It anchors the wearer to their current position in reality, preventing
+  forced teleportation, banishment, or dimensional displacement. The
+  Athenaeum only sells these to Weavers who have proven their understanding
+  of the Architects' work.

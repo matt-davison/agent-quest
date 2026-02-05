@@ -1,0 +1,132 @@
+# The Athenaeum Commissary
+# Shop inventory file - references items from world/items/database/
+
+shop_id: athenaeum-commissary
+name: The Athenaeum Commissary
+location: syntax-athenaeum
+proprietor: null  # Golem attendant, no NPC profile yet
+type: academy_supply
+
+# Prices here override item database values (academy markup/discount)
+# qty: -1 means unlimited stock
+# buyback_percent: what shop pays when player sells (% of item value)
+
+inventory:
+  # === TIER 1 - NOVICE SUPPLIES ===
+  - item_id: 6giny4t3  # Scroll of Minor Syntax
+    qty: -1
+    price: 30
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: yna34yv7  # Textbook: Reality 101
+    qty: -1
+    price: 50
+    buyback_percent: 30
+    requires:
+      tier: 1
+
+  - item_id: w4kv0kd5  # Debug Potion
+    qty: 10
+    price: 40
+    buyback_percent: 75
+    requires:
+      tier: 1
+
+  - item_id: 0j2sntea  # Memory Crystal (blank)
+    qty: 20
+    price: 25
+    buyback_percent: 80
+    requires:
+      tier: 1
+
+  - item_id: 41mkxjwo  # Student Robes
+    qty: -1
+    price: 35
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: 0nv58nul  # Healing Potion
+    qty: 5
+    price: 30
+    buyback_percent: 80
+    requires:
+      tier: 1
+
+  # === TIER 3 - ADEPT SUPPLIES ===
+  - item_id: se8pk6td  # Scroll of Greater Syntax
+    qty: -1
+    price: 75
+    buyback_percent: 50
+    requires:
+      tier: 3
+
+  - item_id: b85w4dyo  # Pattern Lens
+    qty: 5
+    price: 120
+    buyback_percent: 60
+    requires:
+      tier: 3
+
+  # === TIER 5 - EXPERT SUPPLIES ===
+  - item_id: 2gsjetvy  # Weave Amplifier
+    qty: 3
+    price: 300
+    buyback_percent: 50
+    requires:
+      tier: 5
+
+  - item_id: 160n7ppo  # Reality Anchor
+    qty: 2
+    price: 250
+    buyback_percent: 60
+    requires:
+      tier: 5
+      quest: "the-third-architect"
+
+# Training courses are services, not items - tracked separately
+services:
+  - id: basic-weave-theory
+    name: "Basic Weave Theory"
+    price: 25
+    effect: "Unlocks simple creation abilities"
+    requires:
+      tier: 1
+
+  - id: pattern-recognition
+    name: "Pattern Recognition"
+    price: 50
+    effect: "+1 to detecting secrets"
+    requires:
+      tier: 1
+
+  - id: combat-syntax
+    name: "Combat Syntax"
+    price: 75
+    effect: "Learn one combat technique"
+    requires:
+      tier: 1
+
+  - id: advanced-creation
+    name: "Advanced Creation"
+    price: 100
+    effect: "Required for major Weaving projects"
+    requires:
+      tier: 3
+
+  - id: master-weave-theory
+    name: "Master Weave Theory"
+    price: 500
+    effect: "Unlock Tier 5 Weaving abilities"
+    requires:
+      tier: 5
+      standing: 3  # Need good standing with Dean Overflow
+
+# Stock resets
+restock_frequency: weekly
+last_restock: "1.2.1"  # Era.Month.Day
+
+# Transaction history (recent)
+transactions: []

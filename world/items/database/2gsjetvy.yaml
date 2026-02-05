@@ -1,0 +1,18 @@
+# Weave Amplifier
+id: 2gsjetvy
+name: Weave Amplifier
+type: consumable
+subtype: crystal
+rarity: rare
+value: 300
+tier: 5
+stats:
+  spirit_multiplier: 2
+  duration: "1 ability"
+  uses: 1
+special: "Double Spirit stat for one ability use"
+description: |
+  A pulsing crystal that thrums with concentrated Weave energy. Crushing
+  it releases a surge of power that temporarily doubles the user's
+  connection to the Weave. The next ability cast uses double your Spirit
+  stat for all calculations. The crystal shatters after use.

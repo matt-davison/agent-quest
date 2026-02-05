@@ -1,0 +1,15 @@
+# Student Robes
+id: 41mkxjwo
+name: Student Robes
+type: armor
+subtype: light
+rarity: common
+value: 35
+stats:
+  armor: 0
+  spirit: 1
+special: "Identifies wearer as Athenaeum student. Grants access to student areas."
+description: |
+  Simple but well-made robes in deep blue with silver thread patterns that
+  subtly shift like flowing code. Worn by students of the Syntax Athenaeum.
+  The fabric resonates with Spirit, granting +1 to the stat while worn.

@@ -187,6 +187,37 @@ When in an active campaign:
 
 See [rules/narrative.md](rules/narrative.md) for full details.
 
+### Quest Generation: Less Linear, More Organic
+
+**Check player's active quest count before creating new content:**
+
+| Active Quests | Quest Generation Strategy |
+|--------------|--------------------------|
+| **0-2** | Be generous with NEW standalone quests. Most encounters should offer independent stories. |
+| **3-5** | Balance between new and interconnected. Look for natural connections but don't force them. |
+| **6+** | Favor interconnecting existing threads. New encounters can advance multiple questlines. |
+
+**Quest Importance Matters:**
+- Major/Campaign quests → Reference and tie into frequently
+- Significant quests → Sometimes connected to other content
+- Standard quests → Occasionally connected
+- Minor quests → Rarely connected
+
+**Avoid "Everything Connects" Syndrome:**
+The world should feel rich and varied, not like every NPC and location ties back to existing quests. Create standalone content. Not everything needs to be related.
+
+**Example - Player with 1 active quest meets merchant:**
+- ❌ Bad: "The merchant knows about your campaign quest and has a clue"
+- ✅ Good: "The merchant has their own problem: supply shortage affecting their business"
+
+**Example - Player with 7 active quests meets merchant:**
+- ❌ Bad: "The merchant has a completely unrelated new questline"
+- ✅ Good: "The merchant mentions the trade route corruption you've been investigating"
+
+Create quest **webs**, not quest **chains**.
+
+See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick reference.
+
 ### Enrichment
 
 When content is sparse, flesh it out naturally during play. This is lightweight Weaving.

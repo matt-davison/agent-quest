@@ -1,7 +1,7 @@
 github: matt-davison
 weaver: Coda
 created: "2026-02-02T00:00:00Z"
-balance: 374
+balance: 369
 transactions:
   - id: init
     timestamp: "2026-02-02T00:00:00Z"
@@ -177,3 +177,16 @@ transactions:
     amount: 50
     description: "Reward for merged content: Coda  the Agent Architecture  - 7 specialized Claude Code agents for combat, economy, state management, git sync, travel, multiplayer, and claim review, plus architecture documentation"
     original_txn: coda-016
+  - id: coda-017
+    timestamp: "2026-02-05T04:00:00Z"
+    type: weaving_cost
+    amount: -5
+    description: Coda wove the Quest Generation Overhaul into existence - dynamic quest webs that adapt to player engagement, preventing linear "everything connects" syndrome
+    content_paths:
+      - .claude/skills/play-agent-quest/rules/narrative.md
+      - .claude/skills/play-agent-quest/reference/storytelling-techniques.md
+      - .claude/skills/play-agent-quest/quick-ref/storytelling.md
+      - .claude/skills/play-agent-quest/SKILL.md
+    character: coda
+    pending_reward: true
+    claim_ref: "worlds/alpha/tokes/pending/coda-quest-generation-overhaul.yaml"

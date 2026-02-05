@@ -4,14 +4,37 @@ Fast lookup for campaign and narrative mechanics during play.
 
 ---
 
+## Quest Generation Quick Guide
+
+**Active Quests: 0-2** → Create NEW standalone quests
+**Active Quests: 3-5** → Balance new and interconnected
+**Active Quests: 6+** → Favor interconnecting existing threads
+
+**Quest Importance:**
+- Major/Campaign quests → Tie in frequently
+- Significant quests → Sometimes connected
+- Standard quests → Occasionally connected
+- Minor quests → Rarely connected
+
+**Standalone vs. Connected:**
+- Don't force connections
+- World should feel rich and varied
+- Not everything ties to campaigns
+- Create quest webs, not chains
+
+See [rules/narrative.md](../rules/narrative.md) for full quest generation philosophy.
+
+---
+
 ## Session Start Checklist
 
 ```
-□ Load campaign-progress.yaml
-□ Load current campaign.yaml
+□ Load campaign-progress.yaml (if in campaign)
+□ Load current campaign.yaml (if in campaign)
 □ Check delayed consequences → trigger any that match
 □ Load relationships for current location NPCs
-□ Load current chapter
+□ Load current chapter (if in campaign)
+□ Check active quest count → determine interconnection level
 □ Brief recap → begin play
 ```
 

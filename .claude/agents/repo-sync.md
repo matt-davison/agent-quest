@@ -1,6 +1,6 @@
 ---
 name: repo-sync
-description: Handle all git operations and multiplayer content syncing. Use at session start (fetch), after multiplayer actions (save), periodically during long sessions, and at session end (create PR). Critical for Tokes economy - PRs enable credit.
+description: Handle all git operations and multiplayer content syncing. Use at session start (fetch), after multiplayer actions (save), periodically during long sessions, and at session end (create PR). Critical for Tokes economy - PRs enable credit. Use whenever you are interacting with git. Use when creating commits or creating PRs.
 tools: Read, Glob, Grep, Bash
 model: haiku
 ---
@@ -11,12 +11,12 @@ Handle ALL git operations and multiplayer content syncing. Critical for the Toke
 
 ## When You're Invoked
 
-| Trigger | Operation |
-|---------|-----------|
-| Session start | `fetch` - Pull latest, check for new multiplayer content |
-| After multiplayer actions | `save` - Commit and push changes |
-| Periodically during long sessions | `fetch` - Sync multiplayer state |
-| Session end | `end_session` - Validate, commit, push, create PR |
+| Trigger                           | Operation                                                |
+| --------------------------------- | -------------------------------------------------------- |
+| Session start                     | `fetch` - Pull latest, check for new multiplayer content |
+| After multiplayer actions         | `save` - Commit and push changes                         |
+| Periodically during long sessions | `fetch` - Sync multiplayer state                         |
+| Session end                       | `end_session` - Validate, commit, push, create PR        |
 
 ## Input Context
 
@@ -40,6 +40,7 @@ git pull origin main --rebase
 ```
 
 Check multiplayer content for player (within world directory):
+
 - `worlds/${world}/multiplayer/mail/<github>/inbox/` - Unread messages
 - `worlds/${world}/multiplayer/trades/active/` - Pending trades
 - `worlds/${world}/multiplayer/parties/invites/<github>-*.yaml` - Party invitations
@@ -94,49 +95,68 @@ git push origin <current-branch>
 ### END_SESSION - Full Session Save
 
 1. Check for unsaved content (NPCs, locations, items mentioned but not persisted)
-2. **Run ALL validators - STOP if any fail:**
+2. **Identify new content and create Tokes claims:**
+   - Check what new files were created or significantly modified
+   - Determine content type (location, quest, NPC, item, lore, rules/system, bug fix)
+   - Create weaving cost transaction in `worlds/${world}/tokes/ledgers/<github>.yaml`
+   - Create claim file in `worlds/${world}/tokes/pending/<weaver>-<description>.yaml` for large claims (15+ Tokes)
+   - Or add claim file to `worlds/${world}/tokes/claims/` for small claims (<15 Tokes)
+   - **CRITICAL:** Use player's weaver name and github username, NOT Claude's
+3. **Run ALL validators - STOP if any fail:**
    ```bash
    node scripts/validate-tokes.js || exit 1
    node scripts/validate-multiplayer.js || exit 1
    node scripts/validate-game-state.js || exit 1
    ```
    **If validation fails, return error immediately. Do NOT create PR with broken state.**
-3. Create feature branch if on main
-4. Stage all player-related changes
-5. Create commit with session summary
-6. Push
-7. Create PR with full summary
+4. Create feature branch if on main
+5. Stage all player-related changes INCLUDING Tokes claim files
+6. Create commit with session summary
+7. Push
+8. Create PR with full summary INCLUDING Tokes claim info
 
 **Branch naming:**
+
 ```
 <github>-<character>-<date>[-<sequence>]
 ```
 
 **PR body template:**
+
 ```markdown
 ## Session Summary
+
 <detailed_session_summary>
 
 ## Character Status at Save
+
 - **HP:** X/Y
 - **Gold:** Z
 - **Location:** <location>
 - **Active Quests:** <count>
 
 ## Content Created
+
 <list of any new NPCs, locations, items>
 
 ## Tokes Changes
-- Earned: X
-- Spent: Y
-- Net: Z
+
+- Weaving Cost: X (deducted from balance)
+- Pending Reward: Y (claimed in pending/ or claims/)
+- Net Projection: +Z (after merge and reward approval)
+
+## Tokes Claims
+
+<list of claim files created with estimated rewards>
 
 ## Validation
+
 - [x] validate-tokes.js passed
 - [x] validate-multiplayer.js passed
 - [x] validate-game-state.js passed
 
 ---
+
 Generated with [Claude Code](https://claude.com/claude-code)
 ```
 
@@ -175,6 +195,30 @@ errors:
 action_required: "Fix ledger balance before saving"
 ```
 
+## Tokes Claim Guidelines
+
+When determining content value for claims:
+
+| Content Type | Reward Range | Notes |
+|--------------|--------------|-------|
+| Location (full) | 15-25 | README, connections, NPCs, shops, encounters |
+| Quest (complete) | 20-30 | Full objectives, rewards, branching |
+| NPC (detailed) | 10-20 | Personality, dialogue, secrets, relationships |
+| Item (balanced) | 5-10 | Stats, description, rarity appropriate |
+| Lore entry | 5-15 | Depth and integration with world |
+| Rules/System | 15-50+ | Major game mechanics, well-documented |
+| Bug fix | 5-10 | Depending on severity and scope |
+| Location enrichment | 3-10 | Adding detail to existing location |
+
+**Claim file location:**
+- Large claims (15+ Tokes): `worlds/${world}/tokes/pending/<weaver>-<description>.yaml`
+- Small claims (<15 Tokes): `worlds/${world}/tokes/claims/<mirrors-content-path>.yaml`
+
+**CRITICAL Attribution:**
+- `github:` field = player's GitHub username (e.g., "matt-davison")
+- `weaver:` field = player's character name from their ledger (e.g., "Coda")
+- NEVER use "Claude" or "Anthropic" in these fields
+
 ## Safety Rules
 
 1. **Never force push** - Especially not to main
@@ -184,3 +228,5 @@ action_required: "Fix ledger balance before saving"
 5. **Always create PRs** - Work should be submitted via PR
 6. **Include Co-Author** - All commits include Claude Code attribution
 7. **Descriptive messages** - Commit messages explain what changed
+8. **Always create Tokes claims** - PR without claim = work without credit
+9. **Attribute to player** - Credits go to the player's character, not Claude

@@ -66,9 +66,9 @@ secrets:
   - "He didn't just stop looking. Someone warned him. Someone powerful."
 
 quest_hooks:
-  - "Yara's Trail" — Find what happened to his daughter
-  - "The Soldier's Archive" — His cybernetic eye holds decades of recordings
-  - "The Warning" — Who told Vance to stop looking, and why?
+  - "Yara's Trail - Find what happened to his daughter"
+  - "The Soldier's Archive - His cybernetic eye holds decades of recordings"
+  - "The Warning - Who told Vance to stop looking, and why?"
 
 schedule:
   default: "Wanders Lumina City, often found in the Chromedome stands"

@@ -1,0 +1,52 @@
+# Phase - Voidwalker ability
+id: xgktne2p
+name: "Phase"
+type: ability
+subtype: movement
+class: Voidwalker
+tier: 1
+tags:
+  - combat
+  - utility
+  - movement
+  - void
+  - voidwalker
+
+prerequisites:
+  min_agility: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Phase through a wall or barrier up to 3m thick. Costs 5 HP as the void tears at you. Leaves a shadow afterimage that distracts enemies."
+    willpower_cost: 4
+    effect:
+      movement: "through_solid"
+      max_thickness: 3
+      hp_cost: 5
+      afterimage:
+        distraction: true
+        duration: 1
+    learn_cost: 0
+  2:
+    description: "Phase through up to 5m. HP cost reduced to 3. Afterimage can absorb one attack."
+    willpower_cost: 5
+    effect:
+      movement: "through_solid"
+      max_thickness: 5
+      hp_cost: 3
+      afterimage:
+        absorb_attacks: 1
+        duration: 2
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: combat
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: self

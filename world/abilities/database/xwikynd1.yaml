@@ -1,0 +1,55 @@
+# Dispel - Universal utility ability
+id: xwikynd1
+name: "Dispel"
+type: ability
+subtype: utility
+class: null
+tier: 1
+tags:
+  - combat
+  - utility
+  - counter
+  - magic
+
+prerequisites:
+  min_spirit: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Remove up to 2 buffs from target. Can be used as a reaction to interrupt a spell being cast (Spirit check vs caster's Spirit)."
+    willpower_cost: 4
+    effect:
+      remove_buffs:
+        count: 2
+        target: single
+      reaction_use:
+        interrupt_spell: true
+        check: { stat: "spirit", vs: "caster_spirit" }
+    learn_cost: 75
+  2:
+    description: "Remove up to 3 buffs or all buffs of one type. +3 to interrupt check. Can target self or ally to remove debuffs instead."
+    willpower_cost: 6
+    effect:
+      remove_buffs:
+        count: 3
+        or_type: "all_of_type"
+        target: "single"
+      remove_debuffs:
+        count: 2
+        target: "self_or_ally"
+      reaction_use:
+        interrupt_spell: true
+        check: { stat: "spirit", vs: "caster_spirit", bonus: 3 }
+    learn_cost: 150
+    upgrade_from: 1
+
+limits:
+  reset: combat
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: 30
+target: single

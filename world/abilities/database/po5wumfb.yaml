@@ -1,0 +1,54 @@
+# Iron Skin - Universal defensive ability
+id: po5wumfb
+name: "Iron Skin"
+type: ability
+subtype: buff
+class: null
+tier: 1
+tags:
+  - combat
+  - defensive
+  - buff
+  - tank
+
+prerequisites:
+  min_strength: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "+4 Defense for 3 rounds, but -2 movement speed. Your skin takes on a metallic sheen."
+    willpower_cost: 4
+    effect:
+      buff:
+        target: self
+        defense_bonus: 4
+        duration: 3
+      drawback:
+        speed_penalty: 2
+    learn_cost: 50
+  2:
+    description: "+6 Defense for 4 rounds. Speed penalty reduced to -1. Reflects 2 damage to melee attackers."
+    willpower_cost: 6
+    effect:
+      buff:
+        target: self
+        defense_bonus: 6
+        duration: 4
+      reflect_damage:
+        amount: 2
+        type: melee
+      drawback:
+        speed_penalty: 1
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: combat
+  max_uses: 1
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: self

@@ -1,0 +1,53 @@
+# Backstab - Voidwalker ability
+id: lf5fbupm
+name: "Backstab"
+type: ability
+subtype: attack
+class: Voidwalker
+tier: 1
+tags:
+  - combat
+  - damage
+  - stealth
+  - voidwalker
+
+prerequisites:
+  min_agility: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Strike from the shadows. 3x weapon damage if undetected. Target is Exposed (-2 defense) for 2 rounds even if you miss."
+    willpower_cost: 3
+    effect:
+      damage_multiplier: 3
+      requires: "undetected"
+      debuff:
+        name: "exposed"
+        defense_penalty: 2
+        duration: 2
+        applies_on: "hit_or_miss"
+    learn_cost: 0
+  2:
+    description: "4x damage when undetected. Remain hidden on kill. Exposed lasts 3 rounds."
+    willpower_cost: 4
+    effect:
+      damage_multiplier: 4
+      requires: "undetected"
+      stay_hidden_on_kill: true
+      debuff:
+        name: "exposed"
+        defense_penalty: 2
+        duration: 3
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+  cooldown_rounds: null
+
+action_type: major
+range: 5
+target: single

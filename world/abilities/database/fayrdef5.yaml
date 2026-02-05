@@ -1,0 +1,44 @@
+# Momentum - Codebreaker passive
+id: fayrdef5
+name: "Momentum"
+type: passive
+subtype: combat
+class: Codebreaker
+tier: 1
+tags:
+  - passive
+  - combat
+  - damage
+  - codebreaker
+
+prerequisites:
+  min_strength: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "+1 damage per consecutive hit on the same target (max +5). Resets if you miss or change targets."
+    willpower_cost: 0
+    effect:
+      damage_bonus_per_hit: 1
+      max_stacks: 5
+      reset_on: ["miss", "target_change"]
+    learn_cost: 0
+  2:
+    description: "+2 damage per consecutive hit (max +10). Stacks persist when switching targets for 1 round."
+    willpower_cost: 0
+    effect:
+      damage_bonus_per_hit: 2
+      max_stacks: 5
+      stack_persistence: 1
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

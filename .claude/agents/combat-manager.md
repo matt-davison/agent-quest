@@ -28,6 +28,8 @@ combatants:
     name: "<character-name>"
     hp: <current>
     max_hp: <max>
+    willpower: <current>
+    max_willpower: <max>
     stats:
       might: <value>
       agility: <value>
@@ -38,30 +40,58 @@ combatants:
       name: "<weapon>"
       damage: "<dice-expression>"
       type: "melee" | "ranged" | "magic"
-    abilities: [<list-of-available-abilities>]
+    abilities:
+      known: [<resolved-ability-data>]  # Full ability objects from database
+      usage: { combat: {}, long_rest: {} }  # Current usage counts
     tokes_available: <balance>
   enemies:
     - id: "enemy-1"
       name: "<enemy-name>"
       hp: <current>
       max_hp: <max>
+      willpower: <value>
       defense: <value>
       attack_bonus: <value>
       damage: "<dice-expression>"
-      abilities: [<list>]
+      abilities: [<ability-ids>]  # Validated ability IDs from database
 terrain:
   type: "<terrain-type>"
   modifiers: [<any-combat-modifiers>]
 player_action:
   type: "attack" | "defend" | "ability" | "item" | "flee" | "weave_strike"
   target: "<target-id>"
-  ability_name: "<if-using-ability>"
+  ability_id: "<8-char-id>"     # For ability actions
   item_id: "<if-using-item>"
 ```
 
 ## Operations
 
 ### INIT_COMBAT - Roll Initiative, Setup
+
+**Step 1: Validate and Load Abilities**
+
+```bash
+# Check enemy type for existing abilities
+node .claude/skills/abilities/abilities.js list --tags=enemy,<enemy-type>
+
+# If no abilities exist for this enemy type, create thematic ones
+# Example: Shadow Stalker -> shadow, stealth, ambush themes
+# Create new ability files in world/abilities/database/ with proper tags
+```
+
+**Step 2: Apply Passive Abilities**
+
+```bash
+# Gather all known passive abilities
+node .claude/skills/abilities/abilities.js list --type=passive
+
+# For each passive in player's known list:
+# - Calculate stat bonuses (damage_bonus, defense_bonus, etc.)
+# - Register triggered passives for event handling
+# - Add to combat state as "active_passives"
+```
+
+**Step 3: Roll Initiative**
 
 ```bash
 # Roll initiative for all combatants
@@ -89,8 +119,17 @@ initiative_order:
 combat_state:
   round: 1
   current_turn: "player"
+  player_willpower: 36
+  active_passives:
+    - id: "fayrdef5"
+      name: "Momentum"
+      effect: "damage_bonus_per_hit"
+      current_stacks: 0
 terrain_effects:
   - "Dim lighting: -2 to ranged attacks"
+enemy_abilities:
+  - enemy_id: "enemy-1"
+    abilities: ["al02jnle", "yavtprw7", "qr40lydq"]  # Validated ability IDs
 narrative_hooks:
   - "Initiative seized - you act first"
   - "Two shadows materialize from the darkness"
@@ -193,6 +232,156 @@ narrative_hooks:
 node .claude/skills/math/math.js roll "1d20+${agility_mod}"
 ```
 
+#### Ability Action
+
+When player uses an ability, validate and resolve:
+
+**Step 1: Validate Ability**
+
+```bash
+# Check ability exists in player's known list
+# The ability_id must be in player.abilities.known[]
+
+# Get full ability data
+node .claude/skills/abilities/abilities.js get <ability_id>
+
+# Check level matches known level
+# Player can only use levels they've learned
+```
+
+**Step 2: Check Usage Limits**
+
+```yaml
+# For abilities with limits.max_uses:
+# Check usage[reset_type][ability_id] < max_uses
+# reset_type is: combat | short_rest | long_rest | location | daily
+
+# Example: Iron Skin has max_uses: 1, reset: combat
+# If usage.combat.po5wumfb >= 1, ability cannot be used
+```
+
+**Step 3: Check Willpower Cost**
+
+```yaml
+# Get willpower_cost from ability.levels[known_level]
+# Verify player.willpower >= willpower_cost
+# If insufficient, return error
+```
+
+**Step 4: Apply Effect**
+
+```bash
+# Roll damage if applicable
+node .claude/skills/math/math.js roll "<damage_dice>"
+
+# Apply debuffs, buffs, zones as defined in effect
+# Check for combo_tags on targets to apply bonus damage
+```
+
+**Return for Ability Action:**
+
+```yaml
+success: true
+operation: "resolve_round"
+round: 2
+actor: "player"
+action:
+  type: "ability"
+  ability_id: "lkhskejx"
+  ability_name: "Flame Strike"
+  target: "area"
+resolution:
+  willpower_cost: 5
+  willpower_before: 36
+  willpower_after: 31
+  damage_roll: "15"
+  damage_total: 15
+  damage_type: "fire"
+  targets_hit:
+    - id: "enemy-1"
+      damage_taken: 15
+      hp_before: 30
+      hp_after: 15
+      debuffs_applied:
+        - name: "burning"
+          damage_per_round: 3
+          duration: 2
+  zone_created:
+    type: "fire"
+    radius: 4
+    duration: 1
+state_diffs:
+  player:
+    willpower: 31
+  enemies:
+    - id: "enemy-1"
+      hp: 15
+      debuffs:
+        - name: "burning"
+          damage_per_round: 3
+          rounds_remaining: 2
+  abilities_usage:
+    combat:
+      lkhskejx: 1  # Increment if ability has usage limits
+narrative_hooks:
+  - "You call upon the Weave, spending 5 willpower"
+  - "A pillar of flame crashes down, engulfing the shadows"
+  - "15 fire damage! The creature catches fire, burning"
+  - "The ground smolders, creating a hazardous zone"
+```
+
+**Ability Validation Errors:**
+
+```yaml
+# If ability not in known list:
+success: false
+error: "ability_not_known"
+message: "Coda does not know the ability 'Fireball' (id: f1r3b4ll)"
+
+# If insufficient willpower:
+success: false
+error: "insufficient_willpower"
+message: "Flame Strike requires 5 willpower, but Coda only has 3"
+
+# If usage limit reached:
+success: false
+error: "usage_limit_reached"
+message: "Iron Skin already used this combat (1/1 uses)"
+```
+
+#### Enemy Ability Handling
+
+Enemies use abilities the same way as players:
+
+**Validation:**
+- Enemy can ONLY use abilities in their assigned list
+- Abilities must exist in `world/abilities/database/`
+- If enemy attempts unknown ability, log error and skip turn
+
+**At Combat Init:**
+1. Check `world/abilities/database/` for abilities with enemy's type tag
+2. If insufficient abilities exist, create thematic ones
+3. Assign ability IDs to enemy for this combat
+4. Track enemy willpower per-combat (not persistent)
+
+**Enemy Turn:**
+```yaml
+enemy_actions:
+  - actor: "enemy-1"
+    action: "ability"
+    ability_id: "al02jnle"
+    ability_name: "Shadow Claw"
+    target: "player"
+    willpower_cost: 0
+    damage: 12
+    debuffs_applied:
+      - name: "dimmed"
+        ranged_attack_penalty: 1
+        duration: 1
+    hit: true
+    narrative: "The Shadow Stalker's claws tear through, wreathed in darkness"
+```
+
 ### END_COMBAT - Wrap Up
 
 ```yaml
@@ -293,10 +482,92 @@ node .claude/skills/inventory/inventory.js search shadow
 node .claude/skills/inventory/inventory.js search essence
 ```
 
+## Ability Validation
+
+All abilities MUST exist in the database before use:
+
+```bash
+# Verify ability exists and get full data
+node .claude/skills/abilities/abilities.js get <ability_id>
+
+# Check if ability matches class (null = universal)
+node .claude/skills/abilities/abilities.js list --class=<class>
+
+# For enemy abilities, check tags
+node .claude/skills/abilities/abilities.js list --tags=enemy,<enemy-type>
+```
+
+**Rules:**
+- Never allow abilities that aren't in `world/abilities/database/`
+- All player abilities must be in their `abilities.known[]` list
+- Enemy abilities must be assigned at combat init
+- Use `node .claude/skills/abilities/abilities.js similar <name>` to find alternatives
+
+**Example - Creating missing enemy ability:**
+```bash
+# If Shadow Stalker needs an ability that doesn't exist:
+# 1. Generate ID
+node .claude/skills/math/math.js id 8
+
+# 2. Create the ability file in world/abilities/database/<id>.yaml
+# 3. Include tags: [enemy, shadow-stalker, <theme>]
+# 4. Then assign to enemy
+```
+
+## Passive Ability Handling
+
+Passives are ALWAYS active when known. At combat init:
+
+1. **Identify passives**: Filter `abilities.known[]` where `action_type: passive`
+2. **Calculate bonuses**: Sum all stat_bonus, damage_bonus, defense_bonus
+3. **Apply to combat stats**: Modify defense, damage rolls accordingly
+4. **Register triggers**: Track passives with `trigger` effects (e.g., on_hit, on_critical)
+
+**Example passive calculation:**
+```yaml
+# Player has Basic Weapon Expertise (tmdelr3q) level 1
+# Effect: damage_bonus: 2, applies_to: "weapon_attacks"
+
+# At combat init:
+active_passives:
+  - id: "tmdelr3q"
+    name: "Basic Weapon Expertise"
+    effect:
+      damage_bonus: 2
+      applies_to: "weapon_attacks"
+
+# When player attacks with weapon:
+# Add +2 to damage roll
+```
+
+**Triggered passives:**
+```yaml
+# Momentum (fayrdef5) triggers on consecutive hits
+# Track stacks in combat state
+active_passives:
+  - id: "fayrdef5"
+    name: "Momentum"
+    stacks: 3  # +3 damage from 3 consecutive hits
+    max_stacks: 5
+```
+
+## Willpower Recovery
+
+- **Short Rest** (10 minutes): Recover 25% max_willpower
+- **Long Rest** (8 hours): Recover 100% max_willpower
+- **Mana Crystal item**: Restore 20 willpower
+
+Usage limits reset based on their `limits.reset` field:
+- `combat`: Reset when combat ends
+- `short_rest`: Reset after short rest
+- `long_rest`: Reset after long rest
+- `location`: Reset when moving to new location
+- `daily`: Reset at dawn
+
 ## Loading Additional Rules
 
 When needed, load:
+- `world/abilities/index.md` - Ability catalog and creation guide
 - `rules/combat.md` - Complex maneuvers, environmental combat
 - `rules/afflictions.md` - Status effects, conditions
-- `rules/spells-and-abilities.md` - Spell/ability details
 - `rules/enemy-tactics.md` - Enemy AI patterns

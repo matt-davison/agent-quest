@@ -1,0 +1,49 @@
+# Shatter - Codebreaker ability
+id: iklvbklj
+name: "Shatter"
+type: ability
+subtype: physical
+class: Codebreaker
+tier: 1
+tags:
+  - combat
+  - utility
+  - destruction
+  - codebreaker
+
+prerequisites:
+  min_strength: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Break barriers or objects with raw force. STR check vs DC. On success, target shatters and nearby enemies take 5 damage from debris."
+    willpower_cost: 3
+    effect:
+      check: { stat: "strength", dc: 12 }
+      on_success:
+        destroy: "barrier_or_object"
+        aoe_damage: 5
+        radius: 3
+    learn_cost: 0
+  2:
+    description: "Improved shatter. +2 to STR check, debris deals 10 damage in larger radius."
+    willpower_cost: 4
+    effect:
+      check: { stat: "strength", dc: 12, bonus: 2 }
+      on_success:
+        destroy: "barrier_or_object"
+        aoe_damage: 10
+        radius: 5
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 3
+  cooldown_rounds: null
+
+action_type: major
+range: 5
+target: single

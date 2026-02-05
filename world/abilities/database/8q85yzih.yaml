@@ -1,0 +1,54 @@
+# Smoke Screen - Universal tactical ability
+id: 8q85yzih
+name: "Smoke Screen"
+type: ability
+subtype: tactical
+class: null
+tier: 1
+tags:
+  - combat
+  - utility
+  - environmental
+  - defensive
+
+prerequisites:
+  min_agility: 8
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Create a 6m smoke cloud that blocks ranged attacks and grants -2 to perception checks within. Lasts 3 rounds."
+    willpower_cost: 3
+    effect:
+      create_zone:
+        type: "smoke"
+        radius: 6
+        duration: 3
+      zone_effects:
+        - "blocks_ranged"
+        - { perception_penalty: -2 }
+    learn_cost: 50
+  2:
+    description: "8m cloud, lasts 4 rounds. Allies in smoke gain +2 to stealth checks."
+    willpower_cost: 4
+    effect:
+      create_zone:
+        type: "smoke"
+        radius: 8
+        duration: 4
+      zone_effects:
+        - "blocks_ranged"
+        - { perception_penalty: -2 }
+        - { ally_stealth_bonus: 2 }
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: combat
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: 20
+target: area

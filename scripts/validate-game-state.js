@@ -226,6 +226,29 @@ function validatePersona(github, personaName) {
     if (typeof persona.resources.gold === 'number' && persona.resources.gold < 0) {
       error(personaFile, `Negative gold: ${persona.resources.gold}`);
     }
+
+    // Willpower validation
+    const willpower = persona.resources.willpower;
+    const maxWillpower = persona.resources.max_willpower;
+    const multiplier = persona.resources.willpower_multiplier;
+    const spirit = persona.stats?.spirit || 10;
+
+    if (willpower !== undefined && maxWillpower !== undefined) {
+      if (willpower > maxWillpower) {
+        error(personaFile, `Willpower (${willpower}) exceeds max willpower (${maxWillpower})`);
+      }
+      if (willpower < 0) {
+        error(personaFile, `Negative willpower: ${willpower}`);
+      }
+    }
+
+    // Validate max_willpower calculation
+    if (maxWillpower !== undefined && multiplier !== undefined) {
+      const expectedMax = spirit * multiplier;
+      if (maxWillpower !== expectedMax) {
+        warn(personaFile, `max_willpower (${maxWillpower}) doesn't match spirit(${spirit}) × multiplier(${multiplier}) = ${expectedMax}`);
+      }
+    }
   }
 
   // Location validation
@@ -253,6 +276,9 @@ function validatePersona(github, personaName) {
   if (fs.existsSync(relationshipsFile)) {
     validateRelationships(relationshipsFile);
   }
+
+  // Validate abilities
+  validatePersonaAbilities(personaFile, persona);
 }
 
 function validatePersonaQuests(filePath) {
@@ -298,6 +324,54 @@ function validateCampaignProgress(filePath) {
     );
     if (!fs.existsSync(chapterPath)) {
       warn(filePath, `Chapter "${progress.current_chapter}" not found in campaign`);
+    }
+  }
+}
+
+function validatePersonaAbilities(filePath, persona) {
+  // Check if using new abilities format
+  if (!persona.abilities || !persona.abilities.known) {
+    // Old format or no abilities - skip validation
+    return;
+  }
+
+  const knownAbilities = persona.abilities.known;
+  if (!Array.isArray(knownAbilities)) {
+    warn(filePath, 'abilities.known should be an array');
+    return;
+  }
+
+  const ABILITIES_DIR = path.join(WORLD_DIR, 'abilities', 'database');
+
+  for (const entry of knownAbilities) {
+    const abilityId = typeof entry === 'string' ? entry : entry.id;
+    if (!abilityId) {
+      warn(filePath, 'Ability entry missing id');
+      continue;
+    }
+
+    // Check ability exists in database
+    const abilityPath = path.join(ABILITIES_DIR, `${abilityId}.yaml`);
+    if (!fs.existsSync(abilityPath)) {
+      error(filePath, `Ability "${abilityId}" not found in world/abilities/database`);
+      continue;
+    }
+
+    // Load ability and validate level
+    const ability = loadYaml(abilityPath);
+    if (!ability) continue;
+
+    if (typeof entry === 'object' && entry.level) {
+      if (!ability.levels || !ability.levels[entry.level]) {
+        warn(filePath, `Ability "${abilityId}" (${ability.name}) doesn't have level ${entry.level}`);
+      }
+    }
+
+    // Check class restriction
+    if (ability.class && persona.class) {
+      if (ability.class.toLowerCase() !== persona.class.toLowerCase()) {
+        warn(filePath, `Ability "${ability.name}" is for ${ability.class}, but persona is ${persona.class}`);
+      }
     }
   }
 }

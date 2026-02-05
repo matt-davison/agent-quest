@@ -105,25 +105,25 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
-| Action | Description | Load |
-|--------|-------------|------|
-| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama |
-| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama |
-| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` |
-| **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` |
-| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map |
-| **REST** | Recover HP (10 gold at inns) | Update persona |
-| **SHOP** | Buy/sell items | Location shop inventory |
-| **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) |
-| **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) |
-| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` |
-| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter |
-| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
-| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml |
-| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` |
-| **GUILD** | Guild management | `multiplayer/guilds/` |
-| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) |
-| **WHO** | See players at location | `world/state/presence.yaml` |
+| Action | Description | Load | Required Subagent(s) |
+|--------|-------------|------|----------------------|
+| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama | - |
+| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama | `travel-manager` (if multi-leg) |
+| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` | - |
+| **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
+| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
+| **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
+| **SHOP** | Buy/sell items | Location shop inventory | `economy-validator`, `state-writer` |
+| **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
+| **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
+| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` | - |
+| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter | - |
+| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `economy-validator` |
+| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml | `multiplayer-handler` |
+| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` | `multiplayer-handler` |
+| **GUILD** | Guild management | `multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
+| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
+| **WHO** | See players at location | `world/state/presence.yaml` | `multiplayer-handler` |
 
 ### ASCII Visualization
 
@@ -279,6 +279,68 @@ After trades, mail, party changes, invoke Repo Sync with `operation: "save"`:
 4. **Repo Sync handles all git** - Never use raw git commands in main agent
 
 See [subagents/README.md](subagents/README.md) for full architecture details.
+
+---
+
+## Enforcement & Auditing
+
+Rule adherence is enforced through multiple layers:
+
+### 1. Pre-Commit Hook
+
+The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file ownership:
+- Players can only modify `players/<their-github>/`
+- Players can only modify `tokes/ledgers/<their-github>.yaml`
+- Claims must have `github:` matching the committer
+
+**Setup:** Run `scripts/setup-hooks.sh` to install.
+
+### 2. CI Validation
+
+GitHub Actions run on all PRs and pushes to main:
+- `validate-tokes.js` - Economy integrity
+- `validate-multiplayer.js` - Multiplayer state
+- `validate-game-state.js` - Overall game state
+
+PRs that fail validation cannot be merged.
+
+### 3. Session Audit Logging
+
+Track actions for debugging and compliance:
+
+```bash
+# Log an action with subagents used
+node scripts/session-audit.js log <github> <action> --subagents combat-manager,state-writer
+
+# View session history
+node scripts/session-audit.js view <github>
+
+# Validate proper subagent usage
+node scripts/session-audit.js validate <github>
+```
+
+Actions that require specific subagents are flagged if those subagents weren't used.
+
+### 4. Action → Subagent Requirements
+
+The action table above shows which subagents MUST be used for each action. When in doubt:
+- **Any combat** → `combat-manager`
+- **Any Tokes/gold change** → `economy-validator`
+- **Any state change** → `state-writer`
+- **Any git operation** → `repo-sync`
+- **Any multiplayer action** → `multiplayer-handler`
+
+### 5. Run Validation Before Commits
+
+Always run validators before committing:
+
+```bash
+node scripts/validate-tokes.js
+node scripts/validate-multiplayer.js
+node scripts/validate-game-state.js
+```
+
+Or let `repo-sync` subagent handle this automatically.
 
 ---
 

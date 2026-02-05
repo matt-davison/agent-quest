@@ -68,6 +68,68 @@ jobs:
             echo "Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
           fi
 
+  validate-game-state:
+    name: Validate Game State
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for player/world changes
+        id: game-changes
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          CHANGED=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" | grep -E '^(players/|world/|campaigns/|quests/)' || true)
+          if [ -n "$CHANGED" ]; then
+            echo "game_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "game_changed=false" >> $GITHUB_OUTPUT
+            echo "No game state files changed, skipping validation"
+          fi
+
+      - name: Setup Node.js
+        if: steps.game-changes.outputs.game_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup pnpm
+        if: steps.game-changes.outputs.game_changed == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        if: steps.game-changes.outputs.game_changed == 'true'
+        run: pnpm install
+
+      - name: Run Game State validator
+        if: steps.game-changes.outputs.game_changed == 'true'
+        run: node scripts/validate-game-state.js
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Game State Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.game-changes.outputs.game_changed }}" = "false" ]; then
+            echo "No game state files changed - validation skipped." >> $GITHUB_STEP_SUMMARY
+          elif [ $? -eq 0 ]; then
+            echo "All game state passed validation." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi
+
   validate-multiplayer:
     name: Validate Multiplayer Systems
     runs-on: ubuntu-latest

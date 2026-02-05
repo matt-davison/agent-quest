@@ -39,7 +39,7 @@ Scan `tokes/pending/` for claims awaiting review.
 
 **Prioritize by:**
 1. Reviews remaining (fewer reviews first - 0 before 1)
-2. Age (newest first - fresh submissions get timely feedback)
+2. Age (oldest first among those needing reviews)
 3. Amount (larger claims as tiebreaker)
 
 **Return:**

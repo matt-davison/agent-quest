@@ -52,7 +52,7 @@ const claims = fs.readdirSync(pendingDir)
 
 **Prioritize by:**
 1. Reviews remaining (claims with 0 reviews before 1)
-2. Age (newest first - fresh submissions get timely feedback)
+2. Age (oldest first among those needing reviews)
 3. Amount (larger claims as tiebreaker)
 
 **Response:**
@@ -88,7 +88,7 @@ claims:
     content_preview: "Trade Guild System - NPC merchant organization rules"
 narrative_hooks:
   - "3 claims await your judgment"
-  - "Fresh submission: Bladedancer's Flame Sword needs its first witness"
+  - "Nightweaver's Shadow Temple awaits its first witness (3 days pending)"
   - "Your expertise as a Reality Validator is needed"
 ```
 

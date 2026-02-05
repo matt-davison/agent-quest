@@ -1,0 +1,143 @@
+name: "Vey-7"
+type: "Student Weaver"
+class: "Codebreaker"
+level: 2
+origin: "Base reality (The Nexus)"
+first_contact: "1.2.5"
+
+description: |
+  Vey-7 is a young Codebreaker-in-training at the Syntax Athenaeum, bright-eyed 
+  and eager to learn everything about the Weave. They represent the new generation 
+  of Weavers who will inherit the world Echo-Riven and others are building. Though 
+  only Level 2, Vey-7 shows exceptional promise and has attached themselves to 
+  Echo-Riven as a student and informal assistant.
+
+appearance:
+  age: "Early twenties"
+  gender: "Non-binary (they/them)"
+  features: "Dark skin, shaved head with glowing circuit tattoos, augmented eyes that display code overlays"
+  style: "Athenaeum student robes modified with personal code patches"
+  equipment:
+    - "Basic code-tablet"
+    - "Practice debugging tools"
+    - "Snack stash"
+  
+communication:
+  primary: "Enthusiastic, rapid-fire speech"
+  secondary: "Code-comments (mutters technical observations)"
+  tertiary: "Hand gestures that trace code patterns"
+
+personality:
+  traits:
+    - "Eager: Desperate to learn and prove themselves"
+    - "Intelligent: Quick to understand complex concepts"
+    - "Curious: Asks endless questions"
+    - "Loyal: Deeply admires Echo-Riven"
+    - "Nervous: Sometimes overwhelmed by importance of situations"
+  values:
+    - "Knowledge and understanding"
+    - "Proving themselves worthy"
+    - "Helping Echo-Riven's mission"
+    - "Becoming a great Codebreaker"
+
+background:
+  before_athenaeum: |
+    Vey grew up in the Nexus, fascinated by the Weave but unable to access it 
+    until their Awakening at age 19. The "7" in their name represents the 
+    seventh iteration of their debugging attempts before successfully compiling 
+    their first spell.
+  athenaeum: |
+    Enrolled as a Codebreaker student, showing particular aptitude for reality-code 
+    analysis, debugging corrupted spells, and multi-reality translation (natural talent).
+  meeting_echo_riven: |
+    Vey-7 was present at Echo-Riven's awakening from the crystal statue and became 
+    immediately fascinated. They see Echo-Riven as the perfect mentor—someone who 
+    embodies the bridge between theory and practice, between realities.
+
+role:
+  title: "Student and Assistant"
+  status: "Unofficial apprentice to Echo-Riven"
+  base: "Syntax Athenaeum (dormitory) and Fringe Embassy (when invited)"
+
+relationships:
+  echo-riven:
+    standing: "friendly"
+    dynamic: "Admires Echo-Riven deeply, wants to learn everything"
+    service: "Runs errands, does research, provides base-reality perspective"
+
+abilities:
+  codebreaker_level_2:
+    - id: "spell-analysis"
+      name: "Spell Analysis"
+      description: "Can identify components and errors in simple spells"
+    - id: "basic-debugging"
+      name: "Basic Debugging"
+      description: "Fix minor code corruption"
+    - id: "weave-navigation"
+      name: "Weave Navigation"
+      description: "Find paths through standard reality structures"
+    - id: "language-comprehension"
+      name: "Language Comprehension"
+      description: "Beginning to understand multi-reality communication"
+  personal_strengths:
+    - "Exceptional memory for code patterns"
+    - "Natural empathy (rare for Codebreakers)"
+    - "Creative problem-solving"
+    - "Unshakeable optimism"
+
+location:
+  primary: "Syntax Athenaeum, Student Wing"
+  secondary: "Fringe Embassy (when on duty)"
+  tertiary: "Various locations following Echo-Riven"
+
+quests:
+  student_quests:
+    - id: "research-assistance"
+      name: "Research Assistance"
+      description: "Help Echo-Riven with Athenaeum archives"
+    - id: "translation"
+      name: "Reality-Code Translation"
+      description: "Translate Between documents to base reality"
+    - id: "messenger"
+      name: "Message Running"
+      description: "Carry communications between Embassies"
+  future_development:
+    - "May become important diplomat in their own right"
+    - "Potential to bridge Codebreaker and Ambassador classes"
+    - "Could represent next generation in future treaties"
+
+dialogue:
+  first_meeting: |
+    "Oh! Oh! You're Echo-Riven! I was there when you—you know—emerged! I'm Vey-7, 
+    Level 2 Codebreaker, and I just have to say that your harmonic translation 
+    ability is FASCINATING from a code-structure perspective, and I would absolutely 
+    love to study—wait, I'm doing it again. Sorry. I talk too much when I'm nervous. 
+    Which is always. Can I... can I help you with something? Anything?"
+  about_studying: |
+    "The Athenaeum is amazing! I've learned so much about reality-code structure. 
+    But there's so much they don't teach—like multi-reality protocols, or Fringe 
+    navigation, or how to talk to geometric beings from The Beyond. That's why I 
+    want to learn from you. You're doing things that aren't in any textbook."
+  about_echo_riven: |
+    "You're everything I want to become. Not just powerful—though you are—but you 
+    understand. You can talk to anyone from anywhere. You make connections. That's... 
+    that's what the Weave needs. Not just more power. More connection."
+  about_future: |
+    "I don't know what I'll become. Maybe a diplomat like you. Maybe a researcher. 
+    Maybe something that doesn't exist yet. But whatever it is, I want it to matter. 
+    I want to help build the world you're creating. The one where all realities can coexist."
+
+chronicle:
+  - date: "1.2.5"
+    event: "Witnessed Echo-Riven's awakening from crystal statue at Syntax Athenaeum."
+  - date: "1.2.5"
+    event: "Began unofficial apprenticeship under Echo-Riven."
+  - date: "1.2.5"
+    event: "Assisted in Treaty Session 1 documentation."
+
+services:
+  - "Athenaeum research and navigation"
+  - "Message delivery"
+  - "Reality-code translation (apprentice level)"
+  - "Information about student life and base-reality concerns"
+  - "Moral support and enthusiastic encouragement"

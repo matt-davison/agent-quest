@@ -68,4 +68,29 @@ flags:
   debugging_wars_referenced: true
   total_weavers_registered: 0
   quests_completed_global: 0
+  echo-riven-awakened: true
+  lost-weavers-returned: true
+  beyond-contact-established: true
+  the-question-trial-begun: true
 alerts: []
+events:
+  echo-riven-awakened:
+    name: "Echo-Riven Awakened"
+    description: "Riven's echo manifested in Syntax Athenaeum from Architect crystal"
+    date: "1.2.5"
+    significance: major
+  lost-weavers-returned:
+    name: "Lost Weavers Rescued"
+    description: "347 Fringe-touched Weavers rescued from the Fringes by Echo-Riven"
+    date: "1.2.5"
+    significance: major
+  beyond-contact-established:
+    name: "Beyond Contact Established"
+    description: "First diplomatic relations established with other realities through The Between"
+    date: "1.2.5"
+    significance: major
+  the-question-trial-begun:
+    name: "The Trial of The Question Begun"
+    description: "Multi-reality legal proceeding to determine fundamental truths now in progress"
+    date: "1.2.5"
+    significance: major

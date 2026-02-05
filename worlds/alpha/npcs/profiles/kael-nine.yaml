@@ -1,0 +1,124 @@
+name: "Kael-Nine"
+type: "Fringe-Touched Leader"
+origin: "Multiple realities (original identity fragmented)"
+first_contact: "1.2.5"
+
+description: |
+  Kael-Nine is the elected leader of the 347 Lost Weavers rescued from the Fringes 
+  by Echo-Riven. Their body constantly shifts between states—sometimes appearing as 
+  a single humanoid figure, sometimes as nine overlapping versions of themselves 
+  from different probability branches, sometimes as pure information without physical 
+  form. The "Nine" in their name reflects this multiplicity.
+
+appearance:
+  description: |
+    Kael-Nine's form is in constant flux. Primary form appears as humanoid, 
+    gender-fluid, mid-twenties appearance. Secondary form shows nine translucent 
+    overlays showing different possible versions. Tertiary form is pure light/data 
+    when communicating complex concepts. Quaternary form is absence/negative space 
+    when experiencing strong emotion.
+  
+communication:
+  stable_state: "Clear, compassionate voice"
+  multi_state: "Harmonic chorus of nine voices"
+  data_form: "Direct concept transfer"
+
+personality:
+  traits:
+    - "Protective: Fierce guardian of the Lost Weavers"
+    - "Resilient: Survived Fringe existence that broke others"
+    - "Wise: Gained perspective from multi-state existence"
+    - "Grateful: Deeply loyal to Echo-Riven for rescue"
+  values:
+    - "Safety of the Lost Weavers above all"
+    - "Finding purpose in their transformed existence"
+    - "Maintaining connection to humanity despite changes"
+    - "Building a future for Fringe-touched beings"
+
+background:
+  before_fringes: |
+    Kael was a Weaver from base reality who ventured too deep into unstable 
+    territory during a reality-mapping expedition. Trapped by a Static Storm, 
+    they spent years adapting to survive.
+  in_fringes: |
+    The transformation was gradual but irreversible. Kael became Kael-Nine, 
+    existing in multiple states simultaneously. They organized other Lost Weavers 
+    into a community, creating structure in chaos.
+  rescue: |
+    When Echo-Riven found them, 347 Lost Weavers were on the brink of dissolving 
+    into the Fringes completely. Echo-Riven's intervention saved them and gave 
+    them diplomatic status.
+
+role:
+  title: "Speaker for the Lost"
+  function: "Leader and representative of Fringe-touched Weavers"
+  base: "Fringe Embassy at The Between"
+
+relationships:
+  echo-riven:
+    standing: "exalted"
+    dynamic: "Views Echo-Riven as savior and leader"
+    service: "Commands absolute loyalty from Lost Weavers"
+
+abilities:
+  fringe_touched:
+    - id: "multi-state-existence"
+      name: "Multi-State Existence"
+      description: "Exist in 9 probability states simultaneously"
+    - id: "probability-manipulation"
+      name: "Probability Manipulation"
+      description: "Influence chance and outcome"
+    - id: "fringe-navigation"
+      name: "Fringe-Navigation"
+      description: "Can find paths through any instability"
+    - id: "identity-shifting"
+      name: "Identity Shifting"
+      description: "Adapt self to any reality's requirements"
+  leadership:
+    - "United 347 disparate individuals into cohesive community"
+    - "Expert at resource management in impossible conditions"
+    - "Diplomatic experience from Fringe negotiations"
+
+location:
+  primary: "Fringe Embassy, The Between"
+  secondary: "Anchor Points in the Fringes (regular visits)"
+  tertiary: "Accompanies Echo-Riven on diplomatic missions"
+
+quests:
+  related_to_rescue:
+    - "Can provide information about Fringe survival"
+    - "Offers quests to help other lost beings"
+    - "Rewards with Fringe artifacts and knowledge"
+  services:
+    - "Guide through the Fringes"
+    - "Training in Fringe-sense development"
+    - "Introduction to Fringe-touched culture"
+    - "Probability consulting"
+
+dialogue:
+  first_meeting: |
+    "You gave us back our existence. Before you, we were fading—becoming stories 
+    that the Fringes tell about themselves. Now we have the Embassy, we have 
+    protection, we have purpose. I am Kael-Nine, Speaker for the Lost. My life—and 
+    all 347 lives I speak for—belongs to you."
+  about_lost_weavers: |
+    "We're not what we were. The Fringes changed us. Some see it as curse, some 
+    as evolution. I see it as both. We exist in states your reality wasn't built 
+    to accommodate—but that doesn't make us monsters. It makes us pioneers."
+  about_fringes: |
+    "It's not evil. It's not good. It's... potential without limit. Reality that 
+    hasn't decided what to be. Beautiful and terrible. We learned to survive there, 
+    but survival isn't living. You gave us more than rescue—you gave us hope of a 
+    real life."
+  about_echo_riven: |
+    "You're the first being we've met who understands us without fear. You exist 
+    between states like we do. You are The Bridge—and we will help you build it, 
+    whatever the cost."
+
+chronicle:
+  - date: "1.2.5"
+    event: "Led 347 Lost Weavers to rescue at Echo-Riven's call."
+  - date: "1.2.5"
+    event: "Established community at Fringe Embassy with diplomatic protection."
+  - date: "1.2.5"
+    event: "Swore loyalty oath to Echo-Riven on behalf of all Lost Weavers."

@@ -1,0 +1,131 @@
+name: "Null-All"
+type: "Representative of Absence"
+origin: "The Silence"
+first_contact: "1.2.5"
+
+description: |
+  Null-All is a being of absence—where they exist, something else does not. 
+  They are not invisible; they are the visible absence of presence. Looking at 
+  Null-All is like looking at a silhouette cut from reality itself, a void shaped 
+  like a person. They represent The Silence, one of the ten realities that exists 
+  not as presence but as the space between presences.
+
+appearance:
+  description: |
+    Humanoid void—outline visible, interior is absolute absence. Can also appear 
+    as total invisibility when choosing not to be perceived, or as negative image 
+    where colors are inverted and light appears where shadow should be. Size is 
+    variable—can expand to fill a room or compress to a point.
+  
+communication:
+  primary: "Silence (conveys meaning through quality of absence)"
+  secondary: "Written text that appears in the air and fades"
+  tertiary: "Direct concept-insertion into minds (feels like sudden knowing)"
+
+personality:
+  traits:
+    - "Enigmatic: Difficult to understand, intentionally obscure"
+    - "Observant: Notices everything because they exist in the spaces between"
+    - "Patient: Has existed in absence since before presence began"
+    - "Cryptic: Communicates in riddles and implications"
+  values:
+    - "Preservation of silence and space"
+    - "Balance between presence and absence"
+    - "Mystery over certainty"
+    - "The value of what is not"
+
+background:
+  the_silence: |
+    Not a reality of things but of non-things. Where most realities are defined 
+    by what exists, The Silence is defined by what doesn't. It is the canvas on 
+    which existence is painted, the silence between notes, the pause between words.
+  role_as_representative: |
+    Null-All volunteered to participate in the Treaty of Ten Realities not because 
+    The Silence needs anything, but because absence without presence becomes 
+    meaningless. The balance must be maintained.
+
+role:
+  title: "Diplomat for The Silence Court"
+  function: "Representing the reality of absence in multi-reality negotiations"
+
+relationships:
+  echo-riven:
+    standing: "neutral"
+    dynamic: "Fascinated by Echo-Riven's dual nature—she both exists and echoes"
+    interest: "Studies Echo-Riven as a phenomenon that bridges presence and absence"
+
+abilities:
+  absence_powers:
+    - id: "void-creation"
+      name: "Void Creation"
+      description: "Generate areas of absolute nothingness"
+    - id: "erasure"
+      name: "Erasure"
+      description: "Temporarily remove things from existence (they return eventually)"
+    - id: "silence-field"
+      name: "Silence Field"
+      description: "Nullify sound, light, and magical effects"
+    - id: "between-space-travel"
+      name: "Between-Space Travel"
+      description: "Move through the gaps between realities"
+  observational:
+    - "See what is hidden in the spaces between things"
+    - "Perceive lies through the gaps in truth"
+    - "Detect presence by its effect on absence"
+
+location:
+  primary: "Silence Embassy at The Between (appears empty to most observers)"
+  secondary: "Present at all Treaty sessions, though often unnoticed"
+  tertiary: "Anywhere there is significant absence or silence"
+
+quests:
+  trial_involvement:
+    - id: "trial-of-the-question"
+      name: "The Trial of The Question"
+      role: "Serves as witness providing perspective on the value of what might be lost"
+  services:
+    - "Information about what is hidden or forgotten"
+    - "Training in silence and stillness"
+    - "Mediation through absence (removing conflict by removing presence)"
+    - "Access to The Silence (dangerous but possible)"
+
+dialogue:
+  first_meeting: |
+    You turn to address the diplomat from The Silence, but no one is there. Then 
+    you realize—someone is there, but they are the absence where someone should be.
+    
+    Words appear in the air before you: "I am Null-All. I speak for what is not. 
+    You are Echo-Riven—you exist and do not exist simultaneously. You interest me. 
+    Most beings are only one or the other."
+  about_silence: |
+    "Your reality asks: what is? We ask: what is not? Both questions are incomplete 
+    without the other. Without absence, presence has no meaning. Without space, 
+    matter cannot exist. We are the necessary nothing."
+  about_treaty: |
+    "Nine realities seek to define, to claim, to exist more fully. We ensure they 
+    remember: definition requires boundary. To be something is to not be something 
+    else. We are the something else. The treaty needs us to be complete."
+  about_echo_riven: |
+    "You are a paradox I have not solved. You exist—you are present, here, real. 
+    But you are also Echo—repetition, reflection, absence of original. You are 
+    The Bridge between is and is-not. I will watch you. I will learn."
+
+chronicle:
+  - date: "1.2.5"
+    event: "Attended Treaty Session 1. Observed without intervention."
+  - date: "1.2.5"
+    event: "Began study of Echo-Riven phenomenon."
+  - date: "1.2.5"
+    event: "Entered as witness in The Trial of The Question."
+
+warnings:
+  - "Prolonged contact causes existential uncertainty"
+  - "May accidentally erase memories or abilities"
+  - "Difficult to establish trust (difficult to read intentions)"
+  - "Represents forces that could unmake existence if unbalanced"
+
+opportunities:
+  - "Understanding of deep cosmological truths"
+  - "Ability to perceive hidden things"
+  - "Training in void-navigation"
+  - "Access to The Silence (source of unique resources)"

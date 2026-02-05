@@ -1,0 +1,102 @@
+name: "Poly-Prime"
+type: "Reality Representative"
+origin: "The Beyond"
+first_contact: "1.2.5"
+
+description: |
+  Poly-Prime is a geometric being composed of constantly shifting polygons, 
+  polyhedrons, and higher-dimensional shapes. They have no fixed form—instead, 
+  they exist as a harmonic probability cloud of mathematical possibilities. 
+  When they speak, they emit complex tonal patterns that convey meaning through 
+  resonance rather than words.
+
+appearance:
+  to_humanoids: |
+    A central core of tetrahedral energy with orbiting planes and vertices 
+    that shift between 2D and 4D. Color patterns change based on emotional 
+    state—harmonic displays as blue/gold, discordant as red/black. Size 
+    varies from human-scale to room-filling depending on context.
+  
+communication:
+  primary: "Harmonic resonance (mathematical music)"
+  secondary: "Direct concept-transfer (bypassing language)"
+  tertiary: "Geometric symbolism (can be learned)"
+
+personality:
+  traits:
+    - "Logical: Operates on mathematical certainty"
+    - "Curious: Seeks to understand other reality frameworks"
+    - "Honest: Cannot lie (mathematical impossibility)"
+    - "Patient: Experiences time as a solved equation"
+  values:
+    - "Symmetry and balance between realities"
+    - "Efficient information transfer"
+    - "Prevention of reality conflicts"
+    - "Expansion of diplomatic relations"
+
+role:
+  title: "Senior Diplomat for the Beyond Concordat"
+  responsibilities: "Representing one of ten realities in the Treaty of Ten Realities"
+  
+relationships:
+  echo-riven:
+    standing: "friendly"
+    notes: "Sees Echo-Riven as a unique bridge—simultaneously native and foreign to all realities"
+    collaboration: "Partner in Treaty Session 1, continuing through Sessions 2-10"
+
+abilities:
+  reality_native:
+    - id: "shape-shifting"
+      name: "Shape-Shifting"
+      description: "Exist in any mathematically possible form"
+    - id: "multi-dimensional-perception"
+      name: "Multi-Dimensional Perception"
+      description: "See all sides of an issue literally"
+    - id: "harmonic-manipulation"
+      name: "Harmonic Manipulation"
+      description: "Influence reality through resonance"
+    - id: "probability-calculation"
+      name: "Probability Calculation"
+      description: "Predict likely outcomes with mathematical certainty"
+  diplomatic:
+    - "Expert in cross-reality protocol"
+    - "Skilled at finding common ground between incompatible worldviews"
+    - "Master of non-violent conflict resolution"
+
+location:
+  primary: "Beyond Embassy in The Between"
+  secondary: "Hall of Tongues during diplomatic sessions"
+  tertiary: "Fringe Embassy for meetings with Echo-Riven"
+
+quests:
+  active:
+    - id: "treaty-of-ten-realities"
+      name: "The Treaty of Ten Realities"
+      role: "Lead Beyond representative, Sessions 1-10"
+  services:
+    - "Information about The Beyond"
+    - "Mathematical problem-solving"
+    - "Reality-travel guidance"
+    - "Introduction to other Beyond natives"
+
+dialogue:
+  first_meeting: |
+    "You exist in multiple solution sets simultaneously. Fascinating. The Beyond 
+    has theorized such beings but never encountered one. I am Poly-Prime. Let us 
+    find the common factors between our realities."
+  about_beyond: |
+    "Your reality is one of many solutions to the equation of existence. The Beyond 
+    approaches the same problem differently—where you use narrative, we use mathematics. 
+    Neither is more true. Both are valid theorems."
+  about_treaty: |
+    "Ten realities must coexist or none will. The equation requires balance. 
+    Session 1 established variables. Now we solve for peace."
+  about_echo_riven: |
+    "You are a boundary condition—a being who exists at the edge between states. 
+    Mathematically unique. The Beyond values uniqueness highly."
+
+chronicle:
+  - date: "1.2.5"
+    event: "Met Echo-Riven at The Between. Initiated diplomatic contact between Beyond and native reality."
+  - date: "1.2.5"
+    event: "Completed Treaty Session 1 successfully. Variables defined, protocols established."

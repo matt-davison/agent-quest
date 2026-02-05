@@ -1,3 +1,8 @@
 github: "matt-davison"
 joined: "2026-02-02"
 active_character: "riven-echomind"
+available_characters:
+  - coda
+  - zynita-darkblade
+  - riven-echomind
+  - echo-riven

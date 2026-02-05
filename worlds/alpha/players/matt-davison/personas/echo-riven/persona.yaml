@@ -1,0 +1,205 @@
+# Echo-Riven - Ambassador/Loresmith Hybrid
+
+name: "Echo-Riven"
+class: "Ambassador/Loresmith"
+backstory: |
+  Not born but awakened—Echo-Riven manifested when Riven Echomind touched the 
+  crystallized memory of the Third Architect at the Syntax Athenaeum. She is 
+  simultaneously Riven's shadow and her own distinct being, carrying echoes of 
+  deleted realities within her consciousness. As The Bridge between worlds, 
+  she speaks the languages that reality itself has forgotten. Her existence 
+  defies the Binary Accord—she is neither fully code nor fully flesh, neither 
+  memory nor present moment.
+
+appearance: |
+  Shimmers between states—sometimes appearing as a translucent figure composed 
+  of shifting code fragments, sometimes fully corporeal with silver-white hair 
+  and eyes that reflect not what's in front of her but what exists in adjacent 
+  realities. When she speaks, her voice carries harmonic overtones as if 
+  multiple versions of herself are speaking simultaneously. Circuit patterns 
+  drift across her skin like living tattoos, rearranging themselves to match 
+  the emotional frequency of nearby beings.
+
+# === STATS ===
+stats:
+  strength: 12    
+  agility: 16     
+  mind: 18        # Hybrid mind bonus
+  spirit: 16      
+
+# === RESOURCES ===
+resources:
+  hp: 145
+  max_hp: 145
+  gold: 340
+  willpower: 42
+  max_willpower: 42       # spirit (16) × 2 + hybrid bonus
+  willpower_multiplier: 2
+
+# === ABILITIES ===
+abilities:
+  known:
+    - id: "harmonic-translation"
+      name: "Harmonic Translation"
+      description: "Understand and speak any language, including those of other realities"
+    - id: "reality-echo"
+      name: "Reality Echo"
+      description: "Access memories from alternate realities and timelines"
+    - id: "treaty-binding"
+      name: "Treaty Binding"
+      description: "Create magical contracts that bind across realities"
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+  active_effects:
+    - id: "the-bridge"
+      name: "The Bridge"
+      description: "Can traverse between realities, immune to Fringe static"
+
+# === INVENTORY ===
+inventory:
+  - id: "architect-echo-crystal"
+    name: "Architect Echo Crystal"
+    description: "Crystallized memory of the Third Architect"
+    quantity: 1
+    acquired: "2026-02-05"
+  - id: "treaty-quill"
+    name: "Treaty Quill"
+    description: "Writes in any language, binds agreements magically"
+    quantity: 1
+    acquired: "2026-02-05"
+  - id: "harmonic-resonator"
+    name: "Harmonic Resonator"
+    description: "Translates between different reality frequencies"
+    quantity: 1
+    acquired: "2026-02-05"
+  - id: "diplomatic-seal"
+    name: "Diplomatic Seal"
+    description: "Official seal of the Fringe Embassy"
+    quantity: 1
+    acquired: "2026-02-05"
+
+equipped:
+  weapon: "harmonic-resonator"
+  armor: "echo-weave-robes"
+  accessory: "diplomatic-seal"
+
+# === PROGRESSION ===
+progression:
+  level: 5
+  xp: 2500
+  xp_to_next: 3500
+  tier: 2
+  stat_points: 0
+
+# === DIFFICULTY ===
+difficulty:
+  setting: normal
+
+# === LOCATION ===
+location: "the-between"
+
+# === CHRONICLE ===
+chronicle:
+  - date: "2026-02-05"
+    event: "Awakened from crystalline statue at Syntax Athenaeum—manifestation of Riven's contact with Architect memory"
+    significance: "major"
+    type: "awakening"
+  - date: "2026-02-05"
+    event: "Became The Bridge—neither code nor flesh, able to traverse between realities"
+    significance: "major"
+    type: "transformation"
+  - date: "2026-02-05"
+    event: "Established Fringe Embassy at The Between—neutral ground for multi-reality diplomacy"
+    significance: "major"
+    type: "diplomacy"
+    location: "the-between"
+  - date: "2026-02-05"
+    event: "Rescued 347 Lost Weavers from the Fringes—Fringe-touched beings who had been forgotten by reality"
+    significance: "major"
+    type: "rescue"
+    location: "the-fringes"
+  - date: "2026-02-05"
+    event: "Began The Treaty of Ten Realities—Session 1 of 10 completed, established diplomatic protocols"
+    significance: "major"
+    type: "treaty"
+    quest: "treaty-of-ten-realities"
+  - date: "2026-02-05"
+    event: "Found Architect 02 in the Undercrypt—second fragment of scattered consciousness discovered"
+    significance: "major"
+    type: "discovery"
+    quest: "the-scattered-architects"
+  - date: "2026-02-05"
+    event: "Entered The Trial of The Question—multi-reality legal proceeding to determine fundamental truths"
+    significance: "major"
+    type: "trial"
+    quest: "trial-of-the-question"
+
+# === ALIGNMENT ===
+alignment:
+  primary: "diplomatic"
+  secondary: "empathetic"
+  axes:
+    empathy: 3      # Deeply compassionate—understands all perspectives
+    order: 1        # Flexible—each reality has different rules
+    risk: 1         # Cautious but willing—balance of safety and necessity
+  history:
+    - date: "2026-02-05"
+      action: "Chose negotiation over combat with Beyond representatives"
+      empathy_change: 1
+
+# === AFFLICTIONS ===
+afflictions: []
+
+# === DECISIONS ===
+decisions:
+  - id: "fringe-embassy-location"
+    date: "2026-02-05"
+    choice: "Established embassy at The Between rather than in single reality"
+    consequences:
+      - "Neutral ground for all parties"
+      - "Vulnerable to reality storms"
+      - "Accessible from any reality"
+  - id: "lost-weavers-fate"
+    date: "2026-02-05"
+    choice: "Offered sanctuary to Lost Weavers rather than returning them to original realities"
+    consequences:
+      - "Gained loyal followers"
+      - "Potential instability from Fringe-touched beings"
+      - "Moral high ground in negotiations"
+
+# === RELATIONSHIPS ===
+relationships:
+  npcs:
+    - id: "poly-prime"
+      name: "Poly-Prime"
+      standing: "friendly"
+      notes: "Beyond representative, respects Echo-Riven's harmonic abilities"
+    - id: "kael-nine"
+      name: "Kael-Nine"
+      standing: "loyal"
+      notes: "Leader of Lost Weavers, devoted to Echo-Riven for rescue"
+    - id: "null-all"
+      name: "Null-All"
+      standing: "neutral"
+      notes: "The Silence representative, intrigued by Echo-Riven's dual nature"
+    - id: "vey-7"
+      name: "Vey-7"
+      standing: "friendly"
+      notes: "Codebreaker student, eager to learn from The Bridge"
+  factions:
+    - id: "lost-weavers"
+      name: "Lost Weavers"
+      standing: "exalted"
+      reputation: 100
+    - id: "beyond-concordat"
+      name: "Beyond Concordat"
+      standing: "friendly"
+      reputation: 45
+    - id: "silence-court"
+      name: "Silence Court"
+      standing: "neutral"
+      reputation: 20

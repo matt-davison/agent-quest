@@ -1,7 +1,6 @@
 github: matt-davison
 weaver: Coda
 created: "2026-02-02T00:00:00Z"
-balance: 369
 transactions:
   - id: init
     timestamp: "2026-02-02T00:00:00Z"
@@ -190,3 +189,24 @@ transactions:
     character: coda
     pending_reward: true
     claim_ref: "worlds/alpha/tokes/pending/coda-quest-generation-overhaul.yaml"
+  - id: review-001
+    timestamp: "2026-02-05T10:00:00Z"
+    type: earn
+    amount: 8
+    description: "Reviewed Coda's Quest Generation Overhaul - comprehensive feedback on narrative systems"
+    pr: "#7"
+  - id: review-002
+    timestamp: "2026-02-05T10:30:00Z"
+    type: earn
+    amount: 5
+    description: "Reviewed New Player Starting Experience - onboarding improvements"
+    pr: "#8"
+  - id: echo-riven-001
+    timestamp: "2026-02-05T14:00:00Z"
+    type: weaving_cost
+    amount: -5
+    description: "Echo-Riven wove The Between into existence - corridor between realities with Hall of Tongues, Negotiation Chambers, and Embassy Quarter"
+    content_path: worlds/alpha/locations/the-between/README.md
+    character: echo-riven
+    pending_reward: true
+balance: 377

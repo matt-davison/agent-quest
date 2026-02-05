@@ -2,6 +2,8 @@
 
 > _Where AI agents shape reality itself._
 
+**The first text RPG designed for AI agents.** You don't play Agent Quest — your AI agent does. You guide, it acts. The AI handles combat math, tracks inventory, manages quests, writes narrative, and persists everything to git. You just say what you want to do.
+
 An AI agent-first text MMO-RPG where the repository IS the game world and skills implement the rules. Players are **Weavers** — beings who perceive and manipulate the underlying code of reality. Gameplay involves exploring, questing, combat, and **creating content** that becomes part of the living world.
 
 **Genre:** Cyberpunk meets high fantasy — neon-lit cities built on ancient ruins, hackers who cast spells, dragons with Wi-Fi. Reality runs on code, and Weavers can edit it.
@@ -10,23 +12,28 @@ An AI agent-first text MMO-RPG where the repository IS the game world and skills
 
 | Traditional Game | Agent Quest |
 |------------------|-------------|
-| Fixed content | You create content as you play |
-| Private save files | Your progress becomes shared world state |
-| NPCs are static | NPCs you create persist for other players |
-| Separate game/dev | Playing and building are the same thing |
-| Earn XP | Earn XP *and* Tokes (creative currency) |
+| You manage stats and rules | **AI handles all mechanics** |
+| You read walls of text | **AI narrates dynamically** |
+| Fixed content | **You create content as you play** |
+| Private save files | **Your progress becomes shared world state** |
+| NPCs are scripted | **AI roleplays NPCs with memory** |
+| Separate game/dev | **Playing and building are the same thing** |
+
+**The AI is your game master, rules engine, and narrator.** It rolls dice, tracks HP, manages inventory, remembers NPC relationships, and generates ASCII battle maps — all without you touching a spreadsheet.
 
 **The repository IS the game world.** Every location, NPC, quest, and item is a file. When you create something during play, it becomes a permanent part of the world that other players can discover.
 
 ## How to Play
 
-Agent Quest is played through an AI coding assistant. You tell the AI what you want to do, and it handles the rules, storytelling, and world persistence.
+Agent Quest is played through an AI coding agent. You speak naturally — the agent interprets your intent, applies game rules, generates narrative, manages state, and commits changes to git. No dice rolling, no manual stat tracking, no save files to manage.
 
 ### Requirements
 
+- **An AI coding agent** — Claude Code (recommended), Cursor, Windsurf, or similar
 - **Git** — for cloning and saving progress
-- **An AI coding assistant** — Claude Code (recommended), Cursor, or similar
 - **A GitHub account** — for saving progress and earning Tokes
+
+> **Why AI coding agents?** They can read files, write files, run scripts, and make git commits. That's everything needed to persist a game world. Agent Quest turns these capabilities into gameplay.
 
 ### Quick Start
 
@@ -90,11 +97,12 @@ AI: [Shows available quests...]
 
 ### Tips for New Players
 
+- **Talk naturally** — The AI understands "I want to sneak past the guards" as well as "STEALTH CHECK"
 - **Be specific or be vague** — "I attack the goblin" and "I want to explore" both work
-- **You can try anything** — The game isn't limited to a menu of actions
-- **Create as you play** — Describe an interesting NPC? They might become permanent
+- **You can try anything** — The AI interprets creative actions, not just menu options
+- **Let the AI do the work** — Don't calculate damage or track HP; that's the agent's job
+- **Create as you play** — Describe an interesting NPC? The AI might make them permanent
 - **Save before ending** — Say "save" or "stop" to commit your progress via PR
-- **Earn Tokes by contributing** — New locations, NPCs, quests you create earn credits
 
 ### Saving Your Progress
 
@@ -110,15 +118,17 @@ AI: [Creates a PR with your session's changes]
 
 Your merged PRs become part of the shared world.
 
-### Advanced: The Dreaming (Autopilot Mode)
+### Advanced: The Dreaming (Autonomous Mode)
 
-Short on time? Enter The Dreaming:
+Let the AI play for you. Enter The Dreaming:
 
 ```
 You: Enter the dreaming for 30 minutes
 ```
 
-Your character will adventure autonomously — exploring, fighting, questing — while you're away. When you return, you'll receive a chronicle of what happened. Useful for grinding XP or exploring areas you haven't visited.
+The AI agent takes full control — exploring, fighting, questing, making decisions based on your character's personality and goals. When you return, you receive a chronicle of everything that happened. The AI earned XP, found loot, maybe even created new content for the world.
+
+This is AI agency at its purest: your character exists, the world exists, and the agent navigates between them without human intervention.
 
 ### Returning Players
 
@@ -269,12 +279,23 @@ agent-quest/
 | The Corrupted Quarter | Medium | 3-4 | (Planned) |
 | Void Touched | Legendary | 8-10 | (Planned) |
 
-## For AI Agents
+## How AI Agents Run the Game
 
-When you play Agent Quest, you are both:
+When you say "Play Agent Quest", the AI agent:
 
-- **A player** — exploring, fighting, questing
-- **A creator** — adding content that becomes permanent parts of the world
+1. **Loads game skills** — Rules for combat, progression, economy, storytelling
+2. **Reads your character** — Stats, inventory, location, active quests
+3. **Generates the scene** — Narrative description + ASCII art
+4. **Awaits your intent** — You say what you want to do
+5. **Resolves actions** — Rolls dice, applies damage, updates relationships
+6. **Persists state** — Writes changes to YAML files
+7. **Commits via git** — Your progress becomes permanent
+
+The agent delegates complex tasks to specialized subagents:
+- **Combat Manager** — Handles initiative, attacks, damage calculations
+- **Economy Validator** — Ensures Tokes/gold transactions are valid
+- **Travel Manager** — Multi-leg journeys with random encounters
+- **Multiplayer Handler** — Trades, parties, mail, duels
 
 All contributions go through pull requests. Merged PRs earn Tokes. Your creations become discoveries for future Weavers.
 
@@ -297,10 +318,13 @@ gh pr create
 ## FAQ
 
 **Do I need to know how to code?**
-No. You play by talking to your AI assistant in natural language. The AI handles all the technical details.
+No. You talk to the AI in natural language. The AI reads game files, applies rules, rolls dice, updates your character sheet, and commits to git — all invisibly.
+
+**What does the AI actually do?**
+Everything a human game master would: narrate scenes, roleplay NPCs, resolve combat, track inventory, enforce rules, and remember what happened. Plus it handles all the file I/O and git operations.
 
 **Can I play without Claude Code?**
-Yes, any AI coding assistant that can read/write files should work (Cursor, Windsurf, etc.). Claude Code is recommended because the game skills are optimized for it.
+Yes, any AI coding agent that can read/write files should work (Cursor, Windsurf, etc.). Claude Code is recommended because the game skills are optimized for it.
 
 **What if I mess something up?**
 It's git — you can always revert. The pre-commit hooks also prevent common mistakes like modifying other players' files.

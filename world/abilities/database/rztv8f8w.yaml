@@ -1,0 +1,47 @@
+# Recall - Loresmith ability
+id: rztv8f8w
+name: "Recall"
+type: ability
+subtype: mental
+class: Loresmith
+tier: 1
+tags:
+  - utility
+  - knowledge
+  - detection
+  - loresmith
+
+prerequisites:
+  min_mind: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Remember lore about a subject or detect hidden patterns. MND check reveals information tier based on roll."
+    willpower_cost: 2
+    effect:
+      check: { stat: "mind", dc: 10 }
+      on_success:
+        reveal: "lore_or_pattern"
+        info_tier: "roll_based"
+    learn_cost: 0
+  2:
+    description: "Enhanced recall. +3 to check, reveals hidden weaknesses in enemies or locations."
+    willpower_cost: 3
+    effect:
+      check: { stat: "mind", dc: 10, bonus: 3 }
+      on_success:
+        reveal: "lore_or_pattern"
+        reveal_weakness: true
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 5
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: "subject"

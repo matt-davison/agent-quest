@@ -1,0 +1,41 @@
+# Weave Attunement - Datamancer passive
+id: htl7wy2h
+name: "Weave Attunement"
+type: passive
+subtype: weave
+class: Datamancer
+tier: 1
+tags:
+  - passive
+  - weave
+  - tokes
+  - datamancer
+
+prerequisites:
+  min_spirit: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Your connection to the Weave runs deep. +20% Tokes earned from all creations and contributions."
+    willpower_cost: 0
+    effect:
+      tokes_multiplier_bonus: 0.2
+    learn_cost: 0
+  2:
+    description: "+30% Tokes earned. Once per session, can sense the most valuable opportunity within current location."
+    willpower_cost: 0
+    effect:
+      tokes_multiplier_bonus: 0.3
+      sense_opportunity: { uses_per_session: 1 }
+    learn_cost: 150
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

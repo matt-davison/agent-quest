@@ -1,0 +1,34 @@
+# Shadow Claw - Enemy ability (Shadow Stalker)
+id: al02jnle
+name: "Shadow Claw"
+type: ability
+subtype: melee
+class: null
+tier: 1
+tags:
+  - enemy
+  - shadow-stalker
+  - shadow
+  - melee
+
+prerequisites: {}
+
+levels:
+  1:
+    description: "Slash with claws wreathed in shadow. 12 damage. Target's vision is Dimmed (-1 to ranged attacks) for 1 round."
+    willpower_cost: 0
+    effect:
+      damage: 12
+      damage_type: shadow
+      debuff:
+        name: "dimmed"
+        ranged_attack_penalty: 1
+        duration: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: major
+range: 5
+target: single

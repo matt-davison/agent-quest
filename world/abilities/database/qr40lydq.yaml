@@ -1,0 +1,35 @@
+# Void Hunger - Enemy ability (Shadow Stalker)
+id: qr40lydq
+name: "Void Hunger"
+type: ability
+subtype: drain
+class: null
+tier: 3
+tags:
+  - enemy
+  - shadow-stalker
+  - shadow
+  - drain
+
+prerequisites: {}
+
+levels:
+  1:
+    description: "Drain life force through shadows. 8 damage, heal for half damage dealt. Target feels cold dread (-1 to Spirit saves) for 2 rounds."
+    willpower_cost: 4
+    effect:
+      damage: 8
+      damage_type: shadow
+      lifesteal: 0.5
+      debuff:
+        name: "dread"
+        spirit_save_penalty: 1
+        duration: 2
+
+limits:
+  reset: combat
+  max_uses: 1
+
+action_type: major
+range: 15
+target: single

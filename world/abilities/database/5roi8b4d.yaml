@@ -1,0 +1,58 @@
+# Gravity Well - Universal positioning ability
+id: 5roi8b4d
+name: "Gravity Well"
+type: ability
+subtype: control
+class: null
+tier: 3
+tags:
+  - combat
+  - positioning
+  - control
+  - aoe
+
+prerequisites:
+  min_spirit: 12
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Create a gravity singularity. Pull all enemies within 10m toward you by 4m. Targets are Slowed for 1 round."
+    willpower_cost: 6
+    effect:
+      pull:
+        targets: all_enemies
+        range: 10
+        distance: 4
+        center: self
+      debuff:
+        name: "slowed"
+        speed_penalty: 3
+        duration: 1
+    learn_cost: 100
+  2:
+    description: "Pull enemies within 15m by 6m. Slowed for 2 rounds. Enemies that collide take 5 damage each."
+    willpower_cost: 8
+    effect:
+      pull:
+        targets: all_enemies
+        range: 15
+        distance: 6
+        center: self
+      collision_damage: 5
+      debuff:
+        name: "slowed"
+        speed_penalty: 3
+        duration: 2
+    learn_cost: 175
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 1
+  cooldown_rounds: null
+
+action_type: major
+range: null
+target: area

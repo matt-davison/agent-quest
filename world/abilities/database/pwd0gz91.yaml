@@ -1,0 +1,51 @@
+# Expose Weakness - Universal debuff ability
+id: pwd0gz91
+name: "Expose Weakness"
+type: ability
+subtype: debuff
+class: null
+tier: 1
+tags:
+  - combat
+  - debuff
+  - tactical
+  - combo
+
+prerequisites:
+  min_mind: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Study target's defenses and exploit gaps. Target's defense -3 for 2 rounds. Marks as Vulnerable (other abilities deal +5 damage)."
+    willpower_cost: 3
+    effect:
+      debuff:
+        target: single
+        defense_penalty: 3
+        duration: 2
+      combo_tag: "vulnerable"
+      combo_bonus: 5
+    learn_cost: 50
+  2:
+    description: "Defense -4 for 3 rounds. Vulnerable bonus increased to +8. Can affect 2 targets."
+    willpower_cost: 5
+    effect:
+      debuff:
+        target: "up_to_2"
+        defense_penalty: 4
+        duration: 3
+      combo_tag: "vulnerable"
+      combo_bonus: 8
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: combat
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: 30
+target: single

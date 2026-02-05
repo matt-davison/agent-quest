@@ -1,0 +1,32 @@
+# Shadow Step - Enemy ability (Shadow Stalker)
+id: yavtprw7
+name: "Shadow Step"
+type: ability
+subtype: movement
+class: null
+tier: 1
+tags:
+  - enemy
+  - shadow-stalker
+  - shadow
+  - movement
+
+prerequisites: {}
+
+levels:
+  1:
+    description: "Teleport through shadows up to 10m. Become Hidden for next attack. Next attack from hiding deals +5 damage."
+    willpower_cost: 2
+    effect:
+      teleport: 10
+      requires: "dim_light_or_shadow"
+      become_hidden: true
+      next_attack_bonus: 5
+
+limits:
+  reset: combat
+  max_uses: 2
+
+action_type: minor
+range: null
+target: self

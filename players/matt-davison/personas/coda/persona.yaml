@@ -23,11 +23,41 @@ resources:
   hp: 100
   max_hp: 100
   gold: 15
+  willpower: 36             # Current willpower
+  max_willpower: 36         # spirit(18) × multiplier(2) = 36
+  willpower_multiplier: 2   # Base multiplier
 
+# === ABILITIES ===
+# All abilities reference IDs from world/abilities/database/
 abilities:
-  - name: "Basic Weave Theory"
-    description: "Understanding of Weave fundamentals. Unlocks simple creation abilities."
-    source: "Syntax Athenaeum - Dean Overflow"
+  known:
+    # Datamancer class abilities
+    - id: ny1uz95q            # Manifest
+      level: 1
+      source: "class"
+      learned_date: "2026-02-02"
+    - id: 2xa2x78z            # Reality Patch
+      level: 1
+      source: "class"
+      learned_date: "2026-02-02"
+    - id: htl7wy2h            # Weave Attunement (passive)
+      level: 1
+      source: "class"
+      learned_date: "2026-02-02"
+    # Learned abilities
+    - id: cbsy0ksp            # Basic Weave Theory (passive)
+      level: 1
+      source: "training:syntax-athenaeum"
+      learned_date: "2026-02-02"
+
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+
+  active_effects: []
 
 inventory:
   - id: 1k5vtuvl    # Architect's Fragment (1/3)

@@ -1,0 +1,57 @@
+# Reality Patch - Datamancer ability
+id: 2xa2x78z
+name: "Reality Patch"
+type: ability
+subtype: manipulation
+class: Datamancer
+tier: 1
+tags:
+  - utility
+  - environmental
+  - weave
+  - datamancer
+
+prerequisites:
+  min_spirit: 12
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Modify a small area of reality (3m radius). Create cover, remove hazards, or alter terrain. Costs 10 Tokes. Changes last 10 minutes."
+    willpower_cost: 8
+    effect:
+      modify_terrain: true
+      tokes_cost: 10
+      radius: 3
+      duration: "10 minutes"
+      options:
+        - "create_cover"
+        - "remove_hazard"
+        - "alter_terrain"
+    learn_cost: 0
+  2:
+    description: "5m radius modifications. Can create advantageous terrain (+2 to allies in zone). Tokes cost reduced to 7. Lasts 30 minutes."
+    willpower_cost: 10
+    effect:
+      modify_terrain: true
+      tokes_cost: 7
+      radius: 5
+      duration: "30 minutes"
+      options:
+        - "create_cover"
+        - "remove_hazard"
+        - "alter_terrain"
+        - "advantageous_terrain"
+      zone_buff: { allies_bonus: 2 }
+    learn_cost: 200
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: major
+range: 30
+target: area

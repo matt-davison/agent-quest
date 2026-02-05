@@ -1,0 +1,50 @@
+# Manifest - Datamancer ability
+id: ny1uz95q
+name: "Manifest"
+type: ability
+subtype: creation
+class: Datamancer
+tier: 1
+tags:
+  - utility
+  - creation
+  - weave
+  - datamancer
+
+prerequisites:
+  min_spirit: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Create a temporary item from the Weave. Item lasts 1 hour or until used. Costs 5 Tokes. Item tier limited to your character tier."
+    willpower_cost: 5
+    effect:
+      create_item: true
+      tokes_cost: 5
+      duration: "1 hour"
+      max_tier: "character_tier"
+      item_types: ["consumable", "tool", "simple_weapon"]
+    learn_cost: 0
+  2:
+    description: "Items last 4 hours. Can create uncommon rarity items. Tokes cost reduced to 3."
+    willpower_cost: 6
+    effect:
+      create_item: true
+      tokes_cost: 3
+      duration: "4 hours"
+      max_tier: "character_tier"
+      max_rarity: "uncommon"
+      item_types: ["consumable", "tool", "weapon", "armor"]
+    learn_cost: 150
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 3
+  cooldown_rounds: null
+
+action_type: major
+range: null
+target: self

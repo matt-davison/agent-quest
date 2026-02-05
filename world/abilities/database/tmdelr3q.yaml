@@ -1,0 +1,46 @@
+# Basic Weapon Expertise - Universal passive
+id: tmdelr3q
+name: "Basic Weapon Expertise"
+type: passive
+subtype: combat
+class: null
+tier: 1
+tags:
+  - passive
+  - combat
+  - weapons
+  - damage
+
+prerequisites:
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "All weapon attacks deal +2 damage. Years of practice have honed your strikes."
+    willpower_cost: 0
+    effect:
+      damage_bonus: 2
+      applies_to: "weapon_attacks"
+    learn_cost: 50
+  2:
+    description: "All weapon attacks deal +4 damage. Critical hits also apply Bleeding (2 damage/round for 2 rounds)."
+    willpower_cost: 0
+    effect:
+      damage_bonus: 4
+      applies_to: "weapon_attacks"
+      on_critical:
+        debuff:
+          name: "bleeding"
+          damage_per_round: 2
+          duration: 2
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

@@ -5,9 +5,11 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 # Agent Quest
 
-> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups. Use `world-state` for time/weather/NPC locations. Use `relationships` for NPC standings.
+> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups. Use `abilities` for ability lookups and validation. Use `world-state` for time/weather/NPC locations. Use `relationships` for NPC standings.
 
 > **Shops:** Load inventory from `world/shops/<shop-id>.yaml`. Items reference `world/items/database/` by ID. Use `inventory` skill to resolve item details.
+
+> **Abilities:** All abilities reference `world/abilities/database/` by ID. Use `abilities` skill to look up, validate, and resolve ability details.
 
 ## Session Start
 
@@ -399,6 +401,7 @@ Or let `repo-sync` subagent handle this automatically.
 **Quick References (Load First):**
 - [quick-ref/combat.md](quick-ref/combat.md) - Basic combat (~80 lines)
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
+- [quick-ref/abilities.md](quick-ref/abilities.md) - Ability system, willpower (~100 lines)
 - [quick-ref/progression.md](quick-ref/progression.md) - Levels, XP, tiers (~50 lines)
 - [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
 - [quick-ref/ascii-art.md](quick-ref/ascii-art.md) - Scene visualization (~120 lines)
@@ -411,7 +414,7 @@ Or let `repo-sync` subagent handle this automatically.
 | [rules/combat.md](rules/combat.md) | Complex maneuvers, environmental combat |
 | [rules/classes.md](rules/classes.md) | Leveling up, advanced abilities |
 | [rules/progression.md](rules/progression.md) | XP sources, level thresholds, tier unlocks |
-| [rules/spells-and-abilities.md](rules/spells-and-abilities.md) | Spell details, ability mechanics |
+| [world/abilities/index.md](../../world/abilities/index.md) | Creating abilities, full ability schema |
 | [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions |
 | [rules/economy.md](rules/economy.md) | Claiming process, peer review |
 | [rules/reviews.md](rules/reviews.md) | Review rewards, feedback loop |

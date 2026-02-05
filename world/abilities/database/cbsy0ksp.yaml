@@ -1,0 +1,43 @@
+# Basic Weave Theory - Datamancer learned ability
+id: cbsy0ksp
+name: "Basic Weave Theory"
+type: passive
+subtype: knowledge
+class: Datamancer
+tier: 1
+tags:
+  - passive
+  - weave
+  - knowledge
+  - datamancer
+
+prerequisites:
+  min_spirit: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Understanding of Weave fundamentals. Unlocks simple creation abilities. +2 to Spirit checks when interacting with the Weave."
+    willpower_cost: 0
+    effect:
+      spirit_bonus_weave: 2
+      unlocks: ["simple_creation"]
+    learn_cost: 25
+  2:
+    description: "Deeper understanding. +4 to Weave interactions. Can sense Weave disturbances within 30m."
+    willpower_cost: 0
+    effect:
+      spirit_bonus_weave: 4
+      sense_range: 30
+      unlocks: ["intermediate_creation"]
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

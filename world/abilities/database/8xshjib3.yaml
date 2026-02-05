@@ -1,0 +1,42 @@
+# Silver Tongue - Loresmith ability
+id: 8xshjib3
+name: "Silver Tongue"
+type: passive
+subtype: social
+class: Loresmith
+tier: 1
+tags:
+  - passive
+  - social
+  - persuasion
+  - loresmith
+
+prerequisites:
+  min_mind: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "+5 bonus to persuasion and deception checks. NPCs are more willing to share information."
+    willpower_cost: 0
+    effect:
+      skill_bonus: { persuasion: 5, deception: 5 }
+      npc_disposition: "+1 tier for information sharing"
+    learn_cost: 0
+  2:
+    description: "+8 bonus to persuasion and deception. Can attempt to convince hostile NPCs to parley."
+    willpower_cost: 0
+    effect:
+      skill_bonus: { persuasion: 8, deception: 8 }
+      special: "attempt_hostile_parley"
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

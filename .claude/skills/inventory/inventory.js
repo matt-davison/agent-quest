@@ -3,7 +3,21 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('yaml');
 
-const DB_PATH = path.join(__dirname, '../../../world/items/database');
+// Parse --world argument from command line
+function parseWorldArg() {
+  const worldArg = process.argv.find(arg => arg.startsWith('--world='));
+  if (!worldArg) {
+    console.error('Error: --world parameter is required');
+    console.error('Usage: node inventory.js --world=<world-id> <command> [args]');
+    console.error('Example: node inventory.js --world=alpha list');
+    process.exit(1);
+  }
+  return worldArg.split('=')[1];
+}
+
+const WORLD_ID = parseWorldArg();
+const PROJECT_ROOT = path.join(__dirname, '../../..');
+const DB_PATH = path.join(PROJECT_ROOT, 'worlds', WORLD_ID, 'items/database');
 
 /**
  * Parse command line arguments in --flag=value format
@@ -363,7 +377,9 @@ function tags() {
     });
 }
 
-const [,, command, ...args] = process.argv;
+// Filter out --world argument and parse remaining args
+const filteredArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--world='));
+const [command, ...args] = filteredArgs;
 
 switch (command) {
   case 'get':
@@ -392,14 +408,17 @@ switch (command) {
     break;
   default:
     console.log(`Usage:
-  node inventory.js get <id>              Get item by ID
-  node inventory.js list [filters]        List items with optional filters
-  node inventory.js search <query>        Search items by name/description/tags
-  node inventory.js similar <name>        Check for similar items before creating
-  node inventory.js resolve <yaml>        Resolve inventory IDs to full item data
-  node inventory.js display <yaml>        Display inventory in readable format
-  node inventory.js validate <yaml>       Validate inventory items exist in database
-  node inventory.js tags                  Show all available tags
+  node inventory.js --world=<world> get <id>              Get item by ID
+  node inventory.js --world=<world> list [filters]        List items with optional filters
+  node inventory.js --world=<world> search <query>        Search items by name/description/tags
+  node inventory.js --world=<world> similar <name>        Check for similar items before creating
+  node inventory.js --world=<world> resolve <yaml>        Resolve inventory IDs to full item data
+  node inventory.js --world=<world> display <yaml>        Display inventory in readable format
+  node inventory.js --world=<world> validate <yaml>       Validate inventory items exist in database
+  node inventory.js --world=<world> tags                  Show all available tags
+
+Required:
+  --world=<world>       World ID (e.g., alpha)
 
 List Filters:
   --type=<type>         Filter by type (weapon, armor, consumable, quest_item, misc)

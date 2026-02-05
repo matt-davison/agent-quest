@@ -19,6 +19,7 @@ Review pending Tokes claims and earn reviewer rewards. Evaluates content quality
 
 ```yaml
 operation: "find_claims" | "review_claim" | "submit_review"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -30,7 +31,7 @@ claim_file: "<path-to-pending-claim>"  # For review_claim/submit_review
 
 ### FIND_CLAIMS - Discover Reviewable Content
 
-Scan `tokes/pending/` for claims awaiting review.
+Scan `worlds/${world}/tokes/pending/` for claims awaiting review.
 
 **Filter out:**
 - Own claims (no self-review)
@@ -49,7 +50,7 @@ success: true
 operation: "find_claims"
 claims_available: 3
 claims:
-  - file: "tokes/pending/nightweaver-shadow-temple.yaml"
+  - file: "alpha/tokes/pending/nightweaver-shadow-temple.yaml"
     weaver: "Nightweaver"
     content_type: "location"
     amount_requested: 25
@@ -89,7 +90,7 @@ Load and evaluate the pending claim's content.
 success: true
 operation: "review_claim"
 claim:
-  file: "tokes/pending/nightweaver-shadow-temple.yaml"
+  file: "alpha/tokes/pending/nightweaver-shadow-temple.yaml"
   weaver: "Nightweaver"
   amount_requested: 25
 evaluation:

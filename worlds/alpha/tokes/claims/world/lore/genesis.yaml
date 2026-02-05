@@ -1,8 +1,8 @@
-# Claim: First Steps Quest
-content_path: "quests/available/first-steps.md"
+# Claim: Genesis Lore
+content_path: "worlds/alpha/lore/genesis.md"
 github: "System"
 claimed_date: "2026-02-02"
 tokes_awarded: 0
 transaction_id: "genesis-001"
-content_type: "quest"
+content_type: "lore"
 notes: "Initial world content"

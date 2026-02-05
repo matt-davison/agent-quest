@@ -10,6 +10,8 @@
  * - Guilds: treasury integrity, membership rules
  * - Duels: wager escrow, rating validity
  *
+ * Iterates over all worlds defined in worlds.yaml.
+ *
  * Usage: node scripts/validate-multiplayer.js [--verbose]
  */
 
@@ -18,9 +20,33 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 // Configuration
-const MULTIPLAYER_DIR = 'multiplayer';
-const PLAYERS_DIR = 'players';
-const WORLD_STATE_DIR = 'world/state';
+const WORLDS_FILE = 'worlds.yaml';
+
+// Helper to get directory paths for a specific world
+function getWorldPaths(world) {
+  const worldBase = path.join('worlds', world);
+  return {
+    MULTIPLAYER_DIR: path.join(worldBase, 'multiplayer'),
+    PLAYERS_DIR: path.join(worldBase, 'players'),
+    WORLD_STATE_DIR: path.join(worldBase, 'state')
+  };
+}
+
+// Load worlds configuration
+function loadWorlds() {
+  if (!fs.existsSync(WORLDS_FILE)) {
+    console.error('Error: worlds.yaml not found');
+    process.exit(1);
+  }
+  const content = fs.readFileSync(WORLDS_FILE, 'utf8');
+  const worldsConfig = yaml.load(content);
+  return Object.keys(worldsConfig.worlds || {});
+}
+
+// Current world paths (set per-world in main)
+let MULTIPLAYER_DIR = '';
+let PLAYERS_DIR = '';
+let WORLD_STATE_DIR = '';
 
 // Valid status values
 const TRADE_STATUSES = ['pending', 'accepted', 'rejected', 'cancelled', 'expired', 'completed'];
@@ -735,19 +761,32 @@ function main() {
   console.log('Multiplayer Systems Validator');
   console.log('=============================\n');
 
-  // Load shared data
-  const inventories = loadPlayerInventories();
-  const escrows = loadEscrowLedgers();
+  const worlds = loadWorlds();
+  console.log(`Found ${worlds.length} world(s): ${worlds.join(', ')}\n`);
 
-  // Run all validations
-  validateTrades(escrows);
-  validateEscrow(escrows, inventories);
-  const memberToParty = validateParties();
-  validatePartyMemberships(memberToParty);
-  validateMail(escrows);
-  validateGuilds();
-  validateDuels(escrows);
-  validatePresence();
+  for (const world of worlds) {
+    console.log(`\n=== World: ${world} ===\n`);
+
+    // Update global paths for this world
+    const paths = getWorldPaths(world);
+    MULTIPLAYER_DIR = paths.MULTIPLAYER_DIR;
+    PLAYERS_DIR = paths.PLAYERS_DIR;
+    WORLD_STATE_DIR = paths.WORLD_STATE_DIR;
+
+    // Load shared data for this world
+    const inventories = loadPlayerInventories();
+    const escrows = loadEscrowLedgers();
+
+    // Run all validations
+    validateTrades(escrows);
+    validateEscrow(escrows, inventories);
+    const memberToParty = validateParties();
+    validatePartyMemberships(memberToParty);
+    validateMail(escrows);
+    validateGuilds();
+    validateDuels(escrows);
+    validatePresence();
+  }
 
   // Output results
   console.log('Results');

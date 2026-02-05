@@ -22,6 +22,7 @@ Handle ALL git operations and multiplayer content syncing. Critical for the Toke
 
 ```yaml
 operation: "fetch" | "save" | "create_pr" | "end_session"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -38,11 +39,11 @@ session_summary: "<what-happened-this-session>"
 git pull origin main --rebase
 ```
 
-Check multiplayer content for player:
-- `multiplayer/mail/<github>/inbox/` - Unread messages
-- `multiplayer/trades/active/` - Pending trades
-- `multiplayer/parties/invites/<github>-*.yaml` - Party invitations
-- `multiplayer/duels/` - Duel challenges
+Check multiplayer content for player (within world directory):
+- `worlds/${world}/multiplayer/mail/<github>/inbox/` - Unread messages
+- `worlds/${world}/multiplayer/trades/active/` - Pending trades
+- `worlds/${world}/multiplayer/parties/invites/<github>-*.yaml` - Party invitations
+- `worlds/${world}/multiplayer/duels/` - Duel challenges
 
 **Return:**
 
@@ -74,9 +75,9 @@ node scripts/validate-multiplayer.js || exit 1
 node scripts/validate-game-state.js || exit 1
 
 # 2. Stage specific files (never git add -A)
-git add players/<github>/
-git add multiplayer/trades/escrow/<github>.yaml
-git add tokes/ledgers/<github>.yaml
+git add worlds/${world}/players/<github>/
+git add worlds/${world}/multiplayer/trades/escrow/<github>.yaml
+git add worlds/${world}/tokes/ledgers/<github>.yaml
 # Add other changed files as appropriate
 
 # 3. Commit

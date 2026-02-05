@@ -9,7 +9,7 @@ submitted: "2026-02-04T00:00:00Z"
 amount_requested: 50
 
 # Primary content reference
-content_ref: "multiplayer/README.md"
+content_ref: "worlds/alpha/multiplayer/README.md"
 
 # Description of contribution
 description: |

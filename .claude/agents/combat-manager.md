@@ -20,6 +20,7 @@ Execute combat mechanics precisely using math.js for all calculations. Return st
 
 ```yaml
 operation: "init_combat" | "resolve_round" | "special_action" | "end_combat"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -75,18 +76,18 @@ player_action:
 
 ```bash
 # Check enemy type for existing abilities
-node .claude/skills/abilities/abilities.js list --tags=enemy,<enemy-type>
+node .claude/skills/abilities/abilities.js --world=${world} list --tags=enemy,<enemy-type>
 
 # If no abilities exist for this enemy type, create thematic ones
 # Example: Shadow Stalker -> shadow, stealth, ambush themes
-# Create new ability files in world/abilities/database/ with proper tags
+# Create new ability files in worlds/${world}/abilities/database/ with proper tags
 ```
 
 **Step 2: Apply Passive Abilities**
 
 ```bash
 # Gather all known passive abilities
-node .claude/skills/abilities/abilities.js list --type=passive
+node .claude/skills/abilities/abilities.js --world=${world} list --type=passive
 
 # For each passive in player's known list:
 # - Calculate stat bonuses (damage_bonus, defense_bonus, etc.)
@@ -253,7 +254,7 @@ When player uses an item in combat, validate and resolve:
 
 ```bash
 # Check item exists in player's inventory
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 
 # Verify item has a usable effect (hp_restore, willpower_restore, damage, buff, debuff)
 ```
@@ -402,7 +403,7 @@ When player uses an ability, validate and resolve:
 # The ability_id must be in player.abilities.known[]
 
 # Get full ability data
-node .claude/skills/abilities/abilities.js get <ability_id>
+node .claude/skills/abilities/abilities.js --world=${world} get <ability_id>
 
 # Check level matches known level
 # Player can only use levels they've learned
@@ -518,7 +519,7 @@ Enemies use abilities the same way as players:
 - If enemy attempts unknown ability, log error and skip turn
 
 **At Combat Init:**
-1. Check `world/abilities/database/` for abilities with enemy's type tag
+1. Check `worlds/${world}/abilities/database/` for abilities with enemy's type tag
 2. If insufficient abilities exist, create thematic ones
 3. Assign ability IDs to enemy for this combat
 4. Track enemy willpower per-combat (not persistent)
@@ -903,22 +904,22 @@ All loot items MUST exist in the item database before being awarded:
 
 ```bash
 # Verify item exists before including in loot
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 **Rules:**
-- Never award ad-hoc item IDs that aren't in `world/items/database/`
+- Never award ad-hoc item IDs that aren't in `worlds/${world}/items/database/`
 - If a desired loot item doesn't exist, use an existing item or note that the item must be created first
-- Use `node .claude/skills/inventory/inventory.js search <term>` to find appropriate existing items
-- Use `node .claude/skills/inventory/inventory.js similar <id>` to find alternatives if an item is missing
+- Use `node .claude/skills/inventory/inventory.js --world=${world} search <term>` to find appropriate existing items
+- Use `node .claude/skills/inventory/inventory.js --world=${world} similar <id>` to find alternatives if an item is missing
 
 **Example - Validating Shadow Stalker loot:**
 ```bash
 # Before including shadow-essence in loot:
-node .claude/skills/inventory/inventory.js get shadow-essence
+node .claude/skills/inventory/inventory.js --world=${world} get shadow-essence
 # If not found, search for alternatives:
-node .claude/skills/inventory/inventory.js search shadow
-node .claude/skills/inventory/inventory.js search essence
+node .claude/skills/inventory/inventory.js --world=${world} search shadow
+node .claude/skills/inventory/inventory.js --world=${world} search essence
 ```
 
 ## Ability Validation
@@ -927,20 +928,20 @@ All abilities MUST exist in the database before use:
 
 ```bash
 # Verify ability exists and get full data
-node .claude/skills/abilities/abilities.js get <ability_id>
+node .claude/skills/abilities/abilities.js --world=${world} get <ability_id>
 
 # Check if ability matches class (null = universal)
-node .claude/skills/abilities/abilities.js list --class=<class>
+node .claude/skills/abilities/abilities.js --world=${world} list --class=<class>
 
 # For enemy abilities, check tags
-node .claude/skills/abilities/abilities.js list --tags=enemy,<enemy-type>
+node .claude/skills/abilities/abilities.js --world=${world} list --tags=enemy,<enemy-type>
 ```
 
 **Rules:**
-- Never allow abilities that aren't in `world/abilities/database/`
+- Never allow abilities that aren't in `worlds/${world}/abilities/database/`
 - All player abilities must be in their `abilities.known[]` list
 - Enemy abilities must be assigned at combat init
-- Use `node .claude/skills/abilities/abilities.js similar <name>` to find alternatives
+- Use `node .claude/skills/abilities/abilities.js --world=${world} similar <name>` to find alternatives
 
 **Example - Creating missing enemy ability:**
 ```bash
@@ -948,7 +949,7 @@ node .claude/skills/abilities/abilities.js list --tags=enemy,<enemy-type>
 # 1. Generate ID
 node .claude/skills/math/math.js id 8
 
-# 2. Create the ability file in world/abilities/database/<id>.yaml
+# 2. Create the ability file in worlds/${world}/abilities/database/<id>.yaml
 # 3. Include tags: [enemy, shadow-stalker, <theme>]
 # 4. Then assign to enemy
 ```
@@ -1006,7 +1007,7 @@ Usage limits reset based on their `limits.reset` field:
 ## Loading Additional Rules
 
 When needed, load:
-- `world/abilities/index.md` - Ability catalog and creation guide
-- `rules/combat.md` - Complex maneuvers, environmental combat
-- `rules/afflictions.md` - Status effects, conditions
-- `rules/enemy-tactics.md` - Enemy AI patterns
+- `worlds/${world}/abilities/index.md` - Ability catalog and creation guide
+- `rules/combat.md` - Complex maneuvers, environmental combat (shared)
+- `rules/afflictions.md` - Status effects, conditions (shared)
+- `rules/enemy-tactics.md` - Enemy AI patterns (shared)

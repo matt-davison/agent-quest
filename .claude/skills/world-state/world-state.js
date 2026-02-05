@@ -3,8 +3,22 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('yaml');
 
-const WORLD_ROOT = path.join(__dirname, '../../../world');
-const PLAYERS_ROOT = path.join(__dirname, '../../../players');
+// Parse --world argument from command line
+function parseWorldArg() {
+  const worldArg = process.argv.find(arg => arg.startsWith('--world='));
+  if (!worldArg) {
+    console.error('Error: --world parameter is required');
+    console.error('Usage: node world-state.js --world=<world-id> <domain> <command> [args]');
+    console.error('Example: node world-state.js --world=alpha time get');
+    process.exit(1);
+  }
+  return worldArg.split('=')[1];
+}
+
+const WORLD_ID = parseWorldArg();
+const PROJECT_ROOT = path.join(__dirname, '../../..');
+const WORLD_ROOT = path.join(PROJECT_ROOT, 'worlds', WORLD_ID);
+const PLAYERS_ROOT = path.join(WORLD_ROOT, 'players');
 const STATE_PATH = path.join(WORLD_ROOT, 'state/current.yaml');
 const EVENTS_PATH = path.join(WORLD_ROOT, 'state/events.yaml');
 const CALENDAR_PATH = path.join(WORLD_ROOT, 'state/calendar.yaml');
@@ -818,7 +832,9 @@ function eventsActive() {
 
 // === MAIN ===
 
-const [,, domain, command, ...args] = process.argv;
+// Filter out --world argument and parse remaining args
+const filteredArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--world='));
+const [domain, command, ...args] = filteredArgs;
 
 switch (domain) {
   case 'time':
@@ -932,11 +948,14 @@ Encounters: combat, hazard, discovery, traveler, rest_spot`);
     console.log(`World State Manager
 
 Usage:
-  node world-state.js time <command>     Manage world time
-  node world-state.js weather <command>  Manage weather
-  node world-state.js npc <command>      Manage NPC locations
-  node world-state.js events <command>   Manage world events
-  node world-state.js travel <command>   Manage player travel
+  node world-state.js --world=<world> time <command>     Manage world time
+  node world-state.js --world=<world> weather <command>  Manage weather
+  node world-state.js --world=<world> npc <command>      Manage NPC locations
+  node world-state.js --world=<world> events <command>   Manage world events
+  node world-state.js --world=<world> travel <command>   Manage player travel
+
+Required:
+  --world=<world>       World ID (e.g., alpha)
 
 Commands:
   time get              Get current world time

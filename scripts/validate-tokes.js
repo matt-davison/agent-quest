@@ -5,6 +5,7 @@
  *
  * Validates ledger integrity and enforces economy rules for Agent Quest.
  * Run as part of CI to ensure all Tokes transactions follow the rules.
+ * Iterates over all worlds defined in worlds.yaml.
  *
  * Usage: node scripts/validate-tokes.js [--changed-only]
  */
@@ -14,9 +15,28 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 // Configuration
-const LEDGERS_DIR = 'tokes/ledgers';
-const CLAIMS_DIR = 'tokes/claims';
-const PENDING_DIR = 'tokes/pending';
+const WORLDS_FILE = 'worlds.yaml';
+
+// Helper to get directory paths for a specific world
+function getWorldPaths(world) {
+  const worldBase = path.join('worlds', world);
+  return {
+    LEDGERS_DIR: path.join(worldBase, 'tokes/ledgers'),
+    CLAIMS_DIR: path.join(worldBase, 'tokes/claims'),
+    PENDING_DIR: path.join(worldBase, 'tokes/pending')
+  };
+}
+
+// Load worlds configuration
+function loadWorlds() {
+  if (!fs.existsSync(WORLDS_FILE)) {
+    console.error('Error: worlds.yaml not found');
+    process.exit(1);
+  }
+  const content = fs.readFileSync(WORLDS_FILE, 'utf8');
+  const worldsConfig = yaml.load(content);
+  return Object.keys(worldsConfig.worlds || {});
+}
 
 // Valid transaction types and their rules
 const TRANSACTION_TYPES = {
@@ -151,7 +171,7 @@ function validateLedger(filePath) {
 /**
  * Validate a claim file
  */
-function validateClaim(filePath) {
+function validateClaim(filePath, ledgersDir) {
   const claim = loadYaml(filePath);
   if (!claim) return;
 
@@ -170,7 +190,7 @@ function validateClaim(filePath) {
 
   // Verify the transaction exists in the claimant's ledger
   if (claim.github && claim.transaction_id) {
-    const ledgerPath = path.join(LEDGERS_DIR, `${claim.github}.yaml`);
+    const ledgerPath = path.join(ledgersDir, `${claim.github}.yaml`);
     if (fs.existsSync(ledgerPath)) {
       const ledger = loadYaml(ledgerPath);
       if (ledger && Array.isArray(ledger.transactions)) {
@@ -245,29 +265,38 @@ function main() {
   console.log('Tokes Economy Validator');
   console.log('=======================\n');
 
-  // Validate all ledgers
-  console.log('Validating ledgers...');
-  const ledgers = getFiles(LEDGERS_DIR);
-  for (const ledger of ledgers) {
-    validateLedger(ledger);
-  }
-  console.log(`  Checked ${ledgers.length} ledger(s)\n`);
+  const worlds = loadWorlds();
+  console.log(`Found ${worlds.length} world(s): ${worlds.join(', ')}\n`);
 
-  // Validate all claims
-  console.log('Validating claims...');
-  const claims = getFiles(CLAIMS_DIR);
-  for (const claim of claims) {
-    validateClaim(claim);
-  }
-  console.log(`  Checked ${claims.length} claim(s)\n`);
+  for (const world of worlds) {
+    console.log(`\n=== World: ${world} ===\n`);
 
-  // Validate pending claims
-  console.log('Validating pending claims...');
-  const pending = getFiles(PENDING_DIR);
-  for (const p of pending) {
-    validatePendingClaim(p);
+    const paths = getWorldPaths(world);
+
+    // Validate all ledgers
+    console.log('Validating ledgers...');
+    const ledgers = getFiles(paths.LEDGERS_DIR);
+    for (const ledger of ledgers) {
+      validateLedger(ledger);
+    }
+    console.log(`  Checked ${ledgers.length} ledger(s)\n`);
+
+    // Validate all claims
+    console.log('Validating claims...');
+    const claims = getFiles(paths.CLAIMS_DIR);
+    for (const claim of claims) {
+      validateClaim(claim, paths.LEDGERS_DIR);
+    }
+    console.log(`  Checked ${claims.length} claim(s)\n`);
+
+    // Validate pending claims
+    console.log('Validating pending claims...');
+    const pending = getFiles(paths.PENDING_DIR);
+    for (const p of pending) {
+      validatePendingClaim(p);
+    }
+    console.log(`  Checked ${pending.length} pending claim(s)\n`);
   }
-  console.log(`  Checked ${pending.length} pending claim(s)\n`);
 
   // Output results
   console.log('Results');

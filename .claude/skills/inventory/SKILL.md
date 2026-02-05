@@ -7,6 +7,16 @@ description: Manage persona inventories and look up items from the item database
 
 Manage items and inventories in Agent Quest. Items are stored in a shared database and referenced by ID in persona inventories.
 
+## Required Parameter: --world
+
+**All commands require the `--world` parameter to specify which world to operate on.**
+
+```bash
+node .claude/skills/inventory/inventory.js <command> --world=alpha
+```
+
+The default world is `alpha`. See `worlds.yaml` for available worlds.
+
 ## ⚠️ Strict Enforcement: Database Items Only
 
 **ALWAYS use items from the database. NEVER invent ad-hoc item IDs.**
@@ -43,7 +53,7 @@ inventory:
 
 ## Item Database
 
-Items are stored as individual YAML files in `world/items/database/{id}.yaml`.
+Items are stored as individual YAML files in `worlds/<world>/items/database/{id}.yaml`.
 
 ### Item Schema
 
@@ -185,66 +195,66 @@ Items can have states to track condition or modifications:
 
 ```bash
 # Get item details by ID
-node inventory.js get abc12345
+node inventory.js get abc12345 --world=alpha
 
 # Search items by name, description, or tags
-node inventory.js search "healing"
+node inventory.js search "healing" --world=alpha
 
 # Check for similar items before creating new ones
-node inventory.js similar "Iron Blade"
+node inventory.js similar "Iron Blade" --world=alpha
 
 # Show all available tags
-node inventory.js tags
+node inventory.js tags --world=alpha
 ```
 
 ### Listing with Filters
 
 ```bash
 # List all items
-node inventory.js list
+node inventory.js list --world=alpha
 
 # Filter by type
-node inventory.js list --type=weapon
-node inventory.js list --type=consumable
+node inventory.js list --type=weapon --world=alpha
+node inventory.js list --type=consumable --world=alpha
 
 # Filter by rarity
-node inventory.js list --rarity=rare
-node inventory.js list --rarity=legendary
+node inventory.js list --rarity=rare --world=alpha
+node inventory.js list --rarity=legendary --world=alpha
 
 # Filter by tier (items at or below specified tier)
-node inventory.js list --tier=3
+node inventory.js list --tier=3 --world=alpha
 
 # Filter by tags (OR logic - any tag matches)
-node inventory.js list --tags=healing,consumable
+node inventory.js list --tags=healing,consumable --world=alpha
 
 # Filter by tags (AND logic - all tags must match)
-node inventory.js list --tags-all=magic,starter
+node inventory.js list --tags-all=magic,starter --world=alpha
 
 # Combine filters
-node inventory.js list --type=weapon --rarity=uncommon
-node inventory.js list --tags=weave --tier=5
+node inventory.js list --type=weapon --rarity=uncommon --world=alpha
+node inventory.js list --tags=weave --tier=5 --world=alpha
 ```
 
 ### Inventory Operations
 
 ```bash
 # Resolve inventory IDs to full item data
-node inventory.js resolve '[{id: abc12345, qty: 2}]'
+node inventory.js resolve '[{id: abc12345, qty: 2}]' --world=alpha
 
 # Display inventory in readable format
-node inventory.js display '[{id: abc12345, qty: 2, state: chipped}]'
+node inventory.js display '[{id: abc12345, qty: 2, state: chipped}]' --world=alpha
 
 # Validate inventory items exist in database
-node inventory.js validate '[{id: abc12345}, {id: fake-item}]'
+node inventory.js validate '[{id: abc12345}, {id: fake-item}]' --world=alpha
 ```
 
 ## Workflows
 
 ### Adding Items to Inventory
 
-1. Search for existing item: `inventory.js similar "item name"`
+1. Search for existing item: `inventory.js similar "item name" --world=alpha`
 2. If exists, use that ID. If not, generate new ID: `math.js id`
-3. Create item file in `world/items/database/{id}.yaml`
+3. Create item file in `worlds/<world>/items/database/{id}.yaml`
 4. Add to persona's inventory list
 
 ### Giving Items to Players

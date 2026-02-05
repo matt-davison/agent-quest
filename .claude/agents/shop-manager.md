@@ -21,6 +21,7 @@ Handle all shop interactions with full item validation. Validates shop inventori
 
 ```yaml
 operation: "browse" | "buy" | "sell" | "validate_shop"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -46,7 +47,7 @@ Before presenting a shop to a player, validate all items:
 
 ```bash
 # For each item_id in shop inventory:
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 If any item fails validation:
@@ -64,14 +65,14 @@ invalid_items:
 Before any buy/sell:
 ```bash
 # Validate the item exists
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 ## Operations
 
 ### BROWSE - Show Shop Inventory
 
-1. Load shop file: `world/shops/<shop-id>.yaml`
+1. Load shop file: `worlds/${world}/shops/<shop-id>.yaml`
 2. Validate all items exist in database
 3. Load item details for display
 4. Filter by player tier (hide items above their tier)
@@ -79,10 +80,10 @@ node .claude/skills/inventory/inventory.js get <item_id>
 
 ```bash
 # Load shop
-cat world/shops/<shop-id>.yaml
+cat worlds/${world}/shops/<shop-id>.yaml
 
 # Get item details for each item_id
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 **Return:**
@@ -130,10 +131,10 @@ quantity: 2
 **Validation Steps:**
 ```bash
 # 1. Validate item exists
-node .claude/skills/inventory/inventory.js get hpot0001
+node .claude/skills/inventory/inventory.js --world=${world} get hpot0001
 
 # 2. Load shop
-cat world/shops/<shop-id>.yaml
+cat worlds/${world}/shops/<shop-id>.yaml
 
 # 3. Check player's gold vs price * quantity
 # 4. Check tier requirement
@@ -210,7 +211,7 @@ Used when creating or modifying shops to ensure all items are valid.
 
 ```bash
 # Get all item_ids from shop file and validate each
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 **Return:**
@@ -238,7 +239,7 @@ requirement_unmet: "Requires tier 3 (you are tier 2)"
 
 ```bash
 # Check player standing with shop proprietor
-cat players/<github>/personas/<char>/relationships.yaml
+cat worlds/${world}/players/<github>/personas/<char>/relationships.yaml
 # Look for proprietor NPC standing
 ```
 
@@ -246,7 +247,7 @@ cat players/<github>/personas/<char>/relationships.yaml
 
 ```bash
 # Check if player completed required quest
-cat players/<github>/personas/<char>/quests.yaml
+cat worlds/${world}/players/<github>/personas/<char>/quests.yaml
 # Look for quest in completed list
 ```
 
@@ -277,9 +278,9 @@ Shop-manager returns structured transactions that can be passed directly to thes
 
 ## Shop File Locations
 
-- Shop files: `world/shops/<shop-id>.yaml`
-- Item database: `world/items/database/*.yaml`
-- Inventory tool: `.claude/skills/inventory/inventory.js`
+- Shop files: `worlds/${world}/shops/<shop-id>.yaml`
+- Item database: `worlds/${world}/items/database/*.yaml`
+- Inventory tool: `.claude/skills/inventory/inventory.js --world=${world}`
 
 ## Example Flow: Player Buys Health Potion
 
@@ -287,7 +288,7 @@ Shop-manager returns structured transactions that can be passed directly to thes
 1. Player: "I want to buy 2 health potions"
 
 2. shop-manager validates:
-   - node inventory.js get hpot0001 → valid
+   - node inventory.js --world=alpha get hpot0001 → valid
    - Shop has stock? → yes (unlimited)
    - Player tier >= required? → yes
    - Player gold >= 100? → yes

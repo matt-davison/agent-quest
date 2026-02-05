@@ -1,8 +1,8 @@
-# Claim: Genesis Lore
-content_path: "world/lore/genesis.md"
+# Claim: NPCs Index
+content_path: "worlds/alpha/npcs/index.yaml"
 github: "System"
 claimed_date: "2026-02-02"
 tokes_awarded: 0
 transaction_id: "genesis-001"
-content_type: "lore"
+content_type: "npc"
 notes: "Initial world content"

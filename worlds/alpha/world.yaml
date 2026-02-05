@@ -1,0 +1,12 @@
+id: "alpha"
+name: "Alpha"
+description: |
+  The first world where the Architects built reality.
+  Neon-lit cities on ancient ruins, hackers who cast spells.
+  The original proving ground for all Weavers.
+
+settings:
+  starting_location: "nexus-station"
+  starting_gold: 0
+  level_cap: 10
+  pvp_enabled: true

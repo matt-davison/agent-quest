@@ -3,7 +3,21 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('yaml');
 
-const DB_PATH = path.join(__dirname, '../../../world/abilities/database');
+// Parse --world argument from command line
+function parseWorldArg() {
+  const worldArg = process.argv.find(arg => arg.startsWith('--world='));
+  if (!worldArg) {
+    console.error('Error: --world parameter is required');
+    console.error('Usage: node abilities.js --world=<world-id> <command> [args]');
+    console.error('Example: node abilities.js --world=alpha list');
+    process.exit(1);
+  }
+  return worldArg.split('=')[1];
+}
+
+const WORLD_ID = parseWorldArg();
+const PROJECT_ROOT = path.join(__dirname, '../../..');
+const DB_PATH = path.join(PROJECT_ROOT, 'worlds', WORLD_ID, 'abilities/database');
 
 /**
  * Parse command line arguments in --flag=value format
@@ -573,7 +587,9 @@ function tags() {
     });
 }
 
-const [,, command, ...args] = process.argv;
+// Filter out --world argument and parse remaining args
+const filteredArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--world='));
+const [command, ...args] = filteredArgs;
 
 switch (command) {
   case 'get':
@@ -614,18 +630,21 @@ switch (command) {
     break;
   default:
     console.log(`Usage:
-  node abilities.js get <id>              Get ability by ID
-  node abilities.js list [filters]        List abilities with optional filters
-  node abilities.js search <query>        Search abilities by name/description/tags
-  node abilities.js similar <name>        Check for similar abilities before creating
-  node abilities.js class <class>         Get all abilities for a class
-  node abilities.js tier <n>              Get abilities at a specific tier
-  node abilities.js validate <yaml>       Validate ability IDs exist in database
-  node abilities.js resolve <yaml>        Resolve ability IDs to full data
-  node abilities.js display <yaml>        Display abilities in readable format
-  node abilities.js can-use <persona> <id> Check if persona can use ability
-  node abilities.js cost <id> [level]     Show willpower/learn costs
-  node abilities.js tags                  Show all available tags
+  node abilities.js --world=<world> get <id>              Get ability by ID
+  node abilities.js --world=<world> list [filters]        List abilities with optional filters
+  node abilities.js --world=<world> search <query>        Search abilities by name/description/tags
+  node abilities.js --world=<world> similar <name>        Check for similar abilities before creating
+  node abilities.js --world=<world> class <class>         Get all abilities for a class
+  node abilities.js --world=<world> tier <n>              Get abilities at a specific tier
+  node abilities.js --world=<world> validate <yaml>       Validate ability IDs exist in database
+  node abilities.js --world=<world> resolve <yaml>        Resolve ability IDs to full data
+  node abilities.js --world=<world> display <yaml>        Display abilities in readable format
+  node abilities.js --world=<world> can-use <persona> <id> Check if persona can use ability
+  node abilities.js --world=<world> cost <id> [level]     Show willpower/learn costs
+  node abilities.js --world=<world> tags                  Show all available tags
+
+Required:
+  --world=<world>       World ID (e.g., alpha)
 
 List Filters:
   --type=<type>         Filter by type (spell, ability, passive)

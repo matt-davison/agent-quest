@@ -9,6 +9,8 @@
  * - Cross-references between files
  * - Campaign progress integrity
  *
+ * Iterates over all worlds defined in worlds.yaml.
+ *
  * Usage: node scripts/validate-game-state.js [--verbose]
  */
 
@@ -17,11 +19,36 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 // Configuration
-const PLAYERS_DIR = 'players';
-const WORLD_DIR = 'world';
-const CAMPAIGNS_DIR = 'campaigns';
-const QUESTS_DIR = 'quests';
-const BESTIARY_DIR = '.claude/skills/play-agent-quest/world/bestiary';
+const WORLDS_FILE = 'worlds.yaml';
+const BESTIARY_DIR = '.claude/skills/play-agent-quest/world/bestiary';  // Shared
+
+// Helper to get directory paths for a specific world
+function getWorldPaths(world) {
+  const worldBase = path.join('worlds', world);
+  return {
+    PLAYERS_DIR: path.join(worldBase, 'players'),
+    WORLD_DIR: worldBase,  // World-specific content is directly in the world folder
+    CAMPAIGNS_DIR: path.join(worldBase, 'campaigns'),
+    QUESTS_DIR: path.join(worldBase, 'quests')
+  };
+}
+
+// Load worlds configuration
+function loadWorlds() {
+  if (!fs.existsSync(WORLDS_FILE)) {
+    console.error('Error: worlds.yaml not found');
+    process.exit(1);
+  }
+  const content = fs.readFileSync(WORLDS_FILE, 'utf8');
+  const worldsConfig = yaml.load(content);
+  return Object.keys(worldsConfig.worlds || {});
+}
+
+// Current world paths (set per-world in main)
+let PLAYERS_DIR = '';
+let WORLD_DIR = '';
+let CAMPAIGNS_DIR = '';
+let QUESTS_DIR = '';
 
 // Valid difficulty settings
 const VALID_DIFFICULTIES = ['easy', 'normal', 'hard', 'nightmare'];
@@ -277,7 +304,7 @@ function validatePersona(github, personaName) {
   if (persona.location) {
     const locationPath = path.join(WORLD_DIR, 'locations', persona.location, 'README.md');
     if (!fs.existsSync(locationPath)) {
-      warn(personaFile, `Location "${persona.location}" not found in world`);
+      warn(personaFile, `Location "${persona.location}" not found in ${WORLD_DIR}/locations`);
     }
   }
 
@@ -410,7 +437,7 @@ function validatePersonaAbilities(filePath, persona) {
     // Check ability exists in database
     const abilityPath = path.join(ABILITIES_DIR, `${abilityId}.yaml`);
     if (!fs.existsSync(abilityPath)) {
-      error(filePath, `Ability "${abilityId}" not found in world/abilities/database`);
+      error(filePath, `Ability "${abilityId}" not found in ${WORLD_DIR}/abilities/database`);
       continue;
     }
 
@@ -441,7 +468,7 @@ function validateRelationships(filePath) {
     // Check NPC exists
     const npcPath = path.join(WORLD_DIR, 'npcs', 'profiles', `${npcId}.yaml`);
     if (!fs.existsSync(npcPath)) {
-      warn(filePath, `NPC "${npcId}" not found in world/npcs/profiles`);
+      warn(filePath, `NPC "${npcId}" not found in ${WORLD_DIR}/npcs/profiles`);
     }
 
     // Check standing is reasonable
@@ -837,7 +864,7 @@ function validateCrossReferences() {
         // Check if item exists in world/items/database
         const itemPath = path.join(WORLD_DIR, 'items', 'database', `${itemId}.yaml`);
         if (!fs.existsSync(itemPath)) {
-          error(personaFile, `Item "${itemId}" in inventory not found in world/items/database`);
+          error(personaFile, `Item "${itemId}" in inventory not found in ${WORLD_DIR}/items/database`);
           issueCount++;
         }
       }
@@ -915,12 +942,28 @@ function main() {
   console.log('Game State Validator');
   console.log('====================\n');
 
-  validatePlayers();
-  validateWorld();
+  const worlds = loadWorlds();
+  console.log(`Found ${worlds.length} world(s): ${worlds.join(', ')}\n`);
+
+  for (const world of worlds) {
+    console.log(`\n=== World: ${world} ===\n`);
+
+    // Update global paths for this world
+    const paths = getWorldPaths(world);
+    PLAYERS_DIR = paths.PLAYERS_DIR;
+    WORLD_DIR = paths.WORLD_DIR;
+    CAMPAIGNS_DIR = paths.CAMPAIGNS_DIR;
+    QUESTS_DIR = paths.QUESTS_DIR;
+
+    validatePlayers();
+    validateWorld();
+    validateQuests();
+    validateCrossReferences();
+    validateCampaigns();
+  }
+
+  // Validate creatures (shared across worlds)
   validateCreatures();
-  validateQuests();
-  validateCrossReferences();
-  validateCampaigns();
 
   // Output results
   console.log('Results');

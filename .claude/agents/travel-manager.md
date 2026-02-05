@@ -20,6 +20,7 @@ Handle multi-turn travel with encounters, time advancement, and location transit
 
 ```yaml
 operation: "travel"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -38,7 +39,7 @@ journey:
 ### 1. Validate Route
 
 ```bash
-node .claude/skills/world-state/world-state.js travel validate \
+node .claude/skills/world-state/world-state.js --world=${world} travel validate \
   --from "<origin>" \
   --to "<destination>"
 ```
@@ -46,7 +47,7 @@ node .claude/skills/world-state/world-state.js travel validate \
 ### 2. Calculate Travel Time
 
 ```bash
-node .claude/skills/world-state/world-state.js travel time \
+node .claude/skills/world-state/world-state.js --world=${world} travel time \
   --from "<origin>" \
   --to "<destination>" \
   --mode "<travel_mode>"
@@ -81,7 +82,7 @@ Encounter types:
 ### 5. Advance Time
 
 ```bash
-node .claude/skills/world-state/world-state.js time advance \
+node .claude/skills/world-state/world-state.js --world=${world} time advance \
   --hours <travel_hours>
 ```
 

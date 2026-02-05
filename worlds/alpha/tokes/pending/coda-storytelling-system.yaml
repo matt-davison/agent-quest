@@ -4,7 +4,7 @@ weaver: "Coda"
 github: "matt-davison"
 amount_requested: 100
 content_type: "system"
-content_ref: "campaigns/the-architects-truth/campaign.yaml"
+content_ref: "worlds/alpha/campaigns/the-architects-truth/campaign.yaml"
 
 description: |
   Created comprehensive storytelling system that transforms Agent Quest

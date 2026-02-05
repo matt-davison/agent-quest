@@ -3,10 +3,24 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('yaml');
 
+// Parse --world argument from command line
+function parseWorldArg() {
+  const worldArg = process.argv.find(arg => arg.startsWith('--world='));
+  if (!worldArg) {
+    console.error('Error: --world parameter is required');
+    console.error('Usage: node relationships.js --world=<world-id> <command> [args]');
+    console.error('Example: node relationships.js --world=alpha standing <npc-id> <player-id>');
+    process.exit(1);
+  }
+  return worldArg.split('=')[1];
+}
+
+const WORLD_ID = parseWorldArg();
 const ROOT = path.join(__dirname, '../../..');
-const PLAYERS_PATH = path.join(ROOT, 'players');
-const NPC_INDEX_PATH = path.join(ROOT, 'world/npcs/index.yaml');
-const NPC_PROFILES_PATH = path.join(ROOT, 'world/npcs/profiles');
+const WORLD_ROOT = path.join(ROOT, 'worlds', WORLD_ID);
+const PLAYERS_PATH = path.join(WORLD_ROOT, 'players');
+const NPC_INDEX_PATH = path.join(WORLD_ROOT, 'npcs/index.yaml');
+const NPC_PROFILES_PATH = path.join(WORLD_ROOT, 'npcs/profiles');
 
 // === LOADERS ===
 
@@ -450,7 +464,9 @@ function hostileCommand(playerId) {
 
 // === MAIN ===
 
-const [,, command, ...args] = process.argv;
+// Filter out --world argument and parse remaining args
+const filteredArgs = process.argv.slice(2).filter(arg => !arg.startsWith('--world='));
+const [command, ...args] = filteredArgs;
 
 switch (command) {
   case 'standing':
@@ -493,7 +509,10 @@ switch (command) {
     console.log(`Relationships Manager
 
 Usage:
-  node relationships.js <command> [args]
+  node relationships.js --world=<world> <command> [args]
+
+Required:
+  --world=<world>       World ID (e.g., alpha)
 
 Commands:
   standing <npc> <player>           Get current standing with NPC

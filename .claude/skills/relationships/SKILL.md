@@ -7,11 +7,21 @@ description: Manage NPC relationships, standings, and dialogue in Agent Quest. U
 
 Manage NPC relationships, standings, and dialogue availability in Agent Quest.
 
+## Required Parameter: --world
+
+**All commands require the `--world` parameter to specify which world to operate on.**
+
+```bash
+node .claude/skills/relationships/relationships.js <command> --world=alpha
+```
+
+The default world is `alpha`. See `worlds.yaml` for available worlds.
+
 ## Data Files
 
-- `players/<github>/personas/<character>/relationships.yaml` - Per-character relationship data
-- `world/npcs/index.yaml` - Disposition mapping and defaults
-- `world/npcs/profiles/<npc-id>.yaml` - Full NPC profiles with dialogue
+- `worlds/<world>/players/<github>/personas/<character>/relationships.yaml` - Per-character relationship data
+- `worlds/<world>/npcs/index.yaml` - Disposition mapping and defaults
+- `worlds/<world>/npcs/profiles/<npc-id>.yaml` - Full NPC profiles with dialogue
 
 ## CLI Commands
 
@@ -19,33 +29,33 @@ Manage NPC relationships, standings, and dialogue availability in Agent Quest.
 # === STANDING COMMANDS ===
 
 # Get standing with an NPC
-node .claude/skills/relationships/relationships.js standing vera-nighthollow matt-davison
+node .claude/skills/relationships/relationships.js standing vera-nighthollow matt-davison --world=alpha
 
 # Get disposition string from standing value
-node .claude/skills/relationships/relationships.js disposition 5
+node .claude/skills/relationships/relationships.js disposition 5 --world=alpha
 
 # Change standing (for recording interactions)
-node .claude/skills/relationships/relationships.js change vera-nighthollow matt-davison 1 "Shared interesting rumor"
+node .claude/skills/relationships/relationships.js change vera-nighthollow matt-davison 1 "Shared interesting rumor" --world=alpha
 
 # === DIALOGUE COMMANDS ===
 
 # Get available dialogue topics for an NPC
-node .claude/skills/relationships/relationships.js topics vera-nighthollow matt-davison
+node .claude/skills/relationships/relationships.js topics vera-nighthollow matt-davison --world=alpha
 
 # Check if a specific topic is unlocked
-node .claude/skills/relationships/relationships.js topic-check vera-nighthollow matt-davison "her_past"
+node .claude/skills/relationships/relationships.js topic-check vera-nighthollow matt-davison "her_past" --world=alpha
 
 # Unlock a dialogue topic
-node .claude/skills/relationships/relationships.js topic-unlock vera-nighthollow matt-davison "can_ask_about_scar"
+node .claude/skills/relationships/relationships.js topic-unlock vera-nighthollow matt-davison "can_ask_about_scar" --world=alpha
 
 # === OVERVIEW COMMANDS ===
 
 # List all relationships for a player
-node .claude/skills/relationships/relationships.js all matt-davison
+node .claude/skills/relationships/relationships.js all matt-davison --world=alpha
 
 # Get NPCs with standing above/below threshold
-node .claude/skills/relationships/relationships.js friendly matt-davison    # standing >= 3
-node .claude/skills/relationships/relationships.js hostile matt-davison     # standing <= -3
+node .claude/skills/relationships/relationships.js friendly matt-davison --world=alpha    # standing >= 3
+node .claude/skills/relationships/relationships.js hostile matt-davison --world=alpha     # standing <= -3
 ```
 
 ## Disposition Scale

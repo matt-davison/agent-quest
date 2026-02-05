@@ -5,37 +5,40 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 # Agent Quest
 
-> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory` for item lookups. Use `abilities` for ability lookups and validation. Use `world-state` for time/weather/NPC locations. Use `relationships` for NPC standings.
+> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory --world=<world>` for item lookups. Use `abilities --world=<world>` for ability lookups and validation. Use `world-state --world=<world>` for time/weather/NPC locations. Use `relationships --world=<world>` for NPC standings.
 
-> **Shops:** Load inventory from `world/shops/<shop-id>.yaml`. Items reference `world/items/database/` by ID. Use `inventory` skill to resolve item details.
+> **Shops:** Load inventory from `worlds/<world>/shops/<shop-id>.yaml`. Items reference `worlds/<world>/items/database/` by ID. Use `inventory` skill to resolve item details.
 
-> **Abilities:** All abilities reference `world/abilities/database/` by ID. Use `abilities` skill to look up, validate, and resolve ability details.
+> **Abilities:** All abilities reference `worlds/<world>/abilities/database/` by ID. Use `abilities` skill to look up, validate, and resolve ability details.
+
+> **Multi-World:** All paths use `worlds/<world>/` prefix (default: `alpha`). Check `worlds.yaml` for available worlds.
 
 ## Session Start
 
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
-2. **Check player file**: `players/<github-username>/player.yaml`
-3. **Resolve pending rewards**: `node scripts/resolve-pending-rewards.js <github>` (auto-claims merged PR rewards)
-4. **Load world state**: `world/state/current.yaml` for time/weather
-5. **Load multiplayer state**: Check for pending interactions (see below)
-6. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-7. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+2. **Determine world**: Check `worlds.yaml` (default: `alpha`)
+3. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
+4. **Resolve pending rewards**: `node scripts/resolve-pending-rewards.js <github>` (auto-claims merged PR rewards)
+5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
+6. **Load multiplayer state**: Check for pending interactions (see below)
+7. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World State Loading
 
 At session start, always load:
-- `world/state/current.yaml` - Current time, weather, active events
-- `world/state/presence.yaml` - Other players at current location
+- `worlds/<world>/state/current.yaml` - Current time, weather, active events
+- `worlds/<world>/state/presence.yaml` - Other players at current location
 - Check time period to determine NPC availability
 
 ### Multiplayer State Loading
 
 Check these for player interactions:
-- `multiplayer/trades/escrow/<github>.yaml` - Items/gold in escrow
-- `multiplayer/trades/active/*.yaml` - Pending trades (grep for player's github)
-- `multiplayer/parties/invites/<github>-*.yaml` - Party invitations
-- `multiplayer/mail/<github>/inbox/` - Unread messages
-- `players/<github>/personas/<char>/party-membership.yaml` - Party status
+- `worlds/<world>/multiplayer/trades/escrow/<github>.yaml` - Items/gold in escrow
+- `worlds/<world>/multiplayer/trades/active/*.yaml` - Pending trades (grep for player's github)
+- `worlds/<world>/multiplayer/parties/invites/<github>-*.yaml` - Party invitations
+- `worlds/<world>/multiplayer/mail/<github>/inbox/` - Unread messages
+- `worlds/<world>/players/<github>/personas/<char>/party-membership.yaml` - Party status
 
 **Resume screen should show:**
 - Escrow status (if any items/gold locked)
@@ -45,20 +48,20 @@ Check these for player interactions:
 
 Use the `world-state` skill for queries:
 ```bash
-node .claude/skills/world-state/world-state.js time get
-node .claude/skills/world-state/world-state.js weather nexus
+node .claude/skills/world-state/world-state.js time get --world=alpha
+node .claude/skills/world-state/world-state.js weather nexus --world=alpha
 ```
 
 ### Campaign Loading (If Active Campaign)
 
 After basic load, if player has active campaign:
 
-1. Load `players/<github>/personas/<character>/campaign-progress.yaml`
-2. Load current campaign: `campaigns/<campaign-id>/campaign.yaml`
+1. Load `worlds/<world>/players/<github>/personas/<character>/campaign-progress.yaml`
+2. Load current campaign: `worlds/<world>/campaigns/<campaign-id>/campaign.yaml`
 3. Load current chapter from campaign's `chapters/` folder
 4. **Check delayed consequences** → trigger any matching conditions
-5. Load `players/<github>/personas/<character>/relationships.yaml` for current location NPCs
-6. Load `players/<github>/personas/<character>/consequences.yaml`
+5. Load `worlds/<world>/players/<github>/personas/<character>/relationships.yaml` for current location NPCs
+6. Load `worlds/<world>/players/<github>/personas/<character>/consequences.yaml`
 
 See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 
@@ -82,16 +85,16 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ```
 
 **Load these files on resume:**
-- `players/<github-username>/personas/<active_character>/persona.yaml`
-- `players/<github-username>/personas/<active_character>/quests.yaml`
-- `players/<github-username>/todo.yaml` (player intentions)
-- `tokes/ledgers/<github-username>.yaml` (for balance)
-- `world/locations/<location>/README.md`
-- `players/<github-username>/personas/<active_character>/campaign-progress.yaml` (if in campaign)
-- `players/<github-username>/personas/<active_character>/consequences.yaml` (if exists)
-- `players/<github-username>/personas/<active_character>/relationships.yaml` (if exists)
-- `players/<github-username>/personas/<active_character>/party-membership.yaml` (if exists)
-- `multiplayer/trades/escrow/<github-username>.yaml` (if exists)
+- `worlds/<world>/players/<github-username>/personas/<active_character>/persona.yaml`
+- `worlds/<world>/players/<github-username>/personas/<active_character>/quests.yaml`
+- `worlds/<world>/players/<github-username>/todo.yaml` (player intentions)
+- `worlds/<world>/tokes/ledgers/<github-username>.yaml` (for balance)
+- `worlds/<world>/locations/<location>/README.md`
+- `worlds/<world>/players/<github-username>/personas/<active_character>/campaign-progress.yaml` (if in campaign)
+- `worlds/<world>/players/<github-username>/personas/<active_character>/consequences.yaml` (if exists)
+- `worlds/<world>/players/<github-username>/personas/<active_character>/relationships.yaml` (if exists)
+- `worlds/<world>/players/<github-username>/personas/<active_character>/party-membership.yaml` (if exists)
+- `worlds/<world>/multiplayer/trades/escrow/<github-username>.yaml` (if exists)
 
 ---
 
@@ -105,10 +108,10 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 | Created This Turn? | Action Required |
 |--------------------|-----------------|
-| New item | Create `world/items/database/<id>.yaml`, add to inventory |
+| New item | Create `worlds/<world>/items/database/<id>.yaml`, add to inventory |
 | New quest/job | Add to player's `quests.yaml` with objectives |
-| New NPC | Create `world/npcs/profiles/<id>.yaml`, update index |
-| New location/area | Create in `world/locations/` |
+| New NPC | Create `worlds/<world>/npcs/profiles/<id>.yaml`, update index |
+| New location/area | Create in `worlds/<world>/locations/` |
 | State change (HP, gold, location, inventory) | Update `persona.yaml` |
 | Quest progress | Update objective status in `quests.yaml` |
 
@@ -129,23 +132,23 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 | Action | Description | Load | Agents Used |
 |--------|-------------|------|-------------|
-| **LOOK** | Examine current location | `world/locations/<location>/README.md` + generate panorama | - |
+| **LOOK** | Examine current location | `worlds/<world>/locations/<location>/README.md` + generate panorama | - |
 | **MOVE** | Travel to connected location | Destination README, update persona + generate panorama | `travel-manager` (if multi-leg) |
-| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `world/npcs/profiles/` | - |
-| **QUEST** | View/accept/update quests | `quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
+| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `worlds/<world>/npcs/profiles/` | - |
+| **QUEST** | View/accept/update quests | `worlds/<world>/quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
 | **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
 | **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
-| **SHOP** | Buy/sell items | `world/shops/<shop-id>.yaml`, check tier requirements | `shop-manager`, `economy-validator`, `state-writer` |
+| **SHOP** | Buy/sell items | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements | `shop-manager`, `economy-validator`, `state-writer` |
 | **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
 | **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
-| **TODO** | View/manage player intentions | `players/<github>/todo.yaml` | - |
+| **TODO** | View/manage player intentions | `worlds/<world>/players/<github>/todo.yaml` | - |
 | **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter | - |
 | **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `economy-validator` |
-| **PARTY** | Form/manage groups | `multiplayer/parties/`, party-membership.yaml | `multiplayer-handler` |
-| **MAIL** | Send/read messages | `multiplayer/mail/<github>/` | `multiplayer-handler` |
-| **GUILD** | Guild management | `multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
-| **DUEL** | PvP combat | `multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
-| **WHO** | See players at location | `world/state/presence.yaml` | `multiplayer-handler` |
+| **PARTY** | Form/manage groups | `worlds/<world>/multiplayer/parties/`, party-membership.yaml | `multiplayer-handler` |
+| **MAIL** | Send/read messages | `worlds/<world>/multiplayer/mail/<github>/` | `multiplayer-handler` |
+| **GUILD** | Guild management | `worlds/<world>/multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
+| **DUEL** | PvP combat | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
+| **WHO** | See players at location | `worlds/<world>/state/presence.yaml` | `multiplayer-handler` |
 | **DREAM** | Enter The Dreaming (autopilot) | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
 | **AUTOPILOT** | *(alias for DREAM)* | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
 
@@ -187,40 +190,40 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 
 **New NPCs:**
 When you create a new NPC during play (quest givers, allies, enemies, romantic interests):
-1. Create profile: `world/npcs/profiles/<npc-id>.yaml`
-2. Update registry: Add entry to `world/npcs/index.yaml`
+1. Create profile: `worlds/<world>/npcs/profiles/<npc-id>.yaml`
+2. Update registry: Add entry to `worlds/<world>/npcs/index.yaml`
 3. Include: appearance, personality, stats, secrets, dialogue, corrupted_data hooks
 
 **New Locations:**
 When players discover or you create new areas:
-1. Create location: `world/locations/<location-id>/README.md`
+1. Create location: `worlds/<world>/locations/<location-id>/README.md`
 2. Include: description, points of interest, NPCs, shops, connections, encounters
 
 **New Items:**
 When unique items are created or discovered:
 1. Generate ID: `node .claude/skills/math/math.js id 8`
-2. Create file: `world/items/database/<id>.yaml`
+2. Create file: `worlds/<world>/items/database/<id>.yaml`
 3. Include: id, name, type, subtype, rarity, value, stats, description
-4. Use `inventory` skill to verify: `node .claude/skills/inventory/inventory.js get <id>`
+4. Use `inventory` skill to verify: `node .claude/skills/inventory/inventory.js get <id> --world=<world>`
 
 **New Shops / Updating Shop Inventory:**
 When a location has a shop, use the merchant system:
-1. Check for existing: `world/shops/<location>-<shop-name>.yaml`
+1. Check for existing: `worlds/<world>/shops/<location>-<shop-name>.yaml`
 2. If new, create from template: `templates/shop.yaml`
 3. **ALWAYS reference items by ID**, never by name
 4. Include: shop_id, location, proprietor, inventory with item_ids, prices, stock
 
 **Shop Inventory Rules:**
 - Use `shop-manager` agent for all shop interactions (browse, buy, sell)
-- Load shop file when player enters shop: `world/shops/<shop-id>.yaml`
+- Load shop file when player enters shop: `worlds/<world>/shops/<shop-id>.yaml`
 - Shop-manager validates all item_ids exist in database before displaying
-- Use `inventory` skill to resolve item details: `node .claude/skills/inventory/inventory.js get <id>`
-- Apply event modifiers (e.g., Era Celebration discount) from `world/state/current.yaml`
+- Use `inventory` skill to resolve item details: `node .claude/skills/inventory/inventory.js get <id> --world=<world>`
+- Apply event modifiers (e.g., Era Celebration discount) from `worlds/<world>/state/current.yaml`
 - After purchase/sale, update shop stock if not unlimited (-1)
 
 **New Religions/Factions:**
 When players Weave new organizations:
-1. Create profile in appropriate `world/` subdirectory
+1. Create profile in appropriate `worlds/<world>/` subdirectory
 2. Update relevant index files
 3. Document relationships with existing factions
 
@@ -230,6 +233,7 @@ When players Weave new organizations:
 - Items in shops reference the central database (consistency)
 - The world grows richer through play
 - Tokes can be claimed for significant additions
+- Multiple worlds can coexist independently
 
 ### Weave Mending
 
@@ -240,19 +244,19 @@ When content has `corrupted_data` markers, players can attempt to Mend:
 3. **Success**: Generate content, earn 5-15 Tokes
 4. **Failure**: DC+2 on retry, no cost
 
-See `world/skills/weave-mending.yaml` for full mechanics.
+See `worlds/<world>/skills/weave-mending.yaml` for full mechanics.
 
 ### NPC Awareness
 
 NPCs react to recent world events based on awareness radius:
-- Check `world/state/events.yaml` for recent happenings
+- Check `worlds/<world>/state/events.yaml` for recent happenings
 - NPCs know about events matching their awareness level
 - Player achievements trigger NPC dialogue variants
 
 Use the `relationships` skill for standing-based dialogue:
 ```bash
-node .claude/skills/relationships/relationships.js standing vera-nighthollow player-id
-node .claude/skills/relationships/relationships.js topics vera-nighthollow player-id
+node .claude/skills/relationships/relationships.js standing vera-nighthollow player-id --world=alpha
+node .claude/skills/relationships/relationships.js topics vera-nighthollow player-id --world=alpha
 ```
 
 ---
@@ -355,8 +359,8 @@ Rule adherence is enforced through multiple layers:
 ### 1. Pre-Commit Hook
 
 The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file ownership:
-- Players can only modify `players/<their-github>/`
-- Players can only modify `tokes/ledgers/<their-github>.yaml`
+- Players can only modify `worlds/<world>/players/<their-github>/`
+- Players can only modify `worlds/<world>/tokes/ledgers/<their-github>.yaml`
 - Claims must have `github:` matching the committer
 
 **Setup:** Run `scripts/setup-hooks.sh` to install.
@@ -372,7 +376,7 @@ PRs that fail validation cannot be merged.
 
 ### 3. Session Audit Logging (Automatic)
 
-**The `state-writer` agent automatically logs all actions** to `players/<github>/session-audit.yaml`.
+**The `state-writer` agent automatically logs all actions** to `worlds/<world>/players/<github>/session-audit.yaml`.
 
 This means:
 - Using `state-writer` = action is logged with agent chain
@@ -431,7 +435,7 @@ Or let `repo-sync` subagent handle this automatically.
 | [rules/combat.md](rules/combat.md) | Complex maneuvers, environmental combat |
 | [rules/classes.md](rules/classes.md) | Leveling up, advanced abilities |
 | [rules/progression.md](rules/progression.md) | XP sources, level thresholds, tier unlocks |
-| [world/abilities/index.md](../../world/abilities/index.md) | Creating abilities, full ability schema |
+| `worlds/<world>/abilities/index.md` | Creating abilities, full ability schema |
 | [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions |
 | [rules/economy.md](rules/economy.md) | Claiming process, peer review |
 | [rules/reviews.md](rules/reviews.md) | Review rewards, feedback loop |
@@ -459,7 +463,7 @@ Or let `repo-sync` subagent handle this automatically.
 
 ## Quick Reference
 
-**Tokes Balance:** `tokes/ledgers/<github-username>.yaml` → `balance` field
+**Tokes Balance:** `worlds/<world>/tokes/ledgers/<github-username>.yaml` → `balance` field
 
 **Alignment Costs:** Breaking character costs 0-2 Tokes. See [reference/alignment.md](reference/alignment.md).
 
@@ -467,7 +471,7 @@ Or let `repo-sync` subagent handle this automatically.
 
 **State Changes:** After each action, update persona file if HP/gold/location/inventory changed.
 
-**New Content:** When creating NPCs, locations, items, or factions during play, save them to `world/` so they persist. See "Persisting New Content" above.
+**New Content:** When creating NPCs, locations, items, or factions during play, save them to `worlds/<world>/` so they persist. See "Persisting New Content" above.
 
 ---
 
@@ -505,10 +509,10 @@ Or let `repo-sync` subagent handle this automatically.
 
 ## Campaigns
 
-Available campaigns are listed in `campaigns/index.yaml`. Each campaign has:
+Available campaigns are listed in `worlds/<world>/campaigns/index.yaml`. Each campaign has:
 
 ```
-campaigns/<campaign-id>/
+worlds/<world>/campaigns/<campaign-id>/
 ├── campaign.yaml       # Overview, themes, endings
 ├── acts/
 │   ├── act-1.yaml
@@ -533,6 +537,7 @@ The `repo-sync` agent receives:
 
 ```yaml
 operation: "end_session"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -543,9 +548,9 @@ session_summary: "<what happened this session>"
 ### What Repo Sync Does
 
 1. **Verifies new content is saved**
-   - Checks for NPCs mentioned but not in `world/npcs/profiles/`
-   - Checks for locations visited but not in `world/locations/`
-   - Checks for items created but not in `world/items/`
+   - Checks for NPCs mentioned but not in `worlds/<world>/npcs/profiles/`
+   - Checks for locations visited but not in `worlds/<world>/locations/`
+   - Checks for items created but not in `worlds/<world>/items/`
 
 2. **Runs validation**
    - `node scripts/validate-tokes.js`

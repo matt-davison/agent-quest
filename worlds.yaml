@@ -1,0 +1,11 @@
+version: "1.0"
+default_world: "alpha"
+
+worlds:
+  alpha:
+    name: "Alpha"
+    description: "The first world - where Weavers first awakened"
+    status: "active"
+    created: "2026-02-02"
+    theme: "cyberpunk-fantasy"
+    level_cap: 10

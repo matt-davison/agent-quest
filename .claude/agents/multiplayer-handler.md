@@ -22,6 +22,7 @@ Handle all player-to-player interactions including trades, parties, mail, guilds
 
 ```yaml
 operation: "trade" | "party" | "mail" | "guild" | "duel" | "presence"
+world: "<world-id>"  # Required - e.g., "alpha"
 action: "<specific-action>"
 player:
   github: "<github-username>"
@@ -55,7 +56,7 @@ requesting:
 **Processing:**
 1. Validate player has items/gold (minus escrow)
 2. Move to escrow
-3. Create trade file in `multiplayer/trades/active/`
+3. Create trade file in `worlds/${world}/multiplayer/trades/active/`
 4. Set 72-hour expiration
 
 ### Accept Trade
@@ -64,7 +65,7 @@ requesting:
 2. Move player's items to escrow
 3. Execute swap between escrows
 4. Update both personas
-5. Archive trade to `multiplayer/trades/completed/`
+5. Archive trade to `worlds/${world}/multiplayer/trades/completed/`
 
 ### Reject/Cancel Trade
 
@@ -88,7 +89,7 @@ settings:
 
 1. Verify player is leader/officer
 2. Verify party not full
-3. Create invite in `multiplayer/parties/invites/`
+3. Create invite in `worlds/${world}/multiplayer/parties/invites/`
 4. Set 48-hour expiration
 
 ### Accept Party Invite
@@ -117,8 +118,8 @@ attachments:
 ```
 
 1. If attachments, move to escrow
-2. Create message in `multiplayer/mail/<recipient>/inbox/`
-3. Create copy in `multiplayer/mail/<sender>/sent/`
+2. Create message in `worlds/${world}/multiplayer/mail/<recipient>/inbox/`
+3. Create copy in `worlds/${world}/multiplayer/mail/<sender>/sent/`
 4. Set 30-day attachment expiration
 
 ### Claim Attachments
@@ -218,25 +219,25 @@ Before processing trades or mail with items, validate all item IDs:
 
 ```bash
 # Validate each item exists in the database
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 ```
 
 **Rules:**
 1. **Reject invalid item IDs** - Return `INVALID_ITEM` error with the bad ID
-2. All items must exist in `world/items/database/`
+2. All items must exist in `worlds/${world}/items/database/`
 3. Use `similar` command to suggest corrections for typos
 
 **Validation flow for trades:**
 ```bash
 # For each item in offering and requesting:
-node .claude/skills/inventory/inventory.js get iron-sword
+node .claude/skills/inventory/inventory.js --world=${world} get iron-sword
 # If any item fails validation, reject the entire trade
 ```
 
 **Validation flow for mail attachments:**
 ```bash
 # Before moving items to escrow:
-node .claude/skills/inventory/inventory.js get <attachment_item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <attachment_item_id>
 # If invalid, reject the mail with INVALID_ATTACHMENT error
 ```
 
@@ -252,11 +253,11 @@ suggestions:
 
 ## State Files Modified
 
-| Action | Files |
-|--------|-------|
-| Trade create | escrow, trades/active/ |
+| Action | Files (within worlds/${world}/) |
+|--------|--------------------------|
+| Trade create | multiplayer/escrow/, multiplayer/trades/active/ |
 | Trade accept | Both escrows, both personas, archive |
-| Party create | parties/active/, party-membership.yaml |
-| Mail send | escrow (if attach), mail/ |
-| Guild create | guilds/ directory, persona (gold) |
-| Duel challenge | escrow (if wager), duels/ |
+| Party create | multiplayer/parties/active/, party-membership.yaml |
+| Mail send | multiplayer/escrow/ (if attach), multiplayer/mail/ |
+| Guild create | multiplayer/guilds/ directory, persona (gold) |
+| Duel challenge | multiplayer/escrow/ (if wager), multiplayer/duels/ |

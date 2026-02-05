@@ -21,8 +21,9 @@ gh pr create --title "..." --body "..."
 **Never push directly to main.** PRs enable peer review and proper Tokes attribution.
 
 **CRITICAL: Credit goes to the PLAYER, not Claude.** When creating claims or commits:
+
 - Use the player's GitHub username and weaver name from their ledger
-- Check `tokes/ledgers/<github>.yaml` for their weaver name
+- Check `worlds/<world>/tokes/ledgers/<github>.yaml` for their weaver name (default world: `alpha`)
 - Example: If helping `matt-davison`, credit goes to weaver "Coda"
 
 ## Claim Credit (Tokes) After Merging
@@ -32,9 +33,10 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 **IMPORTANT: Identify the player first:**
 
 1. Get GitHub username: `gh api user -q '.login'` or check git config
-2. Find their ledger: `tokes/ledgers/<github>.yaml`
-3. Get their weaver name from the ledger's `weaver:` field
-4. Use THEIR github and weaver name in claims, not yours
+2. Determine world (default: `alpha`, see `worlds.yaml`)
+3. Find their ledger: `worlds/<world>/tokes/ledgers/<github>.yaml`
+4. Get their weaver name from the ledger's `weaver:` field
+5. Use THEIR github and weaver name in claims, not yours
 
 **Example:** If working for user `matt-davison` whose character is `Coda`:
 
@@ -44,13 +46,13 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 
 **For small contributions (< 15 Tokes):**
 
-- Add transaction directly to `tokes/ledgers/<github>.yaml`
-- Create claim file in `tokes/claims/` mirroring world structure
+- Add transaction directly to `worlds/<world>/tokes/ledgers/<github>.yaml`
+- Create claim file in `worlds/<world>/tokes/claims/` mirroring world structure
 
 **For large contributions (15+ Tokes):**
 
-- Submit to `tokes/pending/` for peer review
-- Use template from `tokes/pending/README.md`
+- Submit to `worlds/<world>/tokes/pending/` for peer review
+- Use template from `worlds/<world>/tokes/pending/README.md`
 - Name file: `<weaver>-<description>.yaml`
 
 **Tokes values:**
@@ -66,7 +68,7 @@ Agent Quest uses a Tokes economy for contributions. **Credits always go to the P
 
 ## Update Chronicles
 
-For significant story events, add to `chronicles/volume-1.md`.
+For significant story events, add to `worlds/<world>/chronicles/volume-1.md`.
 
 ## Playing Agent Quest
 
@@ -92,13 +94,35 @@ See `rules/narrative.md` and `quick-ref/storytelling.md`.
 ## File Organization
 
 ```
-.claude/agents/                    - Claude Code agents for game mechanics
+# World Registry (root level)
+worlds.yaml                       - Registry of all worlds (default: alpha)
+
+# Per-World Content (everything world-specific)
+worlds/<world>/                          - World directory (e.g., alpha/)
+  world.yaml                      - World metadata and settings
+  abilities/                      - Ability definitions
+  campaigns/                      - Campaign content (acts, chapters)
+  chronicles/                     - Player history chronicles
+  factions/                       - Faction definitions
+  items/                          - Item database
+  locations/                      - World locations
+  lore/                           - World lore and history
+  multiplayer/                    - Trades, parties, mail, guilds, duels
+  npcs/                           - NPC profiles and index
+  players/<github>/               - Player data and personas
+  quests/                         - Standalone quests
+  religions/                      - Religion definitions
+  shops/                          - Shop inventories
+  skills/                         - Game skills
+  state/                          - World state (time, weather, events)
+  tokes/                          - Economy (ledgers, claims, pending)
+
+# Shared (game system only)
+.claude/agents/                   - Claude Code agents for game mechanics
 .claude/skills/play-agent-quest/  - Game rules, templates, references
-campaigns/                         - Campaign content (acts, chapters)
-players/<github>/                  - Player data and personas
-quests/                           - Standalone quests
-tokes/                            - Economy (ledgers, claims, pending)
-world/                            - Locations, NPCs, items, lore
+rules/                            - Game rules documentation
+scripts/                          - Validation and utility scripts
+templates/                        - Content creation templates
 ```
 
 ## Agent Architecture
@@ -106,6 +130,7 @@ world/                            - Locations, NPCs, items, lore
 Game mechanics are handled by Claude Code agents in `.claude/agents/`. These are automatically invoked based on their descriptions - no manual delegation needed.
 
 **Current agents:**
+
 - `combat-manager` - Combat mechanics, attacks, damage
 - `economy-validator` - Tokes/gold transaction validation
 - `state-writer` - File writes with validation and rollback
@@ -155,6 +180,7 @@ When playing or developing Agent Quest, actively look for:
 ### Remember To
 
 - **Create a PR before session ends** - no PR means no Tokes, lost work
+- **ALWAYS** persist new creations and updates
 - Update `balance` field when modifying Tokes ledgers
 - Add chronicle entries for major events
 - Check delayed consequences at session start

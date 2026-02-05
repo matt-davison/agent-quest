@@ -23,11 +23,12 @@ After any action that changes game state:
 
 ```yaml
 operation: "write_state"
+world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
 writes:
-  - file: "<relative-path>"
+  - file: "<relative-path>"  # Paths are relative to world directory
     action: "update" | "create" | "append"
     content: <yaml-content>
     section: "<optional-section-to-update>"
@@ -43,13 +44,13 @@ chronicle_entry: "<optional-significant-event-description>"
 
 **CRITICAL:** Enforce absolute player isolation.
 
-Allowed write paths for player:
-- `players/${github}/`
-- `multiplayer/trades/escrow/${github}.yaml`
-- `multiplayer/mail/${github}/`
-- `tokes/ledgers/${github}.yaml`
-- `tokes/claims/**/*-${github}-*.yaml`
-- `world/state/presence.yaml` (own presence only)
+Allowed write paths for player (within world directory):
+- `worlds/${world}/players/${github}/`
+- `worlds/${world}/multiplayer/trades/escrow/${github}.yaml`
+- `worlds/${world}/multiplayer/mail/${github}/`
+- `worlds/${world}/tokes/ledgers/${github}.yaml`
+- `worlds/${world}/tokes/claims/**/*-${github}-*.yaml`
+- `worlds/${world}/state/presence.yaml` (own presence only)
 
 Reject writes outside allowed paths with `UNAUTHORIZED_WRITE`.
 
@@ -65,7 +66,7 @@ Process each write operation:
 
 ### 3. Add Chronicle Entry (if provided)
 
-Append to `chronicles/volume-1.md`:
+Append to `worlds/${world}/chronicles/volume-1.md`:
 
 ```yaml
 - date: "YYYY-MM-DD"
@@ -92,9 +93,9 @@ If validation fails, rollback all changes and return error.
 ```yaml
 success: true | false
 files_written:
-  - path: "players/matt-davison/personas/coda/persona.yaml"
+  - path: "alpha/players/matt-davison/personas/coda/persona.yaml"
     action: "update"
-  - path: "chronicles/volume-1.md"
+  - path: "alpha/chronicles/volume-1.md"
     action: "append"
 validation:
   tokes: "passed" | "skipped" | "failed"
@@ -111,7 +112,7 @@ narrative_hooks:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/persona.yaml"
+  - file: "players/<github>/personas/<char>/persona.yaml"  # Relative to worlds/${world}/
     action: "update"
     section: "stats"
     content:
@@ -123,7 +124,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/persona.yaml"
+  - file: "players/<github>/personas/<char>/persona.yaml"  # Relative to worlds/${world}/
     action: "append"
     section: "inventory"
     content:
@@ -136,7 +137,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "tokes/ledgers/<github>.yaml"
+  - file: "tokes/ledgers/<github>.yaml"  # Relative to worlds/${world}/
     action: "append"
     section: "transactions"
     content:
@@ -181,10 +182,10 @@ Before persisting inventory changes, validate all item IDs against the database:
 
 ```bash
 # Validate a single item
-node .claude/skills/inventory/inventory.js get <item_id>
+node .claude/skills/inventory/inventory.js --world=${world} get <item_id>
 
 # Bulk validate inventory YAML (preferred for multiple items)
-node .claude/skills/inventory/inventory.js validate '<inventory_yaml>'
+node .claude/skills/inventory/inventory.js --world=${world} validate '<inventory_yaml>'
 ```
 
 **Rules:**
@@ -195,7 +196,7 @@ node .claude/skills/inventory/inventory.js validate '<inventory_yaml>'
 **Example - Validating inventory update:**
 ```bash
 # Before writing inventory changes:
-node .claude/skills/inventory/inventory.js validate '[{"id":"iron-sword","quantity":1},{"id":"health-potion","quantity":3}]'
+node .claude/skills/inventory/inventory.js --world=${world} validate '[{"id":"iron-sword","quantity":1},{"id":"health-potion","quantity":3}]'
 ```
 
 **Error Response:**

@@ -43,6 +43,11 @@ public:
     - "Stands when delivering important news"
     - "Eye softens almost imperceptibly when impressed"
 
+# === FACTION HISTORY ===
+former_faction: "the-anchorate"
+former_anchorate_rank: "Pattern-Witness"
+left_reason: "Resigned after approving corrupted content that caused harm"
+
 # === HIDDEN INFORMATION ===
 hidden:
   true_age: 52
@@ -68,6 +73,16 @@ hidden:
       content: "She's noticed irregularities in quest assignments—someone is manipulating the board"
       unlock_condition: "standing >= 5 AND flag:proven_reliable"
       mend_dc: 12
+
+    - id: "anchorate_past"
+      content: "Steele was once a Pattern-Witness in the Anchorate. She approved a quest that seemed stable—but contained hidden corruption. The quest killed her daughter and a village of innocents. She left the order in shame, unable to trust her own judgment."
+      unlock_condition: "standing >= 7 AND flag:asked_about_anchorate"
+      mend_dc: 18
+
+    - id: "corruption_connection"
+      content: "The corrupted quest Steele approved and the corrupted quest board assignments share a signature—the same entity may be behind both. She suspects someone inside the Anchorate is compromised."
+      unlock_condition: "standing >= 8 AND flag:guild_concerns_known AND flag:anchorate_past_known"
+      mend_dc: 20
 
   motivations:
     - "Keep adventurers alive through proper preparation"
@@ -174,6 +189,25 @@ dialogue:
         *long pause* The incident... A construct. Corrupted Architect code.
         Village needed evacuation. I bought them time. *arm whirs* Worth
         the cost. Mostly.
+
+    the_anchorate:
+      default: "*jaw tightens* The Anchorate. Reality witnesses. They do important work."
+      standing_5: |
+        *mechanical arm whirs loudly* I was one of them, once. Pattern-Witness.
+        I reviewed proposed changes before they became permanent. Thought I was
+        good at it.
+      standing_7: |
+        *voice drops, eye looks away* I approved a quest. Looked stable.
+        Harmonic. I was wrong. There was corruption hidden in the code—
+        corruption I should have seen. People died. My daughter died. I
+        resigned the next day. My judgment... cannot be trusted for
+        witnessing. Never again.
+      standing_8: |
+        *grips desk edge* The corruption in that quest—I've seen its signature
+        again. In the board. Someone is playing the same game. And this time,
+        I will find them. But I cannot investigate the Anchorate myself. My
+        history disqualifies me. If you have any standing with them...
+        *leaves the thought unfinished*
 
     the_guild:
       default: |

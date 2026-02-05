@@ -304,14 +304,17 @@ GitHub Actions run on all PRs and pushes to main:
 
 PRs that fail validation cannot be merged.
 
-### 3. Session Audit Logging
+### 3. Session Audit Logging (Automatic)
 
-Track actions for debugging and compliance:
+**State Writer automatically logs all actions** to `players/<github>/session-audit.yaml`.
 
+This means:
+- Using State Writer = action is logged with subagent chain
+- Bypassing State Writer = action is NOT logged
+- Missing audit entries = detectable rule violations
+
+View and validate with:
 ```bash
-# Log an action with subagents used
-node scripts/session-audit.js log <github> <action> --subagents combat-manager,state-writer
-
 # View session history
 node scripts/session-audit.js view <github>
 
@@ -319,7 +322,7 @@ node scripts/session-audit.js view <github>
 node scripts/session-audit.js validate <github>
 ```
 
-Actions that require specific subagents are flagged if those subagents weren't used.
+The audit is **not voluntary** - it's a side effect of using State Writer correctly.
 
 ### 4. Action → Subagent Requirements
 

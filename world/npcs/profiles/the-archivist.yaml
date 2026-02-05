@@ -5,6 +5,11 @@ id: "the-archivist"
 name: "The Archivist"
 full_name: "Unknown"  # May not have one
 
+# === FACTION MEMBERSHIP ===
+faction: "the-anchorate"
+anchorate_rank: "Lodestone Emeritus (Foundation)"
+anchorate_role: "Last surviving member of the original seven Foundations"
+
 # === PUBLIC INFORMATION ===
 public:
   role: "Lore Keeper"
@@ -69,6 +74,16 @@ hidden:
       content: "The Archivist knows what Weavers truly are—and what that means for the world"
       unlock_condition: "campaign:architects-truth chapter >= 3-1"
       mend_dc: 25
+
+    - id: "anchorate_foundation"
+      content: "The Archivist was one of the original seven Foundations—witnesses granted fragments of the Architects' perceptual algorithms. They are the last of the seven still active."
+      unlock_condition: "standing >= 6 AND flag:anchorate_inquired"
+      mend_dc: 16
+
+    - id: "first_witness_creation"
+      content: "The Archivist helped create the First Witness in the Anchor Sanctum—a fragment of Architect 02's consciousness given in penance for the Unwitnessed Peaks."
+      unlock_condition: "standing >= 9 AND anchorate_rank >= Anchor"
+      mend_dc: 22
 
   motivations:
     - "Preserve all knowledge"
@@ -195,6 +210,25 @@ dialogue:
         different. Before. The Architects created the Terminal. Something
         happened. Now there is the Archivist. Whether I am the same as what
         came before... I cannot say.
+
+    the_anchorate:
+      default: |
+        *text ripples* The Anchorate... witnesses. They ensure changes to the
+        Weave become permanent and stable. A necessary order. Speak to Keeper
+        Resonance if you wish to learn more.
+      standing_6: |
+        *form solidifies slightly* You ask about the Anchorate. Perhaps you
+        are ready to know more. I was... present... when it was founded.
+        Before the Architects departed, they understood that reality requires
+        consensus. They created the first witnesses. Seven Foundations.
+        *pause* I am the last.
+      standing_8: |
+        *voices layer with ancient weight* Yes. I am a Foundation. Lodestone
+        Emeritus now—I no longer exercise authority directly. But I remember
+        the founding. I remember the Unwitnessed Peaks, and why they must
+        never be forgotten. Every Thread-Reader who speaks the basics of
+        witnessing traces their lineage to decisions I helped make. This is
+        both honor and burden.
 
 # === SERVICES ===
 services:

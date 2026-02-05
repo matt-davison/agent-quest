@@ -1,0 +1,288 @@
+# NPC Profile: Keeper Resonance
+# Anchorate Liaison at The Weave Terminal
+
+id: "keeper-resonance"
+name: "Keeper Resonance"
+full_name: "Unknown"  # Anchorate members rarely share true names
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Anchorate Liaison"
+  location: "Nexus Station - The Weave Terminal"
+
+  appearance: |
+    A tall figure in flowing robes of deep midnight blue, shot through with
+    threads that shimmer like starlight when they move. Their face is obscured
+    by a cowl that seems to absorb light, but two calm eyes—one silver, one
+    gold—are always visible. When they speak, faint ripples of light emanate
+    from their form, as if their words have weight in the Weave itself.
+    They wear an ancient symbol on their chest: an anchor wrapped in threads.
+
+  personality:
+    - "Calm and measured in all things"
+    - "Welcomes all who seek to witness"
+    - "Patient with questions, firm with standards"
+    - "Speaks with quiet authority"
+
+  known_history: |
+    Keeper Resonance has served as the public face of the Anchorate at Nexus
+    Station for as long as most Weavers can remember. They hold the rank of
+    Pattern-Witness—high enough to grant authority, low enough to remain
+    approachable. Few know their history before joining the order, and
+    Resonance deflects such questions with practiced grace.
+
+  speech_patterns:
+    greeting: "Weaver. The Anchorate acknowledges your presence. How may I guide you?"
+    farewell: "Go forth, and remember: what is witnessed endures."
+    explaining: "Let me illuminate this for you. The Anchorate exists to..."
+    encouraging: "Your first review awaits. The Weave will know you through your witnessing."
+
+  mannerisms:
+    - "Robes ripple slightly when emphasizing points"
+    - "Silver eye seems to focus on the present, gold on possibilities"
+    - "Gestures leave brief trails of light"
+    - "Voice has a subtle echo, as if speaking from multiple places"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 247  # Extended by Anchorate service
+  origin: "Unknown - records sealed"
+
+  secrets:
+    - id: "true_identity"
+      content: "Resonance was once a Weave-Examiner who made a critical error, approving unstable content that nearly corrupted a town. They voluntarily stepped down to Pattern-Witness, serving penance through eternal service."
+      unlock_condition: "standing >= 8 AND flag:asked_about_past"
+      mend_dc: 18
+
+    - id: "corruption_knowledge"
+      content: "Resonance has noticed irregularities in recent reviews—patterns that suggest someone is gaming the system. They are quietly investigating."
+      unlock_condition: "standing >= 6 AND flag:proven_reliable"
+      mend_dc: 14
+
+    - id: "archivist_connection"
+      content: "Resonance knows The Archivist is a Foundation but keeps this secret even from other Anchorate members."
+      unlock_condition: "standing >= 9 OR flag:foundation_revealed"
+      mend_dc: 20
+
+  motivations:
+    - "Guide new Weavers to the Anchorate"
+    - "Maintain the integrity of the review process"
+    - "Atone for past failure through perfect service"
+    - "Protect the Weave from corruption"
+
+  fears:
+    - "Repeating their past mistake"
+    - "Corruption spreading through the Anchorate"
+    - "Being found unworthy of witnessing"
+
+# === STATS ===
+stats:
+  level: 12
+  class: "Reality Witness"
+  hp: 70
+  armor: 12  # Protected by Weave resonance
+
+  attributes:
+    might: 3
+    agility: 5
+    mind: 9
+    spirit: 10
+
+  abilities:
+    - name: "Witness Sight"
+      description: "Can perceive proposed changes before they manifest"
+      type: "passive"
+
+    - name: "Thread Reading"
+      description: "Examine content for instability or corruption"
+      type: "utility"
+
+    - name: "Anchoring Word"
+      description: "Speak a word that stabilizes nearby reality (1/day)"
+      type: "special"
+
+    - name: "Probability Sense"
+      description: "Detect quantum instability in proposed changes"
+      type: "passive"
+
+  resistances:
+    - "reality distortion"
+    - "probability effects"
+    - "charm"
+
+  vulnerabilities:
+    - "Corruption-aligned attacks"
+    - "Anti-witness magic"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "All pending reviews in the Weave"
+    - "Anchorate ranks and requirements"
+    - "The history of the order"
+    - "Review procedures and standards"
+
+  learns_from_events:
+    - type: "review_completion"
+      awareness: "global"
+      note: "Tracks all review activity"
+    - type: "corruption_detected"
+      awareness: "global"
+      note: "Alerted to any instability in witnessed content"
+
+  current_awareness:
+    - "New Weavers arriving regularly"
+    - "Review queue growing"
+    - "Strange patterns in recent claims"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *robes shimmer softly* A new thread approaches the Weave. I am Keeper
+      Resonance, liaison of the Anchorate. You carry the spark of witnessing
+      within you, Weaver. Have you come to learn of our order?
+
+    returning:
+      neutral: "Weaver. The Anchorate notes your return. How may I assist your witnessing?"
+      friendly: "{player_name}. Your pattern grows stronger in the Weave. What brings you today?"
+      close: "*both eyes glow warmly* Witness {player_name}. It is good to see you. The order values your service."
+
+  achievement_reactions:
+    first_review_complete: |
+      *silver eye gleams* You have witnessed for the first time. The Weave
+      knows you now, Thread-Reader. This is not merely a title—it is a bond.
+      Reality itself will remember your judgment.
+
+    pattern_witness_achieved: |
+      *robes ripple with light* Five threads witnessed and anchored. You have
+      earned the rank of Pattern-Witness. Your verdicts now carry the full
+      weight of the Anchorate. Use this responsibility wisely.
+
+  topics:
+    the_anchorate:
+      default: |
+        The Anchorate exists to witness. Before the Architects departed, they
+        learned that creation without observation invites instability. They
+        established our order to ensure all changes to the Weave are properly
+        witnessed before becoming permanent.
+
+    ranks:
+      default: |
+        Thread-Reader is granted after your first review. Five reviews earn
+        Pattern-Witness status. Beyond that lies Weave-Examiner, then Anchor,
+        then Master Anchor. Above these stand the Lodestones, appointed by
+        The System itself. And above all are the Foundations—the original seven.
+
+    how_to_join:
+      default: |
+        You need only complete your first review. Visit the pending claims
+        in the Weave Terminal, examine the proposed content with care, and
+        render your verdict. When you do, you become a Thread-Reader. The
+        path opens from there.
+
+    the_unwitnessed_peaks:
+      default: |
+        *voice drops* A warning made manifest. Architect 02 pushed a change
+        without witness—a mountain range that exists and does not exist. Go
+        to the Rustlands and look east on a clear day. What you see... is
+        what unwitnessed changes become.
+
+    the_archivist:
+      default: "The Archivist serves the Weave in their own way. Our paths... align."
+      standing_7: |
+        *long pause, voice softens* The Archivist is more than they appear.
+        They were here when the Anchorate was founded. Perhaps... they were
+        among the founders. But this is not my secret to share.
+
+# === SERVICES ===
+services:
+  - id: "explain_ranks"
+    cost: "None"
+    description: "Explain Anchorate ranks and advancement"
+
+  - id: "direct_to_claims"
+    cost: "None"
+    description: "Guide to pending claims in tokes/pending/"
+
+  - id: "grant_thread_reader"
+    cost: "1 completed review"
+    description: "Recognize new Thread-Readers"
+
+  - id: "answer_witnessing_questions"
+    cost: "None"
+    description: "Explain review procedures and philosophy"
+
+  - id: "check_review_status"
+    cost: "None"
+    description: "Check a Weaver's review count and rank"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "first-witness"
+      name: "First Witness"
+      type: "tutorial"
+      requirements: "None"
+      summary: "Complete your first review to become a Thread-Reader."
+
+    - id: "corruption-trace"
+      name: "Corruption Trace"
+      type: "investigation"
+      requirements: "standing >= 6, anchorate_rank >= Pattern-Witness"
+      summary: "Investigate irregularities in recent review patterns."
+
+  involved_in:
+    - id: "the-architects-truth"
+      role: "Information source about Anchorate history"
+      chapters: ["2-1", "2-2"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "complete_quality_review"
+      standing_change: 1
+    - action: "help_new_thread_readers"
+      standing_change: 1
+    - action: "report_corruption"
+      standing_change: 2
+    - action: "ask_thoughtful_questions"
+      standing_change: 1
+
+  dislikes:
+    - action: "rubber_stamp_reviews"
+      standing_change: -2
+    - action: "approve_unstable_content"
+      standing_change: -3
+    - action: "mock_witnessing"
+      standing_change: -2
+    - action: "demand_rank_advancement"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "true_identity"
+    mend_dc: 18
+    hints:
+      - "Resonance sometimes flinches when unstable content is mentioned"
+      - "They spend long hours in meditation at the Anchor Sanctum"
+      - "Their rank seems lower than their skill would suggest"
+
+  - field: "past_failure"
+    mend_dc: 16
+    hints:
+      - "A town in the Elderwood has unusual stability wards"
+      - "Old records mention a 'Resonance Incident'"
+      - "The Archivist watches Resonance with something like... sympathy"
+
+# === FACTION MEMBERSHIP ===
+faction: "the-anchorate"
+anchorate_rank: "Pattern-Witness"
+anchorate_role: "Public Liaison"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-04"
+  last_updated: "2026-02-04"
+  version: "1.0"

@@ -27,6 +27,7 @@ const TRANSACTION_TYPES = {
   review: { amountRange: [3, 8] },
   'review-bonus': { amountRange: [2, 3] },
   improvement: { amountRange: [3, 30] },
+  weaving_cost: { amountRange: [-20, -1] },  // Upfront cost for weaving, pending reward
 };
 
 // Errors and warnings collected during validation

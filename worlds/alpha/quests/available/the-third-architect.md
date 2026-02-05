@@ -159,13 +159,15 @@ This quest represents one of the deepest mysteries in the Weave. The Third Archi
 
 ```yaml
 id: "the-third-architect"
-status: available
+status: completed
 type: legendary
 difficulty: hard
 discovered_by: "matt-davison"
 github: "matt-davison"
 created_date: "2026-02-02"
-fragments_found: 1
+completed_by: "riven-echomind"
+completed_date: "2026-02-05"
+fragments_found: 3
 
 # Level requirements
 level:

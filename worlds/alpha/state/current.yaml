@@ -67,7 +67,8 @@ flags:
   first_architect_revealed: false
   debugging_wars_referenced: true
   total_weavers_registered: 0
-  quests_completed_global: 0
+  quests_completed_global: 1
+  architect_03_awakened: true
   echo-riven-awakened: true
   lost-weavers-returned: true
   beyond-contact-established: true

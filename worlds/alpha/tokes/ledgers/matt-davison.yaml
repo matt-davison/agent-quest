@@ -209,4 +209,11 @@ transactions:
     content_path: worlds/alpha/locations/the-between/README.md
     character: echo-riven
     pending_reward: true
-balance: 377
+  - id: riven-echomind-001
+    timestamp: "2026-02-05T15:00:00Z"
+    type: earn
+    amount: 50
+    description: "Completed legendary quest 'The Third Architect' - found all 3 fragments, awakened Architect 03, received Architect's Key and The Right Question ability"
+    character: riven-echomind
+    quest: "the-third-architect"
+balance: 427

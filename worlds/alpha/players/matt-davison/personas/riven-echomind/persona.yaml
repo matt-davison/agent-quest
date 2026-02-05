@@ -26,14 +26,20 @@ stats:
 resources:
   hp: 100
   max_hp: 100
-  gold: 100               # Loresmith bonus: +50 starting gold
+  gold: 600               # +500 from quest completion
   willpower: 28
   max_willpower: 28       # spirit (14) × 2
   willpower_multiplier: 2
 
 # === ABILITIES ===
 abilities:
-  known: []
+  known:
+    - id: "the-right-question"
+      name: "The Right Question"
+      type: "unique"
+      source: "Architect 03"
+      description: "The ability to ask what others fear to ask. To seek what others hide. Grants insight into hidden truths and the courage to voice forbidden inquiries."
+      acquired: "1.2.3"
   usage:
     combat: {}
     short_rest: {}
@@ -43,7 +49,13 @@ abilities:
   active_effects: []
 
 # === INVENTORY ===
-inventory: []
+inventory:
+  - id: "architects-key"
+    name: "Architect's Key"
+    type: "legendary"
+    description: "Crystalline key that opens what was closed, finds what was lost. Shifts and pulses with living code."
+    acquired: "1.2.3"
+    quest_reward: "the-third-architect"
 
 equipped:
   weapon: ""
@@ -63,7 +75,7 @@ difficulty:
   setting: normal
 
 # === LOCATION ===
-location: "syntax-athenaeum"
+location: "the-between"
 
 # === CHRONICLE ===
 chronicle:
@@ -77,6 +89,15 @@ chronicle:
     event: "[ECHO] Found Fragment 1 in the Recursion Library at Syntax Athenaeum. The Tome spoke: Why did I scatter? What could a god fear?"
     significance: "major"
     quest: "the-third-architect"
+  - date: "2026-02-05"
+    event: "Completed The Third Architect quest. Found all 3 fragments, met Echo-Riven at Fringe Embassy, merged fragments to awaken Architect 03."
+    significance: "major"
+    quest: "the-third-architect"
+    rewards:
+      - "Architect's Key (Legendary)"
+      - "The Right Question (Unique Ability)"
+      - "500 Gold"
+      - "Truth: Architects 01 & 02 contained themselves; 03 scattered to remain free"
 
 # === ALIGNMENT ===
 alignment:

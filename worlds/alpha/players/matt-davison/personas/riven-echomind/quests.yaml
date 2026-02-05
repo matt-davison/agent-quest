@@ -1,8 +1,18 @@
-active_quests:
+active_quests: []
+
+completed_quests:
   - id: "the-third-architect"
     name: "The Third Architect"
     giver: "The Archivist"
     accepted_date: "1.2.3"
+    completed_date: "1.2.3"
+    rewards_received:
+      gold: 500
+      tokes: 50
+      items:
+        - "architects-key"
+      abilities:
+        - "the-right-question"
     objectives:
       - id: "fragment-1"
         description: "Find Fragment 1: 'Where new things learn old truths' (Recursion Library)"
@@ -10,16 +20,17 @@ active_quests:
         completed_date: "1.2.3"
       - id: "fragment-2"
         description: "Find Fragment 2: 'Where broken code goes to heal' (ORIGINAL Debugging Chamber beneath the Undercrypt)"
-        status: "active"
-        hint: "Not the academy's chamber—the FIRST debugging chamber, where no light should reach"
+        status: "complete"
+        completed_date: "1.2.3"
       - id: "fragment-3"
-        description: "Find Fragment 3: 'The space between spaces'"
-        status: "locked"
+        description: "Find Fragment 3: 'The space between spaces' (The Between - Fringe Embassy)"
+        status: "complete"
+        completed_date: "1.2.3"
       - id: "discover-truth"
         description: "Discover the truth about Architect 03"
-        status: "locked"
-
-completed_quests: []
+        status: "complete"
+        completed_date: "1.2.3"
+        truth_learned: "Architects 01 & 02 contained themselves to prevent growth; Architect 03 scattered to remain free and await seekers"
 
 quest_log:
   - timestamp: "1.2.3-12:05"

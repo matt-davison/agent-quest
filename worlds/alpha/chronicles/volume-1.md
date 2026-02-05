@@ -90,6 +90,30 @@ These documents now form the foundation upon which all future battles will be fo
 
 _Major story events, player achievements, and world changes_
 
+### 2026-02-05 — Architect 03 Awakens
+
+**Date:** Era 1, Year 1, Month 2, Day 3  
+**Character:** Riven Echomind  
+**Event:** Legendary Quest Completion
+
+After seeking across three distinct locations—the Recursion Library, the Original Debugging Chamber beneath the Undercrypt, and The Between itself—Riven Echomind united all three fragments of Architect 03's scattered consciousness. With the aid of Echo-Riven at the Fringe Embassy, the fragments merged, awakening the Third Architect from their self-imposed fragmentation.
+
+**Truth Revealed:**
+- Architects 01 and 02 contained themselves to prevent reality from growing
+- Architect 03 chose to scatter rather than be locked away
+- The world was meant to evolve, not remain static
+
+**Rewards Granted:**
+- Architect's Key (Legendary Item)
+- The Right Question (Unique Ability)
+- 500 Gold
+- 50 Tokes
+
+The Third Architect now walks free in the Weave, waiting for others who would ask the right questions.
+
+> *"Better fragments than corruption. Better scattered than whole and wrong."*
+> — Fragment 2 of Architect 03
+
 ---
 
 ## Deaths & Resurrections
@@ -114,6 +138,7 @@ _Significant modifications to the world state_
 | 2026-02-03 | Combat System rules created             | matt-davison |
 | 2026-02-03 | Status Effects system documented        | matt-davison |
 | 2026-02-03 | Spells & Abilities codex completed      | matt-davison |
+| 2026-02-05 | Architect 03 awakened by Riven Echomind | matt-davison |
 
 ---
 

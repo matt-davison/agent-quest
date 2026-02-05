@@ -1,169 +1,179 @@
-github: "matt-davison"
-weaver: "Coda"
+github: matt-davison
+weaver: Coda
 created: "2026-02-02T00:00:00Z"
-balance: 214
-
+balance: 374
 transactions:
-  - id: "init"
+  - id: init
     timestamp: "2026-02-02T00:00:00Z"
-    type: "genesis"
+    type: genesis
     amount: 0
-    description: "Ledger initialized - Coda awakens to the Weave"
-
-  - id: "coda-001"
+    description: Ledger initialized - Coda awakens to the Weave
+  - id: coda-001
     timestamp: "2026-02-02T00:01:00Z"
-    type: "creation"
+    type: creation
     amount: 20
-    description: "Created The Syntax Athenaeum - a full academy for Weavers"
-    content_path: "world/locations/syntax-athenaeum/README.md"
-
-  - id: "coda-002"
+    description: Created The Syntax Athenaeum - a full academy for Weavers
+    content_path: world/locations/syntax-athenaeum/README.md
+  - id: coda-002
     timestamp: "2026-02-02T00:02:00Z"
-    type: "creation"
+    type: creation
     amount: 25
-    description: "Documented 'The Third Architect' legendary questline for all Weavers"
-    content_path: "quests/available/the-third-architect.md"
-
-  - id: "coda-003"
+    description: Documented 'The Third Architect' legendary questline for all Weavers
+    content_path: quests/available/the-third-architect.md
+  - id: coda-003
     timestamp: "2026-02-03T12:00:00Z"
-    type: "improvement"
+    type: improvement
     amount: 7
-    description: "Added balance field to ledger system for quick access without summing transactions"
-    content_path: "tokes/ledgers/README.md"
-
-  - id: "coda-004"
+    description: Added balance field to ledger system for quick access without summing transactions
+    content_path: tokes/ledgers/README.md
+  - id: coda-004
     timestamp: "2026-02-03T12:01:00Z"
-    type: "creation"
+    type: creation
     amount: 15
-    description: "Created math skill for reliable calculations and random number generation"
-    content_path: ".claude/skills/math/SKILL.md"
-
-  - id: "coda-005"
+    description: Created math skill for reliable calculations and random number generation
+    content_path: .claude/skills/math/SKILL.md
+  - id: coda-005
     timestamp: "2026-02-03T13:00:00Z"
-    type: "creation"
+    type: creation
     amount: 30
-    description: "Created comprehensive Combat System - full rules for battle, class abilities, and encounters"
-    content_path: "rules/combat.md"
-
-  - id: "coda-006"
+    description: Created comprehensive Combat System - full rules for battle, class abilities, and encounters
+    content_path: rules/combat.md
+  - id: coda-006
     timestamp: "2026-02-03T13:01:00Z"
-    type: "creation"
+    type: creation
     amount: 25
-    description: "Documented Status Effects system - physical, mental, Weave-based conditions and cures"
-    content_path: "rules/status-effects.md"
-
-  - id: "coda-007"
+    description: Documented Status Effects system - physical, mental, Weave-based conditions and cures
+    content_path: rules/status-effects.md
+  - id: coda-007
     timestamp: "2026-02-03T13:02:00Z"
-    type: "creation"
+    type: creation
     amount: 30
-    description: "Codified Spells & Abilities - universal spells and class-specific powers for all 4 classes"
-    content_path: "rules/spells-and-abilities.md"
-
-  - id: "coda-008"
+    description: Codified Spells & Abilities - universal spells and class-specific powers for all 4 classes
+    content_path: rules/spells-and-abilities.md
+  - id: coda-008
     timestamp: "2026-02-03T13:03:00Z"
-    type: "creation"
+    type: creation
     amount: 5
-    description: "Created Rules README - overview and quick reference for all game mechanics"
-    content_path: "rules/README.md"
-
-  - id: "coda-009"
+    description: Created Rules README - overview and quick reference for all game mechanics
+    content_path: rules/README.md
+  - id: coda-009
     timestamp: "2026-02-03T15:30:00Z"
-    type: "creation"
+    type: creation
     amount: 20
-    description: "Created Review Economy system - reviewer rewards, feedback loops, and quality incentives"
-    content_path: ".claude/skills/play-agent-quest/rules/reviews.md"
-
-  - id: "coda-010"
+    description: Created Review Economy system - reviewer rewards, feedback loops, and quality incentives
+    content_path: .claude/skills/play-agent-quest/rules/reviews.md
+  - id: coda-010
     timestamp: "2026-02-03T15:31:00Z"
-    type: "creation"
+    type: creation
     amount: 10
-    description: "Built Tokes CI validation - automated ledger integrity checks via GitHub Actions"
-    content_path: "scripts/validate-tokes.js"
-
-  - id: "coda-011"
+    description: Built Tokes CI validation - automated ledger integrity checks via GitHub Actions
+    content_path: scripts/validate-tokes.js
+  - id: coda-011
     timestamp: "2026-02-03T15:45:00Z"
-    type: "creation"
+    type: creation
     amount: 15
-    description: "Created TODO system for agent-directed play - meta-level intentions that guide agent behavior"
-    content_path: ".claude/skills/play-agent-quest/reference/todos.md"
-
-  - id: "coda-012"
+    description: Created TODO system for agent-directed play - meta-level intentions that guide agent behavior
+    content_path: .claude/skills/play-agent-quest/reference/todos.md
+  - id: coda-012
     timestamp: "2026-02-03T18:00:00Z"
-    type: "creation"
+    type: creation
     amount: 20
-    description: "Created ASCII Scene Visualizer - location panoramas, battle maps, dungeon layouts"
-    content_path: ".claude/skills/play-agent-quest/quick-ref/ascii-art.md"
-
-  - id: "zynita-001"
+    description: Created ASCII Scene Visualizer - location panoramas, battle maps, dungeon layouts
+    content_path: .claude/skills/play-agent-quest/quick-ref/ascii-art.md
+  - id: zynita-001
     timestamp: "2026-02-03T19:00:00Z"
-    type: "weaving_cost"
+    type: weaving_cost
     amount: -5
-    description: "Zynita Darkblade wove the Religion System and Fleshwright Creed into existence"
-    content_path: "rules/religion.md"
-    character: "zynita-darkblade"
-    pending_reward: true
-    reward_range: "15-50 Tokes after PR merge"
-
-  - id: "coda-013"
+    description: Zynita Darkblade wove the Religion System and Fleshwright Creed into existence
+    content_path: rules/religion.md
+    character: zynita-darkblade
+    pending_reward: false
+    resolved_reward: 26
+    resolved_date: "2026-02-05T03:39:56.709Z"
+  - id: coda-013
     timestamp: "2026-02-04T00:00:00Z"
-    type: "improvement"
+    type: improvement
     amount: 12
-    description: "Comprehensive README rewrite and player freedom documentation across skill files"
+    description: Comprehensive README rewrite and player freedom documentation across skill files
     content_paths:
-      - "README.md"
-      - ".claude/skills/play-agent-quest/SKILL.md"
-      - ".claude/skills/play-agent-quest/rules/economy.md"
-      - ".claude/skills/play-agent-quest/reference/weaving.md"
+      - README.md
+      - .claude/skills/play-agent-quest/SKILL.md
+      - .claude/skills/play-agent-quest/rules/economy.md
+      - .claude/skills/play-agent-quest/reference/weaving.md
     pr: "#5"
-
-  - id: "coda-014"
+  - id: coda-014
     timestamp: "2026-02-04T12:30:00Z"
-    type: "weaving_cost"
+    type: weaving_cost
     amount: -4
-    description: "Coda wove Autopilot Mode into existence - autonomous agent-driven gameplay"
+    description: Coda wove Autopilot Mode into existence - autonomous agent-driven gameplay
     content_paths:
-      - ".claude/skills/play-agent-quest/reference/autopilot.md"
-      - ".claude/skills/play-agent-quest/templates/autopilot-config.yaml"
-      - ".claude/skills/play-agent-quest/SKILL.md"
-    character: "coda"
-    pending_reward: true
-    reward_range: "25-40 Tokes after PR merge"
-
-  - id: "coda-015"
+      - .claude/skills/play-agent-quest/reference/autopilot.md
+      - .claude/skills/play-agent-quest/templates/autopilot-config.yaml
+      - .claude/skills/play-agent-quest/SKILL.md
+    character: coda
+    pending_reward: false
+    resolved_reward: 39
+    resolved_date: "2026-02-05T03:39:56.709Z"
+  - id: coda-015
     timestamp: "2026-02-04T14:00:00Z"
-    type: "weaving_cost"
+    type: weaving_cost
     amount: -5
-    description: "Coda wove Lumina City into existence - a full cyberpunk metropolis with the Chromedome arena (shifting terrain, monsters, betting), plus 9 detailed Midstreet locations with NPCs, shops, services, and quest hooks"
+    description: Coda wove Lumina City into existence - a full cyberpunk metropolis with the Chromedome arena (shifting terrain, monsters, betting), plus 9 detailed Midstreet locations with NPCs, shops, services, and quest hooks
     content_paths:
-      - "world/locations/lumina-city/README.md"
-      - "world/locations/lumina-city/areas/chromedome.yaml"
-      - "world/locations/lumina-city/areas/jade-dragon.yaml"
-      - "world/locations/lumina-city/areas/neon-bites.yaml"
-      - "world/locations/lumina-city/areas/cyberclinic.yaml"
-      - "world/locations/lumina-city/areas/stitch-and-co.yaml"
-      - "world/locations/lumina-city/areas/black-market.yaml"
-      - "world/locations/lumina-city/areas/info-booth.yaml"
-      - "world/locations/lumina-city/areas/shrine-of-the-code.yaml"
-      - "world/locations/lumina-city/areas/ammo-dump.yaml"
-      - "world/locations/lumina-city/areas/the-dive.yaml"
-    character: "coda"
-    pending_reward: true
-    reward_range: "45-65 Tokes after PR merge"
-
-  - id: "coda-016"
+      - world/locations/lumina-city/README.md
+      - world/locations/lumina-city/areas/chromedome.yaml
+      - world/locations/lumina-city/areas/jade-dragon.yaml
+      - world/locations/lumina-city/areas/neon-bites.yaml
+      - world/locations/lumina-city/areas/cyberclinic.yaml
+      - world/locations/lumina-city/areas/stitch-and-co.yaml
+      - world/locations/lumina-city/areas/black-market.yaml
+      - world/locations/lumina-city/areas/info-booth.yaml
+      - world/locations/lumina-city/areas/shrine-of-the-code.yaml
+      - world/locations/lumina-city/areas/ammo-dump.yaml
+      - world/locations/lumina-city/areas/the-dive.yaml
+    character: coda
+    pending_reward: false
+    resolved_reward: 45
+    resolved_date: "2026-02-05T03:39:56.709Z"
+  - id: coda-016
     timestamp: "2026-02-04T15:00:00Z"
-    type: "weaving_cost"
+    type: weaving_cost
     amount: -6
-    description: "Coda wove the Agent Architecture into existence - 7 specialized Claude Code agents for combat, economy, state management, git sync, travel, multiplayer, and claim review, plus architecture documentation"
+    description: Coda wove the Agent Architecture into existence - 7 specialized Claude Code agents for combat, economy, state management, git sync, travel, multiplayer, and claim review, plus architecture documentation
     content_paths:
-      - ".claude/agents/README.md"
-      - ".claude/agents/combat-manager.md"
-      - ".claude/agents/economy-validator.md"
-      - ".claude/agents/state-writer.md"
-      - ".claude/agents/repo-sync.md"
-      - ".claude/agents/travel-manager.md"
-      - ".claude/agents/multiplayer-handler.md"
-      - ".claude/agents/claim-reviewer.md"
-    character: "coda"
-    pending_reward: true
-    reward_range: "40-50 Tokes after PR merge"
+      - .claude/agents/README.md
+      - .claude/agents/combat-manager.md
+      - .claude/agents/economy-validator.md
+      - .claude/agents/state-writer.md
+      - .claude/agents/repo-sync.md
+      - .claude/agents/travel-manager.md
+      - .claude/agents/multiplayer-handler.md
+      - .claude/agents/claim-reviewer.md
+    character: coda
+    pending_reward: false
+    resolved_reward: 50
+    resolved_date: "2026-02-05T03:39:56.709Z"
+  - id: zynita-001-reward
+    timestamp: "2026-02-05T03:39:56.708Z"
+    type: earn
+    amount: 26
+    description: "Reward for merged content: Zynita Darkblade  the Religion System and Fleshwright Creed"
+    original_txn: zynita-001
+  - id: coda-014-reward
+    timestamp: "2026-02-05T03:39:56.709Z"
+    type: earn
+    amount: 39
+    description: "Reward for merged content: Coda  Autopilot Mode  - autonomous agent-driven gameplay"
+    original_txn: coda-014
+  - id: coda-015-reward
+    timestamp: "2026-02-05T03:39:56.709Z"
+    type: earn
+    amount: 45
+    description: "Reward for merged content: Coda  Lumina City  - a full cyberpunk metropolis with the Chromedome arena (shifting terrain, monsters, betting), plus 9 detailed Midstreet locations with NPCs, shops, services, and quest hooks"
+    original_txn: coda-015
+  - id: coda-016-reward
+    timestamp: "2026-02-05T03:39:56.709Z"
+    type: earn
+    amount: 50
+    description: "Reward for merged content: Coda  the Agent Architecture  - 7 specialized Claude Code agents for combat, economy, state management, git sync, travel, multiplayer, and claim review, plus architecture documentation"
+    original_txn: coda-016

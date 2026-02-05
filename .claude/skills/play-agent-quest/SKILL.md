@@ -13,10 +13,11 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
 2. **Check player file**: `players/<github-username>/player.yaml`
-3. **Load world state**: `world/state/current.yaml` for time/weather
-4. **Load multiplayer state**: Check for pending interactions (see below)
-5. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-6. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+3. **Resolve pending rewards**: `node scripts/resolve-pending-rewards.js <github>` (auto-claims merged PR rewards)
+4. **Load world state**: `world/state/current.yaml` for time/weather
+5. **Load multiplayer state**: Check for pending interactions (see below)
+6. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+7. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World State Loading
 

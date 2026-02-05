@@ -99,6 +99,23 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 
 Each turn: ONE major action. Present choices, ask what they'd like to do.
 
+### State Persistence Checklist
+
+> **CRITICAL: Before finishing EVERY gameplay response, verify:**
+
+| Created This Turn? | Action Required |
+|--------------------|-----------------|
+| New item | Create `world/items/database/<id>.yaml`, add to inventory |
+| New quest/job | Add to player's `quests.yaml` with objectives |
+| New NPC | Create `world/npcs/profiles/<id>.yaml`, update index |
+| New location/area | Create in `world/locations/` |
+| State change (HP, gold, location, inventory) | Update `persona.yaml` |
+| Quest progress | Update objective status in `quests.yaml` |
+
+**Generate IDs:** `node .claude/skills/math/math.js id 8`
+
+**Rule:** If you narrated it happening, it must be in the files. Narrative without persistence = lost progress.
+
 ### Actions
 
 **Players can attempt ANY action** — the table below lists common shortcuts, not limitations. Want to pickpocket an NPC? Seduce a dragon? Hack the weather system? Start a cult? These are all valid. The game accommodates creative solutions.

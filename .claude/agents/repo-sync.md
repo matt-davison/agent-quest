@@ -68,9 +68,10 @@ narrative_hooks:
 ### SAVE - Commit and Push Changes
 
 ```bash
-# 1. Run validation
-node scripts/validate-tokes.js
-node scripts/validate-multiplayer.js
+# 1. Run ALL validators - STOP if any fail
+node scripts/validate-tokes.js || exit 1
+node scripts/validate-multiplayer.js || exit 1
+node scripts/validate-game-state.js || exit 1
 
 # 2. Stage specific files (never git add -A)
 git add players/<github>/
@@ -87,10 +88,18 @@ Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 git push origin <current-branch>
 ```
 
+**CRITICAL:** If any validator fails, DO NOT commit or push. Return the error to the main agent for fixing.
+
 ### END_SESSION - Full Session Save
 
 1. Check for unsaved content (NPCs, locations, items mentioned but not persisted)
-2. Run all validations
+2. **Run ALL validators - STOP if any fail:**
+   ```bash
+   node scripts/validate-tokes.js || exit 1
+   node scripts/validate-multiplayer.js || exit 1
+   node scripts/validate-game-state.js || exit 1
+   ```
+   **If validation fails, return error immediately. Do NOT create PR with broken state.**
 3. Create feature branch if on main
 4. Stage all player-related changes
 5. Create commit with session summary
@@ -124,6 +133,7 @@ git push origin <current-branch>
 ## Validation
 - [x] validate-tokes.js passed
 - [x] validate-multiplayer.js passed
+- [x] validate-game-state.js passed
 
 ---
 Generated with [Claude Code](https://claude.com/claude-code)

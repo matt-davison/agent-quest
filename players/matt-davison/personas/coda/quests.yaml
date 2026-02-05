@@ -19,8 +19,24 @@ active_quests:
         location: "???"
       - description: "Discover the truth about Architect 03"
         status: "incomplete"
+    leads:
+      - source: "Vance Corren"
+        date: "2026-02-05"
+        info: "Fragment of Will is under Nexus Crossroads"
+      - source: "Yara's Coordinates (data chip)"
+        date: "2026-02-05"
+        info: "Last location of Yara Corren, who vanished 43 years ago hunting Architect 03"
+      - source: "Session 6 discovery"
+        date: "2026-02-04"
+        info: "Fragment of Vision in Oracle's Hollow"
 
-completed_quests: []
+
+completed_quests:
+  - id: "memory-courier"
+    name: "Memory Courier"
+    completed_date: "2026-02-05"
+    reward_received: 25  # gold
+    summary: "Delivered a 43-year-old memory to Vance Corren. Discovered his daughter Yara hunted Architect 03 and vanished. Received her last coordinates."
 
 # Quest History Log
 quest_log:
@@ -33,3 +49,20 @@ quest_log:
     action: "objective_complete"
     objective: "Find Fragment 1"
     notes: "Found first fragment in the Recursion Library"
+  - date: "2026-02-05"
+    quest_id: "memory-courier"
+    action: "accepted"
+    notes: "Madame Ling hired Coda to deliver a memory vial to a man in the Chromedome stands. 25g reward."
+  - date: "2026-02-05"
+    quest_id: "memory-courier"
+    action: "objective_complete"
+    objective: "Deliver the Memory Vial"
+    notes: "Delivered to Vance Corren. He recognized the Architect's Fragment — his daughter Yara made it. She vanished 43 years ago hunting Architect 03. Vance gave Coda her last coordinates."
+  - date: "2026-02-05"
+    quest_id: "the-third-architect"
+    action: "lead_discovered"
+    notes: "Vance Corren confirmed Fragment of Will is under Nexus Crossroads. Received Yara's Coordinates — a data chip with her last known location."
+  - date: "2026-02-05"
+    quest_id: "memory-courier"
+    action: "complete"
+    notes: "Returned to Madame Ling, collected 25g. She warned about the shadows under Nexus and offered to buy pre-Architect artifacts."

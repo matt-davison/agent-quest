@@ -147,7 +147,47 @@ npcs:
   # (placeholder for future NPCs)
 
   # --- LUMINA CITY ---
-  # (placeholder for future NPCs)
+
+  madame-ling:
+    name: "Madame Ling"
+    role: "Restaurateur / Memory Broker"
+    default_location: "lumina-city/jade-dragon"
+    region: "lumina"
+    faction: "independents"
+    disposition_default: "neutral"
+    services:
+      - "food"
+      - "drinks"
+      - "memories"
+      - "jobs"
+      - "information"
+    tags:
+      - "merchant"
+      - "information"
+      - "memory_broker"
+      - "quest_giver"
+      - "artifact_collector"
+    has_profile: false
+    profile_priority: "generated"
+
+  vance-corren:
+    name: "Vance Corren"
+    role: "Veteran / Grieving Father"
+    default_location: "lumina-city/chromedome"
+    region: "lumina"
+    faction: "independents"
+    disposition_default: "neutral"
+    services: []
+    tags:
+      - "veteran"
+      - "father"
+      - "grief"
+      - "architect_connection"
+      - "yara_corren"
+    has_profile: true
+    profile_priority: "player-created"
+    notes: "Father of Yara Corren, who vanished 43 years ago hunting Architect 03. Gave Coda her coordinates."
+    created_by: "matt-davison"
 
   # --- THE ELDERWOOD ---
   # (placeholder for future NPCs)

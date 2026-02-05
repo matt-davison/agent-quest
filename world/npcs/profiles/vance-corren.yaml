@@ -1,0 +1,88 @@
+# Vance Corren
+# An old soldier haunted by his daughter's disappearance
+
+id: vance-corren
+name: "Vance Corren"
+title: "The Waiting Father"
+location: lumina-city
+area: chromedome
+
+description: |
+  An old man in a gray coat, sitting alone in the Chromedome stands while
+  the world roars around him. Military-grade cybernetic eye on the left
+  side — an old model, the kind they stopped making decades ago. His organic
+  eye carries forty-three years of grief.
+
+appearance:
+  age: "Late 70s"
+  build: "Wiry, once powerful"
+  features:
+    - "Gray coat, worn but maintained"
+    - "Military cybernetic eye (left) — old model, still sharp"
+    - "Hands that shake until they grip something"
+    - "Voice like rust and gravel"
+
+personality:
+  traits:
+    - "Haunted but not broken"
+    - "Direct, wastes no words"
+    - "Sees more than he says"
+  fears:
+    - "That his daughter suffered"
+    - "That he was right to stop looking"
+  hopes:
+    - "That someone braver will find the truth"
+
+background: |
+  Vance Corren was a soldier in a war nobody remembers anymore. When it
+  ended, he had a daughter — Yara. She grew up asking questions about
+  the world's foundations. About the Architects.
+
+  Forty-three years ago, Yara sent him a memory and a set of coordinates.
+  Then she vanished. Everyone who searched for her vanished too. Vance
+  stopped looking — the only reason he's still alive.
+
+  He's been waiting ever since. For what, he wasn't sure. Until a
+  Datamancer carrying an Architect's Fragment stumbled into his grief.
+
+relationships:
+  - name: "Yara Corren"
+    relation: "Daughter (missing)"
+    status: "Vanished 43 years ago seeking the Third Architect"
+  - name: "Madame Ling"
+    relation: "Memory broker"
+    status: "Sold him his daughter's last memory"
+
+dialogue:
+  greeting: "You're from the Dragon."
+  on_architects: "My daughter hunted them. Look where that got her."
+  on_yara: "She was braver than me. That was her curse."
+  on_nexus: "The Fragment of Will is under Nexus Crossroads. She told me. I never went."
+  farewell: "Watch the shadows, Datamancer. Something lives down there."
+
+secrets:
+  - "Knows more about pre-Lumina history than he lets on"
+  - "His cybernetic eye records everything — forty-three years of footage"
+  - "He didn't just stop looking. Someone warned him. Someone powerful."
+
+quest_hooks:
+  - "Yara's Trail - Find what happened to his daughter"
+  - "The Soldier's Archive - His cybernetic eye holds decades of recordings"
+  - "The Warning - Who told Vance to stop looking, and why?"
+
+schedule:
+  default: "Wanders Lumina City, often found in the Chromedome stands"
+
+standing:
+  default: "neutral"
+
+tags:
+  - veteran
+  - father
+  - grief
+  - architect_connection
+  - yara_corren
+
+created_by: "Coda"
+created_date: "2026-02-05"
+github: "matt-davison"

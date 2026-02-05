@@ -6,6 +6,7 @@ subtype: potion
 rarity: uncommon
 tier: 2
 value: 40
+max_uses: 1
 tags:
   - healing
   - tech

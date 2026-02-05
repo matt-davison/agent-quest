@@ -43,6 +43,61 @@ Each combat round, you may take:
 
 ---
 
+## Attack Familiarity
+
+Enemies learn from repeated attacks. Each time an attack hits a target, that target gains a cumulative defense bonus against future uses of the same attack.
+
+### Familiarity Bonus
+
+| Times Hit | Defense Bonus |
+|-----------|---------------|
+| 1 | +1 |
+| 2 | +2 |
+| 3 | +3 |
+| 4 | +4 |
+| 5+ | +5 (max) |
+
+**Formula:**
+```
+familiarity_bonus = min(times_hit_by_attack, 5)
+adjusted_defense = base_defense + familiarity_bonus
+```
+
+### Rules
+
+- **Tracked per attack**: Weapon ID or ability ID determines the attack type
+- **Per-target tracking**: Each combatant tracks familiarity separately
+- **Only on hit**: Misses don't increase the target's familiarity
+- **Resets at combat end**: All familiarity bonuses clear when combat concludes
+
+### Tactical Implications
+
+**For Players:**
+- Vary your attacks—switch weapons or rotate abilities
+- Save powerful abilities for critical moments
+- First use of an attack is always at full effectiveness
+
+**For Enemies:**
+- They benefit from familiarity too
+- Expect their defense to rise against repeated player attacks
+- Strategic enemies may vary their own attacks
+
+### Example
+
+```bash
+# Round 1: Player attacks with Iron Sword, hits
+# enemy-1 familiarity: iron-sword: 1, enemy gets +1 defense
+
+# Round 2: Player attacks with Iron Sword again
+# Target defense is now base_defense + 1
+# If hit, familiarity becomes 2 (+2 defense next time)
+
+# Round 3: Player switches to Flame Strike
+# Flame Strike has 0 familiarity—full effectiveness
+```
+
+---
+
 ## Attack & Defense
 
 ### Making an Attack
@@ -365,6 +420,20 @@ node .claude/skills/math/math.js calc "12 * (1 - 0.05 * 3)"  # Dmg: 10.2 → 10
 ### Changing Difficulty
 
 Players can change their difficulty setting at any **safe zone**. The change takes effect immediately with no penalties.
+
+### Item Wear (Hard+ Only)
+
+On Hard and Nightmare difficulty, weapons and armor degrade with use:
+
+| Durability % | State | Effect |
+|--------------|-------|--------|
+| 75-100% | Good | No penalty |
+| 50-74% | Worn | -1 damage/armor |
+| 25-49% | Damaged | -2 damage/armor |
+| 1-24% | Failing | -3 damage/armor, 25% fail chance |
+| 0% | Broken | Unusable |
+
+See [rules/difficulty.md](difficulty.md) for full wear mechanics.
 
 ### Enemy Morale
 

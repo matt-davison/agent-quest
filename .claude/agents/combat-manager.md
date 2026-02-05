@@ -123,6 +123,7 @@ combat_state:
   round: 1
   current_turn: "player"
   player_willpower: 36
+  attack_familiarity: {}    # Tracks hits per attack per target for defense bonus
   active_passives:
     - id: "fayrdef5"
       name: "Momentum"
@@ -152,8 +153,11 @@ node .claude/skills/math/math.js calc "(${stat} - 10) / 2"
 # 2. Roll attack
 node .claude/skills/math/math.js roll "1d20+${modifier}"
 
-# 3. Compare to target defense
-# Hit if roll >= defense
+# 3. Compare to target defense (including familiarity bonus)
+# Hit if roll >= adjusted_defense
+# Familiarity bonus: +1 per previous hit with same attack, max +5
+familiarity_bonus = min(attack_familiarity[target_id][attack_id] || 0, 5)
+adjusted_defense = base_defense + familiarity_bonus
 
 # 4. If hit, roll damage
 node .claude/skills/math/math.js roll "${weapon_damage}+${stat_mod}"
@@ -161,6 +165,9 @@ node .claude/skills/math/math.js roll "${weapon_damage}+${stat_mod}"
 # 5. Check for critical (hit by 5+ or natural 20)
 # Critical: double damage dice
 node .claude/skills/math/math.js roll "2${weapon_damage}+${stat_mod}"
+
+# 6. If hit, update attack familiarity for target
+# attack_familiarity[target_id][attack_id] += 1
 ```
 
 **Return:**
@@ -173,10 +180,13 @@ actor: "player"
 action:
   type: "attack"
   target: "enemy-1"
+  attack_id: "iron-sword"     # Weapon/ability ID for familiarity tracking
 resolution:
   attack_roll: 17
   attack_total: 21
-  target_defense: 14
+  target_base_defense: 14
+  familiarity_bonus: 1        # Target hit once before with this attack
+  target_defense: 15          # base + familiarity bonus
   hit: true
   critical: true
   damage_roll: "2d8+3"
@@ -191,6 +201,7 @@ enemy_actions:
   - actor: "enemy-1"
     action: "attack"
     target: "player"
+    attack_id: "shadow-claw"
     attack_total: 12
     hit: false
     narrative: "The Shadow Stalker's claws swipe through empty air"
@@ -199,10 +210,16 @@ combat_state:
   current_turn: "player"
   player_hp: 39
   enemies_remaining: 2
+  attack_familiarity:
+    enemy-1:
+      iron-sword: 2           # Hit twice with sword, +2 defense next time
+    player:
+      shadow-claw: 0          # Enemy missed, no familiarity gained
 narrative_hooks:
   - "Critical hit! Your blade bites deep into shadow-stuff"
   - "The creature recoils, ichor dripping from the wound"
   - "Its counterattack misses as you twist aside"
+  - "The shadow is learning your patterns (+1 defense vs sword)"
 ```
 
 #### Weave Strike (5 Tokes)
@@ -226,6 +243,145 @@ narrative_hooks:
   - "Reality bends to your will - 5 Tokes burn"
   - "The Weave itself strikes, guaranteed 30 damage"
   - "The Shadow Stalker unravels into nothingness"
+```
+
+#### Item Action
+
+When player uses an item in combat, validate and resolve:
+
+**Step 1: Validate Item**
+
+```bash
+# Check item exists in player's inventory
+node .claude/skills/inventory/inventory.js get <item_id>
+
+# Verify item has a usable effect (hp_restore, willpower_restore, damage, buff, debuff)
+```
+
+**Step 2: Check Usage Limits**
+
+```yaml
+# For consumable items (max_uses: 1):
+# - Verify qty > 0
+# - Decrement qty by 1
+# - If qty becomes 0, remove from inventory
+
+# For limited-use items (max_uses > 1):
+# - Check current_uses > 0 (or initialize from max_uses)
+# - Decrement current_uses by 1
+# - If current_uses becomes 0, item is depleted
+
+# For reusable items (max_uses: null or absent):
+# - No usage tracking needed
+```
+
+**Step 3: Apply Effect**
+
+| Effect | Action Type | Resolution |
+|--------|-------------|------------|
+| `hp_restore` | Major | Add value to current HP (max: max_hp) |
+| `willpower_restore` | Major | Add value to current willpower (max: max_willpower) |
+| `damage` | Major | Roll/apply damage to target |
+| `buff` | Minor | Apply buff to self (duration in rounds) |
+| `debuff` | Major | Apply debuff to target (may require attack roll) |
+| `removes_corruption` | Major | Remove corruption/glitch status |
+
+```bash
+# Calculate healing
+node .claude/skills/math/math.js calc "min(current_hp + hp_restore, max_hp)"
+
+# Roll item damage (if applicable)
+node .claude/skills/math/math.js roll "${item_damage}"
+```
+
+**Return for Item Action:**
+
+```yaml
+success: true
+operation: "resolve_round"
+round: 2
+actor: "player"
+action:
+  type: "item"
+  item_id: "0nv58nul"
+  item_name: "Healing Potion"
+  target: "self"
+resolution:
+  action_type: "major"
+  effect: "hp_restore"
+  value: 30
+  hp_before: 25
+  hp_after: 55
+  item_consumed: true
+  qty_before: 3
+  qty_after: 2
+state_diffs:
+  player:
+    hp: 55
+  inventory:
+    - id: "0nv58nul"
+      qty: 2              # Decremented from 3
+narrative_hooks:
+  - "You down the healing potion in one gulp"
+  - "Warmth spreads through your body, mending wounds"
+  - "30 HP restored! (25 → 55)"
+```
+
+**Limited-Use Item Example (Wand with 3 charges):**
+
+```yaml
+success: true
+operation: "resolve_round"
+action:
+  type: "item"
+  item_id: "wand-fire-id"
+  item_name: "Wand of Fire"
+  target: "enemy-1"
+resolution:
+  action_type: "major"
+  effect: "damage"
+  damage_roll: "3d6"
+  damage_total: 12
+  damage_type: "fire"
+  target_hp_before: 30
+  target_hp_after: 18
+  uses_before: 3
+  uses_after: 2
+state_diffs:
+  enemies:
+    - id: "enemy-1"
+      hp: 18
+  inventory:
+    - id: "wand-fire-id"
+      current_uses: 2     # Decremented from 3
+narrative_hooks:
+  - "You point the wand and speak the command word"
+  - "A bolt of fire streaks toward the shadow"
+  - "12 fire damage! (2 charges remaining)"
+```
+
+**Item Validation Errors:**
+
+```yaml
+# If item not in inventory:
+success: false
+error: "item_not_found"
+message: "Healing Potion is not in your inventory"
+
+# If item has no usable effect:
+success: false
+error: "item_not_usable"
+message: "Iron Sword cannot be used as an item action (it's a weapon)"
+
+# If limited-use item depleted:
+success: false
+error: "item_depleted"
+message: "Wand of Fire has no charges remaining"
+
+# If consumable quantity is 0:
+success: false
+error: "item_exhausted"
+message: "You have no Healing Potions remaining"
 ```
 
 #### Flee Attempt
@@ -512,6 +668,193 @@ combat_state:
         attack: +3      # Was +4, scaled -0.6
         damage: 10      # Was 12, scaled -10%
 ```
+
+## Item Durability and Wear (Hard+ Only)
+
+On Hard and Nightmare difficulty, weapons and armor degrade with use. This adds resource management and encourages equipment variety.
+
+### Condition Check
+
+Only apply wear mechanics when `player.difficulty` is `hard` or `nightmare`.
+
+### Wear Application
+
+**When weapon is used to attack:**
+```bash
+# Calculate wear amount
+# Hard: 1× wear_rate
+# Nightmare: 2× wear_rate
+wear = wear_rate * difficulty_multiplier
+
+# Apply wear
+new_durability = current_durability - wear
+```
+
+**When armor absorbs damage:**
+```bash
+# Apply wear when player takes damage
+# Only triggers when armor reduces damage
+wear = wear_rate * difficulty_multiplier
+new_durability = current_durability - wear
+```
+
+### Durability Effects
+
+| Durability % | State | Effect |
+|--------------|-------|--------|
+| 75-100% | Good | Full effectiveness |
+| 50-74% | Worn | -1 damage (weapons) / -1 armor (armor) |
+| 25-49% | Damaged | -2 damage / -2 armor |
+| 1-24% | Failing | -3 damage / -3 armor, 25% chance to fail |
+| 0% | Broken | Unusable until repaired |
+
+### Calculate Durability Modifier
+
+```bash
+# Get durability percentage
+node .claude/skills/math/math.js calc "(current / max) * 100"
+
+# Determine penalty
+# 75-100%: 0 penalty
+# 50-74%: -1 penalty
+# 25-49%: -2 penalty
+# 1-24%: -3 penalty, roll d4 for fail (1 = fail)
+# 0%: unusable
+```
+
+### Durability in Combat State
+
+```yaml
+combat_state:
+  player_equipment:
+    weapon:
+      id: "y6fz9ek2"
+      name: "Iron Sword"
+      durability: 28        # Current durability
+      max_durability: 40
+      durability_state: "worn"  # good | worn | damaged | failing | broken
+      damage_penalty: -1    # Applied penalty
+    armor:
+      id: "6s10vlhv"
+      name: "Leather Armor"
+      durability: 45
+      max_durability: 50
+      durability_state: "good"
+      armor_penalty: 0
+```
+
+### Attack Resolution with Durability
+
+When processing a weapon attack on Hard+:
+
+1. Check weapon durability state
+2. Apply damage penalty based on state
+3. If "failing", roll d4 - on 1, attack fails
+4. If "broken", attack cannot be made with this weapon
+5. After attack, apply wear to weapon
+
+```yaml
+resolution:
+  attack_roll: 17
+  attack_total: 21
+  weapon_state: "worn"
+  damage_penalty: -1        # From worn state
+  base_damage: 12
+  adjusted_damage: 11       # 12 - 1 penalty
+  durability_before: 29
+  durability_after: 28      # After 1 wear
+  new_durability_state: "worn"  # 70% = still worn
+```
+
+### Damage Resolution with Armor Durability
+
+When player takes damage with armor on Hard+:
+
+1. Apply armor value with durability penalty
+2. If "failing", roll d4 - on 1, armor provides no protection
+3. If "broken", armor provides no protection
+4. After absorbing damage, apply wear to armor
+
+```yaml
+resolution:
+  incoming_damage: 15
+  armor_state: "damaged"
+  armor_penalty: -2
+  effective_armor: 1        # 3 base - 2 penalty
+  damage_taken: 14          # 15 - 1 armor
+  armor_durability_before: 20
+  armor_durability_after: 19
+```
+
+### Narrative Hooks for Durability
+
+- **Worn (50-74%)**: "Your [item] shows signs of wear"
+- **Damaged (25-49%)**: "Your [item] is noticeably damaged"
+- **Failing (1-24%)**: "Your [item] is on the verge of breaking!"
+- **Broken (0%)**: "Your [item] shatters/breaks!"
+- **Fail roll**: "Your damaged [weapon] fails mid-swing!"
+
+### State Diff for Durability
+
+```yaml
+state_diffs:
+  player:
+    hp: 45
+  inventory:
+    - id: "y6fz9ek2"
+      durability: 28        # Updated current durability
+```
+
+---
+
+## Attack Familiarity System
+
+Repeated attacks become easier to dodge. Each time an attack hits a target, that target gains +1 Defense against future uses of the same attack (capped at +5).
+
+### Tracking
+
+```yaml
+combat_state:
+  attack_familiarity:
+    enemy-1:
+      iron-sword: 2      # Hit twice by sword, +2 defense
+      flame-strike: 1    # Hit once by Flame Strike, +1 defense
+    player:
+      shadow-claw: 3     # Hit three times, +3 defense vs shadow claw
+```
+
+### Formula
+
+```
+familiarity_bonus = min(times_hit_by_attack, 5)
+adjusted_defense = base_defense + familiarity_bonus
+```
+
+### Rules
+
+1. **Attack ID**: Use weapon ID or ability ID to track attacks
+2. **Per-target**: Each target tracks familiarity separately
+3. **Only on hit**: Misses don't increase familiarity
+4. **Cap at +5**: Maximum familiarity bonus is +5
+5. **Reset at combat end**: All familiarity clears when combat ends
+
+### Narrative Hooks
+
+When familiarity affects combat:
+- **First hit**: "The [target] takes note of your attack pattern"
+- **+2 bonus**: "The [target] begins anticipating your [attack]"
+- **+3 bonus**: "[Target] reads your movements easily now"
+- **+5 bonus**: "[Target] knows exactly when your [attack] is coming"
+- **Miss due to familiarity**: "The [target] sidesteps, having seen this before"
+
+### Strategic Implications
+
+- Vary your attacks to avoid high familiarity penalties
+- Use abilities sparingly to maintain their effectiveness
+- Switch weapons mid-combat for tactical advantage
+- Enemies also benefit from familiarity—expect their defenses to rise
+
+---
 
 ## Combat Rules Reference
 

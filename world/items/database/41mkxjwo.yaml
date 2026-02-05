@@ -13,6 +13,9 @@ tags:
 stats:
   armor: 0
   spirit: 1
+durability:
+  max: 25
+  wear_rate: 1
 special: "Identifies wearer as Athenaeum student. Grants access to student areas."
 description: |
   Simple but well-made robes in deep blue with silver thread patterns that

@@ -11,4 +11,7 @@ tags:
   - combat
 stats:
   armor: 5
+durability:
+  max: 80
+  wear_rate: 1
 description: Interlocking metal rings. Heavier but more protective.

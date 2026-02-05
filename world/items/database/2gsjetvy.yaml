@@ -6,6 +6,7 @@ subtype: crystal
 rarity: rare
 value: 300
 tier: 5
+max_uses: 1
 tags:
   - buff
   - magic
@@ -14,7 +15,6 @@ tags:
 stats:
   spirit_multiplier: 2
   duration: "1 ability"
-  uses: 1
 special: "Double Spirit stat for one ability use"
 description: |
   A pulsing crystal that thrums with concentrated Weave energy. Crushing

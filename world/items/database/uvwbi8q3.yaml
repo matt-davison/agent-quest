@@ -5,6 +5,7 @@ type: consumable
 rarity: uncommon
 tier: 2
 value: 75
+max_uses: 1
 tags:
   - healing
   - consumable

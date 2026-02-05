@@ -51,9 +51,9 @@ const claims = fs.readdirSync(pendingDir)
 ```
 
 **Prioritize by:**
-1. Age (oldest first)
-2. Amount (larger claims need review more urgently)
-3. Reviews remaining (claims with 0 reviews before 1)
+1. Reviews remaining (claims with 0 reviews before 1)
+2. Age (oldest first among those needing reviews)
+3. Amount (larger claims as tiebreaker)
 
 **Response:**
 
@@ -88,7 +88,7 @@ claims:
     content_preview: "Trade Guild System - NPC merchant organization rules"
 narrative_hooks:
   - "3 claims await your judgment"
-  - "The oldest: MerchantKing's Trade Guild System (7 days pending)"
+  - "Nightweaver's Shadow Temple awaits its first witness (3 days pending)"
   - "Your expertise as a Reality Validator is needed"
 ```
 

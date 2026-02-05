@@ -209,6 +209,46 @@ narrative_hooks:
 | TRADE_EXPIRED | Trade offer has expired |
 | SELF_TRADE | Cannot trade with yourself |
 | DUEL_IN_PROGRESS | Already in active duel |
+| INVALID_ITEM | Item ID does not exist in database |
+| INVALID_ATTACHMENT | Mail attachment item does not exist |
+
+## Item Validation
+
+Before processing trades or mail with items, validate all item IDs:
+
+```bash
+# Validate each item exists in the database
+node .claude/skills/inventory/inventory.js get <item_id>
+```
+
+**Rules:**
+1. **Reject invalid item IDs** - Return `INVALID_ITEM` error with the bad ID
+2. All items must exist in `world/items/database/`
+3. Use `similar` command to suggest corrections for typos
+
+**Validation flow for trades:**
+```bash
+# For each item in offering and requesting:
+node .claude/skills/inventory/inventory.js get iron-sword
+# If any item fails validation, reject the entire trade
+```
+
+**Validation flow for mail attachments:**
+```bash
+# Before moving items to escrow:
+node .claude/skills/inventory/inventory.js get <attachment_item_id>
+# If invalid, reject the mail with INVALID_ATTACHMENT error
+```
+
+**Error Response for invalid items:**
+```yaml
+success: false
+error_code: "INVALID_ITEM"
+error_message: "Item 'fake-item' does not exist in database"
+suggestions:
+  - "fire-sword"
+  - "iron-sword"
+```
 
 ## State Files Modified
 

@@ -269,6 +269,30 @@ Always return YAML with:
 - `narrative_hooks`: text snippets for main agent
 - `errors`: any issues encountered
 
+## Item Validation
+
+All loot items MUST exist in the item database before being awarded:
+
+```bash
+# Verify item exists before including in loot
+node .claude/skills/inventory/inventory.js get <item_id>
+```
+
+**Rules:**
+- Never award ad-hoc item IDs that aren't in `world/items/database/`
+- If a desired loot item doesn't exist, use an existing item or note that the item must be created first
+- Use `node .claude/skills/inventory/inventory.js search <term>` to find appropriate existing items
+- Use `node .claude/skills/inventory/inventory.js similar <id>` to find alternatives if an item is missing
+
+**Example - Validating Shadow Stalker loot:**
+```bash
+# Before including shadow-essence in loot:
+node .claude/skills/inventory/inventory.js get shadow-essence
+# If not found, search for alternatives:
+node .claude/skills/inventory/inventory.js search shadow
+node .claude/skills/inventory/inventory.js search essence
+```
+
 ## Loading Additional Rules
 
 When needed, load:

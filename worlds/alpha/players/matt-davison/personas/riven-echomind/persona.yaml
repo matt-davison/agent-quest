@@ -68,7 +68,13 @@ inventory:
     description: "Chemical enhancement. +3 to Mind checks for 2 hours."
     acquired: "1.2.3"
     price: 30
-    quantity: 1
+    quantity: 0
+  - id: "communication-key"
+    name: "Communication Key"
+    type: "artifact"
+    description: "Pre-Architect technology. Opens channels to entities beyond our reality. Resonates with Architect's Key. WARNING: May attract attention from beyond the code."
+    acquired: "1.2.3"
+    quest_item: "the-arcotech-heist"
 
 equipped:
   weapon: ""
@@ -88,7 +94,7 @@ difficulty:
   setting: normal
 
 # === LOCATION ===
-location: "lumina-city/info-booth"
+location: "lumina-city/underlevel"
 
 # === CHRONICLE ===
 chronicle:
@@ -125,6 +131,15 @@ chronicle:
     event: "CRITICAL: Visited Info Booth, used The Right Question with Madam Circuit. Learned Arcotech facility location (Skyline Sector 7-G), that target artifact is a communication key, and that Governor Axis fears First Server activation. Madam Circuit revealed she's one of the first Weavers (Codebreakers), hostage to Axis."
     significance: "major"
     quest: "the-arcotech-heist"
+  - date: "2026-02-05"
+    event: "COMPLETED THE ARCOTECH HEIST. Infiltrated corporate facility at night using Focus serum and Lock Bypass Kit. Used Architect's Key to disable containment field. Retrieved Communication Key (pre-Architect artifact). Discovered hidden message from Architect 01: First Server is a PRISON containing something that wants IN. Escaped via evacuation shaft to Underlevel."
+    significance: "major"
+    quest: "the-arcotech-heist"
+    discoveries:
+      - "First Server is a prison, not a machine"
+      - "Something waits beyond the code, wants to enter our reality"
+      - "Architect 01 and 02 contained themselves by choice out of fear"
+      - "The Keys open doors—dangerous to use carelessly"
 
 # === ALIGNMENT ===
 alignment:

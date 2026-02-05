@@ -14,13 +14,16 @@ active_quests:
     objectives:
       - id: "infiltrate-facility"
         description: "Infiltrate Arcotech Industries facility in Lumina City Skyline"
-        status: "active"
+        status: "complete"
+        completed_date: "1.2.3"
       - id: "retrieve-artifact"
         description: "Retrieve the pre-Architect artifact from corporate excavation site"
-        status: "locked"
+        status: "complete"
+        completed_date: "1.2.3"
+        artifact_acquired: "Communication Key"
       - id: "return-artifact"
         description: "Return artifact to The Middleman at Black Market"
-        status: "locked"
+        status: "active"
         reward: "Introduction to the Deep Listener + information about First Server"
 
 completed_quests:

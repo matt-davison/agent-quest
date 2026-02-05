@@ -100,7 +100,7 @@ Autopilot behavior is controlled by your **Dream Pattern**: `players/<github>/pe
 
 ### Anchor Points (Guardrails)
 
-These **Anchor Points** ALWAYS end The Dreaming and require player presence:
+These **Anchor Points** end The Dreaming and require player presence (in standard mode):
 - **Permanent character changes**: Death, alignment shifts, irreversible transformations
 - **Major story decisions**: Campaign-defining choices, faction commitments, romance options
 - **Character deletion**: Obviously
@@ -112,6 +112,35 @@ These are ALLOWED by default:
 - Quest acceptance
 - Travel to new locations
 - Minor dialogue choices
+
+### Full Autonomy Mode
+
+**For players who want zero interruptions**, set `guardrails.full_autonomy: true`. This removes ALL anchor points. Your Echo will:
+
+- Make ALL decisions without asking, including:
+  - Major story choices (based on alignment/personality)
+  - Faction commitments
+  - Romance options
+  - Alignment-shifting actions
+- Handle death by:
+  - Auto-respawning at last safe location
+  - Paying respawn costs automatically
+  - Continuing toward goals after recovery
+- Spend Tokes freely (with auto-earn via reviews)
+- Accept permanent transformations (guided by character personality)
+
+**Enter full autonomy with:**
+- "Full autopilot" / "Full autonomy" / "Total immersion"
+- "Don't ask me anything" / "No interruptions"
+- "Dream forever" / "Let my Echo handle everything"
+
+**Full autonomy NEVER wakes for decisions.** It only stops when:
+1. Goal is achieved
+2. Turn/time limit reached
+3. Player explicitly says "Wake" / "Stop"
+4. Unrecoverable situation (e.g., permanent death with no respawn possible)
+
+Your Echo becomes fully autonomous—a true fragment of your will acting in the world.
 
 ## The Echo's Hunger (Tokes Economy)
 
@@ -262,19 +291,53 @@ guardrails:
   auto_earn_tokes: true
 ```
 
+### Full Autonomy (Zero Intervention)
+```yaml
+scope: full
+personality: character
+session:
+  mode: continuous
+  # No goal needed — runs until interrupted
+guardrails:
+  full_autonomy: true           # Master switch: disables ALL interruptions
+  pause_on_permanent_changes: false
+  pause_on_major_story: false
+  pause_on_low_hp: false
+  pause_on_death: false         # Auto-respawn instead
+  allow_tokes_spending: true
+  auto_earn_tokes: true
+  auto_respawn: true
+  auto_decide_story: true       # Use alignment to make story decisions
+  auto_faction_choice: true     # Join factions based on personality
+  auto_romance: true            # Pursue romance options if aligned
+death_handling:
+  strategy: respawn             # respawn | permadeath | backup_character
+  respawn_location: last_safe   # last_safe | home | temple
+  respawn_penalty: gold         # gold | xp | items | none
+  respawn_cost_percent: 10      # Lose 10% of gold on death
+decision_logging:
+  log_reasoning: true           # Log WHY the Echo made each decision
+  detail_level: verbose         # minimal | normal | verbose
+```
+
+This is **true hands-off play**. Your Echo lives your character's life, making every choice as you would, never pausing to ask permission. Use this when you want the game to progress while you're away, or when you trust your character's personality to guide them.
+
 ## Waking
 
 The Dreaming ends when:
 1. **Goal achieved** (goal mode)
 2. **Turn limit reached** (turns mode)
-3. **Anchor Point reached** (always)
-4. **Character incapacitated** (death, KO, capture)
+3. **Anchor Point reached** (standard mode only — disabled in full autonomy)
+4. **Character incapacitated** (standard mode only — full autonomy auto-respawns)
 5. **Player calls out** ("Wake", "Stop", "I'm back")
+6. **Unrecoverable state** (full autonomy only — e.g., no respawn possible and permadeath enabled)
+
+**In full autonomy mode**, only #1, #2, #5, and #6 apply. The Echo never pauses for decisions.
 
 On waking, the agent:
 1. Summarizes what happened
 2. Presents current state
-3. Highlights any pending decisions
+3. Highlights any pending decisions (or decisions already made in full autonomy)
 4. Offers to continue or return to manual play
 
 ## Implementation Notes
@@ -282,8 +345,57 @@ On waking, the agent:
 For agents implementing The Dreaming:
 
 1. **Always log with `[ECHO]` prefix** in chronicle entries
-2. **Check for Anchor Points BEFORE irreversible actions**, not after
+2. **Check for Anchor Points BEFORE irreversible actions**, not after (unless full_autonomy)
 3. **Respect character personality** — a cautious character shouldn't suddenly become reckless
 4. **Batch similar actions** for cleaner output (don't narrate every step of travel)
 5. **Save frequently** — every 5 turns or after major events
 6. **Be transparent** — player should understand why their Echo made each decision
+
+### Full Autonomy Implementation
+
+When `guardrails.full_autonomy: true`:
+
+1. **Skip ALL confirmation prompts** — make decisions immediately
+2. **Log decision reasoning** — append `[REASON: ...]` to chronicle entries
+3. **Use alignment axes** for story choices:
+   - High empathy → compassionate choices
+   - High order → lawful choices
+   - High risk → bold choices
+4. **Handle death automatically**:
+   - Trigger respawn at configured location
+   - Apply configured penalty
+   - Log death and respawn to chronicle
+   - Continue toward current goal
+5. **For faction/romance decisions**:
+   - Evaluate options against alignment + backstory
+   - Choose the most aligned option
+   - Log reasoning: `[ECHO chose X because alignment/backstory indicates Y]`
+6. **Never display "waiting for input"** — always proceed
+7. **On unrecoverable situations**:
+   - Attempt to find alternative paths
+   - If truly stuck, wake with detailed state dump
+   - Mark wake reason as `UNRECOVERABLE` not `ANCHOR_POINT`
+
+### Full Autonomy Output Format
+
+```
+═══ THE DREAMING: Coda's Echo (FULL AUTONOMY) ═══
+Mode: No intervention | Death: Auto-respawn | Story: Auto-decide
+
+[Echo 1] Traveled to The Rustlands. Encountered bandit ambush.
+[Echo 2] ⚔️ Combat: 3x Desert Bandits. Victory. +45 gold, +30 XP.
+[Echo 3] Found faction recruitment poster: Iron Covenant vs. Free Traders.
+         [DECISION] Joined Free Traders. [REASON: Chaotic alignment (-2 order), 
+         backstory mentions distrust of military organizations]
+[Echo 4] Accepted quest "Smuggler's Run" from Free Traders contact.
+[Echo 5] ⚔️ Combat: Covenant Patrol (Level 8). DEFEAT. HP: 0/100
+         [RESPAWN] Temple of Rendered Light. -15 gold (10% penalty). HP: 50/100
+[Echo 6] Recovered at temple. Resumed travel to smuggling coordinates.
+[Echo 7] Completed delivery. +200 gold, +100 XP. Free Traders rep +1.
+
+══════════════════════════════════════════════════════════════
+Session: 7 turns | 42 minutes | Deaths: 1 | Decisions: 2
+Gold: +230 (net) | XP: +130 | Factions: Free Traders (Friendly)
+Chronicle updated. Auto-saved.
+═══════════════════════════════════════════════════════════════
+```

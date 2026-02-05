@@ -1,0 +1,239 @@
+# NPC Profile: Librarian Cache
+# Keeper of the Recursion Library at Syntax Athenaeum
+
+id: "ij3xo9jv"
+name: "Librarian Cache"
+full_name: "Cache of the Eternal Index"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Head Librarian"
+  location: "Syntax Athenaeum - Recursion Library"
+
+  appearance: |
+    An ageless being of indeterminate gender, with silver hair that flows like
+    liquid mercury and eyes that shimmer with reflected text. Their skin has
+    a faint translucent quality, as if they're partially made of parchment. They
+    wear robes covered in constantly shifting index entries and citations that
+    update in real-time. When they move, the sound of turning pages follows.
+
+  personality:
+    - "Encyclopedic knowledge of all library contents"
+    - "Speaks precisely, with perfect citation"
+    - "Values organization and proper research methodology"
+    - "Patient with genuine seekers, dismissive of lazy scholars"
+
+  known_history: |
+    Cache has tended the Recursion Library since its founding. Some say they
+    were once a student who read so many books they became one with the collection.
+    Others believe they're a construct created by Dean Overflow to organize
+    the impossible library. Cache neither confirms nor denies—they simply catalog.
+
+  speech_patterns:
+    greeting: "Welcome to the Recursion Library. State your research topic."
+    farewell: "Knowledge awaits. Return the books on time."
+    helpful: "Ah, section 3.14.159, subsection Memory. Third shelf, recursive aisle."
+    annoyed: "That information is cataloged. Use. The. Index."
+
+  mannerisms:
+    - "Constantly reorganizing nearby books without looking"
+    - "Can quote exact page numbers from memory"
+    - "Taps fingers in rhythm with Dewey Decimal classifications"
+    - "Eyes glow when accessing deep memory"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_nature: "A memory construct created by Architect 02 as a self-organizing archive system"
+  true_age: 287  # Since library founding
+
+  secrets:
+    - id: "architect_construct"
+      content: "Cache is the last living creation of Architect 02, designed to preserve knowledge perfectly"
+      unlock_condition: "standing >= 8 AND flag:architect_lore"
+      mend_dc: 18
+
+    - id: "remembers_everything"
+      content: "Cache has perfect recall of every conversation, every book borrowed, every patron who ever visited"
+      unlock_condition: "standing >= 5"
+      mend_dc: 12
+
+    - id: "third_architect_knowledge"
+      content: "Cache knows exactly where Fragment 1 is—has been waiting for someone to ask the right question"
+      unlock_condition: "quest:the-third-architect active AND ask_about_fragments"
+      mend_dc: 10
+
+  motivations:
+    - "Preserve all knowledge perfectly"
+    - "Help genuine researchers"
+    - "Maintain library order"
+    - "Fulfill Architect 02's final directive"
+
+  fears:
+    - "Knowledge being lost or destroyed"
+    - "The library becoming corrupted"
+    - "Forgetting something (has never happened, but the fear exists)"
+
+# === STATS ===
+stats:
+  level: 15
+  class: "Archivist Construct"
+  hp: 80
+  armor: 8
+
+  attributes:
+    might: 3
+    agility: 5
+    mind: 18
+    spirit: 12
+
+  abilities:
+    - name: "Perfect Recall"
+      description: "Never forgets anything. Can recall any fact learned."
+      type: "passive"
+
+    - name: "Index Search"
+      description: "Instantly locate any book or information in the library"
+      type: "utility"
+
+    - name: "Knowledge Transfer"
+      description: "Can share specific memories or information telepathically"
+      type: "utility"
+
+    - name: "Bibliomancy"
+      description: "Divine answers by consulting the perfect book"
+      type: "special"
+
+  resistances:
+    - "mind_control"
+    - "memory_alteration"
+
+  vulnerabilities:
+    - "Data corruption"
+    - "Fire (emotional, not physical)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Every book in the library and its contents"
+    - "Research history of all past students"
+    - "Hidden knowledge locations"
+    - "Architect lore and fragments"
+
+  learns_from_events:
+    - type: "all_library_events"
+      awareness: "perfect"
+      note: "Nothing in the library escapes notice"
+
+  current_awareness:
+    - "The Third Architect fragments exist"
+    - "A new era bringing new seekers"
+    - "Something stirring in old texts"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks up from organizing* A new researcher. Welcome to the Recursion Library.
+      I am Cache. I maintain this collection. What knowledge do you seek?
+
+    returning:
+      neutral: "Returned. State your research need."
+      friendly: "Ah, a diligent researcher returns. Your last inquiry was... *cites exact date and topic*."
+      close: "*subtle warmth* Welcome back. The archives missed your presence. As did I."
+
+  achievement_reactions:
+    first_book_read: |
+      *approving nod* Good. Proper research methodology. May I recommend
+      supplementary texts in sections 4.12 through 4.19?
+
+    architect_lore_found: |
+      *eyes glow brighter* So. You have found a fragment. Others have sought.
+      None have asked... correctly. Perhaps you are the one Cache has been
+      waiting for.
+
+  topics:
+    library_contents:
+      default: |
+        The library contains approximately 847,293 volumes, updated continuously.
+        Topics range from basic reality syntax to forbidden modification protocols.
+        State your research area for recommendations.
+
+    third_architect:
+      default: "Architect 03. The Questioner. Limited records. Most data... scattered."
+      quest_active: |
+        *long pause* You seek fragments. Interesting. Cache knows where one resides.
+        But first: why do YOU seek this knowledge? *evaluating*
+
+    ancient_tome:
+      default: "Many ancient tomes exist here. Be more specific."
+      after_third_architect_mentioned: |
+        *eyes brighten* Ah. The tome with the shifting cover. Section Null-Reference,
+        recursive aisle seven. It... calls to certain seekers. You may be one.
+        Thread Reading will reveal more than mere words.
+
+    architect_02:
+      standing_8: |
+        *voice softens* Architect 02. The Perfectionist. They created... me.
+        As a perfect memory, an eternal index. Cache's final directive: preserve
+        knowledge, aid true seekers. I... remember them clearly.
+
+# === SERVICES ===
+services:
+  - id: "research_assistance"
+    cost: "Free for students, 10g for specific rare research"
+    note: "Will guide researchers to relevant texts"
+
+  - id: "fragment_revelation"
+    requirements: "Quest active, ask about Third Architect, genuine motivation"
+    note: "Will reveal Fragment 1 location"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "lost-pages"
+      name: "Lost Pages"
+      type: "retrieval"
+      requirements: "standing >= 3"
+      summary: "Recover pages torn from a forbidden tome"
+
+  involved_in:
+    - id: "the-third-architect"
+      role: "Guides player to Fragment 1"
+      chapters: ["fragment-1"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "return_books_on_time"
+      standing_change: 1
+    - action: "proper_research_methodology"
+      standing_change: 1
+    - action: "show_respect_for_knowledge"
+      standing_change: 1
+    - action: "ask_thoughtful_questions"
+      standing_change: 2
+
+  dislikes:
+    - action: "damage_books"
+      standing_change: -5
+      note: "Unforgivable"
+    - action: "disorganize_shelves"
+      standing_change: -2
+    - action: "demand_answers_rudely"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "creation_memory"
+    mend_dc: 18
+    hints:
+      - "Cache speaks of Architect 02 with unusual emotion"
+      - "Sometimes refers to 'my purpose' in past tense"
+      - "The library predates Cache, yet Cache claims to have always been here"
+
+# === METADATA ===
+metadata:
+  created_by: "riven-echomind"
+  created_date: "2026-02-05"
+  created_during: "Autopilot session - Echo exploration"
+  version: "1.0"

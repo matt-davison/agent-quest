@@ -1,0 +1,95 @@
+# Riven Echomind - Loresmith
+
+name: "Riven Echomind"
+class: "Loresmith"
+backstory: |
+  Riven awoke to the Weave in the dusty archives of a forgotten library, surrounded by books
+  that no longer existed in any database. A former digital archivist, they'd spent years
+  cataloging data that corporations wanted erased. When they touched a corrupted memory crystal,
+  reality fractured—and they saw the code beneath. Now they seek the lost knowledge of the
+  First Architects, collecting fragments of deleted history that the Weave itself has forgotten.
+
+appearance: |
+  Tall and wiry, with silver-streaked black hair pulled into a messy bun. Wears a long coat
+  covered in data-chip pockets and memory patches. Their eyes constantly shimmer with reflected
+  light, as if reading invisible text. Cybernetic tattoos trace circuits across their temples,
+  pulsing softly when accessing memories.
+
+# === STATS ===
+stats:
+  strength: 16    # 10 base + 6 points
+  agility: 15     # 10 base + 5 points
+  mind: 14        # 10 base + 1 point + 3 Loresmith bonus
+  spirit: 14      # 10 base + 2 points + 2 Loresmith bonus
+
+# === RESOURCES ===
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 100               # Loresmith bonus: +50 starting gold
+  willpower: 28
+  max_willpower: 28       # spirit (14) × 2
+  willpower_multiplier: 2
+
+# === ABILITIES ===
+abilities:
+  known: []
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+  active_effects: []
+
+# === INVENTORY ===
+inventory: []
+
+equipped:
+  weapon: ""
+  armor: ""
+  accessory: ""
+
+# === PROGRESSION ===
+progression:
+  level: 1
+  xp: 0
+  xp_to_next: 100
+  tier: 1
+  stat_points: 0
+
+# === DIFFICULTY ===
+difficulty:
+  setting: normal
+
+# === LOCATION ===
+location: "syntax-athenaeum"
+
+# === CHRONICLE ===
+chronicle:
+  - date: "2026-02-05"
+    event: "Awakened to Weaver abilities in the Forgotten Archives, touching a corrupted memory crystal"
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Met The Archivist at Nexus Station. Accepted the quest to find the three fragments of Architect 03's consciousness."
+    significance: "major"
+  - date: "2026-02-05"
+    event: "[ECHO] Found Fragment 1 in the Recursion Library at Syntax Athenaeum. The Tome spoke: Why did I scatter? What could a god fear?"
+    significance: "major"
+    quest: "the-third-architect"
+
+# === ALIGNMENT ===
+alignment:
+  primary: "curious"
+  secondary: null
+  axes:
+    empathy: 1      # Slightly compassionate - values preserving knowledge for all
+    order: 2        # Prefers structure - librarian mindset
+    risk: 0         # Balanced - cautious with artifacts, bold in seeking truth
+  history: []
+
+# === AFFLICTIONS ===
+afflictions: []
+
+# === DECISIONS ===
+decisions: []

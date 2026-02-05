@@ -1,0 +1,30 @@
+# Riven Echomind's Dream Pattern
+# Autopilot configuration for autonomous play
+
+# Dream depth - how much autonomy the Echo has
+scope: full  # Total Immersion - handle everything
+
+# Personality source - how decisions are made
+personality: character  # Derive from alignment, backstory, decisions
+
+# Session behavior
+session:
+  mode: goal
+  goal: "Explore the world and seek fragments of lost knowledge"
+
+# Guardrails - what requires player presence
+guardrails:
+  pause_on_permanent_changes: true   # Death, transformation
+  pause_on_major_story: true         # Campaign-defining choices
+  pause_on_low_hp: true
+  low_hp_threshold: 25
+  allow_tokes_spending: true         # Can spend Tokes for weaving
+  auto_earn_tokes: true              # Review claims when broke
+  allow_gold_spending: true
+
+# Character-specific preferences
+preferences:
+  combat_style: "cautious"           # Assess before engaging
+  loot_priority: "knowledge"         # Prioritize books, lore, data
+  social_approach: "diplomatic"      # Silver Tongue first
+  exploration_drive: "thorough"      # Check everything for secrets

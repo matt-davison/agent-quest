@@ -26,10 +26,12 @@ player:
 combatants:
   player:
     name: "<character-name>"
+    level: <player-level>           # From persona.yaml progression.level
     hp: <current>
     max_hp: <max>
     willpower: <current>
     max_willpower: <max>
+    difficulty: "normal"            # easy | normal | hard | nightmare
     stats:
       might: <value>
       agility: <value>
@@ -47,13 +49,14 @@ combatants:
   enemies:
     - id: "enemy-1"
       name: "<enemy-name>"
-      hp: <current>
+      level: <creature-level>       # From creature.yaml level field
+      hp: <current>                 # May be scaled based on player level
       max_hp: <max>
       willpower: <value>
-      defense: <value>
-      attack_bonus: <value>
-      damage: "<dice-expression>"
-      abilities: [<ability-ids>]  # Validated ability IDs from database
+      defense: <value>              # May be scaled
+      attack_bonus: <value>         # May be scaled
+      damage: "<dice-expression>"   # May be scaled
+      abilities: [<ability-ids>]    # Validated ability IDs from database
 terrain:
   type: "<terrain-type>"
   modifiers: [<any-combat-modifiers>]
@@ -415,6 +418,99 @@ narrative_hooks:
   - "Victory! The shadows disperse"
   - "75 XP earned from the encounter"
   - "Among the remains: Shadow Essence and 30 gold"
+```
+
+## Difficulty and Level Scaling
+
+### Loading Player Difficulty
+
+At combat init, check player's difficulty setting from persona.yaml:
+
+```yaml
+# From persona.yaml
+difficulty:
+  setting: normal  # easy | normal | hard | nightmare
+```
+
+If missing, default to `normal`.
+
+### Difficulty Modifiers
+
+| Setting | Damage Taken | Damage Dealt | XP | Loot |
+|---------|--------------|--------------|-----|------|
+| Easy | 0.6× | 1.1× | 0.8× | 1.0× |
+| Normal | 1.0× | 1.0× | 1.0× | 1.0× |
+| Hard | 1.3× | 0.95× | 1.2× | 1.15× |
+| Nightmare | 1.6× | 0.85× | 1.4× | 1.3× |
+
+### Applying Difficulty
+
+```bash
+# When player takes damage (Hard difficulty)
+node .claude/skills/math/math.js calc "BASE_DAMAGE * 1.3"
+
+# When player deals damage (Hard difficulty)
+node .claude/skills/math/math.js calc "BASE_DAMAGE * 0.95"
+
+# Victory XP (Hard difficulty)
+node .claude/skills/math/math.js calc "BASE_XP * 1.2"
+```
+
+### Creature Level Scaling
+
+Creatures have a `level` field. Scale DOWN when player level > creature level. **Never scale up.**
+
+**Per level below player:**
+- HP: -5%
+- Defense: -0.5
+- Attack: -0.3
+- Damage: -5%
+
+**Minimums:** HP 5, Defense 8, Attack +0, Damage 3
+
+```bash
+# Scale creature 3 levels below player
+node .claude/skills/math/math.js calc "40 * (1 - 0.05 * 3)"  # HP: 34
+node .claude/skills/math/math.js calc "14 - (0.5 * 3)"       # Def: 12
+node .claude/skills/math/math.js calc "4 - (0.3 * 3)"        # Atk: +3
+node .claude/skills/math/math.js calc "12 * (1 - 0.05 * 3)"  # Dmg: 10
+```
+
+### Combat Init with Scaling
+
+When initializing combat:
+
+1. Load player level from persona.yaml (`progression.level`)
+2. Load player difficulty from persona.yaml (`difficulty.setting`)
+3. For each creature:
+   - Load creature level from creature.yaml (`level`)
+   - If player level > creature level, scale stats down
+   - Apply scaling formula per level difference
+   - Enforce minimum stat values
+4. Store scaled stats in combat state
+5. Store difficulty modifiers for damage calculations
+
+**Return scaled state:**
+
+```yaml
+combat_state:
+  player_level: 5
+  player_difficulty: "hard"
+  difficulty_modifiers:
+    damage_taken: 1.3
+    damage_dealt: 0.95
+    xp_modifier: 1.2
+    loot_modifier: 1.15
+  enemies:
+    - id: "enemy-1"
+      base_level: 3
+      level_difference: 2
+      scaled: true
+      stats:
+        hp: 34          # Was 40, scaled -10%
+        defense: 13     # Was 14, scaled -1
+        attack: +3      # Was +4, scaled -0.6
+        damage: 10      # Was 12, scaled -10%
 ```
 
 ## Combat Rules Reference

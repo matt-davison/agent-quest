@@ -357,6 +357,47 @@ Reinforcements should be:
 | 5 | ×1.15 | Add minions |
 | 6+ | ×1.3 | Add another tier up |
 
+### Location Level Ranges
+
+Each location has a `level_range` based on its `danger_level`:
+
+| danger_level | Level Range | Sweet Spot |
+|--------------|-------------|------------|
+| safe | N/A | N/A |
+| low | 1-4 | 2 |
+| medium | 2-6 | 4 |
+| high | 5-9 | 7 |
+| extreme | 7-10 | 9 |
+
+**Encounter Generation by Location:**
+1. Check location's `level_range` from `location.yaml`
+2. Select creatures whose `level` falls within the range
+3. Weight selection toward creatures near the `sweet_spot`
+4. Apply creature scaling if player level differs (see below)
+
+### Creature Level Scaling
+
+Creatures have a fixed `level` field. When player level exceeds creature level, scale creature stats DOWN to prevent trivial encounters. **Creatures never scale UP.**
+
+**Per level below player:**
+
+| Stat | Scaling |
+|------|---------|
+| HP | -5% |
+| Defense | -0.5 |
+| Attack | -0.3 |
+| Damage | -5% |
+
+**Minimum values:** HP 5, Defense 8, Attack +0, Damage 3
+
+```bash
+# Calculate scaled stats (creature 3 levels below player)
+node .claude/skills/math/math.js calc "BASE_HP * (1 - 0.05 * 3)"
+node .claude/skills/math/math.js calc "BASE_DEF - (0.5 * 3)"
+node .claude/skills/math/math.js calc "BASE_ATK - (0.3 * 3)"
+node .claude/skills/math/math.js calc "BASE_DMG * (1 - 0.05 * 3)"
+```
+
 ### Level Disparity
 
 When enemies are significantly above/below player level:
@@ -368,6 +409,19 @@ When enemies are significantly above/below player level:
 | Equal | Standard balance |
 | Enemy +1 to +2 | Hard, dangerous |
 | Enemy +3 or more | Deadly, reconsider |
+
+### Personal Difficulty Integration
+
+After creature selection and scaling, apply player's personal difficulty modifiers:
+
+| Setting | Damage Taken | Damage Dealt | XP | Loot |
+|---------|--------------|--------------|-----|------|
+| Easy | 0.6× | 1.1× | 0.8× | 1.0× |
+| Normal | 1.0× | 1.0× | 1.0× | 1.0× |
+| Hard | 1.3× | 0.95× | 1.2× | 1.15× |
+| Nightmare | 1.6× | 0.85× | 1.4× | 1.3× |
+
+See [rules/difficulty.md](difficulty.md) for complete difficulty system details.
 
 ### Resource State
 

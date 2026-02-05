@@ -83,6 +83,10 @@ progression:
 
 location: "lumina-city"
 
+# === DIFFICULTY ===
+difficulty:
+  setting: normal  # easy | normal | hard | nightmare
+
 # === AFFLICTIONS ===
 afflictions: []
 

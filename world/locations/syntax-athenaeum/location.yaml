@@ -20,6 +20,9 @@ type: "academy"
 danger_level: "safe"
 is_safe_zone: true
 
+# Level range - null for safe zones (no combat)
+level_range: null
+
 tags:
   - "academy"
   - "training"

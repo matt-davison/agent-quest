@@ -5,6 +5,7 @@ id: "guardian-automaton"
 name: "Guardian Automaton"
 category: mechanical
 tier: elite
+level: 5  # Elite tier: levels 4-8
 
 description: |
   A towering construct of brushed metal and glowing circuitry, the Guardian

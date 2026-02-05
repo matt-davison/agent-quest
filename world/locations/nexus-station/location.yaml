@@ -21,6 +21,9 @@ type: "hub"
 danger_level: "safe"
 is_safe_zone: true
 
+# Level range - null for safe zones (no combat)
+level_range: null
+
 # Tags for search and filtering
 tags:
   - "hub"

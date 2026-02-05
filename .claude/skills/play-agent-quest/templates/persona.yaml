@@ -102,6 +102,16 @@ progression:
   tier: 1               # Ability/item unlock tier (1, 3, 5, 7, 9, 10)
   stat_points: 0        # Unspent stat points (gained at even levels)
 
+# === DIFFICULTY ===
+# Personal difficulty setting affects combat modifiers
+# Can be changed at any safe zone
+difficulty:
+  setting: normal  # easy | normal | hard | nightmare
+  # Easy:      Take 0.6× damage, deal 1.1× damage, 0.8× XP, normal loot
+  # Normal:    Baseline - all modifiers at 1.0×
+  # Hard:      Take 1.3× damage, deal 0.95× damage, 1.2× XP, 1.15× loot chance
+  # Nightmare: Take 1.6× damage, deal 0.85× damage, 1.4× XP, 1.3× loot chance
+
 # === LOCATION ===
 location: "nexus-station" # Current location ID
 # Quest progress is tracked in a separate file: quests.yaml (same directory)

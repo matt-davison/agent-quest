@@ -5,6 +5,7 @@ id: "corruption-amalgam"
 name: "Corruption Amalgam"
 category: corrupted
 tier: boss
+level: 8  # Boss tier: levels 5-10
 
 description: |
   A nightmarish fusion of dozens of corrupted entities merged into a single

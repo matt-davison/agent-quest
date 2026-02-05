@@ -5,6 +5,7 @@ id: "glitch-wraith"
 name: "Glitch Wraith"
 category: corrupted
 tier: standard
+level: 3  # Standard tier: levels 2-6
 
 description: |
   A humanoid figure composed entirely of visual artifacts—screen tears, dead

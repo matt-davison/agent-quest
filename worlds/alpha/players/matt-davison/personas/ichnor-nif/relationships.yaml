@@ -1,0 +1,56 @@
+# Ichnor Nif - NPC Relationships
+# Tracks standing, flags, and interaction history
+
+npcs:
+  vera-nighthollow:
+    standing: -2           # -3 trouble, +1 partial credit for sincere patron apology, caught lying
+    disposition: "cold"
+    flags:
+      - "first_warning_issued"
+      - "caused_scene_in_tavern"
+      - "caught_in_lie"         # Unlocks: cybernetic_purpose secret knowledge
+      - "bought_strong_drink"
+    interactions:
+      - date: "2026-02-05"
+        event: "Slapped a patron and screamed about Commander Steele. Vera issued final warning."
+        standing_change: -3
+      - date: "2026-02-05"
+        event: "Apologized with a fabricated story about Tourette's and the Gear Wars. Vera's Truth Sight saw through it instantly. But recognized the patron apology was genuine. Advised: don't lie to me."
+        standing_change: 1
+
+  nev-the-fray:
+    standing: 3            # First contact, reached out, received projections, stayed
+    disposition: "trusting"
+    entity_type: "fray"
+    flags:
+      - "first_contact"
+      - "entered_fold_peacefully"
+      - "survived_void_rush"
+      - "learned_fray_origin"
+      - "learned_three_beliefs"
+      - "vision_of_deep_fold"
+    interactions:
+      - date: "2026-02-05"
+        event: "Ichnor stepped into the Fold. Nev revealed itself. First contact — no aggression from either side."
+        standing_change: 1
+      - date: "2026-02-05"
+        event: "Ichnor reached out. First projection overwhelmed him (nosebleed, near-dissolution). Nev panicked, pulled back. Ichnor reassured it."
+        standing_change: 1
+      - date: "2026-02-05"
+        event: "Deep communion. Nev shared its origin, its loneliness, Fray belief systems, and a vision of the Deep Fold. Exhausted itself projecting. Ichnor stayed."
+        standing_change: 1
+
+  harsk:
+    standing: -1           # -2 slapped, +1 sincere apology accepted
+    disposition: "wary"
+    flags:
+      - "slapped_in_tavern"
+      - "apology_accepted"
+      - "gear_wars_veteran"    # Lost a squad mate in the Second Rotation
+    interactions:
+      - date: "2026-02-05"
+        event: "Got slapped on the back of the head unprovoked. Remembers your face."
+        standing_change: -2
+      - date: "2026-02-05"
+        event: "Ichnor apologized, mentioned the Gear Wars. Harsk related — lost someone there. Stood down."
+        standing_change: 1

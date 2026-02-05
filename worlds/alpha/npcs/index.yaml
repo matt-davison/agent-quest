@@ -189,6 +189,30 @@ npcs:
     notes: "Father of Yara Corren, who vanished 43 years ago hunting Architect 03. Gave Coda her coordinates."
     created_by: "matt-davison"
 
+  # --- VOID-POCKETS / THE FOLD ---
+
+  nev-the-fray:
+    name: "Nev"
+    role: "Fold Inhabitant"
+    entity_type: "fray"
+    default_location: "the-fold"
+    region: "between"
+    faction: "void-native"
+    disposition_default: "curious"
+    services: []
+    tags:
+      - "void-entity"
+      - "fray"
+      - "non-verbal"
+      - "alien"
+      - "lonely"
+      - "fold-network"
+    has_profile: true
+    profile_priority: "player-created"
+    notes: "First documented Fray. Void-entity native to uncompiled space. Communicates through projected impressions. Discovered by Ichnor Nif."
+    created_by: "matt-davison"
+    created_character: "ichnor-nif"
+
   # --- THE ELDERWOOD ---
   # (placeholder for future NPCs)
 
@@ -237,6 +261,11 @@ npcs:
 
 # === FACTION DEFINITIONS ===
 factions:
+  void-native:
+    name: "Void Natives"
+    description: "Entities native to uncompiled space — the gaps between rendered reality. Predate the Architects."
+    disposition_modifier: 0
+
   the-anchorate:
     name: "The Anchorate"
     description: "Ancient order of reality validators who witness and anchor changes to the Weave"

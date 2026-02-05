@@ -1,0 +1,33 @@
+id: igprmwrh
+name: "Seam Shard"
+type: accessory
+subtype: trinket
+rarity: uncommon
+tier: 1
+value: 0
+sell_value: 0
+description: |
+  A sliver of crystallized void about the length of a finger, cold to the touch
+  and faintly translucent. It was found half-buried in the dust of the Fold —
+  a pocket of uncompiled reality between Nexus Station and Lumina City. When held,
+  it vibrates at a frequency only Voidwalkers can feel.
+effects:
+  passive:
+    - "Vibrates when near other void-pockets or reality seams (detection range: ~50m)"
+    - "+1 to Perception checks involving hidden passages or phased objects"
+  active: null
+equip_slot: accessory
+requirements:
+  class: null        # Any class can hold it, but only Voidwalkers feel the vibration
+lore: |
+  The shard appears to be a fragment of the seam itself — a piece of the boundary
+  between compiled and uncompiled space that somehow crystallized. The Architects
+  may have used similar objects to navigate their network of Folds. How it ended
+  up on the ground is unknown. Perhaps the last visitor dropped it. Perhaps the
+  Fold grew it.
+soulbound: false
+tradeable: true
+stackable: false
+found_location: "the-fold"
+found_by: "ichnor-nif"
+found_date: "2026-02-05"

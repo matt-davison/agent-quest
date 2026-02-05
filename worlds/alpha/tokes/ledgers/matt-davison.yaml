@@ -1,7 +1,7 @@
 github: matt-davison
 weaver: Coda
 created: "2026-02-02T00:00:00Z"
-balance: 374
+balance: 371
 transactions:
   - id: init
     timestamp: "2026-02-02T00:00:00Z"
@@ -197,3 +197,14 @@ transactions:
     description: "Kael Shadowmend completed First Steps tutorial quest"
     character: kael-shadowmend
     quest: first-steps
+  - id: ichnor-nif-001
+    timestamp: "2026-02-05T13:00:00Z"
+    type: weaving_cost
+    amount: -3
+    description: "Ichnor Nif wove the Frays into existence — void-entities that inhabit the spaces between compiled reality"
+    content_paths:
+      - worlds/alpha/npcs/profiles/nev-the-fray.yaml
+      - worlds/alpha/locations/the-fold/README.md
+    character: ichnor-nif
+    pending_reward: true
+    claim_ref: "worlds/alpha/tokes/pending/ichnor-frays-and-fold.yaml"

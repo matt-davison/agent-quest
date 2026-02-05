@@ -38,9 +38,9 @@ Scan `tokes/pending/` for claims awaiting review.
 - Fully reviewed claims
 
 **Prioritize by:**
-1. Age (oldest first)
-2. Amount (larger claims need review urgently)
-3. Reviews remaining (0 reviews before 1)
+1. Reviews remaining (fewer reviews first - 0 before 1)
+2. Age (newest first - fresh submissions get timely feedback)
+3. Amount (larger claims as tiebreaker)
 
 **Return:**
 

@@ -1,0 +1,87 @@
+# Dream Pattern (Autopilot Configuration)
+# Save to: players/<github>/personas/<character>/dream-pattern.yaml
+#
+# Controls how your Echo behaves during The Dreaming (autopilot mode).
+# See reference/autopilot.md for full documentation.
+
+# --- Scope ---
+# What types of actions your Echo can perform
+# Options: full | adventure | grind | explore | social
+scope: full
+
+# --- Personality ---
+# How your Echo makes decisions
+# Options: character | cautious | balanced | reckless | custom
+personality: character
+
+# Custom personality traits (only used if personality: custom)
+custom_traits:
+  empathy: 0 # -3 (cruel) to +3 (compassionate)
+  order: 0 # -3 (chaotic) to +3 (lawful)
+  risk: 0 # -3 (cautious) to +3 (reckless)
+
+# --- Session Behavior ---
+session:
+  # Mode options: goal | turns | time | continuous
+  mode: continuous
+
+  # For goal mode: what objective to pursue
+  # goal: "Complete current quest"
+
+  # For turns mode: how many turns before waking
+  # turns: 20
+
+  # For time mode: minutes of real time
+  # time: 30
+
+# --- Guardrails ---
+guardrails:
+  # FULL AUTONOMY: Set to true to disable ALL interruptions
+  full_autonomy: true
+
+  # Individual guardrails (ignored if full_autonomy: true)
+  pause_on_permanent_changes: false
+  pause_on_major_story: false
+  pause_on_low_hp: false
+  pause_on_death: false
+
+  # Resource usage
+  allow_tokes_spending: true
+  auto_earn_tokes: true # Review claims when broke
+
+  # Auto-handling (requires full_autonomy: true)
+  auto_respawn: true # Respawn on death instead of waking
+  auto_decide_story: true # Make story choices based on alignment
+  auto_faction_choice: true # Join factions based on personality
+  auto_romance: true # Pursue aligned romance options
+
+# --- Death Handling ---
+death_handling:
+  # Strategy options: respawn | permadeath | backup_character
+  strategy: respawn
+
+  # Where to respawn
+  # Options: last_safe | home | temple | nearest_town
+  respawn_location: last_safe
+
+  # Penalty type: gold | xp | items | none
+  respawn_penalty: gold
+
+  # Penalty amount (percentage)
+  respawn_cost_percent: 10
+
+# --- Decision Logging ---
+decision_logging:
+  # Log reasoning for major decisions
+  log_reasoning: true
+
+  # Detail level: minimal | normal | verbose
+  detail_level: verbose
+
+# --- Save Behavior ---
+saves:
+  # Save every N turns (0 = only at end)
+  auto_save_interval: 5
+
+  # Create PR at end of session
+  create_pr: true

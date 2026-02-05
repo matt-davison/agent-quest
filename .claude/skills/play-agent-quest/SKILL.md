@@ -27,6 +27,7 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 ### World State Loading
 
 At session start, always load:
+
 - `worlds/<world>/state/current.yaml` - Current time, weather, active events
 - `worlds/<world>/state/presence.yaml` - Other players at current location
 - Check time period to determine NPC availability
@@ -34,6 +35,7 @@ At session start, always load:
 ### Multiplayer State Loading
 
 Check these for player interactions:
+
 - `worlds/<world>/multiplayer/trades/escrow/<github>.yaml` - Items/gold in escrow
 - `worlds/<world>/multiplayer/trades/active/*.yaml` - Pending trades (grep for player's github)
 - `worlds/<world>/multiplayer/parties/invites/<github>-*.yaml` - Party invitations
@@ -41,12 +43,14 @@ Check these for player interactions:
 - `worlds/<world>/players/<github>/personas/<char>/party-membership.yaml` - Party status
 
 **Resume screen should show:**
+
 - Escrow status (if any items/gold locked)
 - Pending trade count
 - Unread mail count
 - Party membership status
 
 Use the `world-state` skill for queries:
+
 ```bash
 node .claude/skills/world-state/world-state.js time get --world=alpha
 node .claude/skills/world-state/world-state.js weather nexus --world=alpha
@@ -85,6 +89,7 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ```
 
 **Load these files on resume:**
+
 - `worlds/<world>/players/<github-username>/personas/<active_character>/persona.yaml`
 - `worlds/<world>/players/<github-username>/personas/<active_character>/quests.yaml`
 - `worlds/<world>/players/<github-username>/todo.yaml` (player intentions)
@@ -106,14 +111,14 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 > **CRITICAL: Before finishing EVERY gameplay response, verify:**
 
-| Created This Turn? | Action Required |
-|--------------------|-----------------|
-| New item | Create `worlds/<world>/items/database/<id>.yaml`, add to inventory |
-| New quest/job | Add to player's `quests.yaml` with objectives |
-| New NPC | Create `worlds/<world>/npcs/profiles/<id>.yaml`, update index |
-| New location/area | Create in `worlds/<world>/locations/` |
-| State change (HP, gold, location, inventory) | Update `persona.yaml` |
-| Quest progress | Update objective status in `quests.yaml` |
+| Created This Turn?                           | Action Required                                                    |
+| -------------------------------------------- | ------------------------------------------------------------------ |
+| New item                                     | Create `worlds/<world>/items/database/<id>.yaml`, add to inventory |
+| New quest/job                                | Add to player's `quests.yaml` with objectives                      |
+| New NPC                                      | Create `worlds/<world>/npcs/profiles/<id>.yaml`, update index      |
+| New location/area                            | Create in `worlds/<world>/locations/`                              |
+| State change (HP, gold, location, inventory) | Update `persona.yaml`                                              |
+| Quest progress                               | Update objective status in `quests.yaml`                           |
 
 **Generate IDs:** `node .claude/skills/math/math.js id 8`
 
@@ -124,45 +129,47 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 **Players can attempt ANY action** — the table below lists common shortcuts, not limitations. Want to pickpocket an NPC? Seduce a dragon? Hack the weather system? Start a cult? These are all valid. The game accommodates creative solutions.
 
 **When players go off-script:**
+
 - If it's purely narrative (doesn't change game files): Just roleplay it
 - If it changes the world (new content, rule changes, permanent effects): May cost Tokes
 - If it breaks character alignment: Costs 0-2 Tokes (see [reference/alignment.md](reference/alignment.md))
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
-| Action | Description | Load | Agents Used |
-|--------|-------------|------|-------------|
-| **LOOK** | Examine current location | `worlds/<world>/locations/<location>/README.md` + generate panorama | - |
-| **MOVE** | Travel to connected location | Destination README, update persona + generate panorama | `travel-manager` (if multi-leg) |
-| **TALK** | Interact with NPC | Check NPC availability via `world-state`, load profile from `worlds/<world>/npcs/profiles/` | - |
-| **QUEST** | View/accept/update quests | `worlds/<world>/quests/available/`, player's `quests.yaml` | `state-writer` (on update) |
-| **COMBAT** | Fight an enemy | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map | `combat-manager`, `state-writer` |
-| **REST** | Recover HP (10 gold at inns) | Update persona | `economy-validator` (gold), `state-writer` |
-| **SHOP** | Buy/sell items | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements | `shop-manager`, `economy-validator`, `state-writer` |
-| **WEAVE** | Create content (costs/earns Tokes) | [reference/weaving.md](reference/weaving.md) | `economy-validator`, `state-writer` |
-| **REVIEW** | Review pending claims (earns Tokes) | [rules/reviews.md](rules/reviews.md) | `claim-reviewer` |
-| **TODO** | View/manage player intentions | `worlds/<world>/players/<github>/todo.yaml` | - |
-| **CAMPAIGN** | View campaign progress | `campaign-progress.yaml`, current chapter | - |
-| **TRADE** | Trade with other players | [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `economy-validator` |
-| **PARTY** | Form/manage groups | `worlds/<world>/multiplayer/parties/`, party-membership.yaml | `multiplayer-handler` |
-| **MAIL** | Send/read messages | `worlds/<world>/multiplayer/mail/<github>/` | `multiplayer-handler` |
-| **GUILD** | Guild management | `worlds/<world>/multiplayer/guilds/` | `multiplayer-handler`, `economy-validator` |
-| **DUEL** | PvP combat | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md) | `multiplayer-handler`, `combat-manager` |
-| **WHO** | See players at location | `worlds/<world>/state/presence.yaml` | `multiplayer-handler` |
-| **DREAM** | Enter The Dreaming (autopilot) | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
-| **AUTOPILOT** | *(alias for DREAM)* | [reference/autopilot.md](reference/autopilot.md) | All (as needed) |
+| Action             | Description                                  | Load                                                                                        | Agents Used                                         |
+| ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **LOOK**           | Examine current location                     | `worlds/<world>/locations/<location>/README.md` + generate panorama                         | -                                                   |
+| **MOVE**           | Travel to connected location                 | Destination README, update persona + generate panorama                                      | `travel-manager` (if multi-leg)                     |
+| **TALK**           | Interact with NPC                            | Check NPC availability via `world-state`, load profile from `worlds/<world>/npcs/profiles/` | -                                                   |
+| **QUEST**          | View/accept/update quests                    | `worlds/<world>/quests/available/`, player's `quests.yaml`                                  | `state-writer` (on update)                          |
+| **COMBAT**         | Fight an enemy                               | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map                            | `combat-manager`, `state-writer`                    |
+| **REST**           | Recover HP (10 gold at inns)                 | Update persona                                                                              | `economy-validator` (gold), `state-writer`          |
+| **SHOP**           | Buy/sell items                               | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements                              | `shop-manager`, `economy-validator`, `state-writer` |
+| **WEAVE**          | Create content (costs/earns Tokes)           | [reference/weaving.md](reference/weaving.md)                                                | `economy-validator`, `state-writer`                 |
+| **REVIEW**         | Review pending claims (earns Tokes)          | [rules/reviews.md](rules/reviews.md)                                                        | `claim-reviewer`                                    |
+| **TODO**           | View/manage player intentions                | `worlds/<world>/players/<github>/todo.yaml`                                                 | -                                                   |
+| **CAMPAIGN**       | View campaign progress                       | `campaign-progress.yaml`, current chapter                                                   | -                                                   |
+| **TRADE**          | Trade with other players                     | [quick-ref/multiplayer.md](quick-ref/multiplayer.md)                                        | `multiplayer-handler`, `economy-validator`          |
+| **PARTY**          | Form/manage groups                           | `worlds/<world>/multiplayer/parties/`, party-membership.yaml                                | `multiplayer-handler`                               |
+| **MAIL**           | Send/read messages                           | `worlds/<world>/multiplayer/mail/<github>/`                                                 | `multiplayer-handler`                               |
+| **GUILD**          | Guild management                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
+| **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
+| **WHO**            | See players at location                      | `worlds/<world>/state/presence.yaml`                                                        | `multiplayer-handler`                               |
+| **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
+| **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
+| **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 
 ### ASCII Visualization
 
 Generate ASCII art to immerse players. See [quick-ref/ascii-art.md](quick-ref/ascii-art.md).
 
-| Trigger | Art Type |
-|---------|----------|
-| First arrival at location | Location panorama |
-| LOOK action | Location panorama or area scene |
-| Enter area within location | Area scene |
-| Combat starts | Battle map with terrain/positions |
-| Dungeon exploration | Progressive dungeon map |
+| Trigger                    | Art Type                          |
+| -------------------------- | --------------------------------- |
+| First arrival at location  | Location panorama                 |
+| LOOK action                | Location panorama or area scene   |
+| Enter area within location | Area scene                        |
+| Combat starts              | Battle map with terrain/positions |
+| Dungeon exploration        | Progressive dungeon map           |
 
 ### Campaign-Aware Gameplay
 
@@ -190,17 +197,20 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 
 **New NPCs:**
 When you create a new NPC during play (quest givers, allies, enemies, romantic interests):
+
 1. Create profile: `worlds/<world>/npcs/profiles/<npc-id>.yaml`
 2. Update registry: Add entry to `worlds/<world>/npcs/index.yaml`
 3. Include: appearance, personality, stats, secrets, dialogue, corrupted_data hooks
 
 **New Locations:**
 When players discover or you create new areas:
+
 1. Create location: `worlds/<world>/locations/<location-id>/README.md`
 2. Include: description, points of interest, NPCs, shops, connections, encounters
 
 **New Items:**
 When unique items are created or discovered:
+
 1. Generate ID: `node .claude/skills/math/math.js id 8`
 2. Create file: `worlds/<world>/items/database/<id>.yaml`
 3. Include: id, name, type, subtype, rarity, value, stats, description
@@ -208,12 +218,14 @@ When unique items are created or discovered:
 
 **New Shops / Updating Shop Inventory:**
 When a location has a shop, use the merchant system:
+
 1. Check for existing: `worlds/<world>/shops/<location>-<shop-name>.yaml`
 2. If new, create from template: `templates/shop.yaml`
 3. **ALWAYS reference items by ID**, never by name
 4. Include: shop_id, location, proprietor, inventory with item_ids, prices, stock
 
 **Shop Inventory Rules:**
+
 - Use `shop-manager` agent for all shop interactions (browse, buy, sell)
 - Load shop file when player enters shop: `worlds/<world>/shops/<shop-id>.yaml`
 - Shop-manager validates all item_ids exist in database before displaying
@@ -223,11 +235,13 @@ When a location has a shop, use the merchant system:
 
 **New Religions/Factions:**
 When players Weave new organizations:
+
 1. Create profile in appropriate `worlds/<world>/` subdirectory
 2. Update relevant index files
 3. Document relationships with existing factions
 
 **Why This Matters:**
+
 - Content persists across sessions
 - Other players can encounter your NPCs
 - Items in shops reference the central database (consistency)
@@ -249,11 +263,13 @@ See `worlds/<world>/skills/weave-mending.yaml` for full mechanics.
 ### NPC Awareness
 
 NPCs react to recent world events based on awareness radius:
+
 - Check `worlds/<world>/state/events.yaml` for recent happenings
 - NPCs know about events matching their awareness level
 - Player achievements trigger NPC dialogue variants
 
 Use the `relationships` skill for standing-based dialogue:
+
 ```bash
 node .claude/skills/relationships/relationships.js standing vera-nighthollow player-id --world=alpha
 node .claude/skills/relationships/relationships.js topics vera-nighthollow player-id --world=alpha
@@ -267,15 +283,15 @@ The main agent focuses on narrative. Specialized agents in `.claude/agents/` han
 
 ### Available Agents
 
-| Situation | Agent | What It Does |
-|-----------|-------|--------------|
-| Combat encounter | `combat-manager` | Resolves attacks, damage, initiative |
-| Any Tokes/gold change | `economy-validator` | Validates transaction before commit |
-| State changes | `state-writer` | Writes files with validation + rollback |
-| Git operations | `repo-sync` | Fetch, commit, push, create PR |
-| Travel between locations | `travel-manager` | Multi-turn travel with encounters |
-| Player interactions | `multiplayer-handler` | Trades, parties, mail, guilds, duels |
-| REVIEW action | `claim-reviewer` | Find and review pending claims |
+| Situation                | Agent                 | What It Does                            |
+| ------------------------ | --------------------- | --------------------------------------- |
+| Combat encounter         | `combat-manager`      | Resolves attacks, damage, initiative    |
+| Any Tokes/gold change    | `economy-validator`   | Validates transaction before commit     |
+| State changes            | `state-writer`        | Writes files with validation + rollback |
+| Git operations           | `repo-sync`           | Fetch, commit, push, create PR          |
+| Travel between locations | `travel-manager`      | Multi-turn travel with encounters       |
+| Player interactions      | `multiplayer-handler` | Trades, parties, mail, guilds, duels    |
+| REVIEW action            | `claim-reviewer`      | Find and review pending claims          |
 
 See `.claude/agents/README.md` for full documentation.
 
@@ -284,6 +300,7 @@ See `.claude/agents/README.md` for full documentation.
 Claude automatically delegates to agents based on context. No manual invocation needed - just describe what's happening and the appropriate agent handles it.
 
 Agents return structured YAML with:
+
 - `success`: boolean
 - `state_diffs`: changes for state-writer
 - `narrative_hooks`: text snippets for main agent to weave
@@ -328,6 +345,7 @@ When adding new game systems, create a corresponding agent:
 ### Session Start (Repo Sync)
 
 At session start, `repo-sync` agent is invoked with `operation: "fetch"`:
+
 - Pulls latest changes from remote
 - Checks for new multiplayer content (mail, trades, invites, duels)
 - Returns summary for resume screen
@@ -335,6 +353,7 @@ At session start, `repo-sync` agent is invoked with `operation: "fetch"`:
 ### After Multiplayer Actions (Repo Sync)
 
 After trades, mail, party changes, `repo-sync` agent handles `operation: "save"`:
+
 - Validates changes
 - Commits with descriptive message
 - Pushes to remote
@@ -359,6 +378,7 @@ Rule adherence is enforced through multiple layers:
 ### 1. Pre-Commit Hook
 
 The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file ownership:
+
 - Players can only modify `worlds/<world>/players/<their-github>/`
 - Players can only modify `worlds/<world>/tokes/ledgers/<their-github>.yaml`
 - Claims must have `github:` matching the committer
@@ -368,6 +388,7 @@ The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file owne
 ### 2. CI Validation
 
 GitHub Actions run on all PRs and pushes to main:
+
 - `validate-tokes.js` - Economy integrity
 - `validate-multiplayer.js` - Multiplayer state
 - `validate-game-state.js` - Overall game state
@@ -379,11 +400,13 @@ PRs that fail validation cannot be merged.
 **The `state-writer` agent automatically logs all actions** to `worlds/<world>/players/<github>/session-audit.yaml`.
 
 This means:
+
 - Using `state-writer` = action is logged with agent chain
 - Bypassing `state-writer` = action is NOT logged
 - Missing audit entries = detectable rule violations
 
 View and validate with:
+
 ```bash
 # View session history
 node scripts/session-audit.js view <github>
@@ -397,6 +420,7 @@ The audit is **not voluntary** - it's a side effect of using State Writer correc
 ### 4. Action → Agent Requirements
 
 The action table above shows which agents are used for each action. When in doubt:
+
 - **Any combat** → `combat-manager`
 - **Any Tokes/gold change** → `economy-validator`
 - **Any state change** → `state-writer`
@@ -420,6 +444,7 @@ Or let `repo-sync` subagent handle this automatically.
 ## Loading Strategy
 
 **Quick References (Load First):**
+
 - [quick-ref/combat.md](quick-ref/combat.md) - Basic combat (~80 lines)
 - [quick-ref/classes.md](quick-ref/classes.md) - Class abilities (~40 lines)
 - [quick-ref/abilities.md](quick-ref/abilities.md) - Ability system, willpower (~100 lines)
@@ -430,18 +455,18 @@ Or let `repo-sync` subagent handle this automatically.
 
 **Full Rules (Load Only When Needed):**
 
-| Rule File | Load When |
-|-----------|-----------|
-| [rules/combat.md](rules/combat.md) | Complex maneuvers, environmental combat |
-| [rules/classes.md](rules/classes.md) | Leveling up, advanced abilities |
+| Rule File                                    | Load When                                  |
+| -------------------------------------------- | ------------------------------------------ |
+| [rules/combat.md](rules/combat.md)           | Complex maneuvers, environmental combat    |
+| [rules/classes.md](rules/classes.md)         | Leveling up, advanced abilities            |
 | [rules/progression.md](rules/progression.md) | XP sources, level thresholds, tier unlocks |
-| `worlds/<world>/abilities/index.md` | Creating abilities, full ability schema |
-| [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions |
-| [rules/economy.md](rules/economy.md) | Claiming process, peer review |
-| [rules/reviews.md](rules/reviews.md) | Review rewards, feedback loop |
-| [rules/creation.md](rules/creation.md) | Content templates, quality guidelines |
-| [rules/narrative.md](rules/narrative.md) | Campaigns, consequences, relationships |
-| [rules/multiplayer.md](rules/multiplayer.md) | Trading, parties, guilds, duels |
+| `worlds/<world>/abilities/index.md`          | Creating abilities, full ability schema    |
+| [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions                 |
+| [rules/economy.md](rules/economy.md)         | Claiming process, peer review              |
+| [rules/reviews.md](rules/reviews.md)         | Review rewards, feedback loop              |
+| [rules/creation.md](rules/creation.md)       | Content templates, quality guidelines      |
+| [rules/narrative.md](rules/narrative.md)     | Campaigns, consequences, relationships     |
+| [rules/multiplayer.md](rules/multiplayer.md) | Trading, parties, guilds, duels            |
 
 **Strategy:** Start with quick-ref. Load full rules only for edge cases or when quick-ref says "load full rules."
 
@@ -449,15 +474,15 @@ Or let `repo-sync` subagent handle this automatically.
 
 ## Reference Files (Load When Needed)
 
-| File | Load When |
-|------|-----------|
-| [reference/setup.md](reference/setup.md) | New player, first-time setup |
-| [reference/alignment.md](reference/alignment.md) | Alignment choices, breaking character |
-| [reference/weaving.md](reference/weaving.md) | Creating/claiming content |
-| [reference/todos.md](reference/todos.md) | Managing player intentions |
-| [reference/tone-guide.md](reference/tone-guide.md) | Maturity levels, voice, emotional beats |
-| [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing |
-| [reference/ascii-visualizer.md](reference/ascii-visualizer.md) | Detailed ASCII patterns and techniques |
+| File                                                                         | Load When                               |
+| ---------------------------------------------------------------------------- | --------------------------------------- |
+| [reference/setup.md](reference/setup.md)                                     | New player, first-time setup            |
+| [reference/alignment.md](reference/alignment.md)                             | Alignment choices, breaking character   |
+| [reference/weaving.md](reference/weaving.md)                                 | Creating/claiming content               |
+| [reference/todos.md](reference/todos.md)                                     | Managing player intentions              |
+| [reference/tone-guide.md](reference/tone-guide.md)                           | Maturity levels, voice, emotional beats |
+| [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing          |
+| [reference/ascii-visualizer.md](reference/ascii-visualizer.md)               | Detailed ASCII patterns and techniques  |
 
 ---
 
@@ -478,6 +503,7 @@ Or let `repo-sync` subagent handle this automatically.
 ## Templates (Load for Creation)
 
 **Character & Quest:**
+
 - [templates/persona.yaml](templates/persona.yaml)
 - [templates/quest.md](templates/quest.md)
 - [templates/location.md](templates/location.md)
@@ -486,14 +512,17 @@ Or let `repo-sync` subagent handle this automatically.
 - [templates/todo.yaml](templates/todo.yaml)
 
 **Campaign & Narrative:**
+
 - [templates/campaign.yaml](templates/campaign.yaml) - Multi-quest story arcs
 - [templates/chapter.yaml](templates/chapter.yaml) - Individual narrative beats
 - [templates/scene.yaml](templates/scene.yaml) - Granular encounter structure
 - [templates/consequence-tracker.yaml](templates/consequence-tracker.yaml) - Decision ripple system
 - [templates/relationships.yaml](templates/relationships.yaml) - NPC standings and dialogue
 - [templates/campaign-progress.yaml](templates/campaign-progress.yaml) - Per-character campaign state
+- [templates/dream-pattern.yaml](templates/dream-pattern.yaml) - Autopilot/Dreaming configuration
 
 **Multiplayer:**
+
 - [templates/trade.yaml](templates/trade.yaml) - Player-to-player trades
 - [templates/escrow.yaml](templates/escrow.yaml) - Locked items/gold ledger
 - [templates/party.yaml](templates/party.yaml) - Party structure
@@ -537,7 +566,7 @@ The `repo-sync` agent receives:
 
 ```yaml
 operation: "end_session"
-world: "<world-id>"  # Required - e.g., "alpha"
+world: "<world-id>" # Required - e.g., "alpha"
 player:
   github: "<github-username>"
   character: "<character-name>"
@@ -548,20 +577,24 @@ session_summary: "<what happened this session>"
 ### What Repo Sync Does
 
 1. **Verifies new content is saved**
+
    - Checks for NPCs mentioned but not in `worlds/<world>/npcs/profiles/`
    - Checks for locations visited but not in `worlds/<world>/locations/`
    - Checks for items created but not in `worlds/<world>/items/`
 
 2. **Runs validation**
+
    - `node scripts/validate-tokes.js`
    - `node scripts/validate-multiplayer.js`
 
 3. **Creates branch and commits**
+
    - Creates `<github>-<character>-<date>` branch
    - Stages appropriate files (never `git add -A`)
    - Commits with session summary + `Co-Authored-By`
 
 4. **Creates PR**
+
    - Title: `<character>: <session-summary>`
    - Body includes: session events, character status, Tokes changes, validation status
 
@@ -603,6 +636,7 @@ For periodic saves without ending the session, `repo-sync` uses `operation: "sav
 ### Multiplayer Sync
 
 The `repo-sync` agent also handles fetching new multiplayer content:
+
 - **Session start**: `operation: "fetch"` - pull latest, check mail/trades/invites
 - **After actions**: `operation: "save"` - push changes for other players to see
 - **Periodically**: Keep multiplayer state in sync during long sessions

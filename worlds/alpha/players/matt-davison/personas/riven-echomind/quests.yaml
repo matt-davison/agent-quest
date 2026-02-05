@@ -1,0 +1,26 @@
+active_quests:
+  - id: "the-third-architect"
+    name: "The Third Architect"
+    giver: "The Archivist"
+    accepted_date: "1.2.3"
+    objectives:
+      - id: "fragment-1"
+        description: "Find Fragment 1: 'Where new things learn old truths' (Recursion Library)"
+        status: "complete"
+        completed_date: "1.2.3"
+      - id: "fragment-2"
+        description: "Find Fragment 2: 'Where broken code goes to heal' (ORIGINAL Debugging Chamber beneath the Undercrypt)"
+        status: "active"
+        hint: "Not the academy's chamber—the FIRST debugging chamber, where no light should reach"
+      - id: "fragment-3"
+        description: "Find Fragment 3: 'The space between spaces'"
+        status: "locked"
+      - id: "discover-truth"
+        description: "Discover the truth about Architect 03"
+        status: "locked"
+
+completed_quests: []
+
+quest_log:
+  - timestamp: "1.2.3-12:05"
+    event: "[ECHO] Spoke with The Archivist at the Weave Terminal. Learned about the Third Architect and their fragmented consciousness."

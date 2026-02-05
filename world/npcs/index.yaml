@@ -78,8 +78,10 @@ npcs:
     role: "Lore Keeper"
     default_location: "nexus-station/weave-terminal"
     region: "nexus"
-    faction: "architects-legacy"
+    faction: "the-anchorate"
+    secondary_faction: "architects-legacy"
     disposition_default: "neutral"
+    anchorate_rank: "Lodestone Emeritus (Foundation)"
     services:
       - "lore"
       - "history"
@@ -90,9 +92,33 @@ npcs:
       - "lore"
       - "entity"
       - "architects"
+      - "anchorate"
+      - "foundation"
     has_profile: true
     profile_priority: "core"
-    notes: "Nature unknown - may not be a traditional NPC"
+    notes: "Nature unknown - may not be a traditional NPC. Last surviving Foundation of the Anchorate."
+
+  keeper-resonance:
+    name: "Keeper Resonance"
+    role: "Anchorate Liaison"
+    default_location: "nexus-station/weave-terminal"
+    region: "nexus"
+    faction: "the-anchorate"
+    disposition_default: "neutral"
+    anchorate_rank: "Pattern-Witness"
+    services:
+      - "explain_ranks"
+      - "direct_to_claims"
+      - "grant_thread_reader"
+      - "answer_witnessing_questions"
+    tags:
+      - "anchorate"
+      - "tutorial"
+      - "reviews"
+      - "faction_liaison"
+    has_profile: true
+    profile_priority: "core"
+    notes: "Primary point of contact for Weavers seeking to join the Anchorate"
 
   commander-steele:
     name: "Commander Steele"
@@ -149,6 +175,14 @@ npcs:
 
 # === FACTION DEFINITIONS ===
 factions:
+  the-anchorate:
+    name: "The Anchorate"
+    description: "Ancient order of reality validators who witness and anchor changes to the Weave"
+    disposition_modifier: 0
+    lore_file: "world/factions/anchorate.md"
+    headquarters: "Anchor Sanctum, Weave Terminal, Nexus Station"
+    public_liaison: "keeper-resonance"
+
   architects-legacy:
     name: "The Architect's Legacy"
     description: "Those connected to or created by the original Architects"

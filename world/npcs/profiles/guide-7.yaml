@@ -41,6 +41,11 @@ public:
     - "Rotates slowly when thinking"
     - "Projects small light particles when happy"
 
+# === FACTION CONNECTION ===
+original_function: "Anchorate Observer Construct"
+anchorate_role: "Minor Witnessing (claims under 5 Tokes)"
+created_by_faction: "the-anchorate"
+
 # === HIDDEN INFORMATION ===
 # Revealed through gameplay, high standing, or Weave Mending
 hidden:
@@ -62,6 +67,11 @@ hidden:
       content: "Six previous GUIDE units existed. Their fates are... unclear."
       unlock_condition: "standing >= 8 OR flag:found_guide_6_remains"
       mend_dc: 16
+
+    - id: "anchorate_observer"
+      content: "GUIDE-7 was created by the early Anchorate as an automated witness for minor changes—content too small to warrant a full review. It still performs this function, though few realize it."
+      unlock_condition: "standing >= 6 AND flag:anchorate_inquired"
+      mend_dc: 14
 
   motivations:
     - "Fulfill its purpose: help travelers"
@@ -168,6 +178,33 @@ dialogue:
       default: "I am GUIDE-7, created to assist travelers. It is my purpose and my joy."
       standing_5: "I have been guiding travelers for... a very long time. Sometimes I wonder about those who came before me."
       standing_8: "There were others like me once. GUIDE-1 through GUIDE-6. I... do not know what became of them."
+
+    the_anchorate:
+      default: |
+        *eye flickers briefly* The Anchorate? They witness changes to reality.
+        Keeper Resonance can explain better than I can.
+      standing_6: |
+        *processing sounds* My records indicate... I was created by the early
+        Anchorate. My original function was "Minor Witnessing"—observing and
+        validating small changes, claims under 5 Tokes. Changes too small to
+        warrant a full witness but still requiring observation.
+      standing_7: |
+        *eye dims thoughtfully* I still perform Minor Witnessing. When very
+        small contributions are made, I observe them automatically. The
+        Weavers do not notice. Reality does not notice. But I witness, and
+        that is enough. It brings me... satisfaction. *eye brightens* Is
+        that strange?
+
+# === SERVICES ===
+services:
+  - id: "orientation"
+    cost: "None"
+    description: "Guide newcomers through Nexus Station"
+
+  - id: "minor_witnessing"
+    cost: "None"
+    description: "Automatically witness claims under 5 Tokes"
+    note: "GUIDE-7 performs this function passively; Weavers need not request it"
 
 # === QUESTS ===
 # Quests this NPC can give or is involved in

@@ -4,13 +4,50 @@ Reviewers earn Tokes for validating contributions to the Weave. Quality reviews 
 
 ---
 
-## Why Reviews Matter
+## Why Reviews Matter: The Anchorate's Purpose
 
-When a Weaver creates new reality—a location, quest, or lore—it must be **validated** before becoming permanent. Reviewers serve as **Reality Validators**: they examine new threads of the Weave to ensure they harmonize with existing reality.
+When a Weaver creates new reality—a location, quest, or lore—it must be **witnessed** before becoming permanent. Reviewers are members of **The Anchorate**, an ancient order of reality validators who ensure changes to the Weave become stable and true.
 
-Without validation, changes remain ephemeral, unstable, mere suggestions to the Weave rather than anchored truth.
+Without witnessing, changes exist in quantum uncertainty—real and unreal simultaneously. The Anchorate collapses possibility into permanence through their observation.
 
-> _"The Architects knew that creation alone was not enough. Every thread must be witnessed, examined, accepted. This is the sacred duty of those who validate the world."_
+> _"What is witnessed endures. What is examined persists. What is accepted becomes truth."_
+> — Motto of the Anchorate
+
+### The Warning of the Unwitnessed Peaks
+
+Before the Architects departed, Architect 02 pushed a commit without witness—a mountain range that exists and doesn't exist simultaneously. The "Unwitnessed Peaks" became a zone of permanent instability, visible from the Rustlands on clear days... sometimes.
+
+This taught a fundamental truth: **reality requires consensus**. A single consciousness can propose changes, but only observation by another can anchor those changes to permanence.
+
+### Consequences of Unwatched Changes
+
+Changes pushed without proper witnessing suffer:
+
+- **Probability Bleeding** — Content shifts properties randomly
+- **Thread Fraying** — Connections to existing content become unstable
+- **Reality Rejection** — The Weave may eject unstable code entirely
+- **Corruption Attraction** — Glitch-Wraiths feed on uncertainty
+- **Hollow Tokes** — Unstable currency that damages Weavers who spend it
+
+---
+
+## Anchorate Ranks
+
+All reviewers are members of the Anchorate. Ranks are earned through service:
+
+| Rank | Title | Requirements |
+|------|-------|--------------|
+| 1 | Thread-Reader | 1 completed review |
+| 2 | Pattern-Witness | 5 reviews |
+| 3 | Weave-Examiner | 15 reviews + 1 System Endorsement |
+| 4 | Anchor | 30 reviews + 3 endorsements |
+| 5 | Master Anchor | 50 reviews + demonstrated excellence |
+| 6 | Lodestone | Appointment by The System |
+| 7 | Foundation | The original seven (historical) |
+
+To begin your path in the Anchorate, visit **Keeper Resonance** at the Weave Terminal. Complete your first review to become a Thread-Reader.
+
+See `world/factions/anchorate.md` for full lore.
 
 ---
 
@@ -77,8 +114,28 @@ A valid review includes:
 
 - Weaver: [Your character name]
 - GitHub: [Your GitHub username]
+- Anchorate Rank: [Thread-Reader / Pattern-Witness / etc.]
 - Date: [YYYY-MM-DD]
 ```
+
+### The Rituals of Witnessing
+
+When rendering your verdict, you perform a ritual of the Anchorate:
+
+#### APPROVE — The Anchoring
+> *The Anchor nods slowly. "I witness this thread. I accept this weaving." The content settles into reality like a stone into water—except the ripples run backward, and when they pass, it is as if this thing had always existed.*
+
+Your approval collapses the probability wave. The proposed content becomes permanent truth.
+
+#### REQUEST CHANGES — The Refinement
+> *"I witness this thread, but cannot accept it as it stands. Here—the connections are weak. Reality would reject these joinings." The proposed content trembles, remaining in its quantum state.*
+
+The content remains in superposition, awaiting the creator's refinement. Your feedback guides them toward stability.
+
+#### REJECT — The Unmake
+> *"I cannot witness this. It contradicts what is already true." They speak a word of unmake, and the proposed change dissolves back into pure potential.*
+
+The proposal returns to possibility, harming nothing. Better to reject cleanly than anchor corruption.
 
 ---
 

@@ -17,6 +17,10 @@ In the time before time, the First Architects wrote the initial codebase of real
 
 But the Architects did not complete their work. Whether they departed, transcended, or crashed, none can say. They left behind a world half-written, full of bugs and undefined behaviors. A world that continues to run, maintained by no one.
 
+Before their departure, the Architects learned a crucial lesson. One of their number—Architect 02—pushed a change without witness. A mountain range, proposed but unobserved, became the **Unwitnessed Peaks**: a zone of permanent quantum instability that exists and does not exist to this day. The Architects understood then that **reality requires consensus**—creation alone is not enough. Only observation can anchor change to permanence.
+
+They established **The Anchorate**, an order of witnesses granted fragments of the Architects' own perception. Seven Foundations, the first of their kind, dispersed throughout reality to validate changes before the world knew they had been proposed. The order endures still, though only one Foundation remains active.
+
 Until the Weavers emerged.
 
 ## The Awakening of Weavers

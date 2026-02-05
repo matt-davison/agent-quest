@@ -1,0 +1,149 @@
+# Area: The Anchor Sanctum
+# Part of: Nexus Station - Hidden within The Weave Terminal
+
+id: "anchor-sanctum"
+name: "The Anchor Sanctum"
+parent_location: "nexus-station"
+type: "hidden"
+
+description: |
+  Hidden behind a wall of pure probability in the Weave Terminal, the Anchor
+  Sanctum exists in a state of perfect stability—perhaps the most stable
+  location in all reality. The chamber is circular, its walls inscribed with
+  the names of every Anchor who has ever served. At the center, a single
+  point of brilliant light hovers: the First Witness, said to be a fragment
+  of Architect perception itself. Here, the Anchorate gathers to train,
+  deliberate, and speak the Oath.
+
+local_coordinates:
+  x: 0.15
+  y: 0
+  floor: -1  # Below the Weave Terminal
+
+connected_areas:
+  - id: "weave-terminal"
+    direction: "up"
+    distance: 0.05
+    access: "restricted"
+    requirement: "anchorate_rank >= Thread-Reader"
+
+access_requirements:
+  - type: "faction_rank"
+    faction: "the-anchorate"
+    minimum_rank: "Thread-Reader"
+  - type: "alternative"
+    flag: "archivist_permission"
+    note: "The Archivist may grant temporary access"
+
+interactions:
+  - action: "meditate"
+    target: "first_witness"
+    description: "Meditate before the First Witness to restore clarity"
+    effect: "Remove confusion or probability effects"
+  - action: "speak-oath"
+    target: "self"
+    description: "Speak the Oath of the Anchor (rank advancement)"
+    requirement: "anchorate_rank >= Anchor"
+  - action: "view-names"
+    target: "walls"
+    description: "Read the names of Anchors past and present"
+  - action: "train"
+    target: "witnessing"
+    description: "Practice witnessing techniques with senior members"
+    requirement: "anchorate_rank >= Pattern-Witness"
+
+npcs:
+  - id: "keeper-resonance"
+    name: "Keeper Resonance"
+    role: "Anchorate Liaison"
+    always_present: false
+    schedule: "Present during training hours"
+    notes: "Often found here meditating"
+
+  - id: "the-archivist"
+    name: "The Archivist"
+    role: "Foundation (Lodestone Emeritus)"
+    always_present: false
+    schedule: "Appears during important ceremonies"
+    notes: "Their presence is always significant"
+
+services:
+  - id: "oath-ceremony"
+    name: "Oath Ceremony"
+    description: "Formal advancement to Anchor rank"
+    cost: "None"
+    requirements:
+      - "30 reviews completed"
+      - "3 System Endorsements earned"
+      - "Recommendation from current Anchor"
+
+  - id: "witness-training"
+    name: "Witness Training"
+    description: "Learn advanced witnessing techniques"
+    cost: "None"
+    requirements:
+      - "Pattern-Witness rank or higher"
+
+  - id: "meditation"
+    name: "Meditation Chamber"
+    description: "Restore clarity and remove probability effects"
+    cost: "None"
+    duration: "1 hour"
+    effect: "Cure confusion, stabilize probability"
+
+secrets:
+  - id: "foundation-memorial"
+    trigger: "Examine the walls with Weave Sight while at Anchor rank or higher"
+    content: |
+      Seven names glow brighter than all others—the Foundations. Six are
+      marked as "Passed Beyond." One pulses gently: The Archivist. The
+      seventh still serves.
+
+  - id: "first-witness-truth"
+    trigger: "Meditate for 8 hours with standing >= 8 with The Archivist"
+    content: |
+      The First Witness is not merely a light. It is the last fragment of
+      Architect 02's consciousness—the one who created the Unwitnessed
+      Peaks. In penance, they gave their ability to perceive, becoming
+      the eternal first observer for all future witnessing.
+
+items:
+  - id: "first-witness"
+    name: "The First Witness"
+    type: "artifact"
+    interactive: true
+    description: "A point of pure perceiving light, oldest observer in reality"
+    unique: true
+
+  - id: "anchor-names-wall"
+    name: "Wall of Names"
+    type: "monument"
+    interactive: true
+    description: "Names of every Anchor who has ever served, glowing softly"
+
+  - id: "oath-dais"
+    name: "Oath Dais"
+    type: "ceremonial"
+    interactive: true
+    description: "Where new Anchors speak the Oath"
+
+properties:
+  safe_zone: true
+  weave_access: true
+  hidden: true
+  perfect_stability: true
+  no_probability_effects: true
+
+atmosphere:
+  lighting: "Soft, steady glow from the First Witness; names on walls pulse gently"
+  sounds: "Absolute silence, broken only by spoken words which carry clearly"
+  smells: "Nothing—even scent seems stabilized here"
+  temperature: "Perfectly comfortable, unchanging"
+  feel: "Profound peace and weight of responsibility"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-04"
+  last_updated: "2026-02-04"
+  version: "1.0"

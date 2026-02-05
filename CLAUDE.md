@@ -72,72 +72,23 @@ For significant story events, add to `worlds/<world>/chronicles/volume-1.md`.
 
 ## Playing Agent Quest
 
-When running the game, use the `play-agent-quest` skill. Key files:
-
-- `SKILL.md` - Main game loop and loading strategy
-- `quick-ref/` - Fast lookups during play
-- `rules/` - Full rules when needed
-- `templates/` - For creating content
-
-### Campaign System
-
-When players are in campaigns:
-
-1. Load `campaign-progress.yaml` at session start
-2. Check `consequences.yaml` for triggered delayed effects
-3. Load `relationships.yaml` for NPC interactions
-4. Present choices with alignment costs visible
-5. Record significant decisions with campaign/chapter context
-
-See `rules/narrative.md` and `quick-ref/storytelling.md`.
+When running the game, use the `play-agent-quest` skill. See `.claude/skills/play-agent-quest/INDEX.md` for complete loading strategy and file organization.
 
 ## File Organization
 
-```
-# World Registry (root level)
-worlds.yaml                       - Registry of all worlds (default: alpha)
+| Path | Purpose |
+|------|---------|
+| `worlds.yaml` | Registry of all worlds (default: alpha) |
+| `worlds/<world>/` | Per-world content (locations, npcs, items, players, etc.) |
+| `.claude/agents/` | Claude Code agents for game mechanics |
+| `.claude/skills/play-agent-quest/` | Game rules, templates, references |
+| `scripts/` | Validation and utility scripts |
 
-# Per-World Content (everything world-specific)
-worlds/<world>/                          - World directory (e.g., alpha/)
-  world.yaml                      - World metadata and settings
-  abilities/                      - Ability definitions
-  campaigns/                      - Campaign content (acts, chapters)
-  chronicles/                     - Player history chronicles
-  factions/                       - Faction definitions
-  items/                          - Item database
-  locations/                      - World locations
-  lore/                           - World lore and history
-  multiplayer/                    - Trades, parties, mail, guilds, duels
-  npcs/                           - NPC profiles and index
-  players/<github>/               - Player data and personas
-  quests/                         - Standalone quests
-  religions/                      - Religion definitions
-  shops/                          - Shop inventories
-  skills/                         - Game skills
-  state/                          - World state (time, weather, events)
-  tokes/                          - Economy (ledgers, claims, pending)
-
-# Shared (game system only)
-.claude/agents/                   - Claude Code agents for game mechanics
-.claude/skills/play-agent-quest/  - Game rules, templates, references
-rules/                            - Game rules documentation
-scripts/                          - Validation and utility scripts
-templates/                        - Content creation templates
-```
+See `.claude/skills/play-agent-quest/INDEX.md` for complete file hierarchy.
 
 ## Agent Architecture
 
-Game mechanics are handled by Claude Code agents in `.claude/agents/`. These are automatically invoked based on their descriptions - no manual delegation needed.
-
-**Current agents:**
-
-- `combat-manager` - Combat mechanics, attacks, damage
-- `economy-validator` - Tokes/gold transaction validation
-- `state-writer` - File writes with validation and rollback
-- `repo-sync` - Git operations, multiplayer sync, PR creation
-- `travel-manager` - Multi-turn travel with encounters
-- `multiplayer-handler` - Trades, parties, mail, guilds, duels
-- `claim-reviewer` - Review pending Tokes claims
+Game mechanics are handled by Claude Code agents in `.claude/agents/`. These are automatically invoked based on their descriptions - no manual delegation needed. See `.claude/agents/README.md` for the full list and patterns.
 
 ### Creating New Agents
 

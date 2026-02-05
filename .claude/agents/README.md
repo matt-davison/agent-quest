@@ -68,7 +68,25 @@ When playing or developing Agent Quest, look for:
 - **Multiplayer sync points** - If actions affect other players, route through multiplayer-handler
 
 Examples of potential future agents:
-- `shop-manager` - Handle purchases, stock, tier requirements
 - `quest-tracker` - Manage quest state, objectives, completion
 - `crafting-system` - Item creation, recipes, resource management
 - `reputation-manager` - Faction standings, consequences, unlocks
+
+## Related Rules
+
+Each agent may need to load external documentation:
+
+| Agent | Rules Files | Quick-ref |
+|-------|-------------|-----------|
+| combat-manager | rules/combat.md, rules/afflictions.md, rules/difficulty.md | quick-ref/combat.md |
+| economy-validator | rules/economy.md | - |
+| state-writer | - | - |
+| repo-sync | - | - |
+| travel-manager | - | - |
+| multiplayer-handler | rules/multiplayer.md | quick-ref/multiplayer.md |
+| claim-reviewer | rules/reviews.md, rules/economy.md | - |
+| shop-manager | rules/economy.md | - |
+| docs-maintainer | - | - |
+
+Rules files are in `.claude/skills/play-agent-quest/rules/`.
+Quick-ref files are in `.claude/skills/play-agent-quest/quick-ref/`.

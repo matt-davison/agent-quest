@@ -1,5 +1,7 @@
 # Agent Quest Combat System
 
+> **Agent:** combat-manager | **Quick-ref:** [quick-ref/combat.md](../quick-ref/combat.md)
+
 > _"Reality is mutable. Pain is not. Both are temporary if you understand the code."_ — Dean Overflow
 
 **All calculations must use the [math skill](../../math/)** for accuracy and verifiable randomness.

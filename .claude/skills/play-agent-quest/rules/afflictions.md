@@ -1,5 +1,7 @@
 # Status Effects, Conditions & Afflictions
 
+> **Agent:** combat-manager
+
 > _"The Weave manifests corruption as tangible afflictions. To understand them is to understand the errors in reality itself."_ — Dean Overflow
 
 > _"Every shortcut has a price. Sometimes the price is you."_ — Common Weaver wisdom

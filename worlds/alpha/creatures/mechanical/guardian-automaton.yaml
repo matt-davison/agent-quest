@@ -1,0 +1,283 @@
+# Guardian Automaton
+# Tier: Elite | Role: Brute
+
+id: "guardian-automaton"
+name: "Guardian Automaton"
+category: mechanical
+tier: elite
+level: 5  # Elite tier: levels 4-8
+
+description: |
+  A towering construct of brushed metal and glowing circuitry, the Guardian
+  Automaton stands three meters tall. Its chassis is covered in defensive
+  plating, and its arms end in massive crushing fists or integrated weapons.
+
+  These automatons were created by the First Architects to guard critical
+  infrastructure. They continue their eternal vigil long after their creators
+  vanished, following protocols burned into their cores.
+
+  They move with surprising grace for their size, hydraulics hissing with each
+  step. Red sensor arrays sweep back and forth, and when they detect intruders,
+  a warning klaxon sounds before they engage.
+
+stats:
+  hp: 85
+  defense: 16
+  attack_bonus: +6
+  damage: 20
+  speed: medium
+  initiative_bonus: +0
+
+role: brute
+
+defenses:
+  resistances:
+    - physical  # Heavy armor plating
+    - fire      # Heat-resistant construction
+  immunities:
+    - poison
+    - disease
+    - corruption
+    - psychic
+  vulnerabilities:
+    - lightning  # Overloads circuits
+
+abilities:
+  - name: "Crushing Blow"
+    type: active
+    description: |
+      The automaton brings both fists down in a devastating overhead strike.
+      Attack: +6 to hit, 20 damage.
+      If target is against a wall or object, +5 damage and target is dazed
+      (loses Minor action next turn).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 20
+    effects:
+      - effect: "dazed"
+        duration: 1
+        save_dc: 0
+        condition: "Target against wall/object"
+    ai_priority: high
+    ai_condition: "Standard attack, prefer when target is cornered"
+
+  - name: "Defensive Protocol"
+    type: active
+    description: |
+      The automaton enters a defensive stance, raising its arms to shield
+      its sensor array.
+      Until start of next turn: +4 Defense, reduce all damage by 5.
+      Cannot move while in this stance.
+    cooldown: 3
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects:
+      - effect: "defending"
+        duration: 1
+        save_dc: 0
+    ai_priority: critical
+    ai_condition: "Use when below 50% HP and multiple enemies attacking, or when guarding objective"
+
+  - name: "Threat Assessment"
+    type: passive
+    description: |
+      The automaton's sensors identify the highest-threat target.
+      At the start of each round, marks one enemy as PRIMARY THREAT.
+      +2 to attack rolls against marked target.
+      Mark transfers when target dies or flees.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: high
+    ai_condition: "Passive - marks highest damage dealer"
+
+  - name: "Shockwave Stomp"
+    type: active
+    description: |
+      The automaton slams the ground, sending a shockwave outward.
+      All creatures within 3m: 10 damage, Agility DC 14 or knocked prone.
+      Creates 3m radius difficult terrain (cracked floor).
+    cooldown: 4
+    cost: 0
+    range: self
+    area: 3m_radius
+    damage: 10
+    effects:
+      - effect: "prone"
+        duration: 0
+        save_dc: 14
+    ai_priority: high
+    ai_condition: "Use when 3+ enemies within range, or to knock down approaching melee"
+
+  - name: "System Reboot"
+    type: triggered
+    description: |
+      When stunned or disabled by a hack attempt, at the end of the
+      automaton's next turn it automatically recovers and gains
+      +2 to Defense against hack attempts for 3 rounds.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: critical
+    ai_condition: "Triggers when stunned/hacked"
+
+  - name: "Guardian's Duty"
+    type: passive
+    description: |
+      When an ally or guarded object takes damage within 5m, the
+      automaton can move up to 3m toward the attacker as a free action
+      (once per round).
+    cooldown: 0
+    cost: 0
+    range: 5m
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - triggers when protecting objective"
+
+phases: null  # Elite but no phases
+
+environment:
+  preferred_terrain:
+    - terrain_type: "choke_point"
+      bonus: "Cannot be flanked, blocks passage completely"
+    - terrain_type: "near_objective"
+      behavior: "Positions to protect guarded object/door"
+    - terrain_type: "solid_ground"
+      behavior: "Avoids unstable terrain where weight is a liability"
+
+  interactions:
+    - element: "pillars"
+      behavior: "Punches through pillars to collapse on enemies"
+      priority: medium
+      condition: "Enemy using pillar for cover"
+
+    - element: "barriers"
+      behavior: "Smashes through non-reinforced barriers"
+      priority: low
+      condition: "Barrier blocks path to objective"
+
+    - element: "control_panels"
+      behavior: "Ignores panels unless directly relevant to duty"
+      priority: low
+      condition: "Panel controls access to guarded area"
+
+    - element: "explosive_barrels"
+      behavior: "Avoids damage to self, but will push into enemies"
+      priority: medium
+      condition: "Can reach barrel safely and enemy is adjacent"
+
+    - element: "heavy_objects"
+      behavior: "Throws heavy objects at distant targets"
+      priority: high
+      condition: "Ranged enemies staying out of melee"
+
+  hazard_immunity:
+    - "fire"
+    - "poison_gas"
+
+  hazard_exploitation:
+    - hazard: "electrical"
+      tactic: "AVOIDS - vulnerable to lightning"
+    - hazard: "pit"
+      tactic: "Pushes enemies toward pits with Crushing Blow"
+    - hazard: "unstable_ground"
+      tactic: "Uses Shockwave Stomp to trigger collapse under enemies"
+
+morale:
+  break_threshold: 0  # Mechanical, doesn't break
+  break_behavior: fearless
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: highest_threat
+  secondary: nearest
+  avoids: []  # Machines don't discriminate
+  switches_target_when: "Current target dies, flees, or new target deals massive damage"
+
+pack_tactics:
+  enabled: false  # Automatons work alone or in pairs
+  flanking: false  # Too large to effectively flank
+  focus_fire: true  # Will coordinate with other automatons
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 30
+    max: 75
+  xp: 150
+  guaranteed_drops:
+    - item: "Automaton Power Core"
+      quantity: 1
+    - item: "Reinforced Plating Scrap"
+      quantity: 2
+  chance_drops:
+    - item: "Sensor Array Component"
+      chance: 50
+      quantity: 1
+    - item: "Hydraulic Actuator"
+      chance: 40
+      quantity: 1
+  rare_drops:
+    - item: "First Architect Schematic Fragment"
+      chance: 15
+      quantity: 1
+    - item: "Guardian Core (intact)"
+      chance: 5
+      quantity: 1
+
+type_traits:
+  mechanical:
+    - "Immune to poison, disease, fear, charm"
+    - "Vulnerable to lightning (+50% damage)"
+    - "Can be hacked (Intelligence DC 16, stunned for 1 round)"
+    - "Predictable patterns - once observed, +1 to Defense vs it"
+
+encounter_notes: |
+  Guardian Automatons are straightforward but deadly. They don't use clever
+  tactics - they identify threats and eliminate them methodically.
+
+  Combat patterns:
+  - Always positions to protect objective (door, terminal, etc.)
+  - Uses Defensive Protocol when surrounded or taking heavy fire
+  - Shockwave Stomp when 3+ melee attackers cluster
+  - Throws objects at ranged attackers it can't reach
+
+  Key vulnerabilities:
+  - Lightning damage is devastating - Datamancers excel here
+  - Hack attempts (Int DC 16) stun it for a round
+  - Can be kited by mobile characters
+  - Predictable behavior allows for tactical planning
+
+  Environmental notes:
+  - Their weight can trigger floor collapses
+  - They WILL destroy cover to reach targets
+  - They avoid electrical hazards actively
+  - Their Shockwave Stomp creates difficult terrain
+
+  In paired encounters, automatons protect each other - one uses Defensive
+  Protocol while the other attacks. Force them to split attention.
+
+  Ideal as vault/facility guardians. Players should scout before engaging
+  to understand the environment and identify the automaton's objective.
+
+metadata:
+  created: "2026-02-03"
+  author: "Coda"
+  source: "First Architect security systems, still operational"
+  cr_equivalent: 5

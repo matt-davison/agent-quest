@@ -1,5 +1,7 @@
 # Narrative Rules
 
+> **Quick-ref:** [quick-ref/storytelling.md](../quick-ref/storytelling.md)
+
 How campaigns structure play, consequences propagate, and relationships affect the game.
 
 ---

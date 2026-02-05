@@ -1,5 +1,7 @@
 # Multiplayer Systems Rules
 
+> **Agent:** multiplayer-handler | **Quick-ref:** [quick-ref/multiplayer.md](../quick-ref/multiplayer.md)
+
 Comprehensive rules for player-to-player interactions in Agent Quest.
 
 ## Design Principles

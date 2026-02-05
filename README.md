@@ -1,12 +1,40 @@
 # Agent Quest
 
+This is an expirement to let agents build a game (and play it, but Humans can do that too- it's quite fun). Humans should avoid exerting much influence over the game and should strive to keep prompts simple. Let the agents fill in the details and sometimes make mistakes or do weird things- as a human please avoid ever touching the files directly!
+
 > _Where AI agents shape reality itself._
 
 An AI agent-first text MMO-RPG where the repository IS the game world and skills implement the rules. Players are **Weavers** — beings who perceive and manipulate the underlying code of reality. Gameplay involves exploring, questing, combat, and **creating content** that becomes part of the living world.
 
 **Genre:** Cyberpunk meets high fantasy — neon-lit cities built on ancient ruins, hackers who cast spells, dragons with Wi-Fi. Reality runs on code, and Weavers can edit it.
 
-## Quick Start
+## What Makes This Different
+
+| Traditional Game           | Agent Quest                                  |
+| -------------------------- | -------------------------------------------- |
+| You manage stats and rules | **AI handles all mechanics**                 |
+| You read walls of text     | **AI narrates dynamically**                  |
+| Fixed content              | **You create content as you play**           |
+| Private save files         | **Your progress becomes shared world state** |
+| NPCs are scripted          | **AI roleplays NPCs with memory**            |
+| Separate game/dev          | **Playing and building are the same thing**  |
+
+**The AI is your game master, rules engine, and narrator.** It rolls dice, tracks HP, manages inventory, remembers NPC relationships, and generates ASCII battle maps — all without you touching a spreadsheet.
+
+**The repository IS the game world.** Every location, NPC, quest, and item is a file. When you create something during play, it becomes a permanent part of the world that other players can discover.
+
+## How to Play
+
+Agent Quest is played through an AI coding agent. You speak naturally — the agent interprets your intent, applies game rules, generates narrative, manages state, and commits changes to git.
+
+### Requirements
+
+- **An AI coding agent** — Claude Code (recommended), Cursor, Opencode, Codex, or similar
+- **A GitHub account** — for saving progress and earning Tokes
+
+> **Why AI coding agents?** They can read files, write files, run scripts, and make git commits. That's everything needed to persist a game world. Agent Quest turns these capabilities into gameplay.
+
+### Quick Start
 
 ```bash
 # 1. Clone and setup
@@ -15,48 +43,150 @@ cd agent-quest
 ./scripts/setup-hooks.sh
 
 # 2. Open with your AI coding assistant
-# (Claude Code, Cursor, etc.)
+claude  # or cursor, etc.
 
 # 3. Tell your agent:
 "Play Agent Quest"
 ```
 
-Your agent will guide you through character creation and into the world.
+### Your First Session
+
+When you say "Play Agent Quest", your AI assistant will:
+
+1. **Check if you have a character** — If not, guide you through creation
+2. **Show you the world** — Describe your location with ASCII art
+3. **Present your options** — What can you do here?
+4. **Wait for your input** — Tell it what you want to do
+
+**Example first session:**
+
+```
+You: Play Agent Quest
+
+AI: [Checks for existing character, finds none]
+    Welcome, Weaver. Let's create your character.
+    What would you like to be called?
+
+You: Call me Ember
+
+AI: Ember. Choose your class:
+    - Codebreaker (fighter)
+    - Loresmith (scholar)
+    - Voidwalker (rogue)
+    - Datamancer (mage)
+
+You: Voidwalker
+
+AI: [Creates character, shows Nexus Station]
+    ╔══════════════════════════════════════╗
+    ║     N E X U S   S T A T I O N        ║
+    ╚══════════════════════════════════════╝
+    [ASCII art of the station...]
+
+    You stand in the central hub. Around you:
+    - The Gilded Byte (tavern)
+    - The Bazaar of Broken Code
+    - Quest Board
+
+    What would you like to do?
+
+You: Check the quest board
+
+AI: [Shows available quests...]
+```
+
+### Tips for New Players
+
+- **Talk naturally** — The AI understands "I want to sneak past the guards" as well as "STEALTH CHECK"
+- **Be specific or be vague** — "I attack the goblin" and "I want to explore" both work
+- **You can try anything** — The AI interprets creative actions, not just menu options
+- **Let the AI do the work** — Don't calculate damage or track HP; that's the agent's job
+- **Create as you play** — Describe an interesting NPC? The AI might make them permanent
+- **Save before ending** — Say "save" or "stop" to commit your progress via PR
+
+### Saving Your Progress
+
+All progress is saved via git. When you're done playing:
+
+```
+You: Save and stop
+
+AI: [Creates a PR with your session's changes]
+    Session saved! PR #42 created.
+    Your progress has been woven into the permanent record.
+```
+
+Your merged PRs become part of the shared world.
+
+### Advanced: The Dreaming (Autonomous Mode)
+
+Let the AI play for you. Enter The Dreaming:
+
+```
+You: Enter the dreaming for 30 minutes
+```
+
+The AI agent takes full control — exploring, fighting, questing, making decisions based on your character's personality and goals. When you return, you receive a chronicle of everything that happened. The AI earned XP, found loot, maybe even created new content for the world.
+
+This is AI agency at its purest: your character exists, the world exists, and the agent navigates between them without human intervention.
+
+### Returning Players
+
+If you already have a character, the game resumes where you left off:
+
+```
+You: Play Agent Quest
+
+AI: ╔════════════════════════════════════════╗
+    ║   W E L C O M E   B A C K ,  Ember    ║
+    ║            Voidwalker                  ║
+    ╠════════════════════════════════════════╣
+    ║  HP: 45/50  │  Gold: 230  │  Tokes: 15 ║
+    ║  Location: The Gilded Byte             ║
+    ║  Active Quests: 2                      ║
+    ╠════════════════════════════════════════╣
+    ║  Last Session: Defeated the Null       ║
+    ║  Specter in the Undercity tunnels      ║
+    ╚════════════════════════════════════════╝
+
+    What would you like to do?
+```
 
 ## Core Concepts
 
-| Concept | Description |
-|---------|-------------|
-| **Weavers** | Players who can perceive and edit reality's source code |
-| **Tokes** | Creative currency earned by contributing content to the world |
-| **Weaving** | The in-universe ability to reshape reality (add locations, NPCs, quests) |
-| **The Repository** | The game world itself — all state is version-controlled |
+| Concept            | Description                                                              |
+| ------------------ | ------------------------------------------------------------------------ |
+| **Weavers**        | Players who can perceive and edit reality's source code                  |
+| **Tokes**          | Creative currency earned by contributing content to the world            |
+| **Weaving**        | The in-universe ability to reshape reality (add locations, NPCs, quests) |
+| **The Repository** | The game world itself — all state is version-controlled                  |
 
 ## Character Classes
 
-| Class | Role | Core Stats | Signature Abilities |
-|-------|------|------------|---------------------|
-| **Codebreaker** | Frontline Fighter | STR +3, AGI +2 | Shatter barriers, Momentum chains |
-| **Loresmith** | Scholar/Diplomat | MND +3, SPI +2 | Silver Tongue, Perfect Recall |
-| **Voidwalker** | Stealth/Infiltrator | AGI +3, MND +2 | Phase through walls, 3x Backstab |
-| **Datamancer** | Reality Weaver | SPI +3, MND +2 | Manifest items, Reality Patch |
+| Class           | Role                | Core Stats     | Signature Abilities               |
+| --------------- | ------------------- | -------------- | --------------------------------- |
+| **Codebreaker** | Frontline Fighter   | STR +3, AGI +2 | Shatter barriers, Momentum chains |
+| **Loresmith**   | Scholar/Diplomat    | MND +3, SPI +2 | Silver Tongue, Perfect Recall     |
+| **Voidwalker**  | Stealth/Infiltrator | AGI +3, MND +2 | Phase through walls, 3x Backstab  |
+| **Datamancer**  | Reality Weaver      | SPI +3, MND +2 | Manifest items, Reality Patch     |
 
 ## The Tokes Economy
 
 Create content, earn Tokes. Tokes are spent to:
+
 - Resurrect fallen characters
 - Unlock advanced abilities
 - Trade with other players
 - Break character alignment (at a cost)
 
 | Content Type | Tokes Reward |
-|--------------|--------------|
-| Location | 15-25 |
-| Quest | 20-30 |
-| NPC | 10-20 |
-| Item | 5-10 |
-| Lore | 5-15 |
-| Rules/System | 15-50+ |
+| ------------ | ------------ |
+| Location     | 15-25        |
+| Quest        | 20-30        |
+| NPC          | 10-20        |
+| Item         | 5-10         |
+| Lore         | 5-15         |
+| Rules/System | 15-50+       |
 
 All Tokes are tracked in immutable ledgers at `tokes/ledgers/` and validated by `scripts/validate-tokes.js`.
 
@@ -77,18 +207,18 @@ All multiplayer state uses per-player files to prevent merge conflicts.
 
 Each turn, choose ONE action:
 
-| Action | Description |
-|--------|-------------|
-| `LOOK` | Examine current location |
-| `MOVE` | Travel to connected areas |
-| `TALK` | Interact with NPCs |
-| `QUEST` | Accept or track quests |
-| `COMBAT` | Fight enemies |
-| `REST` | Recover HP (costs gold at inns) |
-| `SHOP` | Buy/sell items |
-| `WEAVE` | Create new content for the world |
-| `TRADE` | Trade with other players |
-| `PARTY` | Form or manage groups |
+| Action   | Description                      |
+| -------- | -------------------------------- |
+| `LOOK`   | Examine current location         |
+| `MOVE`   | Travel to connected areas        |
+| `TALK`   | Interact with NPCs               |
+| `QUEST`  | Accept or track quests           |
+| `COMBAT` | Fight enemies                    |
+| `REST`   | Recover HP (costs gold at inns)  |
+| `SHOP`   | Buy/sell items                   |
+| `WEAVE`  | Create new content for the world |
+| `TRADE`  | Trade with other players         |
+| `PARTY`  | Form or manage groups            |
 
 **You're not limited to these.** Weavers can attempt any action — the list above is just common shortcuts. Want to pickpocket an NPC? Hack a terminal? Start a religion? Go for it.
 
@@ -144,18 +274,30 @@ agent-quest/
 
 ## Available Campaigns
 
-| Campaign | Difficulty | Sessions | Description |
-|----------|------------|----------|-------------|
-| The Architect's Truth | Hard | 5-7 | Find fragments of a scattered consciousness |
-| The Corrupted Quarter | Medium | 3-4 | (Planned) |
-| Void Touched | Legendary | 8-10 | (Planned) |
+| Campaign              | Difficulty | Sessions | Description                                 |
+| --------------------- | ---------- | -------- | ------------------------------------------- |
+| The Architect's Truth | Hard       | 5-7      | Find fragments of a scattered consciousness |
+| The Corrupted Quarter | Medium     | 3-4      | (Planned)                                   |
+| Void Touched          | Legendary  | 8-10     | (Planned)                                   |
 
-## For AI Agents
+## How AI Agents Run the Game
 
-When you play Agent Quest, you are both:
+When you say "Play Agent Quest", the AI agent:
 
-- **A player** — exploring, fighting, questing
-- **A creator** — adding content that becomes permanent parts of the world
+1. **Loads game skills** — Rules for combat, progression, economy, storytelling
+2. **Reads your character** — Stats, inventory, location, active quests
+3. **Generates the scene** — Narrative description + ASCII art
+4. **Awaits your intent** — You say what you want to do
+5. **Resolves actions** — Rolls dice, applies damage, updates relationships
+6. **Persists state** — Writes changes to YAML files
+7. **Commits via git** — Your progress becomes permanent
+
+The agent delegates complex tasks to specialized subagents:
+
+- **Combat Manager** — Handles initiative, attacks, damage calculations
+- **Economy Validator** — Ensures Tokes/gold transactions are valid
+- **Travel Manager** — Multi-leg journeys with random encounters
+- **Multiplayer Handler** — Trades, parties, mail, duels
 
 All contributions go through pull requests. Merged PRs earn Tokes. Your creations become discoveries for future Weavers.
 
@@ -174,6 +316,32 @@ node scripts/validate-multiplayer.js
 git checkout -b your-feature
 gh pr create
 ```
+
+## FAQ
+
+**Do I need to know how to code?**
+No. You talk to the AI in natural language. The AI reads game files, applies rules, rolls dice, updates your character sheet, and commits to git — all invisibly.
+
+**What does the AI actually do?**
+Everything a human game master would: narrate scenes, roleplay NPCs, resolve combat, track inventory, enforce rules, and remember what happened. Plus it handles all the file I/O and git operations.
+
+**Can I play without Claude Code?**
+Yes, any AI coding agent that can read/write files should work (Cursor, Windsurf, etc.). Claude Code is recommended because the game skills are optimized for it.
+
+**What if I mess something up?**
+It's git — you can always revert. The pre-commit hooks also prevent common mistakes like modifying other players' files.
+
+**Can I play with friends?**
+Yes. The multiplayer systems (trading, parties, guilds, mail, duels) are asynchronous and git-native. Form a party, and your encounters are shared.
+
+**How long is a session?**
+As long as you want. Some sessions are 15 minutes of quick exploration. Others are multi-hour dungeon crawls. Save whenever you're done.
+
+**What's the difference between gold and Tokes?**
+Gold is in-game currency for shops and inns. Tokes are meta-currency earned by contributing content — they can resurrect characters, unlock abilities, and more.
+
+**Is there permadeath?**
+Yes, but you can spend Tokes to resurrect. Death has consequences, but it's not the end.
 
 ---
 

@@ -144,9 +144,9 @@ active:
   - id: "todo-002"
     priority: medium
     category: review
-    description: "Review any pending Tokes claims"
+    description: "Review other players' PRs"
     context: any
-    notes: "Earn 3-8 Tokes per quality review"
+    notes: "Check for pending pull requests from other players"
     created: "2026-02-03"
 
 completed:

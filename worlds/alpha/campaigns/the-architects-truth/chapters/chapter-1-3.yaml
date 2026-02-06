@@ -128,7 +128,7 @@ next_chapters:
 # === REWARDS ===
 rewards:
   gold: 75
-  tokes: 8
+  xp: 8
   items: []
   flags_set:
     - "fragment_1_found"

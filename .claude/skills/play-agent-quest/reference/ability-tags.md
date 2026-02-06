@@ -85,7 +85,7 @@ These describe the ability's aesthetic or lore connection.
 | `shadow` | Shadow magic | Shadow Claw, Shadow Step |
 | `fire` | Fire elemental | Flame Strike |
 | `magic` | General magical | Dispel |
-| `tokes` | Costs or grants Tokes | Weave Attunement |
+| `willpower` | Affects willpower | Weave Attunement |
 
 ### Weapon Tags
 

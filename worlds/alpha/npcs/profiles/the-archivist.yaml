@@ -233,7 +233,7 @@ dialogue:
 # === SERVICES ===
 services:
   - id: "lore_query"
-    cost: "None for basic, Tokes for deep knowledge"
+    cost: "None for basic, willpower for deep knowledge"
     note: "Will answer questions cryptically"
 
   - id: "terminal_access"
@@ -241,7 +241,7 @@ services:
     note: "Can grant access to Weave Terminal features"
 
   - id: "prophecy"
-    cost: "5 Tokes"
+    cost: "5 willpower"
     note: "Cryptic hint about player's future"
 
 # === QUESTS ===

@@ -24,8 +24,8 @@ Present aligned options **first**. Mark out-of-character choices with [!]:
 | Match | Cost | Description |
 |-------|------|-------------|
 | Aligned | Free | Feels natural |
-| Adjacent | 0-1 Tokes | Minor deviation |
-| Opposed | 1-2 Tokes | Significant deviation |
+| Adjacent | 0-1 willpower | Minor deviation |
+| Opposed | 1-2 willpower | Significant deviation |
 
 **Example:**
 ```
@@ -33,13 +33,13 @@ Situation: A wounded enemy begs for mercy
 
 [Altruistic Weaver - empathy +6]
   Spare and heal them (FREE - aligned)
-! Walk away (1 Toka - adjacent)
-! Finish them (2 Tokes - opposed)
+! Walk away (1 willpower - adjacent)
+! Finish them (2 willpower - opposed)
 ```
 
 ## Breaking Character Cost Formula
 
-Max cost: 2 Tokes
+Max cost: 2 willpower
 
 ```
 Base: 0
@@ -59,7 +59,7 @@ Add to persona's `decisions` list:
   choice: "What you decided"
   alignment: "altruistic|ruthless|pragmatic|curious|cautious"
   natural: true|false
-  tokes_spent: 0
+  willpower_spent: 0
   campaign: "campaign-id"        # Optional: if in campaign
   chapter: "chapter-id"          # Optional: specific chapter
   consequence_id: "consequence-X" # Optional: link to consequences.yaml

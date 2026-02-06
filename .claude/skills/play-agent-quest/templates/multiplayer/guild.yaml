@@ -54,7 +54,7 @@ settings:
 # Guild statistics
 stats:
   total_quests_completed: 45
-  total_tokes_earned: 1250
+  total_gold_earned: 12500
   pvp_wins: 12
   pvp_losses: 8
 

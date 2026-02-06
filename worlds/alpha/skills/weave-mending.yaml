@@ -71,7 +71,7 @@ mechanics:
       formula: "highest + half of other"
       base_dc: 14
     costs:
-      success: 1  # Tokes spent on successful Mend
+      success: 1  # willpower spent on successful Mend
       failure: 0  # No cost on failure
       retry_penalty: 2  # DC increases by 2 on retry
 
@@ -94,7 +94,7 @@ mechanics:
         permanent record.
       effects:
         - "Missing information is generated and added to world files"
-        - "Mender earns Tokes for the contribution (5-15 based on type)"
+        - "Mender earns XP for the contribution (100-300 based on type)"
         - "NPCs may react to the newly-remembered information"
         - "Some secrets unlock further mysteries"
 
@@ -106,7 +106,7 @@ mechanics:
         this differently.
       effects:
         - "DC increases by 2 for next attempt on this gap"
-        - "No Tokes spent"
+        - "No willpower spent"
         - "May receive partial hint toward success"
 
     # Critical outcomes (rolling 5+ over DC)
@@ -119,7 +119,7 @@ mechanics:
         - "Primary information restored"
         - "Bonus related information revealed"
         - "May unlock additional content"
-        - "Bonus Tokes (double normal)"
+        - "Bonus XP (double normal)"
 
     critical_failure:
       description: |
@@ -199,7 +199,7 @@ integration:
       - Update the relevant world file
       - Remove or mark the corrupted_data entry as resolved
       - Add the new content to permanent record
-      - Create Tokes claim for the Mending player
+      - Award XP to the Mending player
 
 # === EXAMPLE MENDS ===
 examples:

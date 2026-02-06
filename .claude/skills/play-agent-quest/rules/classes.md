@@ -2,7 +2,7 @@
 
 Each class in Agent Quest offers a distinct playstyle with unique abilities, passives, and progression paths.
 
-**All calculations must use the [math skill](../../math/)**—especially for Tokes bonuses, damage, and HP.
+**All calculations must use the [math skill](../../math/)**—especially for damage and HP.
 
 ## Quick Reference
 
@@ -53,7 +53,7 @@ node .claude/skills/math/math.js calc "15 + (5 * 3)"  # Base 15 + 15 bonus = 30 
 | **3** | **Berserker Surge** | 10 HP | Double damage next attack, take +5 if hit |
 | **5** | **Unstoppable** | 4 Spirit | Ignore first 10 damage each round |
 | **7** | **Execute** | 5 Spirit | Instantly kill enemies below 25% HP |
-| **9** | **Code Crash** | 15 Tokes | Instantly defeat one non-boss enemy |
+| **9** | **Code Crash** | 15 willpower | Instantly defeat one non-boss enemy |
 | **10** | **World Breaker** | 15 Spirit | Deal 100 damage to all enemies in 15m |
 
 ### Combat Style
@@ -100,22 +100,22 @@ When you encounter any NPC, location, or lore element you've interacted with bef
 |------|---------|------|--------|
 | **1** | **Recall** | Free (1/location) | Learn one secret about current location |
 | **1** | **Analyze** | 2 Spirit | Learn enemy stats and weaknesses |
-| **3** | **Silver Tongue** | 5 Tokes | Auto-succeed on persuasion/negotiation |
+| **3** | **Silver Tongue** | 5 willpower | Auto-succeed on persuasion/negotiation |
 | **3** | **Tactical Command** | 3 Spirit | Grant ally +2 to next roll |
 | **5** | **Predict Pattern** | 4 Spirit | Automatically dodge next attack |
-| **7** | **Chronicle's Ward** | 10 Tokes | Rewind time 1 turn—undo last action |
+| **7** | **Chronicle's Ward** | 10 willpower | Rewind time 1 turn—undo last action |
 | **7** | **Rewrite Weakness** | 6 Spirit | Ally immune to one damage type |
 | **10** | **Absolute Truth** | 12 Spirit | Force target to answer 3 questions truthfully |
 
 ### Social Style
 - NPCs offer better prices and more information
 - Can unlock dialogue options others cannot
-- Quest rewards increased by 25% (gold and Tokes)
+- Quest rewards increased by 25% (gold)
 - Knowledge checks automatically succeed
 
 ```bash
-# Calculate quest reward bonus (example: 20 base Tokes)
-node .claude/skills/math/math.js calc "20 * 1.25"  # = 25 Tokes
+# Calculate quest reward bonus (example: 20 base gold)
+node .claude/skills/math/math.js calc "20 * 1.25"  # = 25 gold
 ```
 
 ### Starting Equipment
@@ -195,14 +195,14 @@ node .claude/skills/math/math.js calc "(10 + 5) * 3"  # = 45 damage
 
 ### Stats
 - **+3 Spirit, +2 Mind**
-- **Tokes Affinity:** Earn **+20%** bonus Tokes on all creations (rounded up)
+- **Willpower Affinity:** Recover **+20%** bonus willpower on rest (rounded up)
 
 ```bash
-# Calculate Tokes bonus (example: 15 base Tokes)
-node .claude/skills/math/math.js calc "ceil(15 * 1.2)"  # = 18 Tokes (20% bonus, rounded up)
+# Calculate willpower recovery bonus (example: 15 base willpower)
+node .claude/skills/math/math.js calc "ceil(15 * 1.2)"  # = 18 willpower (20% bonus, rounded up)
 
-# Enhanced passive at 100 Tokes:
-node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # = 20 Tokes (30% bonus)
+# Enhanced passive at 1000 XP:
+node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # = 20 willpower (30% bonus)
 ```
 
 ### Passive: Weave Attunement
@@ -218,7 +218,7 @@ You can sense Weave disturbances. At any location, you may ask if any content wa
 | **1** | **Debug** | 2 Spirit | Remove one Corruption status effect |
 | **3** | **Copy** | 3 Spirit | Duplicate one mundane item |
 | **3** | **System Scan** | 2 Spirit | Detect all life/tech within 30m |
-| **5** | **Reality Patch** | 10 Tokes | Alter one minor detail in location |
+| **5** | **Reality Patch** | 10 willpower | Alter one minor detail in location |
 | **5** | **Compile** | 4 Spirit | Create solid object (1m³, 10 min) |
 | **7** | **Code Injection** | 6 Spirit | Control one enemy for 1 round |
 | **7** | **Restore** | 4 Spirit | Repair object or heal 3d8 HP |
@@ -226,20 +226,20 @@ You can sense Weave disturbances. At any location, you may ask if any content wa
 | **10** | **Delete** | 15 Spirit | Erase enemy from existence |
 
 ### Creation Style
-- All Weaving (content creation) earns +20% Tokes
-- Can review others' content for bonus Tokes
+- All willpower recovery increased by +20%
+- Can sense corrupted data from greater distance
 - Magic is their primary combat approach
 - Can solve problems by literally changing reality
 
 ### Starting Equipment
 - **Weave Focus** (Accessory) - +2 to all Spirit checks, magic damage +3
-- **Data Robes** (Light Armor, -2 damage) - Regenerate 5 HP when you earn Tokes
+- **Data Robes** (Light Armor, -2 damage) - Regenerate 5 HP on willpower recovery
 - **Reality Anchor x2** - Consumable: Prevent one Weave-based attack or effect
 - **Blank Scroll x3** - Required component for Manifest ability
 
 ### Weaknesses
 - Physically fragile
-- Abilities often cost Tokes (resource management)
+- Abilities often cost willpower (resource management)
 - Direct combat without magic is very difficult
 
 ---
@@ -259,7 +259,6 @@ You can sense Weave disturbances. At any location, you may ask if any content wa
 - **[Combat Rules](combat.md)** — Full combat mechanics and examples
 - **[Spells & Abilities](spells-and-abilities.md)** — Complete ability lists with all tiers
 - **[Afflictions](afflictions.md)** — Status effects and Backlash consequences
-- **[Economy](economy.md)** — Tokes costs and earning mechanics
 
 ## Multi-Class Synergies
 
@@ -274,18 +273,18 @@ When playing with other Weavers:
 
 ## Progression
 
-As you complete quests and earn Tokes, your class abilities grow:
+As you complete quests and gain XP, your class abilities grow:
 
 ### Milestones
 
-| Tokes Earned (Lifetime) | Unlock |
+| XP Milestone | Unlock |
 |------------------------|--------|
-| 50 | Class ability cooldowns reduced (free abilities: 2/location instead of 1) |
-| 100 | Passive ability enhanced (see class description) |
-| 200 | Unlock one ability from another class (costs double) |
-| 500 | Ascended Form: Major class-specific power upgrade |
+| 500 | Class ability cooldowns reduced (free abilities: 2/location instead of 1) |
+| 1000 | Passive ability enhanced (see class description) |
+| 2000 | Unlock one ability from another class (costs double) |
+| 5000 | Ascended Form: Major class-specific power upgrade |
 
-### Enhanced Passives (at 100 Tokes)
+### Enhanced Passives (at 1000 XP)
 
 - **Codebreaker:** Momentum stacks to 5, max bonus +25 damage
   ```bash
@@ -293,7 +292,7 @@ As you complete quests and earn Tokes, your class abilities grow:
   ```
 - **Loresmith:** Deep Memory works on things you've only read about, not just encountered
 - **Voidwalker:** Shadow Step works twice per location
-- **Datamancer:** +30% Tokes instead of +20%
+- **Datamancer:** +30% willpower recovery instead of +20%
   ```bash
   node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # 30% bonus
   ```

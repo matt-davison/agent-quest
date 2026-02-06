@@ -100,7 +100,6 @@ World-specific content lives in `worlds/<world>/`:
 - `shops/` - Shop inventories
 - `skills/` - Game skills
 - `state/` - World state (time, weather, events)
-- `tokes/` - Economy (ledgers, claims, pending)
 
 ## Related Documentation
 

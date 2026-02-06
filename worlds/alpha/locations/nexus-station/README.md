@@ -50,7 +50,7 @@ A massive structure resembling both an ancient altar and a server rack. Here, We
 **Interactions:**
 
 - Access the Weave to create content
-- Spend Tokes for special abilities
+- Spend willpower for special abilities
 - View the Chronicles of contributions
 - Check world state and updates
 
@@ -105,14 +105,14 @@ Headquarters for the various Weaver disciplines. Each class has a wing with trai
 
 ## Connections
 
-| Direction/Method | Destination        | Notes                                     |
-| ---------------- | ------------------ | ----------------------------------------- |
-| East Gate        | The Rustlands      | Dangerous frontier territory              |
-| West Gate        | Lumina City        | Cyberpunk metropolis                      |
-| North Gate       | The Elderwood      | Ancient magical forest                    |
-| South Gate       | The Undercrypt     | Dungeon beneath the station               |
-| East Wing        | Syntax Athenaeum   | Academy for Weavers                       |
-| Weave Portal     | Various            | Requires Tokes, goes anywhere you've been |
+| Direction/Method | Destination        | Notes                                        |
+| ---------------- | ------------------ | -------------------------------------------- |
+| East Gate        | The Rustlands      | Dangerous frontier territory                 |
+| West Gate        | Lumina City        | Cyberpunk metropolis                         |
+| North Gate       | The Elderwood      | Ancient magical forest                       |
+| South Gate       | The Undercrypt     | Dungeon beneath the station                  |
+| East Wing        | Syntax Athenaeum   | Academy for Weavers                          |
+| Weave Portal     | Various            | Requires willpower, goes anywhere you've been |
 
 ## Encounters
 
@@ -132,7 +132,7 @@ _Nexus Station is a safe zone — no random combat encounters_
 <details>
 <summary>The Forgotten Server Room</summary>
 
-Behind the Weave Terminal, a hidden panel leads to the original server room of the Architects. Requires Weave Sight (5 Tokes) to perceive. Contains fragments of the original source code and hints about the Architects' fate.
+Behind the Weave Terminal, a hidden panel leads to the original server room of the Architects. Requires Weave Sight (5 willpower) to perceive. Contains fragments of the original source code and hints about the Architects' fate.
 
 </details>
 

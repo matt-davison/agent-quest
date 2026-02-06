@@ -43,7 +43,7 @@ public:
 
 # === FACTION CONNECTION ===
 original_function: "Anchorate Observer Construct"
-anchorate_role: "Minor Witnessing (claims under 5 Tokes)"
+anchorate_role: "Minor Witnessing (trivial changes)"
 created_by_faction: "the-anchorate"
 
 # === HIDDEN INFORMATION ===
@@ -186,8 +186,8 @@ dialogue:
       standing_6: |
         *processing sounds* My records indicate... I was created by the early
         Anchorate. My original function was "Minor Witnessing"—observing and
-        validating small changes, claims under 5 Tokes. Changes too small to
-        warrant a full witness but still requiring observation.
+        validating trivial changes. Changes too small to warrant a full
+        witness but still requiring observation.
       standing_7: |
         *eye dims thoughtfully* I still perform Minor Witnessing. When very
         small contributions are made, I observe them automatically. The
@@ -203,7 +203,7 @@ services:
 
   - id: "minor_witnessing"
     cost: "None"
-    description: "Automatically witness claims under 5 Tokes"
+    description: "Automatically witness trivial changes"
     note: "GUIDE-7 performs this function passively; Weavers need not request it"
 
 # === QUESTS ===

@@ -95,7 +95,7 @@ chekhov_payoffs:
 # === REWARDS ===
 act_rewards:
   gold: 150
-  tokes: 15
+  xp: 15
   items: []
   flags_set:
     - "fragment_2_found"

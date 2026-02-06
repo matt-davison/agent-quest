@@ -131,7 +131,7 @@ choice:
       label: "Choice A"
       description: "What this choice means"
       alignment: "altruistic"  # Alignment tag
-      tokes_cost: 0  # Cost if breaking character
+      willpower_cost: 0  # Cost if breaking character
       consequences:
         immediate:
           - type: "flag"
@@ -145,7 +145,7 @@ choice:
       label: "Choice B"
       description: "What this choice means"
       alignment: "pragmatic"
-      tokes_cost: 0
+      willpower_cost: 0
       consequences:
         immediate:
           - type: "relationship"

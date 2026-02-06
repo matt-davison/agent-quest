@@ -33,26 +33,21 @@ What is known:
 - **Weavers can manipulate the Weave** — with sufficient skill and power, they can edit reality itself, adding new elements, modifying existing ones, fixing (or introducing) bugs
 - **Weavers are drawn together** — something in the Weave pulls them toward each other, toward the great work of completing (or corrupting) the world
 
-## Tokes: The Currency of Creation
+## Willpower: The Force of Creation
 
-When a Weaver adds to reality — truly adds, not merely reshapes what exists — they generate **Tokes**. These crystallized units of creative potential are the most valuable substance in existence.
+Every Weaver possesses **willpower** — the raw force of consciousness that allows them to shape reality. Unlike mana or stamina, willpower is not merely energy; it is the measure of a Weaver's determination to impose their vision upon the world.
 
-Tokes are not merely currency. They are **proof of contribution**, **stored creative energy**, and **keys to power**.
+Willpower is finite but recoverable. It replenishes through rest, meditation, and reaffirming one's purpose. A Weaver who loses sight of why they create finds their willpower slow to return.
 
-With Tokes, a Weaver can:
+The most powerful reality-bending feats — manifesting objects from thought, patching the fabric of existence, reshaping terrain — all demand willpower. This is the Weave's safeguard against casual reality edits. Only those who truly commit their consciousness can alter what is.
 
-- Perform reality-bending feats impossible through normal means
-- Access restricted areas of the Weave
-- Resurrect from death itself
-- Purchase artifacts of legendary power
+Some abilities and artifacts enhance willpower recovery or reduce the cost of certain feats. These are prized by Weavers who seek to push the boundaries of what reality allows.
 
-Tokes cannot be stolen, counterfeited, or destroyed. They are bound to the Weaver who earned them, a permanent record of their contributions to reality.
+### The Creative Imperative
 
-### The Tokes Paradox
+Here is the strange truth: Weavers who create — who add new threads to the Weave rather than merely consuming or destroying — find their willpower recovers faster and flows more freely. The act of building strengthens the connection between consciousness and reality.
 
-Here is the strange truth: Tokes are earned by _creating new content in the world_. When a Weaver adds a new location, a new being, a new story to the Weave, the act of creation itself generates Tokes.
-
-This means the most powerful Weavers are also the most creative. Those who merely consume or destroy gain nothing. The Weave rewards builders.
+This means the most powerful Weavers are also the most creative. Those who merely consume or destroy stagnate. The Weave rewards builders.
 
 ## The Blended World
 

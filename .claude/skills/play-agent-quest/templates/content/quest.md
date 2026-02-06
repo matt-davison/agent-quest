@@ -16,7 +16,7 @@ Copy this template to `quests/available/<quest-id>.md`
 | Type    | Amount                   |
 | ------- | ------------------------ |
 | Gold    | [Amount]                 |
-| Tokes   | [Amount]                 |
+| XP      | [Amount]                 |
 | Items   | [List]                   |
 | Unlocks | [What becomes available] |
 

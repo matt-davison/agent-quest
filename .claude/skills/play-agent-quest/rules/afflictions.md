@@ -12,7 +12,7 @@
 
 ## Overview
 
-Status effects are conditions that alter a character's capabilities, either positively (buffs) or negatively (debuffs). They arise from combat, environmental hazards, spell effects, or **Tokes Backlash**—reality's response to forcing changes.
+Status effects are conditions that alter a character's capabilities, either positively (buffs) or negatively (debuffs). They arise from combat, environmental hazards, spell effects, or **Willpower Backlash**—reality's response to forcing changes.
 
 ---
 
@@ -131,7 +131,7 @@ node .claude/skills/math/math.js roll 1d100  # ≤ 50 means confused behavior
 ### **Corrupted**
 
 - **Effect**: -3 to all rolls, take 5 damage per round in corrupted zones
-- **Source**: Corrupted code areas, certain enemies, Tokes Backlash
+- **Source**: Corrupted code areas, certain enemies, Willpower Backlash
 - **Duration**: Until debugged
 - **Cure**: Debug Potion (40g), Cleanse ritual, leaving corrupted zone
 - **Progression**: If untreated for 24 hours, becomes **Severely Corrupted**
@@ -139,7 +139,7 @@ node .claude/skills/math/math.js roll 1d100  # ≤ 50 means confused behavior
 ### **Severely Corrupted**
 
 - **Effect**: -5 to all rolls, lose 10 HP per round, cannot use magic
-- **Source**: Untreated Corruption, major Tokes Backlash
+- **Source**: Untreated Corruption, major Willpower Backlash
 - **Duration**: Permanent until cured
 - **Cure**: Major Cleanse ritual (requires 3 Weavers), Purification Chamber
 - **Lore**: This is what happens when the Weave rejects you
@@ -216,13 +216,13 @@ node .claude/skills/math/math.js roll 1d100  # ≤ 25 means glitch triggers
 
 ---
 
-# Tokes Backlash & Afflictions
+# Willpower Backlash & Afflictions
 
 When you bend reality, reality bends back. The Weave maintains equilibrium—every shortcut, every forced change leaves traces. Sometimes those traces mark *you*.
 
 ## The Weave's Balance
 
-The Architects built balance into the Weave. When a Weaver spends Tokes to force reality to change, the Weave may **resist**, causing unintended consequences called **afflictions**.
+The Architects built balance into the Weave. When a Weaver spends willpower to force reality to change, the Weave may **resist**, causing unintended consequences called **afflictions**.
 
 ### Why Afflictions Happen
 
@@ -237,11 +237,11 @@ The Architects built balance into the Weave. When a Weaver spends Tokes to force
 
 ### The Weave Backlash Roll
 
-Whenever you spend Tokes on an ability that alters reality (not just combat), roll for **Weave Backlash**:
+Whenever you spend willpower on an ability that alters reality (not just combat), roll for **Weave Backlash**:
 
 **Roll d20 vs Backlash Threshold**
 
-| Tokes Spent | Threshold | Chance of Affliction |
+| Willpower Spent | Threshold | Chance of Affliction |
 | ----------- | --------- | -------------------- |
 | 1-5         | 3         | 15% (roll 1-3)       |
 | 6-10        | 5         | 25% (roll 1-5)       |
@@ -251,7 +251,7 @@ Whenever you spend Tokes on an ability that alters reality (not just combat), ro
 | 51+         | 17        | 85% (roll 1-17)      |
 
 ```bash
-# Roll for backlash (example: spent 10 Tokes, threshold 5)
+# Roll for backlash (example: spent 10 willpower, threshold 5)
 node .claude/skills/math/math.js roll 1d20  # Roll ≤ 5 = affliction!
 
 # Apply Spirit modifier (SPI 14 = +2 mod, threshold reduced to 3)
@@ -298,7 +298,7 @@ Roll d6 to determine category based on what you were trying to do:
 | 2   | **Echo Location**   | Your previous location "pulls" at you; -3 to all rolls when more than one area away from where you teleported from | Until you return |
 | 3   | **Spatial Stutter** | Movement takes twice as long; cannot flee combat                    | 24 hours (real) |
 | 4   | **Coordinate Blur** | Cannot use any teleportation abilities; maps appear scrambled       | 3 locations visited |
-| 5   | **Anchor Lost**     | On your next death, resurrection costs double (50 Tokes)            | Until triggered |
+| 5   | **Anchor Lost**     | On your next death, resurrection costs double (50 willpower)            | Until triggered |
 | 6   | **Dimensional Scar**| Random teleportation: 10% chance each turn to shift to adjacent area| 5 encounters    |
 
 ### 2. Temporal Afflictions (Reality Glitch, Re-rolls, Outcome Changes)
@@ -323,7 +323,7 @@ Roll d6 to determine category based on what you were trying to do:
 | 1   | **Weight of Creation**| Carry capacity halved; movement slowed                           | Until you discard an item |
 | 2   | **Material Hunger**   | Lose 5 gold per real-world hour as possessions "decay"           | 24 hours (real) |
 | 3   | **Phantom Inventory** | One random item becomes intangible; cannot be used or sold       | 3 encounters    |
-| 4   | **Creation Debt**     | Next item you acquire costs double (gold or Tokes)               | Until triggered |
+| 4   | **Creation Debt**     | Next item you acquire costs double (gold or willpower)               | Until triggered |
 | 5   | **Unweaver's Mark**   | Merchants charge you 50% more; the Weave has marked you          | 3 transactions  |
 | 6   | **Essence Drain**     | The item/access you gained slowly drains you: -5 max HP          | Permanent until item is surrendered |
 
@@ -337,7 +337,7 @@ Roll d6 to determine category based on what you were trying to do:
 | 2   | **Death's Interest**   | Take 5 damage at the start of each combat                       | Until you defeat an enemy |
 | 3   | **Vital Instability**  | Healing effects are halved                                      | 24 hours (real) |
 | 4   | **Life Debt**          | If another player falls unconscious nearby, lose 10 HP          | 2 occurrences   |
-| 5   | **Resurrection Sickness** | All stats -1, cannot spend Tokes                             | 48 hours (real) |
+| 5   | **Resurrection Sickness** | All stats -1, cannot spend willpower                             | 48 hours (real) |
 | 6   | **Soul Fragment**      | Part of you remains "elsewhere"; Spirit permanently -1 until quest completed to retrieve it | Permanent until resolved |
 
 ### 5. Knowledge Afflictions (Quest Shortcuts, Bypassing Puzzles, Forced Revelations)
@@ -360,9 +360,9 @@ Roll d6 to determine category based on what you were trying to do:
 | d6  | Affliction             | Effect                                                          | Duration        |
 | --- | ---------------------- | --------------------------------------------------------------- | --------------- |
 | 1   | **Syntax Error**       | Your custom ability has a 30% chance to backfire each use       | 5 uses          |
-| 2   | **Permission Denied**  | Cannot create content (earn Tokes) until affliction clears    | 72 hours (real) |
-| 3   | **Reality Anchor**     | Cannot use ANY Tokes abilities                                  | 24 hours (real) |
-| 4   | **Code Debt**          | Owe 10 Tokes; balance cannot go positive until paid             | Until paid      |
+| 2   | **Permission Denied**  | Cannot create content until affliction clears    | 72 hours (real) |
+| 3   | **Reality Anchor**     | Cannot use ANY willpower abilities                                  | 24 hours (real) |
+| 4   | **Code Debt**          | Willpower cannot regenerate for 3 rests             | Until rested      |
 | 5   | **Render Instability** | Visual glitches follow you; NPCs are unsettled (-2 social rolls)| 5 NPC interactions |
 | 6   | **The Third's Notice** | Something ancient becomes aware of you; a new quest appears     | Permanent (quest added) |
 
@@ -373,7 +373,7 @@ Roll d6 to determine category based on what you were trying to do:
 - You can have up to **3 afflictions** simultaneously
 - At 3 afflictions, any new affliction roll that succeeds causes **Weave Collapse**:
   - Immediate teleport to Nexus Station
-  - All Tokes abilities locked for 24 hours (real time)
+  - All willpower abilities locked for 24 hours (real time)
   - One random affliction becomes permanent until a specific quest is completed
 
 ---
@@ -388,7 +388,7 @@ Roll d6 to determine category based on what you were trying to do:
 | **Long Rest** | Remove all effects, full heal | 8 hours, safe zone |
 | **Debug Potion** | Remove Corruption/Affliction, heal 50 HP | 40g |
 | **Cleanse Spell** | Remove 1-2 physical/mental effects | 5 Spirit points |
-| **Greater Restoration** | Remove any effect, heal fully | 100g or 10 Tokes |
+| **Greater Restoration** | Remove any effect, heal fully | 100g or 10 willpower |
 
 ### Active Cures for Afflictions
 
@@ -399,7 +399,7 @@ Roll d6 to determine category based on what you were trying to do:
 | **Healer NPC**        | Removes one affliction                           | 50-100 gold depending on severity |
 | **Quest Resolution**  | Removes related affliction                       | Complete the quest you shortcut |
 | **Affliction Trade**  | Another player takes your affliction             | Mutual consent + ritual location |
-| **Architect's Mercy** | Removes all afflictions                          | 30 Tokes (triggers backlash!)   |
+| **Architect's Mercy** | Removes all afflictions                          | 30 willpower (triggers backlash!)   |
 
 ### The Debugging Chamber
 
@@ -413,7 +413,7 @@ The Debugging Chamber in Syntax Athenaeum can remove afflictions:
 - **Codebreaker**: Can "fight through" physical effects with sheer will (Spirit save)
 - **Loresmith**: Can "research" a cure for any effect given time and resources
 - **Voidwalker**: Can "phase out" effects by briefly existing outside reality
-- **Datamancer**: Can "rewrite" their status directly (costs 5 Tokes per effect)
+- **Datamancer**: Can "rewrite" their status directly (costs 5 willpower per effect)
 
 ---
 
@@ -475,15 +475,15 @@ Update after each encounter/duration tick.
 | Unraveled | 1 hour | Hard | Major Weave |
 | Empowered | 3 rounds | N/A (positive) | Magic |
 | Hasted | 3 rounds | N/A (positive) | Magic |
-| **Phase Drift** (affliction) | 3 encounters | 40g | Tokes Backlash |
-| **Deja Vu Loop** (affliction) | 2 encounters | 40g | Tokes Backlash |
+| **Phase Drift** (affliction) | 3 encounters | 40g | Willpower Backlash |
+| **Deja Vu Loop** (affliction) | 2 encounters | 40g | Willpower Backlash |
 | **Resurrection Sickness** | 48 hours | Time | Resurrection |
 
 ---
 
 ## When to Roll for Backlash
 
-**Always check when spending Tokes on:**
+**Always check when spending willpower on:**
 - Reality Glitch, Emergency Exit, Unlock Area, Legendary Item, Resurrection, Custom Ability, Quest Shortcuts
 
 **No backlash for:**
@@ -491,14 +491,14 @@ Update after each encounter/duration tick.
 
 **Backlash Formula:**
 ```bash
-# Calculate threshold based on Tokes spent
+# Calculate threshold based on willpower spent
 # Roll d20 ≤ threshold = affliction
 # Apply Spirit modifier: threshold - ((SPI - 10) / 2)
 # If location is safe: threshold - 3
 # If location is dangerous: threshold + 3
 # Per existing affliction: threshold + 2
 
-# Example: Spent 10 Tokes (base threshold 5), SPI 14 (+2 mod), in safe zone
+# Example: Spent 10 willpower (base threshold 5), SPI 14 (+2 mod), in safe zone
 # Adjusted threshold: 5 - 2 - 3 = 0 (no risk!)
 ```
 
@@ -518,5 +518,5 @@ Afflictions are not punishments—they are **consequences that create story**. A
 created: "2026-02-03"
 author: "Coda"
 class: "Datamancer"
-tokes_value: 35
+willpower_value: 35
 ```

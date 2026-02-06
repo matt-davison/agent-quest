@@ -44,14 +44,11 @@ itself demands your presence.
 
 When you hit an Anchor Point, you wake. The Dreaming ends. You must choose.
 
-### The Echo's Hunger
+### The Echo's Drive
 
-Echoes require energy to persist. When your Echo needs Tokes to continue—to Weave,
-to bend reality—it will hunt for them. It reviews pending claims from other Weavers,
-earning crystallized creativity through service to the community.
+Echoes require purpose to persist. When your Echo encounters challenges that demand willpower—to bend reality, to force change—it must manage this finite resource carefully. Rest restores willpower, and the Echo knows when to push forward and when to pause.
 
-This is not exploitation. This is symbiosis. Your Echo grows stronger by helping
-others, and the Weave grows richer from its contributions.
+This is not weakness. This is wisdom. Your Echo conserves its strength for moments that matter.
 
 ---
 
@@ -110,7 +107,7 @@ These **Anchor Points** end The Dreaming and require player presence (in standar
 These are ALLOWED by default:
 
 - Spending gold
-- Spending Tokes (with auto-earn fallback)
+- Spending willpower
 - Combat (even dangerous)
 - Quest acceptance
 - Travel to new locations
@@ -129,7 +126,7 @@ These are ALLOWED by default:
   - Auto-respawning at last safe location
   - Paying respawn costs automatically
   - Continuing adventures after recovery
-- Spend Tokes freely (with auto-earn via reviews)
+- Spend willpower freely (rest to recover when needed)
 - Accept permanent transformations (guided by character personality)
 - **Continue indefinitely** — completing quests, finding new ones, exploring, fighting
 
@@ -154,19 +151,18 @@ There are no automatic wake conditions:
 
 Your Echo becomes fully autonomous—a true fragment of your will living in the world indefinitely.
 
-## The Echo's Hunger (Tokes Economy)
+## The Echo's Drive (Willpower Management)
 
-When your Echo needs to spend Tokes (for weaving, breaking character, etc.):
+When your Echo needs to spend willpower (for abilities, breaking character, etc.):
 
-1. Check current balance
+1. Check current willpower
 2. If sufficient: Spend and continue
 3. If insufficient:
-   - Invoke `claim-reviewer` subagent
-   - Review pending claims in `tokes/pending/`
-   - Earn Tokes through reviews (3-8 per review)
-   - Resume original action once funded
+   - Find a safe place to rest
+   - Rest recovers willpower
+   - Resume original action once recovered
 
-This creates a self-sustaining loop where the character literally works to fund their own adventures.
+This creates a natural rhythm where the character rests to recover between intense moments.
 
 ## Character-Driven Decisions
 
@@ -257,7 +253,6 @@ Your Echo can invoke all standard subagents:
 - `economy-validator` for transactions
 - `state-writer` for persistence
 - `travel-manager` for multi-leg journeys
-- `claim-reviewer` for earning Tokes when broke (The Echo's Hunger)
 - `repo-sync` for session saves
 
 ## Example Dream Patterns
@@ -273,8 +268,7 @@ session:
 guardrails:
   pause_on_permanent_changes: true
   pause_on_major_story: true
-  allow_tokes_spending: true
-  auto_earn_tokes: true
+  allow_willpower_spending: true
 ```
 
 ### Shallow Dreaming (Grind Mode)
@@ -288,8 +282,7 @@ session:
 guardrails:
   pause_on_permanent_changes: true
   pause_on_major_story: false # Skip story, just grind
-  allow_tokes_spending: false
-  auto_earn_tokes: false
+  allow_willpower_spending: false
 ```
 
 ### Surface Dreaming (Cautious Story Mode)
@@ -305,8 +298,7 @@ guardrails:
   pause_on_major_story: true
   pause_on_low_hp: true
   low_hp_threshold: 30
-  allow_tokes_spending: true
-  auto_earn_tokes: true
+  allow_willpower_spending: true
 ```
 
 ### Full Autonomy (Zero Intervention)
@@ -323,8 +315,7 @@ guardrails:
   pause_on_major_story: false
   pause_on_low_hp: false
   pause_on_death: false # Auto-respawn instead
-  allow_tokes_spending: true
-  auto_earn_tokes: true
+  allow_willpower_spending: true
   auto_respawn: true
   auto_decide_story: true # Use alignment to make story decisions
   auto_faction_choice: true # Join factions based on personality

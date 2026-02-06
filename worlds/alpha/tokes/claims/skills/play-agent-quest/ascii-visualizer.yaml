@@ -1,8 +1,0 @@
-# Claim: ASCII Scene Visualizer
-content_path: ".claude/skills/play-agent-quest/quick-ref/ascii-art.md"
-github: "matt-davison"
-claimed_date: "2026-02-03"
-tokes_awarded: 20
-transaction_id: "coda-012"
-content_type: "system"
-notes: "Comprehensive ASCII visualization system with patterns for all location types, battle maps, dungeon layouts. ~700 lines across quick-ref and reference files."

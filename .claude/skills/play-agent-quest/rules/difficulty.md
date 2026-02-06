@@ -387,5 +387,5 @@ related_files:
   - "templates/persona.yaml"
   - "templates/location.md"
   - "templates/creature.yaml"
-tokes_value: 25
+willpower_value: 25
 ```

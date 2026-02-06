@@ -8,7 +8,7 @@ tier: 1
 tags:
   - passive
   - weave
-  - tokes
+  - willpower
   - datamancer
 
 prerequisites:
@@ -18,16 +18,16 @@ prerequisites:
 
 levels:
   1:
-    description: "Your connection to the Weave runs deep. +20% Tokes earned from all creations and contributions."
+    description: "Your connection to the Weave runs deep. +20% willpower recovery from all sources."
     willpower_cost: 0
     effect:
-      tokes_multiplier_bonus: 0.2
+      willpower_recovery_bonus: 0.2
     learn_cost: 0
   2:
-    description: "+30% Tokes earned. Once per session, can sense the most valuable opportunity within current location."
+    description: "+30% willpower recovery. Once per session, can sense the most valuable opportunity within current location."
     willpower_cost: 0
     effect:
-      tokes_multiplier_bonus: 0.3
+      willpower_recovery_bonus: 0.3
       sense_opportunity: { uses_per_session: 1 }
     learn_cost: 150
     upgrade_from: 1

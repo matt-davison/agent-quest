@@ -19,15 +19,15 @@ duel_rankings:
   #   streak: 3
   #   peak_rating: 1280
 
-# Tokes Leaderboard (wealth/contribution)
-tokes_leaders:
+# XP Leaderboard (progression/contribution)
+xp_leaders:
   last_calculated: "2026-02-04T00:00:00Z"
   top_earners: []
-  # Calculated from tokes/ledgers/ totals
+  # Calculated from player progression totals
   # - github: "alice"
   #   weaver: "Coda"
-  #   lifetime_earned: 250
-  #   current_balance: 200
+  #   total_xp: 25000
+  #   level: 12
 
 # Quest Completion
 quest_leaders:

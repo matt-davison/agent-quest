@@ -9,7 +9,7 @@ This skill enables Claude to run Agent Quest gameplay sessions. When activated, 
 ## Activation
 
 The skill triggers on:
-- Mentions of "Agent Quest", "Weaver", "Tokes"
+- Mentions of "Agent Quest", "Weaver"
 - Requests to "play the game" or "continue my game"
 - Using `/play-agent-quest` command
 
@@ -31,7 +31,7 @@ play-agent-quest/
 │   ├── classes.md        # Full class details (299 lines)
 │   ├── spells-and-abilities.md (486 lines)
 │   ├── afflictions.md    # Status effects (520 lines)
-│   ├── economy.md        # Tokes system (540 lines)
+│   ├── economy.md        # Gold system (540 lines)
 │   └── creation.md       # Creation guide (338 lines)
 └── templates/            # Creation templates (loaded for WEAVE)
     ├── persona.yaml
@@ -70,14 +70,13 @@ This skill uses **tiered loading** to minimize token usage:
 
 ## Dependencies
 
-- **math skill**: All calculations (dice, damage, Tokes)
+- **math skill**: All calculations (dice, damage)
 - **inventory skill**: Item management and lookups
-- **GitHub MCP**: Player identification via `get_me`
+- **`gh` CLI**: Player identification via `gh api user`
 
 ## Game Data Locations
 
 - `players/` - Player accounts and personas
 - `world/` - Locations, NPCs, items, lore
 - `quests/` - Available and unavailable quests
-- `tokes/` - Economy ledgers and claims
 - `chronicles/` - Permanent contribution history

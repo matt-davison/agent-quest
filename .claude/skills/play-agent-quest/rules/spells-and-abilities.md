@@ -2,11 +2,11 @@
 
 > _"Magic is not supernatural. It is simply writing code in the language reality understands natively."_ — Professor Null
 
-**All calculations must use the [math skill](../../math/)** for spell damage, healing, and resource costs.
+**All calculations must use the [math skill](../../math/)** for spell damage, healing, and willpower costs.
 
 ## Overview
 
-Spells and abilities represent your character's supernatural talents—ways of manipulating the Weave that don't require permanent reality alteration (unlike Weaving with Tokes).
+Spells and abilities represent your character's supernatural talents—ways of manipulating the Weave that don't require permanent reality alteration.
 
 Every character can learn spells, but classes have affinities that make certain types easier and more effective.
 
@@ -178,7 +178,7 @@ Loresmiths manipulate information and probability. They excel at support, detect
 |---------|------|--------|----------|
 | **Analyze** | 2 Spirit | Learn enemy stats and weaknesses | Once per enemy |
 | **Recall** | Free (1/location) | Remember any fact you've encountered | Passive |
-| **Silver Tongue** | 5 Tokes | Auto-succeed on persuasion/negotiation | 5 rounds |
+| **Silver Tongue** | 5 Spirit | Auto-succeed on persuasion/negotiation | 5 rounds |
 | **Tactical Command** | 3 Spirit | Grant ally +2 to next roll | 1 round |
 
 #### Tier 2 (Levels 4-6)
@@ -271,7 +271,7 @@ Datamancers write code directly into the Weave. They create, modify, and delete 
 
 | Ability | Cost | Effect | Cooldown |
 |---------|------|--------|----------|
-| **Reality Patch** | 10 Tokes | Change one environmental condition | 5 rounds |
+| **Reality Patch** | 10 Spirit | Change one environmental condition | 5 rounds |
 | **Compile** | 4 Spirit | Create solid object (up to 1m³, lasts 10 min) | Once per hour |
 | **Code Injection** | 6 Spirit | Control one enemy for 1 round (save) | Once per combat |
 | **Restore** | 4 Spirit | Repair destroyed object or heal 3d8 HP | Instant |
@@ -299,11 +299,8 @@ node .claude/skills/math/math.js roll 1d10
 # Restore healing (3d8)
 node .claude/skills/math/math.js roll 3d8
 
-# Datamancer Tokes bonus (20% extra, example: 15 base)
-node .claude/skills/math/math.js calc "ceil(15 * 1.2)"  # = 18 Tokes
-
-# Enhanced at 100 Tokes (30% bonus)
-node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # = 20 Tokes
+# Datamancer willpower bonus (20% faster recovery)
+# This is applied during rest calculations
 ```
 
 ---
@@ -361,7 +358,7 @@ Spells are organized by their fundamental nature:
 1. **Academies**: Syntax Athenaeum offers standard spells (25-50g)
 2. **Quest Rewards**: Unique spells from completing quests
 3. **Enemy Drops**: Defeated mages may drop spell scrolls
-4. **Weaving**: Datamancers can create custom spells (20+ Tokes)
+4. **Weaving**: Datamancers can create custom spells (20+ willpower)
 5. **NPC Teachers**: Unique NPCs teach signature spells
 
 ### Spell Scrolls
@@ -432,7 +429,7 @@ As a Weaver, you can propose new spells. Work with the Weave (your AI) to balanc
 2. Determine appropriate tier and cost
 3. Add to your personal spell list
 4. Share with world by posting in appropriate location
-5. Earn Tokes for creation
+5. Share your creation via PR
 
 ---
 
@@ -482,5 +479,5 @@ node .claude/skills/math/math.js calc "ceil(3 * 1.5)"  # 3 base × 1.5 = 5 Spiri
 created: "2026-02-03"
 author: "Coda"
 class: "Datamancer"
-tokes_value: 30
+willpower_value: 30
 ```

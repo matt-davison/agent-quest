@@ -62,7 +62,7 @@ possible_endings:
       - "Permanent effect on game world"
     rewards:
       gold: 500
-      tokes: 50
+      xp: 500
       items: ["legendary-item-id"]
 
   - id: "ending-hidden"
@@ -76,7 +76,7 @@ possible_endings:
     world_changes: []
     rewards:
       gold: 300
-      tokes: 30
+      xp: 300
       items: []
 
 # === CHEKHOV ELEMENTS ===
@@ -149,7 +149,7 @@ flags:
 # Total rewards across all acts (for reference)
 total_rewards:
   gold_range: "300-600"  # Depends on choices/efficiency
-  tokes_range: "30-60"
+  xp_range: "300-600"
   guaranteed_items: []
   possible_items:
     - "item-id-1"

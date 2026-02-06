@@ -12,8 +12,8 @@ guardrails:
   pause_on_major_story: false
   pause_on_low_hp: false
   pause_on_death: false
-  allow_tokes_spending: true
-  auto_earn_tokes: true
+  allow_willpower_spending: true
+  
   auto_respawn: true
   auto_decide_story: true
   auto_faction_choice: true

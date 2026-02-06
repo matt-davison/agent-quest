@@ -109,8 +109,8 @@ Always show alignment implications:
 Situation: [Description]
 
 [Aligned tag] Option A (FREE)
-[Adjacent tag] Option B (FREE or 1 Toka)
-! [Opposed tag] Option C (1-2 Tokes)
+[Adjacent tag] Option B (FREE or 1-2 willpower)
+! [Opposed tag] Option C (1-2 willpower)
 ```
 
 Mark opposed choices with `!` prefix.

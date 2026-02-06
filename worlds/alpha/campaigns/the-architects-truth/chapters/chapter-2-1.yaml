@@ -117,7 +117,7 @@ next_chapters:
 # === REWARDS ===
 rewards:
   gold: 50
-  tokes: 5
+  xp: 5
   items: []
 
 # === CHEKHOV TRACKING ===

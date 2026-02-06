@@ -10,8 +10,8 @@ backstory: |
   open her perception, letting her see the gaps between reality's threads.
   When the Circuit's enforcers came to collect their cut, she panicked and
   phased straight through three walls and a security grid, leaving them
-  grasping at shadows. Now she works freelance, taking jobs that keep her
-  in Tokes and skolma — always chasing that first high when the Weave split
+  grasping at shadows. Now she works freelance, taking dangerous jobs and
+  seeking the next high — always chasing that first moment when the Weave split
   open and showed her its secrets, never quite reaching it again.
 
 appearance: |
@@ -83,7 +83,7 @@ decisions:
     choice: "Declared religious objection to being treated by a 'clanker' and wove an entire religion to justify it"
     alignment: "chaotic"
     natural: true
-    tokes_spent: 5
+    willpower_spent: 5
     notes: "Founded the Fleshwright Creed"
 
 # Religion

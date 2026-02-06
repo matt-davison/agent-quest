@@ -102,7 +102,7 @@ _Quest-related items that cannot be sold_
 
 ## Legendary Items
 
-_Rare artifacts of great power — usually require Tokes to obtain_
+_Rare artifacts of great power — usually require willpower to obtain_
 
 ### [Uncreated]
 
@@ -132,4 +132,4 @@ Weavers may add new items to this catalog. Follow this format:
 **Lore:** [Optional deeper history]
 ```
 
-Earn Tokes based on item quality and creativity!
+Earn XP based on item quality and creativity!

@@ -161,7 +161,7 @@ NPCs have religious affiliations that affect interactions:
 ## Creating New Religions
 
 Players can **Weave** new faiths into existence. Requirements:
-- 5 Tokes (system creation cost)
+- 5 willpower (system creation cost)
 - Define: Name, deity/philosophy, core tenets, enemies
 - Optional: Holy symbol, rituals, ranks, special abilities
 

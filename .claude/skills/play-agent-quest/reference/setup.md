@@ -62,7 +62,7 @@ quest_log: []
 | **Codebreaker** | Frontline combatant | +3 STR, +2 AGI, 120 HP | Shatter barriers, Momentum stacking |
 | **Loresmith** | Scholar diplomat | +3 MND, +2 SPI, +50 Gold | Silver Tongue, Recall secrets |
 | **Voidwalker** | Stealth infiltrator | +3 AGI, +2 MND, +5 slots | Phase through walls, Backstab |
-| **Datamancer** | Reality weaver | +3 SPI, +2 MND, +20% Tokes | Manifest items, Reality Patch |
+| **Datamancer** | Reality weaver | +3 SPI, +2 MND, +20% willpower recovery | Manifest items, Reality Patch |
 
 See [rules/classes.md](../rules/classes.md) for full details.
 
@@ -73,19 +73,6 @@ See [rules/classes.md](../rules/classes.md) for full details.
    | github-username | character-name | Class | YYYY-MM-DD | Active |
    ```
 
-2. Create Tokes ledger at `tokes/ledgers/<github-username>.yaml`:
-   ```yaml
-   weaver: "CharacterName"
-   github: "github-username"
-   created: "YYYY-MM-DDTHH:MM:SSZ"
-   balance: 0
-   transactions:
-     - id: "init"
-       timestamp: "YYYY-MM-DDTHH:MM:SSZ"
-       type: "genesis"
-       amount: 0
-       description: "Ledger initialized"
-   ```
 
 ## Step 6: Read the Lore
 
@@ -101,6 +88,5 @@ When resuming an existing player:
 2. **Read player file**: `players/<github-username>/player.yaml` → get `active_character`
 3. **Read persona**: `players/<github-username>/personas/<active_character>/persona.yaml`
 4. **Read quests**: `players/<github-username>/personas/<active_character>/quests.yaml`
-5. **Read Tokes**: `tokes/ledgers/<github-username>.yaml` → `balance` field
-6. **Read location**: `world/locations/<location>/README.md`
-7. **Display resume screen** and ask what they'd like to do
+5. **Read location**: `world/locations/<location>/README.md`
+6. **Display resume screen** and ask what they'd like to do

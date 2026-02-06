@@ -76,14 +76,14 @@ connections:
     danger: "high"
     notes: "Faster than going through Nexus Station"
 
-  # Portal Network (requires Tokes)
+  # Portal Network (requires willpower)
   - from: "nexus-station"
     to: "any-visited"
     distance: 0
     travel_type: "portal"
     path: "Weave Portal"
     requirements:
-      - "5 Tokes per use"
+      - "5 willpower per use"
       - "Must have visited destination previously"
     danger: "none"
     notes: "Instant travel to any previously visited location"

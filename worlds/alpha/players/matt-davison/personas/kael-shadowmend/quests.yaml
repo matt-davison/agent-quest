@@ -34,7 +34,7 @@ active_quests:
         status: "pending"
     rewards:
       gold: 500
-      tokes: 50
+      xp: 5000
       items:
         - "Architect's Key (legendary)"
         - "The Right Question (unique ability)"
@@ -47,7 +47,7 @@ completed_quests:
     completed_date: "2026-02-05"
     rewards_received:
       gold: 25
-      tokes: 5
+      xp: 100
       items:
         - "Weaver's Sigil"
   - id: "pest-control"

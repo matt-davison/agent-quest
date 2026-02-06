@@ -7,7 +7,7 @@
 | **Codebreaker** | +3 STR, +2 AGI | 120 HP (instead of 100) |
 | **Loresmith** | +3 MND, +2 SPI | +50 starting gold |
 | **Voidwalker** | +3 AGI, +2 MND | +5 inventory slots |
-| **Datamancer** | +3 SPI, +2 MND | +20% Tokes earned |
+| **Datamancer** | +3 SPI, +2 MND | +20% willpower recovery |
 
 ## Core Abilities (Level 1)
 
@@ -24,8 +24,8 @@
 - **Backstab**: 3x damage if undetected
 
 **Datamancer**
-- **Manifest**: Create temporary items (5 Tokes)
-- **Reality Patch**: Modify small areas (10 Tokes)
+- **Manifest**: Create temporary items (5 willpower)
+- **Reality Patch**: Modify small areas (10 willpower)
 
 ## When to Load Full Rules
 Load [rules/classes.md](../rules/classes.md) for:

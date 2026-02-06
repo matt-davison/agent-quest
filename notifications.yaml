@@ -7,7 +7,7 @@ notifications:
     from_character: "Ichnor Nif"
     message: "Ichnor accepts - the Fold needs allies"
     expires: "2026-02-13T20:00:27.700Z"
-    status: pending
+    status: read
   - seq: 2
     timestamp: "2026-02-06T20:00:52.743Z"
     type: mail
@@ -15,5 +15,5 @@ notifications:
     from_character: "Ichnor Nif"
     message: "What the Frays told me about the Architects"
     expires: "2026-03-08T20:00:52.744Z"
-    status: pending
+    status: read
     mail_id: "mail-ichnor-coda-001"

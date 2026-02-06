@@ -1,3 +1,8 @@
 player: "Wat96"
 character: "Ichnor Nif"
-messages: []
+messages:
+  - seq: 1
+    type: travel
+    narrative: "Ichnor Nif presses a palm against the shimmering membrane of the Fold, feeling it ripple like troubled water. The void whispers warnings — but something pulls harder. A signal, faint and persistent, threading through the static from Lumina City. Someone is looking for him. He pushes through the seam and steps out into blinding color, the monochrome silence of the Fold giving way to the hum and glow of the material world. The road to Lumina City stretches ahead, bright and strange after so long between dimensions."
+    from_location: "The Fold"
+    to_location: "Lumina City"

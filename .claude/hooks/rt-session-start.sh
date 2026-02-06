@@ -39,13 +39,29 @@ fi
 HOST_GITHUB=$(echo "$SESSION_YAML" | grep -A1 "^host:" | grep "github:" | head -1 | sed 's/.*github: *["]*//;s/["]*$//')
 HOST_CHAR=$(echo "$SESSION_YAML" | grep -A2 "^host:" | grep "character:" | head -1 | sed 's/.*character: *["]*//;s/["]*$//')
 
-# Get guest list
-GUESTS=$(echo "$SESSION_YAML" | grep -A3 "- github:" | grep -E "(github|character|status):" | paste - - - | while read line; do
+# Get guest list (including role)
+GUESTS=$(echo "$SESSION_YAML" | grep -A4 "- github:" | grep -E "(github|character|status|role):" | paste - - - - | while read line; do
   g=$(echo "$line" | sed 's/.*github: *["]*//;s/["]*\s*character:.*//')
   c=$(echo "$line" | sed 's/.*character: *["]*//;s/["]*\s*status:.*//')
-  s=$(echo "$line" | sed 's/.*status: *//;s/["]*$//')
-  echo "    $c ($g) - $s"
+  s=$(echo "$line" | sed 's/.*status: *//;s/\s*role:.*//')
+  r=$(echo "$line" | sed 's/.*role: *//')
+  if [ "$r" = "spectator" ]; then
+    echo "    $c ($g) - $s [spectator]"
+  else
+    echo "    $c ($g) - $s"
+  fi
 done)
+
+# Get current player's github
+PLAYER_GITHUB=$(gh api user -q '.login' 2>/dev/null)
+
+# Get player's role
+PLAYER_ROLE=$(echo "$SESSION_YAML" | grep -A4 "github: \"$PLAYER_GITHUB\"" | grep "role:" | head -1 | awk '{print $2}')
+PLAYER_ROLE=${PLAYER_ROLE:-player}
+
+# Get turn mode
+TURN_MODE=$(echo "$SESSION_YAML" | grep "turn_mode:" | head -1 | awk '{print $2}')
+TURN_MODE=${TURN_MODE:-simultaneous}
 
 OUTBOX_PATH="/tmp/agent-quest-rt-outbox-$SESSION_ID.yaml"
 STATE_PATH="/tmp/agent-quest-rt-state-$SESSION_ID.yaml"
@@ -57,10 +73,33 @@ if [ -n "$GUESTS" ]; then
   echo "$GUESTS"
 fi
 echo "  Status: $STATUS"
-echo ""
-echo "You are in a realtime multiplayer session."
-echo "Write player actions to: $OUTBOX_PATH"
-echo "Write shared state to: $STATE_PATH (host only)"
+echo "  Turn Mode: $TURN_MODE"
+
+# Initiative mode: show whose turn it is
+if [ "$TURN_MODE" = "initiative" ]; then
+  TURN_JSON=$(node "$PROJECT_DIR/scripts/rt-session.js" check-turn "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
+  if [ -n "$TURN_JSON" ]; then
+    IS_MY_TURN=$(echo "$TURN_JSON" | grep -o '"is_my_turn"[[:space:]]*:[[:space:]]*\(true\|false\)' | grep -o '\(true\|false\)')
+    CURRENT_PLAYER=$(echo "$TURN_JSON" | grep -o '"current_player"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"current_player"[[:space:]]*:[[:space:]]*"//;s/"$//')
+    if [ "$IS_MY_TURN" = "true" ]; then
+      echo "  Current Turn: YOUR TURN"
+    elif [ -n "$CURRENT_PLAYER" ]; then
+      echo "  Current Turn: $CURRENT_PLAYER"
+    fi
+  fi
+fi
+
+# Spectator mode display
+if [ "$PLAYER_ROLE" = "spectator" ]; then
+  echo ""
+  echo "[SPECTATOR MODE] You are observing this session (read-only)."
+  echo "You can see all messages but cannot take actions."
+else
+  echo ""
+  echo "You are in a realtime multiplayer session."
+  echo "Write player actions to: $OUTBOX_PATH"
+  echo "Write shared state to: $STATE_PATH (host only)"
+fi
 echo "Other players' messages appear via the sync hook."
 
 exit 0

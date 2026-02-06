@@ -173,6 +173,23 @@ node scripts/rt-session.js join-session "<session-id>" "<character-name>"
 3. Apply deltas to each player's persona files on local working tree
 4. Commit and create PR via `repo-sync` agent
 
+**Turn mode considerations:**
+- When creating a session with initiative mode, use `--turn-mode initiative` flag
+- During initiative encounters, the Stop hook automatically blocks when it's not the player's turn
+- If a player's action is blocked by initiative, Claude should explain that it's not their turn
+- The host manages turn order by setting `encounter.turn_order` and `encounter.current_turn` in `state.yaml`
+- Outside active encounters, all players can act freely regardless of turn mode
+- Use `node scripts/rt-session.js check-turn` to check turn status programmatically
+
+**Spectator handling:**
+- Detect spectators via `role: spectator` in session.yaml guest list
+- Spectators have no outbox — do NOT write to `/tmp/agent-quest-rt-outbox-<sid>.yaml` for spectators
+- The Stop hook exits immediately for spectators (no message polling)
+- Session Start hook shows `[SPECTATOR MODE]` for spectator players
+- When a spectator joins, use `--spectator` flag: `node scripts/rt-session.js join-session <sid> "Name" --spectator`
+- Spectators can read all messages from all players but cannot send actions
+- If a spectator tries to act, explain they are in read-only mode
+
 ### Campaign Loading (If Active Campaign)
 
 After basic load, if player has active campaign:

@@ -42,11 +42,31 @@ if [ "$SESSION_STATUS" = "ended" ] || [ "$SESSION_STATUS" = "paused" ]; then
   exit 0
 fi
 
+# --- Spectator bypass: spectators never block ---
+PLAYER_ROLE=$(echo "$SESSION_YAML" | grep -A4 "github: \"$PLAYER_GITHUB\"" | grep "role:" | head -1 | awk '{print $2}')
+if [ "$PLAYER_ROLE" = "spectator" ]; then
+  exit 0
+fi
+
 # Parse settings
 MAX_POLLS=$(echo "$SESSION_YAML" | grep "max_idle_polls:" | head -1 | awk '{print $2}')
 POLL_INTERVAL=$(echo "$SESSION_YAML" | grep "poll_interval_sec:" | head -1 | awk '{print $2}')
 MAX_POLLS=${MAX_POLLS:-5}
 POLL_INTERVAL=${POLL_INTERVAL:-3}
+
+# --- Initiative turn check ---
+TURN_MODE=$(echo "$SESSION_YAML" | grep "turn_mode:" | head -1 | awk '{print $2}')
+if [ "$TURN_MODE" = "initiative" ]; then
+  TURN_JSON=$(node "$RT_HELPER" check-turn "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
+  if [ -n "$TURN_JSON" ]; then
+    IS_MY_TURN=$(echo "$TURN_JSON" | grep -o '"is_my_turn"[[:space:]]*:[[:space:]]*\(true\|false\)' | grep -o '\(true\|false\)')
+    CURRENT_PLAYER=$(echo "$TURN_JSON" | grep -o '"current_player"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"current_player"[[:space:]]*:[[:space:]]*"//;s/"$//')
+    if [ "$IS_MY_TURN" = "false" ]; then
+      echo "{\"decision\": \"block\", \"reason\": \"[INITIATIVE] Waiting for ${CURRENT_PLAYER}'s turn...\"}"
+      exit 0
+    fi
+  fi
+fi
 
 # --- Read stop_hook_active from stdin ---
 INPUT=$(cat)

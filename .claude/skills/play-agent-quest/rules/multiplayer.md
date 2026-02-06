@@ -559,4 +559,67 @@ node scripts/rt-session.js send-invite <sid> <target> [from] [char]
 node scripts/rt-session.js session-info [sid]
 node scripts/rt-session.js outbox-path [sid]
 node scripts/rt-session.js state-path [sid]
+node scripts/rt-session.js check-turn [sid] [github]
 ```
+
+### Turn Modes
+
+Sessions support two turn modes, set at creation time:
+
+| Mode | Description |
+|------|-------------|
+| `simultaneous` (default) | All players act freely. No turn enforcement. Standard RT behavior. |
+| `initiative` | Players act in a defined order during encounters. The Stop hook blocks actions when it's not your turn. |
+
+**Creating an initiative session:**
+
+```bash
+node scripts/rt-session.js create-session "Coda" --turn-mode initiative "Wat96"
+```
+
+**How initiative works:**
+
+1. Host sets `encounter.turn_order` and `encounter.current_turn` in `state.yaml`
+2. The Stop hook calls `check-turn` before polling for messages
+3. If it's not the player's turn, the hook blocks with `[INITIATIVE] Waiting for <player>'s turn...`
+4. Outside of active encounters (no encounter or encounter not active), all players act freely
+5. The host is responsible for advancing `current_turn` after each player's action
+
+**Turn order source of truth:** `state.yaml` on the `rt/<sid>/state` branch:
+
+```yaml
+encounter:
+  id: "enc-001"
+  status: active
+  turn_order: ["matt-davison", "Wat96"]
+  current_turn: 0
+```
+
+**Non-combat during initiative:** The Stop hook blocks all actions when it's not your turn. Claude should still narrate OOC/emote responses from other players — the hook only blocks the stop, not message reading.
+
+### Spectator Mode
+
+Spectators are read-only observers who see all messages but cannot take actions.
+
+**Joining as spectator:**
+
+```bash
+node scripts/rt-session.js join-session <sid> "ObserverName" --spectator
+```
+
+**Spectator characteristics:**
+
+- **No outbox:** Spectators get no `rt/<sid>/msg/<github>` branch. If Claude tries to write to an outbox temp file, auto-push will fail silently.
+- **No stop blocking:** The Stop hook exits immediately for spectators (they never need to wait for messages).
+- **Session start display:** Shows `[SPECTATOR MODE]` and omits the outbox path line.
+- **role field:** Spectators have `role: spectator` in session.yaml (players have `role: player`).
+- **Turn order exclusion:** Spectators are never included in initiative turn order.
+
+**Use cases:**
+
+- GMs observing a session they're not hosting
+- New players watching before joining
+- Streaming/recording sessions
+- Debugging multiplayer issues
+
+**Uninvited spectators:** If a spectator joins without being pre-invited in the guest list, `join-session` appends a new guest entry with `role: spectator` and `status: joined`.

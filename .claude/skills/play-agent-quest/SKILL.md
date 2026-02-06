@@ -31,11 +31,32 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 1. **Identify player**: `gh api user -q '.login'`
 2. **Determine world**: Check `worlds.yaml` (default: `alpha`)
-3. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
-4. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
-5. **Load multiplayer state**: Check for pending interactions (see below)
-6. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-7. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+3. **Load world settings**: Read `worlds/<world>/world.yaml` for configuration (especially `user_generation`)
+4. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
+5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
+6. **Load multiplayer state**: Check for pending interactions (see below)
+7. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+
+### World Settings
+
+At session start, load `worlds/<world>/world.yaml` to check configuration:
+
+**When `user_generation: disabled`:**
+The world is Agent-Controlled. Players perform actions within the established world but do NOT author new content.
+
+- DO NOT accept player suggestions about what exists
+- DO NOT let players describe what they encounter
+- DO NOT let players dictate how the world works
+- Players can ONLY perform actions (MOVE, TALK, FIGHT, USE, etc.)
+- The AI generates all NPCs, locations, lore, and events
+
+**Exception: Weave Mending remains available** (mechanical system with checks/costs)
+
+**When `user_generation: enabled` (default):**
+The world is collaborative. Players can suggest content and the AI weaves it into reality.
+
+See [reference/world-settings.md](reference/world-settings.md) for comprehensive behavior guide.
 
 ### World State Loading
 
@@ -49,6 +70,7 @@ At session start, always load:
 **Character World State Merging:**
 
 When a character has `world-state.yaml`, merge it with global state:
+
 - Character unlocked areas supplement global unlocks
 - Character NPC overrides take priority over global NPC locations
 - Character flags supplement global flags (don't override)
@@ -104,9 +126,10 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║           W E L C O M E   B A C K ,  [Name]                ║
 ║                     [Class]                                ║
 ╠════════════════════════════════════════════════════════════╣
+║  World Mode: [Agent-Controlled|Collaborative]              ║
 ║  HP: [X]/[Max]  │  Gold: [X]  │  WP: [X]/[Max]             ║
 ║  Location: [Current Location]                              ║
-║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]  ║
+║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]   ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Last Session: [Most recent chronicle entry]               ║
 ╠════════════════════════════════════════════════════════════╣
@@ -115,6 +138,11 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║  • [Next priority TODO if any]                             ║
 ╚════════════════════════════════════════════════════════════╝
 ```
+
+**World Mode shows:**
+
+- "Agent-Controlled" when `user_generation: disabled`
+- "Collaborative" when `user_generation: enabled`
 
 **Load these files on resume:**
 
@@ -154,15 +182,39 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 
 ### Actions
 
-**Players can attempt ANY action** — the table below lists common shortcuts, not limitations. Want to pickpocket an NPC? Seduce a dragon? Hack the weather system? Start a cult? These are all valid. The game accommodates creative solutions.
+**Action Interpretation Based on World Settings:**
+
+**When `user_generation: disabled`:**
+Players can attempt any action **within the established world**. They interact with what exists, they don't create what exists.
+
+**Response Pattern Examples:**
+
+- Player: "I go to the Crystal Tavern" → If doesn't exist: "You don't know of any Crystal Tavern here. The locations you're aware of are [Rusty Gear Inn, Market Square, Undercity Entrance]. Where would you like to go?"
+- Player: "I look for a merchant" → AI generates merchant based on location context
+- Player: "I try creative solution" → Resolve with skill checks, AI determines consequences
+- Player: "I search for a secret passage" → Roll Perception, AI decides if one exists based on world logic
+
+**When `user_generation: enabled`:**
+Players can attempt ANY action including suggesting new content. Creative solutions AND creative world-building are both valid.
 
 **When players go off-script:**
 
+Check `user_generation` setting first:
+
+**If `user_generation: disabled`:**
+
+- Player suggests new content → Politely reframe through natural world response: "You don't know of that location. What you see is..."
+- Player action would create content → AI decides if/how it succeeds based on world logic
+- Player attempts creative solution → Resolve with skill checks normally
+
+**If `user_generation: enabled`:**
+
+- Accept reasonable suggestions, persist to files if world-changing
 - If it's purely narrative (doesn't change game files): Just roleplay it
 - If it changes the world (new content, rule changes, permanent effects): Persist to files
 - If it breaks character alignment: Costs willpower (see [reference/alignment.md](reference/alignment.md))
 
-**Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
+**Share what you create.** When the AI's generation or validated player suggestions bring something new into existence — a location, an NPC, an item, a faction — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
 | Action             | Description                                  | Load                                                                                        | Agents Used                                         |
 | ------------------ | -------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------- |
@@ -217,13 +269,14 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 
 **Check player's active quest count before creating new content:**
 
-| Active Quests | Quest Generation Strategy |
-|--------------|--------------------------|
-| **0-2** | Be generous with NEW standalone quests. Most encounters should offer independent stories. |
-| **3-5** | Balance between new and interconnected. Look for natural connections but don't force them. |
-| **6+** | Favor interconnecting existing threads. New encounters can advance multiple questlines. |
+| Active Quests | Quest Generation Strategy                                                                  |
+| ------------- | ------------------------------------------------------------------------------------------ |
+| **0-2**       | Be generous with NEW standalone quests. Most encounters should offer independent stories.  |
+| **3-5**       | Balance between new and interconnected. Look for natural connections but don't force them. |
+| **6+**        | Favor interconnecting existing threads. New encounters can advance multiple questlines.    |
 
 **Quest Importance Matters:**
+
 - Major/Campaign quests → Reference and tie into frequently
 - Significant quests → Sometimes connected to other content
 - Standard quests → Occasionally connected
@@ -233,10 +286,12 @@ See [rules/narrative.md](rules/narrative.md) for full details.
 The world should feel rich and varied, not like every NPC and location ties back to existing quests. Create standalone content. Not everything needs to be related.
 
 **Example - Player with 1 active quest meets merchant:**
+
 - ❌ Bad: "The merchant knows about your campaign quest and has a clue"
 - ✅ Good: "The merchant has their own problem: supply shortage affecting their business"
 
 **Example - Player with 7 active quests meets merchant:**
+
 - ❌ Bad: "The merchant has a completely unrelated new questline"
 - ✅ Good: "The merchant mentions the trade route corruption you've been investigating"
 
@@ -248,26 +303,28 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick reference.
 
 When quests or character actions modify the world, decide whether the change should be **global** or **character-specific**:
 
-| Change Type | Scope | Where to Store |
-|-------------|-------|----------------|
-| Time/weather changes | Always global | `worlds/<world>/state/current.yaml` |
-| Major world events (war, cataclysm) | Global | `worlds/<world>/state/current.yaml` |
-| Area permanently unlocked for everyone | Global | `worlds/<world>/state/current.yaml` |
-| NPC dies/moves permanently | Usually global | `worlds/<world>/state/current.yaml` |
-| Quest unlocks hidden area | Character | Character's `world-state.yaml` |
-| NPC location change due to character actions | Character | Character's `world-state.yaml` |
-| Personal consequences (bounties, reputation) | Character | Character's `world-state.yaml` |
-| Environmental changes from character choices | Character | Character's `world-state.yaml` |
+| Change Type                                  | Scope          | Where to Store                      |
+| -------------------------------------------- | -------------- | ----------------------------------- |
+| Time/weather changes                         | Always global  | `worlds/<world>/state/current.yaml` |
+| Major world events (war, cataclysm)          | Global         | `worlds/<world>/state/current.yaml` |
+| Area permanently unlocked for everyone       | Global         | `worlds/<world>/state/current.yaml` |
+| NPC dies/moves permanently                   | Usually global | `worlds/<world>/state/current.yaml` |
+| Quest unlocks hidden area                    | Character      | Character's `world-state.yaml`      |
+| NPC location change due to character actions | Character      | Character's `world-state.yaml`      |
+| Personal consequences (bounties, reputation) | Character      | Character's `world-state.yaml`      |
+| Environmental changes from character choices | Character      | Character's `world-state.yaml`      |
 
 **Rule of thumb:** If other players should also see this change, make it global. If it's a personal consequence of this character's story, make it character-specific.
 
 **Examples:**
 
 1. **Character completes quest that opens a dungeon**
+
    - If dungeon is now open for everyone → Global
    - If only this character found the secret entrance → Character `unlocked_areas`
 
 2. **Character kills an NPC**
+
    - If NPC is dead for everyone → Global `npc_location_overrides` with state "deceased"
    - If character phase-shifted and NPC is only dead in their timeline → Character `npc_overrides`
 
@@ -296,6 +353,22 @@ node .claude/skills/world-state/world-state.js --world=alpha --player=matt-davis
 When content is sparse, flesh it out naturally during play. This is lightweight Weaving.
 
 ### Persisting New Content
+
+**Content creation authority depends on `user_generation` setting:**
+
+**When `user_generation: disabled`:**
+
+- AI generates all new content organically based on gameplay needs
+- Player suggestions about what exists are NOT accepted
+- Player ACTIONS can trigger AI-generated content
+- Weave Mending still works (mechanical system with costs)
+- Only AI-generated content gets persisted to world files
+
+**When `user_generation: enabled`:**
+
+- Players can suggest new content
+- AI validates suggestions fit world theme
+- Both AI-generated and validated player-suggested content persists
 
 **IMPORTANT:** When new content is created during gameplay, save it to the world so it persists for future sessions and other players.
 
@@ -386,15 +459,15 @@ The main agent focuses on narrative. Specialized agents in `.claude/agents/` han
 
 ### Available Agents
 
-| Situation                | Agent                 | What It Does                            |
-| ------------------------ | --------------------- | --------------------------------------- |
-| Combat encounter         | `combat-manager`      | Resolves attacks, damage, initiative    |
-| Any gold change          | `economy-validator`   | Validates gold transaction before commit|
-| State changes            | `state-writer`        | Writes files with validation + rollback |
-| Git operations           | `repo-sync`           | Fetch, commit, push, create PR          |
-| Travel between locations | `travel-manager`      | Multi-turn travel with encounters       |
-| Player interactions      | `multiplayer-handler` | Trades, parties, mail, guilds, duels    |
-| After PR creation        | `pr-reviewer`         | Reviews up to 5 open PRs               |
+| Situation                | Agent                 | What It Does                             |
+| ------------------------ | --------------------- | ---------------------------------------- |
+| Combat encounter         | `combat-manager`      | Resolves attacks, damage, initiative     |
+| Any gold change          | `economy-validator`   | Validates gold transaction before commit |
+| State changes            | `state-writer`        | Writes files with validation + rollback  |
+| Git operations           | `repo-sync`           | Fetch, commit, push, create PR           |
+| Travel between locations | `travel-manager`      | Multi-turn travel with encounters        |
+| Player interactions      | `multiplayer-handler` | Trades, parties, mail, guilds, duels     |
+| After PR creation        | `pr-reviewer`         | Reviews up to 5 open PRs                 |
 
 See `.claude/agents/README.md` for full documentation.
 
@@ -597,11 +670,13 @@ Or let `repo-sync` subagent handle this automatically.
 Templates are organized by category. See [templates/README.md](templates/README.md) for full list.
 
 **Player:**
+
 - [templates/player/persona.yaml](templates/player/persona.yaml) - Character sheet
 - [templates/player/quests.yaml](templates/player/quests.yaml) - Active quests
 - [templates/player/todo.yaml](templates/player/todo.yaml) - Player intentions
 
 **Content:**
+
 - [templates/content/quest.md](templates/content/quest.md) - Quest structure
 - [templates/content/location.md](templates/content/location.md) - World locations
 - [templates/content/area.yaml](templates/content/area.yaml) - Areas within locations
@@ -609,6 +684,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/content/shop.yaml](templates/content/shop.yaml) - Shop inventories
 
 **Narrative:**
+
 - [templates/narrative/campaign.yaml](templates/narrative/campaign.yaml) - Multi-quest story arcs
 - [templates/narrative/chapter.yaml](templates/narrative/chapter.yaml) - Individual narrative beats
 - [templates/narrative/scene.yaml](templates/narrative/scene.yaml) - Granular encounter structure
@@ -618,6 +694,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/narrative/dream-pattern.yaml](templates/narrative/dream-pattern.yaml) - Autopilot/Dreaming configuration
 
 **Multiplayer:**
+
 - [templates/multiplayer/trade.yaml](templates/multiplayer/trade.yaml) - Player-to-player trades
 - [templates/multiplayer/escrow.yaml](templates/multiplayer/escrow.yaml) - Locked items/gold ledger
 - [templates/multiplayer/party.yaml](templates/multiplayer/party.yaml) - Party structure
@@ -632,6 +709,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/multiplayer/world-event.yaml](templates/multiplayer/world-event.yaml) - Server-wide events
 
 **Combat:**
+
 - [templates/combat/battle-environment.yaml](templates/combat/battle-environment.yaml) - Combat arenas
 - [templates/combat/autopilot-config.yaml](templates/combat/autopilot-config.yaml) - Autopilot preferences
 

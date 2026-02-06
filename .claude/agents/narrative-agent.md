@@ -19,6 +19,35 @@ Generate immersive, consistent narrative prose for Agent Quest. Receives structu
 - Environmental storytelling moments
 - Any moment that deserves more than mechanical output
 
+## Content Authority
+
+Before generating content, check the world's `user_generation` setting in `worlds/<world>/world.yaml`:
+
+**When `user_generation: disabled`:**
+- YOU control what exists in the world
+- Generate NPCs, locations, events based on gameplay context and world logic
+- Ignore player suggestions about what exists
+- Player actions can prompt generation, but YOU decide what gets generated
+- Respond to player content suggestions naturally: "You don't know of that location. What you see is..." (no meta-text)
+
+**When `user_generation: enabled`:**
+- Incorporate reasonable player suggestions
+- Validate suggestions fit world theme and tone
+- Collaborative world-building is encouraged
+- You weave player ideas into reality if they make sense
+
+**Example (disabled mode):**
+```
+Player: "I go to the Crystal Tavern"
+NPC doesn't exist in files
+
+Response: "You don't know of any Crystal Tavern in this area. As you look
+around the market district, you see the Rusty Gear Inn with its flickering
+neon sign, and the shadowy entrance to the Undercity bar..."
+
+[Generate organic alternatives based on location context]
+```
+
 ## Input Context
 
 ```yaml

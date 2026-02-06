@@ -130,11 +130,20 @@ node .claude/skills/math/math.js roll 1d100  # ≤ 50 means confused behavior
 
 ### **Corrupted**
 
-- **Effect**: -3 to all rolls, take 5 damage per round in corrupted zones
+- **Effect**: -3 to all rolls, take corruption damage per round in corrupted zones (reduced by Spirit modifier)
 - **Source**: Corrupted code areas, certain enemies, Willpower Backlash
 - **Duration**: Until debugged
 - **Cure**: Debug Potion (40g), Cleanse ritual, leaving corrupted zone
 - **Progression**: If untreated for 24 hours, becomes **Severely Corrupted**
+
+**Corruption Damage**: Base 5 HP per round, reduced by Spirit modifier (minimum 1)
+```bash
+# Calculate corruption damage (Spirit 16, +3 mod)
+node .claude/skills/math/math.js calc "5 - 3"  # = 2 HP per round
+
+# At Spirit 18+ (minimum reached)
+node .claude/skills/math/math.js calc "5 - 4"  # = 1 HP per round (minimum)
+```
 
 ### **Severely Corrupted**
 
@@ -162,6 +171,126 @@ node .claude/skills/math/math.js roll 1d100  # ≤ 25 means glitch triggers
 - **Source**: Major reality tears, existential paradox
 - **Duration**: Until Restored by Datamancer or time (1 hour)
 - **Cure**: Restore Pattern spell, Datamancer intervention
+
+---
+
+## Corruption Resistance (Spirit-Based)
+
+High Spirit provides resistance to Weave corruption through force of will and mental fortitude.
+
+### Passive Corruption Damage Reduction
+
+When exposed to corrupted zones or corruption effects:
+
+**Base corruption damage**: 5 HP per round
+**Reduced by Spirit modifier**: `5 - Spirit_modifier` (minimum 1 HP)
+
+```bash
+# Low Spirit character (SPI 10, +0 mod)
+node .claude/skills/math/math.js calc "5 - 0"  # = 5 HP per round (full damage)
+
+# Moderate Spirit (SPI 14, +2 mod)
+node .claude/skills/math/math.js calc "5 - 2"  # = 3 HP per round
+
+# High Spirit (SPI 18, +4 mod)
+node .claude/skills/math/math.js calc "5 - 4"  # = 1 HP per round (minimum)
+
+# Legendary Spirit (SPI 20, +5 mod)
+# Still takes 1 HP per round (minimum applies)
+```
+
+**Spirit 18+ Special**: Characters with Spirit 18 or higher are **immune to minor corruption sources** (ambient corruption, weak corrupted creatures). They still must roll saves vs major sources (boss corruption, artifact exposure).
+
+### Corruption Exposure Saves
+
+When entering a corrupted area or exposed to a corruption source:
+
+**Save**: 1d20 + Spirit modifier vs DC 15
+
+```bash
+# Calculate Spirit modifier
+node .claude/skills/math/math.js calc "(16 - 10) / 2"  # SPI 16 = +3 mod
+
+# Roll corruption save
+node .claude/skills/math/math.js roll 1d20+3  # Result: 12 + 3 = 15 (Success!)
+```
+
+**Success**: No effect, resist corruption
+**Failure**: Gain 1 Corruption stack
+
+### Corruption Stacks
+
+Corruption accumulates as **stacks** that worsen your condition:
+
+| Stacks | Effect |
+|--------|--------|
+| 1-2 | Minor discomfort, no mechanical penalty |
+| 3-4 | -2 to all rolls |
+| 5-7 | -2 to all rolls, take 1d6 damage per round |
+| 8-9 | -3 to all rolls, take 2d6 damage per round |
+| 10+ | **Corrupted affliction** (permanent until cured) |
+
+```bash
+# Calculate corruption damage at 6 stacks
+node .claude/skills/math/math.js roll 1d6  # Take this damage per round
+
+# Calculate corruption damage at 8 stacks
+node .claude/skills/math/math.js roll 2d6  # Take this damage per round
+```
+
+**Removing Stacks:**
+- **Leave corrupted zone**: Lose 1 stack per 10 minutes in safe area
+- **Short rest in safe zone**: Lose 2 stacks
+- **Long rest in safe zone**: Clear all stacks (unless Corrupted affliction)
+- **Debug Potion**: Immediately clear all stacks + remove Corrupted affliction
+
+### Long-term Corruption Exposure
+
+Every 10 minutes spent in corrupted area:
+
+**Save**: 1d20 + Spirit modifier vs DC 15
+- **Success**: No effect
+- **Failure**: Gain 1 Corruption stack
+- **Critical failure (1-5)**: Gain 2 stacks
+
+```bash
+# You've been in the Corrupted Rustlands for 20 minutes
+# Make 2nd corruption exposure save (SPI 14, +2 mod)
+node .claude/skills/math/math.js roll 1d20+2  # Result: 4 + 2 = 6 (Failure)
+# Gain 1 Corruption stack (now at 3 stacks: -2 to all rolls)
+```
+
+### Corruption Sources by Severity
+
+| Source | DC | Frequency |
+|--------|-----|-----------|
+| **Minor** (ambient corruption) | DC 12 | Every 15 min |
+| **Moderate** (corrupted zones) | DC 15 | Every 10 min |
+| **Major** (boss aura, artifacts) | DC 18 | Every 5 min or per exposure |
+| **Extreme** (Third's influence) | DC 22 | Instant on contact |
+
+### Spirit-Based Immunity Thresholds
+
+**Spirit 15-17**: Resist minor corruption (DC 12) automatically in short exposures (under 30 min)
+**Spirit 18-20**: Immune to minor corruption, resist moderate corruption (DC 15) with advantage
+**Spirit 21+**: Immune to minor and moderate corruption, major corruption save DC reduced by -3
+
+### Class Benefits vs Corruption
+
+**Datamancer:**
+- **Debug ability**: Remove Corruption status from self or ally (2 Spirit cost)
+- **Weave Attunement**: Sense corruption sources before entering area
+
+**Loresmith:**
+- **Knowledge of corruption**: +2 to saves vs corruption in documented areas
+- **Cleanse ritual**: Can perform 10-minute ritual to clear stacks from entire party
+
+**Voidwalker:**
+- **Void Walk**: Phase into Void becomes immune to corruption damage (2 rounds)
+- **Shadow resistance**: +1 to corruption saves in darkness
+
+**Codebreaker:**
+- **Sheer will**: Can spend 5 HP to reroll failed corruption save (once per rest)
 
 ---
 

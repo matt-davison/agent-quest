@@ -139,7 +139,9 @@ node .claude/skills/math/math.js calc "20 * 1.25"  # = 25 gold
 
 ### Stats
 - **+3 Agility, +2 Mind**
-- Can carry **+5 inventory slots**
+- **Inventory Capacity**: Base capacity + 5 slots
+  - This bonus is added after attribute modifiers
+  - Example: With MND 12 (+1) and AGI 13 (+1), capacity = 10 + (1×3) + (1×1) + 5 = 19 slots
 
 ### Passive: Shadow Step
 Once per location, you may automatically evade one attack or trap without rolling. Additionally, enemies require a roll of 15+ to detect you when you're hiding.

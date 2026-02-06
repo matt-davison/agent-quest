@@ -27,6 +27,9 @@ stats:
   agility: 10 # Speed, reflexes, ranged combat
   mind: 10 # Intelligence, hacking, puzzles
   spirit: 10 # Willpower, magic, Weave manipulation
+  derived:
+    inventory_capacity: 10  # Calculated: 10 + (MND_mod×3) + (AGI_mod×1) + class_bonus
+                            # Voidwalker gets +5 class bonus
 
 # === RESOURCES ===
 resources:

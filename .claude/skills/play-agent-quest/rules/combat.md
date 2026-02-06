@@ -336,6 +336,71 @@ Combat ends when:
 
 ---
 
+## Social Combat Actions
+
+Spirit-based social influence can be used as tactical actions during combat. See [Social Mechanics](social-mechanics.md) for full details.
+
+### Intimidate (Major Action)
+
+**Cost**: Major Action
+**Check**: 1d20 + Spirit modifier vs DC 15
+**Effect**: On success, target becomes **Frightened** (1 round)
+
+```bash
+# Intimidate enemy (SPI 14, +2 mod)
+node .claude/skills/math/math.js roll 1d20+2  # vs DC 15
+```
+
+**Frightened**: Cannot approach source, -2 to all rolls, movement halved
+
+### Rally (Major Action)
+
+**Cost**: Major Action
+**Check**: 1d20 + Spirit modifier vs DC 12
+**Effect**: Target ally gains +2 to next roll
+
+```bash
+# Rally wounded ally (SPI 16, +3 mod)
+node .claude/skills/math/math.js roll 1d20+3  # vs DC 12
+```
+
+### Command (Major Action)
+
+**Cost**: Major Action
+**Check**: 1d20 + Spirit modifier vs DC 15
+**Effect**: Target NPC/weak enemy follows one simple command
+
+**Valid commands**: "Drop weapon!", "Run!", "Surrender!"
+**Restrictions**: Boss enemies immune
+
+---
+
+## Corruption in Combat
+
+Corruption zones and effects can dramatically impact combat. See [Afflictions](afflictions.md) for full corruption system.
+
+### Corruption Damage
+
+**Base damage**: 5 HP per round (reduced by Spirit modifier, minimum 1)
+
+```bash
+# Calculate corruption damage (SPI 16, +3 mod)
+node .claude/skills/math/math.js calc "5 - 3"  # = 2 HP per round
+```
+
+### Corruption Saves
+
+When entering corrupted area or exposed to corruption:
+- **Save**: 1d20 + Spirit modifier vs DC 15
+- **Failure**: Gain 1 Corruption stack
+
+**Corruption Stack Effects:**
+- 3-4 stacks: -2 to all rolls
+- 5-7 stacks: -2 to all rolls, take 1d6 damage per round
+- 10+ stacks: Corrupted affliction (permanent until cured)
+
+---
+
 ## Special Combat Rules
 
 ### Surprise Attacks

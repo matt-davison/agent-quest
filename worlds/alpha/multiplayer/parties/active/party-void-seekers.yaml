@@ -1,0 +1,66 @@
+# Party: Void Seekers
+# Location: multiplayer/parties/active/party-void-seekers.yaml
+
+party_id: "party-void-seekers"
+name: "Void Seekers"
+created: "2026-02-06T03:19:08Z"
+
+# Party leader (has ultimate authority)
+leader:
+  github: "matt-davison"
+  character: "Coda"
+
+# All party members including leader
+members:
+  - github: "matt-davison"
+    character: "Coda"
+    role: "leader"
+    status: "active"
+    joined: "2026-02-06T03:19:08Z"
+    last_active: "2026-02-06T03:19:08Z"
+
+# Party settings
+settings:
+  max_members: 6
+
+  # Loot distribution mode
+  # round-robin: Rotate through members
+  # need-greed: Members roll, highest wins
+  # leader: Leader assigns all loot
+  # free-for-all: First to claim gets it
+  loot_distribution: "round-robin"
+
+  # XP distribution
+  # equal: Split evenly among active members
+  # participation: Based on combat contribution
+  xp_distribution: "equal"
+
+  # Who can invite new members
+  invite_permission: "leader"
+
+  # Auto-promote on leader inactivity (hours)
+  leader_inactivity_threshold: 168  # 7 days
+
+# Current shared state
+shared_state:
+  location: "lumina-city"
+  active_quest: null
+  gold_pool: 0
+
+  # Current encounter (if any)
+  active_encounter: null
+
+# Pending decisions requiring votes
+pending_decisions: []
+
+# Loot rotation tracker (for round-robin)
+loot_rotation:
+  current_index: 0
+  order:
+    - github: "matt-davison"
+      character: "Coda"
+
+# Party history (append-only)
+history:
+  - timestamp: "2026-02-06T03:19:08Z"
+    event: "Party created by Coda (Datamancer) - 'Void Seekers' formed to explore the Fold Network and uncover Architect secrets"

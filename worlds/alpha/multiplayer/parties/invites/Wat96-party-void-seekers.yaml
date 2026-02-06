@@ -1,0 +1,53 @@
+# Party Invitation
+# Location: multiplayer/parties/invites/Wat96-party-void-seekers.yaml
+
+invite_id: "invite-wat96-void-seekers"
+
+# Who is being invited
+to:
+  github: "Wat96"
+  character: "Ichnor Nif"
+
+# What party
+party:
+  party_id: "party-void-seekers"
+  party_name: "Void Seekers"
+  leader: "matt-davison"
+  member_count: 1
+  max_members: 6
+
+# Who sent the invite
+from:
+  github: "matt-davison"
+  character: "Coda"
+  role: "leader"
+
+# Timestamps
+created: "2026-02-06T03:19:08Z"
+expires: "2026-02-08T03:19:08Z"  # 48h expiration
+
+# Status
+status: "pending"
+
+# Message from Coda to Ichnor Nif
+message: |
+  Ichnor Nif,
+
+  I heard about your discovery of the Fold and your communion with Nev. I'm Coda, a Datamancer
+  who's been tracking the Architects' trail. I found coordinates pointing to the Fragment of
+  Will beneath Nexus Crossroads, and you've mapped the Fold Network beneath Lumina City.
+
+  Our paths are converging. You understand void-space and the Frays. I understand the Weave
+  and reality compilation. Together, we could uncover what the Architects left behind - and
+  maybe understand what shattered the Frays in the first place.
+
+  The Underlevel of Lumina City connects to the Fold you discovered. If you're willing to
+  explore deeper, I'd like to join forces.
+
+  - Coda
+
+# Response (filled when acted upon)
+response:
+  timestamp: null
+  action: null
+  message: null

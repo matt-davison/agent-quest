@@ -1,0 +1,23 @@
+# Party Membership: Coda
+# Links character to their current party
+
+character: "Coda"
+github: "matt-davison"
+
+# Current party
+party:
+  party_id: "party-void-seekers"
+  party_name: "Void Seekers"
+  role: "leader"
+  joined: "2026-02-06T03:19:08Z"
+  status: "active"
+
+# Party file reference
+party_file: "multiplayer/parties/active/party-void-seekers.yaml"
+
+# History (append-only)
+history:
+  - timestamp: "2026-02-06T03:19:08Z"
+    event: "Founded the Void Seekers party"
+    party_id: "party-void-seekers"
+    action: "created"

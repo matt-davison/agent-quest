@@ -57,3 +57,8 @@ unexplored_connections:
 # 3. Create locations/<location-id>/README.md with narrative description
 # 4. Add connections to neighboring locations' location.yaml files
 # 5. Optionally create areas/<area-id>.yaml for sub-locations
+# 6. WORLD EXPANSION: Add frontier stubs as unexplored_connections below.
+#    - Minor locations: 1-2 frontiers. Typical: 3-5. Major/lore-critical: 5-8.
+#    - At least 1 hidden frontier (locked behind quest, stat check, standing, etc.)
+#    - Frontiers get fully created when a player first travels to them,
+#      and they in turn spawn their own frontiers — the world never stops growing.

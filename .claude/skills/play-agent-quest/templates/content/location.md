@@ -236,6 +236,69 @@ connections:
 
 ---
 
+## 6. World Expansion Rule
+
+**Every new location MUST spawn connected frontier locations** to keep the world perpetually expanding. These are lightweight stubs — just enough to exist on the map and tempt exploration.
+
+### How Many Frontiers?
+
+Scale with the location's importance, size, and lore significance:
+
+| Location Scale | Frontiers | Examples |
+|---|---|---|
+| Minor (small camp, single-purpose site) | 1-2 | A hermit's cave, a roadside shrine |
+| Typical (settlement, dungeon, landmark) | 3-5 | A trading post, a forest ruin, a bandit fortress |
+| Major (capital city, world hub, lore-critical) | 5-8 | Nexus Station, Lumina City, a seat of power |
+
+Most locations should land in the 3-5 range. Use 1 as the absolute minimum and 8 as the upper limit for truly massive or lore-significant places.
+
+### Frontier Location Stubs
+
+For each new location, add entries to `_meta.yaml` under `unexplored_connections` and to `graph.yaml`:
+
+```yaml
+# _meta.yaml - add frontier stubs per new location
+unexplored_connections:
+  - from: "your-new-location"
+    to: "frontier-location-id"
+    notes: "Rumor or hint about this place"
+    status: "unexplored"
+```
+
+At least one frontier connection should be **hidden** — locked behind a requirement so it isn't immediately visible to the persona:
+
+```yaml
+# In the parent location.yaml connections list
+connections:
+  # Open frontier — visible on arrival
+  - target: "the-shattered-basin"
+    direction: "north-trail"
+    distance: 12
+    travel_time: "12 hours walking"
+    requirements: null
+    danger: "medium"
+
+  # Hidden frontier — locked behind progress
+  - target: "vault-of-echoes"
+    direction: "hidden-passage"
+    distance: 3
+    travel_time: "3 hours walking"
+    requirements:
+      - "Quest complete: the-lost-cartographer"
+      - "Perception >= 14"
+    danger: "high"
+```
+
+### Guidelines
+
+- **Open frontiers**: Visible connections that players can travel to immediately. They pull players forward into the unknown.
+- **Hidden frontiers** (at least 1 per location): Locked behind quest completion, stat checks, NPC standing, secret discovery, or other requirements. These reward thorough exploration and progression.
+- Frontier stubs don't need full `location.yaml` files yet — they get fleshed out when a player first travels there. The stub in `unexplored_connections` and the connection entry are enough.
+- Frontier names and hints should be evocative and genre-appropriate. The rumor text is what NPCs or environmental clues might reference.
+- When a frontier location is eventually created (because a player travels there), it in turn spawns its own frontiers, continuing the cycle.
+
+---
+
 ## Distance Reference
 
 - 1 league ≈ 3 miles ≈ 1 hour walking

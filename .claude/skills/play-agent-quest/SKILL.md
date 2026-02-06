@@ -124,6 +124,7 @@ Check these for player interactions:
 - Pending trade count
 - Unread mail count
 - Party membership status
+- **Pending friend requests** (from `players/<github>/friends.yaml`)
 - **RT session status** (if `/tmp/agent-quest-rt-session` exists)
 - **Inbox notifications** (from `inbox/<github>` branch, shown by hook)
 
@@ -316,6 +317,7 @@ Check `user_generation` setting first:
 | **MAIL**           | Send/read messages                           | `worlds/<world>/multiplayer/mail/<github>/`                                                 | `multiplayer-handler`                               |
 | **GUILD**          | Guild management                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
 | **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
+| **FRIEND**         | Manage friends list                          | `players/<github>/friends.yaml`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)       | `multiplayer-handler`                               |
 | **WHO**            | See players at location                      | Per-player presence in persona dirs + `worlds/<world>/state/presence/_meta.yaml`             | `multiplayer-handler`                               |
 | **RT**             | Start/join/end realtime session              | [quick-ref/multiplayer.md](quick-ref/multiplayer.md), `scripts/rt-session.js`               | `multiplayer-handler`, `repo-sync` (on end)         |
 | **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
@@ -553,7 +555,7 @@ The main agent focuses on narrative. Specialized agents in `.claude/agents/` han
 | State changes            | `state-writer`        | Writes files with validation + rollback  |
 | Git operations           | `repo-sync`           | Fetch, commit, push, create PR           |
 | Travel between locations | `travel-manager`      | Multi-turn travel with encounters        |
-| Player interactions      | `multiplayer-handler` | Trades, parties, mail, guilds, duels     |
+| Player interactions      | `multiplayer-handler` | Friends, trades, parties, mail, guilds, duels |
 | After PR creation        | `pr-reviewer`         | Reviews up to 5 open PRs                 |
 
 See `.claude/agents/README.md` for full documentation.
@@ -793,6 +795,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/multiplayer/guild-roster.yaml](templates/multiplayer/guild-roster.yaml) - Guild membership
 - [templates/multiplayer/guild-treasury.yaml](templates/multiplayer/guild-treasury.yaml) - Shared resources
 - [templates/multiplayer/duel.yaml](templates/multiplayer/duel.yaml) - PvP combat
+- [templates/multiplayer/friends.yaml](templates/multiplayer/friends.yaml) - Friends list (world-agnostic)
 - [templates/multiplayer/world-event.yaml](templates/multiplayer/world-event.yaml) - Server-wide events
 
 **Combat:**

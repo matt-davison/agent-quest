@@ -19,6 +19,7 @@ Requires GitHub CLI (`gh auth login`) or a `GITHUB_TOKEN` env var for the pre-co
 
 ```
 worlds.yaml                  # World registry (default: alpha)
+players/<github>/            # World-agnostic social data (friends, blocks)
 worlds/alpha/
   world.yaml                 # World config (time, weather)
   players/<github>/          # Player persona + state (YAML)
@@ -29,7 +30,7 @@ worlds/alpha/
   creatures/                 # Creature/enemy definitions
   quests/                    # Available + active quests
   shops/                     # Shop inventories
-  multiplayer/               # Trades, parties, mail, guilds, duels
+  multiplayer/               # Trades, parties, mail, guilds, duels, friends
   chronicles/                # Story event log
   state/                     # World state (time, events)
 .claude/

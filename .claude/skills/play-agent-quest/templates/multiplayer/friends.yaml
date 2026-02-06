@@ -1,0 +1,21 @@
+# Friends List Template
+# Location: players/<github>/friends.yaml (world-agnostic, top-level)
+
+github: "<github-username>"
+friends:
+  - github: "<friend-github>"
+    added: "<ISO-8601-timestamp>"
+    note: ""                          # optional personal note (max 100 chars)
+pending_sent:
+  - github: "<target-github>"
+    sent: "<ISO-8601-timestamp>"
+    expires: "<ISO-8601-timestamp>"   # 7 days from sent
+pending_received:
+  - github: "<sender-github>"
+    from_character: "<character-name>"
+    sent: "<ISO-8601-timestamp>"
+    expires: "<ISO-8601-timestamp>"
+    message: ""                       # optional message (max 200 chars)
+blocked:
+  - github: "<blocked-github>"
+    blocked_at: "<ISO-8601-timestamp>"

@@ -4,6 +4,7 @@
  * Multiplayer Systems Validator
  *
  * Validates all multiplayer state for Agent Quest:
+ * - Friends: mutual consistency, blocked enforcement, no self-friends
  * - Trading: escrow integrity, trade validity
  * - Parties: membership exclusivity, roster consistency
  * - Mail: attachment escrow, expiration
@@ -21,6 +22,7 @@ const yaml = require('js-yaml');
 
 // Configuration
 const WORLDS_FILE = 'worlds.yaml';
+const FRIENDS_DIR = 'players'; // World-agnostic friends data
 
 // Helper to get directory paths for a specific world
 function getWorldPaths(world) {
@@ -751,6 +753,153 @@ function validatePresence() {
 }
 
 // ============================================================================
+// FRIENDS VALIDATION (world-agnostic, runs once)
+// ============================================================================
+
+function validateFriends() {
+  console.log('Validating friends...');
+
+  if (!fs.existsSync(FRIENDS_DIR)) {
+    console.log('  No players directory found\n');
+    return;
+  }
+
+  const playerDirs = fs.readdirSync(FRIENDS_DIR, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name);
+
+  // Load all friends files
+  const allFriends = new Map(); // github -> friends data
+  for (const github of playerDirs) {
+    const friendsPath = path.join(FRIENDS_DIR, github, 'friends.yaml');
+    const data = loadYaml(friendsPath);
+    if (data) {
+      allFriends.set(github, { data, path: friendsPath });
+    }
+  }
+
+  const MAX_FRIENDS = 50;
+
+  for (const [github, { data, path: filePath }] of allFriends) {
+    log(`Checking friends for: ${github}`);
+
+    // Check github field matches directory
+    if (data.github && data.github !== github) {
+      warn(filePath, `github field '${data.github}' does not match directory '${github}'`);
+    }
+
+    const friends = data.friends || [];
+    const pendingSent = data.pending_sent || [];
+    const pendingReceived = data.pending_received || [];
+    const blocked = data.blocked || [];
+
+    // Check max friends limit
+    if (friends.length > MAX_FRIENDS) {
+      error(filePath, `Friends count (${friends.length}) exceeds maximum (${MAX_FRIENDS})`);
+    }
+
+    // Check no self-friends
+    for (const friend of friends) {
+      if (friend.github === github) {
+        error(filePath, 'Player is friends with themselves');
+      }
+    }
+
+    // Check no self in pending
+    for (const req of pendingSent) {
+      if (req.github === github) {
+        error(filePath, 'Player has pending friend request to themselves');
+      }
+    }
+
+    for (const req of pendingReceived) {
+      if (req.github === github) {
+        error(filePath, 'Player has pending friend request from themselves');
+      }
+    }
+
+    // Check no self-block
+    for (const block of blocked) {
+      if (block.github === github) {
+        error(filePath, 'Player has blocked themselves');
+      }
+    }
+
+    // Check no player in both friends and blocked
+    const blockedSet = new Set(blocked.map(b => b.github));
+    for (const friend of friends) {
+      if (blockedSet.has(friend.github)) {
+        error(filePath, `Player '${friend.github}' is both a friend and blocked`);
+      }
+    }
+
+    // Check no pending requests with blocked players
+    for (const req of pendingSent) {
+      if (blockedSet.has(req.github)) {
+        error(filePath, `Pending sent request to blocked player '${req.github}'`);
+      }
+    }
+    for (const req of pendingReceived) {
+      if (blockedSet.has(req.github)) {
+        error(filePath, `Pending received request from blocked player '${req.github}'`);
+      }
+    }
+
+    // Check mutual friendship consistency
+    for (const friend of friends) {
+      const otherEntry = allFriends.get(friend.github);
+      if (!otherEntry) {
+        warn(filePath, `Friend '${friend.github}' has no friends.yaml file`);
+        continue;
+      }
+      const otherFriends = otherEntry.data.friends || [];
+      const isMutual = otherFriends.some(f => f.github === github);
+      if (!isMutual) {
+        error(filePath, `Friendship with '${friend.github}' is not mutual (other player's file does not list '${github}')`);
+      }
+    }
+
+    // Check pending request expiration warnings
+    for (const req of pendingSent) {
+      if (req.expires) {
+        const expires = new Date(req.expires);
+        if (expires < new Date()) {
+          warn(filePath, `Pending sent request to '${req.github}' has expired`);
+        }
+      }
+    }
+    for (const req of pendingReceived) {
+      if (req.expires) {
+        const expires = new Date(req.expires);
+        if (expires < new Date()) {
+          warn(filePath, `Pending received request from '${req.github}' has expired`);
+        }
+      }
+    }
+
+    // Check that blocked players don't have pending requests to this player
+    for (const block of blocked) {
+      const blockedEntry = allFriends.get(block.github);
+      if (!blockedEntry) continue;
+      const theirPendingSent = blockedEntry.data.pending_sent || [];
+      const hasPending = theirPendingSent.some(r => r.github === github);
+      if (hasPending) {
+        error(filePath, `Blocked player '${block.github}' has a pending request to '${github}'`);
+      }
+    }
+
+    // Check no duplicate entries in friends list
+    const friendGithubs = friends.map(f => f.github);
+    const uniqueFriends = new Set(friendGithubs);
+    if (uniqueFriends.size !== friendGithubs.length) {
+      error(filePath, 'Duplicate entries in friends list');
+    }
+  }
+
+  console.log(`  Checked ${allFriends.size} friends file(s)\n`);
+}
+
+// ============================================================================
 // MAIN
 // ============================================================================
 
@@ -760,6 +909,9 @@ function main() {
 
   console.log('Multiplayer Systems Validator');
   console.log('=============================\n');
+
+  // Friends validation is world-agnostic (runs once)
+  validateFriends();
 
   const worlds = loadWorlds();
   console.log(`Found ${worlds.length} world(s): ${worlds.join(', ')}\n`);

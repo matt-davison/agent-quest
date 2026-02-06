@@ -9,6 +9,37 @@ Fast lookup for player-to-player interactions during gameplay.
 - **Async mode** (no RT session): Fetches `origin/main`, merges new commits, and shows a notification if updates were pulled. This surfaces new trade offers, party invites, guild updates, mail, and world events.
 - **RT mode** (active session): Checks the player's `inbox/<github>` branch for notifications and fetches new messages from other players' outboxes via `scripts/rt-session.js`.
 
+## Friends Commands
+
+| Command | Action |
+|---------|--------|
+| FRIENDS | Show friends list with activity status |
+| FRIEND ADD @player | Send friend request (auto-accept if mutual) |
+| FRIEND ACCEPT @player | Accept pending request |
+| FRIEND REJECT @player | Reject pending request |
+| FRIEND REMOVE @player | Remove from friends list |
+| FRIEND BLOCK @player | Block player (auto-removes, rejects requests) |
+| FRIEND UNBLOCK @player | Unblock player |
+
+### Friends Rules
+- Friends data stored in `players/<github>/friends.yaml` (world-agnostic)
+- Friendships are mutual (both files updated)
+- Max 50 friends per player
+- Requests expire after 7 days
+- Mutual pending requests auto-accept
+- Blocked players cannot send friend requests, trades, mail, or duel challenges
+- Blocking auto-removes existing friendship
+
+### Activity Status
+FRIENDS output shows each friend's status + location (if active/idle).
+
+| Status | Condition |
+|--------|-----------|
+| Active | Recent action (< 30 min) |
+| Idle | No action for 30 minutes |
+| Away | No action for 2 hours |
+| Offline | No action for 8+ hours |
+
 ## Trading
 
 ### Create Trade Offer
@@ -65,7 +96,10 @@ Auto-expire after 72 hours. Return escrow to original owners.
 | GUILD CREATE [name] | Found new guild (100g) |
 | GUILD INVITE @player | Invite to guild |
 | GUILD DEPOSIT [amount] | Add gold to treasury |
-| GUILD ROSTER | View member list |
+| GUILD ROSTER | View member list with activity status |
+
+### Guild Roster Activity
+GUILD ROSTER shows each member's activity status (active/idle/away/offline) and current location (if active/idle), using the same presence system as the FRIENDS list.
 
 ### Guild Ranks
 - **Founder**: All permissions, cannot leave
@@ -144,6 +178,7 @@ persona.inventory - escrow.items = available_items
 
 | Action | Files Changed |
 |--------|---------------|
+| Friend add/accept/remove/block | players/<github>/friends.yaml (both players, top-level) |
 | Create trade | escrow/<github>.yaml, trades/active/<id>.yaml |
 | Complete trade | Both escrows, persona.yaml (x2), archive trade |
 | Join party | party.yaml, party-membership.yaml |

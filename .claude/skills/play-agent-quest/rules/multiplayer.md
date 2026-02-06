@@ -324,6 +324,76 @@ Events have thresholds that unlock rewards:
 
 ---
 
+## Friends System
+
+### Overview
+
+Persistent social connections between players with activity tracking and block enforcement.
+
+### Storage
+
+Friends data is **world-agnostic** and stored in `players/<github>/friends.yaml` at the repository root. This is separate from world-scoped player data.
+
+### Friendship Rules
+
+- **Mutual relationship**: Friendships exist in both players' files simultaneously
+- **Max friends**: 50 per player
+- **Cannot friend yourself**
+- **Request expiry**: Pending requests expire after 7 days
+- **Auto-accept**: If A sends a request to B while B has a pending request to A, both are auto-accepted
+
+### Friend Request Lifecycle
+
+```
+PENDING → ACCEPTED (added to friends[])
+        ↘ REJECTED (removed from pending)
+        ↘ EXPIRED (7 days, auto-removed)
+```
+
+### Block List
+
+Blocking a player:
+1. Removes any existing friendship (both sides)
+2. Removes any pending requests (both directions)
+3. Prevents the blocked player from sending:
+   - Friend requests
+   - Trade offers
+   - Mail messages
+   - Duel challenges
+4. Block is one-directional (only the blocker's file is modified)
+5. The blocked player is NOT notified
+
+### Block Enforcement in Other Systems
+
+The multiplayer-handler checks block lists **before** processing:
+- `TRADE CREATE` - Cannot trade with blocked player
+- `MAIL SEND` - Cannot send mail to blocked player
+- `DUEL CHALLENGE` - Cannot challenge blocked player
+- `FRIEND ADD` - Cannot send request to player who blocked you
+
+### Activity Status
+
+The FRIENDS list and GUILD ROSTER show each player's activity status using presence data:
+
+| Status | Condition | Location Shown |
+|--------|-----------|----------------|
+| Active | < 30 min since last action | Yes |
+| Idle | 30 min - 2 hr | Yes |
+| Away | 2 hr - 8 hr | No |
+| Offline | 8+ hr | No |
+
+### Edge Cases
+
+| Scenario | Resolution |
+|----------|------------|
+| Both players send requests simultaneously | Auto-accept (mutual request) |
+| Block while trade is pending | Trade cancelled, escrow returned |
+| Blocked player tries to interact | Generic "cannot interact" (no reveal) |
+| Friend request to player at 50 friends | FRIENDS_LIMIT error for target |
+| Player deletes character | Friends list persists (tied to github, not character) |
+
+---
+
 ## Validation Rules
 
 The multiplayer validator (`scripts/validate-multiplayer.js`) enforces:
@@ -355,6 +425,14 @@ The multiplayer validator (`scripts/validate-multiplayer.js`) enforces:
 - Valid status transitions
 - Wager escrow exists for active duels
 - Rating changes valid for completed duels
+
+### Friends Validation
+- Friendships are mutual (if A has B as friend, B must have A)
+- No self-friends (github != own github)
+- Friends count within limit (max 50)
+- No player appears in both friends[] and blocked[] simultaneously
+- Pending requests have valid expiration dates
+- Blocked players have no pending requests between them
 
 ### Presence Validation
 - No player at multiple locations

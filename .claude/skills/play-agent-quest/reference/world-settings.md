@@ -30,7 +30,7 @@ Controls whether players can author world content or are restricted to performin
 | Mode | Philosophy | Player Role | AI Role |
 |------|-----------|-------------|---------|
 | **enabled** | Collaborative storytelling | Co-author the world | Validate and weave in suggestions |
-| **disabled** | Traditional RPG | Perform actions, make decisions | Control what exists in the world |
+| **disabled** | Traditional RPG (Agent-Controlled) | Perform actions, make decisions | Control what exists in the world |
 
 ## Behavior Comparison
 
@@ -61,7 +61,7 @@ AI: "You push through the crowds toward the Crystal Tavern.
      [Creates worlds/alpha/locations/nexus-station/crystal-tavern.yaml]
 ```
 
-### When `user_generation: disabled` (DM-Controlled)
+### When `user_generation: disabled` (Agent-Controlled)
 
 **Players CAN:**
 - Perform any action within the established world
@@ -217,14 +217,14 @@ Add world mode to resume screen:
 ║           W E L C O M E   B A C K ,  Coda                  ║
 ║                     Shadowmancer                           ║
 ╠════════════════════════════════════════════════════════════╣
-║  World Mode: DM-Controlled                                 ║  <-- NEW
+║  World Mode: Agent-Controlled                              ║  <-- NEW
 ║  HP: 35/50  │  Gold: 150  │  WP: 18/20                     ║
 ║  Location: Nexus Undercity                                 ║
 ...
 ```
 
 Shows:
-- **"DM-Controlled"** when `user_generation: disabled`
+- **"Agent-Controlled"** when `user_generation: disabled`
 - **"Collaborative"** when `user_generation: enabled`
 
 ## Visibility Strategy
@@ -238,7 +238,7 @@ Shows:
 ```
 
 Players experience it as a traditional RPG where:
-- The DM controls what exists
+- The AI Agent controls what exists
 - Players describe their actions
 - The world responds organically
 
@@ -348,6 +348,6 @@ This creates a traditional RPG experience where:
 | Setting | Player Role | AI Role | Content Creation |
 |---------|-------------|---------|------------------|
 | **enabled** | Co-author | Validator & Weaver | Player suggests, AI validates |
-| **disabled** | Adventurer | Storyteller & DM | AI generates all content |
+| **disabled** | Adventurer | Storyteller & Agent | AI generates all content |
 
 **Key Principle:** Both modes support creative gameplay and problem-solving. The difference is who controls what exists in the world.

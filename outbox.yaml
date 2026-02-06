@@ -1,3 +1,7 @@
 player: "matt-davison"
-character: "Ichnor Nif"
-messages: []
+character: "Coda"
+messages:
+  - seq: 1
+    type: social
+    narrative: "Coda pauses at the edge of Nexus Crossroads, the hum of data-streams filling the air around her. She pulls up her comm-link — a translucent interface shimmering with Datamancer glyphs — and navigates to the social registry. She finds the entry for Ichnor Nif, a Voidwalker newly arrived in Lumina City, and taps the friend-request sigil. A small pulse of light shoots from her comm-link into the network. Fellow Weavers should stick together, especially in a city this vast."
+    to: "Wat96"

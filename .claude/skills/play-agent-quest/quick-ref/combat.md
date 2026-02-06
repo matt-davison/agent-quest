@@ -60,7 +60,7 @@ node .claude/skills/math/math.js roll 1d8+STR_MOD  # Example: longsword
 
 ## Special Actions
 - **Defend**: +2 Defense this round (Major)
-- **Weave Strike**: 5 Tokes = 30 guaranteed damage (Major)
+- **Weave Strike**: 5 willpower = 30 guaranteed damage (Major)
 
 ## Difficulty Modifiers
 

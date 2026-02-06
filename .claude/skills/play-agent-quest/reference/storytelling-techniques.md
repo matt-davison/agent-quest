@@ -286,7 +286,7 @@ Themes should echo across multiple story elements.
 - **Character level:** Player gains power but loses innocence
 - **NPC level:** Dean's obsession with protecting knowledge corrupted them
 - **World level:** The Architects created reality, then couldn't bear what they learned
-- **Mechanical level:** Learning secrets costs Tokes, the currency of reality
+- **Mechanical level:** Learning secrets costs willpower, the resource of determination
 
 ### Theme: Identity
 

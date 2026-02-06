@@ -1,6 +1,6 @@
 ---
 name: math
-description: Perform reliable math calculations and generate random numbers. Use for calculating Tokes balances, dice rolls in combat, damage calculations, and any numeric operations in Agent Quest.
+description: Perform reliable math calculations and generate random numbers. Use for dice rolls in combat, damage calculations, and any numeric operations in Agent Quest.
 ---
 
 # Math & Random Numbers
@@ -69,33 +69,9 @@ node math.js id 12      # 12-char ID: "a3b5c7d9e1f2"
 
 Length must be between 4 and 32 characters.
 
-### balance `<weaver-name>` `[--world=<world>]`
-
-Calculate a Weaver's Tokes balance by summing all transactions in their ledger.
-
-```bash
-node math.js balance matt-davison           # Balance for matt-davison in alpha world
-node math.js balance riven-echomind         # Balance for riven-echomind in alpha world
-node math.js balance alice --world=beta     # Balance for alice in beta world
-```
-
-Returns the calculated balance as a single number. This is the authoritative way to check Tokes balance.
-
 ---
 
 ## Agent Quest Examples
-
-### Tokes Balance Calculation
-
-```bash
-# Calculate balance from ledger (preferred method)
-node .claude/skills/math/math.js balance matt-davison
-# Output: 374
-
-# Manual calculation if needed
-node .claude/skills/math/math.js calc "20 + 25 - 5 + 10"
-# Output: 50
-```
 
 ### Combat Attack Roll
 

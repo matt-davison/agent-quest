@@ -203,7 +203,7 @@ services:
 
   - id: "direct_to_claims"
     cost: "None"
-    description: "Guide to pending claims in tokes/pending/"
+    description: "Guide players to witnessing and reviewing"
 
   - id: "grant_thread_reader"
     cost: "1 completed review"

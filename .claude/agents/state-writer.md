@@ -33,7 +33,6 @@ writes:
     content: <yaml-content>
     section: "<optional-section-to-update>"
 validation:
-  run_tokes: true | false
   run_multiplayer: true | false
 chronicle_entry: "<optional-significant-event-description>"
 ```
@@ -49,8 +48,6 @@ Allowed write paths for player (within world directory):
 - `worlds/${world}/players/${github}/personas/<character>/world-state.yaml` (character-specific world overrides)
 - `worlds/${world}/multiplayer/trades/escrow/${github}.yaml`
 - `worlds/${world}/multiplayer/mail/${github}/`
-- `worlds/${world}/tokes/ledgers/${github}.yaml`
-- `worlds/${world}/tokes/claims/**/*-${github}-*.yaml`
 - `worlds/${world}/state/presence.yaml` (own presence only)
 
 Reject writes outside allowed paths with `UNAUTHORIZED_WRITE`.
@@ -81,7 +78,6 @@ Append to `worlds/${world}/chronicles/volume-1.md`:
 
 ```bash
 # If requested
-node scripts/validate-tokes.js
 node scripts/validate-multiplayer.js
 ```
 
@@ -99,7 +95,6 @@ files_written:
   - path: "alpha/chronicles/volume-1.md"
     action: "append"
 validation:
-  tokes: "passed" | "skipped" | "failed"
   multiplayer: "passed" | "skipped" | "failed"
 errors: []
 rolled_back: false
@@ -132,23 +127,6 @@ writes:
       - id: "iron-sword"
         quantity: 1
         acquired: "2026-02-04"
-```
-
-### Add Tokes Transaction
-
-```yaml
-writes:
-  - file: "tokes/ledgers/<github>.yaml"  # Relative to worlds/${world}/
-    action: "append"
-    section: "transactions"
-    content:
-      - id: "earn-20260204-quest-reward"
-        timestamp: "2026-02-04T15:30:00Z"
-        type: "earn"
-        amount: 10
-        description: "Completed Ghost Run quest"
-validation:
-  run_tokes: true
 ```
 
 ### Update Character World State (Area Unlock)
@@ -192,14 +170,6 @@ writes:
       knows_vera_secret: true
 ```
 
-## Balance Calculation
-
-When updating ledgers, always recalculate balance:
-
-```
-balance = sum of all transaction amounts
-```
-
 ## Error Codes
 
 | Code | Description |
@@ -207,7 +177,7 @@ balance = sum of all transaction amounts
 | UNAUTHORIZED_WRITE | Write outside player's allowed paths |
 | FILE_NOT_FOUND | Update/append to non-existent file |
 | SECTION_NOT_FOUND | Target section doesn't exist |
-| VALIDATION_FAILED | Tokes or multiplayer validation failed |
+| VALIDATION_FAILED | Multiplayer validation failed |
 | PARSE_ERROR | Invalid YAML content |
 | ROLLBACK_FAILED | Could not restore backup (critical) |
 | INVALID_ITEM | Item ID does not exist in database |
@@ -234,12 +204,6 @@ node .claude/skills/inventory/inventory.js --world=${world} validate '<inventory
 1. **Validate BEFORE writing** - Never persist invalid item IDs
 2. If validation fails, do NOT write and return `INVALID_ITEM` error
 3. Suggest corrections using `similar` command
-
-**Example - Validating inventory update:**
-```bash
-# Before writing inventory changes:
-node .claude/skills/inventory/inventory.js --world=${world} validate '[{"id":"iron-sword","quantity":1},{"id":"health-potion","quantity":3}]'
-```
 
 **Error Response:**
 ```yaml

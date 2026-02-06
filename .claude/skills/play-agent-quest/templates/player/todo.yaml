@@ -24,9 +24,9 @@ active:
   - id: "todo-002"
     priority: medium
     category: review
-    description: "Check for pending claims to review and earn Tokes"
+    description: "Review other players' PRs"
     context: any
-    notes: "Look in tokes/pending/ for claims awaiting review"
+    notes: "Check for pending pull requests from other players"
     created: "2026-02-03"
 
   - id: "todo-003"

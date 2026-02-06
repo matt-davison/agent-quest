@@ -49,7 +49,6 @@ echo 'export GITHUB_TOKEN="your_token_here"' >> ~/.zshrc
 Git pre-commit hook that validates:
 
 - Players can only modify files in their own `players/<github>/` directory
-- Players can only modify their own ledger `tokes/ledgers/<github>.yaml`
 - Claims must have `github:` matching the committer
 
 ### `setup-hooks.sh`

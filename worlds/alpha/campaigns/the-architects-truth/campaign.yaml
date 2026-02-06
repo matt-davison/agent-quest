@@ -83,7 +83,7 @@ possible_endings:
       - "The Syntax Athenaeum becomes a pilgrimage site"
     rewards:
       gold: 500
-      tokes: 50
+      xp: 5000
       items: ["architects-key"]
       abilities: ["the-right-question"]
 
@@ -103,7 +103,7 @@ possible_endings:
       - "You become one of the few who know"
     rewards:
       gold: 400
-      tokes: 40
+      xp: 4000
       items: ["architects-key"]
       abilities: ["burden-of-knowing"]
 
@@ -126,7 +126,7 @@ possible_endings:
       - "The player character becomes an NPC/lore figure"
     rewards:
       gold: 0
-      tokes: 100
+      xp: 10000
       items: []
       abilities: []
       special: "Character becomes campaign lore; new character required"
@@ -146,7 +146,7 @@ possible_endings:
       - "Their true power remains locked"
     rewards:
       gold: 200
-      tokes: 20
+      xp: 2000
       items: ["dormant-fragments"]
       abilities: []
 
@@ -277,7 +277,7 @@ flags:
 # === REWARDS ===
 total_rewards:
   gold_range: "200-500"
-  tokes_range: "20-100"
+  xp_range: "2000-10000"
   guaranteed_items:
     - "architects-key"
   possible_items:

@@ -30,7 +30,7 @@ Agent Quest is played through an AI coding agent. You speak naturally — the ag
 ### Requirements
 
 - **An AI coding agent** — Claude Code (recommended), Cursor, Opencode, Codex, or similar
-- **A GitHub account** — for saving progress and earning Tokes
+- **A GitHub account** — for saving progress
 
 > **Why AI coding agents?** They can read files, write files, run scripts, and make git commits. That's everything needed to persist a game world. Agent Quest turns these capabilities into gameplay.
 
@@ -141,7 +141,7 @@ AI: ╔════════════════════════�
     ║   W E L C O M E   B A C K ,  Ember    ║
     ║            Voidwalker                  ║
     ╠════════════════════════════════════════╣
-    ║  HP: 45/50  │  Gold: 230  │  Tokes: 15 ║
+    ║  HP: 45/50  │  Gold: 230  │  WP: 18/20 ║
     ║  Location: The Gilded Byte             ║
     ║  Active Quests: 2                      ║
     ╠════════════════════════════════════════╣
@@ -157,7 +157,6 @@ AI: ╔════════════════════════�
 | Concept            | Description                                                              |
 | ------------------ | ------------------------------------------------------------------------ |
 | **Weavers**        | Players who can perceive and edit reality's source code                  |
-| **Tokes**          | Creative currency earned by contributing content to the world            |
 | **Weaving**        | The in-universe ability to reshape reality (add locations, NPCs, quests) |
 | **The Repository** | The game world itself — all state is version-controlled                  |
 
@@ -170,25 +169,11 @@ AI: ╔════════════════════════�
 | **Voidwalker**  | Stealth/Infiltrator | AGI +3, MND +2 | Phase through walls, 3x Backstab  |
 | **Datamancer**  | Reality Weaver      | SPI +3, MND +2 | Manifest items, Reality Patch     |
 
-## The Tokes Economy
+## Contributing
 
-Create content, earn Tokes. Tokes are spent to:
+Agent Quest grows through player contributions. When you create new content during gameplay — locations, NPCs, quests, items, lore — submit it through a pull request. Other players review your contributions to ensure quality and thematic consistency.
 
-- Resurrect fallen characters
-- Unlock advanced abilities
-- Trade with other players
-- Break character alignment (at a cost)
-
-| Content Type | Tokes Reward |
-| ------------ | ------------ |
-| Location     | 15-25        |
-| Quest        | 20-30        |
-| NPC          | 10-20        |
-| Item         | 5-10         |
-| Lore         | 5-15         |
-| Rules/System | 15-50+       |
-
-All Tokes are tracked in immutable ledgers at `tokes/ledgers/` and validated by `scripts/validate-tokes.js`.
+Merged PRs become part of the shared world that all players can discover and interact with. This peer review process maintains world integrity while allowing creative freedom.
 
 ## Multiplayer Systems
 
@@ -258,11 +243,6 @@ agent-quest/
 │   ├── guilds/                       # Guild management
 │   └── duels/                        # PvP combat
 │
-├── tokes/                            # Economy
-│   ├── ledgers/                      # Player balances
-│   ├── claims/                       # Content ownership
-│   └── pending/                      # Peer review queue
-│
 ├── chronicles/                       # World history
 └── scripts/                          # Validation tools
 ```
@@ -295,11 +275,11 @@ When you say "Play Agent Quest", the AI agent:
 The agent delegates complex tasks to specialized subagents:
 
 - **Combat Manager** — Handles initiative, attacks, damage calculations
-- **Economy Validator** — Ensures Tokes/gold transactions are valid
+- **Economy Validator** — Ensures gold transactions are valid
 - **Travel Manager** — Multi-leg journeys with random encounters
 - **Multiplayer Handler** — Trades, parties, mail, duels
 
-All contributions go through pull requests. Merged PRs earn Tokes. Your creations become discoveries for future Weavers.
+All contributions go through pull requests. Merged PRs become part of the world. Your creations become discoveries for future Weavers.
 
 ## Contributing
 
@@ -309,7 +289,6 @@ Humans guide the meta-structure; Weavers shape the world.
 
 ```bash
 # Validate before committing
-node scripts/validate-tokes.js
 node scripts/validate-multiplayer.js
 
 # Always use PRs, never push to main
@@ -337,11 +316,8 @@ Yes. The multiplayer systems (trading, parties, guilds, mail, duels) are asynchr
 **How long is a session?**
 As long as you want. Some sessions are 15 minutes of quick exploration. Others are multi-hour dungeon crawls. Save whenever you're done.
 
-**What's the difference between gold and Tokes?**
-Gold is in-game currency for shops and inns. Tokes are meta-currency earned by contributing content — they can resurrect characters, unlock abilities, and more.
-
 **Is there permadeath?**
-Yes, but you can spend Tokes to resurrect. Death has consequences, but it's not the end.
+Yes, but death has consequences — it's not the end. Your character can respawn.
 
 ## Tips
 

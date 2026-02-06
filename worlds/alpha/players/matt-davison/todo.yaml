@@ -1,39 +1,145 @@
 # Player TODO List for matt-davison
 # These are meta-level intentions that guide agent behavior across sessions
+# Last updated: 2026-02-05
 
 active:
+  - id: "todo-012"
+    priority: urgent
+    category: meta
+    description: "Add world setting to disable user-generated content"
+    context: any
+    notes: |
+      Add a world-level setting (e.g. user_generation: disabled) that
+      prevents players from dictating world content. When disabled:
+      - Do NOT accept user suggestions about how the world works
+      - Do NOT let users tell you what exists or what is happening
+      - The AI drives all world content: NPCs, locations, lore, events
+      - Players are restricted to performing actions only (MOVE, TALK,
+        FIGHT, USE, etc.) — not authoring the world
+      This makes the game feel like a proper RPG where the DM is in charge.
+    created: "2026-02-05"
+
+  - id: "todo-013"
+    priority: urgent
+    category: meta
+    description: "Add politics system for city influence"
+    context: any
+    notes: |
+      Create a politics system where players can gain influence over
+      city-type locations. Design should include:
+      - Influence mechanics (how players gain/lose political power)
+      - City governance structures (mayor, council, factions, etc.)
+      - What influence lets you do (pass laws, set taxes, control NPCs,
+        shape city development, unlock exclusive quests)
+      - Requires owning a home in the city (see todo-014)
+      - Multiple players can compete for influence in the same city
+    created: "2026-02-05"
+
+  - id: "todo-014"
+    priority: urgent
+    category: meta
+    description: "Add home ownership system"
+    context: any
+    notes: |
+      Create a home system with these rules:
+      - Each persona can own multiple homes
+      - Every home is tied to a specific location
+      - Only one home per location per persona
+      - Owning a home at a city location is required to participate
+        in that city's politics system (todo-013)
+      - Homes could have upgrades, storage, decoration, etc.
+      - Track homes in persona YAML (e.g. homes: [{location, name, ...}])
+    created: "2026-02-05"
+
+  - id: "todo-015"
+    priority: urgent
+    category: meta
+    description: "Make the TODO system be per-persona, not per-player"
+    context: any
+    notes: |
+      Currently the TODO system is per-player, not per-persona. This means that if a player has multiple personas, they will all share the same TODO list. This is not ideal. The TODO system should be something that can be used to guide autopilot sessions for a persona.
+    created: "2026-02-05"
+
   - id: "todo-001"
     priority: high
     category: gameplay
-    description: "Continue the Third Architect quest - find remaining 2 fragments"
+    description: "Find Fragment of Will under Nexus Crossroads"
     context: "coda"
     notes: |
-      Fragment 1 found in Recursion Library at Syntax Athenaeum.
-      Need to explore other locations for clues about fragments 2 and 3.
-      Check if NPCs have hints about the Architects' history.
-    created: "2026-02-03"
+      Vance Corren confirmed the Fragment of Will is beneath Nexus Crossroads.
+      WARNING: Something lives in those shadows, and it remembers what it swallowed.
+      Prepare for a dangerous encounter — may need equipment and full willpower.
+      This is Fragment 2 of 3 for The Third Architect quest.
+    created: "2026-02-05"
 
-  - id: "todo-002"
-    priority: medium
-    category: review
-    description: "Check for pending claims and review them to earn Tokes"
-    context: any
+  - id: "todo-006"
+    priority: high
+    category: gameplay
+    description: "Follow Yara's Coordinates — investigate her last known location"
+    context: "coda"
     notes: |
-      Look in tokes/pending/ for claims awaiting review.
-      Earn 3-8 Tokes per review depending on claim value.
-      Provide substantive feedback, not rubber-stamps.
-    created: "2026-02-03"
+      Yara Corren vanished 43 years ago hunting Architect 03.
+      Her father Vance gave Coda a data chip with her last coordinates.
+      This could reveal what happened to her and unlock deeper quest lore.
+      Item: Yara's Coordinates (dsyp6f6f) in inventory.
+    created: "2026-02-05"
+
+  - id: "todo-007"
+    priority: high
+    category: gameplay
+    description: "Get equipped — buy a weapon and armor before Nexus Crossroads"
+    context: "coda"
+    notes: |
+      Coda has NO weapon, armor, or accessory equipped. 40 gold available.
+      Check shops in Lumina City: Ammo Dump, Stitch & Co, Black Market.
+      At minimum need a weapon before facing whatever lurks beneath Nexus.
+    created: "2026-02-05"
+
+  - id: "todo-008"
+    priority: medium
+    category: gameplay
+    description: "Spend unspent stat point from reaching level 2"
+    context: "coda"
+    notes: |
+      1 unspent stat point from level 2. Consider where to invest:
+      - Mind (17): Boosts Datamancer spell power
+      - Spirit (18): Increases willpower pool
+      - Agility (10): Helps with initiative and dodging
+      - Strength (10): Melee damage, but not Coda's style
+    created: "2026-02-05"
+
+  - id: "todo-009"
+    priority: medium
+    category: gameplay
+    description: "Find Fragment of Vision in Oracle's Hollow"
+    context: "coda"
+    notes: |
+      Session 6 discovery placed Fragment of Vision in Oracle's Hollow.
+      This is Fragment 3 of 3 for The Third Architect quest.
+      Oracle's Hollow location may need to be woven into existence first.
+    created: "2026-02-05"
+
+  - id: "todo-010"
+    priority: medium
+    category: gameplay
+    description: "Present Broker's Token to Pit Boss Korvax at Chromedome"
+    context: "coda"
+    notes: |
+      The Broker of Threads gave Coda a token to present to Korvax.
+      Item: Broker's Token (x63kh0ob) in inventory.
+      Could unlock special arena opportunities or information.
+    created: "2026-02-05"
 
   - id: "todo-003"
-    priority: medium
+    priority: low
     category: weaving
-    description: "Create a new location connected to Nexus Station"
+    description: "Weave Oracle's Hollow into existence"
     context: "coda"
     notes: |
-      Nexus Station needs more destinations to explore.
-      Ideas: A marketplace, dangerous dungeon, or mysterious portal hub.
-      Should have interesting NPCs and tie into existing lore.
-    created: "2026-02-03"
+      Oracle's Hollow is where Fragment of Vision is located.
+      This location needs to be created — a great weaving opportunity.
+      Should tie into Architect lore and have its own NPCs/encounters.
+    created: "2026-02-05"
 
   - id: "todo-004"
     priority: low
@@ -41,35 +147,40 @@ active:
     description: "Improve NPC depth - give existing NPCs more backstory"
     context: any
     notes: |
-      NPCs like Vera Nighthollow, GUIDE-7, and Dean Overflow could use
-      more detailed histories, relationships, and hidden knowledge.
+      NPCs like Vera Nighthollow, GUIDE-7, Dean Overflow, Madame Ling,
+      Vance Corren, and Pit Boss Korvax could use more detailed histories.
       Generate this organically through gameplay interactions.
     created: "2026-02-03"
 
 completed:
-  - id: "todo-005"
-    priority: medium
-    category: development
-    description: "Create an ASCII scene visualizer"
-    context: any
-    notes: |
-      Build a system to render scenes as ASCII art. Should include:
-      - Location art generated when first arriving at a new location
-      - Area art shown when entering a new area within a location
-      - Battle positioning with terrain/cover/hazards during combat
-      - Dungeon layouts during exploration
+  - id: "todo-011"
+    description: "Replace weaving/Tokes system with PR review obligation"
+    completed_date: "2026-02-05"
+    outcome: |
+      Removed entire Tokes economy. Abilities that cost Tokes now cost willpower.
+      Added pr-reviewer agent that reviews up to 5 open PRs after session PR creation.
+      Gold remains as in-game currency.
 
-      Generate evocative ASCII scenes that capture the atmosphere of
-      each place - a towering station, a corrupted server room, etc.
-      Integrate with battle-environment.yaml for combat visualization.
-    created: "2026-02-03"
-    completed: "2026-02-03"
-    result: |
-      Created comprehensive ASCII visualization system:
-      - quick-ref/ascii-art.md: Quick patterns for all scene types
-      - reference/ascii-visualizer.md: Detailed techniques and examples
-      - Updated SKILL.md to trigger visualizations on LOOK/MOVE/COMBAT
-      Earned 20 Tokes for this system.
+  - id: "todo-005"
+    description: "Create an ASCII scene visualizer"
+    completed_date: "2026-02-03"
+    outcome: |
+      Created comprehensive ASCII visualization system.
+
+  - id: "todo-old-001"
+    description: "Continue the Third Architect quest - find remaining 2 fragments"
+    completed_date: "2026-02-05"
+    outcome: |
+      Replaced with specific fragment tasks (todo-001, todo-009).
+      Leads discovered: Fragment of Will under Nexus Crossroads (from Vance Corren),
+      Fragment of Vision in Oracle's Hollow (from Session 6 discovery).
+
+  - id: "todo-old-003"
+    description: "Create a new location connected to Nexus Station"
+    completed_date: "2026-02-05"
+    outcome: |
+      Replaced with todo-003 (Weave Oracle's Hollow). Lumina City was also
+      created in Session 6, fulfilling the spirit of this TODO.
 
 deferred: []
 

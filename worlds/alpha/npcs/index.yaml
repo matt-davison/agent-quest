@@ -338,4 +338,4 @@ disposition_map:
 # 1. Add entry to this file with basic info
 # 2. Optionally create profile in profiles/<npc-id>.yaml
 # 3. Add schedule in schedules/index.yaml if they move around
-# 4. Earn Tokes based on NPC depth (10-20 Tokes)
+# 4. Earn XP based on NPC depth and quality

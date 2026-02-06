@@ -213,7 +213,7 @@ decisions:
     choice: "What you decided"
     alignment: "alignment-tag"
     natural: true|false
-    tokes_spent: 0
+    willpower_spent: 0
     consequence_id: "consequence-XXX"  # Link to consequence
 ```
 

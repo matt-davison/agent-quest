@@ -3,7 +3,7 @@
 /**
  * Game State Validator
  *
- * Validates overall game state integrity beyond tokes and multiplayer:
+ * Validates overall game state integrity beyond multiplayer:
  * - Player file consistency (persona, quests, relationships)
  * - World state validity (locations, NPCs, items)
  * - Cross-references between files

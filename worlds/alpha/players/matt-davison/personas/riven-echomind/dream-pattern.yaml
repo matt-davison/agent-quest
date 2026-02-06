@@ -18,8 +18,8 @@ guardrails:
   pause_on_major_story: true         # Campaign-defining choices
   pause_on_low_hp: true
   low_hp_threshold: 25
-  allow_tokes_spending: true         # Can spend Tokes for weaving
-  auto_earn_tokes: true              # Review claims when broke
+  allow_willpower_spending: true         # Can spend willpower for reality-bending
+  
   allow_gold_spending: true
 
 # Character-specific preferences

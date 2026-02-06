@@ -10,7 +10,7 @@
 | Type    | Amount                                 |
 | ------- | -------------------------------------- |
 | Gold    | 500                                    |
-| Tokes   | 50                                     |
+| XP      | 5000                                   |
 | Items   | Architect's Key (legendary)            |
 | Unlocks | The Right Question (unique ability)    |
 | Lore    | Truth about the Third Architect's fate |

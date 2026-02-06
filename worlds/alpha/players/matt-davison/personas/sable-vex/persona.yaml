@@ -38,7 +38,7 @@ abilities:
       level: 1
       source: "class"
       learned_date: "2026-02-05"
-    - id: htl7wy2h            # Weave Attunement (passive: +20% Tokes)
+    - id: htl7wy2h            # Weave Attunement (passive: +20% willpower recovery)
       level: 1
       source: "class"
       learned_date: "2026-02-05"

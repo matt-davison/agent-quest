@@ -18,11 +18,11 @@ prerequisites:
 
 levels:
   1:
-    description: "Modify a small area of reality (3m radius). Create cover, remove hazards, or alter terrain. Costs 10 Tokes. Changes last 10 minutes."
+    description: "Modify a small area of reality (3m radius). Create cover, remove hazards, or alter terrain. Costs 10 willpower. Changes last 10 minutes."
     willpower_cost: 8
     effect:
       modify_terrain: true
-      tokes_cost: 10
+      willpower_cost: 10
       radius: 3
       duration: "10 minutes"
       options:
@@ -31,11 +31,11 @@ levels:
         - "alter_terrain"
     learn_cost: 0
   2:
-    description: "5m radius modifications. Can create advantageous terrain (+2 to allies in zone). Tokes cost reduced to 7. Lasts 30 minutes."
+    description: "5m radius modifications. Can create advantageous terrain (+2 to allies in zone). Willpower cost reduced to 7. Lasts 30 minutes."
     willpower_cost: 10
     effect:
       modify_terrain: true
-      tokes_cost: 7
+      willpower_cost: 7
       radius: 5
       duration: "30 minutes"
       options:

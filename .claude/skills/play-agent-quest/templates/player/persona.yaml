@@ -20,7 +20,7 @@ appearance: |
 #   Codebreaker: +3 STR, +2 AGI, base HP 120
 #   Loresmith:   +3 MND, +2 SPI, starts with 100 gold
 #   Voidwalker:  +3 AGI, +2 MND, +5 inventory slots
-#   Datamancer:  +3 SPI, +2 MND, +20% Tokes on creations
+#   Datamancer:  +3 SPI, +2 MND, +20% willpower recovery
 
 stats:
   strength: 10 # Physical power, melee combat
@@ -29,8 +29,6 @@ stats:
   spirit: 10 # Willpower, magic, Weave manipulation
 
 # === RESOURCES ===
-# Note: Tokes are NOT stored here. Your balance is in your personal ledger:
-# tokes/ledgers/[your-name].yaml — sum all transaction amounts.
 resources:
   hp: 100                   # Codebreakers start with 120
   max_hp: 100
@@ -159,7 +157,7 @@ alignment:
     #   campaign: "campaign-id"  # Optional
 
 # === AFFLICTIONS ===
-# Status effects and Tokes Backlash afflictions
+# Status effects and willpower backlash afflictions
 # See rules/afflictions.md for full list and cures
 afflictions:
   # Example physical condition:
@@ -169,8 +167,8 @@ afflictions:
   #   acquired: "2026-02-03"
   #   duration: "until cured"
   #   source: "Corrupted Rat bite in Rustlands"
-  # 
-  # Example Tokes Backlash:
+  #
+  # Example Willpower Backlash:
   # - name: "Phase Drift"
   #   category: "spatial"
   #   effect: "-2 Defense, 50% attack/damage negation both ways"
@@ -189,7 +187,7 @@ decisions:
   #   choice: "What you decided"
   #   alignment: "altruistic|selfish|ruthless|pragmatic|curious|cautious|lawful|chaotic"
   #   natural: true  # Was this aligned with your character?
-  #   tokes_spent: 0  # Cost to break character (0 if natural)
+  #   willpower_spent: 0  # Cost to break character (0 if natural)
   #   notes: "Optional - how this reflects character growth"
   #   campaign: "campaign-id"         # Optional: campaign context
   #   chapter: "chapter-id"           # Optional: chapter context
@@ -201,7 +199,7 @@ decisions:
   #   choice: "Refused to buy, reported to authorities"
   #   alignment: "lawful"
   #   natural: true
-  #   tokes_spent: 0
+  #   willpower_spent: 0
   #   notes: "Character prioritizes order over personal gain"
   #
   # Example - breaking character:
@@ -210,8 +208,8 @@ decisions:
   #   choice: "Spared their life despite orders to execute"
   #   alignment: "altruistic"
   #   natural: false
-  #   tokes_spent: 1
-  #   notes: "Ruthless character showing unexpected mercy (cost 1 Toka)"
+  #   willpower_spent: 1
+  #   notes: "Ruthless character showing unexpected mercy (cost 1 willpower)"
   #
   # Example - campaign decision with consequence:
   # - date: "2026-02-05"
@@ -219,7 +217,7 @@ decisions:
   #   choice: "Chose to understand rather than fight"
   #   alignment: "empathetic"
   #   natural: true
-  #   tokes_spent: 0
+  #   willpower_spent: 0
   #   campaign: "the-architects-truth"
   #   chapter: "chapter-2-2"
   #   consequence_id: "consequence-012"

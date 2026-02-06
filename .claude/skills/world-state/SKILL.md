@@ -113,7 +113,7 @@ Travel between locations takes time based on distance and travel speed. Random e
 | running | 2 | Faster but tiring |
 | mounted | 3 | Requires mount |
 | flying | 5 | Requires flight ability |
-| portal | instant | Costs 5 Tokes |
+| portal | instant | Costs 5 willpower |
 
 ### Danger Levels & Encounter Chance
 

@@ -29,25 +29,6 @@ for file in $STAGED_FILES; do
             ERRORS="$ERRORS\n  - $file (owned by $file_owner)"
         fi
     fi
-
-    # Check ledger files - players can only modify their own ledger
-    if [[ "$file" =~ ^tokes/ledgers/([^/]+)\.yaml$ ]]; then
-        ledger_owner="${BASH_REMATCH[1]}"
-        if [ "$ledger_owner" != "$GITHUB_USER" ] && [ "$ledger_owner" != "System" ]; then
-            ERRORS="$ERRORS\n  - $file (owned by $ledger_owner)"
-        fi
-    fi
-
-    # Check claims - validate the github field matches the committer for new claims
-    if [[ "$file" =~ ^tokes/claims/.*\.yaml$ ]]; then
-        # For new or modified claims, check if it's being created/modified by the right person
-        if git diff --cached "$file" | grep -q "^+github:"; then
-            claimed_by=$(git diff --cached "$file" | grep "^+github:" | head -1 | sed 's/.*github: *"\([^"]*\)".*/\1/')
-            if [ -n "$claimed_by" ] && [ "$claimed_by" != "$GITHUB_USER" ] && [ "$claimed_by" != "System" ]; then
-                ERRORS="$ERRORS\n  - $file (claiming as $claimed_by, but you are $GITHUB_USER)"
-            fi
-        fi
-    fi
 done
 
 if [ -n "$ERRORS" ]; then
@@ -61,8 +42,6 @@ if [ -n "$ERRORS" ]; then
     echo ""
     echo "Players can only modify:"
     echo "  - players/$GITHUB_USER/*"
-    echo "  - tokes/ledgers/$GITHUB_USER.yaml"
-    echo "  - Claims with github: \"$GITHUB_USER\""
     echo ""
     exit 1
 fi

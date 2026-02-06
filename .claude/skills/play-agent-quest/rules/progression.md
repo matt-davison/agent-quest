@@ -92,7 +92,7 @@ Quest XP is awarded on completion, listed in quest file.
 | System/Rule contribution | 50 |
 | Mend corrupted data | 15-30 |
 
-XP is awarded when PR is merged (same time as Tokes).
+XP is awarded when PR is merged.
 
 ### Social
 

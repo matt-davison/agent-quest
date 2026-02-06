@@ -82,20 +82,17 @@ guardrails:
   pause_on_combat: false             # Stop before any combat
 
 # ═══════════════════════════════════════════════════════════════════
-# THE ECHO'S HUNGER
-# How does your Echo sustain itself?
+# RESOURCE MANAGEMENT
+# How does your Echo manage resources?
 # ═══════════════════════════════════════════════════════════════════
-economy:
-  allow_tokes_spending: true
+resources:
+  allow_willpower_spending: true
 
-  # If out of Tokes, should your Echo hunt for more by reviewing claims?
-  auto_earn_tokes: true
+  # Automatically rest when willpower is low
+  auto_rest_on_low_willpower: true
 
-  # Maximum Tokes to spend per session (0 = unlimited)
-  max_tokes_per_session: 0
-
-  # Minimum Tokes to maintain (won't spend below this)
-  reserve_tokes: 0
+  # Minimum willpower to maintain (won't spend below this)
+  reserve_willpower: 5
 
 # ═══════════════════════════════════════════════════════════════════
 # DREAM FOCUS

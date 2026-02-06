@@ -126,7 +126,7 @@ completed:
     # Rewards received
     rewards_received:
       gold: 100
-      tokes: 10
+      xp: 100
       items: ["weave-focus-basic"]
       titles: ["Awakened Weaver"]
 

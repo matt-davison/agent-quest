@@ -33,9 +33,9 @@ interactions:
   - action: "interface"
     target: "terminal"
     description: "Access the Weave to create content"
-  - action: "spend-tokes"
+  - action: "spend-willpower"
     target: "terminal"
-    description: "Spend Tokes for special abilities"
+    description: "Spend willpower for special abilities"
   - action: "view-chronicles"
     target: "terminal"
     description: "View the Chronicles of contributions"
@@ -54,18 +54,18 @@ services:
   - id: "weave-portal"
     name: "Weave Portal"
     description: "Instant travel to previously visited locations"
-    cost: 5  # Tokes
+    cost: 5  # willpower
     requirements:
       - "Must have visited destination"
   - id: "weave-sight"
     name: "Weave Sight"
     description: "See hidden elements of reality"
-    cost: 5  # Tokes
+    cost: 5  # willpower
     duration: "1 hour"
 
 secrets:
   - id: "forgotten-server-room"
-    trigger: "Use Weave Sight (5 Tokes) near the back wall"
+    trigger: "Use Weave Sight (5 willpower) near the back wall"
     content: |
       A hidden panel leads to the original server room of the Architects.
       Contains fragments of the original source code and hints about

@@ -10,7 +10,7 @@
 | Type    | Amount                                |
 | ------- | ------------------------------------- |
 | Gold    | 25                                    |
-| Tokes   | 5                                     |
+| XP      | 100                                   |
 | Items   | Weaver's Sigil (key item)             |
 | Unlocks | Full access to Nexus Station services |
 
@@ -67,7 +67,7 @@ Visit Krix's Emporium in the Bazaar. Buy anything — even a torch for 1 gold. T
 
 ### Step 5: Read the Genesis Lore
 
-Open and read `world/lore/genesis.md`. Understand the world you've entered — the Weave, the Architects, the nature of Tokes.
+Open and read `world/lore/genesis.md`. Understand the world you've entered — the Weave, the Architects, the nature of willpower.
 
 ### Step 6: Return to GUIDE-7
 
@@ -84,7 +84,7 @@ Speak to GUIDE-7 after completing all objectives.
 ### Rewards Received
 
 - **25 Gold** — Starting funds boosted
-- **5 Tokes** — Your first taste of creative currency
+- **100 XP** — Your first experience as a Weaver
 - **Weaver's Sigil** — Key item that identifies you as a true Weaver
 
 ### What's Next?
@@ -94,7 +94,7 @@ With orientation complete, you may:
 - Explore Nexus Station freely
 - Take on quests from Commander Steele at the Guild Hall
 - Venture through one of the gates to new regions
-- Begin Weaving — create new content and earn more Tokes!
+- Begin Weaving — create new content and earn more XP!
 
 ## Notes
 
@@ -102,7 +102,7 @@ This quest is designed to familiarize new players with:
 
 - Navigation (reading location files)
 - NPC interaction
-- The economy (gold and Tokes)
+- The economy (gold and willpower)
 - The lore and setting
 - The Weave Terminal (content creation hub)
 

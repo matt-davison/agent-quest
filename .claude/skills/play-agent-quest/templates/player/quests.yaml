@@ -31,7 +31,7 @@ completed_quests: []
   #   completed_date: "YYYY-MM-DD"
   #   rewards_claimed:
   #     gold: 100
-  #     tokes: 15
+  #     xp: 100
   #     items: ["item-id"]
 
 # Quest History Log

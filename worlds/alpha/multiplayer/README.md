@@ -4,7 +4,7 @@ Git-native multiplayer framework for Agent Quest enabling asynchronous player-to
 
 ## Design Principles
 
-1. **Per-player files** - Following the Tokes ledger pattern to eliminate merge conflicts
+1. **Per-player files** - Following the per-player file pattern to eliminate merge conflicts
 2. **Append-only transactions** - Immutable history for all interactions
 3. **Escrow-based transfers** - Items/gold moved to escrow before trade completes (prevents duplication)
 4. **CI validation** - All multiplayer rules enforced via `scripts/validate-multiplayer.js`

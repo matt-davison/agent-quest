@@ -20,12 +20,12 @@ When Claude detects a task matching an agent's description, it automatically spa
 | [combat-manager](combat-manager.md) | haiku | Execute combat mechanics | Combat encounters, attack resolution |
 | [shop-manager](shop-manager.md) | haiku | Handle shop transactions | SHOP actions, buying, selling |
 | [travel-manager](travel-manager.md) | haiku | Handle multi-turn travel | MOVE action for multi-leg journeys |
-| [economy-validator](economy-validator.md) | haiku | Validate Tokes/gold transactions | Any balance-changing transaction |
+| [economy-validator](economy-validator.md) | haiku | Validate gold transactions | Any balance-changing transaction |
 | [state-writer](state-writer.md) | haiku | Coordinate file writes | Any game state change |
 | [repo-sync](repo-sync.md) | haiku | Handle git and multiplayer sync | Session start/end, multiplayer actions |
 | [multiplayer-handler](multiplayer-handler.md) | sonnet | Player-to-player interactions | TRADE, PARTY, MAIL, GUILD, DUEL, WHO |
 | [docs-maintainer](docs-maintainer.md) | sonnet | Maintain documentation health | Changes to .claude/ folder |
-| [claim-reviewer](claim-reviewer.md) | opus | Review pending Tokes claims | REVIEW action |
+| [pr-reviewer](pr-reviewer.md) | haiku | Review open PRs after PR creation | After PR creation |
 
 ## Agent Communication Pattern
 

@@ -64,7 +64,7 @@ completed_quests:
     completed_date: "2026-02-05"
     rewards:
       gold: 25
-      tokes: 5
+      xp: 5
       items:
         - gjxz6odq
 

@@ -245,7 +245,7 @@ Broken morale can be restored if:
 - **Aggressive when outnumbered** - corruption makes them fearless
 - **Seek corruption zones** - heal and gain advantage there
 - **Spread corruption** - 5% chance on hit to inflict Corrupted status
-- **Drawn to Weave use** - prioritize targets using Tokes
+- **Drawn to Weave use** - prioritize targets using willpower
 - **Unpredictable** - 10% chance each round to change tactics randomly
 
 ### Mechanical

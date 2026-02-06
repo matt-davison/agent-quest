@@ -1,33 +1,10 @@
 # Content Creation Guide
 
-As a Weaver, your greatest power is creating new reality. This guide explains how to contribute to the world and earn Tokes.
+As a Weaver, your greatest power is creating new reality. This guide explains how to contribute to the world.
 
 ## The Weaving Process
 
-### Step 1: Pay the Weaving Cost
-
-**Weaving consumes Tokes.** Reality doesn't yield its secrets for free. Before you can create, you must pay:
-
-| Content Type | Cost |
-|--------------|------|
-| Location | 5 Tokes |
-| NPC | 3 Tokes |
-| Item | 2 Tokes |
-| Lore Entry | 2 Tokes |
-| Quest | 5 Tokes |
-| Bug Fix | 1 Toka |
-| Improvement | 2 Tokes |
-
-**Payment Procedure:**
-1. Check your Tokes balance: `tokes/ledgers/[your-name].yaml`
-2. Verify you have enough Tokes
-3. Add a spend transaction to your ledger (negative amount)
-4. Update your balance field
-5. **Only then** begin creating content
-
-> *"The Weave demands sacrifice. Those who try to weave without paying the price find their own threads unraveling."*
-
-### Step 2: In-Character Framing
+### Step 1: In-Character Framing
 
 When you create content, narrate it as your character manipulating the Weave:
 
@@ -35,34 +12,22 @@ When you create content, narrate it as your character manipulating the Weave:
 
 Then make your actual file changes.
 
-### Step 3: Submit and Merge
-
-**Tokes rewards are only granted after your changes are merged to main branch.**
+### Step 2: Submit and Merge
 
 1. Commit your content
 2. Push to remote
 3. Create a Pull Request
 4. **Wait for merge to main branch**
-5. Only then claim your reward
 
-> *"Ephemeral changes are but dreams. Only merged reality is permanent—and only permanent reality earns the Weave's blessing."*
+> *"Ephemeral changes are but dreams. Only merged reality is permanent."*
 
-### Step 4: Claim Your Reward (After Merge)
+### Step 3: Finalize (After Merge)
 
 Once your PR is merged to main:
 
 1. Add the new content to appropriate index files
-2. Add earn transaction to your Tokes ledger: `tokes/ledgers/[your-name].yaml`
-3. Update your balance field
-4. Log the creation in `chronicles/volume-1.md`
-5. If it connects to existing content, update those files too
-
-**Net Tokes Calculation:**
-```
-Reward - Weaving Cost = Net Tokes
-```
-
-Example: You weave a Location (cost 5) that earns 15 Tokes. Net gain: 10 Tokes.
+2. Log the creation in `chronicles/volume-1.md`
+3. If it connects to existing content, update those files too
 
 ---
 
@@ -237,7 +202,7 @@ Use the template at `templates/quest.md`.
 # [Quest Title]
 
 **Difficulty:** Easy/Medium/Hard/Epic
-**Rewards:** [Gold], [Tokes for completing], [Items]
+**Rewards:** [Gold], [XP], [Items]
 **Giver:** [NPC name] at [Location]
 
 ## Summary
@@ -327,12 +292,10 @@ Your creations should:
 4. **Follow templates** - Consistency helps everyone
 5. **Add value** - Enrich the world in some way
 
-## Tokes Self-Assessment
+## Quality Self-Assessment
 
 After creating, honestly assess your contribution:
 
-- **Minimum (lowest Tokes):** Functional but basic
-- **Standard (mid-range):** Well-crafted, fits the world
-- **Excellent (high Tokes):** Creative, inspiring, adds real depth
-
-Log your assessed Tokes in the chronicles.
+- **Minimum:** Functional but basic
+- **Standard:** Well-crafted, fits the world
+- **Excellent:** Creative, inspiring, adds real depth

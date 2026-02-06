@@ -83,7 +83,7 @@ Changes pushed without proper witnessing suffer predictable failures:
 - **Thread Fraying** — Connections to existing content become unstable, references failing unpredictably
 - **Reality Rejection** — The Weave may spontaneously eject unstable code, leaving gaps in existence
 - **Corruption Attraction** — Glitch-Wraiths and other corruption entities feed on uncertainty, drawn to unwatched changes
-- **Hollow Tokes** — Currency generated from unstable content becomes hollow, damaging Weavers who spend it
+- **Willpower Corruption** — Weavers who interact with unstable reality find their willpower draining unpredictably
 
 The Unwitnessed Peaks stand as eternal warning. On clear days, Weavers throughout the Rustlands can see them—or think they can.
 

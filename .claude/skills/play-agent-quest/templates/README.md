@@ -54,7 +54,6 @@ World content creation templates.
 | [area.yaml](content/area.yaml) | Areas within locations |
 | [creature.yaml](content/creature.yaml) | Enemy/NPC creatures |
 | [quest.md](content/quest.md) | Standalone quest structure |
-| [pending-claim.yaml](content/pending-claim.yaml) | Tokes claim for review |
 | [shop.yaml](content/shop.yaml) | Shop inventories |
 
 ### combat/

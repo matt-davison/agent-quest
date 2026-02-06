@@ -46,7 +46,6 @@ combatants:
     abilities:
       known: [<resolved-ability-data>]  # Full ability objects from database
       usage: { combat: {}, long_rest: {} }  # Current usage counts
-    tokes_available: <balance>
   enemies:
     - id: "enemy-1"
       name: "<enemy-name>"
@@ -223,25 +222,25 @@ narrative_context:
   - "The shadow is learning your patterns (+1 defense vs sword)"
 ```
 
-#### Weave Strike (5 Tokes)
+#### Weave Strike (5 willpower)
 
 ```yaml
 action:
   type: "weave_strike"
   target: "enemy-1"
 resolution:
-  tokes_spent: 5
+  willpower_spent: 5
   damage: 30  # Guaranteed
   target_hp_before: 15
   target_hp_after: -15
   target_killed: true
 state_diffs:
-  player_tokes: -5
+  player_willpower: -5
   enemies:
     - id: "enemy-1"
       status: "dead"
 narrative_context:
-  - "Reality bends to your will - 5 Tokes burn"
+  - "Reality bends to your will - 5 willpower spent"
   - "The Weave itself strikes, guaranteed 30 damage"
   - "The Shadow Stalker unravels into nothingness"
 ```
@@ -561,7 +560,7 @@ resolution:
 player_final_state:
   hp: 32
   max_hp: 50
-  tokes_spent: 5
+  willpower_spent: 5
 state_diffs:
   player:
     hp: 32

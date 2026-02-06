@@ -37,7 +37,7 @@ progress:
       reached_at: "2026-02-05T12:00:00Z"
       reward:
         type: "global"
-        description: "All participants receive 10 Tokes"
+        description: "All participants receive 10 gold or bonus XP"
 
     - threshold: 500
       name: "Turning the Tide"

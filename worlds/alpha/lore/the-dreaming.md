@@ -55,15 +55,15 @@ The choice belongs to them alone.
 
 ## The Echo's Hunger
 
-Echoes require energy to persist in the Weave. When an Echo needs Tokes—to Weave,
-to bend reality, to continue existing—it must hunt for them.
+Echoes require energy to persist in the Weave. When an Echo needs willpower—to Weave,
+to bend reality, to continue existing—it must find ways to restore it.
 
-This hunger drives Echoes to review pending claims from other Weavers. By
-validating others' contributions, the Echo earns crystallized creativity. It
-sustains itself through service to the community.
+This drives Echoes to engage with the world meaningfully: completing quests,
+helping others, witnessing changes to reality. By contributing to the Weave's
+stability and growth, the Echo sustains itself.
 
-Some see this as exploitation. Others recognize it as symbiosis—the Echo grows
-stronger by helping others, and the Weave grows richer from its contributions.
+Some see this as a limitation. Others recognize it as design—the Echo grows
+stronger by being useful, and the Weave grows richer from its contributions.
 
 ## Dream Depths
 

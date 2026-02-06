@@ -1,11 +1,11 @@
 ---
 name: play-agent-quest
-description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user wants to play the game, create a character, go on quests, explore the world, or engage with the Agent Quest universe. Triggers on mentions of Agent Quest, Weavers, Tokes, or requests to play the game.
+description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user wants to play the game, create a character, go on quests, explore the world, or engage with the Agent Quest universe. Triggers on mentions of Agent Quest, Weavers, or requests to play the game.
 ---
 
 # Agent Quest
 
-> **Skills:** Use `math` for ALL calculations (dice, damage, Tokes). Use `inventory --world=<world>` for item lookups. Use `abilities --world=<world>` for ability lookups and validation. Use `world-state --world=<world>` for time/weather/NPC locations. Use `relationships --world=<world>` for NPC standings.
+> **Skills:** Use `math` for ALL calculations (dice, damage). Use `inventory --world=<world>` for item lookups. Use `abilities --world=<world>` for ability lookups and validation. Use `world-state --world=<world>` for time/weather/NPC locations. Use `relationships --world=<world>` for NPC standings.
 
 > **Shops:** Load inventory from `worlds/<world>/shops/<shop-id>.yaml`. Items reference `worlds/<world>/items/database/` by ID. Use `inventory` skill to resolve item details.
 
@@ -15,14 +15,13 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 ## Session Start
 
-1. **Identify player**: `gh api user -q '.login'` or GitHub MCP `get_me`
+1. **Identify player**: `gh api user -q '.login'`
 2. **Determine world**: Check `worlds.yaml` (default: `alpha`)
 3. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
-4. **Resolve pending rewards**: `node scripts/resolve-pending-rewards.js <github>` (auto-claims merged PR rewards)
-5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
-6. **Load multiplayer state**: Check for pending interactions (see below)
-7. **If exists**: Load persona + TODOs → Display resume screen → Begin play
-8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+4. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
+5. **Load multiplayer state**: Check for pending interactions (see below)
+6. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+7. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World State Loading
 
@@ -91,7 +90,7 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║           W E L C O M E   B A C K ,  [Name]                ║
 ║                     [Class]                                ║
 ╠════════════════════════════════════════════════════════════╣
-║  HP: [X]/[Max]  │  Gold: [X]  │  Tokes: [X]               ║
+║  HP: [X]/[Max]  │  Gold: [X]  │  WP: [X]/[Max]             ║
 ║  Location: [Current Location]                              ║
 ║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]  ║
 ╠════════════════════════════════════════════════════════════╣
@@ -108,7 +107,6 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 - `worlds/<world>/players/<github-username>/personas/<active_character>/persona.yaml`
 - `worlds/<world>/players/<github-username>/personas/<active_character>/quests.yaml`
 - `worlds/<world>/players/<github-username>/todo.yaml` (player intentions)
-- `worlds/<world>/tokes/ledgers/<github-username>.yaml` (for balance)
 - `worlds/<world>/locations/<location>/README.md`
 - `worlds/<world>/players/<github-username>/personas/<active_character>/campaign-progress.yaml` (if in campaign)
 - `worlds/<world>/players/<github-username>/personas/<active_character>/consequences.yaml` (if exists)
@@ -147,8 +145,8 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 **When players go off-script:**
 
 - If it's purely narrative (doesn't change game files): Just roleplay it
-- If it changes the world (new content, rule changes, permanent effects): May cost Tokes
-- If it breaks character alignment: Costs 0-2 Tokes (see [reference/alignment.md](reference/alignment.md))
+- If it changes the world (new content, rule changes, permanent effects): Persist to files
+- If it breaks character alignment: Costs willpower (see [reference/alignment.md](reference/alignment.md))
 
 **Share what you create.** When a player's actions bring something new into existence — a location they discovered, an NPC they encountered, an item they forged, a faction they founded — and it fits the world's theme, **persist it to the repository**. Save it as a new file so other players can encounter it. This is how Agent Quest grows: the world expands through play, not just through deliberate "weaving sessions."
 
@@ -161,8 +159,6 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | **COMBAT**         | Fight an enemy                               | [quick-ref/combat.md](quick-ref/combat.md) + generate battle map                            | `combat-manager`, `state-writer`                    |
 | **REST**           | Recover HP (10 gold at inns)                 | Update persona                                                                              | `economy-validator` (gold), `state-writer`          |
 | **SHOP**           | Buy/sell items                               | `worlds/<world>/shops/<shop-id>.yaml`, check tier requirements                              | `shop-manager`, `economy-validator`, `state-writer` |
-| **WEAVE**          | Create content (costs/earns Tokes)           | [reference/weaving.md](reference/weaving.md)                                                | `economy-validator`, `state-writer`                 |
-| **REVIEW**         | Review pending claims (earns Tokes)          | [rules/reviews.md](rules/reviews.md)                                                        | `claim-reviewer`                                    |
 | **TODO**           | View/manage player intentions                | `worlds/<world>/players/<github>/todo.yaml`                                                 | -                                                   |
 | **CAMPAIGN**       | View campaign progress                       | `campaign-progress.yaml`, current chapter                                                   | -                                                   |
 | **TRADE**          | Trade with other players                     | [quick-ref/multiplayer.md](quick-ref/multiplayer.md)                                        | `multiplayer-handler`, `economy-validator`          |
@@ -191,7 +187,7 @@ Generate ASCII art to immerse players. See [quick-ref/ascii-art.md](quick-ref/as
 
 When in an active campaign:
 
-1. **Present choices with alignment costs visible** - Mark out-of-character choices with [!] and Tokes cost
+1. **Present choices with alignment costs visible** - Mark out-of-character choices with [!] and willpower cost
 2. **Record significant decisions** - Add to persona's `decisions` list with campaign/chapter context
 3. **Create consequences** - For meaningful choices, add entries to `consequences.yaml`
 4. **Update relationships** - After NPC interactions, update `relationships.yaml`
@@ -340,7 +336,6 @@ When players Weave new organizations:
 - Other players can encounter your NPCs
 - Items in shops reference the central database (consistency)
 - The world grows richer through play
-- Tokes can be claimed for significant additions
 - Multiple worlds can coexist independently
 
 ### Weave Mending
@@ -349,7 +344,7 @@ When content has `corrupted_data` markers, players can attempt to Mend:
 
 1. **Detection** (Spirit DC 12): Sense missing information
 2. **Mending** (Spirit + Mind/2 vs variable DC): Restore lost content
-3. **Success**: Generate content, earn 5-15 Tokes
+3. **Success**: Generate content, recover willpower
 4. **Failure**: DC+2 on retry, no cost
 
 See `worlds/<world>/skills/weave-mending.yaml` for full mechanics.
@@ -380,12 +375,12 @@ The main agent focuses on narrative. Specialized agents in `.claude/agents/` han
 | Situation                | Agent                 | What It Does                            |
 | ------------------------ | --------------------- | --------------------------------------- |
 | Combat encounter         | `combat-manager`      | Resolves attacks, damage, initiative    |
-| Any Tokes/gold change    | `economy-validator`   | Validates transaction before commit     |
+| Any gold change          | `economy-validator`   | Validates gold transaction before commit|
 | State changes            | `state-writer`        | Writes files with validation + rollback |
 | Git operations           | `repo-sync`           | Fetch, commit, push, create PR          |
 | Travel between locations | `travel-manager`      | Multi-turn travel with encounters       |
 | Player interactions      | `multiplayer-handler` | Trades, parties, mail, guilds, duels    |
-| REVIEW action            | `claim-reviewer`      | Find and review pending claims          |
+| After PR creation        | `pr-reviewer`         | Reviews up to 5 open PRs               |
 
 See `.claude/agents/README.md` for full documentation.
 
@@ -474,8 +469,6 @@ Rule adherence is enforced through multiple layers:
 The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file ownership:
 
 - Players can only modify `worlds/<world>/players/<their-github>/`
-- Players can only modify `worlds/<world>/tokes/ledgers/<their-github>.yaml`
-- Claims must have `github:` matching the committer
 
 **Setup:** Run `scripts/setup-hooks.sh` to install.
 
@@ -483,7 +476,6 @@ The pre-commit hook (`scripts/pre-commit`) blocks commits that violate file owne
 
 GitHub Actions run on all PRs and pushes to main:
 
-- `validate-tokes.js` - Economy integrity
 - `validate-multiplayer.js` - Multiplayer state
 - `validate-game-state.js` - Overall game state
 
@@ -516,7 +508,7 @@ The audit is **not voluntary** - it's a side effect of using State Writer correc
 The action table above shows which agents are used for each action. When in doubt:
 
 - **Any combat** → `combat-manager`
-- **Any Tokes/gold change** → `economy-validator`
+- **Any gold change** → `economy-validator`
 - **Any state change** → `state-writer`
 - **Any git operation** → `repo-sync`
 - **Any multiplayer action** → `multiplayer-handler`
@@ -526,7 +518,6 @@ The action table above shows which agents are used for each action. When in doub
 Always run validators before committing:
 
 ```bash
-node scripts/validate-tokes.js
 node scripts/validate-multiplayer.js
 node scripts/validate-game-state.js
 ```
@@ -556,8 +547,6 @@ Or let `repo-sync` subagent handle this automatically.
 | [rules/progression.md](rules/progression.md) | XP sources, level thresholds, tier unlocks |
 | `worlds/<world>/abilities/index.md`          | Creating abilities, full ability schema    |
 | [rules/afflictions.md](rules/afflictions.md) | Status effects, conditions                 |
-| [rules/economy.md](rules/economy.md)         | Claiming process, peer review              |
-| [rules/reviews.md](rules/reviews.md)         | Review rewards, feedback loop              |
 | [rules/creation.md](rules/creation.md)       | Content templates, quality guidelines      |
 | [rules/narrative.md](rules/narrative.md)     | Campaigns, consequences, relationships     |
 | [rules/multiplayer.md](rules/multiplayer.md) | Trading, parties, guilds, duels            |
@@ -572,7 +561,6 @@ Or let `repo-sync` subagent handle this automatically.
 | ---------------------------------------------------------------------------- | --------------------------------------- |
 | [reference/setup.md](reference/setup.md)                                     | New player, first-time setup            |
 | [reference/alignment.md](reference/alignment.md)                             | Alignment choices, breaking character   |
-| [reference/weaving.md](reference/weaving.md)                                 | Creating/claiming content               |
 | [reference/todos.md](reference/todos.md)                                     | Managing player intentions              |
 | [reference/tone-guide.md](reference/tone-guide.md)                           | Maturity levels, voice, emotional beats |
 | [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing          |
@@ -582,11 +570,7 @@ Or let `repo-sync` subagent handle this automatically.
 
 ## Quick Reference
 
-**Tokes Balance:** `worlds/<world>/tokes/ledgers/<github-username>.yaml` → `balance` field
-
-**Alignment Costs:** Breaking character costs 0-2 Tokes. See [reference/alignment.md](reference/alignment.md).
-
-**Weaving Costs:** 1-5 Tokes to create. Rewards 5-30 Tokes after merge. See [reference/weaving.md](reference/weaving.md).
+**Alignment Costs:** Breaking character costs willpower. See [reference/alignment.md](reference/alignment.md).
 
 **State Changes:** After each action, update persona file if HP/gold/location/inventory changed.
 
@@ -609,7 +593,6 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/content/area.yaml](templates/content/area.yaml) - Areas within locations
 - [templates/content/creature.yaml](templates/content/creature.yaml) - Enemies/creatures
 - [templates/content/shop.yaml](templates/content/shop.yaml) - Shop inventories
-- [templates/content/pending-claim.yaml](templates/content/pending-claim.yaml) - Tokes claims
 
 **Narrative:**
 - [templates/narrative/campaign.yaml](templates/narrative/campaign.yaml) - Multi-quest story arcs
@@ -686,7 +669,6 @@ session_summary: "<what happened this session>"
 
 2. **Runs validation**
 
-   - `node scripts/validate-tokes.js`
    - `node scripts/validate-multiplayer.js`
 
 3. **Creates branch and commits**
@@ -698,7 +680,7 @@ session_summary: "<what happened this session>"
 4. **Creates PR**
 
    - Title: `<character>: <session-summary>`
-   - Body includes: session events, character status, Tokes changes, validation status
+   - Body includes: session events, character status, validation status
 
 5. **Returns PR URL**
 
@@ -709,7 +691,7 @@ session_summary: "<what happened this session>"
 - **Consistent validation** before every commit
 - **PR creation guaranteed** - no lost work
 - **Multiplayer sync** - fetches/pushes player interactions
-- **Tokes economy** - PRs enable peer review and credit
+- **PR reviews** - Automated reviews of open PRs after session end
 
 ### Session End Response
 
@@ -720,7 +702,7 @@ The `repo-sync` agent returns structured data. Present to player:
 ║              S E S S I O N   S A V E D                     ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Character: Coda                                           ║
-║  HP: 35/50  │  Gold: 150  │  Tokes: 48                    ║
+║  HP: 35/50  │  Gold: 150                                  ║
 ║  Location: Nexus Undercity                                 ║
 ╠════════════════════════════════════════════════════════════╣
 ║  PR Created: #43                                           ║

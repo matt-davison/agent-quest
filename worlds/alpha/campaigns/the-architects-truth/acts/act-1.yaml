@@ -77,7 +77,7 @@ chekhov_plants:
 # === REWARDS ===
 act_rewards:
   gold: 100
-  tokes: 10
+  xp: 10
   items: []
   flags_set:
     - "fragment_1_found"

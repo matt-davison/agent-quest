@@ -117,7 +117,7 @@ branch_points:
       - id: "reveal"
         description: "The truth deserves to be known. I'll reveal everything."
         alignment_tag: "altruistic"
-        tokes_cost: 0
+        willpower_cost: 0
         consequences:
           immediate:
             - type: "flag"
@@ -131,7 +131,7 @@ branch_points:
       - id: "conceal"
         description: "Some truths are too dangerous. I'll protect the world from this."
         alignment_tag: "cautious"
-        tokes_cost: 0
+        willpower_cost: 0
         consequences:
           immediate:
             - type: "flag"
@@ -145,7 +145,7 @@ branch_points:
       - id: "continue"
         description: "I understand now. I'll become what they were—a living question."
         alignment_tag: "transcendent"
-        tokes_cost: 0
+        willpower_cost: 0
         available_if:
           flag: "guardian_ally"
         consequences:
@@ -182,7 +182,7 @@ next_chapters:
 # Rewards vary by ending - see campaign.yaml for full breakdown
 rewards:
   gold: 250  # Base amount
-  tokes: 25  # Base amount
+  xp: 25  # Base amount
   items:
     - "architects-key"  # Unless rejection ending
   flags_set:

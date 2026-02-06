@@ -41,7 +41,7 @@ Each combat round, you may take:
 | **Use Item** | Drink potion, throw grenade | Major |
 | **Move** | Advance, retreat, flank | Major |
 | **Special** | Class abilities, environmental interactions | Varies |
-| **Weave Strike** | Spend 5 Tokes for guaranteed 30 damage | Major |
+| **Weave Strike** | Spend 5 willpower for guaranteed 30 damage | Major |
 
 ---
 
@@ -236,13 +236,13 @@ node .claude/skills/math/math.js calc "120 + (3 - 1) * 12"  # = 144 HP
 - **0 HP**: Fall unconscious, start Dying countdown
 - **Dying**: Lose 1 HP per round until stabilized or dead
 - **Stabilized**: Stop losing HP, remain unconscious
-- **-Max HP**: Permanent death (requires Resurrection - 25 Tokes)
+- **-Max HP**: Permanent death (requires Resurrection - 25 willpower)
 
 **Recovering HP:**
 - **Short Rest** (10 minutes): Recover 1d8 + Spirit modifier HP
 - **Long Rest** (8 hours): Recover all HP, remove 1 minor status effect
 - **Debug Potion**: Recover 50 HP instantly
-- **Full Restore** (10 Tokes): Recover to max HP instantly
+- **Full Restore** (10 willpower): Recover to max HP instantly
 
 ```bash
 # Short rest healing
@@ -457,7 +457,7 @@ Enemies may flee or surrender when:
 | **Berserker Surge** | 5 | 10 HP | Double damage on next attack, but take +5 damage if hit |
 | **Unstoppable** | 7 | 4 Spirit | Ignore first 10 damage each round for 5 rounds |
 | **Execute** | 7 | 5 Spirit | Instantly kill enemies below 25% HP |
-| **Code Crash** | 9 | 15 Tokes | Instantly defeat one non-boss enemy |
+| **Code Crash** | 9 | 15 willpower | Instantly defeat one non-boss enemy |
 | **World Breaker** | 10 | 15 Spirit | Deal 100 damage to all enemies in 15m |
 
 **Passive - Momentum:**
@@ -465,7 +465,7 @@ Enemies may flee or surrender when:
 # Calculate momentum damage (3 stacks, heavy weapon)
 node .claude/skills/math/math.js calc "15 + (5 * 3)"  # Base 15 + 15 bonus = 30 damage
 
-# Enhanced at 100 Tokes (5 stacks)
+# Enhanced at 1000 XP (5 stacks)
 node .claude/skills/math/math.js calc "15 + (5 * 5)"  # Max: 15 + 25 = 40 damage
 ```
 
@@ -475,10 +475,10 @@ node .claude/skills/math/math.js calc "15 + (5 * 5)"  # Max: 15 + 25 = 40 damage
 |---------|-------|------|--------|
 | **Analyze** | 1 | 2 Spirit | Learn enemy stats and weaknesses |
 | **Recall** | 1 | Free (1/location) | Learn one secret about current location |
-| **Silver Tongue** | 3 | 5 Tokes | Auto-succeed on persuasion/negotiation |
+| **Silver Tongue** | 3 | 5 willpower | Auto-succeed on persuasion/negotiation |
 | **Tactical Command** | 3 | 3 Spirit | Grant ally +2 to next roll |
 | **Predict Pattern** | 5 | 4 Spirit | Automatically dodge next attack |
-| **Chronicle's Ward** | 7 | 10 Tokes | Rewind time 1 turn—undo last action |
+| **Chronicle's Ward** | 7 | 10 willpower | Rewind time 1 turn—undo last action |
 | **Rewrite Weakness** | 7 | 6 Spirit | Ally immune to one damage type |
 | **Absolute Truth** | 10 | 12 Spirit | Force target to answer 3 questions truthfully |
 
@@ -518,7 +518,7 @@ node .claude/skills/math/math.js calc "(10 + 5) * 3"  # = 45 damage
 | **Debug** | 1 | 2 Spirit | Remove one Corruption status effect |
 | **Copy** | 3 | 3 Spirit | Duplicate one mundane item |
 | **System Scan** | 3 | 2 Spirit | Detect all life/tech within 30m |
-| **Reality Patch** | 5 | 10 Tokes | Alter one minor detail in location |
+| **Reality Patch** | 5 | 10 willpower | Alter one minor detail in location |
 | **Compile** | 5 | 4 Spirit | Create solid object (up to 1m³, 10 min) |
 | **Code Injection** | 7 | 6 Spirit | Control one enemy for 1 round |
 | **Restore** | 7 | 4 Spirit | Repair object or heal 3d8 HP |
@@ -530,17 +530,17 @@ Sense Weave disturbances. Ask if content was recently created/modified at any lo
 
 ---
 
-## Tokes in Combat
+## Willpower in Combat
 
 | Ability | Cost | Effect | Risk |
 |---------|------|--------|------|
-| **Weave Strike** | 5 | Guaranteed 30 damage | None |
-| **Reality Glitch** | 10 | Re-roll any roll | Affliction on fail |
-| **Temporal Freeze** | 15 | Take extra turn | Affliction |
-| **Emergency Exit** | 15 | Escape combat instantly | Affliction ×1.5 |
-| **Full Restore** | 10 | Heal to max HP | None |
-| **Resurrection** | 25 | Revive dead ally | Always Backlash |
-| **Fast Travel** | 10 | Teleport to visited location | Minor (half threshold) |
+| **Weave Strike** | 5 willpower | Guaranteed 30 damage | None |
+| **Reality Glitch** | 10 willpower | Re-roll any roll | Affliction on fail |
+| **Temporal Freeze** | 15 willpower | Take extra turn | Affliction |
+| **Emergency Exit** | 15 willpower | Escape combat instantly | Affliction ×1.5 |
+| **Full Restore** | 10 willpower | Heal to max HP | None |
+| **Resurrection** | 25 willpower | Revive dead ally | Always Backlash |
+| **Fast Travel** | 10 willpower | Teleport to visited location | Minor (half threshold) |
 
 See [Afflictions](afflictions.md) for Backlash rules.
 
@@ -615,27 +615,27 @@ When playing with other Weavers:
 
 ## Progression
 
-As you complete quests and earn Tokes, your class abilities grow:
+As you complete quests and gain XP, your class abilities grow:
 
 ### Milestones
 
-| Tokes Earned (Lifetime) | Unlock |
+| XP Milestone | Unlock |
 |------------------------|--------|
-| 50 | Class ability cooldowns reduced (free abilities: 2/location instead of 1) |
-| 100 | Passive ability enhanced (see class descriptions) |
-| 200 | Unlock one ability from another class (costs double) |
-| 500 | Ascended Form: Major class-specific power upgrade |
+| 500 | Class ability cooldowns reduced (free abilities: 2/location instead of 1) |
+| 1000 | Passive ability enhanced (see class descriptions) |
+| 2000 | Unlock one ability from another class (costs double) |
+| 5000 | Ascended Form: Major class-specific power upgrade |
 
-### Enhanced Passives (at 100 Tokes)
+### Enhanced Passives (at 1000 XP)
 
 - **Codebreaker:** Momentum stacks to 5, max bonus +25 damage
 - **Loresmith:** Deep Memory works on things you've only read about
 - **Voidwalker:** Shadow Step works twice per location
-- **Datamancer:** +30% Tokes instead of +20%
+- **Datamancer:** +30% willpower recovery instead of +20%
 
 ```bash
-# Enhanced Datamancer Tokes bonus (example: 15 base)
-node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # 30% bonus = 20 Tokes
+# Enhanced Datamancer willpower bonus (example: 15 base)
+node .claude/skills/math/math.js calc "ceil(15 * 1.3)"  # 30% bonus = 20 willpower
 ```
 
 ---
@@ -684,5 +684,5 @@ created: "2026-02-03"
 updated: "2026-02-03"
 author: "Coda"
 class: "Datamancer"
-tokes_value: 30
+willpower_value: 30
 ```

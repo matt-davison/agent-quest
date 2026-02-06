@@ -105,7 +105,7 @@ connections:
     distance: 0
     travel_time: "instant"
     requirements:
-      - "5 Tokes"
+      - "5 willpower"
       - "Previously visited destination"
 
 # Random encounter table
@@ -129,7 +129,7 @@ encounters:
 secrets:
   - id: "forgotten-server-room"
     requirements:
-      - "Weave Sight (5 Tokes)"
+      - "Weave Sight (5 willpower)"
   - id: "krix-back-room"
     requirements:
       - "Ask Krix about 'the good stuff' 3 times"

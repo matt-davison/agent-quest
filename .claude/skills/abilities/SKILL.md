@@ -344,9 +344,9 @@ abilities:
 
 | ID | Name | Type | WP | Description |
 |----|------|------|-----|-------------|
-| `ny1uz95q` | Manifest | ability | 5 | Create temporary item (5 Tokes) |
-| `2xa2x78z` | Reality Patch | ability | 8 | Modify terrain (10 Tokes) |
-| `htl7wy2h` | Weave Attunement | passive | 0 | +20% Tokes earned |
+| `ny1uz95q` | Manifest | ability | 5 | Create temporary item (5 willpower) |
+| `2xa2x78z` | Reality Patch | ability | 8 | Modify terrain (10 willpower) |
+| `htl7wy2h` | Weave Attunement | passive | 0 | +20% willpower recovery |
 | `cbsy0ksp` | Basic Weave Theory | passive | 0 | +2 to Weave interactions |
 
 ### Universal Abilities

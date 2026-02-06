@@ -13,6 +13,7 @@ Character and player data templates.
 | [quests.yaml](player/quests.yaml) | Active quests and objectives |
 | [todo.yaml](player/todo.yaml) | Player intentions and goals |
 | [world-state.yaml](player/world-state.yaml) | Character-specific world overrides |
+| [session-recap.yaml](player/session-recap.yaml) | Session continuity recap (auto-generated) |
 
 ### narrative/
 Campaign and storytelling templates.

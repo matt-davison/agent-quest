@@ -1,6 +1,1 @@
-- Async hook for tracking multiplayer state to run on stop and user prompt submit. Needs a lock
-- Need to expose new multiplayer state relevant to the player (party invites, trades, etc.)
-- Need to get multiplayer updates merged asap, special permission to land without review if only touching worlds/\*/multiplayer/\*\*? Script would help here
-- A friends list
-
 - Improve deep sleep / fully autonomous mode (https://code.claude.com/docs/en/hooks#stop-decision-control)

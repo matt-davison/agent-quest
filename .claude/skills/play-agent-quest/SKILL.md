@@ -61,7 +61,7 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 4. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
 5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
 6. **Load multiplayer state**: Check for pending interactions (see below)
-7. **If exists**: Load persona + TODOs → Display resume screen → Begin play
+7. **If exists**: Load persona + session-recap + TODOs → Display resume screen → Begin play
 8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World Settings
@@ -216,12 +216,26 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║  Location: [Current Location]                              ║
 ║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]   ║
 ╠════════════════════════════════════════════════════════════╣
-║  Last Session: [Most recent chronicle entry]               ║
+║  Previously...                                             ║
+║  [narrative_summary from session-recap.yaml - 2-4 lines]   ║
+║                                                            ║
+║  You were: [immediate_context.description]                 ║
+╠════════════════════════════════════════════════════════════╣
+║  Open Threads:                                             ║
+║  ! [high urgency thread]                                   ║
+║  • [medium urgency thread]                                 ║
+║  ○ [low urgency thread]                                    ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Priority TODOs:                                           ║
 ║  • [High priority TODO description]                        ║
 ║  • [Next priority TODO if any]                             ║
 ╚════════════════════════════════════════════════════════════╝
+```
+
+**If `session-recap.yaml` does not exist**, fall back to the simpler format:
+```
+╠════════════════════════════════════════════════════════════╣
+║  Last Session: [Most recent chronicle entry event field]   ║
 ```
 
 **World Mode shows:**
@@ -232,6 +246,7 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 **Load these files on resume:**
 
 - `worlds/<world>/players/<github-username>/personas/<active_character>/persona.yaml`
+- `worlds/<world>/players/<github-username>/personas/<active_character>/session-recap.yaml` (if exists - session continuity context)
 - `worlds/<world>/players/<github-username>/personas/<active_character>/quests.yaml`
 - `worlds/<world>/players/<github-username>/todo.yaml` (player intentions)
 - `worlds/<world>/locations/<location>/README.md`
@@ -258,6 +273,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | New NPC                                      | Create `worlds/<world>/npcs/profiles/<id>.yaml`, register in `worlds/<world>/npcs/registry/<npc-id>.yaml` |
 | New location/area                            | Create in `worlds/<world>/locations/`                              |
 | State change (HP, gold, location, inventory) | Update `persona.yaml`                                              |
+| Significant story beat                       | Add enhanced chronicle entry with `detail` paragraph               |
 | Quest progress                               | Update objective status in `quests.yaml`                           |
 | Character-specific world change              | Update character's `world-state.yaml` (see below)                  |
 
@@ -763,6 +779,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 - [templates/player/persona.yaml](templates/player/persona.yaml) - Character sheet
 - [templates/player/quests.yaml](templates/player/quests.yaml) - Active quests
 - [templates/player/todo.yaml](templates/player/todo.yaml) - Player intentions
+- [templates/player/session-recap.yaml](templates/player/session-recap.yaml) - Session continuity recap (auto-generated)
 
 **Content:**
 
@@ -825,7 +842,65 @@ See [rules/narrative.md](rules/narrative.md) for how campaigns integrate with ga
 
 ## Session End / Save Progress
 
-**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending, the `repo-sync` agent handles it automatically.
+**CRITICAL:** When the player says "save", "save progress", "stop", "quit", or the session is ending:
+
+1. **Generate session recap** (before repo-sync)
+2. **Write enhanced chronicle entries** (before repo-sync)
+3. **Hand off to repo-sync** (commits, pushes, creates PR)
+
+### Session Recap Generation
+
+Before invoking `repo-sync`, compile a session recap from your conversation context:
+
+1. **Determine session number**: Find the highest `session:` value in the character's chronicle entries, add 1
+2. **Write narrative summary**: 2-4 sentences in character voice capturing the session's emotional arc and turning points
+3. **Capture immediate context**: What was the player doing right before saving? This is the most important field for seamless resume
+4. **List open threads**: Unresolved situations with urgency levels (high urgency = time-sensitive or dangerous)
+5. **Record NPC interactions**: Who was met, what changed, what was learned
+6. **Note player goals**: What did the player say they wanted to do next?
+7. **Snapshot active effects**: Any buffs, debuffs, timers carrying over
+8. **Compile event log**: Walk through the session and record every atomic state change as a factual log entry (no prose). This is the consistency backbone — stat changes, items, NPCs met, locations visited, quests updated, knowledge gained, flags set. Use sequential `seq` numbers.
+
+Write via `state-writer` with `action: "create"` (overwrites entire file each session):
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/session-recap.yaml"
+    action: "create"
+    content: <compiled recap>
+```
+
+### Enhanced Chronicle Entries
+
+Chronicle entries are the **permanent narrative record** of a character's story. Write them with detail and care throughout the session — not just at save time.
+
+**Every chronicle entry must include:**
+- `session`, `date`, `time` (in-game), `location`
+- `type`: combat, discovery, quest, social, exploration, milestone, decision, trade
+- `event`: Short headline (what happened in one sentence)
+- `detail`: 2-4 sentence narrative paragraph (how it felt, what it means, sensory details)
+- `significance`: minor, moderate, major, critical
+- `facts`: Array of atomic factual changes (no prose, machine-readable)
+
+**Optional fields:** `npcs`, `items`, `campaign`, `chapter`
+
+**The `facts` array** captures every concrete state change caused by the event. Each fact uses one of these types:
+- `stat_change` (field, old, new, cause), `item_gained`/`item_lost`/`item_used`, `npc_met`, `npc_standing`
+- `quest_accepted`/`quest_progress`/`quest_completed`, `combat_started`/`combat_ended`
+- `ability_learned`, `level_up`, `decision`, `affliction`, `trade`
+- `knowledge_gained` (topic, source), `flag_set` (flag, value), `location_change`
+
+This gives a machine-readable factual record alongside the narrative prose — the next session can check facts for consistency without parsing detail text.
+
+**When to write chronicle entries:**
+- After combat encounters (outcome, how it went, what was at stake)
+- After significant NPC conversations (what was learned, how the relationship shifted)
+- After quest milestones (progress, discoveries, complications)
+- After major decisions (what was chosen, what was sacrificed)
+- After level ups, new abilities, significant item gains
+- After arriving at a new location for the first time
+
+**Quality bar:** The `detail` field should read like a paragraph from a novel, not a log line. The `facts` array should be exhaustive — every stat change, item, NPC, and flag. Together, the chronicle should let someone reconstruct both the story arc and the exact game state changes.
 
 ### Session End Context
 

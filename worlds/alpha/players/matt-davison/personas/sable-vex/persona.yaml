@@ -22,7 +22,7 @@ stats:
 resources:
   hp: 100          # Full after long rest
   max_hp: 100
-  gold: 12         # 62 - 50 Deep Trance
+  gold: 24         # 12 + 12 pickpocketed from wealthy executive at Era Celebration
   willpower: 38    # spirit(19) x multiplier(2) = 38, full after rest
   max_willpower: 38
   willpower_multiplier: 2
@@ -94,7 +94,7 @@ alignment:
   secondary: null
   axes:
     empathy: 2     # Rescued Hale, refused to work for Axis
-    order: 0       # Was +1, now -1 for deceiving corporate + hiding intel from authority
+    order: -1      # Petty theft: pickpocketed from wealthy executive at Era Celebration
     risk: 2        # Pushing into danger for knowledge
 
 # === DECISIONS ===

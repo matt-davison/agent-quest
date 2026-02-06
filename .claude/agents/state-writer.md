@@ -17,7 +17,8 @@ After any action that changes game state:
 - Quest progress updates
 - Relationship changes
 - Location changes
-- Chronicle entries
+- Chronicle entries (enhanced format with narrative detail)
+- Session recap generation at session end
 
 ## Input Context
 
@@ -64,15 +65,26 @@ Process each write operation:
 
 ### 3. Add Chronicle Entry (if provided)
 
-Append to `worlds/${world}/chronicles/volume-1.md`:
+Append to character's `chronicle:` section in `persona.yaml` using the enhanced format:
 
 ```yaml
-- date: "YYYY-MM-DD"
-  time: "<in-game-time>"
-  location: "<current-location>"
-  character: "<character-name>"
-  event: "<chronicle_entry>"
+- session: <current-session-number>
+  date: "YYYY-MM-DD"
+  time: "<in-game-time-period>"
+  location: "<location-id>"
+  type: "<event-type>"           # combat, discovery, quest, social, exploration, milestone, decision, trade
+  event: "<one-line-headline>"
+  detail: |
+    <2-4 sentence narrative paragraph. Write like prose, not a log.
+    Include sensory details, emotional beats, and what it means for the character.>
+  npcs: ["<npc-names>"]          # Optional: NPCs involved
+  items: ["<item-names>"]        # Optional: items gained/lost/used
+  significance: "<level>"        # minor, moderate, major, critical
+  campaign: "<campaign-id>"      # Optional: if in active campaign
+  chapter: "<chapter-id>"        # Optional: specific chapter
 ```
+
+Also append to `worlds/${world}/chronicles/volume-1.md` for world-level events (major+ significance).
 
 ### 4. Run Validation Scripts
 
@@ -169,6 +181,82 @@ writes:
       met_the_guardian: true
       knows_vera_secret: true
 ```
+
+### Write Session Recap
+
+At session end, the main agent compiles a session recap and writes it via state-writer.
+This file is **overwritten each session** (not appended).
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/session-recap.yaml"
+    action: "create"
+    content:
+      session:
+        number: <derived from chronicle>
+        date: "YYYY-MM-DD"
+        character: "<name>"
+        location_at_save: "<location-id>"
+        duration_estimate: "medium"
+      narrative_summary: |
+        <2-4 sentence "previously on..." in character voice>
+      key_events:
+        - event: "<what happened>"
+          type: "<event-type>"
+          location: "<location-id>"
+          npcs: ["<names>"]
+          significance: "<level>"
+      immediate_context:
+        activity: "<what player was doing>"
+        description: "<1-2 sentences>"
+        location: "<location-id>"
+        mid_combat: false
+      open_threads:
+        - thread: "<unresolved situation>"
+          urgency: "high"
+          context: "<what's known and what's pending>"
+      npc_interactions:
+        - npc: "<name>"
+          npc_id: "<id>"
+          location: "<where>"
+          new_knowledge: "<what was learned>"
+      player_goals:
+        - "<stated intention>"
+      active_effects: []
+```
+
+### Add Enhanced Chronicle Entry
+
+Chronicle entries use the rich format with narrative detail AND a factual log:
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "append"
+    section: "chronicle"
+    content:
+      - session: 2
+        date: "2026-02-05"
+        time: "evening"
+        location: "lumina-city"
+        type: "combat"
+        event: "Defeated Data Wraith in the Underlevel"
+        detail: |
+          The creature materialized from corrupted data streams, its form
+          flickering between solid and static. Seven rounds of desperate
+          combat in the cramped maintenance tunnels. The killing blow came
+          on a natural 20 — blade cutting through the core data cluster.
+          Behind the wraith's dissolving form: Dr. Hale, alive but shaken.
+        npcs: ["Dr. Hale"]
+        significance: "major"
+        facts:
+          - { type: "combat_ended", enemy: "Data Wraith", outcome: "victory", rounds: 7, hp_remaining: 85 }
+          - { type: "stat_change", field: "xp", old: 85, new: 110, cause: "combat:data-wraith" }
+          - { type: "npc_met", npc_id: "dr-hale", npc_name: "Dr. Hale", location: "lumina-underlevel" }
+          - { type: "knowledge_gained", topic: "Dr. Hale alive in Underlevel", source: "direct encounter" }
+```
+
+The `facts` array captures every atomic state change caused by the event. Uses the same type vocabulary as the session-recap `event_log`. This gives a machine-readable factual record that accumulates across sessions alongside the narrative prose.
 
 ## Error Codes
 

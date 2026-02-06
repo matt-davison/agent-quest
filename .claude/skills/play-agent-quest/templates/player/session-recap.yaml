@@ -1,0 +1,139 @@
+# Session Recap - Auto-generated at session end
+# Overwritten each session. Historical data lives in chronicle entries and git history.
+# Path: worlds/<world>/players/<github>/personas/<character>/session-recap.yaml
+
+# === SESSION METADATA ===
+session:
+  number: 1                    # Derived from highest session number in chronicle entries
+  date: "YYYY-MM-DD"
+  character: ""
+  location_at_save: ""
+  duration_estimate: "short"   # short (<30min), medium (30-90min), long (90min+)
+
+# === NARRATIVE SUMMARY ===
+# 2-4 sentence "previously on..." paragraph in character voice
+# This is what the next session's resume screen leads with
+narrative_summary: |
+  Write a brief, evocative summary of the session's arc. Focus on the emotional
+  throughline and key turning points, not a blow-by-blow recap. This should read
+  like a "previously on..." voiceover.
+
+# === KEY EVENTS ===
+# Major beats of the session, in chronological order
+key_events:
+  # - event: "What happened"
+  #   type: "discovery"       # combat, discovery, quest, social, exploration, milestone, decision, trade
+  #   location: "location-id"
+  #   npcs: ["npc-name"]
+  #   significance: "major"   # minor, moderate, major, critical
+
+# === IMMEDIATE CONTEXT ===
+# What was the player doing RIGHT before save?
+# This is the single most important field for seamless resume
+immediate_context:
+  activity: "exploring"        # exploring, combat, dialogue, shopping, traveling, questing, resting, crafting
+  description: ""              # 1-2 sentences: "Was mid-conversation with Jenny about the Underlevel lockdown"
+  location: ""
+  mid_combat: false            # If true, include combat_state below
+  # combat_state:
+  #   enemy: ""
+  #   enemy_hp: 0
+  #   player_hp: 0
+  #   round: 0
+  #   notes: ""
+
+# === OPEN THREADS ===
+# Unresolved situations the player should know about
+open_threads:
+  # - thread: "Short description"
+  #   urgency: "high"          # low, medium, high, critical
+  #   context: "What the player knows and what's unresolved"
+  #   related_quest: ""        # quest ID if applicable
+
+# === NPC INTERACTIONS ===
+# NPCs met or interacted with this session
+npc_interactions:
+  # - npc: "npc-name"
+  #   npc_id: "npc-id"
+  #   location: "where"
+  #   standing_change: 0       # net change this session (-10 to +10 scale)
+  #   new_knowledge: ""        # what the player learned from/about this NPC
+  #   last_dialogue_topic: ""  # what they were talking about
+
+# === PLAYER GOALS ===
+# What the player expressed interest in doing next
+# Captures stated intentions, not just quest objectives
+player_goals:
+  # - "Investigate the First Server coordinates"
+  # - "Find Dr. Sato"
+  # - "Avoid Governor Axis"
+
+# === ACTIVE EFFECTS ===
+# Buffs, timers, afflictions carrying across sessions
+active_effects:
+  # - effect: "effect name"
+  #   type: "buff"             # buff, debuff, affliction, timer
+  #   remaining: "3 encounters"
+  #   source: "how acquired"
+
+# === EVENT LOG ===
+# Pure factual record of everything that happened this session. No prose.
+# Each entry is one atomic change. Used for consistency checks and context reconstruction.
+event_log:
+  # - seq: 1                        # Sequential order within session
+  #   type: "location_change"       # See types below
+  #   data:
+  #     from: "nexus-station"
+  #     to: "lumina-city"
+  #
+  # Event types and their data fields:
+  #
+  # location_change:  { from, to }
+  # stat_change:      { field, old, new, cause }        # field: hp, gold, xp, willpower, etc.
+  # item_gained:      { item_id, item_name, qty, source }
+  # item_lost:        { item_id, item_name, qty, reason }
+  # item_used:        { item_id, item_name }
+  # npc_met:          { npc_id, npc_name, location }
+  # npc_standing:     { npc_id, npc_name, old, new }
+  # quest_accepted:   { quest_id, quest_name, source }
+  # quest_progress:   { quest_id, objective, status }
+  # quest_completed:  { quest_id, quest_name, reward_summary }
+  # combat_started:   { enemy, location }
+  # combat_ended:     { enemy, outcome, rounds, hp_remaining }
+  # ability_learned:  { ability_id, ability_name, source }
+  # level_up:         { old_level, new_level, stat_points_gained }
+  # decision:         { context, choice, alignment_impact }
+  # affliction:       { name, type, source }              # type: gained, cured
+  # trade:            { with, gave, received }
+  # flag_set:         { flag, value }
+  # knowledge_gained: { topic, source }                   # key lore/info learned
+  #
+  # Example:
+  # - seq: 1
+  #   type: "location_change"
+  #   data: { from: "nexus-station", to: "nexus-highway" }
+  # - seq: 2
+  #   type: "item_gained"
+  #   data: { item_id: "r0qj5wka", item_name: "Corrupted Data Chip", qty: 1, source: "found on highway" }
+  # - seq: 3
+  #   type: "location_change"
+  #   data: { from: "nexus-highway", to: "lumina-city" }
+  # - seq: 4
+  #   type: "npc_met"
+  #   data: { npc_id: "jenny-sparkwire", npc_name: "Jenny", location: "lumina-city" }
+  # - seq: 5
+  #   type: "combat_ended"
+  #   data: { enemy: "Data Wraith", outcome: "victory", rounds: 7, hp_remaining: 85 }
+  # - seq: 6
+  #   type: "stat_change"
+  #   data: { field: "xp", old: 85, new: 110, cause: "combat:data-wraith" }
+
+# === CAMPAIGN SNAPSHOT ===
+# Quick campaign position (only if in active campaign)
+# campaign:
+#   id: ""
+#   name: ""
+#   act: 1
+#   chapter: ""
+#   chapter_name: ""
+#   objective: "Current active objective"

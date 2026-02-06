@@ -90,7 +90,7 @@ gh pr create --title "..." --body "..."
 - Read files before modifying
 - Use specific file paths over wildcards in git add
 - Persist all new creations (NPCs, locations, items, abilities)
-- Update chronicle for major story events
+- Update chronicle for major story events (enhanced format with narrative detail paragraphs)
 - All game state is YAML - validate after changes
 - Players can only modify their own `players/<github>/` directory (enforced by pre-commit hook)
 - `.claudeignore` excludes README.md from agent context

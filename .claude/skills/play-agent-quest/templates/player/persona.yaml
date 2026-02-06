@@ -141,23 +141,76 @@ homes: []
 
 # === CHRONICLE ===
 # Significant events in your character's history
-# Add entries as you play
+# Each entry should capture not just WHAT happened but the narrative detail
 # For campaign events, include campaign and chapter context
 chronicle:
-  # - date: "YYYY-MM-DD"
-  #   event: "Description of what happened"
+  # - session: 1
+  #   date: "YYYY-MM-DD"
+  #   time: "morning"              # In-game time period
+  #   location: "location-id"
+  #   type: "discovery"            # combat, discovery, quest, social, exploration, milestone, decision, trade
+  #   event: "Short headline of what happened"
+  #   detail: |
+  #     2-4 sentence narrative description. What happened, how it felt,
+  #     what it means. This is the primary record of the character's story.
+  #     Write it like prose, not a log entry.
+  #   npcs: ["npc-name"]           # NPCs involved
+  #   items: []                    # Items gained/lost/used
+  #   significance: "moderate"     # minor, moderate, major, critical
   #   campaign: "campaign-id"      # Optional: if part of a campaign
   #   chapter: "chapter-id"        # Optional: specific chapter
-  #   significance: "major"        # Optional: minor|moderate|major
+  #   # --- Factual log (no prose, machine-readable) ---
+  #   facts: []                    # Atomic state changes caused by this event
+  #     # Uses same types as session-recap event_log:
+  #     # - { type: "stat_change", field: "hp", old: 100, new: 85, cause: "combat" }
+  #     # - { type: "item_gained", item_id: "abc123", item_name: "Data Chip", qty: 1 }
+  #     # - { type: "npc_standing", npc_id: "x", npc_name: "Y", old: 0, new: 2 }
+  #     # - { type: "quest_progress", quest_id: "x", objective: "y", status: "complete" }
+  #     # - { type: "knowledge_gained", topic: "First Server location", source: "data chip" }
+  #     # - { type: "flag_set", flag: "knows_vera_secret", value: true }
+  #
   # Example:
-  # - date: "2026-02-02"
+  # - session: 1
+  #   date: "2026-02-02"
+  #   time: "dawn"
+  #   location: "nexus-station"
+  #   type: "milestone"
   #   event: "Awakened to Weaver abilities at Nexus Station"
+  #   detail: |
+  #     The terminal flickered to life unbidden. Letters formed that weren't
+  #     typed. For the first time, the Weave spoke — and you understood.
+  #     Nev was waiting, as if she'd known you'd come.
+  #   npcs: ["Nev"]
+  #   significance: "critical"
+  #   facts:
+  #     - { type: "npc_met", npc_id: "nev", npc_name: "Nev", location: "nexus-station" }
+  #     - { type: "item_gained", item_id: "gjxz6odq", item_name: "Weaver's Sigil", qty: 1 }
+  #     - { type: "stat_change", field: "gold", old: 0, new: 25, cause: "quest:first-steps" }
+  #
   # Example with campaign context:
-  # - date: "2026-02-03"
+  # - session: 2
+  #   date: "2026-02-03"
+  #   time: "evening"
+  #   location: "nexus-undercrypt"
+  #   type: "discovery"
   #   event: "Found the first fragment of the Third Architect"
+  #   detail: |
+  #     Deep in the Recursion Library, behind a shelf that shouldn't exist,
+  #     the tome was waiting. Its pages moved on their own. A voice — not
+  #     sound, but meaning — said: "You are the first to read me in a
+  #     thousand renders." The fragment burned cold against your palm.
+  #   npcs: []
+  #   items: ["Architect Fragment"]
+  #   significance: "major"
   #   campaign: "the-architects-truth"
   #   chapter: "chapter-1-3"
-  #   significance: "major"
+  #   facts:
+  #     - { type: "item_gained", item_id: "frag001", item_name: "Architect Fragment", qty: 1 }
+  #     - { type: "quest_progress", quest_id: "the-architects-truth", objective: "find-fragment-1", status: "complete" }
+  #     - { type: "knowledge_gained", topic: "Third Architect exists", source: "fragment tome" }
+  #     - { type: "flag_set", flag: "found_architect_fragment_1", value: true }
+  #   campaign: "the-architects-truth"
+  #   chapter: "chapter-1-3"
 
 # === ALIGNMENT ===
 # Your character's behavioral profile based on tracked decisions

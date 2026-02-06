@@ -65,7 +65,7 @@ Complete rules documentation with edge cases.
 
 Organized by category in [templates/](templates/):
 
-- **player/** - persona.yaml, quests.yaml, todo.yaml
+- **player/** - persona.yaml, quests.yaml, todo.yaml, session-recap.yaml
 - **narrative/** - campaign.yaml, chapter.yaml, scene.yaml, relationships.yaml, etc.
 - **multiplayer/** - trade.yaml, party.yaml, guild.yaml, mail-message.yaml, etc.
 - **content/** - location.md, quest.md, creature.yaml, shop.yaml, etc.

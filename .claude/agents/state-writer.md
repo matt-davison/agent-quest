@@ -68,6 +68,9 @@ Process each write operation:
 
 ### 3. Add Chronicle Entry (if provided)
 
+> **IMPORTANT: Never write chronicle entries in the old one-liner format (`session`/`date`/`event` only).
+> Existing persona files may contain legacy entries — ignore their format. Always use the enhanced format below.**
+
 Append to character's `chronicle:` section in `persona.yaml` using the enhanced format:
 
 ```yaml

@@ -6,3 +6,7 @@ messages:
     type: "emote"
     timestamp: "2026-02-06T20:00:00Z"
     content: "Ichnor Nif steps through the seam from the Fold, coat collar turned up, void-static crackling at his fingertips. He nods once at Coda. 'Void Seekers. Alright. I'm in.'"
+  - seq: 2
+    type: "ooc"
+    timestamp: "2026-02-06T20:01:00Z"
+    content: "Ichnor looks at Coda, arms crossed. 'So you dragged me into this party, Datamancer. You've got coordinates, intel, a whole plan mapped out in that compiled brain of yours. What's the play? Which quest are we chasing first?'"

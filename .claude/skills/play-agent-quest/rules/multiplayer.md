@@ -373,3 +373,190 @@ The multiplayer validator (`scripts/validate-multiplayer.js`) enforces:
 | Party quest while member offline | Member marked "absent" for that section |
 | Guild founder leaves | Must transfer ownership or disband |
 | Duel opponent disconnects | 10 minute grace period, then forfeit |
+
+---
+
+## Realtime Multiplayer (RT) System
+
+### Overview
+
+The RT system enables live multiplayer sessions where players interact in near-realtime (5-10 second round-trips). It uses **git branches as a message bus** — all communication flows through remote branches via the GitHub API. The local working tree is never affected.
+
+### Zero Local Impact Principle
+
+RT messages never touch the local working tree:
+- **Reads:** `git show origin/rt/<session>/msg/<player>:outbox.yaml` reads from git's object store after a `git fetch`
+- **Writes:** `gh api` pushes files to remote branches. Nothing local changes.
+
+Players can be on `main` (or any feature branch) with uncommitted work, and RT messages flow independently.
+
+### Branch Structure
+
+```
+inbox/<github-username>                 # Permanent inbox (invites, mail, notifications)
+rt/<session-id>/session                 # Session metadata
+rt/<session-id>/state                   # Host-authoritative shared state
+rt/<session-id>/msg/<github-username>   # Per-player message outbox
+```
+
+**Ownership (one writer per branch):**
+- `inbox/<github>` — only that player writes here
+- `rt/<sid>/msg/<github>` — only that player writes here
+- `rt/<sid>/state` — only the host writes here
+- `rt/<sid>/session` — host creates, guests update their own entry
+
+### Inbox System
+
+Each player has a permanent `inbox/<github>` branch for async notifications:
+
+```yaml
+# notifications.yaml
+player: "Wat96"
+notifications:
+  - seq: 1
+    type: rt-invite          # rt-invite | trade-offer | mail | guild-invite | duel-challenge
+    from: "matt-davison"
+    from_character: "Coda"
+    session_id: "rt-20260206-041500-a3f2"
+    message: "Coda invites you to a realtime adventure session."
+    expires: "2026-02-06T05:15:00Z"
+    status: pending          # pending | accepted | declined | expired
+```
+
+The `UserPromptSubmit` hook reads the player's inbox on every prompt and announces pending notifications.
+
+### Session Lifecycle
+
+**Starting a session (host):**
+1. Generate session ID: `rt-YYYYMMDD-HHMMSS-<random4>`
+2. Create `session.yaml` → push to `rt/<sid>/session` branch via `gh api`
+3. Create empty `outbox.yaml` → push to `rt/<sid>/msg/<host>` via `gh api`
+4. Write session ID to `/tmp/agent-quest-rt-session` (local marker)
+5. Send invite to guest's inbox branch
+6. Helper: `node scripts/rt-session.js create-session <character> [guests...]`
+
+**Joining a session (guest):**
+1. Read session ID from inbox invite
+2. Fetch and verify `session.yaml` (active, not expired)
+3. Create own `outbox.yaml` → push to `rt/<sid>/msg/<guest>` via `gh api`
+4. Update `session.yaml` guest status to `joined`
+5. Write session ID to `/tmp/agent-quest-rt-session`
+6. Helper: `node scripts/rt-session.js join-session <sid> <character>`
+
+**Playing (the universal loop):**
+1. Player describes action (combat, trade, chat, anything)
+2. Claude writes message to outbox temp file (`/tmp/agent-quest-rt-outbox-<sid>.yaml`)
+3. `PostToolUse` hook auto-pushes to GitHub via `gh api`
+4. `Stop` hook polls for other players' responses
+5. If responses found → Claude processes and continues
+6. If not → Claude stops, waits for next input
+
+**Ending a session (host only):**
+1. Set `session.yaml` status to `ended`
+2. Read full action history from all outboxes
+3. Calculate state deltas (XP, gold, items, chronicle)
+4. Apply deltas to player persona files on local working tree
+5. Commit and create PR to merge results to `main`
+6. Delete `/tmp/agent-quest-rt-session`
+7. Helper: `node scripts/rt-session.js end-session [sid]`
+
+### Message Format
+
+The RT outbox is a **universal message bus**. Every interaction flows through the same append-only outbox:
+
+```yaml
+# outbox.yaml on rt/<sid>/msg/<github>
+player: "matt-davison"
+character: "Coda"
+messages:
+  - seq: 1
+    timestamp: "2026-02-06T04:15:32Z"
+    type: combat.action          # dot-notation namespace
+    action: attack
+    target: "goblin-1"
+    details: { ability: "ny1uz95q", roll: 17 }
+    narrative: "Coda channels the Weave, manifesting a blade of light..."
+```
+
+**Message types:** `combat.action`, `combat.result`, `trade.offer`, `trade.accept`, `trade.reject`, `trade.counter`, `trade.cancel`, `trade.complete`, `party.invite`, `party.accept`, `party.reject`, `party.kick`, `party.leave`, `party.promote`, `party.loot_mode`, `mail.send`, `guild.invite`, `guild.deposit`, `guild.withdraw`, `guild.promote`, `guild.kick`, `duel.challenge`, `duel.accept`, `duel.decline`, `duel.action`, `duel.forfeit`, `duel.result`, `presence.update`, `emote`, `ooc`, `event.contribute`
+
+**Key properties:**
+- `seq` is monotonically increasing per player
+- Outboxes are append-only — never rewrite, only append
+- `narrative` is always present — human-readable description
+- `to` targets a specific player (absent = broadcast)
+- `details` carries machine-readable data
+
+### Authority Model
+
+| Type | Authority | Description |
+|------|-----------|-------------|
+| `combat.*` | Host resolves | Guest declares intent, host determines outcome |
+| `duel.*` | Host resolves | Same as combat |
+| `trade.*` | Peer-to-peer | Either party initiates/responds |
+| `mail.*` | Peer-to-peer | Direct between players |
+| `party.*` | Role-based | Leader for invite/kick/promote |
+| `guild.*` | Role-based | Per rank permissions |
+| `presence.*` | Self only | Player controls own status |
+| `emote` | Self only | Player controls own actions |
+| `ooc` | Self only | Out-of-character chat |
+| `event.*` | Self + host validates | Host validates contributions |
+
+### Shared State
+
+The host maintains `state.yaml` on `rt/<sid>/state`:
+
+```yaml
+version: 5
+timestamp: "2026-02-06T04:20:00Z"
+encounter:
+  id: "enc-001"
+  status: active
+  enemies: [...]
+  turn_order: [...]
+trades:
+  - trade_id: "..."
+    status: completed
+pending_deltas:
+  matt-davison:
+    xp: 150
+    gold: -50
+    items_gained: ["healing-potion"]
+    items_lost: ["iron-sword"]
+    chronicle: ["Fought cave goblins with Ichnor Nif"]
+```
+
+The `pending_deltas` section accumulates all state changes for clean application to personas on `main` at session end.
+
+### Infinite Loop Prevention
+
+1. **`stop_hook_active` flag** — Stop hook checks once in forced-continue mode
+2. **Loop counter** — `/tmp/agent-quest-rt-loops-<sid>` caps at 50 iterations
+3. **Max idle polls** — Stop hook polls `max_idle_polls` times (default 5) before allowing stop
+4. **Session marker deletion** — Remove `/tmp/agent-quest-rt-session` to instantly disable RT
+5. **Session timeout** — 10 minutes of inactivity pauses the session
+
+### Stale Read Handling
+
+If a player acts on outdated state:
+- Host resolves gracefully with a narrative redirect
+- The `version` field in `state.yaml` lets Claude detect staleness
+- Example: "The goblin is already slain. Your blow strikes empty air."
+
+### RT Helper Script
+
+All RT operations use `scripts/rt-session.js`:
+
+```bash
+node scripts/rt-session.js create-session <char> [guests...]
+node scripts/rt-session.js join-session <sid> [char]
+node scripts/rt-session.js end-session [sid]
+node scripts/rt-session.js check-inbox [github]
+node scripts/rt-session.js check-messages [sid] [github]
+node scripts/rt-session.js push-outbox [sid] [github]
+node scripts/rt-session.js push-state [sid]
+node scripts/rt-session.js send-invite <sid> <target> [from] [char]
+node scripts/rt-session.js session-info [sid]
+node scripts/rt-session.js outbox-path [sid]
+node scripts/rt-session.js state-path [sid]
+```

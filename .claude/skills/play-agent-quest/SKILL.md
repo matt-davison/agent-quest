@@ -124,6 +124,8 @@ Check these for player interactions:
 - Pending trade count
 - Unread mail count
 - Party membership status
+- **RT session status** (if `/tmp/agent-quest-rt-session` exists)
+- **Inbox notifications** (from `inbox/<github>` branch, shown by hook)
 
 Use the `world-state` skill for queries:
 
@@ -131,6 +133,45 @@ Use the `world-state` skill for queries:
 node .claude/skills/world-state/world-state.js time get --world=alpha
 node .claude/skills/world-state/world-state.js weather nexus --world=alpha
 ```
+
+### Realtime Multiplayer (RT) Session Handling
+
+The RT system is powered by four hooks (configured in `.claude/settings.json`) and a helper script (`scripts/rt-session.js`). All hooks are conditional — they check for `/tmp/agent-quest-rt-session` before activating.
+
+**Hooks:**
+- `SessionStart` → `rt-session-start.sh` — Restores RT context on session resume
+- `UserPromptSubmit` → `rt-sync.sh` — Checks inbox + RT messages before each prompt
+- `PostToolUse (Write|Edit)` → `rt-auto-push.sh` — Auto-pushes outbox/state temp files to GitHub
+- `Stop` → `rt-stop.sh` — Polls for messages before allowing Claude to stop
+
+**When the hook announces RT messages**, process them based on type:
+- `combat.*` — If host: resolve the action, update state. If guest: narrate the result.
+- `trade.*` — Present offer to player, await response
+- `party.*` / `guild.*` — Update membership state
+- `emote` / `ooc` — Narrate to player
+- `duel.*` — Same as combat authority model
+
+**When starting an RT session** (player says "start RT session with @player"):
+```bash
+node scripts/rt-session.js create-session "<character-name>" "<guest-github>"
+node scripts/rt-session.js send-invite "<session-id>" "<guest-github>" "<host-github>" "<host-character>"
+```
+
+**When joining an RT session** (player says "join session" after seeing invite):
+```bash
+node scripts/rt-session.js join-session "<session-id>" "<character-name>"
+```
+
+**When writing RT actions** (during gameplay in RT mode):
+1. Read current outbox: `cat /tmp/agent-quest-rt-outbox-<sid>.yaml`
+2. Append new message with incremented `seq` and appropriate `type`
+3. Write back to the same temp file (hook auto-pushes to GitHub)
+
+**When ending an RT session** (host says "end RT session"):
+1. `node scripts/rt-session.js end-session`
+2. Read `state.yaml` from `rt/<sid>/state` for `pending_deltas`
+3. Apply deltas to each player's persona files on local working tree
+4. Commit and create PR via `repo-sync` agent
 
 ### Campaign Loading (If Active Campaign)
 
@@ -259,6 +300,7 @@ Check `user_generation` setting first:
 | **GUILD**          | Guild management                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
 | **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
 | **WHO**            | See players at location                      | Per-player presence in persona dirs + `worlds/<world>/state/presence/_meta.yaml`             | `multiplayer-handler`                               |
+| **RT**             | Start/join/end realtime session              | [quick-ref/multiplayer.md](quick-ref/multiplayer.md), `scripts/rt-session.js`               | `multiplayer-handler`, `repo-sync` (on end)         |
 | **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |

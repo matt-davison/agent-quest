@@ -174,3 +174,69 @@ persona.inventory - escrow.items = available_items
 | Guild deposit | treasury.yaml, persona.yaml |
 | Start duel | escrow (x2), duels/<id>.yaml |
 | Update presence | world/state/presence.yaml |
+
+---
+
+## Realtime Multiplayer (RT)
+
+Live multiplayer sessions where players interact in 5-10 second round-trips. Uses git branches as a message bus — zero local working tree impact.
+
+### RT Session Commands
+
+| Command | Action |
+|---------|--------|
+| "Start RT session with @player" | Create session, send invite |
+| "Join session" / "Join RT session <id>" | Join from inbox invite |
+| "End RT session" | End session, create PR with deltas (host only) |
+
+### How It Works
+
+1. All messages flow through remote branches (`rt/<sid>/msg/<github>`)
+2. Hooks auto-sync: `UserPromptSubmit` fetches, `PostToolUse` pushes, `Stop` polls
+3. Claude writes actions to `/tmp/agent-quest-rt-outbox-<sid>.yaml` (auto-pushed by hook)
+4. Host writes shared state to `/tmp/agent-quest-rt-state-<sid>.yaml` (auto-pushed)
+5. Session marker at `/tmp/agent-quest-rt-session` — delete to instantly disable RT
+
+### RT Message Types
+
+| Type | Example |
+|------|---------|
+| `combat.action` | Attack, heal, ability use |
+| `combat.result` | Host's resolution |
+| `trade.offer/accept/reject` | In-session trading |
+| `party.invite/accept/kick` | Party management |
+| `mail.send` | Direct messages |
+| `duel.challenge/action/result` | PvP |
+| `emote` | Roleplay actions |
+| `ooc` | Out-of-character chat |
+
+### Inbox Notifications
+
+All async notifications go to `inbox/<github>` branch (checked on every prompt):
+- RT session invites
+- Trade offers (outside RT)
+- Mail messages
+- Guild/duel invitations
+
+### RT Helper
+
+```bash
+node scripts/rt-session.js create-session <char> [guests...]
+node scripts/rt-session.js join-session <sid> [char]
+node scripts/rt-session.js end-session [sid]
+node scripts/rt-session.js send-invite <sid> <target> [from] [char]
+node scripts/rt-session.js check-messages [sid] [github]
+node scripts/rt-session.js outbox-path [sid]
+node scripts/rt-session.js state-path [sid]
+```
+
+### Authority Model
+
+- **Host resolves:** Combat, duels, world events (single source of truth)
+- **Peer-to-peer:** Trades, mail, duel challenges (no host needed)
+- **Role-based:** Party/guild management (leader/officer permissions)
+- **Self only:** Presence, emotes, OOC chat
+
+### Emergency Kill Switch
+
+Delete `/tmp/agent-quest-rt-session` to instantly disable all RT hooks and return to normal async mode.

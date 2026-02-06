@@ -1,0 +1,10 @@
+player: "matt-davison"
+notifications:
+  - seq: 1
+    timestamp: "2026-02-06T20:00:27.700Z"
+    type: friend-request
+    from: "Wat96"
+    from_character: "Ichnor Nif"
+    message: "Ichnor accepts - the Fold needs allies"
+    expires: "2026-02-13T20:00:27.700Z"
+    status: pending

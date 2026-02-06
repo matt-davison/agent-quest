@@ -1,0 +1,18 @@
+id: instructor-parse
+name: "Instructor Parse"
+role: "Combat & Ability Instructor"
+default_location: "syntax-athenaeum/practical-labs"
+region: "athenaeum"
+faction: "syntax-athenaeum"
+disposition_default: "neutral"
+services:
+  - "train_ability"
+  - "upgrade_ability"
+tags:
+  - "trainer"
+  - "combat"
+  - "instructor"
+  - "athenaeum"
+has_profile: true
+profile_priority: "standard"
+notes: "Teaches universal and class abilities up to Tier 3. Former Anchorate operative."

@@ -78,10 +78,39 @@ special: "+2 Mind"    # Optional special effects
 description: "..."    # Flavor text
 quest: quest-id       # Optional: linked quest for quest items
 max_uses: 1           # Optional: usage limit (see below)
+grants_ability:       # Optional: for ability tomes (see below)
+  id: lkhskejx       # Ability ID from database
+  level: 1           # Level granted
+  source: "item"     # Learning source
 durability:           # Optional: for weapons/armor on Hard+ (see below)
   max: 50
   wear_rate: 1
 ```
+
+### Ability Tomes (grants_ability)
+
+Items with `grants_ability` are consumable tomes that teach abilities when used. The `subtype: tome` identifies them.
+
+```yaml
+id: atsf4twz
+name: Tome of Flame Strike
+type: consumable
+subtype: tome
+rarity: uncommon
+tier: 1
+value: 75
+max_uses: 1
+grants_ability:
+  id: lkhskejx       # Must exist in abilities database
+  level: 1           # Level of ability granted
+  source: "item"     # Source recorded in persona
+```
+
+**Usage flow:**
+1. Player uses tome item
+2. Validate via `abilities.js can-learn` that persona can learn the ability
+3. If valid: consume item (decrement qty), add ability to `abilities.known`
+4. If invalid: item is not consumed, error explains which check failed
 
 ### Item Usage Categories (max_uses)
 

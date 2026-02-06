@@ -1,0 +1,24 @@
+# Tome of Iron Skin
+id: in70vnne
+name: Tome of Iron Skin
+type: consumable
+subtype: tome
+rarity: uncommon
+tier: 1
+value: 60
+sellable: true
+max_uses: 1
+tags:
+  - magic
+  - ability_tome
+  - consumable
+  - defensive
+grants_ability:
+  id: po5wumfb
+  level: 1
+  source: "item"
+description: |
+  A heavy tome bound in grey iron plates. The text within describes
+  a defensive Weave pattern that hardens the body against harm. Reading
+  the final page triggers the absorption—the iron binding crumbles as
+  the knowledge takes root in muscle memory and instinct.

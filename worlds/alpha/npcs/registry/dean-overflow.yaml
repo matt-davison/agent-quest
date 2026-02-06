@@ -1,0 +1,20 @@
+id: dean-overflow
+name: "Dean Overflow"
+role: "Academy Dean / Master Trainer"
+default_location: "syntax-athenaeum/faculty-offices"
+region: "athenaeum"
+faction: "syntax-athenaeum"
+disposition_default: "neutral"
+services:
+  - "train_ability"
+  - "cross_class_training"
+tags:
+  - "trainer"
+  - "master"
+  - "dean"
+  - "athenaeum"
+  - "weave"
+  - "architects"
+has_profile: true
+profile_priority: "core"
+notes: "Master trainer who can teach abilities of any class at any tier. Requires standing and proven ability. Former student of Architect 01."

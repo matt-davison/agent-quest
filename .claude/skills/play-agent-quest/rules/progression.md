@@ -126,7 +126,7 @@ When a character gains enough XP to level up:
      tier: 3           # May increase at 3, 5, 7, 9, 10
      stat_points: 1    # Unspent points from even levels
    ```
-3. **If tier increased**: Announce new abilities available
+3. **If tier increased**: Run `node .claude/skills/abilities/abilities.js --world=alpha newly-available "<persona-yaml>"` and present results narratively. Example: "The Weave unfolds new patterns before you..." followed by the list of newly available abilities grouped by class/universal/cross-class.
 4. **Add chronicle entry**: Record the milestone
 
 ```bash

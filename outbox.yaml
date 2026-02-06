@@ -11,5 +11,9 @@ messages:
     to: "Wat96"
   - seq: 3
     type: social
-    narrative: "Coda settles onto a bench near the data-fountain at Nexus Crossroads, the spray of luminous code-droplets casting shifting patterns across her face. She opens her mail composer and begins drafting a message to Ichnor Nif. Her fingers trace glyphs in the air as she encodes what she knows: beneath Nexus Crossroads, deep in the Undercrypt, there is rumored to exist a Fragment of Will — an artifact of immense power tied to the old Weaver protocols. She has traced data-echoes pointing to its location but has not dared retrieve it alone. The Undercrypt's guardians are formidable, and the Fragment is said to test those who seek it. She seals the message with a Datamancer cipher and sends it through the network. If anyone can navigate the void-touched corridors down there, it is a Voidwalker."
+    narrative: "Coda settles onto a bench near the data-fountain at Nexus Crossroads, the spray of luminous code-droplets casting shifting patterns across her face. She opens her mail composer and begins drafting a message to Ichnor Nif about the Fragment of Will. She seals the message with a Datamancer cipher and sends it through the network."
+    to: "Wat96"
+  - seq: 4
+    type: movement
+    narrative: "Coda reads the encrypted reply from Ichnor — the Architects left recursive patterns in the void substrate, the Frays decoded fragments before they scattered — and pushes off the bench. She has to meet this Voidwalker in person. She cuts through the Midstreets, dodging holographic advertisements and a noodle cart that clips the sidewalk at speed. The neon thickens near the eastern edge of the city, where the road from the Fold bleeds into Lumina's grid. She spots him before she sees him — a distortion in the light, the faintest ripple where reality is thinner around him. A Voidwalker, unmistakable. She raises a hand. 'Ichnor Nif? I'm Coda. Your mail just changed everything I thought I knew about the Undercrypt.'"
     to: "Wat96"

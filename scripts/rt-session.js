@@ -424,13 +424,30 @@ switch (command) {
 
     const sid = generateSessionId();
     const character = process.argv[3] || "Unknown";
-    const guests = process.argv.slice(4); // remaining args are guest github usernames
+
+    // Parse flags from remaining args
+    const rawArgs = process.argv.slice(4);
+    let turnMode = "simultaneous";
+    const guests = [];
+    for (let i = 0; i < rawArgs.length; i++) {
+      if (rawArgs[i] === "--turn-mode" && rawArgs[i + 1]) {
+        turnMode = rawArgs[i + 1];
+        i++; // skip value
+      } else {
+        guests.push(rawArgs[i]);
+      }
+    }
+
+    if (!["simultaneous", "initiative"].includes(turnMode)) {
+      console.error(`Invalid turn mode: ${turnMode}. Use "simultaneous" or "initiative".`);
+      process.exit(1);
+    }
 
     // Create session.yaml content
     const now = new Date().toISOString();
     let guestYaml = "";
     for (const g of guests) {
-      guestYaml += `  - github: "${g}"\n    character: ""\n    status: invited\n`;
+      guestYaml += `  - github: "${g}"\n    character: ""\n    status: invited\n    role: player\n`;
     }
 
     const sessionYaml = `session_id: "${sid}"
@@ -444,7 +461,7 @@ ${guestYaml || "  []"}
 settings:
   max_idle_polls: 5
   poll_interval_sec: 3
-  turn_mode: simultaneous
+  turn_mode: ${turnMode}
 last_activity: "${now}"
 `;
 
@@ -506,48 +523,92 @@ messages: []
   case "join-session": {
     const sid = process.argv[3];
     const github = getGitHubUser();
-    const character = process.argv[4] || "Unknown";
+
+    // Parse character and --spectator flag from remaining args
+    const joinArgs = process.argv.slice(4);
+    let character = "Unknown";
+    let isSpectator = false;
+    for (let i = 0; i < joinArgs.length; i++) {
+      if (joinArgs[i] === "--spectator") {
+        isSpectator = true;
+      } else if (!character || character === "Unknown") {
+        character = joinArgs[i];
+      }
+    }
+
+    const role = isSpectator ? "spectator" : "player";
 
     if (!sid || !github) {
-      console.error("Usage: rt-session.js join-session <session-id> [character-name]");
+      console.error("Usage: rt-session.js join-session <session-id> [character-name] [--spectator]");
       process.exit(1);
     }
 
-    // Create player's msg branch
-    const msgBranch = `rt/${sid}/msg/${github}`;
-    ensureBranchExists(msgBranch);
+    // Only create msg branch for players (spectators get no outbox)
+    if (!isSpectator) {
+      const msgBranch = `rt/${sid}/msg/${github}`;
+      ensureBranchExists(msgBranch);
 
-    const outboxYaml = `player: "${github}"
+      const outboxYaml = `player: "${github}"
 character: "${character}"
 messages: []
 `;
-    pushFileToRemote(
-      msgBranch,
-      "outbox.yaml",
-      outboxYaml,
-      `RT: init outbox for ${github}`
-    );
+      pushFileToRemote(
+        msgBranch,
+        "outbox.yaml",
+        outboxYaml,
+        `RT: init outbox for ${github}`
+      );
+    }
 
     // Update session.yaml to mark self as joined
     const sessionBranch = `rt/${sid}/session`;
     const sessionContent = getRemoteFileContent(sessionBranch, "session.yaml");
     if (sessionContent) {
-      // Update guest status from invited to joined, and set character
-      const updated = sessionContent
-        .replace(
-          new RegExp(
-            `(- github: "${github}"\\n\\s+character: )"[^"]*"(\\n\\s+status: )\\w+`,
-            "m"
-          ),
-          `$1"${character}"$2joined`
-        )
-        .replace(/last_activity:.*/, `last_activity: "${new Date().toISOString()}"`);
+      // Check if guest was pre-invited (exists in session.yaml)
+      const guestExists = sessionContent.includes(`github: "${github}"`);
+
+      let updated;
+      if (guestExists) {
+        // Update existing guest entry: status to joined, set character and role
+        updated = sessionContent
+          .replace(
+            new RegExp(
+              `(- github: "${github}"\\n\\s+character: )"[^"]*"(\\n\\s+status: )\\w+(\\n\\s+role: )\\w+`,
+              "m"
+            ),
+            `$1"${character}"$2joined$3${role}`
+          )
+          .replace(/last_activity:.*/, `last_activity: "${new Date().toISOString()}"`);
+
+        // Fallback: if no role field existed in the original (backward compat)
+        if (updated === sessionContent.replace(/last_activity:.*/, `last_activity: "${new Date().toISOString()}"`)) {
+          updated = sessionContent
+            .replace(
+              new RegExp(
+                `(- github: "${github}"\\n\\s+character: )"[^"]*"(\\n\\s+status: )\\w+`,
+                "m"
+              ),
+              `$1"${character}"$2joined\n    role: ${role}`
+            )
+            .replace(/last_activity:.*/, `last_activity: "${new Date().toISOString()}"`);
+        }
+      } else {
+        // Append new guest entry (not pre-invited)
+        const newGuest = `  - github: "${github}"\n    character: "${character}"\n    status: joined\n    role: ${role}\n`;
+        // Insert before settings: line
+        updated = sessionContent
+          .replace(
+            /^(settings:)/m,
+            `${newGuest}$1`
+          )
+          .replace(/last_activity:.*/, `last_activity: "${new Date().toISOString()}"`);
+      }
 
       pushFileToRemote(
         sessionBranch,
         "session.yaml",
         updated,
-        `RT: ${github} joined session`
+        `RT: ${github} joined session${isSpectator ? " as spectator" : ""}`
       );
     }
 
@@ -559,6 +620,7 @@ messages: []
         session_id: sid,
         player: github,
         character: character,
+        role: role,
         status: "joined",
       })
     );
@@ -821,6 +883,65 @@ messages: []
     break;
   }
 
+  case "check-turn": {
+    const sid = process.argv[3] || getActiveSession();
+    const github = process.argv[4] || getGitHubUser();
+
+    if (!sid || !github) {
+      console.error("Usage: rt-session.js check-turn [session-id] [github]");
+      process.exit(1);
+    }
+
+    // Fetch state branch
+    exec(
+      `git fetch origin "refs/heads/rt/${sid}/state" 2>/dev/null || true`
+    );
+    const stateYaml = exec(
+      `git show "origin/rt/${sid}/state:state.yaml" 2>/dev/null`
+    );
+
+    if (!stateYaml) {
+      // No state = free play
+      console.log(JSON.stringify({ is_my_turn: true, reason: "no_state" }));
+      break;
+    }
+
+    // Check for active encounter
+    const encounterStatus = getYamlField(stateYaml, "  status");
+    if (encounterStatus !== "active") {
+      // No active encounter = free play
+      console.log(JSON.stringify({ is_my_turn: true, reason: "no_encounter" }));
+      break;
+    }
+
+    // Parse turn_order array
+    const turnOrderMatch = stateYaml.match(/turn_order:\s*\[([^\]]*)\]/);
+    if (!turnOrderMatch) {
+      console.log(JSON.stringify({ is_my_turn: true, reason: "no_turn_order" }));
+      break;
+    }
+
+    const turnOrder = turnOrderMatch[1]
+      .split(",")
+      .map((s) => s.trim().replace(/^["']|["']$/g, ""))
+      .filter((s) => s);
+
+    // Parse current_turn index
+    const currentTurnStr = getYamlField(stateYaml, "  current_turn");
+    const currentTurn = currentTurnStr !== null ? parseInt(currentTurnStr, 10) : 0;
+    const currentPlayer = turnOrder[currentTurn] || turnOrder[0] || "";
+
+    console.log(
+      JSON.stringify({
+        is_my_turn: currentPlayer === github,
+        current_player: currentPlayer,
+        turn_index: currentTurn,
+        turn_order: turnOrder,
+      })
+    );
+    break;
+  }
+
   default:
     console.log(`Usage: node scripts/rt-session.js <command> [args]
 
@@ -843,6 +964,7 @@ Commands:
   session-info [sid]               Display session metadata
   outbox-path [sid]                Print temp outbox file path
   state-path [sid]                 Print temp state file path
+  check-turn [sid] [github]        Check if it's player's turn (initiative mode)
   cleanup-branches <sid>           Delete RT branches from remote`);
     break;
 }

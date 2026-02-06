@@ -186,7 +186,9 @@ Live multiplayer sessions where players interact in 5-10 second round-trips. Use
 | Command | Action |
 |---------|--------|
 | "Start RT session with @player" | Create session, send invite |
+| "Start RT session with @player (initiative)" | Create session with initiative turn mode |
 | "Join session" / "Join RT session <id>" | Join from inbox invite |
+| "Join session as spectator" | Join as read-only observer |
 | "End RT session" | End session, create PR with deltas (host only) |
 
 ### How It Works
@@ -228,7 +230,20 @@ node scripts/rt-session.js send-invite <sid> <target> [from] [char]
 node scripts/rt-session.js check-messages [sid] [github]
 node scripts/rt-session.js outbox-path [sid]
 node scripts/rt-session.js state-path [sid]
+node scripts/rt-session.js check-turn [sid] [github]
 ```
+
+### Turn Modes
+
+- **simultaneous** (default): All players act freely, no turn enforcement
+- **initiative**: During encounters, players act in order defined in `state.yaml` `encounter.turn_order`. Stop hook blocks when not your turn.
+- Create with: `node scripts/rt-session.js create-session "Char" --turn-mode initiative "Guest"`
+
+### Spectator Mode
+
+- Join as spectator: `node scripts/rt-session.js join-session <sid> "Name" --spectator`
+- No outbox (read-only), Stop hook never blocks, excluded from turn order
+- `role: spectator` in session.yaml (default `role: player`)
 
 ### Authority Model
 

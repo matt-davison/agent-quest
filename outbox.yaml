@@ -6,3 +6,8 @@ messages:
     narrative: "Ichnor Nif presses a palm against the shimmering membrane of the Fold, feeling it ripple like troubled water. The void whispers warnings — but something pulls harder. A signal, faint and persistent, threading through the static from Lumina City. Someone is looking for him. He pushes through the seam and steps out into blinding color, the monochrome silence of the Fold giving way to the hum and glow of the material world. The road to Lumina City stretches ahead, bright and strange after so long between dimensions."
     from_location: "The Fold"
     to_location: "Lumina City"
+  - seq: 2
+    type: social
+    narrative: "Ichnor Nif feels a tremor in the void-space — a ping, small but deliberate, cutting through the dimensional noise like a needle through silk. He pulls the signal apart with practiced fingers and reads the glyph: a friend request, from someone called Coda. A Datamancer. Ichnor has spent long enough alone in the spaces between worlds to know that allies are not a luxury — they are a survival mechanism. He closes his fist around the glyph and pushes his acceptance back through the network, watching it arc into the data-streams of Lumina City like a dark star. He mutters to no one: The Fold needs allies. And maybe so do I."
+    to: "matt-davison"
+    action: "friend-request-accepted"

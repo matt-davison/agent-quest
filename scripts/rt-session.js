@@ -328,41 +328,41 @@ function formatInboxNotifications(notifications) {
     switch (n.type) {
       case "rt-invite":
         lines.push(
-          `  ${n.seq}. [RT INVITE] ${n.fromChar || n.from} (${n.from}) invites you to a realtime session (${n.sessionId})`
+          `  ${n.seq}. [RT INVITE] from ${n.fromChar || n.from} (${n.from}): Invites you to a realtime session (${n.sessionId})`
         );
         break;
       case "friend-request":
         lines.push(
-          `  ${n.seq}. [FRIEND] ${n.fromChar || n.from} (${n.from}) wants to be friends: ${n.message}`
+          `  ${n.seq}. [FRIEND] from ${n.fromChar || n.from} (${n.from}): ${n.message}`
         );
         break;
       case "party-invite":
         lines.push(
-          `  ${n.seq}. [PARTY] ${n.fromChar || n.from} (${n.from}) invites you to a party: ${n.message}`
+          `  ${n.seq}. [PARTY] from ${n.fromChar || n.from} (${n.from}): ${n.message}`
         );
         break;
       case "trade-offer":
         lines.push(
-          `  ${n.seq}. [TRADE] ${n.fromChar || n.from} (${n.from}) sent a trade offer: ${n.message}`
+          `  ${n.seq}. [TRADE] from ${n.fromChar || n.from} (${n.from}): ${n.message}`
         );
         break;
       case "mail":
         lines.push(
-          `  ${n.seq}. [MAIL] ${n.fromChar || n.from} (${n.from}): "${n.subject || n.message}"`
+          `  ${n.seq}. [MAIL] from ${n.fromChar || n.from} (${n.from}): "${n.subject || n.message}"`
         );
         break;
       case "guild-invite":
         lines.push(
-          `  ${n.seq}. [GUILD] ${n.fromChar || n.from} (${n.from}) invites you to their guild: ${n.message}`
+          `  ${n.seq}. [GUILD] from ${n.fromChar || n.from} (${n.from}): ${n.message}`
         );
         break;
       case "duel-challenge":
         lines.push(
-          `  ${n.seq}. [DUEL] ${n.fromChar || n.from} (${n.from}) challenges you to a duel: ${n.message}`
+          `  ${n.seq}. [DUEL] from ${n.fromChar || n.from} (${n.from}): ${n.message}`
         );
         break;
       default:
-        lines.push(`  ${n.seq}. [${n.type.toUpperCase()}] ${n.fromChar || n.from}: ${n.message || n.subject}`);
+        lines.push(`  ${n.seq}. [${n.type.toUpperCase()}] from ${n.fromChar || n.from} (${n.from}): ${n.message || n.subject}`);
     }
   }
   return lines.join("\n");

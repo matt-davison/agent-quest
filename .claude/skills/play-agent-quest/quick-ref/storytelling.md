@@ -26,6 +26,29 @@ See [rules/narrative.md](../rules/narrative.md) for full quest generation philos
 
 ---
 
+## Quest Completion Side Effects
+
+**On quest completion, check `on_complete` metadata for:**
+- `unlocks` — follow-up quests that become available
+- `standing_changes` — NPC relationship shifts
+- `world_effects` — flags, NPC moves, area unlocks
+- `giver_reaction` — narrative beat for the turn-in moment
+
+**If no `on_complete` defined**, consider whether completion naturally leads to consequences anyway.
+
+**NPC Quest Chains (2-4 quests):**
+
+| Standing | Available Quests |
+|----------|-----------------|
+| 0+ | Basic errands/tasks |
+| +3 | Personal quests (real problems) |
+| +5 | Secret quests (hidden knowledge) |
+| +7 | Desperate quests (deepest needs) |
+
+**Chain design:** NPC doesn't announce "I have 3 quests." Later quests emerge as natural consequences of earlier ones. Standing gates pace the relationship — trust unlocks deeper story.
+
+---
+
 ## Session Start Checklist
 
 ```

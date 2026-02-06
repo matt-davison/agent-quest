@@ -275,6 +275,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | State change (HP, gold, location, inventory) | Update `persona.yaml`                                              |
 | Significant story beat                       | Add enhanced chronicle entry with `detail` paragraph               |
 | Quest progress                               | Update objective status in `quests.yaml`                           |
+| Quest completed                              | Process `on_complete` side effects, log unlocked quests            |
 | Character-specific world change              | Update character's `world-state.yaml` (see below)                  |
 
 **Generate IDs:** `node .claude/skills/math/math.js id 8`
@@ -401,6 +402,59 @@ The world should feel rich and varied, not like every NPC and location ties back
 Create quest **webs**, not quest **chains**.
 
 See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick reference.
+
+### Quest Completion Side Effects
+
+When a quest is completed, check its `on_complete` metadata (in the quest file) for side effects. Not every quest needs side effects, but they make the world feel alive and give NPCs depth.
+
+**Processing order on quest completion:**
+
+1. **Award rewards** (gold, XP, items) — standard
+2. **Apply standing changes** — update NPC relationships
+3. **Apply world effects** — set flags, move NPCs, unlock areas
+4. **Check quest unlocks** — make follow-up quests available
+5. **Narrate giver reaction** — the NPC's response should hint at what's next
+6. **Log to quest_log** — record completion and any quests unlocked
+
+**Quest chains through NPCs:**
+
+NPCs can offer sequences of quests that develop their story. This is how NPCs become memorable — not through one interaction but through an evolving relationship.
+
+| Chain Length | Use For | Example |
+| ----------- | ------- | ------- |
+| **2 quests** | Simple favor → deeper trust | "Help me fix this" → "Now that I trust you, here's what's really going on" |
+| **3 quests** | Story arc with escalation | Investigation → confrontation → resolution |
+| **4+ quests** | Major NPC storyline | Use sparingly; reserved for important NPCs |
+
+**How to make chains feel organic, not linear:**
+
+- The NPC doesn't announce "I have 3 quests for you." They react to what just happened
+- Later quests should feel like natural consequences, not a checklist
+- Standing gates can pace the chain — NPC won't reveal the real problem until they trust you
+- Chains can branch — Quest 2 might lead to Quest 3a OR 3b depending on how you handled it
+- Other events can interrupt or alter the chain mid-flow
+
+**When a quest has no pre-defined `on_complete`:**
+
+If a quest file doesn't specify side effects, the AI should still consider whether completion would naturally lead to consequences:
+
+- Did the quest change the NPC's situation? They might have new needs
+- Did it reveal information? Someone might react to that
+- Did it affect a faction or location? Ripple effects are natural
+- Was it for a well-developed NPC? They probably have more going on
+
+Generate follow-up quests organically when it serves the story. Persist them to `quests/available/` so they exist for other players too.
+
+**Standing gates for quest availability:**
+
+Some follow-up quests should require minimum NPC standing. This rewards players who invest in relationships:
+
+| Standing | Quest Availability |
+| -------- | ----------------- |
+| 0+ | Basic quests (errands, tasks) |
+| +3 | Personal quests (the NPC's real problems) |
+| +5 | Secret quests (things the NPC wouldn't tell just anyone) |
+| +7 | Desperate quests (the NPC's deepest fears/needs) |
 
 ### Quest-Triggered World Changes
 

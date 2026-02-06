@@ -12,8 +12,11 @@ active_quests: []
   # Example active quest entry:
   # - id: "quest-id"
   #   name: "Quest Name"
+  #   giver: "npc-id"               # Who gave this quest
   #   status: "in_progress"
   #   accepted_date: "YYYY-MM-DD"
+  #   chain: null                    # Optional: { id: "chain-name", position: 2 }
+  #   prerequisite: null             # Optional: quest ID that unlocked this one
   #   objectives:
   #     - description: "First objective"
   #       status: "complete"  # complete or incomplete
@@ -28,11 +31,14 @@ completed_quests: []
   # Example completed quest entry:
   # - id: "quest-id"
   #   name: "Quest Name"
+  #   giver: "npc-id"
   #   completed_date: "YYYY-MM-DD"
+  #   chain: null                    # Optional: { id: "chain-name", position: 1 }
   #   rewards_claimed:
   #     gold: 100
   #     xp: 100
   #     items: ["item-id"]
+  #   unlocked: []                   # Quest IDs that became available on completion
 
 # Quest History Log
 # A chronological record of quest-related events
@@ -40,7 +46,7 @@ quest_log: []
   # Example log entries:
   # - date: "YYYY-MM-DD"
   #   quest_id: "quest-id"
-  #   action: "accepted"  # accepted, objective_complete, completed, abandoned
+  #   action: "accepted"  # accepted, objective_complete, completed, abandoned, unlocked
   #   notes: "Description of what happened"
   #
   # - date: "YYYY-MM-DD"
@@ -48,3 +54,8 @@ quest_log: []
   #   action: "objective_complete"
   #   objective: "Objective description"
   #   notes: "How the objective was completed"
+  #
+  # - date: "YYYY-MM-DD"
+  #   quest_id: "next-quest-id"
+  #   action: "unlocked"
+  #   notes: "Available from Dr. Hale after completing 'Investigate the Underlevel'"

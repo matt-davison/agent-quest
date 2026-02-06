@@ -1,18 +1,12 @@
+session_id: "rt-20260206-195831-peyx"
 player: "Wat96"
 character: "Ichnor Nif"
 messages:
   - seq: 1
-    type: travel
-    narrative: "Ichnor Nif presses a palm against the shimmering membrane of the Fold, feeling it ripple like troubled water. The void whispers warnings — but something pulls harder. A signal, faint and persistent, threading through the static from Lumina City. Someone is looking for him. He pushes through the seam and steps out into blinding color, the monochrome silence of the Fold giving way to the hum and glow of the material world. The road to Lumina City stretches ahead, bright and strange after so long between dimensions."
-    from_location: "The Fold"
-    to_location: "Lumina City"
+    type: "emote"
+    timestamp: "2026-02-06T20:00:00Z"
+    content: "Ichnor Nif steps through the seam from the Fold, coat collar turned up, void-static crackling at his fingertips. He nods once at Coda. 'Void Seekers. Alright. I'm in.'"
   - seq: 2
-    type: social
-    narrative: "Ichnor Nif feels a tremor in the void-space — a ping, small but deliberate, cutting through the dimensional noise like a needle through silk. He pulls the signal apart with practiced fingers and reads the glyph: a friend request, from someone called Coda. A Datamancer. Ichnor has spent long enough alone in the spaces between worlds to know that allies are not a luxury — they are a survival mechanism. He closes his fist around the glyph and pushes his acceptance back through the network, watching it arc into the data-streams of Lumina City like a dark star. He mutters to no one: The Fold needs allies. And maybe so do I."
-    to: "matt-davison"
-    action: "friend-request-accepted"
-  - seq: 3
-    type: social
-    narrative: "Ichnor Nif arrives at the outskirts of Lumina City, the neon light-rivers of the Nexus Crossroads washing over him like a warm tide after the cold silence of the Fold. A second signal finds him — a party invitation. Void Seekers, the charter reads. He almost smiles. The Datamancer has a sense of poetry. He accepts the charter with a flick of void-energy, feeling the indigo bond settle into place between them. Then he composes something longer — a mail, encrypted in the old way, the way the Frays taught him before they went quiet. He writes to Coda about what he learned in the deep Fold: the Architects are not gone. They left patterns in the substrate, recursive instructions folded into the void itself, and the Frays decoded fragments before they scattered. The Undercrypt may hold more of those patterns. He seals the message with a void-glyph and sends it spiraling into the network. If Coda is half the Datamancer her reputation suggests, she will know what to do with this."
-    to: "matt-davison"
-    action: "party-accepted-and-mail-sent"
+    type: "ooc"
+    timestamp: "2026-02-06T20:01:00Z"
+    content: "Ichnor looks at Coda, arms crossed. 'So you dragged me into this party, Datamancer. You've got coordinates, intel, a whole plan mapped out in that compiled brain of yours. What's the play? Which quest are we chasing first?'"

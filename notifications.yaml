@@ -1,0 +1,11 @@
+player: "Wat96"
+notifications:
+  - seq: 1
+    timestamp: "2026-02-06T08:26:34.459Z"
+    type: rt-invite
+    from: "matt-davison"
+    from_character: "Coda"
+    session_id: "rt-20260206-082626-8l5y"
+    message: "Coda invites you to a realtime adventure session."
+    expires: "2026-02-06T09:26:34.460Z"
+    status: pending

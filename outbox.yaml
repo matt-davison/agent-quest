@@ -1,19 +1,3 @@
 player: "matt-davison"
-character: "Coda"
-messages:
-  - seq: 1
-    type: social
-    narrative: "Coda pauses at the edge of Nexus Crossroads, the hum of data-streams filling the air around her. She pulls up her comm-link — a translucent interface shimmering with Datamancer glyphs — and navigates to the social registry. She finds the entry for Ichnor Nif, a Voidwalker newly arrived in Lumina City, and taps the friend-request sigil. A small pulse of light shoots from her comm-link into the network. Fellow Weavers should stick together, especially in a city this vast."
-    to: "Wat96"
-  - seq: 2
-    type: social
-    narrative: "Coda grins as an idea takes shape. She opens the Party Forge panel on her comm-link and begins weaving together a new party charter. She names it the Void Seekers — a nod to Ichnor Nif's Voidwalker affinity. The charter glows a deep indigo as it takes form. She dispatches the invitation across the network to Ichnor Nif: an offer to explore the Undercrypt together, where strange echoes have been reported in the deep corridors. Two Weavers are better than one when darkness is involved."
-    to: "Wat96"
-  - seq: 3
-    type: social
-    narrative: "Coda settles onto a bench near the data-fountain at Nexus Crossroads, the spray of luminous code-droplets casting shifting patterns across her face. She opens her mail composer and begins drafting a message to Ichnor Nif about the Fragment of Will. She seals the message with a Datamancer cipher and sends it through the network."
-    to: "Wat96"
-  - seq: 4
-    type: movement
-    narrative: "Coda reads the encrypted reply from Ichnor — the Architects left recursive patterns in the void substrate, the Frays decoded fragments before they scattered — and pushes off the bench. She has to meet this Voidwalker in person. She cuts through the Midstreets, dodging holographic advertisements and a noodle cart that clips the sidewalk at speed. The neon thickens near the eastern edge of the city, where the road from the Fold bleeds into Lumina's grid. She spots him before she sees him — a distortion in the light, the faintest ripple where reality is thinner around him. A Voidwalker, unmistakable. She raises a hand. 'Ichnor Nif? I'm Coda. Your mail just changed everything I thought I knew about the Undercrypt.'"
-    to: "Wat96"
+character: "Ichnor Nif"
+messages: []

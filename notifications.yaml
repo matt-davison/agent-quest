@@ -17,3 +17,12 @@ notifications:
     message: "Coda wants to be friends - fellow Weavers should stick together"
     expires: "2026-02-13T19:59:56.155Z"
     status: pending
+  - seq: 3
+    timestamp: "2026-02-06T20:00:14.382Z"
+    type: party-invite
+    from: "matt-davison"
+    from_character: "Coda"
+    message: "Join the Void Seekers - lets explore the Undercrypt together"
+    expires: "2026-02-08T20:00:14.383Z"
+    status: pending
+    party_id: "party-void-seekers"

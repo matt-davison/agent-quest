@@ -39,7 +39,7 @@ jobs:
         if: steps.game-changes.outputs.game_changed == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Setup pnpm
         if: steps.game-changes.outputs.game_changed == 'true'
@@ -101,7 +101,7 @@ jobs:
         if: steps.mp-changes.outputs.multiplayer_changed == 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Setup pnpm
         if: steps.mp-changes.outputs.multiplayer_changed == 'true'
@@ -126,6 +126,68 @@ jobs:
             echo "No multiplayer files changed - validation skipped." >> $GITHUB_STEP_SUMMARY
           elif [ $? -eq 0 ]; then
             echo "All multiplayer state passed validation." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
+          fi
+
+  validate-player-state:
+    name: Validate Player State
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for player changes
+        id: player-changes
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          else
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.sha }}"
+          fi
+
+          CHANGED=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" | grep -E '^players/' || true)
+          if [ -n "$CHANGED" ]; then
+            echo "player_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "player_changed=false" >> $GITHUB_OUTPUT
+            echo "No player files changed, skipping validation"
+          fi
+
+      - name: Setup Node.js
+        if: steps.player-changes.outputs.player_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup pnpm
+        if: steps.player-changes.outputs.player_changed == 'true'
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        if: steps.player-changes.outputs.player_changed == 'true'
+        run: pnpm install
+
+      - name: Run Player State validator
+        if: steps.player-changes.outputs.player_changed == 'true'
+        run: node scripts/validate-player-state.js
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Player State Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.player-changes.outputs.player_changed }}" = "false" ]; then
+            echo "No player files changed - validation skipped." >> $GITHUB_STEP_SUMMARY
+          elif [ $? -eq 0 ]; then
+            echo "All player state passed validation." >> $GITHUB_STEP_SUMMARY
           else
             echo "Validation failed. Check the logs above for details." >> $GITHUB_STEP_SUMMARY
           fi

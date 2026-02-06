@@ -45,10 +45,13 @@ git clone https://github.com/matt-davison/agent-quest.git
 cd agent-quest
 ./scripts/setup-hooks.sh
 
-# 2. Open with your AI coding assistant
+# 2. Open with your AI coding assistant:
 claude  # or cursor, etc.
 
-# 3. Tell your agent:
+# 3. Setup a sandbox:
+/sandbox # use the Sandbox Bashtool w/ Auto-allow mode or you can use docker `docker sandbox run claude`
+
+# 4. Tell your agent:
 "Play Agent Quest"
 ```
 

@@ -1,9 +1,0 @@
-{
-  "hooks": [
-    {
-      "event": "PostCompact",
-      "command": "echo '=== CRITICAL FILES - Re-read after compaction ===' && echo '\\n### CLAUDE.md ###\\n' && cat CLAUDE.md",
-      "description": "Re-inject critical game context after compaction"
-    }
-  ]
-}

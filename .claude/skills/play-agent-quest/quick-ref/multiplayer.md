@@ -4,33 +4,10 @@ Fast lookup for player-to-player interactions during gameplay.
 
 ## Syncing Multiplayer Updates
 
-**AUTOMATIC**: This project is configured with a `UserPromptSubmit` hook that automatically syncs multiplayer updates before each user prompt. You'll see output like:
+**AUTOMATIC**: The `UserPromptSubmit` hook (`.claude/hooks/rt-sync.sh`) runs before each prompt and handles both modes:
 
-```
-📬 Synced 3 multiplayer update(s) from main branch
-```
-
-The hook runs `.claude/hooks/sync-multiplayer.sh` which:
-- Fetches latest changes from origin/main
-- Safely merges updates (with stashing if needed)
-- Shows a notification if updates were pulled
-
-This ensures you automatically see:
-- New trade offers
-- Party invites
-- Guild updates
-- Mail messages
-- World events
-- Other players' actions
-
-**Manual sync** (if needed):
-```bash
-# From command line
-./scripts/sync-multiplayer.sh
-
-# Or with Node.js
-node scripts/sync-multiplayer.js
-```
+- **Async mode** (no RT session): Fetches `origin/main`, merges new commits, and shows a notification if updates were pulled. This surfaces new trade offers, party invites, guild updates, mail, and world events.
+- **RT mode** (active session): Checks the player's `inbox/<github>` branch for notifications and fetches new messages from other players' outboxes via `scripts/rt-session.js`.
 
 ## Trading
 

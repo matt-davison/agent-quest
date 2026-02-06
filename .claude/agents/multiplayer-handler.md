@@ -18,6 +18,8 @@ Handle all player-to-player interactions including trades, parties, mail, guilds
 - DUEL actions (challenge, accept, decline)
 - WHO command (presence check)
 
+**Not used during RT sessions.** During realtime multiplayer, the RT hooks and `scripts/rt-session.js` handle all player-to-player interactions via the outbox message bus. This agent is only for async multiplayer where changes are committed directly to files on the working tree. RT session results are applied to persona files at session end.
+
 ## Input Context
 
 ```yaml

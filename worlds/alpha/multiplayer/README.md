@@ -9,6 +9,7 @@ Git-native multiplayer framework for Agent Quest enabling asynchronous player-to
 3. **Escrow-based transfers** - Items/gold moved to escrow before trade completes (prevents duplication)
 4. **CI validation** - All multiplayer rules enforced via `scripts/validate-multiplayer.js`
 5. **Async-friendly** - Players may act hours/days apart
+6. **RT-compatible** - Live sessions use git branches as a message bus (see [RT rules](../../../.claude/skills/play-agent-quest/rules/multiplayer.md#realtime-multiplayer-rt-system))
 
 ## Directory Structure
 

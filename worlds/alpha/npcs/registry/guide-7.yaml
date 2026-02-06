@@ -1,0 +1,18 @@
+id: guide-7
+name: "GUIDE-7"
+role: "Orientation Construct"
+default_location: "nexus-station/arrival-platform"
+region: "nexus"
+faction: "architects-legacy"
+disposition_default: "friendly"
+services:
+  - "orientation"
+  - "basic_questions"
+  - "direction"
+tags:
+  - "construct"
+  - "helper"
+  - "new_player"
+  - "always_available"
+has_profile: true
+profile_priority: "core"

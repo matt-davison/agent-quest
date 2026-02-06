@@ -1,0 +1,16 @@
+id: the-archivist
+default_location: "nexus-station/weave-terminal"
+stationary: true
+notes: "The Archivist's nature transcends normal schedules"
+patterns:
+  - times: ["dawn", "morning", "midday", "afternoon", "evening", "night"]
+    location: "nexus-station/weave-terminal"
+    activity: "Observing the Weave, cataloguing"
+    interruptible: true
+
+  - times: ["midnight"]
+    location: "nexus-station/weave-terminal"
+    activity: "Most lucid and talkative"
+    interruptible: true
+    special_flag: "cryptic_hints_enhanced"
+    notes: "Better chance of useful information"

@@ -20,7 +20,8 @@ The default world is `alpha`. See `worlds.yaml` for available worlds.
 ## Data Files
 
 - `worlds/<world>/players/<github>/personas/<character>/relationships.yaml` - Per-character relationship data
-- `worlds/<world>/npcs/index.yaml` - Disposition mapping and defaults
+- `worlds/<world>/npcs/registry/<npc-id>.yaml` - Individual NPC files
+- `worlds/<world>/npcs/_meta.yaml` - Shared config (factions, disposition_map)
 - `worlds/<world>/npcs/profiles/<npc-id>.yaml` - Full NPC profiles with dialogue
 
 ## CLI Commands

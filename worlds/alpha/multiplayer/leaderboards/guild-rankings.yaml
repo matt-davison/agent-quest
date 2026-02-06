@@ -1,0 +1,11 @@
+# Guild Rankings
+category: guild_rankings
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+rankings: []
+  # - guild_id: "nexus-guardians"
+  #   name: "Nexus Guardians"
+  #   level: 3
+  #   member_count: 8
+  #   treasury_value: 2500

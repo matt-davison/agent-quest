@@ -1,0 +1,42 @@
+id: "the-rustlands"
+name: "The Rustlands"
+
+coordinates:
+  x: 15
+  y: 0
+  z: 0
+
+embedding: null
+
+region: "The Wastes"
+type: "wilderness"
+danger_level: "high"
+is_safe_zone: false
+
+level_range:
+  min: 5
+  max: 9
+  sweet_spot: 7
+
+tags:
+  - "frontier"
+  - "dangerous"
+  - "scavenging"
+  - "technology"
+
+status: "unexplored"
+
+areas: []
+npcs: []
+connections:
+  - target: "nexus-station"
+    direction: "west-highway"
+    distance: 15
+    travel_time: "15 hours walking"
+    requirements: null
+    danger: "high"
+
+metadata:
+  created_date: "2026-02-02"
+  last_modified: "2026-02-06"
+  version: "1.0"

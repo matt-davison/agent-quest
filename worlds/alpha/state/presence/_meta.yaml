@@ -1,0 +1,21 @@
+# Player Presence System Configuration
+# Individual presence is tracked per-player in:
+#   players/<github>/personas/<character>/presence.yaml
+# This file contains shared configuration only.
+
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+# Configuration
+config:
+  # How long before marking player as "idle"
+  idle_threshold_minutes: 30
+
+  # How long before marking player as "away"
+  away_threshold_minutes: 120
+
+  # How long before removing inactive session entirely
+  session_timeout_minutes: 480   # 8 hours
+
+  # Whether to show player names by default
+  default_visible: true

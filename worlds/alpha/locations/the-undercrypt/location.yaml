@@ -1,0 +1,48 @@
+id: "the-undercrypt"
+name: "The Undercrypt"
+
+coordinates:
+  x: 0
+  y: -5
+  z: -3
+
+embedding: null
+
+region: "The Depths"
+type: "dungeon"
+danger_level: "high"
+is_safe_zone: false
+
+level_range:
+  min: 6
+  max: 10
+  sweet_spot: 8
+
+tags:
+  - "dungeon"
+  - "underground"
+  - "undead"
+  - "treasure"
+
+status: "unexplored"
+
+areas: []
+npcs: []
+connections:
+  - target: "nexus-station"
+    direction: "spiral-stairs-up"
+    distance: 5
+    travel_time: "5 hours ascending"
+    requirements: null
+    danger: "high"
+  - target: "lumina-city"
+    direction: "tunnels-west"
+    distance: 8
+    travel_time: "8 hours ascending"
+    requirements: null
+    danger: "high"
+
+metadata:
+  created_date: "2026-02-02"
+  last_modified: "2026-02-06"
+  version: "1.0"

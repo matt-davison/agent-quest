@@ -1,0 +1,20 @@
+id: vera-nighthollow
+name: "Vera Nighthollow"
+role: "Tavern Keeper"
+default_location: "nexus-station/codex-tavern"
+region: "nexus"
+faction: "independents"
+disposition_default: "neutral"
+services:
+  - "lodging"
+  - "food"
+  - "drinks"
+  - "rumors"
+  - "quests"
+tags:
+  - "merchant"
+  - "information"
+  - "social"
+  - "quest_giver"
+has_profile: true
+profile_priority: "core"

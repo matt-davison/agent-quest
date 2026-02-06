@@ -1,0 +1,17 @@
+# PvP Duel Rankings (Elo-based)
+category: duel_rankings
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+season: 1
+season_start: "2026-02-01"
+season_end: "2026-04-30"
+rankings: []
+  # Example entry:
+  # - github: "alice"
+  #   character: "coda"
+  #   rating: 1250
+  #   wins: 15
+  #   losses: 8
+  #   streak: 3
+  #   peak_rating: 1280

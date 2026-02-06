@@ -1,0 +1,11 @@
+# Quest Completion Leaderboard
+category: quest_leaders
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+total_quests_completed: 0
+rankings: []
+  # - github: "alice"
+  #   character: "coda"
+  #   quests_completed: 12
+  #   legendary_completions: 2

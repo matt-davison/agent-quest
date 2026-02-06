@@ -1,0 +1,10 @@
+# World Event Contributions
+category: event_contributions
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+
+current_event: null
+rankings: []
+  # - github: "alice"
+  #   character: "coda"
+  #   contribution_points: 150

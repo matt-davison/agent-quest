@@ -20,15 +20,23 @@ The default world is `alpha`. See `worlds.yaml` for available worlds.
 ## Data Files
 
 **Global State:**
-- `worlds/<world>/state/current.yaml` - Current time, weather, active events, travelers
-- `worlds/<world>/state/events.yaml` - Event log for NPC awareness
+- `worlds/<world>/state/current.yaml` - Current time, weather, active events
+- `worlds/<world>/state/events/<event-id>.yaml` - Individual event files for NPC awareness
+- `worlds/<world>/state/events/_meta.yaml` - Event type templates
 - `worlds/<world>/state/calendar.yaml` - Calendar definitions (months, holidays)
-- `worlds/<world>/state/encounters.yaml` - Random encounter tables by route
-- `worlds/<world>/npcs/schedules/index.yaml` - NPC location patterns
-- `worlds/<world>/locations/graph.yaml` - Location connections and distances
+- `worlds/<world>/state/encounters/<route-id>.yaml` - Individual route encounter tables
+- `worlds/<world>/state/encounters/_meta.yaml` - Generic encounters and modifiers
+- `worlds/<world>/state/presence/_meta.yaml` - Presence tracking config
+- `worlds/<world>/npcs/schedules/<npc-id>.yaml` - Individual NPC location patterns
+- `worlds/<world>/npcs/schedules/_meta.yaml` - Shared schedule config (time_period_hours, event_overrides)
+- `worlds/<world>/npcs/registry/<npc-id>.yaml` - Individual NPC definitions
+- `worlds/<world>/npcs/_meta.yaml` - Shared NPC config (factions, disposition_map)
+- `worlds/<world>/locations/<location-id>/location.yaml` - Location data including connections
+- `worlds/<world>/locations/_meta.yaml` - Coordinate system config and travel speeds
 
 **Per-Character State:**
 - `worlds/<world>/players/<github>/personas/<character>/world-state.yaml` - Character-specific overrides
+- `worlds/<world>/players/<github>/personas/<character>/presence.yaml` - Character presence/location tracking
 
 ## CLI Commands
 
@@ -224,8 +232,8 @@ Weather can impose gameplay modifiers:
 NPCs follow schedules unless overridden by world events:
 
 1. Check `worlds/<world>/state/current.yaml` for `npc_location_overrides`
-2. Check `worlds/<world>/npcs/schedules/index.yaml` for time-based patterns
-3. Fall back to default location from `worlds/<world>/npcs/index.yaml`
+2. Check `worlds/<world>/npcs/schedules/<npc-id>.yaml` for time-based patterns (shared config in `npcs/schedules/_meta.yaml`)
+3. Fall back to default location from `worlds/<world>/npcs/registry/<npc-id>.yaml`
 
 ### Interruptibility
 

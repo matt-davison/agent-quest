@@ -1,0 +1,21 @@
+id: nev-the-fray
+name: "Nev"
+role: "Fold Inhabitant"
+entity_type: "fray"
+default_location: "the-fold"
+region: "between"
+faction: "void-native"
+disposition_default: "curious"
+services: []
+tags:
+  - "void-entity"
+  - "fray"
+  - "non-verbal"
+  - "alien"
+  - "lonely"
+  - "fold-network"
+has_profile: true
+profile_priority: "player-created"
+notes: "First documented Fray. Void-entity native to uncompiled space. Communicates through projected impressions. Discovered by Ichnor Nif."
+created_by: "matt-davison"
+created_character: "ichnor-nif"

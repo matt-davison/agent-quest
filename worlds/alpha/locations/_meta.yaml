@@ -1,0 +1,59 @@
+# Location System Configuration
+# Individual location data lives in <location-id>/location.yaml
+# Location descriptions in <location-id>/README.md
+# Area details in <location-id>/areas/<area-id>.yaml
+
+version: "1.0"
+
+# Coordinate system configuration
+coordinate_system:
+  type: "cartesian_2d"
+  unit: "leagues"
+  unit_description: "1 league ~ 3 miles, roughly 1 hour of travel on foot"
+  origin: "nexus-station"
+
+# Travel speed reference (leagues per hour)
+travel_speeds:
+  walking: 1
+  running: 2
+  mounted: 3
+  flying: 5
+  portal: "instant"
+
+# Distance calculation methods
+distance_methods:
+  euclidean: "sqrt((x2-x1)^2 + (y2-y1)^2)"
+  manhattan: "|x2-x1| + |y2-y1|"
+  travel: "actual travel distance considering paths and obstacles"
+
+# Similarity search configuration
+# Used for finding locations by description or context
+embeddings:
+  enabled: false
+  model: "text-embedding-3-small"
+  dimensions: 256
+
+# Unexplored connections (hints for future content)
+unexplored_connections:
+  - from: "syntax-athenaeum"
+    to: "the-deep-stacks"
+    notes: "Rumored hidden level of the Recursion Library"
+    status: "unexplored"
+
+  - from: "the-rustlands"
+    to: "the-machine-graveyard"
+    notes: "Mentioned in scavenger tales"
+    status: "unexplored"
+
+  - from: "the-elderwood"
+    to: "the-heart-tree"
+    notes: "Said to be the center of the forest"
+    status: "unexplored"
+
+# === ADDING NEW LOCATIONS ===
+# To add a new location:
+# 1. Create directory: locations/<location-id>/
+# 2. Create locations/<location-id>/location.yaml with coordinates, type, connections
+# 3. Create locations/<location-id>/README.md with narrative description
+# 4. Add connections to neighboring locations' location.yaml files
+# 5. Optionally create areas/<area-id>.yaml for sub-locations

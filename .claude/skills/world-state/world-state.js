@@ -33,12 +33,13 @@ const PROJECT_ROOT = path.join(__dirname, '../../..');
 const WORLD_ROOT = path.join(PROJECT_ROOT, 'worlds', WORLD_ID);
 const PLAYERS_ROOT = path.join(WORLD_ROOT, 'players');
 const STATE_PATH = path.join(WORLD_ROOT, 'state/current.yaml');
-const EVENTS_PATH = path.join(WORLD_ROOT, 'state/events.yaml');
+const EVENTS_DIR = path.join(WORLD_ROOT, 'state/events');
 const CALENDAR_PATH = path.join(WORLD_ROOT, 'state/calendar.yaml');
-const SCHEDULES_PATH = path.join(WORLD_ROOT, 'npcs/schedules/index.yaml');
-const NPC_INDEX_PATH = path.join(WORLD_ROOT, 'npcs/index.yaml');
-const GRAPH_PATH = path.join(WORLD_ROOT, 'locations/graph.yaml');
+const SCHEDULES_DIR = path.join(WORLD_ROOT, 'npcs/schedules');
+const NPC_REGISTRY_DIR = path.join(WORLD_ROOT, 'npcs/registry');
+const NPC_META_PATH = path.join(WORLD_ROOT, 'npcs/_meta.yaml');
 const LOCATIONS_PATH = path.join(WORLD_ROOT, 'locations');
+const LOCATIONS_META_PATH = path.join(LOCATIONS_PATH, '_meta.yaml');
 
 // === LOADERS ===
 
@@ -65,6 +66,117 @@ function ensureDir(dirPath) {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
+}
+
+// === DISTRIBUTED DATA LOADERS ===
+
+/**
+ * Load all YAML files from a directory into a keyed object.
+ * Skips _meta.yaml files. Uses the 'id' field as key, or filename if no id.
+ */
+function loadDirectory(dirPath, excludeFiles = ['_meta.yaml']) {
+  if (!fs.existsSync(dirPath)) return {};
+  const result = {};
+  const files = fs.readdirSync(dirPath).filter(f =>
+    f.endsWith('.yaml') && !excludeFiles.includes(f)
+  );
+  for (const file of files) {
+    const data = loadYamlOptional(path.join(dirPath, file));
+    if (data) {
+      const key = data.id || file.replace('.yaml', '');
+      result[key] = data;
+    }
+  }
+  return result;
+}
+
+/**
+ * Load NPC registry from individual files in npcs/registry/
+ * Returns object compatible with old npcIndex.npcs format.
+ */
+function loadNpcRegistry() {
+  const npcs = loadDirectory(NPC_REGISTRY_DIR);
+  const meta = loadYamlOptional(NPC_META_PATH) || {};
+  return {
+    npcs,
+    factions: meta.factions || {},
+    disposition_map: meta.disposition_map || {},
+    profile_triggers: meta.profile_triggers || {}
+  };
+}
+
+/**
+ * Load NPC schedules from individual files in npcs/schedules/
+ * Returns object compatible with old schedules format.
+ */
+function loadSchedules() {
+  const schedules = loadDirectory(SCHEDULES_DIR);
+  const meta = loadYamlOptional(path.join(SCHEDULES_DIR, '_meta.yaml')) || {};
+  return {
+    schedules,
+    event_overrides: meta.event_overrides || {},
+    time_period_hours: meta.time_period_hours || {}
+  };
+}
+
+/**
+ * Load location graph by reading connections from each location's location.yaml.
+ * Returns object compatible with old graph format.
+ */
+function loadGraph() {
+  const meta = loadYamlOptional(LOCATIONS_META_PATH) || {};
+  const connections = [];
+
+  // Scan location directories
+  if (fs.existsSync(LOCATIONS_PATH)) {
+    const entries = fs.readdirSync(LOCATIONS_PATH, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const locFile = path.join(LOCATIONS_PATH, entry.name, 'location.yaml');
+      const locData = loadYamlOptional(locFile);
+      if (locData && locData.connections) {
+        for (const conn of locData.connections) {
+          connections.push({
+            from: locData.id || entry.name,
+            to: conn.target,
+            distance: conn.distance,
+            travel_type: 'walking',
+            danger: conn.danger || 'none',
+            path: conn.direction,
+            requirements: conn.requirements || null,
+            notes: conn.description || null
+          });
+        }
+      }
+    }
+  }
+
+  return {
+    connections,
+    travel_speeds: meta.travel_speeds || { walking: 1, running: 2, mounted: 3, flying: 5 }
+  };
+}
+
+/**
+ * Load recent world events from individual files in state/events/
+ */
+function loadRecentEvents() {
+  const events = loadDirectory(EVENTS_DIR);
+  return Object.values(events).sort((a, b) => {
+    // Sort by date descending
+    const dateA = a.date || '';
+    const dateB = b.date || '';
+    return dateB.localeCompare(dateA);
+  });
+}
+
+/**
+ * Save a new event as an individual file in state/events/
+ */
+function saveEvent(event) {
+  ensureDir(EVENTS_DIR);
+  const filePath = path.join(EVENTS_DIR, `${event.id}.yaml`);
+  saveYaml(filePath, event);
 }
 
 // === CHARACTER WORLD STATE ===
@@ -310,8 +422,8 @@ function weatherRoll(region) {
 
 function npcLocation(npcId) {
   const state = loadYaml(STATE_PATH);
-  const schedules = loadYaml(SCHEDULES_PATH);
-  const npcIndex = loadYaml(NPC_INDEX_PATH);
+  const { schedules } = loadSchedules();
+  const { npcs } = loadNpcRegistry();
 
   // Check for override first
   if (state.npc_location_overrides && state.npc_location_overrides[npcId]) {
@@ -323,16 +435,23 @@ function npcLocation(npcId) {
   }
 
   // Check schedule
-  const schedule = schedules.schedules[npcId];
+  const schedule = schedules[npcId];
   if (!schedule) {
-    // Fall back to NPC index
-    const npc = npcIndex.npcs[npcId];
+    // Fall back to NPC registry
+    const npc = npcs[npcId];
     if (!npc) {
       console.error(`Unknown NPC: ${npcId}`);
       process.exit(1);
     }
     console.log(`${npcId} is at: ${npc.default_location}`);
     console.log(`Activity: Unknown (no schedule defined)`);
+    return;
+  }
+
+  // Stationary NPCs are always at their default location
+  if (schedule.stationary) {
+    console.log(`${npcId} is at: ${schedule.default_location}`);
+    console.log(`Activity: Present (stationary)`);
     return;
   }
 
@@ -358,14 +477,14 @@ function npcLocation(npcId) {
 
 function npcAt(location) {
   const state = loadYaml(STATE_PATH);
-  const schedules = loadYaml(SCHEDULES_PATH);
-  const npcIndex = loadYaml(NPC_INDEX_PATH);
+  const { schedules } = loadSchedules();
+  const { npcs } = loadNpcRegistry();
   const currentPeriod = state.time.period;
 
   const npcsPresent = [];
 
   // Check each NPC's schedule
-  for (const [npcId, schedule] of Object.entries(schedules.schedules)) {
+  for (const [npcId, schedule] of Object.entries(schedules)) {
     // Check for override
     if (state.npc_location_overrides && state.npc_location_overrides[npcId]) {
       if (state.npc_location_overrides[npcId].location === location) {
@@ -385,8 +504,8 @@ function npcAt(location) {
   }
 
   // Also check NPCs without schedules
-  for (const [npcId, npc] of Object.entries(npcIndex.npcs)) {
-    if (!schedules.schedules[npcId] && npc.default_location && npc.default_location.startsWith(location)) {
+  for (const [npcId, npc] of Object.entries(npcs)) {
+    if (!schedules[npcId] && npc.default_location && npc.default_location.startsWith(location)) {
       if (!npcsPresent.find(n => n.id === npcId)) {
         npcsPresent.push({ id: npcId, activity: 'Present (stationary)' });
       }
@@ -400,17 +519,17 @@ function npcAt(location) {
 
   console.log(`NPCs at ${location} (${currentPeriod}):`);
   npcsPresent.forEach(npc => {
-    const name = npcIndex.npcs[npc.id]?.name || npc.id;
+    const name = npcs[npc.id]?.name || npc.id;
     console.log(`  - ${name}: ${npc.activity}`);
   });
 }
 
 function npcAvailable(npcId) {
   const state = loadYaml(STATE_PATH);
-  const schedules = loadYaml(SCHEDULES_PATH);
+  const { schedules } = loadSchedules();
   const currentPeriod = state.time.period;
 
-  const schedule = schedules.schedules[npcId];
+  const schedule = schedules[npcId];
   if (!schedule) {
     console.log(`true`);
     console.log(`${npcId} has no schedule (always available)`);
@@ -449,13 +568,6 @@ function npcAvailable(npcId) {
 
 // === TRAVEL FUNCTIONS ===
 
-function loadGraph() {
-  if (!fs.existsSync(GRAPH_PATH)) {
-    return { connections: [], travel_speeds: { walking: 1, running: 2, mounted: 3, flying: 5 } };
-  }
-  return yaml.parse(fs.readFileSync(GRAPH_PATH, 'utf8'));
-}
-
 function loadLocationData(locationId) {
   const locationPath = path.join(LOCATIONS_PATH, locationId, 'location.yaml');
   if (!fs.existsSync(locationPath)) {
@@ -465,29 +577,11 @@ function loadLocationData(locationId) {
 }
 
 function findConnection(graph, from, to) {
-  // Check graph connections
+  // Graph connections are built from all location.yaml files
   const conn = graph.connections.find(c =>
     (c.from === from && c.to === to) || (c.from === to && c.to === from)
   );
-  if (conn) return conn;
-
-  // Check location-specific connections
-  const fromLoc = loadLocationData(from);
-  if (fromLoc && fromLoc.connections) {
-    const locConn = fromLoc.connections.find(c => c.target === to);
-    if (locConn) {
-      return {
-        from,
-        to,
-        distance: locConn.distance,
-        travel_type: 'walking',
-        danger: locConn.danger || 'none',
-        path: locConn.direction
-      };
-    }
-  }
-
-  return null;
+  return conn || null;
 }
 
 function calculateTravelTime(distance, speed = 'walking', graph) {
@@ -877,15 +971,15 @@ function travelEncounterResolve(playerId, encounterHour) {
 
 function eventsRecent(days) {
   const d = parseInt(days, 10) || 7;
-  const events = loadYaml(EVENTS_PATH);
+  const events = loadRecentEvents();
 
   console.log(`Recent events (last ${d} in-game days):`);
-  if (!events.recent_events || events.recent_events.length === 0) {
+  if (events.length === 0) {
     console.log('  No recent events recorded.');
     return;
   }
 
-  events.recent_events.slice(0, 10).forEach(event => {
+  events.slice(0, 10).forEach(event => {
     console.log(`  [${event.date}] ${event.title}`);
     console.log(`    Type: ${event.type}, Regions: ${event.regions?.join(', ') || 'all'}`);
   });
@@ -905,7 +999,6 @@ function eventsLog(args) {
   }
 
   const state = loadYaml(STATE_PATH);
-  const events = loadYaml(EVENTS_PATH);
   const t = state.time;
 
   const newEvent = {
@@ -921,21 +1014,15 @@ function eventsLog(args) {
     npc_reactions: {}
   };
 
-  // Add player-specific event if player specified
+  // Save as individual event file
+  saveEvent(newEvent);
+
+  // If player-specific, also save to player's events directory
   if (eventData.player) {
-    if (!events.player_events) events.player_events = {};
-    if (!events.player_events[eventData.player]) events.player_events[eventData.player] = [];
-    events.player_events[eventData.player].unshift(newEvent);
+    const playerEventsDir = path.join(PLAYERS_ROOT, eventData.player, 'events');
+    ensureDir(playerEventsDir);
+    saveYaml(path.join(playerEventsDir, `${newEvent.id}.yaml`), newEvent);
   }
-
-  // Add to recent events
-  events.recent_events.unshift(newEvent);
-
-  // Keep only last 50 events
-  events.recent_events = events.recent_events.slice(0, 50);
-
-  events.last_updated = new Date().toISOString();
-  saveYaml(EVENTS_PATH, events);
 
   console.log(`Event logged: ${newEvent.title}`);
   console.log(`  Date: ${newEvent.date}`);

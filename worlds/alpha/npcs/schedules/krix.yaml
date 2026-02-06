@@ -1,0 +1,32 @@
+id: krix
+default_location: "nexus-station/bazaar"
+stationary: false
+notes: "Opens shop late, keeps 'special hours' for certain clients"
+patterns:
+  - times: ["dawn", "morning"]
+    location: null
+    activity: "Sleeping somewhere (location unknown)"
+    interruptible: false
+
+  - times: ["midday"]
+    location: "nexus-station/bazaar"
+    activity: "Opening shop, arranging wares"
+    interruptible: true
+    interruptible_note: "Grumpy until fully awake"
+
+  - times: ["afternoon", "evening"]
+    location: "nexus-station/bazaar"
+    activity: "Prime selling hours"
+    interruptible: true
+
+  - times: ["night"]
+    location: "nexus-station/bazaar"
+    activity: "Closing up, counting coins"
+    interruptible: true
+    special_flag: "hidden_inventory_available"
+
+  - times: ["midnight"]
+    location: "nexus-station/bazaar/back-room"
+    activity: "Special transactions"
+    interruptible: "flag:krix_back_room_access"
+    interruptible_cost: "Must have unlocked back room"

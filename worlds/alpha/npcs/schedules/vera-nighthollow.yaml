@@ -1,0 +1,38 @@
+id: vera-nighthollow
+default_location: "nexus-station/codex-tavern/floor-1"
+stationary: false
+notes: "Runs the tavern, keeps odd hours, meets contacts at night"
+patterns:
+  - times: ["dawn"]
+    location: "nexus-station/codex-tavern/floor-3"
+    activity: "Sleeping in private quarters"
+    interruptible: false
+
+  - times: ["morning"]
+    location: "nexus-station/codex-tavern/floor-1"
+    activity: "Preparing for the day, checking inventory"
+    interruptible: true
+    interruptible_note: "May be distracted"
+
+  - times: ["midday", "afternoon"]
+    location: "nexus-station/codex-tavern/floor-1"
+    activity: "Working the bar, serving customers"
+    interruptible: true
+
+  - times: ["evening"]
+    location: "nexus-station/codex-tavern/floor-1"
+    activity: "Peak hours, very busy"
+    interruptible: true
+    interruptible_note: "Short conversations only"
+
+  - times: ["night"]
+    location: "nexus-station/codex-tavern/floor-2"
+    activity: "Meeting contacts in the quiet lounge"
+    interruptible: "standing >= 3"
+    interruptible_cost: "Must have friendly standing"
+
+  - times: ["midnight"]
+    location: "nexus-station/codex-tavern/floor-2"
+    activity: "Private meetings, information trading"
+    interruptible: "standing >= 5"
+    interruptible_cost: "Must be close ally"

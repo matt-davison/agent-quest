@@ -62,8 +62,8 @@ See [reference/world-settings.md](reference/world-settings.md) for comprehensive
 
 At session start, always load:
 
-- `worlds/<world>/state/current.yaml` - Current time, weather, active events
-- `worlds/<world>/state/presence.yaml` - Other players at current location
+- `worlds/<world>/state/current.yaml` - Current time, weather, active events (note: `travelers_in_transit` has been removed from this file)
+- Per-player presence files in each player's persona directory (and `worlds/<world>/state/presence/_meta.yaml` for config) - Other players at current location
 - `worlds/<world>/players/<github>/personas/<character>/world-state.yaml` - Character-specific world overrides (if exists)
 - Check time period to determine NPC availability
 
@@ -170,7 +170,7 @@ Each turn: ONE major action. Present choices, ask what they'd like to do.
 | -------------------------------------------- | ------------------------------------------------------------------ |
 | New item                                     | Create `worlds/<world>/items/database/<id>.yaml`, add to inventory |
 | New quest/job                                | Add to player's `quests.yaml` with objectives                      |
-| New NPC                                      | Create `worlds/<world>/npcs/profiles/<id>.yaml`, update index      |
+| New NPC                                      | Create `worlds/<world>/npcs/profiles/<id>.yaml`, register in `worlds/<world>/npcs/registry/<npc-id>.yaml` |
 | New location/area                            | Create in `worlds/<world>/locations/`                              |
 | State change (HP, gold, location, inventory) | Update `persona.yaml`                                              |
 | Quest progress                               | Update objective status in `quests.yaml`                           |
@@ -232,7 +232,7 @@ Check `user_generation` setting first:
 | **MAIL**           | Send/read messages                           | `worlds/<world>/multiplayer/mail/<github>/`                                                 | `multiplayer-handler`                               |
 | **GUILD**          | Guild management                             | `worlds/<world>/multiplayer/guilds/`                                                        | `multiplayer-handler`, `economy-validator`          |
 | **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
-| **WHO**            | See players at location                      | `worlds/<world>/state/presence.yaml`                                                        | `multiplayer-handler`                               |
+| **WHO**            | See players at location                      | Per-player presence in persona dirs + `worlds/<world>/state/presence/_meta.yaml`             | `multiplayer-handler`                               |
 | **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
@@ -376,14 +376,15 @@ When content is sparse, flesh it out naturally during play. This is lightweight 
 When you create a new NPC during play (quest givers, allies, enemies, romantic interests):
 
 1. Create profile: `worlds/<world>/npcs/profiles/<npc-id>.yaml`
-2. Update registry: Add entry to `worlds/<world>/npcs/index.yaml`
+2. Register NPC: Create `worlds/<world>/npcs/registry/<npc-id>.yaml` (shared config in `worlds/<world>/npcs/_meta.yaml`)
 3. Include: appearance, personality, stats, secrets, dialogue, corrupted_data hooks
 
 **New Locations:**
 When players discover or you create new areas:
 
-1. Create location: `worlds/<world>/locations/<location-id>/README.md`
-2. Include: description, points of interest, NPCs, shops, connections, encounters
+1. Create location directory: `worlds/<world>/locations/<location-id>/`
+2. Create `README.md` with description, points of interest, NPCs, shops, encounters
+3. Create `location.yaml` with coordinates, connections to other locations, and metadata (coordinate system defined in `worlds/<world>/locations/_meta.yaml`)
 
 **New Items:**
 When unique items are created or discovered:
@@ -414,8 +415,9 @@ When a location has a shop, use the merchant system:
 When players Weave new organizations:
 
 1. Create profile in appropriate `worlds/<world>/` subdirectory
-2. Update relevant index files
-3. Document relationships with existing factions
+2. Create individual religion/faction file in `worlds/<world>/religions/<id>.yaml` (or appropriate subdirectory)
+3. Update `worlds/<world>/religions/_meta.yaml` for cross-faith relationships
+4. Document relationships with existing factions
 
 **Why This Matters:**
 
@@ -440,7 +442,7 @@ See `worlds/<world>/skills/weave-mending.yaml` for full mechanics.
 
 NPCs react to recent world events based on awareness radius:
 
-- Check `worlds/<world>/state/events.yaml` for recent happenings
+- Check `worlds/<world>/state/events/<event-id>.yaml` files for recent happenings (see `worlds/<world>/state/events/_meta.yaml` for event config)
 - NPCs know about events matching their awareness level
 - Player achievements trigger NPC dialogue variants
 
@@ -715,7 +717,7 @@ Templates are organized by category. See [templates/README.md](templates/README.
 
 ## Campaigns
 
-Available campaigns are listed in `worlds/<world>/campaigns/index.yaml`. Each campaign has:
+Available campaigns are found via their individual `worlds/<world>/campaigns/<campaign-id>/campaign.yaml` files. Each campaign has:
 
 ```
 worlds/<world>/campaigns/<campaign-id>/

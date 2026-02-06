@@ -19,7 +19,8 @@ const WORLD_ID = parseWorldArg();
 const ROOT = path.join(__dirname, '../../..');
 const WORLD_ROOT = path.join(ROOT, 'worlds', WORLD_ID);
 const PLAYERS_PATH = path.join(WORLD_ROOT, 'players');
-const NPC_INDEX_PATH = path.join(WORLD_ROOT, 'npcs/index.yaml');
+const NPC_REGISTRY_DIR = path.join(WORLD_ROOT, 'npcs/registry');
+const NPC_META_PATH = path.join(WORLD_ROOT, 'npcs/_meta.yaml');
 const NPC_PROFILES_PATH = path.join(WORLD_ROOT, 'npcs/profiles');
 
 // === LOADERS ===
@@ -83,7 +84,27 @@ function saveRelationships(playerId, characterName, data) {
 }
 
 function loadNpcIndex() {
-  return loadYaml(NPC_INDEX_PATH) || { npcs: {}, disposition_map: {} };
+  // Load NPC registry from individual files in npcs/registry/
+  const npcs = {};
+  if (fs.existsSync(NPC_REGISTRY_DIR)) {
+    const files = fs.readdirSync(NPC_REGISTRY_DIR).filter(f =>
+      f.endsWith('.yaml') && f !== '_meta.yaml'
+    );
+    for (const file of files) {
+      const data = loadYaml(path.join(NPC_REGISTRY_DIR, file));
+      if (data) {
+        const key = data.id || file.replace('.yaml', '');
+        npcs[key] = data;
+      }
+    }
+  }
+  const meta = loadYaml(NPC_META_PATH) || {};
+  return {
+    npcs,
+    disposition_map: meta.disposition_map || {},
+    factions: meta.factions || {},
+    profile_triggers: meta.profile_triggers || {}
+  };
 }
 
 function loadNpcProfile(npcId) {

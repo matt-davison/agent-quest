@@ -1,0 +1,32 @@
+# NPC Schedule System Configuration
+# Individual schedules live in schedules/<npc-id>.yaml
+# NPCs without schedule files are considered stationary at their default_location
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === SPECIAL EVENTS ===
+# Override normal schedules during events
+event_overrides:
+  awakening-celebration:
+    vera-nighthollow:
+      all_times:
+        location: "nexus-station/codex-tavern/floor-1"
+        activity: "Extended hours for festival"
+        interruptible: true
+    krix:
+      all_times:
+        location: "nexus-station/bazaar"
+        activity: "24-hour sale event"
+        interruptible: true
+
+# === UTILITIES ===
+# Helper data for schedule lookups
+time_period_hours:
+  dawn: [5, 6]
+  morning: [7, 8, 9, 10]
+  midday: [11, 12, 13]
+  afternoon: [14, 15, 16]
+  evening: [17, 18, 19]
+  night: [20, 21, 22, 23]
+  midnight: [0, 1, 2, 3, 4]

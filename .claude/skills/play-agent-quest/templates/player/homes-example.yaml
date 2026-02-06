@@ -1,0 +1,157 @@
+# Homes Example
+# This shows how home ownership appears in persona.yaml
+
+# Add this section to persona.yaml after the "location:" field
+
+homes:
+  # Example 1: Basic apartment in Lumina City
+  - location_id: "lumina-city"
+    property_id: "lc-apartment-7B"
+    name: "Midstreet Apartment 7B"
+    type: "apartment"
+    tier: 1
+    acquired_date: "2026-02-05"
+    purchase_price: 500
+    upgrades: []
+    storage:
+      max_slots: 20
+      items: []
+    benefits:
+      - "Can participate in Lumina City politics"
+      - "Respawn point option"
+      - "Fast travel destination"
+    total_invested: 500
+
+  # Example 2: Upgraded luxury home with enhancements
+  - location_id: "nexus-station"
+    property_id: "ns-suite-42"
+    name: "Nexus Station Comfortable Suite 42"
+    type: "suite"
+    tier: 2
+    acquired_date: "2026-01-15"
+    purchase_price: 1500
+    upgrades:
+      - id: "storage_expansion"
+        name: "Wall Safe"
+        cost: 100
+        benefit: "+10 storage slots"
+        date_installed: "2026-01-20"
+      - id: "basic_furniture"
+        name: "Basic Furniture"
+        cost: 100
+        benefit: "+1% rest bonus"
+        date_installed: "2026-01-20"
+    storage:
+      max_slots: 50 # 40 base + 10 from Wall Safe
+      items:
+        - item_id: "health-potion"
+          name: "Health Potion"
+          quantity: 10
+        - item_id: "ancient-tome"
+          name: "Ancient Tome of Secrets"
+          quantity: 1
+          description: "Too valuable to carry around"
+    benefits:
+      - "Respawn point option"
+      - "Fast travel destination"
+      - "+1% rest bonus from furniture"
+    total_invested: 1700 # 1500 purchase + 100 + 100 upgrades
+
+  # Example 3: Legendary estate with maximum upgrades
+  - location_id: "lumina-city"
+    property_id: "lc-tower-penthouse"
+    name: "Skyline Tower Penthouse"
+    type: "penthouse"
+    tier: 5
+    acquired_date: "2025-11-01"
+    purchase_price: 200000
+    upgrades:
+      - id: "expanded_vault"
+        name: "Expanded Vault"
+        cost: 5000
+        benefit: "+100 storage slots"
+        date_installed: "2025-11-05"
+      - id: "fortress_security"
+        name: "Fortress Security"
+        cost: 2000
+        benefit: "Maximum protection"
+        date_installed: "2025-11-05"
+      - id: "masterwork_decor"
+        name: "Masterwork Decor"
+        cost: 2000
+        benefit: "+5% rest bonus"
+        date_installed: "2025-11-10"
+      - id: "portal_anchor"
+        name: "Portal Anchor"
+        cost: 3000
+        benefit: "Reduced fast travel cost (-50%)"
+        date_installed: "2025-11-10"
+      - id: "alchemy_lab"
+        name: "Alchemy Lab"
+        cost: 1000
+        benefit: "Craft potions at home"
+        date_installed: "2025-11-15"
+      - id: "enchanting_station"
+        name: "Enchanting Station"
+        cost: 2000
+        benefit: "Enchant items at home"
+        date_installed: "2025-11-15"
+    storage:
+      max_slots: 600 # 500 base + 100 from Expanded Vault
+      items:
+        - item_id: "legendary-sword"
+          name: "Blade of the Weaver"
+          quantity: 1
+        - item_id: "health-potion"
+          name: "Health Potion"
+          quantity: 50
+        - item_id: "mana-potion"
+          name: "Mana Potion"
+          quantity: 50
+        - item_id: "rare-crafting-material"
+          name: "Voidglass Shards"
+          quantity: 25
+    benefits:
+      - "Can participate in Lumina City politics"
+      - "Respawn point option"
+      - "Fast travel destination (-50% cost)"
+      - "+5% rest bonus from decor"
+      - "Can craft potions at home"
+      - "Can enchant items at home"
+      - "Maximum security protection"
+    total_invested: 215000 # 200000 + 15000 in upgrades
+
+# === FIELD DESCRIPTIONS ===
+
+# location_id: Must match a valid city location ID in the world
+# property_id: Unique identifier for this specific property (format: city-type-identifier)
+# name: Display name of the property
+# type: Category of housing (apartment, suite, penthouse, manor, estate, etc.)
+# tier: Housing tier (1-5) determining base storage and requirements
+# acquired_date: When the property was purchased (ISO date format)
+# purchase_price: Amount of gold paid to acquire the property
+# upgrades: Array of enhancements added to the property
+#   - id: Unique upgrade identifier
+#   - name: Display name of upgrade
+#   - cost: Gold cost of the upgrade
+#   - benefit: Description of what the upgrade provides
+#   - date_installed: When the upgrade was added
+# storage:
+#   - max_slots: Total storage capacity (base + upgrades)
+#   - items: Array of items currently stored
+#     - item_id: Reference to item in item database
+#     - name: Display name
+#     - quantity: How many stored
+#     - description: Optional note about why it's stored
+# benefits: Human-readable list of what this home provides
+# total_invested: Total gold spent (purchase + all upgrades)
+
+# === NOTES ===
+
+# 1. Only one home per location per persona
+# 2. Items in storage cannot be in inventory (no duplication)
+# 3. Storage slots used must be ≤ max_slots
+# 4. Selling home returns 70% of total_invested
+# 5. Home ownership required for political participation in that city
+# 6. Can set any owned home as respawn point
+# 7. All owned homes are fast travel destinations

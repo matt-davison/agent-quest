@@ -135,9 +135,57 @@ secrets:
       - "Ask Krix about 'the good stuff' 3 times"
       - "Carry at least 500 gold"
 
+# Housing system
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Basic Quarters"
+      base_price: 300
+      storage_slots: 20
+      available_count: -1  # Unlimited
+      purchase_requirements:
+        - "level >= 1"
+
+    - tier: 2
+      name: "Comfortable Suite"
+      base_price: 1500
+      storage_slots: 40
+      available_count: -1  # Unlimited
+      purchase_requirements:
+        - "level >= 4"
+        - "standing >= 3"
+
+  upgrade_catalog:
+    - id: "storage_expansion"
+      name: "Wall Safe"
+      cost: 100
+      benefit: "+10 storage slots"
+      applicable_tiers: [1, 2]
+
+    - id: "basic_lock"
+      name: "Basic Lock"
+      cost: 50
+      benefit: "Prevents casual theft"
+      applicable_tiers: [1, 2]
+
+    - id: "basic_furniture"
+      name: "Basic Furniture"
+      cost: 100
+      benefit: "+1% rest bonus"
+      applicable_tiers: [1, 2]
+
+# Governance system
+# Nexus Station is a neutral hub - no political system
+governance:
+  enabled: false
+  type: "neutral"
+  requires_home: false
+  description: "Nexus Station is governed by The Archivist and operates as a neutral meeting ground. No player politics available."
+
 # Metadata
 metadata:
   github: "System"
   created_date: "2026-02-02"
-  last_modified: "2026-02-03"
-  version: "1.0"
+  last_modified: "2026-02-05"
+  version: "1.1"

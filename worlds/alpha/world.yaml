@@ -10,3 +10,4 @@ settings:
   starting_gold: 0
   level_cap: 10
   pvp_enabled: true
+  user_generation: disabled  # When disabled, players cannot dictate world content (NPCs, lore, locations, events)

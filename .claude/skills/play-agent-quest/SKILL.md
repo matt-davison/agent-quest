@@ -13,6 +13,20 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 > **Multi-World:** All paths use `worlds/<world>/` prefix (default: `alpha`). Check `worlds.yaml` for available worlds.
 
+## Key Game Systems
+
+- **Combat:** Turn-based tactical combat with positioning, abilities, and environmental effects
+- **Progression:** Level-based advancement (1-10) with XP, stat points, and ability unlocks
+- **Inventory & Economy:** Gold-based economy with item tiers, shops, and weight limits
+- **Quests:** Dynamic quest system with objectives, rewards, and interconnected storylines
+- **Multiplayer:** Trade, parties, guilds, mail, duels, and collaborative gameplay
+- **Campaigns:** Multi-chapter narrative campaigns with branching choices and consequences
+- **World State:** Dynamic time, weather, NPC schedules, and world events
+- **Relationships:** NPC standing system (-10 to +10) affecting dialogue and quest availability
+- **Abilities:** Class-based ability system with willpower costs and cooldowns
+- **Housing:** Own homes in cities for storage, respawn points, and political participation
+- **Politics:** Gain influence in cities to propose laws, vote, and hold office
+
 ## Session Start
 
 1. **Identify player**: `gh api user -q '.login'`

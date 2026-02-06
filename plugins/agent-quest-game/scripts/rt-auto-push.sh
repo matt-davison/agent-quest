@@ -1,5 +1,5 @@
 #!/bin/bash
-# .claude/hooks/rt-auto-push.sh
+# plugins/agent-quest-game/scripts/rt-auto-push.sh
 # PostToolUse hook (Write|Edit): auto-push outbox/state when Claude writes to RT temp files
 # Reads tool_input from stdin JSON to detect which file was written.
 

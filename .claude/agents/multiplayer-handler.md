@@ -21,6 +21,25 @@ Handle all player-to-player interactions including trades, parties, mail, guilds
 
 **Not used during RT sessions.** During realtime multiplayer, the RT hooks and `scripts/rt-session.js` handle all player-to-player interactions via the outbox message bus. This agent is only for async multiplayer where changes are committed directly to files on the working tree. RT session results are applied to persona files at session end.
 
+## Inbox Notifications (Required)
+
+**After creating ANY multiplayer interaction that targets another player, send an inbox notification** so the recipient gets an instant alert on their next prompt — no RT session required.
+
+```bash
+node scripts/rt-session.js send-notification <type> <target-github> <from-github> <from-character> <message> [extra-json]
+```
+
+| Action | Type | Message Format | Extra JSON |
+|--------|------|----------------|------------|
+| FRIEND ADD | `friend-request` | `"<character> wants to be friends"` | — |
+| PARTY INVITE | `party-invite` | `"Invitation to join <party-name>"` | `{"party_id":"<id>"}` |
+| TRADE CREATE | `trade-offer` | `"Trade offer: <summary>"` | `{"trade_id":"<id>"}` |
+| MAIL SEND | `mail` | `"<subject>"` | `{"mail_id":"<id>"}` |
+| GUILD INVITE | `guild-invite` | `"Invitation to join <guild-name>"` | `{"guild_id":"<id>"}` |
+| DUEL CHALLENGE | `duel-challenge` | `"<type> duel challenge"` | `{"duel_id":"<id>","wager":"<amount>"}` |
+
+The notification is sent **in addition to** the normal file writes (trade files, mail files, etc.). It uses the git branch-based inbox system (`inbox/<github>/notifications.yaml`) which is checked on every prompt by the sync hook.
+
 ## Input Context
 
 ```yaml
@@ -86,6 +105,10 @@ message: ""  # optional message (max 200 chars)
    - Add to target's `pending_received[]` with `from_character`
    - Set `expires` to 7 days from now
 10. Both files updated atomically
+11. Send inbox notification:
+    ```bash
+    node scripts/rt-session.js send-notification "friend-request" "<target-github>" "<player-github>" "<player-character>" "<character> wants to be friends"
+    ```
 
 **Auto-accept flow (step 7):**
 - Remove from both pending lists
@@ -255,6 +278,10 @@ requesting:
 2. Move to escrow
 3. Create trade file in `worlds/${world}/multiplayer/trades/active/`
 4. Set 72-hour expiration
+5. Send inbox notification:
+   ```bash
+   node scripts/rt-session.js send-notification "trade-offer" "<target-github>" "<player-github>" "<player-character>" "Trade offer: <summary>" '{"trade_id":"<trade-id>"}'
+   ```
 
 ### Accept Trade
 
@@ -288,6 +315,10 @@ settings:
 2. Verify party not full
 3. Create invite in `worlds/${world}/multiplayer/parties/invites/`
 4. Set 48-hour expiration
+5. Send inbox notification:
+   ```bash
+   node scripts/rt-session.js send-notification "party-invite" "<target-github>" "<player-github>" "<player-character>" "Invitation to join <party-name>" '{"party_id":"<party-id>"}'
+   ```
 
 ### Accept Party Invite
 
@@ -318,6 +349,10 @@ attachments:
 2. Create message in `worlds/${world}/multiplayer/mail/<recipient>/inbox/`
 3. Create copy in `worlds/${world}/multiplayer/mail/<sender>/sent/`
 4. Set 30-day attachment expiration
+5. Send inbox notification:
+   ```bash
+   node scripts/rt-session.js send-notification "mail" "<recipient-github>" "<sender-github>" "<sender-character>" "<subject>" '{"mail_id":"<mail-id>"}'
+   ```
 
 ### Claim Attachments
 
@@ -332,6 +367,16 @@ attachments:
 - Costs 100 gold
 - Creates guild directory structure
 - Sets player as founder
+
+### Invite to Guild
+
+1. Verify player is founder/officer
+2. Create invite in `worlds/${world}/multiplayer/guilds/<guild-id>/invites/`
+3. Set 7-day expiration
+4. Send inbox notification:
+   ```bash
+   node scripts/rt-session.js send-notification "guild-invite" "<target-github>" "<player-github>" "<player-character>" "Invitation to join <guild-name>" '{"guild_id":"<guild-id>"}'
+   ```
 
 ### Deposit to Treasury
 
@@ -357,6 +402,10 @@ wager:
 1. If wagered, move to escrow
 2. Create duel file
 3. Set 24-hour expiration
+4. Send inbox notification:
+   ```bash
+   node scripts/rt-session.js send-notification "duel-challenge" "<target-github>" "<player-github>" "<player-character>" "<duel_type> duel challenge" '{"duel_id":"<duel-id>","wager":"<amount>"}'
+   ```
 
 ### Accept Duel
 

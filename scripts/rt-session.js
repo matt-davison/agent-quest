@@ -331,28 +331,38 @@ function formatInboxNotifications(notifications) {
           `  ${n.seq}. [RT INVITE] ${n.fromChar || n.from} (${n.from}) invites you to a realtime session (${n.sessionId})`
         );
         break;
+      case "friend-request":
+        lines.push(
+          `  ${n.seq}. [FRIEND] ${n.fromChar || n.from} (${n.from}) wants to be friends: ${n.message}`
+        );
+        break;
+      case "party-invite":
+        lines.push(
+          `  ${n.seq}. [PARTY] ${n.fromChar || n.from} (${n.from}) invites you to a party: ${n.message}`
+        );
+        break;
       case "trade-offer":
         lines.push(
-          `  ${n.seq}. [TRADE] ${n.from} sent a trade offer: ${n.message}`
+          `  ${n.seq}. [TRADE] ${n.fromChar || n.from} (${n.from}) sent a trade offer: ${n.message}`
         );
         break;
       case "mail":
         lines.push(
-          `  ${n.seq}. [MAIL] ${n.from}: "${n.subject || n.message}"`
+          `  ${n.seq}. [MAIL] ${n.fromChar || n.from} (${n.from}): "${n.subject || n.message}"`
         );
         break;
       case "guild-invite":
         lines.push(
-          `  ${n.seq}. [GUILD] ${n.from} invites you to their guild: ${n.message}`
+          `  ${n.seq}. [GUILD] ${n.fromChar || n.from} (${n.from}) invites you to their guild: ${n.message}`
         );
         break;
       case "duel-challenge":
         lines.push(
-          `  ${n.seq}. [DUEL] ${n.from} challenges you to a duel: ${n.message}`
+          `  ${n.seq}. [DUEL] ${n.fromChar || n.from} (${n.from}) challenges you to a duel: ${n.message}`
         );
         break;
       default:
-        lines.push(`  ${n.seq}. [${n.type.toUpperCase()}] ${n.from}: ${n.message || n.subject}`);
+        lines.push(`  ${n.seq}. [${n.type.toUpperCase()}] ${n.fromChar || n.from}: ${n.message || n.subject}`);
     }
   }
   return lines.join("\n");
@@ -801,6 +811,114 @@ messages: []
     break;
   }
 
+  case "send-notification": {
+    // Send a generic notification to another player's inbox
+    const type = process.argv[3];
+    const targetGithub = process.argv[4];
+    const fromGithub = process.argv[5];
+    const fromCharacter = process.argv[6];
+    const message = process.argv[7];
+    const extraJson = process.argv[8];
+
+    const validTypes = [
+      "friend-request",
+      "party-invite",
+      "trade-offer",
+      "mail",
+      "guild-invite",
+      "duel-challenge",
+    ];
+
+    if (!type || !targetGithub || !fromGithub || !fromCharacter || !message) {
+      console.error(
+        `Usage: rt-session.js send-notification <type> <target-github> <from-github> <from-character> <message> [extra-json]
+
+Supported types: ${validTypes.join(", ")}`
+      );
+      process.exit(1);
+    }
+
+    if (!validTypes.includes(type)) {
+      console.error(
+        `Invalid notification type: "${type}"\nSupported types: ${validTypes.join(", ")}`
+      );
+      process.exit(1);
+    }
+
+    // Type-specific expiration durations (in milliseconds)
+    const expirations = {
+      "friend-request": 7 * 24 * 3600000,   // 7 days
+      "party-invite": 48 * 3600000,          // 48 hours
+      "trade-offer": 72 * 3600000,           // 72 hours
+      "mail": 30 * 24 * 3600000,             // 30 days
+      "guild-invite": 7 * 24 * 3600000,      // 7 days
+      "duel-challenge": 24 * 3600000,        // 24 hours
+    };
+
+    const inboxBranch = `inbox/${targetGithub}`;
+    ensureBranchExists(inboxBranch);
+
+    // Read existing notifications (or start fresh)
+    let existing = getRemoteFileContent(inboxBranch, "notifications.yaml");
+    let nextSeq = 1;
+
+    if (existing) {
+      const seqs = getMessageSeqs(existing);
+      nextSeq = seqs.length > 0 ? Math.max(...seqs) + 1 : 1;
+    } else {
+      existing = `player: "${targetGithub}"\nnotifications:\n`;
+    }
+
+    const now = new Date().toISOString();
+    const expires = new Date(
+      Date.now() + expirations[type]
+    ).toISOString();
+
+    // Build extra fields from optional JSON
+    let extraFields = "";
+    if (extraJson) {
+      try {
+        const extra = JSON.parse(extraJson);
+        for (const [key, value] of Object.entries(extra)) {
+          extraFields += `    ${key}: "${value}"\n`;
+        }
+      } catch (e) {
+        console.error(`Invalid extra JSON: ${e.message}`);
+        process.exit(1);
+      }
+    }
+
+    const notification = `  - seq: ${nextSeq}
+    timestamp: "${now}"
+    type: ${type}
+    from: "${fromGithub}"
+    from_character: "${fromCharacter}"
+    message: "${message}"
+    expires: "${expires}"
+    status: pending
+${extraFields}`;
+
+    // Append to notifications
+    const updated = existing.trimEnd() + "\n" + notification;
+    pushFileToRemote(
+      inboxBranch,
+      "notifications.yaml",
+      updated,
+      `${type} from ${fromGithub} to ${targetGithub}`
+    );
+
+    console.log(
+      JSON.stringify({
+        sent: true,
+        type: type,
+        to: targetGithub,
+        from: fromGithub,
+        seq: nextSeq,
+      })
+    );
+    break;
+  }
+
   case "get-loop-counter": {
     const sid = process.argv[3] || getActiveSession();
     if (!sid) process.exit(1);
@@ -958,6 +1076,7 @@ Commands:
   push-outbox [sid] [github]       Push local outbox to remote
   push-state [sid]                 Push local state to remote
   send-invite <sid> <target> [from] [char]  Send RT invite
+  send-notification <type> <target> <from> <char> <msg> [json]  Send inbox notification
   get-loop-counter [sid]           Get stop-hook loop counter
   increment-loop-counter [sid]     Increment loop counter
   reset-loop-counter [sid]         Reset loop counter

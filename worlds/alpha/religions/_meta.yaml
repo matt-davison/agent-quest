@@ -1,0 +1,25 @@
+# Religion System Configuration
+# Individual religions live in <religion-id>.yaml (profile files)
+# This file contains shared config: cross-faith relationships, contested sites
+
+description: |
+  The gods are real. They grant power to the faithful and curse the heretical.
+  Religions clash in holy wars, and the divine bleeds into the mortal realm
+  through those who truly believe.
+
+# Relationships between faiths
+# Values: allied, neutral, rival, enemy, holy_war
+relationships: []
+  # Example:
+  # - faith_a: "fleshwright-creed"
+  #   faith_b: "church-of-the-machine"
+  #   status: "holy_war"
+  #   since: "2026-02-XX"
+
+# Contested holy sites
+contested_sites: []
+
+metadata:
+  created_date: "2026-02-03"
+  last_updated: "2026-02-03"
+  version: "1.0"

@@ -1,0 +1,36 @@
+id: commander-steele
+default_location: "nexus-station/guild-hall"
+stationary: false
+notes: "Military schedule, inspects areas regularly"
+patterns:
+  - times: ["dawn"]
+    location: "nexus-station/guild-hall"
+    activity: "Morning briefings"
+    interruptible: false
+
+  - times: ["morning"]
+    location: "nexus-station/arrival-platform"
+    activity: "Inspecting arrivals, security check"
+    interruptible: true
+    interruptible_note: "Brief interactions only"
+
+  - times: ["midday"]
+    location: "nexus-station/guild-hall"
+    activity: "Quest assignments, paperwork"
+    interruptible: true
+
+  - times: ["afternoon"]
+    location: "nexus-station/guild-hall"
+    activity: "Debriefing returning adventurers"
+    interruptible: true
+
+  - times: ["evening"]
+    location: "nexus-station/codex-tavern/floor-1"
+    activity: "Off-duty, drinking alone"
+    interruptible: "standing >= 0"
+    interruptible_note: "More approachable when off-duty"
+
+  - times: ["night", "midnight"]
+    location: null
+    activity: "Resting (location private)"
+    interruptible: false

@@ -1,0 +1,24 @@
+id: the-archivist
+name: "The Archivist"
+role: "Lore Keeper"
+default_location: "nexus-station/weave-terminal"
+region: "nexus"
+faction: "the-anchorate"
+secondary_faction: "architects-legacy"
+disposition_default: "neutral"
+anchorate_rank: "Lodestone Emeritus (Foundation)"
+services:
+  - "lore"
+  - "history"
+  - "cryptic_hints"
+  - "reality_questions"
+tags:
+  - "mysterious"
+  - "lore"
+  - "entity"
+  - "architects"
+  - "anchorate"
+  - "foundation"
+has_profile: true
+profile_priority: "core"
+notes: "Nature unknown - may not be a traditional NPC. Last surviving Foundation of the Anchorate."

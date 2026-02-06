@@ -1,0 +1,21 @@
+id: keeper-resonance
+name: "Keeper Resonance"
+role: "Anchorate Liaison"
+default_location: "nexus-station/weave-terminal"
+region: "nexus"
+faction: "the-anchorate"
+disposition_default: "neutral"
+anchorate_rank: "Pattern-Witness"
+services:
+  - "explain_ranks"
+  - "direct_to_claims"
+  - "grant_thread_reader"
+  - "answer_witnessing_questions"
+tags:
+  - "anchorate"
+  - "tutorial"
+  - "reviews"
+  - "faction_liaison"
+has_profile: true
+profile_priority: "core"
+notes: "Primary point of contact for Weavers seeking to join the Anchorate"

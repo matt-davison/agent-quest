@@ -1,0 +1,18 @@
+id: skex
+name: "Skex"
+role: "Data-Runner (fugitive)"
+default_location: "undercrypt-bone-market"
+region: "undercrypt"
+faction: "independents"
+disposition_default: "nervous"
+services: []
+tags:
+  - "data-runner"
+  - "fugitive"
+  - "skolma-user"
+  - "quest-giver"
+  - "potential-romance"
+has_profile: true
+profile_priority: "player-created"
+notes: "Created during Zynita Darkblade's first session. Being hunted by Pale Circuit."
+created_by: "matt-davison"

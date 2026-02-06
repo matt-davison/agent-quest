@@ -59,7 +59,8 @@ active_events:
       - nexus
       - lumina-city
 npc_location_overrides: {}
-travelers_in_transit: {}
+# NOTE: travelers_in_transit moved to per-player persona files
+# Each player's travel state lives in: players/<github>/personas/<character>/travel.yaml
 flags:
   combat_system_exists: true
   storytelling_system_exists: true

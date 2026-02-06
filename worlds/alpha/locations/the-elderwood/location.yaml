@@ -1,0 +1,42 @@
+id: "the-elderwood"
+name: "The Elderwood"
+
+coordinates:
+  x: 0
+  y: 25
+  z: 0
+
+embedding: null
+
+region: "The Wild"
+type: "wilderness"
+danger_level: "medium"
+is_safe_zone: false
+
+level_range:
+  min: 3
+  max: 7
+  sweet_spot: 5
+
+tags:
+  - "forest"
+  - "ancient"
+  - "magical"
+  - "fey"
+
+status: "unexplored"
+
+areas: []
+npcs: []
+connections:
+  - target: "nexus-station"
+    direction: "south-meadows"
+    distance: 25
+    travel_time: "25 hours walking"
+    requirements: null
+    danger: "low-to-moderate"
+
+metadata:
+  created_date: "2026-02-02"
+  last_modified: "2026-02-06"
+  version: "1.0"

@@ -1,0 +1,21 @@
+id: madame-ling
+name: "Madame Ling"
+role: "Restaurateur / Memory Broker"
+default_location: "lumina-city/jade-dragon"
+region: "lumina"
+faction: "independents"
+disposition_default: "neutral"
+services:
+  - "food"
+  - "drinks"
+  - "memories"
+  - "jobs"
+  - "information"
+tags:
+  - "merchant"
+  - "information"
+  - "memory_broker"
+  - "quest_giver"
+  - "artifact_collector"
+has_profile: false
+profile_priority: "generated"

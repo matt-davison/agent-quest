@@ -1,0 +1,19 @@
+id: commander-steele
+name: "Commander Steele"
+role: "Quest Board Administrator"
+default_location: "nexus-station/guild-hall"
+region: "nexus"
+faction: "guild-authority"
+disposition_default: "professional"
+services:
+  - "quest_assignment"
+  - "bounties"
+  - "mission_briefings"
+  - "rank_advancement"
+tags:
+  - "authority"
+  - "military"
+  - "quests"
+  - "strict"
+has_profile: true
+profile_priority: "core"

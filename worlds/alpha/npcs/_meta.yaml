@@ -1,0 +1,67 @@
+# NPC System Configuration
+# Shared config for the NPC system. Individual NPC data lives in registry/<npc-id>.yaml
+# Profiles live in profiles/<npc-id>.yaml
+# Schedules live in schedules/<npc-id>.yaml
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === FACTION DEFINITIONS ===
+factions:
+  void-native:
+    name: "Void Natives"
+    description: "Entities native to uncompiled space — the gaps between rendered reality. Predate the Architects."
+    disposition_modifier: 0
+
+  the-anchorate:
+    name: "The Anchorate"
+    description: "Ancient order of reality validators who witness and anchor changes to the Weave"
+    disposition_modifier: 0
+    lore_file: "world/factions/anchorate.md"
+    headquarters: "Anchor Sanctum, Weave Terminal, Nexus Station"
+    public_liaison: "keeper-resonance"
+
+  architects-legacy:
+    name: "The Architect's Legacy"
+    description: "Those connected to or created by the original Architects"
+    disposition_modifier: 0
+
+  independents:
+    name: "Independents"
+    description: "Unaffiliated with major factions"
+    disposition_modifier: 0
+
+  merchant-guild:
+    name: "The Merchant Guild"
+    description: "Trade and commerce faction"
+    disposition_modifier: 0
+
+  guild-authority:
+    name: "Guild Authority"
+    description: "Official quest and bounty administration"
+    disposition_modifier: 0
+
+# === PROFILE GENERATION TRIGGERS ===
+# Conditions under which NPC profiles are generated/enriched
+profile_triggers:
+  interaction_threshold: 3  # interactions before profile generation
+  quest_involvement: true   # generate if NPC involved in quest
+  combat_encounter: true    # generate if player fights NPC
+  standing_threshold: 5     # generate if standing reaches +/-5
+  player_request: true      # generate if player tries to learn about NPC
+
+# === UTILITIES ===
+disposition_map:
+  hostile: [-10, -6]
+  unfriendly: [-5, -3]
+  neutral: [-2, 2]
+  friendly: [3, 5]
+  close: [6, 8]
+  devoted: [9, 10]
+
+# === ADDING NEW NPCS ===
+# To add a new NPC:
+# 1. Create registry/<npc-id>.yaml with basic info (id, name, role, location, etc.)
+# 2. Optionally create profiles/<npc-id>.yaml for detailed NPC data
+# 3. Optionally create schedules/<npc-id>.yaml if they move around
+# 4. Earn XP based on NPC depth and quality

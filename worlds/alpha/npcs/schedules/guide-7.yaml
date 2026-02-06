@@ -1,0 +1,5 @@
+id: guide-7
+default_location: "nexus-station/arrival-platform"
+stationary: true
+notes: "Construct designed to greet arrivals 24/7"
+patterns: []

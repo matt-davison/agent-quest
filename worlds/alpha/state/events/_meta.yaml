@@ -1,0 +1,47 @@
+# World Events System Configuration
+# Global events live in events/<event-id>.yaml
+# Player-specific events live in players/<github>/personas/<character>/events.yaml
+
+version: "1.0"
+last_updated: "2026-02-03T12:00:00Z"
+
+# === EVENT TEMPLATES ===
+# For generating NPC-aware dialogue
+event_types:
+  player_achievement:
+    awareness_radius: "location"
+    decay_days: 7
+    dialogue_triggers:
+      - "congratulations"
+      - "heard_about"
+
+  quest_completion:
+    awareness_radius: "region"
+    decay_days: 14
+    dialogue_triggers:
+      - "thank_you"
+      - "reputation_change"
+
+  combat_victory:
+    awareness_radius: "location"
+    decay_days: 3
+    dialogue_triggers:
+      - "impressive_fight"
+      - "warning_caution"
+
+  world_change:
+    awareness_radius: "global"
+    decay_days: 30
+    dialogue_triggers:
+      - "concerning_times"
+      - "optimistic_future"
+
+# === UTILITIES ===
+awareness_levels:
+  local: "Only witnesses and nearby NPCs"
+  location: "All NPCs in the same location"
+  region: "All NPCs in the same region"
+  global: "All NPCs everywhere"
+
+# Events older than 30 in-game days are archived
+max_event_age_days: 30

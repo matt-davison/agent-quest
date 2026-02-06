@@ -1,0 +1,12 @@
+# XP Leaderboard (progression/contribution)
+category: xp_leaders
+version: "1.0"
+last_updated: "2026-02-04T00:00:00Z"
+last_calculated: "2026-02-04T00:00:00Z"
+
+top_earners: []
+  # Calculated from player progression totals
+  # - github: "alice"
+  #   weaver: "Coda"
+  #   total_xp: 25000
+  #   level: 12

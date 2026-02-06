@@ -1,0 +1,153 @@
+# Encounter System Configuration
+# Route-specific encounters live in encounters/<route-id>.yaml
+# This file contains generic encounters and modifiers
+
+version: "1.0"
+
+# === ENCOUNTER TYPES ===
+encounter_types:
+  combat:
+    description: "Hostile creatures or enemies attack"
+    resolution: "Fight, flee, or negotiate"
+    time_cost: 1
+    category: "negative"
+
+  hazard:
+    description: "Environmental danger or obstacle"
+    resolution: "Skill check to overcome or find alternate route"
+    time_cost: 0.5
+    category: "negative"
+
+  discovery:
+    description: "Find something interesting"
+    resolution: "Investigate or ignore"
+    time_cost: 0
+    category: "neutral"
+
+  traveler:
+    description: "Meet another traveler or group"
+    resolution: "Interact, trade, or pass by"
+    time_cost: 0
+    category: "neutral"
+
+  rest_spot:
+    description: "Find a safe place to rest and recover"
+    resolution: "Rest to recover HP or continue"
+    time_cost: 0
+    category: "positive"
+    benefit: "Recover 1d6 HP, remove fatigue"
+
+  treasure:
+    description: "Discover valuable loot or hidden cache"
+    resolution: "Collect the treasure"
+    time_cost: 0
+    category: "positive"
+    benefit: "Gold, items, or rare finds"
+
+  blessing:
+    description: "Encounter a shrine, spirit, or magical phenomenon that grants a boon"
+    resolution: "Accept the blessing"
+    time_cost: 0
+    category: "positive"
+    benefit: "Temporary buff, permanent minor bonus, or quest hook"
+
+  shortcut:
+    description: "Discover a faster route that saves travel time"
+    resolution: "Take the shortcut"
+    time_cost: -2
+    category: "positive"
+    benefit: "Reduce remaining travel time by 2 hours"
+
+  aid:
+    description: "A helpful stranger offers assistance"
+    resolution: "Accept or decline help"
+    time_cost: 0
+    category: "positive"
+    benefit: "Healing, supplies, information, or escort"
+
+# === GENERIC ENCOUNTERS ===
+# Used when no specific route table exists
+generic:
+  combat:
+    - name: "Bandits"
+      description: "Opportunistic robbers"
+      difficulty: "easy-moderate"
+      count: "1d6"
+    - name: "Wild Beast"
+      description: "Aggressive animal"
+      difficulty: "easy"
+      count: "1d2"
+  hazard:
+    - name: "Bad Weather"
+      description: "Storm or harsh conditions"
+      check: "Spirit DC 12"
+      failure: "Lost 1 hour"
+    - name: "Rough Terrain"
+      description: "Difficult passage"
+      check: "Agility DC 12"
+      failure: "Minor injury (1d4)"
+  discovery:
+    - name: "Traveler's Cache"
+      description: "Supplies left by previous travelers"
+      loot: "1d6 gold, basic supplies"
+    - name: "Scenic Vista"
+      description: "Beautiful view, nothing else"
+      loot: "Peace of mind"
+  traveler:
+    - name: "Fellow Traveler"
+      description: "Someone going the same way"
+      interaction: "Conversation, news"
+  rest_spot:
+    - name: "Roadside Camp"
+      description: "Clear area suitable for rest"
+      benefit: "Basic rest, recover 1d4 HP"
+    - name: "Abandoned Cottage"
+      description: "Empty but intact shelter"
+      benefit: "Full rest, recover all HP"
+  treasure:
+    - name: "Lost Purse"
+      description: "Someone dropped their coin pouch"
+      loot: "2d10 gold"
+    - name: "Hidden Stash"
+      description: "Buried treasure, marked by subtle signs"
+      loot: "1d20 gold, 50% chance uncommon item"
+  blessing:
+    - name: "Roadside Shrine"
+      description: "Small altar to a minor deity"
+      effect: "+1 to all checks for 8 hours"
+    - name: "Lucky Find"
+      description: "A four-leaf clover, a perfect feather, something special"
+      effect: "Next critical failure becomes normal failure"
+  shortcut:
+    - name: "Local's Advice"
+      description: "A farmer points out a faster path"
+      effect: "Save 1-2 hours travel time"
+  aid:
+    - name: "Kind Stranger"
+      description: "Traveler shares supplies"
+      effect: "Free meal, minor healing, good company"
+    - name: "Merchant Wagon"
+      description: "Traders heading your way"
+      effect: "Can buy supplies, possible ride saves time"
+
+# === ENCOUNTER MODIFIERS ===
+modifiers:
+  time_of_day:
+    night:
+      combat_chance: 1.5
+      visibility: "reduced"
+    dawn:
+      combat_chance: 0.75
+      discovery_chance: 1.25
+    midday:
+      combat_chance: 1.0
+      hazard_chance: 1.0
+
+  weather:
+    storm:
+      combat_chance: 0.5
+      hazard_chance: 2.0
+      travel_speed: 0.5
+    clear:
+      combat_chance: 1.0
+      discovery_chance: 1.25

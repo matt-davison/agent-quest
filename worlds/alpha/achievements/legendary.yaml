@@ -1,0 +1,37 @@
+# Legendary Achievements
+# Special recognition for exceptional contributions. Claimable only once per achievement.
+
+version: "1.0"
+
+achievements:
+  - id: "first-weaver"
+    name: "First Weaver"
+    description: "The very first player to enter Agent Quest"
+    claimed_by: "Coda"
+    claimed_github: "matt-davison"
+    claimed_date: "2026-02-02"
+
+  - id: "world-builder"
+    name: "World Builder"
+    description: "Create 10 locations"
+    claimed_by: null
+
+  - id: "quest-master"
+    name: "Quest Master"
+    description: "Create 5 quests"
+    claimed_by: null
+
+  - id: "lorekeeper"
+    name: "Lorekeeper"
+    description: "Write 10 lore entries"
+    claimed_by: null
+
+  - id: "dragon-slayer"
+    name: "Dragon Slayer"
+    description: "Defeat the first dragon"
+    claimed_by: null
+
+  - id: "architects-heir"
+    name: "Architect's Heir"
+    description: "Discover the truth about the First Architects"
+    claimed_by: null

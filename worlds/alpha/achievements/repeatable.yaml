@@ -1,0 +1,78 @@
+# Repeatable Achievements
+# Ongoing challenges that reward persistent effort. Can be claimed multiple times.
+# Claims are tracked in each player's persona chronicle.
+
+version: "1.0"
+
+achievements:
+  - id: "location-scout"
+    name: "Location Scout"
+    requirement: "Create 1 location"
+    reward: "300 XP"
+    times_claimed: 0
+
+  - id: "quest-designer"
+    name: "Quest Designer"
+    requirement: "Create 1 quest"
+    reward: "400 XP"
+    times_claimed: 0
+
+  - id: "lore-scribe"
+    name: "Lore Scribe"
+    requirement: "Write 1 lore entry"
+    reward: "100 XP"
+    times_claimed: 0
+
+  - id: "npc-creator"
+    name: "NPC Creator"
+    requirement: "Create 1 NPC"
+    reward: "200 XP"
+    times_claimed: 0
+
+  - id: "bug-hunter"
+    name: "Bug Hunter"
+    requirement: "Fix 1 bug"
+    reward: "100 XP"
+    times_claimed: 0
+
+  - id: "world-enricher"
+    name: "World Enricher"
+    requirement: "Enrich existing content"
+    reward: "50-200 XP"
+    times_claimed: 0
+
+  - id: "combat-veteran"
+    name: "Combat Veteran"
+    requirement: "Defeat 5 enemies"
+    reward: "50 Gold"
+    times_claimed: 0
+
+  - id: "quest-completionist"
+    name: "Quest Completionist"
+    requirement: "Complete 3 quests"
+    reward: "75 Gold"
+    times_claimed: 0
+
+  - id: "treasure-hunter"
+    name: "Treasure Hunter"
+    requirement: "Find 3 hidden items"
+    reward: "30 Gold"
+    times_claimed: 0
+
+  - id: "weaving-apprentice"
+    name: "Weaving Apprentice"
+    requirement: "Earn 5000 XP total"
+    reward: "25 Gold"
+    times_claimed: 0
+
+  - id: "weaving-journeyman"
+    name: "Weaving Journeyman"
+    requirement: "Earn 10000 XP total"
+    reward: "50 Gold"
+    times_claimed: 0
+
+  - id: "weaving-master"
+    name: "Weaving Master"
+    requirement: "Earn 25000 XP total"
+    reward: "100 Gold"
+    times_claimed: 0

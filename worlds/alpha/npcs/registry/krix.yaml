@@ -1,0 +1,22 @@
+id: krix
+name: "Krix the Merchant"
+role: "General Goods Vendor"
+default_location: "nexus-station/bazaar"
+region: "nexus"
+faction: "merchant-guild"
+disposition_default: "neutral"
+services:
+  - "buy"
+  - "sell"
+  - "rare_items"
+  - "fencing"
+tags:
+  - "merchant"
+  - "goblin"
+  - "hidden_inventory"
+  - "shady"
+has_profile: true
+profile_priority: "core"
+secrets:
+  - id: "back_room_access"
+    hint: "Ask about 'the good stuff' repeatedly"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# plugins/agent-quest-game/scripts/rt-stop.sh
+# .claude/hooks/rt-stop.sh
 # Stop hook: poll for new RT messages before allowing Claude to stop
 # Blocks stop if other players have new actions, injecting them for processing.
 

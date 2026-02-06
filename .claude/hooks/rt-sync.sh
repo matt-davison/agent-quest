@@ -1,5 +1,5 @@
 #!/bin/bash
-# plugins/agent-quest-game/scripts/rt-sync.sh
+# .claude/hooks/rt-sync.sh
 # UserPromptSubmit hook: check inbox + RT messages before each prompt
 # Replaces sync-multiplayer.sh — handles both async and RT multiplayer.
 

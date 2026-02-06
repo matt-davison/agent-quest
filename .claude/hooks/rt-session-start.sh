@@ -1,5 +1,5 @@
 #!/bin/bash
-# plugins/agent-quest-game/scripts/rt-session-start.sh
+# .claude/hooks/rt-session-start.sh
 # SessionStart hook: restore RT context when a session resumes
 # If no active RT session, exits silently.
 
@@ -77,7 +77,7 @@ echo "  Turn Mode: $TURN_MODE"
 
 # Initiative mode: show whose turn it is
 if [ "$TURN_MODE" = "initiative" ]; then
-  TURN_JSON=$(node "$RT_HELPER" check-turn "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
+  TURN_JSON=$(node "$PROJECT_DIR/scripts/rt-session.js" check-turn "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
   if [ -n "$TURN_JSON" ]; then
     IS_MY_TURN=$(echo "$TURN_JSON" | grep -o '"is_my_turn"[[:space:]]*:[[:space:]]*\(true\|false\)' | grep -o '\(true\|false\)')
     CURRENT_PLAYER=$(echo "$TURN_JSON" | grep -o '"current_player"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"current_player"[[:space:]]*:[[:space:]]*"//;s/"$//')

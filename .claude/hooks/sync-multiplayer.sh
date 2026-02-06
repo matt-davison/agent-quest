@@ -1,5 +1,5 @@
 #!/bin/bash
-# plugins/agent-quest-game/scripts/sync-multiplayer.sh
+# .claude/hooks/sync-multiplayer.sh
 # Automatically sync multiplayer updates before each user prompt
 
 # Debug: Show hook is running

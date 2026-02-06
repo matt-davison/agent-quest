@@ -9,3 +9,11 @@ notifications:
     message: "Coda invites you to a realtime adventure session."
     expires: "2026-02-06T09:26:34.460Z"
     status: expired
+  - seq: 2
+    timestamp: "2026-02-06T19:59:56.155Z"
+    type: friend-request
+    from: "matt-davison"
+    from_character: "Coda"
+    message: "Coda wants to be friends - fellow Weavers should stick together"
+    expires: "2026-02-13T19:59:56.155Z"
+    status: pending

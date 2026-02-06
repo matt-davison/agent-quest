@@ -84,7 +84,10 @@ Read `world/lore/genesis.md` to understand the world.
 
 When resuming an existing player:
 
-1. **Identify**: `gh api user -q '.login'` or `get_me`
+1. **Authenticate & identify**:
+   - Try: `gh api user -q '.login'`
+   - If not authenticated, guide user through `gh auth login`
+   - See main [SKILL.md](../SKILL.md) Session Start section for full authentication flow
 2. **Read player file**: `players/<github-username>/player.yaml` → get `active_character`
 3. **Read persona**: `players/<github-username>/personas/<active_character>/persona.yaml`
 4. **Read quests**: `players/<github-username>/personas/<active_character>/quests.yaml`

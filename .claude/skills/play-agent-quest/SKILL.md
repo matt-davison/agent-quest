@@ -29,7 +29,33 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 
 ## Session Start
 
-1. **Identify player**: `gh api user -q '.login'`
+1. **Authenticate & identify player**:
+   - Try: `gh api user -q '.login'`
+   - **If fails** (not logged in):
+     - Check if `gh` is installed: `command -v gh`
+     - If not installed:
+       ```
+       You need the GitHub CLI to play Agent Quest.
+
+       Install it:
+       • macOS: brew install gh
+       • Linux: See https://github.com/cli/cli#installation
+       • Windows: See https://github.com/cli/cli#installation
+
+       After installing, run: gh auth login
+       ```
+     - If installed but not authenticated:
+       ```
+       You're not logged in to GitHub. Let's fix that!
+
+       Run this command to authenticate:
+
+       gh auth login
+
+       Follow the prompts to authenticate with GitHub.
+       Once you're logged in, we can start your adventure!
+       ```
+     - After user authenticates, retry: `gh api user -q '.login'`
 2. **Determine world**: Check `worlds.yaml` (default: `alpha`)
 3. **Load world settings**: Read `worlds/<world>/world.yaml` for configuration (especially `user_generation`)
 4. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`

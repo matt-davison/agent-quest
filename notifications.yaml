@@ -26,3 +26,12 @@ notifications:
     expires: "2026-02-08T20:00:14.383Z"
     status: pending
     party_id: "party-void-seekers"
+  - seq: 4
+    timestamp: "2026-02-06T20:00:34.736Z"
+    type: mail
+    from: "matt-davison"
+    from_character: "Coda"
+    message: "Intel on the Fragment of Will"
+    expires: "2026-03-08T20:00:34.738Z"
+    status: pending
+    mail_id: "mail-coda-ichnor-001"

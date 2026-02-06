@@ -453,3 +453,77 @@ Gold: +230 (net) | XP: +130 | Factions: Free Traders (Friendly)
 Chronicle updated. Auto-saved.
 ═══════════════════════════════════════════════════════════════
 ```
+
+---
+
+## Stop Hook Integration
+
+The Dreaming is powered by the Claude Code Stop hook. When Claude finishes a turn and tries to stop, the hook detects an active dream and blocks the stop, injecting continuation instructions. This creates the autonomous loop.
+
+### How It Works
+
+1. **Marker file**: `scripts/dream-session.js start-dream` creates `/tmp/agent-quest-dreaming.json` containing all dream state (character, mode, turn count, goals, safety counters)
+2. **Stop hook** (`.claude/hooks/rt-stop.sh`): Before checking for RT multiplayer, the hook checks for the dream marker. If present, it:
+   - Checks the safety cap (200 loops max)
+   - Increments the turn and loop counters
+   - Evaluates wake conditions via `should-wake`
+   - If no wake: blocks stop with `{"decision": "block", "reason": "[DREAM CONTINUES - Echo Turn N] ..."}`
+   - The `reason` field IS the dream loop driver — it tells Claude what to do next
+3. **SessionStart hook** (`.claude/hooks/rt-session-start.sh`): On session resume, detects the dream marker and outputs context (character, mode, turn count, last action) so Claude can resume dreaming
+4. **UserPromptSubmit hook** (`.claude/hooks/rt-sync.sh`): Resets the loop counter on user input to prevent stale counters from triggering the safety cap
+
+### Checkpoint Behavior
+
+Every N turns (default: 5), the stop hook injects `[CHECKPOINT]` in the continuation reason. Claude should:
+
+1. Save all changes silently via `repo-sync save`
+2. Mark the checkpoint complete: `node scripts/dream-session.js checkpoint-done`
+3. Continue immediately — checkpoints are NOT wake triggers
+
+### Safety Mechanisms
+
+| Mechanism | Default | Purpose |
+|-----------|---------|---------|
+| Loop counter cap | 200 | Emergency stop after 200 blocked stop cycles |
+| `should-wake` check | Every cycle | Evaluates goal/turns/anchor conditions |
+| User prompt resets counter | On every user input | Prevents stale counter from blocking dreaming |
+| Checkpoint saves | Every 5 turns | Silent persistence without stopping |
+| Anchor points | Standard mode only | Forces wake for significant decisions |
+
+### Context Compaction Recovery
+
+When Claude's context window compresses, the dream state survives because:
+
+1. The marker file (`/tmp/agent-quest-dreaming.json`) persists on disk
+2. The SessionStart hook re-injects dream context on session resume
+3. The `last_turn_summary` field helps Claude reconstruct what was happening
+4. The Stop hook continues to drive the loop regardless of context state
+
+### Dream Session CLI Reference
+
+```bash
+# Start a dream
+node scripts/dream-session.js start-dream <github> <character> [world]
+
+# Get current dream state
+node scripts/dream-session.js get-dream
+
+# Record turn summary (for context recovery)
+node scripts/dream-session.js set-summary "<brief summary>"
+
+# Check/mark checkpoints
+node scripts/dream-session.js checkpoint-due
+node scripts/dream-session.js checkpoint-done
+
+# Wake conditions
+node scripts/dream-session.js should-wake
+node scripts/dream-session.js set-goal-achieved
+node scripts/dream-session.js set-anchor-point "<reason>"
+
+# End the dream
+node scripts/dream-session.js wake
+
+# Safety counters
+node scripts/dream-session.js get-loop-counter
+node scripts/dream-session.js reset-loop-counter
+```

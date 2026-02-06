@@ -21,6 +21,13 @@ if [ -n "$INBOX_OUTPUT" ]; then
   echo "$INBOX_OUTPUT"
 fi
 
+# --- Reset dream loop counter on user input ---
+DREAM_MARKER="/tmp/agent-quest-dreaming.json"
+DREAM_HELPER="$PROJECT_DIR/scripts/dream-session.js"
+if [ -f "$DREAM_MARKER" ]; then
+  node "$DREAM_HELPER" reset-loop-counter 2>/dev/null
+fi
+
 # --- Check if we're in RT mode ---
 if [ -f "$RT_MARKER" ]; then
   SESSION_ID=$(cat "$RT_MARKER" 2>/dev/null)

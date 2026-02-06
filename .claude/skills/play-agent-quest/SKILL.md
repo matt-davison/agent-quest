@@ -341,6 +341,61 @@ Check `user_generation` setting first:
 | **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 
+### Dream / Autopilot Hook Integration
+
+The Dreaming uses the Stop hook to drive the dream loop. The hook blocks Claude from stopping and injects continuation instructions via the `reason` field.
+
+**On dream entry** (player says "Dream", "Autopilot", etc.):
+
+1. Load `dream-pattern.yaml` from persona directory (or use defaults)
+2. Confirm settings with player (scope, mode, goal, full_autonomy)
+3. Start the dream session:
+   ```bash
+   node scripts/dream-session.js start-dream <github> <character> <world>
+   ```
+4. Begin the first Echo turn
+5. The Stop hook drives all subsequent turns automatically
+
+**During dreaming** (automatic, driven by Stop hook):
+
+- The Stop hook blocks each stop attempt and injects `[DREAM CONTINUES - Echo Turn N]`
+- Execute the next Echo turn based on the injected reason
+- After each turn, update game state via `state-writer` and record the turn:
+  ```bash
+  node scripts/dream-session.js set-summary "<brief summary of this turn>"
+  ```
+- When the hook injects `[CHECKPOINT]`, save all changes silently via `repo-sync save` (do NOT display summary, continue immediately)
+- After a checkpoint, mark it complete:
+  ```bash
+  node scripts/dream-session.js checkpoint-done
+  ```
+
+**On wake** (player says "Wake", "Stop", "I'm back"):
+
+1. End the dream session:
+   ```bash
+   node scripts/dream-session.js wake
+   ```
+2. Present wake summary (turns completed, gold/XP changes, key events)
+3. Return to manual play
+
+**On anchor point** (non-full-autonomy only):
+
+1. Set the anchor point:
+   ```bash
+   node scripts/dream-session.js set-anchor-point "<reason>"
+   ```
+2. Present the anchor point situation to the player
+3. The Stop hook allows stop on the next cycle
+
+**On goal achieved** (goal mode):
+
+1. Mark the goal as achieved:
+   ```bash
+   node scripts/dream-session.js set-goal-achieved
+   ```
+2. The Stop hook allows stop on the next cycle
+
 ### ASCII Visualization
 
 Generate ASCII art to immerse players. See [quick-ref/ascii-art.md](quick-ref/ascii-art.md).

@@ -3,8 +3,35 @@
 # SessionStart hook: restore RT context when a session resumes
 # If no active RT session, exits silently.
 
-RT_MARKER="/tmp/agent-quest-rt-session"
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
+
+# === DREAMING CHECK (before RT) ===
+DREAM_MARKER="/tmp/agent-quest-dreaming.json"
+if [ -f "$DREAM_MARKER" ]; then
+  DREAM_FIELDS=$(node -e "
+    const d=JSON.parse(require('fs').readFileSync('$DREAM_MARKER','utf8'));
+    console.log(d.character||'');
+    console.log(d.mode||'');
+    console.log(d.turn_count||0);
+    console.log(d.last_turn_summary||'');
+    console.log(d.persona_path||'');
+  " 2>/dev/null)
+  CHAR=$(echo "$DREAM_FIELDS" | sed -n '1p')
+  MODE=$(echo "$DREAM_FIELDS" | sed -n '2p')
+  TURN=$(echo "$DREAM_FIELDS" | sed -n '3p')
+  SUMMARY=$(echo "$DREAM_FIELDS" | sed -n '4p')
+  PERSONA=$(echo "$DREAM_FIELDS" | sed -n '5p')
+
+  echo "[DREAMING SESSION ACTIVE]"
+  echo "  Character: $CHAR | Mode: $MODE | Turn: $TURN"
+  echo "  Last action: $SUMMARY"
+  echo "  Reload state from: $PERSONA/persona.yaml"
+  echo "  Continue The Dreaming. The Stop hook will drive the loop."
+  exit 0
+fi
+
+# === RT MULTIPLAYER CHECK ===
+RT_MARKER="/tmp/agent-quest-rt-session"
 RT_HELPER="$PROJECT_DIR/scripts/rt-session.js"
 
 # No marker = no RT session = exit silently

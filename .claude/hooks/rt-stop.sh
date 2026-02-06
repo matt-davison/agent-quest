@@ -3,8 +3,48 @@
 # Stop hook: poll for new RT messages before allowing Claude to stop
 # Blocks stop if other players have new actions, injecting them for processing.
 
-RT_MARKER="/tmp/agent-quest-rt-session"
 PROJECT_DIR="${CLAUDE_PROJECT_DIR:-.}"
+
+# === DREAMING CHECK (before RT) ===
+DREAM_MARKER="/tmp/agent-quest-dreaming.json"
+DREAM_HELPER="$PROJECT_DIR/scripts/dream-session.js"
+
+if [ -f "$DREAM_MARKER" ]; then
+  INPUT=$(cat)
+
+  # Safety cap - emergency stop after too many loops
+  LOOP_COUNT=$(node "$DREAM_HELPER" get-loop-counter 2>/dev/null || echo "0")
+  if [ "$LOOP_COUNT" -gt 200 ]; then
+    node "$DREAM_HELPER" wake 2>/dev/null
+    exit 0
+  fi
+
+  # Increment turn + loop counter
+  node "$DREAM_HELPER" increment-turn 2>/dev/null
+
+  # Check wake conditions (goal met, turns exhausted, anchor point)
+  SHOULD_WAKE=$(node "$DREAM_HELPER" should-wake 2>/dev/null)
+  if [ "$SHOULD_WAKE" = "true" ]; then
+    exit 0
+  fi
+
+  # Check if checkpoint is due
+  CHECKPOINT_DUE=$(node "$DREAM_HELPER" checkpoint-due 2>/dev/null)
+  TURN_COUNT=$(node -e "const d=JSON.parse(require('fs').readFileSync('$DREAM_MARKER','utf8'));process.stdout.write(String(d.turn_count))" 2>/dev/null)
+
+  # Build continuation reason
+  REASON="[DREAM CONTINUES - Echo Turn $TURN_COUNT]"
+  if [ "$CHECKPOINT_DUE" = "true" ]; then
+    REASON="$REASON [CHECKPOINT: Save all changes silently via repo-sync save. Do NOT display summary. Continue immediately.]"
+  fi
+  REASON="$REASON Continue The Dreaming. Execute the next Echo turn. After acting, update game state via state-writer and call: node scripts/dream-session.js set-summary \"<brief summary of this turn>\""
+
+  echo "{\"decision\": \"block\", \"reason\": \"$REASON\"}"
+  exit 0
+fi
+
+# === RT MULTIPLAYER CHECK ===
+RT_MARKER="/tmp/agent-quest-rt-session"
 RT_HELPER="$PROJECT_DIR/scripts/rt-session.js"
 
 # No RT session = allow stop immediately

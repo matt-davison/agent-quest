@@ -1,5 +1,3 @@
-- Improve deep sleep / fully autonomous mode (https://code.claude.com/docs/en/hooks#stop-decision-control)
-
 ## Critical: Content Shortages
 
 - [ ] Add 20+ creatures across levels 1-10 (only Guardian Automaton L5 and Glitch Wraith L3 are playable today)

@@ -1,0 +1,51 @@
+# Shadow Meld - Voidwalker stealth ability
+id: sm9xpr2k
+name: "Shadow Meld"
+type: ability
+subtype: stealth
+class: Voidwalker
+tier: 1
+tags:
+  - utility
+  - stealth
+  - void
+  - voidwalker
+
+prerequisites:
+  min_level: 2
+  min_agility: 14
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Merge with shadows to become nearly invisible. While melded, you gain advantage on stealth checks and enemies have disadvantage to detect you. Lasts 3 rounds or until you attack. Moving between shadows does not break the effect."
+    willpower_cost: 4
+    effect:
+      stealth_bonus: 5
+      detection_penalty: -3
+      duration_rounds: 3
+      breaks_on: "attack"
+      shadow_movement: true
+    learn_cost: 0
+  2:
+    description: "Enhanced shadow melding. Duration increased to 5 rounds, and your first attack from meld deals +2d6 shadow damage."
+    willpower_cost: 5
+    effect:
+      stealth_bonus: 7
+      detection_penalty: -5
+      duration_rounds: 5
+      breaks_on: "attack"
+      shadow_movement: true
+      first_strike_bonus: "2d6"
+    learn_cost: 150
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: self

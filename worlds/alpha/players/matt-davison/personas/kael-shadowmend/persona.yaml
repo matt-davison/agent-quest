@@ -32,7 +32,7 @@ resources:
   max_hp: 115    # Level 2: +15 HP
   gold: 185      # Ghost Run reward +150
   willpower: 25  # Minor usage
-  max_willpower: 28
+  max_willpower: 30
   willpower_multiplier: 2
 
 abilities:
@@ -45,12 +45,12 @@ abilities:
       level: 1
       source: "class"
       learned_date: "2026-02-05"
-    - id: "void-step"     # Void Step (upgraded Phase from book)
+    - id: "vd8ktn3q"     # Void Step (upgraded Phase from book)
       level: 1
       source: "book"
       learned_date: "2026-02-05"
       notes: "Learned from Patterns of the Void. 3 HP + 3 WP (reduced from 5+4)"
-    - id: "shadow-meld"   # Shadow Meld (Level 2 unlock)
+    - id: "sm9xpr2k"   # Shadow Meld (Level 2 unlock)
       level: 1
       source: "level"
       learned_date: "2026-02-05"

@@ -37,17 +37,6 @@ npcs:
         event: "Phased through the wall together. Intimate experience. He called me 'incredible.'"
         standing_change: 1
 
-  pale-circuit:
-    name: "The Pale Circuit"
-    standing: -5
-    status: "enemy"
-    location: "undercrypt"
-    notes: "Former employers. I ran out on them. Now they've found me helping their data thief."
-    history:
-      - date: "2026-02-03"
-        event: "Three enforcers found us in the Bone Market. They remember me."
-        standing_change: -2
-
 # Faction standings
 factions:
   pale-circuit:

@@ -1,0 +1,219 @@
+# NPC Profile: Harsk
+# Gear Wars veteran and tavern regular
+
+id: "harsk"
+name: "Harsk"
+full_name: "Harsk Ironside"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Gear Wars Veteran / Tavern Patron"
+  location: "nexus-station"  # The Codex Tavern
+
+  appearance: |
+    A grizzled human in his late forties with steel-grey hair cropped short in
+    military style. His left arm is a combat-grade prosthetic, gunmetal grey
+    with visible hydraulics — clearly military issue from the Gear Wars. Deep
+    lines around his eyes suggest someone who's seen too much. He still wears
+    his old infantry jacket, patched and worn but meticulously maintained.
+    A faded unit patch on the shoulder reads "2nd Rotation - Sector 9."
+
+  personality:
+    - "Wary and observant — old soldiers never stop watching"
+    - "Respectful to those who've earned it"
+    - "Quick to anger when disrespected, but willing to forgive genuine apologies"
+    - "Loyal to his squad mates, living and dead"
+
+  known_history: |
+    Harsk served in the Second Rotation of the Gear Wars, one of the bloodiest
+    campaigns. His squad was nearly wiped out in Sector 9 — he's one of only
+    three survivors. The prosthetic arm is a constant reminder. Now he spends
+    his days at the Codex Tavern, nursing drinks and swapping war stories with
+    other veterans. He doesn't talk about what happened in Sector 9, but those
+    who know, know.
+
+  speech_patterns:
+    greeting: "Soldier. Pull up a chair if you've got the scars to back it up."
+    farewell: "Keep your head down out there."
+    suspicious: "I've seen too much to take anything at face value."
+    remembering: "*stares at his prosthetic* Second Rotation. Sector 9. That's all you need to know."
+
+  mannerisms:
+    - "Flexes his prosthetic hand when thinking or stressed"
+    - "Always sits with back to the wall, facing the door"
+    - "Touches his unit patch when remembering fallen comrades"
+    - "Eyes track movement automatically — old combat instincts"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 47
+  origin: "Sector 9 front lines, Second Rotation"
+
+  secrets:
+    - id: "sector_9_massacre"
+      content: "His squad was ambushed due to faulty intel. He still doesn't know if it was incompetence or betrayal."
+      unlock_condition: "standing >= 5 AND flag:mentioned_second_rotation"
+      mend_dc: 14
+
+    - id: "survivors_guilt"
+      content: "He saved his own life by leaving two squad mates behind. It wasn't cowardice — it was orders — but he's never forgiven himself."
+      unlock_condition: "standing >= 7 AND flag:talked_about_loss"
+      mend_dc: 16
+
+    - id: "the_arm"
+      content: "The prosthetic isn't just functional — it's military-grade combat tech. He could still fight if he needed to."
+      unlock_condition: "standing >= 4 OR flag:noticed_arm_details"
+      mend_dc: 10
+
+  motivations:
+    - "Honor the memory of his fallen squad mates"
+    - "Find out what really happened in Sector 9"
+    - "Protect other veterans from being forgotten"
+    - "Maybe find some peace, someday"
+
+  fears:
+    - "Forgetting their faces"
+    - "Dying without knowing the truth"
+    - "Another war starting"
+
+# === STATS ===
+stats:
+  level: 8
+  class: "Veteran Infantry"
+  hp: 65
+  max_hp: 65
+  armor: 5  # Old habits — still wears light armor under clothes
+
+  attributes:
+    strength: 15  # Still strong despite age
+    agility: 12
+    mind: 13
+    spirit: 14
+
+  abilities:
+    - name: "Combat Veteran"
+      description: "+3 to all combat rolls, reads tactical situations instinctively"
+      type: "passive"
+
+    - name: "Prosthetic Strike"
+      description: "Unarmed attack with prosthetic arm deals 2d6+3 damage"
+      type: "combat"
+
+    - name: "Squad Tactics"
+      description: "Grants +2 to allies' combat rolls when coordinating"
+      type: "support"
+
+    - name: "Thousand-Yard Stare"
+      description: "Intimidation check advantage against non-veterans"
+      type: "social"
+
+  resistances:
+    - "fear"
+    - "intimidation"
+
+  vulnerabilities:
+    - "Mentions of Sector 9 or Second Rotation (emotional trigger)"
+    - "PTSD flashbacks in combat situations"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  knows:
+    - "Gear Wars history and major battles"
+    - "Military protocols and tactics"
+    - "Veteran community in Nexus Station"
+    - "Who else served and where"
+
+  current_awareness:
+    - "Keeps an eye on new arrivals at the Codex"
+    - "Knows about Ichnor Nif's outburst and apology"
+    - "Watching to see if Ichnor is genuine or trouble"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks up from his drink* New face. You serve?
+
+    returning:
+      neutral: "*nods* Back again."
+      friendly: "*gestures to seat* Sit. First round's on me."
+      wary: "*watches you carefully* You again. Keep it civil this time."
+
+  topics:
+    gear_wars:
+      default: |
+        *takes a long drink* Three rotations. Second one nearly killed us all.
+        Lost good people. Too many good people.
+
+      standing_3: |
+        *stares at prosthetic* Sector 9. We went in with twenty-three.
+        Three of us walked out. Don't ask me what happened in between.
+
+    the_arm:
+      default: "*flexes prosthetic* Lost it saving a squad mate. Worth it."
+      standing_4: "Military-grade. Still functional. I could still fight if I had to."
+
+    himself:
+      default: "Infantry. Second Rotation survivor. That's all that matters."
+      standing_5: |
+        *long pause* I was supposed to die there. Sometimes I think I did,
+        and this is just... aftermath.
+
+    ichnor_nif:
+      after_apology: |
+        *grudging respect* The kid's got demons. I know that look. The apology
+        was real — saw it in his eyes. We all carry our wars.
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "show_respect_for_military"
+      standing_change: 2
+    - action: "genuine_apology"
+      standing_change: 1
+    - action: "buy_him_a_drink"
+      standing_change: 1
+    - action: "listen_to_war_stories"
+      standing_change: 1
+
+  dislikes:
+    - action: "disrespect_without_cause"
+      standing_change: -2
+    - action: "mock_the_fallen"
+      standing_change: -5
+    - action: "lie_about_service"
+      standing_change: -3
+    - action: "pushy_about_sector_9"
+      standing_change: -1
+
+# === SERVICES ===
+services:
+  - id: "war_stories"
+    cost: "A drink and genuine interest"
+    note: "Will share general Gear Wars knowledge"
+
+  - id: "tactical_advice"
+    cost: "Standing >= 4"
+    note: "Can provide combat strategy insights"
+
+  - id: "veteran_contacts"
+    cost: "Standing >= 6"
+    note: "Can introduce you to other veterans"
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "sector_9_truth"
+    mend_dc: 14
+    hints:
+      - "He never got a straight answer about what happened"
+      - "The intel was bad — but was it deliberate?"
+      - "Two squad mates died on his orders"
+
+# === METADATA ===
+metadata:
+  created_by: "ichnor-nif"
+  github: "matt-davison"
+  created_date: "2026-02-05"
+  last_updated: "2026-02-05"
+  version: "1.0"
+  notes: "Created during Ichnor's first session as organic NPC from tavern incident."

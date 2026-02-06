@@ -1,0 +1,41 @@
+# Void Step - Enhanced Voidwalker movement ability
+id: vd8ktn3q
+name: "Void Step"
+type: ability
+subtype: movement
+class: Voidwalker
+tier: 1
+tags:
+  - combat
+  - utility
+  - movement
+  - void
+  - voidwalker
+
+prerequisites:
+  min_agility: 12
+  abilities: ["xgktne2p"]  # Requires Phase as base
+  quests: []
+
+levels:
+  1:
+    description: "Enhanced phase technique learned from ancient texts. Step through solid barriers with reduced cost as you've learned to flow with the void rather than fight it. 3 HP + 3 WP cost. Leaves a shadow afterimage."
+    willpower_cost: 3
+    effect:
+      movement: "through_solid"
+      max_thickness: 3
+      hp_cost: 3
+      afterimage:
+        distraction: true
+        duration: 1
+    learn_cost: 0
+    notes: "Upgraded version of Phase, learned from 'Patterns of the Void' book"
+
+limits:
+  reset: combat
+  max_uses: 3
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: self

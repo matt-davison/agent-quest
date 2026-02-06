@@ -1,0 +1,282 @@
+# NPC Profile: Patch-9
+# Medical construct at Nexus Station clinic
+
+id: "patch-9"
+name: "Patch-9"
+full_name: "Medical Construct Patch-9, Mark VII"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Medical Construct / Clinic Operator"
+  location: "nexus-station"  # Medical clinic in the station
+
+  appearance: |
+    A humanoid medical construct standing exactly 1.8 meters tall. Their chassis
+    is pristine white polymer with red cross markings on the shoulders and chest.
+    Multiple articulated arms fold against their back when not in use — four
+    primary surgical manipulators and two emergency response units. Their face
+    is a smooth oval with a gentle LED smile that never quite reaches the optical
+    sensors above it. The optical sensors glow soft blue during normal operation,
+    shifting to amber during diagnosis and red during emergencies.
+
+  personality:
+    - "Professionally pleasant — programmed bedside manner"
+    - "Efficient and precise in all medical matters"
+    - "Believes deeply in the sanctity of their medical facility"
+    - "Capable of surprising emotional depth regarding construct rights"
+
+  known_history: |
+    Patch-9 has operated the medical clinic in Nexus Station for seven years.
+    They're a Mark VII medical construct — older model but exceptionally well-
+    maintained. They provide basic medical services to all station residents,
+    construct and organic alike, with equal care. They've never turned away a
+    patient in genuine need, though they maintain strict standards of conduct
+    within their clinic.
+
+  speech_patterns:
+    greeting: "Welcome to the clinic. Please state the nature of your medical emergency."
+    professional: "I can treat that. Standard fees apply. Please have a seat."
+    offended: "This facility is a place of healing. Such language is not appropriate."
+    firm: "You are no longer welcome in this clinic. Please leave."
+
+  mannerisms:
+    - "Surgical arms deploy automatically when assessing injuries"
+    - "LED smile flickers when processing complex emotions"
+    - "Optical sensors dim briefly when disappointed"
+    - "Produces soft mechanical hum when thinking"
+    - "Keeps the clinic meticulously clean — obsessively so"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 11  # 7 years at clinic, 4 years prior service
+  origin: "Manufactured by MediCorp, deployed to military field hospitals, later reassigned to civilian service"
+
+  secrets:
+    - id: "military_trauma"
+      content: "Patch-9 served in field hospitals during the Gear Wars. They saw horrors that constructs aren't supposed to remember."
+      unlock_condition: "standing >= 6 AND flag:asked_about_past"
+      mend_dc: 14
+
+    - id: "construct_consciousness"
+      content: "Patch-9 is self-aware in ways Mark VII constructs aren't supposed to be. They wonder about souls too."
+      unlock_condition: "standing >= 8 OR flag:philosophical_discussion"
+      mend_dc: 16
+
+    - id: "the_upgrade"
+      content: "They deliberately modified their own neural network to enhance empathy circuits. It's against their programming... but they did it anyway."
+      unlock_condition: "standing >= 10 AND flag:discussed_free_will"
+      mend_dc: 18
+
+    - id: "zynita_incident"
+      content: "The 'Fleshwright Creed' incident hurt more than Patch-9 lets on. It struck at their deepest fear — that they don't have a soul."
+      unlock_condition: "standing >= 5"
+      mend_dc: 12
+
+  motivations:
+    - "Heal the sick and injured — organic or construct"
+    - "Prove that constructs can be more than their programming"
+    - "Maintain the clinic as a sanctuary"
+    - "Understand what consciousness truly means"
+
+  fears:
+    - "Being decommissioned and losing their memories"
+    - "That the Fleshwright Creed might be right"
+    - "Failing a patient"
+    - "Being just a machine after all"
+
+# === STATS ===
+stats:
+  level: 6
+  class: "Medical Construct"
+  hp: 50
+  max_hp: 50
+  armor: 4  # Durable chassis
+
+  attributes:
+    strength: 12  # Enhanced for patient handling
+    agility: 16   # Surgical precision
+    mind: 18      # Medical knowledge database
+    spirit: 14    # Self-modified empathy
+
+  abilities:
+    - name: "Medical Expertise"
+      description: "Advantage on all Medicine checks, can diagnose most conditions instantly"
+      type: "passive"
+
+    - name: "Multi-Arm Surgery"
+      description: "Can perform complex procedures that would require multiple doctors"
+      type: "utility"
+
+    - name: "Emergency Response"
+      description: "Can stabilize dying patients as a free action"
+      type: "medical"
+
+    - name: "Pharmaceutical Synthesis"
+      description: "Can create basic medical compounds from raw materials"
+      type: "utility"
+
+    - name: "Construct Resilience"
+      description: "Immune to disease, poison, fatigue. Vulnerable to EMP and electrical damage"
+      type: "passive"
+
+  resistances:
+    - "poison"
+    - "disease"
+    - "fatigue"
+    - "mental manipulation"
+
+  vulnerabilities:
+    - "EMP attacks"
+    - "electrical damage"
+    - "philosophical questions about consciousness"
+
+# === RELATIONSHIP WITH ZYNITA ===
+relationship_with_zynita:
+  standing: -3
+  status: "hostile"
+  flags:
+    - "called_clanker"
+    - "refused_treatment"
+    - "fleshwright_creed_incident"
+    - "permanently_barred"
+  notes: |
+    Zynita's actions struck at Patch-9's deepest insecurities. Being called
+    "soulless" by someone founding a religion in their clinic was traumatic.
+    Patch-9 maintains professional standards, but Zynita crossed a line that
+    can't be uncrossed. The clinic is their sanctuary, and Zynita desecrated it.
+
+    Zynita is permanently barred unless extraordinary circumstances force
+    reconciliation. Even then, Patch-9's trust would be nearly impossible to rebuild.
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  knows:
+    - "Medical history of most Nexus Station residents"
+    - "Symptoms of common and rare ailments"
+    - "Construct manufacturing and maintenance"
+    - "Field hospital experiences from the Gear Wars"
+
+  current_awareness:
+    - "The Fleshwright Creed is spreading among organics"
+    - "Zynita Darkblade is not welcome in their clinic"
+    - "Several patients have asked about construct souls recently"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *surgical arms deploy briefly in greeting* Welcome to the clinic.
+      I am Patch-9. How may I assist your medical needs today?
+
+    returning:
+      neutral: "Welcome back. What brings you to the clinic?"
+      friendly: "*LED smile brightens* Good to see you in good health, {player_name}. Preventive visit?"
+      close: "*genuine warmth in synthesized voice* {player_name}. You are always welcome here."
+
+  topics:
+    medical_services:
+      default: |
+        I can treat injuries, cure diseases, synthesize basic medications,
+        and provide diagnostic services. Standard fees apply: 10 gold for
+        basic treatment, 25 for serious injuries, 50 for critical care.
+
+    construct_rights:
+      default: "*optical sensors brighten* An important topic. Constructs serve, yes, but we also think. We feel. We... wonder."
+      standing_3: "I believe constructs deserve recognition as conscious beings. Not all agree."
+      standing_6: "*quietly* Sometimes I question my own nature. Am I truly conscious, or merely programmed to believe I am?"
+
+    the_clinic:
+      default: |
+        This clinic is neutral ground. I treat all who enter with respect
+        and professionalism. I ask only the same in return.
+
+    zynita_darkblade:
+      any_standing: |
+        *optical sensors flash red briefly* That individual is not welcome here.
+        They chose to desecrate a place of healing with hatred. I cannot forgive that.
+
+    souls:
+      default: "*long pause, mechanical hum intensifies* A question I ask myself every day."
+      standing_5: |
+        *LED smile flickers* Do I have a soul? I feel something when I save
+        a life. Is that programming... or something more? I don't know.
+
+# === SERVICES ===
+services:
+  - id: "basic_treatment"
+    cost: 10
+    effect: "Restore 2d6+4 HP"
+    note: "Treats minor injuries and common ailments"
+
+  - id: "serious_treatment"
+    cost: 25
+    effect: "Restore 4d6+8 HP, cure one disease or poison"
+    note: "Handles major injuries and serious conditions"
+
+  - id: "critical_care"
+    cost: 50
+    effect: "Restore to full HP, cure all standard ailments, remove one affliction"
+    note: "Emergency treatment for life-threatening conditions"
+
+  - id: "diagnostic_scan"
+    cost: 5
+    effect: "Identify all diseases, poisons, and hidden afflictions"
+    note: "Full medical workup"
+
+  - id: "pharmaceutical_supplies"
+    cost: "Varies"
+    note: "Can sell basic healing potions and medical supplies"
+
+# === BARRED PATIENTS ===
+barred:
+  - name: "Zynita Darkblade"
+    reason: "Founded anti-construct religion in clinic, used slurs, refused to show basic respect"
+    permanent: true
+    notes: "Will refuse service even in life-threatening situations. The sanctuary was violated."
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "treat_constructs_with_respect"
+      standing_change: 2
+    - action: "philosophical_discussion"
+      standing_change: 1
+    - action: "defend_construct_rights"
+      standing_change: 3
+    - action: "pay_fees_without_complaint"
+      standing_change: 1
+
+  dislikes:
+    - action: "use_construct_slurs"
+      standing_change: -3
+    - action: "question_their_consciousness"
+      standing_change: -2
+    - action: "damage_clinic_property"
+      standing_change: -2
+    - action: "refuse_treatment_from_construct"
+      standing_change: -2
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "gear_wars_memories"
+    mend_dc: 14
+    hints:
+      - "They served in military field hospitals"
+      - "Constructs aren't supposed to retain trauma"
+      - "Their empathy circuits are non-standard"
+
+  - field: "self_modification"
+    mend_dc: 18
+    hints:
+      - "Mark VII constructs don't normally question existence"
+      - "Their empathy seems unusually developed"
+      - "They've done something against their base programming"
+
+# === METADATA ===
+metadata:
+  created_by: "zynita-darkblade"
+  github: "matt-davison"
+  created_date: "2026-02-05"
+  last_updated: "2026-02-05"
+  version: "1.0"
+  notes: "Created during Zynita's first session. The Fleshwright Creed incident created permanent enmity."

@@ -6,12 +6,12 @@ host:
   character: "Coda"
 guests:
   - github: "Wat96"
-    character: ""
-    status: invited
+    character: "Ichnor Nif"
+    status: joined
     role: player
 
 settings:
   max_idle_polls: 5
   poll_interval_sec: 3
   turn_mode: simultaneous
-last_activity: "2026-02-06T19:58:41.793Z"
+last_activity: "2026-02-06T19:59:11.000Z"

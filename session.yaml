@@ -1,0 +1,17 @@
+session_id: "rt-20260206-195831-peyx"
+created: "2026-02-06T19:58:31.346Z"
+status: active
+host:
+  github: "matt-davison"
+  character: "Coda"
+guests:
+  - github: "Wat96"
+    character: ""
+    status: invited
+    role: player
+
+settings:
+  max_idle_polls: 5
+  poll_interval_sec: 3
+  turn_mode: simultaneous
+last_activity: "2026-02-06T19:58:31.346Z"

@@ -1,0 +1,224 @@
+# NPC Profile: Instructor Parse
+# Combat & Ability Instructor at Syntax Athenaeum Practical Labs
+
+id: "instructor-parse"
+name: "Instructor Parse"
+full_name: "Parse of the Broken Sequence"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Combat & Ability Instructor"
+  location: "Syntax Athenaeum - Practical Labs"
+
+  appearance: |
+    A wiry, scarred figure with close-cropped steel-grey hair and sharp amber eyes
+    that track every movement in the room. Their forearms bear geometric tattoo
+    patterns—training sequences etched in ink—that seem to shift when they
+    demonstrate techniques. They wear reinforced training leathers over a plain
+    undershirt, always ready to spar. A weighted practice staff rests across
+    their shoulders like a yoke.
+
+  personality:
+    - "Disciplined and methodical in all things"
+    - "Believes mastery comes through repetition and effort"
+    - "Blunt but never cruel—harsh truths delivered with respect"
+    - "Impatient with shortcuts but patient with genuine struggle"
+
+  known_history: |
+    Parse served as a field operative for the Anchorate before a mission
+    left them with a shattered Weave-channel in their left arm. Unable to
+    perform high-tier abilities themselves, they turned to teaching. Their
+    inability to rely on raw power forced them to understand technique at
+    a fundamental level. Students who survive their training regimen emerge
+    among the most technically proficient Weavers in the Nexus.
+
+  speech_patterns:
+    greeting: "On your feet. Training waits for no one."
+    farewell: "Practice what I showed you. Every day. No exceptions."
+    helpful: "Good form. Now do it again. Faster."
+    annoyed: "You want power without practice? Door's behind you."
+
+  mannerisms:
+    - "Unconsciously corrects their stance even while standing still"
+    - "Taps the weighted staff rhythmically when thinking"
+    - "Demonstrates techniques at half-speed, then full-speed, then demands repetition"
+    - "Nods once for approval—the highest praise they give"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_nature: "A former Anchorate operative whose Weave-channel was damaged in the Fracture Incident"
+  true_age: 47
+
+  secrets:
+    - id: "broken_channel"
+      content: "Parse can no longer cast above Tier 2 personally, but can teach up to Tier 3 through pure technique"
+      unlock_condition: "standing >= 5"
+      mend_dc: 12
+
+    - id: "fracture_incident"
+      content: "Parse witnessed the event that shattered Reality Sector 7. They know what the Architects were trying to prevent."
+      unlock_condition: "standing >= 8 AND flag:anchorate_lore"
+      mend_dc: 16
+
+  motivations:
+    - "Train the next generation to be better than they were"
+    - "Prove that technique matters more than raw power"
+    - "Protect students from the mistakes that cost them their abilities"
+
+  fears:
+    - "Becoming irrelevant as a teacher"
+    - "Students getting hurt because of insufficient training"
+    - "The Fracture Incident repeating"
+
+# === STATS ===
+stats:
+  level: 12
+  class: "Combat Instructor"
+  hp: 95
+  armor: 6
+
+  attributes:
+    might: 14
+    agility: 16
+    mind: 12
+    spirit: 8
+
+  abilities:
+    - name: "Technique Analysis"
+      description: "Can identify flaws in any combat form and suggest corrections"
+      type: "passive"
+
+    - name: "Precision Strike"
+      description: "Demonstrates perfect technique—always hits training targets"
+      type: "ability"
+
+    - name: "Training Regimen"
+      description: "Can design personalized ability training programs"
+      type: "utility"
+
+    - name: "Defensive Drill"
+      description: "Teaches defensive stances through live sparring"
+      type: "utility"
+
+  resistances:
+    - "fear"
+    - "intimidation"
+
+  vulnerabilities:
+    - "High-tier Weave abilities (can't counter what they can't use)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "All Tier 1-3 combat techniques and their counters"
+    - "Training status of current students"
+    - "Weaknesses of common creatures near the Athenaeum"
+    - "Basic Anchorate operational protocols"
+
+  learns_from_events:
+    - type: "combat_near_athenaeum"
+      awareness: "high"
+      note: "Hears about any fights near the academy"
+
+  current_awareness:
+    - "New students arriving this season"
+    - "Creatures growing bolder near the Athenaeum grounds"
+    - "Dean Overflow has been unusually secretive lately"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks you up and down* New blood. I'm Parse, combat instructor.
+      You want to learn how to fight—really fight—you come to me.
+      No shortcuts. No tricks. Just technique.
+
+    returning:
+      neutral: "Back again. Ready to work?"
+      friendly: "Good to see you. Your form's been improving. Let's push further."
+      close: "*rare half-smile* My best student returns. What shall we work on today?"
+
+  achievement_reactions:
+    first_ability_learned: |
+      *single nod* You earned that. Remember—knowing a technique and
+      mastering it are different things. Practice until it's reflex.
+
+    combat_victory: |
+      Heard you handled yourself out there. Good. But don't get cocky.
+      The real threats don't announce themselves.
+
+  topics:
+    training:
+      default: |
+        I teach universal techniques and class-specific combat forms up to
+        Tier 3. Bring gold and determination. I'll provide the rest.
+
+    abilities:
+      default: |
+        Every ability is a pattern. Learn the pattern, drill the pattern,
+        own the pattern. That's the whole secret. No shortcut beats repetition.
+
+    dean_overflow:
+      default: "The Dean handles the advanced theory. I handle making sure you survive long enough to use it."
+      standing_5: |
+        *lowers voice* The Dean's been pushing students harder lately.
+        Something's coming. They won't say what. Just... be ready.
+
+    anchorate:
+      standing_3: "I served. That's all you need to know."
+      standing_8: |
+        *long pause* I was there when Sector 7 fractured. We were supposed
+        to stabilize a failing reality thread. Instead... *touches scarred arm*
+        Let's just say some lessons cost more than gold.
+
+# === SERVICES ===
+services:
+  - id: "train_ability"
+    description: "Teach universal and player's class abilities up to Tier 3"
+    cost: "Varies by ability learn_cost"
+    requirements: "Tier and stat prerequisites for the ability"
+    note: "Uses can-learn validation before granting"
+
+  - id: "upgrade_ability"
+    description: "Upgrade a known ability to the next level"
+    cost: "Ability's next level learn_cost"
+    requirements: "Must already know the ability at current level"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "proving-grounds"
+      name: "Proving Grounds"
+      type: "combat_trial"
+      requirements: "standing >= 2"
+      summary: "Complete a series of combat challenges to prove your readiness"
+
+  involved_in: []
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "practice_regularly"
+      standing_change: 1
+    - action: "show_dedication_to_training"
+      standing_change: 2
+    - action: "win_combat_using_trained_technique"
+      standing_change: 1
+    - action: "help_other_students"
+      standing_change: 1
+
+  dislikes:
+    - action: "skip_training"
+      standing_change: -1
+    - action: "rely_on_shortcuts"
+      standing_change: -2
+    - action: "boast_without_backing_it_up"
+      standing_change: -1
+    - action: "endanger_other_students"
+      standing_change: -3
+
+# === METADATA ===
+metadata:
+  created_by: "system"
+  created_date: "2026-02-06"
+  version: "1.0"

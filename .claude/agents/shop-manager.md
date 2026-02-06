@@ -20,7 +20,7 @@ Handle all shop interactions with full item validation. Validates shop inventori
 ## Input Context
 
 ```yaml
-operation: "browse" | "buy" | "sell" | "validate_shop"
+operation: "browse" | "buy" | "sell" | "service" | "validate_shop"
 world: "<world-id>"  # Required - e.g., "alpha"
 player:
   github: "<github-username>"
@@ -203,6 +203,65 @@ transactions:
 narrative_hooks:
   - "Krix examines the trinket with a practiced eye"
   - "8 gold added to your pouch"
+```
+
+### SERVICE - Purchase Training Service
+
+1. Load shop file, find service by id
+2. Check requirements (tier, standing, quest)
+3. Check player gold >= service price
+4. If `grants_ability`: run `node .claude/skills/abilities/abilities.js --world=${world} can-learn` to validate
+5. If `grants_ability_choice`: list eligible abilities matching filter, present choice to player
+6. If `grants_stat_bonus`: validate stat bonus is valid
+7. Return validated transaction with ability grant for state-writer
+
+```yaml
+operation: "service"
+service_id: "combat-syntax"
+```
+
+**Return (success):**
+```yaml
+success: true
+operation: "service"
+service:
+  id: "combat-syntax"
+  name: "Combat Syntax"
+  price: 75
+transactions:
+  - type: "gold"
+    action: "spend"
+    amount: -75
+    description: "Purchased Combat Syntax training at Athenaeum Commissary"
+  - type: "ability"
+    action: "learn"
+    ability_id: "<chosen-ability-id>"
+    level: 1
+    source: "trainer"
+    description: "Learned <ability-name> from Combat Syntax training"
+narrative_hooks:
+  - "The instructor demonstrates the technique with practiced precision"
+  - "75 gold paid for training"
+```
+
+**Return with grants_ability_choice:**
+```yaml
+success: true
+operation: "service"
+requires_choice: true
+service:
+  id: "combat-syntax"
+  name: "Combat Syntax"
+eligible_abilities:
+  - id: "po5wumfb"
+    name: "Iron Skin"
+    tier: 1
+    learn_cost: 0
+  - id: "pwd0gz91"
+    name: "Expose Weakness"
+    tier: 1
+    learn_cost: 0
+prompt: "Choose one combat technique to learn:"
 ```
 
 ### VALIDATE_SHOP - Validate Shop File

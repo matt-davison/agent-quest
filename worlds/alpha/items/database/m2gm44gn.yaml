@@ -1,0 +1,25 @@
+# Tome of Gravity Well
+id: m2gm44gn
+name: Tome of Gravity Well
+type: consumable
+subtype: tome
+rarity: rare
+tier: 3
+value: 150
+sellable: true
+max_uses: 1
+tags:
+  - magic
+  - ability_tome
+  - consumable
+  - control
+grants_ability:
+  id: 5roi8b4d
+  level: 1
+  source: "item"
+description: |
+  A dark violet tome that feels heavier than it looks, as though it
+  bends space around itself. The Weave pattern inside manipulates
+  gravitational forces, pulling enemies toward a focal point. The
+  technique requires a Tier 3 understanding of reality manipulation.
+  Upon absorption, the tome implodes silently into a point of light.

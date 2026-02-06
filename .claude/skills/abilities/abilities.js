@@ -444,9 +444,28 @@ function display(abilitiesYaml) {
 }
 
 /**
+ * Load completed quests for a player character
+ */
+function loadCompletedQuests(flags) {
+  const github = flags.github;
+  const character = flags.character;
+  if (!github || !character) return null;
+
+  const questsPath = path.join(PROJECT_ROOT, 'worlds', WORLD_ID, 'players', github, 'personas', character, 'quests.yaml');
+  if (!fs.existsSync(questsPath)) return [];
+
+  const content = fs.readFileSync(questsPath, 'utf8');
+  const questsData = yaml.parse(content);
+  if (!questsData) return [];
+
+  const completed = questsData.completed_quests || questsData.completed || [];
+  return completed.map(q => typeof q === 'string' ? q : q.id);
+}
+
+/**
  * Check if a persona can use an ability
  */
-function canUse(personaYaml, abilityId) {
+function canUse(personaYaml, abilityId, flags = {}) {
   let persona;
   try {
     persona = yaml.parse(personaYaml);
@@ -506,7 +525,7 @@ function canUse(personaYaml, abilityId) {
     }
   }
 
-  // Check prerequisites
+  // Check stat prerequisites
   if (ability.prerequisites) {
     const prereqs = ability.prerequisites;
     const stats = persona.stats || {};
@@ -523,6 +542,44 @@ function canUse(personaYaml, abilityId) {
         }
       }
     }
+
+    // Check ability prerequisites
+    if (prereqs.abilities && Array.isArray(prereqs.abilities) && prereqs.abilities.length > 0) {
+      for (const reqAbilityId of prereqs.abilities) {
+        const hasAbility = knownAbilities.some(a =>
+          (typeof a === 'string' ? a : a.id) === reqAbilityId
+        );
+        const reqAbility = loadAbility(reqAbilityId);
+        const reqName = reqAbility ? reqAbility.name : reqAbilityId;
+        if (hasAbility) {
+          checks.push(`✅ Prereq ability: ${reqName} (known)`);
+        } else {
+          checks.push(`❌ Prereq ability: ${reqName} (not known)`);
+          canUseAbility = false;
+        }
+      }
+    }
+
+    // Check quest prerequisites
+    if (prereqs.quests && Array.isArray(prereqs.quests) && prereqs.quests.length > 0) {
+      if (!flags.github || !flags.character) {
+        checks.push(`⚠️  Quest prereqs exist but --github/--character not provided (skipping)`);
+      } else {
+        const completedQuests = loadCompletedQuests(flags);
+        if (completedQuests === null) {
+          checks.push(`⚠️  Could not load quest data (skipping quest checks)`);
+        } else {
+          for (const reqQuestId of prereqs.quests) {
+            if (completedQuests.includes(reqQuestId)) {
+              checks.push(`✅ Prereq quest: ${reqQuestId} (completed)`);
+            } else {
+              checks.push(`❌ Prereq quest: ${reqQuestId} (not completed)`);
+              canUseAbility = false;
+            }
+          }
+        }
+      }
+    }
   }
 
   // Output results
@@ -533,6 +590,263 @@ function canUse(personaYaml, abilityId) {
   console.log(`\nResult: ${canUseAbility ? '✅ CAN USE' : '❌ CANNOT USE'}`);
 
   process.exit(canUseAbility ? 0 : 1);
+}
+
+/**
+ * Check if a persona can learn an ability
+ */
+function canLearn(personaYaml, abilityId, flags = {}) {
+  let persona;
+  try {
+    persona = yaml.parse(personaYaml);
+  } catch (e) {
+    console.error('Invalid persona YAML');
+    process.exit(1);
+  }
+
+  const ability = loadAbility(abilityId);
+  if (!ability) {
+    console.log(`❌ Ability not found: ${abilityId}`);
+    process.exit(1);
+  }
+
+  const checks = [];
+  let canLearnAbility = true;
+
+  // Check if already known
+  const knownAbilities = persona.abilities?.known || [];
+  const alreadyKnown = knownAbilities.some(a =>
+    (typeof a === 'string' ? a : a.id) === abilityId
+  );
+
+  if (alreadyKnown) {
+    checks.push(`❌ Already known`);
+    canLearnAbility = false;
+  } else {
+    checks.push(`✅ Not yet known`);
+  }
+
+  // Check tier gate
+  const playerTier = persona.progression?.tier || 1;
+  const abilityTier = ability.tier || 1;
+  if (playerTier >= abilityTier) {
+    checks.push(`✅ Tier: ${playerTier} >= ${abilityTier} required`);
+  } else {
+    checks.push(`❌ Tier: ${playerTier} < ${abilityTier} required`);
+    canLearnAbility = false;
+  }
+
+  // Check class eligibility
+  const playerClass = persona.class || persona.progression?.class || null;
+  const abilityClass = ability.class || null;
+  let isCrossClass = false;
+
+  if (!abilityClass) {
+    checks.push(`✅ Class: Universal (available to all)`);
+  } else if (playerClass && abilityClass.toLowerCase() === playerClass.toLowerCase()) {
+    checks.push(`✅ Class: ${abilityClass} (matches your class)`);
+  } else {
+    // Cross-class check
+    const playerXP = persona.progression?.xp || 0;
+    if (playerXP >= 2000) {
+      isCrossClass = true;
+      checks.push(`✅ Class: ${abilityClass} (cross-class, XP ${playerXP} >= 2000, gold cost doubled)`);
+    } else {
+      checks.push(`❌ Class: ${abilityClass} (cross-class requires XP >= 2000, you have ${playerXP})`);
+      canLearnAbility = false;
+    }
+  }
+
+  // Check stat prerequisites
+  if (ability.prerequisites) {
+    const prereqs = ability.prerequisites;
+    const stats = persona.stats || {};
+
+    for (const [key, value] of Object.entries(prereqs)) {
+      if (key.startsWith('min_')) {
+        const stat = key.slice(4);
+        const statValue = stats[stat] || 10;
+        if (statValue >= value) {
+          checks.push(`✅ ${stat}: ${statValue} >= ${value}`);
+        } else {
+          checks.push(`❌ ${stat}: ${statValue} < ${value} required`);
+          canLearnAbility = false;
+        }
+      }
+    }
+
+    // Check ability prerequisites
+    if (prereqs.abilities && Array.isArray(prereqs.abilities) && prereqs.abilities.length > 0) {
+      for (const reqAbilityId of prereqs.abilities) {
+        const hasAbility = knownAbilities.some(a =>
+          (typeof a === 'string' ? a : a.id) === reqAbilityId
+        );
+        const reqAbility = loadAbility(reqAbilityId);
+        const reqName = reqAbility ? reqAbility.name : reqAbilityId;
+        if (hasAbility) {
+          checks.push(`✅ Prereq ability: ${reqName} (known)`);
+        } else {
+          checks.push(`❌ Prereq ability: ${reqName} (not known)`);
+          canLearnAbility = false;
+        }
+      }
+    }
+
+    // Check quest prerequisites
+    if (prereqs.quests && Array.isArray(prereqs.quests) && prereqs.quests.length > 0) {
+      if (!flags.github || !flags.character) {
+        checks.push(`⚠️  Quest prereqs exist but --github/--character not provided (skipping)`);
+      } else {
+        const completedQuests = loadCompletedQuests(flags);
+        if (completedQuests === null) {
+          checks.push(`⚠️  Could not load quest data (skipping quest checks)`);
+        } else {
+          for (const reqQuestId of prereqs.quests) {
+            if (completedQuests.includes(reqQuestId)) {
+              checks.push(`✅ Prereq quest: ${reqQuestId} (completed)`);
+            } else {
+              checks.push(`❌ Prereq quest: ${reqQuestId} (not completed)`);
+              canLearnAbility = false;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Check gold cost
+  const levelData = ability.levels ? ability.levels[1] : null;
+  let goldCost = levelData ? (levelData.learn_cost || 0) : 0;
+  if (isCrossClass) goldCost *= 2;
+
+  const playerGold = persona.resources?.gold || 0;
+  if (goldCost <= 0) {
+    checks.push(`✅ Gold: Free to learn`);
+  } else if (playerGold >= goldCost) {
+    checks.push(`✅ Gold: ${playerGold} >= ${goldCost}${isCrossClass ? ' (doubled for cross-class)' : ''}`);
+  } else {
+    checks.push(`❌ Gold: ${playerGold} < ${goldCost}${isCrossClass ? ' (doubled for cross-class)' : ''}`);
+    canLearnAbility = false;
+  }
+
+  // Check spell capacity (if spell type)
+  if (ability.type === 'spell') {
+    const mind = persona.stats?.mind || 10;
+    const maxSpells = Math.floor(mind / 5);
+    const knownSpells = knownAbilities.filter(a => {
+      const id = typeof a === 'string' ? a : a.id;
+      const ab = loadAbility(id);
+      return ab && ab.type === 'spell';
+    }).length;
+
+    if (knownSpells < maxSpells) {
+      checks.push(`✅ Spell capacity: ${knownSpells}/${maxSpells} (mind ${mind})`);
+    } else {
+      checks.push(`❌ Spell capacity: ${knownSpells}/${maxSpells} full (need higher mind)`);
+      canLearnAbility = false;
+    }
+  }
+
+  // Output results
+  console.log(`Ability: ${ability.name} (${ability.id})`);
+  console.log(`Class: ${ability.class || 'Universal'} | Tier: ${abilityTier} | Type: ${ability.type}`);
+  console.log(`Cost: ${goldCost}g${isCrossClass ? ' (cross-class doubled)' : ''}`);
+  console.log(`\nChecks:`);
+  checks.forEach(c => console.log(`  ${c}`));
+  console.log(`\nResult: ${canLearnAbility ? '✅ CAN LEARN' : '❌ CANNOT LEARN'}`);
+
+  process.exit(canLearnAbility ? 0 : 1);
+}
+
+/**
+ * Show abilities newly available to learn at current tier/class
+ */
+function newlyAvailable(personaYaml) {
+  let persona;
+  try {
+    persona = yaml.parse(personaYaml);
+  } catch (e) {
+    console.error('Invalid persona YAML');
+    process.exit(1);
+  }
+
+  const abilities = loadAllAbilities();
+  const knownAbilities = persona.abilities?.known || [];
+  const knownIds = knownAbilities.map(a => typeof a === 'string' ? a : a.id);
+  const playerTier = persona.progression?.tier || 1;
+  const playerClass = persona.class || persona.progression?.class || null;
+  const playerXP = persona.progression?.xp || 0;
+
+  // Filter to learnable abilities
+  const learnable = abilities.filter(a => {
+    // Skip already known
+    if (knownIds.includes(a.id)) return false;
+    // Skip enemy-tagged
+    if (a.tags && a.tags.includes('enemy')) return false;
+    // Tier gate
+    if ((a.tier || 1) > playerTier) return false;
+    return true;
+  });
+
+  // Categorize
+  const sameClass = [];
+  const universal = [];
+  const crossClass = [];
+
+  for (const a of learnable) {
+    const abilityClass = a.class || null;
+    if (!abilityClass) {
+      universal.push(a);
+    } else if (playerClass && abilityClass.toLowerCase() === playerClass.toLowerCase()) {
+      sameClass.push(a);
+    } else if (playerXP >= 2000) {
+      crossClass.push(a);
+    }
+  }
+
+  const sortByTierName = (a, b) => {
+    const tierDiff = (a.tier || 1) - (b.tier || 1);
+    if (tierDiff !== 0) return tierDiff;
+    return a.name.localeCompare(b.name);
+  };
+
+  sameClass.sort(sortByTierName);
+  universal.sort(sortByTierName);
+  crossClass.sort(sortByTierName);
+
+  const printAbility = (a, costMultiplier = 1) => {
+    const levelData = a.levels ? a.levels[1] : null;
+    const cost = levelData ? (levelData.learn_cost || 0) * costMultiplier : 0;
+    const tierStr = `T${a.tier || 1}`;
+    console.log(`  ${a.id}: ${a.name} (${tierStr}) - ${cost}g`);
+  };
+
+  console.log(`Newly Available Abilities for Tier ${playerTier} ${playerClass || 'Unknown'}:\n`);
+
+  if (sameClass.length > 0) {
+    console.log(`=== ${playerClass} Class ===`);
+    sameClass.forEach(a => printAbility(a));
+    console.log('');
+  }
+
+  if (universal.length > 0) {
+    console.log(`=== Universal ===`);
+    universal.forEach(a => printAbility(a));
+    console.log('');
+  }
+
+  if (crossClass.length > 0) {
+    console.log(`=== Cross-Class (2x gold cost) ===`);
+    crossClass.forEach(a => printAbility(a, 2));
+    console.log('');
+  }
+
+  const total = sameClass.length + universal.length + crossClass.length;
+  if (total === 0) {
+    console.log('No new abilities available at your current tier.');
+  } else {
+    console.log(`${total} ability(ies) available to learn.`);
+  }
 }
 
 /**
@@ -619,8 +933,18 @@ switch (command) {
   case 'display':
     display(args.join(' '));
     break;
-  case 'can-use':
-    canUse(args[0], args[1]);
+  case 'can-use': {
+    const parsed = parseArgs(args);
+    canUse(parsed.positional[0], parsed.positional[1], parsed.flags);
+    break;
+  }
+  case 'can-learn': {
+    const parsed = parseArgs(args);
+    canLearn(parsed.positional[0], parsed.positional[1], parsed.flags);
+    break;
+  }
+  case 'newly-available':
+    newlyAvailable(args[0]);
     break;
   case 'cost':
     cost(args[0], args[1] || '1');
@@ -639,12 +963,21 @@ switch (command) {
   node abilities.js --world=<world> validate <yaml>       Validate ability IDs exist in database
   node abilities.js --world=<world> resolve <yaml>        Resolve ability IDs to full data
   node abilities.js --world=<world> display <yaml>        Display abilities in readable format
-  node abilities.js --world=<world> can-use <persona> <id> Check if persona can use ability
+  node abilities.js --world=<world> can-use <persona> <id> [--github=<gh> --character=<char>]
+                                                          Check if persona can use ability
+  node abilities.js --world=<world> can-learn <persona> <id> [--github=<gh> --character=<char>]
+                                                          Check if persona can learn ability
+  node abilities.js --world=<world> newly-available <persona>
+                                                          Show abilities available to learn
   node abilities.js --world=<world> cost <id> [level]     Show willpower/learn costs
   node abilities.js --world=<world> tags                  Show all available tags
 
 Required:
   --world=<world>       World ID (e.g., alpha)
+
+Optional (for can-use, can-learn):
+  --github=<username>   GitHub username (for quest prereq checks)
+  --character=<name>    Character name (for quest prereq checks)
 
 List Filters:
   --type=<type>         Filter by type (spell, ability, passive)
@@ -659,6 +992,8 @@ Examples:
   node abilities.js list --type=passive
   node abilities.js list --tier=3 --tags=combat
   node abilities.js search fire
-  node abilities.js cost lkhskejx 2`);
+  node abilities.js cost lkhskejx 2
+  node abilities.js can-learn '<persona-yaml>' lkhskejx --github=player --character=coda
+  node abilities.js newly-available '<persona-yaml>'`);
     process.exit(command ? 1 : 0);
 }

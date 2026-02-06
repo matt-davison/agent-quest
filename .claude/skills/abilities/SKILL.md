@@ -221,8 +221,16 @@ node abilities.js --world=alpha resolve '[{id: xgktne2p, level: 1}]'
 # Display abilities in readable format
 node abilities.js --world=alpha display '[{id: xgktne2p, level: 1}]'
 
-# Check if persona can use ability
+# Check if persona can use ability (with optional quest prereq checking)
 node abilities.js --world=alpha can-use "<persona-yaml>" xgktne2p
+node abilities.js --world=alpha can-use "<persona-yaml>" xgktne2p --github=player --character=coda
+
+# Check if persona can learn an ability
+node abilities.js --world=alpha can-learn "<persona-yaml>" lkhskejx
+node abilities.js --world=alpha can-learn "<persona-yaml>" lkhskejx --github=player --character=coda
+
+# Show abilities available to learn at current tier/class
+node abilities.js --world=alpha newly-available "<persona-yaml>"
 
 # Show willpower/learn costs
 node abilities.js --world=alpha cost xgktne2p 1
@@ -232,8 +240,12 @@ node abilities.js --world=alpha cost xgktne2p 1
 
 ### Learning New Abilities
 
-1. Check prerequisites: `node abilities.js --world=alpha get <id>`
-2. Verify persona meets stat/quest requirements
+1. **Validate eligibility:** `node abilities.js --world=alpha can-learn "<persona-yaml>" <id> --github=<gh> --character=<char>`
+   - Checks: not already known, tier gate, class eligibility, stat prereqs, ability prereqs, quest prereqs, gold cost, spell capacity
+   - Cross-class abilities require XP >= 2000 and cost 2x gold
+   - Exit code 0 = can learn, 1 = cannot learn
+2. **Show available options:** `node abilities.js --world=alpha newly-available "<persona-yaml>"`
+   - Groups by: same-class, universal, cross-class (with doubled costs)
 3. Deduct learn_cost gold from persona
 4. Add to persona's `abilities.known` list
 
@@ -249,6 +261,12 @@ abilities:
       source: trainer
       learned_date: "2024-06-15"
 ```
+
+**Learning Sources:**
+- `trainer` - Purchased from Instructor Parse (Tier 1-3) or Dean Overflow (any tier)
+- `item` - Used an ability tome (consumable item with `grants_ability`)
+- `quest` - Rewarded by quest completion
+- `class` - Starting ability from character creation
 
 ### Upgrading Abilities
 

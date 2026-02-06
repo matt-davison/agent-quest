@@ -981,6 +981,10 @@ writes:
 
 ### Enhanced Chronicle Entries
 
+> **CRITICAL: The old chronicle format (just `session`/`date`/`event`) is DEPRECATED.
+> Some existing persona files still contain old-format entries — do NOT copy that pattern.
+> Always use the enhanced format below, even if prior entries in the same file use the old style.**
+
 Chronicle entries are the **permanent narrative record** of a character's story. Write them with detail and care throughout the session — not just at save time.
 
 **Every chronicle entry must include:**

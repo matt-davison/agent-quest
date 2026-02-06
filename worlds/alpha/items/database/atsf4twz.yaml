@@ -1,0 +1,26 @@
+# Tome of Flame Strike
+id: atsf4twz
+name: Tome of Flame Strike
+type: consumable
+subtype: tome
+rarity: uncommon
+tier: 1
+value: 75
+sellable: true
+max_uses: 1
+tags:
+  - magic
+  - ability_tome
+  - consumable
+  - fire
+  - combat
+stats: {}
+grants_ability:
+  id: lkhskejx
+  level: 1
+  source: "item"
+description: |
+  A leather-bound tome radiating faint warmth. Its pages contain a single,
+  perfectly inscribed Weave pattern for channeling destructive fire. When
+  read with intent, the pattern burns itself into the reader's memory and
+  the pages crumble to ash. The knowledge, once absorbed, cannot be unlearned.

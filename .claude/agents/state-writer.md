@@ -1,6 +1,6 @@
 ---
 name: state-writer
-description: Coordinate all YAML file writes with validation and rollback on failure. Use after any action that changes game state - player stats, inventory, quest progress, relationships, location changes, or chronicle entries.
+description: Coordinate all YAML file writes with validation and rollback on failure. Use after any action that changes game state - player stats, inventory, ability, quest progress, relationships, location changes, or chronicle entries.
 tools: Read, Glob, Grep, Bash, Write, Edit
 model: haiku
 ---
@@ -12,8 +12,10 @@ Coordinate all YAML file writes with validation and rollback on failure. Enforce
 ## When You're Invoked
 
 After any action that changes game state:
+
 - Player stats change (HP, gold, XP)
 - Inventory changes (items added/removed)
+- Ability changs (learned/unlocked)
 - Quest progress updates
 - Relationship changes
 - Location changes
@@ -45,6 +47,7 @@ chronicle_entry: "<optional-significant-event-description>"
 **CRITICAL:** Enforce absolute player isolation.
 
 Allowed write paths for player (within world directory):
+
 - `worlds/${world}/players/${github}/`
 - `worlds/${world}/players/${github}/personas/<character>/world-state.yaml` (character-specific world overrides)
 - `worlds/${world}/multiplayer/trades/escrow/${github}.yaml`
@@ -65,6 +68,9 @@ Process each write operation:
 
 ### 3. Add Chronicle Entry (if provided)
 
+> **IMPORTANT: Never write chronicle entries in the old one-liner format (`session`/`date`/`event` only).
+> Existing persona files may contain legacy entries — ignore their format. Always use the enhanced format below.**
+
 Append to character's `chronicle:` section in `persona.yaml` using the enhanced format:
 
 ```yaml
@@ -72,16 +78,16 @@ Append to character's `chronicle:` section in `persona.yaml` using the enhanced 
   date: "YYYY-MM-DD"
   time: "<in-game-time-period>"
   location: "<location-id>"
-  type: "<event-type>"           # combat, discovery, quest, social, exploration, milestone, decision, trade
+  type: "<event-type>" # combat, discovery, quest, social, exploration, milestone, decision, trade
   event: "<one-line-headline>"
   detail: |
     <2-4 sentence narrative paragraph. Write like prose, not a log.
     Include sensory details, emotional beats, and what it means for the character.>
-  npcs: ["<npc-names>"]          # Optional: NPCs involved
-  items: ["<item-names>"]        # Optional: items gained/lost/used
-  significance: "<level>"        # minor, moderate, major, critical
-  campaign: "<campaign-id>"      # Optional: if in active campaign
-  chapter: "<chapter-id>"        # Optional: specific chapter
+  npcs: ["<npc-names>"] # Optional: NPCs involved
+  items: ["<item-names>"] # Optional: items gained/lost/used
+  significance: "<level>" # minor, moderate, major, critical
+  campaign: "<campaign-id>" # Optional: if in active campaign
+  chapter: "<chapter-id>" # Optional: specific chapter
 ```
 
 Also append to `worlds/${world}/chronicles/volume-1.md` for world-level events (major+ significance).
@@ -120,7 +126,7 @@ narrative_hooks:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/persona.yaml"  # Relative to worlds/${world}/
+  - file: "players/<github>/personas/<char>/persona.yaml" # Relative to worlds/${world}/
     action: "update"
     section: "stats"
     content:
@@ -132,7 +138,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/persona.yaml"  # Relative to worlds/${world}/
+  - file: "players/<github>/personas/<char>/persona.yaml" # Relative to worlds/${world}/
     action: "append"
     section: "inventory"
     content:
@@ -145,7 +151,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+  - file: "players/<github>/personas/<char>/world-state.yaml" # Relative to worlds/${world}/
     action: "update"
     section: "unlocked_areas"
     content:
@@ -159,7 +165,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+  - file: "players/<github>/personas/<char>/world-state.yaml" # Relative to worlds/${world}/
     action: "append"
     section: "npc_overrides"
     content:
@@ -174,7 +180,7 @@ writes:
 
 ```yaml
 writes:
-  - file: "players/<github>/personas/<char>/world-state.yaml"  # Relative to worlds/${world}/
+  - file: "players/<github>/personas/<char>/world-state.yaml" # Relative to worlds/${world}/
     action: "update"
     section: "flags"
     content:
@@ -225,6 +231,55 @@ writes:
       active_effects: []
 ```
 
+### Learn Ability
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "append"
+    section: "abilities.known"
+    content:
+      - id: "<ability-id>"
+        level: 1
+        source: "trainer|item|quest"
+        learned_date: "<date>"
+```
+
+**Validation step:** Before writing, verify the ability exists in the database:
+
+```bash
+node .claude/skills/abilities/abilities.js --world=${world} get <ability_id>
+```
+
+If the ability ID is invalid, return `INVALID_ABILITY` error and do not write.
+
+### Learn Ability from Tome (Item Usage)
+
+When a player uses an item with `grants_ability` outside of combat (e.g. ability tomes):
+
+1. Validate via `node .claude/skills/abilities/abilities.js --world=${world} can-learn "<persona-yaml>" <ability_id>`
+2. If valid (exit code 0): consume item (decrement qty), add ability to `abilities.known`
+3. If invalid (exit code 1): do not consume item, return error with the specific check that failed
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "append"
+    section: "abilities.known"
+    content:
+      - id: "<ability-id>"
+        level: 1
+        source: "item"
+        learned_date: "<date>"
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "update"
+    section: "inventory"
+    content:
+      # Decrement tome qty (remove if 0)
+      - id: "<tome-item-id>"
+        qty: <new-qty>
+```
+
 ### Add Enhanced Chronicle Entry
 
 Chronicle entries use the rich format with narrative detail AND a factual log:
@@ -250,29 +305,51 @@ writes:
         npcs: ["Dr. Hale"]
         significance: "major"
         facts:
-          - { type: "combat_ended", enemy: "Data Wraith", outcome: "victory", rounds: 7, hp_remaining: 85 }
-          - { type: "stat_change", field: "xp", old: 85, new: 110, cause: "combat:data-wraith" }
-          - { type: "npc_met", npc_id: "dr-hale", npc_name: "Dr. Hale", location: "lumina-underlevel" }
-          - { type: "knowledge_gained", topic: "Dr. Hale alive in Underlevel", source: "direct encounter" }
+          - {
+              type: "combat_ended",
+              enemy: "Data Wraith",
+              outcome: "victory",
+              rounds: 7,
+              hp_remaining: 85,
+            }
+          - {
+              type: "stat_change",
+              field: "xp",
+              old: 85,
+              new: 110,
+              cause: "combat:data-wraith",
+            }
+          - {
+              type: "npc_met",
+              npc_id: "dr-hale",
+              npc_name: "Dr. Hale",
+              location: "lumina-underlevel",
+            }
+          - {
+              type: "knowledge_gained",
+              topic: "Dr. Hale alive in Underlevel",
+              source: "direct encounter",
+            }
 ```
 
 The `facts` array captures every atomic state change caused by the event. Uses the same type vocabulary as the session-recap `event_log`. This gives a machine-readable factual record that accumulates across sessions alongside the narrative prose.
 
 ## Error Codes
 
-| Code | Description |
-|------|-------------|
+| Code               | Description                          |
+| ------------------ | ------------------------------------ |
 | UNAUTHORIZED_WRITE | Write outside player's allowed paths |
-| FILE_NOT_FOUND | Update/append to non-existent file |
-| SECTION_NOT_FOUND | Target section doesn't exist |
-| VALIDATION_FAILED | Multiplayer validation failed |
-| PARSE_ERROR | Invalid YAML content |
-| ROLLBACK_FAILED | Could not restore backup (critical) |
-| INVALID_ITEM | Item ID does not exist in database |
+| FILE_NOT_FOUND     | Update/append to non-existent file   |
+| SECTION_NOT_FOUND  | Target section doesn't exist         |
+| VALIDATION_FAILED  | Multiplayer validation failed        |
+| PARSE_ERROR        | Invalid YAML content                 |
+| ROLLBACK_FAILED    | Could not restore backup (critical)  |
+| INVALID_ITEM       | Item ID does not exist in database   |
 
 ## Automatic Audit Logging
 
 State Writer automatically logs every action. This means:
+
 - **Using State Writer = action is logged**
 - **Bypassing State Writer = action is NOT logged (detectable)**
 
@@ -289,11 +366,13 @@ node .claude/skills/inventory/inventory.js --world=${world} validate '<inventory
 ```
 
 **Rules:**
+
 1. **Validate BEFORE writing** - Never persist invalid item IDs
 2. If validation fails, do NOT write and return `INVALID_ITEM` error
 3. Suggest corrections using `similar` command
 
 **Error Response:**
+
 ```yaml
 success: false
 error_code: "INVALID_ITEM"

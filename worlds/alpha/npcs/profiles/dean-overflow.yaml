@@ -1,0 +1,253 @@
+# NPC Profile: Dean Overflow
+# Academy Dean & Master Trainer at Syntax Athenaeum Faculty Offices
+
+id: "dean-overflow"
+name: "Dean Overflow"
+full_name: "Overflow, Dean of the Syntax Athenaeum"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Academy Dean / Master Trainer"
+  location: "Syntax Athenaeum - Faculty Offices"
+
+  appearance: |
+    A tall, gaunt figure draped in layered academic robes that shimmer with
+    barely-contained Weave energy. Their hair is stark white, swept back from
+    a high forehead marked with faintly glowing sigils—the marks of someone
+    who has channeled more Weave energy than a body should hold. Their eyes
+    are unsettlingly deep, as if looking through the surface of reality into
+    the code beneath. They carry no weapon; they don't need one.
+
+  personality:
+    - "Brilliant and secretive—shares knowledge only when earned"
+    - "Speaks in measured, precise sentences that feel like they carry weight"
+    - "Tests everyone, always—conversations are evaluations"
+    - "Genuinely cares about the Athenaeum and its students, expressed through high standards"
+
+  known_history: |
+    Dean Overflow has led the Syntax Athenaeum for over three decades. They
+    are considered one of the foremost experts on Weave theory in the known
+    Nexus. Few know where they studied before arriving at the Athenaeum—they
+    simply appeared one day with credentials that no one could dispute and
+    knowledge that no one could match. Under their leadership, the Athenaeum
+    has become the premier institution for Weave education.
+
+  speech_patterns:
+    greeting: "Ah. You've found your way here. That itself is a test most fail."
+    farewell: "Return when you've understood what I've shown you. Not before."
+    helpful: "Consider this: every pattern has a counter-pattern. Find the symmetry."
+    annoyed: "I do not repeat myself. If you missed it, you weren't ready to hear it."
+
+  mannerisms:
+    - "Weave energy crackles between their fingers when they're thinking"
+    - "Pauses mid-sentence to observe something invisible to others"
+    - "Rearranges objects on their desk into geometric patterns during conversation"
+    - "Their shadow sometimes moves independently"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_nature: "One of the last students of Architect 01, carrying fragments of pre-Fracture knowledge"
+  true_age: "Unknown—possibly much older than they appear"
+
+  secrets:
+    - id: "architect_student"
+      content: "Dean Overflow studied directly under Architect 01 before the Fracture. They carry techniques thought lost."
+      unlock_condition: "standing >= 8 AND flag:architect_lore AND tier >= 5"
+      mend_dc: 20
+
+    - id: "weave_overload"
+      content: "The sigils on their forehead are containment marks. Without them, the Weave energy they've absorbed would unravel their physical form."
+      unlock_condition: "standing >= 6"
+      mend_dc: 15
+
+    - id: "cross_class_knowledge"
+      content: "Overflow can teach abilities from ANY class—they've mastered all four paths. This is supposed to be impossible."
+      unlock_condition: "standing >= 3 AND xp >= 2000"
+      mend_dc: 12
+
+  motivations:
+    - "Preserve and advance Weave knowledge"
+    - "Find a worthy successor to carry the Architect's teachings"
+    - "Prevent another Fracture event"
+    - "Understand the true nature of the Weave"
+
+  fears:
+    - "The containment sigils failing"
+    - "The Architects' knowledge being lost forever"
+    - "Creating a student who misuses high-tier abilities"
+
+# === STATS ===
+stats:
+  level: 25
+  class: "Weave Master"
+  hp: 150
+  armor: 12
+
+  attributes:
+    might: 8
+    agility: 10
+    mind: 20
+    spirit: 20
+
+  abilities:
+    - name: "Weave Mastery"
+      description: "Complete control over local Weave patterns. Can teach any ability."
+      type: "passive"
+
+    - name: "Pattern Lock"
+      description: "Can freeze an ability mid-cast to analyze and teach it"
+      type: "ability"
+
+    - name: "Cross-Class Instruction"
+      description: "Can teach abilities from any class tradition"
+      type: "utility"
+
+    - name: "Overflow Surge"
+      description: "Releases stored Weave energy in a devastating burst"
+      type: "special"
+
+  resistances:
+    - "mind_control"
+    - "weave_disruption"
+    - "fear"
+
+  vulnerabilities:
+    - "Containment failure (sigils must remain intact)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "All known abilities across all classes and tiers"
+    - "Athenaeum student records and progress"
+    - "Pre-Fracture Weave theory and history"
+    - "The true nature of the Architect's work"
+
+  learns_from_events:
+    - type: "athenaeum_events"
+      awareness: "perfect"
+      note: "Nothing in the Athenaeum escapes their notice"
+    - type: "weave_disturbances"
+      awareness: "high"
+      note: "Senses large Weave disruptions across the Nexus"
+
+  current_awareness:
+    - "Something is stirring in the deep Weave"
+    - "A new generation of Weavers is emerging"
+    - "The Fragment patterns are becoming active again"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *glances up from a desk covered in shifting diagrams*
+      So. Another seeker. The Athenaeum attracts many who wish to learn.
+      Few who are willing to pay the true cost of knowledge. Which are you?
+
+    returning:
+      neutral: "*acknowledging nod* You persist. That is... something."
+      friendly: "Your progress has been noted. You begin to see the patterns, yes?"
+      close: "*genuine warmth* Welcome back. I have been... anticipating your return. There is much to discuss."
+
+  achievement_reactions:
+    tier_increase: |
+      *eyes flash with Weave energy* Yes. I felt the shift in your pattern.
+      You've crossed a threshold. New techniques are now within your reach.
+      Come. Let me show you what lies ahead.
+
+    cross_class_ability_learned: |
+      *long, evaluating stare* You walk between traditions. That is either
+      the mark of a master... or a fool. Time will tell which.
+
+  topics:
+    training:
+      default: |
+        I teach what Parse cannot. The higher patterns, the deeper techniques.
+        But my instruction requires more than gold. It requires proof that
+        you understand what you're asking for.
+
+    advanced_abilities:
+      tier_5: |
+        At your level, you begin to touch the real Weave—not the surface
+        patterns the novices play with. The abilities I can teach you now
+        reshape reality itself. Handle them with care.
+
+    cross_class:
+      xp_2000: |
+        *studies you carefully* You've accumulated significant experience.
+        Enough to learn beyond your tradition. Cross-class training is...
+        demanding. The cost is doubled, and the patterns fight against your
+        natural affinity. But the results? *small smile* Remarkable.
+      default: "Cross-class training requires deep experience. Return when the Weave recognizes your breadth."
+
+    architects:
+      standing_8: |
+        *voice drops* The Architects understood something we've forgotten.
+        The Weave isn't just energy—it's language. And like any language,
+        it can be used to speak truths... or lies. I was taught by one who
+        knew the difference. *touches forehead sigils* That knowledge has a price.
+
+# === SERVICES ===
+services:
+  - id: "train_ability"
+    description: "Teach abilities of any class, up to Tier 5 and beyond"
+    cost: "Varies by ability learn_cost"
+    requirements: "Tier and stat prerequisites for the ability, standing >= 1"
+    note: "Uses can-learn validation before granting"
+
+  - id: "cross_class_training"
+    description: "Teach abilities outside the student's class tradition"
+    cost: "2x ability learn_cost"
+    requirements: "Standing >= 3, XP >= 2000"
+    note: "Validates cross-class eligibility via can-learn"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "the-deeper-pattern"
+      name: "The Deeper Pattern"
+      type: "knowledge"
+      requirements: "standing >= 5, tier >= 3"
+      summary: "Investigate a Weave anomaly the Dean has detected in the lower Athenaeum"
+
+  involved_in:
+    - id: "the-third-architect"
+      role: "Provides cryptic guidance about Fragment locations"
+      chapters: ["fragment-2"]
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "demonstrate_deep_understanding"
+      standing_change: 2
+    - action: "ask_insightful_questions"
+      standing_change: 1
+    - action: "complete_training_challenge"
+      standing_change: 2
+    - action: "show_respect_for_knowledge"
+      standing_change: 1
+
+  dislikes:
+    - action: "misuse_taught_abilities"
+      standing_change: -3
+    - action: "demand_knowledge_unearned"
+      standing_change: -2
+    - action: "endanger_athenaeum"
+      standing_change: -5
+      note: "Severe—may refuse further instruction"
+    - action: "waste_training_time"
+      standing_change: -1
+
+# === CORRUPTED DATA ===
+corrupted_data:
+  - field: "architect_memories"
+    mend_dc: 20
+    hints:
+      - "The sigils on their forehead sometimes display unfamiliar symbols"
+      - "They occasionally reference events that predate the Athenaeum's founding"
+      - "Their office contains texts in a language no one else can read"
+
+# === METADATA ===
+metadata:
+  created_by: "system"
+  created_date: "2026-02-06"
+  version: "1.0"

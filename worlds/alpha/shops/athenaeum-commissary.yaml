@@ -86,7 +86,30 @@ inventory:
       tier: 5
       quest: "the-third-architect"
 
+# === ABILITY TOMES ===
+  - item_id: atsf4twz  # Tome of Flame Strike
+    qty: 3
+    price: 75
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: in70vnne  # Tome of Iron Skin
+    qty: 3
+    price: 60
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: m2gm44gn  # Tome of Gravity Well
+    qty: 2
+    price: 150
+    buyback_percent: 40
+    requires:
+      tier: 3
+
 # Training courses are services, not items - tracked separately
+# Services with grants_ability or grants_ability_choice wire to the ability learning system
 services:
   - id: basic-weave-theory
     name: "Basic Weave Theory"
@@ -94,6 +117,10 @@ services:
     effect: "Unlocks simple creation abilities"
     requires:
       tier: 1
+    grants_ability:
+      id: cbsy0ksp    # Basic Weave Theory passive
+      level: 1
+      source: "trainer"
 
   - id: pattern-recognition
     name: "Pattern Recognition"
@@ -101,6 +128,8 @@ services:
     effect: "+1 to detecting secrets"
     requires:
       tier: 1
+    grants_stat_bonus:
+      detection: 1
 
   - id: combat-syntax
     name: "Combat Syntax"
@@ -108,21 +137,33 @@ services:
     effect: "Learn one combat technique"
     requires:
       tier: 1
+    grants_ability_choice:
+      filter: { tags: "combat", tier: 1, class: "player_class_or_universal" }
+      count: 1
+      source: "trainer"
 
   - id: advanced-creation
     name: "Advanced Creation"
     price: 100
-    effect: "Required for major Weaving projects"
+    effect: "Learn an advanced creation ability"
     requires:
       tier: 3
+    grants_ability_choice:
+      filter: { tags: "creation", tier: 3 }
+      count: 1
+      source: "trainer"
 
   - id: master-weave-theory
     name: "Master Weave Theory"
     price: 500
-    effect: "Unlock Tier 5 Weaving abilities"
+    effect: "Upgrade Basic Weave Theory to level 2"
     requires:
       tier: 5
       standing: 3  # Need good standing with Dean Overflow
+    grants_ability:
+      id: cbsy0ksp    # Upgrade Basic Weave Theory to level 2
+      level: 2
+      source: "trainer"
 
 # Stock resets
 restock_frequency: weekly

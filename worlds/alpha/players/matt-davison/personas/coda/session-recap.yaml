@@ -1,0 +1,47 @@
+# Session Recap - Coda
+# Auto-generated at session end
+
+session: 8
+date: "2026-02-06"
+
+narrative_summary: |
+  Coda spent time in the Lumina City Midstreets during the Era Celebration,
+  surveying the available shops and assessing gear options. With only 40 gold
+  and no equipment, the pickings were slim. Reviewed Datamancer abilities —
+  Manifest could conjure a temporary weapon from the Weave if needed.
+  The Fragment of Will waits beneath Nexus Crossroads, but preparation comes first.
+
+immediate_context:
+  description: "Standing in the Midstreets during the Era Celebration, assessing options for gear and next steps."
+  location: "lumina-city"
+  activity: "shopping_and_planning"
+
+open_threads:
+  - urgency: high
+    thread: "Need equipment before heading to Nexus Crossroads — only 40g, cheapest armor is 90g"
+  - urgency: high
+    thread: "Fragment of Will lies under Nexus Crossroads — something dangerous guards it"
+  - urgency: medium
+    thread: "Follow Yara's Coordinates to her last known location"
+  - urgency: medium
+    thread: "Fragment of Vision in Oracle's Hollow"
+  - urgency: low
+    thread: "Present Broker's Token to Pit Boss Korvax at Chromedome"
+  - urgency: low
+    thread: "1 unspent stat point from level 2"
+
+npc_interactions: []
+
+player_goals:
+  - "Get equipped — buy or earn enough for weapon and armor"
+  - "Prepare for Nexus Crossroads expedition"
+
+active_effects: []
+
+event_log:
+  - seq: 1
+    event: "Browsed Ammo Dump, Stitch & Co, and Black Market (locked - tier 2) inventories"
+  - seq: 2
+    event: "Reviewed Datamancer abilities — noted Manifest can create temporary weapons for 5 WP"
+  - seq: 3
+    event: "Surveyed Lumina City Midstreets during Era Celebration (10% merchant discount active)"

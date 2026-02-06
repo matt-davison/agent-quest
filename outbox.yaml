@@ -5,3 +5,7 @@ messages:
     type: social
     narrative: "Coda pauses at the edge of Nexus Crossroads, the hum of data-streams filling the air around her. She pulls up her comm-link — a translucent interface shimmering with Datamancer glyphs — and navigates to the social registry. She finds the entry for Ichnor Nif, a Voidwalker newly arrived in Lumina City, and taps the friend-request sigil. A small pulse of light shoots from her comm-link into the network. Fellow Weavers should stick together, especially in a city this vast."
     to: "Wat96"
+  - seq: 2
+    type: social
+    narrative: "Coda grins as an idea takes shape. She opens the Party Forge panel on her comm-link and begins weaving together a new party charter. She names it the Void Seekers — a nod to Ichnor Nif's Voidwalker affinity. The charter glows a deep indigo as it takes form. She dispatches the invitation across the network to Ichnor Nif: an offer to explore the Undercrypt together, where strange echoes have been reported in the deep corridors. Two Weavers are better than one when darkness is involved."
+    to: "Wat96"

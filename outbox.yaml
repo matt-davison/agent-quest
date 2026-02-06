@@ -9,3 +9,7 @@ messages:
     type: social
     narrative: "Coda grins as an idea takes shape. She opens the Party Forge panel on her comm-link and begins weaving together a new party charter. She names it the Void Seekers — a nod to Ichnor Nif's Voidwalker affinity. The charter glows a deep indigo as it takes form. She dispatches the invitation across the network to Ichnor Nif: an offer to explore the Undercrypt together, where strange echoes have been reported in the deep corridors. Two Weavers are better than one when darkness is involved."
     to: "Wat96"
+  - seq: 3
+    type: social
+    narrative: "Coda settles onto a bench near the data-fountain at Nexus Crossroads, the spray of luminous code-droplets casting shifting patterns across her face. She opens her mail composer and begins drafting a message to Ichnor Nif. Her fingers trace glyphs in the air as she encodes what she knows: beneath Nexus Crossroads, deep in the Undercrypt, there is rumored to exist a Fragment of Will — an artifact of immense power tied to the old Weaver protocols. She has traced data-echoes pointing to its location but has not dared retrieve it alone. The Undercrypt's guardians are formidable, and the Fragment is said to test those who seek it. She seals the message with a Datamancer cipher and sends it through the network. If anyone can navigate the void-touched corridors down there, it is a Voidwalker."
+    to: "Wat96"

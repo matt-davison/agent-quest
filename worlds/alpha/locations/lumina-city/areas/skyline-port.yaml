@@ -1,0 +1,40 @@
+id: c2y1q12v
+name: "Skyline Port"
+type: area
+parent_location: lumina-city
+layer: skyline
+description: |
+  The Skyline Port sits on top of Lumina's tallest spire — a wide platform of
+  polished chrome and reinforced glass, open to the sky on all sides. Two airship
+  docks jut out over the city like skeletal fingers. A holographic departures board
+  flickers near the ticket counter. The air is clean and cold up here, above the
+  smog line.
+points_of_interest:
+  - name: "Dock A"
+    description: "Primary passenger dock. Regular service to major destinations."
+  - name: "Dock B"
+    description: "Secondary dock. Cargo and charter flights."
+  - name: "Ticket Counter"
+    description: "Staffed by a perpetually bored attendant."
+  - name: "VIP Lounge"
+    description: "Velvet-roped area for wealthy passengers. Complimentary drinks."
+  - name: "Control Tower"
+    description: "Port authority operations. Restricted access."
+services:
+  - type: transport
+    destinations:
+      - id: nexus-station
+        name: "Nexus Station"
+        fare: 15
+        frequency: "regular"
+      - id: rustlands-outpost
+        name: "Rustlands Outpost"
+        fare: 25
+        frequency: "daily"
+      - id: elderwood-edge
+        name: "Elderwood Edge"
+        fare: 30
+        frequency: "weekly"
+npcs: []
+security: "Axis patrol drones — standard port surveillance"
+created_date: "2026-02-06"

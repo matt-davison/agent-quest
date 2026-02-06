@@ -145,3 +145,6 @@ chronicle:
   - session: 1
     date: "2026-02-05"
     event: "[ECHO] Escorted to Governor Axis. AI offered a job: guide excavation to First Server. Declined. 'No.' Axis locked down the Underlevel. Sable is now being watched."
+  - session: 2
+    date: "2026-02-06"
+    event: "[ECHO] Pickpocketed a Skyline executive during Era Celebration (+12g). Evaded Axis surveillance drones in the crowd. Headed to Skyline Port to leave Lumina City."

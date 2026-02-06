@@ -1,0 +1,226 @@
+# City Governance Template
+# This file tracks the political state of a city
+
+# === GOVERNMENT STRUCTURE ===
+government:
+  type: "democracy" # democracy | oligarchy | corporate | ai-ruled | anarchic
+  leader:
+    name: "Governor Name"
+    type: "npc" # npc | player
+    persona_id: null # if player, reference their persona ID
+    title: "Governor"
+    term_start: "2026-01-01"
+    term_end: "2028-01-01" # null for lifetime appointments
+
+  # Council seats (usually 7 for democracy, varies by type)
+  council:
+    - seat_id: "seat-1"
+      title: "Council Member"
+      holder_name: "NPC Name"
+      holder_type: "npc" # npc | player | vacant
+      persona_id: null # if player
+      term_start: "2026-01-01"
+      term_end: "2028-01-01"
+      appointed_by: null # if appointed vs elected
+
+    - seat_id: "seat-2"
+      title: "Council Member"
+      holder_name: null
+      holder_type: "vacant"
+      persona_id: null
+      term_start: null
+      term_end: null
+      appointed_by: null
+
+# === INFLUENCE TRACKING ===
+# Influence = political capital in this city
+influence:
+  # Player influence records
+  players:
+    # Example player entry:
+    # player-persona-id:
+    #   name: "Player Name"
+    #   earned: 125 # Total influence ever earned
+    #   spent: 25 # Total influence spent on actions
+    #   current: 100 # earned - spent
+    #   last_updated: "2026-02-05"
+    #   history:
+    #     - date: "2026-02-01"
+    #       action: "completed_quest"
+    #       amount: +15
+    #       description: "Defeated raiders threatening market"
+    #     - date: "2026-02-03"
+    #       action: "donation"
+    #       amount: +10
+    #       description: "Donated 100g to treasury"
+    #     - date: "2026-02-05"
+    #       action: "propose_law"
+    #       amount: -10
+    #       description: "Proposed market hours extension"
+
+  # NPC influence (for voting weight)
+  npcs:
+    npc-governor:
+      name: "Governor Name"
+      current: 150
+    npc-merchant-guild-rep:
+      name: "Merchant Guild Representative"
+      current: 75
+
+# === INFLUENCE SOURCES ===
+# How players gain influence in this city
+influence_sources:
+  city_quests:
+    enabled: true
+    minor_reward: 5
+    major_reward: 15
+    critical_reward: 25
+
+  donations:
+    enabled: true
+    conversion_rate: 10 # 10 gold = 1 influence
+    weekly_limit: 50 # max 50 influence per week from donations
+
+  defending_threats:
+    enabled: true
+    reward: 25
+
+  hosting_events:
+    enabled: true
+    reward: 10
+    cost_minimum: 500 # must spend at least 500g on event
+    monthly_limit: 2 # max 2 events per month
+
+  daily_service:
+    enabled: true
+    min_reward: 5
+    max_reward: 20
+    # Actual reward based on service quality (GM judgment)
+
+# === INFLUENCE PERKS ===
+# Benefits at each influence tier
+influence_perks:
+  citizen: # 0+ influence
+    - "Can vote on proposals"
+    - "Can attend council meetings"
+    - "Can petition officials"
+
+  respected: # 25+ influence
+    - "All Citizen perks"
+    - "Can propose minor laws (10 influence cost)"
+    - "Priority response from officials"
+    - "Can join civic committees"
+
+  influential: # 50+ influence
+    - "All Respected perks"
+    - "Can propose major laws (50 influence cost)"
+    - "Can run for council seats"
+    - "Can suggest minor official appointments"
+
+  power_broker: # 100+ influence
+    - "All Influential perks"
+    - "Can appoint minor officials directly"
+    - "Can veto minor laws (25 influence cost)"
+    - "Emergency action authority during crises"
+
+  kingmaker: # 200+ influence
+    - "All Power Broker perks"
+    - "Can challenge seated officials (100 influence cost)"
+    - "Can force revotes on failed proposals (75 influence cost)"
+    - "Diplomatic authority for inter-city negotiations"
+
+# === PROPOSALS ===
+# Active and historical proposals
+proposals:
+  # Example proposal:
+  # - id: "prop-001"
+  #   title: "Extend Market Hours"
+  #   proposer: "player-persona-id"
+  #   proposer_name: "Player Name"
+  #   type: "minor" # minor | major
+  #   cost: 10 # influence spent
+  #   submitted_date: "2026-02-05"
+  #   voting_end_date: "2026-02-08"
+  #   description: "Extend marketplace operating hours from 6am-6pm to 6am-9pm"
+  #   category: "economic" # economic | social | military | diplomatic
+  #   pass_requirement: 0.60 # 60% for minor, 66% for major
+  #   status: "voting" # voting | passed | failed
+  #   votes:
+  #     yes:
+  #       - voter: "player-persona-id"
+  #         weight: 100
+  #       - voter: "npc-merchant-guild"
+  #         weight: 75
+  #     no:
+  #       - voter: "npc-governor"
+  #         weight: 150
+  #   result:
+  #     total_yes: 175
+  #     total_no: 150
+  #     percentage: 0.538 # 175 / 325 = 53.8%
+  #     outcome: "failed" # passed | failed
+  #   implemented_date: null # if passed
+
+# === ELECTIONS ===
+# Upcoming and historical elections
+elections:
+  # - seat_id: "seat-2"
+  #   election_date: "2026-03-01"
+  #   candidates:
+  #     - persona_id: "player-1"
+  #       name: "Player Name"
+  #       announced_date: "2026-02-15"
+  #       influence_at_announcement: 75
+  #     - persona_id: "player-2"
+  #       name: "Other Player"
+  #       announced_date: "2026-02-18"
+  #       influence_at_announcement: 60
+  #   status: "campaigning" # campaigning | voting | completed
+  #   winner: null
+  #   vote_totals: {}
+
+# === CITY TREASURY ===
+treasury:
+  balance: 10000 # Current gold in treasury
+  weekly_income: 500 # Taxes, tariffs, etc.
+  weekly_expenses: 300 # Salaries, maintenance
+  last_updated: "2026-02-05"
+
+  # Recent transactions
+  transactions:
+    - date: "2026-02-05"
+      type: "donation"
+      amount: +100
+      from: "Player Name"
+      description: "Political donation (gained 10 influence)"
+    - date: "2026-02-03"
+      type: "expense"
+      amount: -500
+      to: "Guard Salaries"
+      description: "Weekly guard payroll"
+
+# === ACTIVE POLICIES ===
+# Laws and policies currently in effect
+policies:
+  - id: "policy-001"
+    name: "Nexus Trade Agreement"
+    description: "Preferred trade rates with Nexus Station"
+    category: "economic"
+    effect: "+10% revenue from trade with Nexus"
+    enacted_date: "2025-12-01"
+    proposed_by: "Governor Axis"
+
+  # - id: "policy-002"
+  #   name: "Free Healing Initiative"
+  #   description: "City-funded healing for all residents"
+  #   category: "social"
+  #   effect: "Clerics heal citizens for free, costs 100g/week"
+  #   enacted_date: "2026-01-15"
+  #   proposed_by: "player-persona-id"
+
+# === METADATA ===
+metadata:
+  created_date: "2026-02-05"
+  last_updated: "2026-02-05"
+  next_election: "2028-01-01" # When next scheduled election occurs
+  next_review: "2026-03-05" # When to review inactive officials

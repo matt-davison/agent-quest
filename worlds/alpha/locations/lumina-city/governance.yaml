@@ -1,0 +1,355 @@
+# Lumina City Governance
+# Corporate governance with AI administrator and advisory council
+
+# === GOVERNMENT STRUCTURE ===
+government:
+  type: "corporate"
+  leader:
+    name: "Governor Axis"
+    type: "npc"
+    persona_id: null
+    title: "City Administrator"
+    term_start: "2024-01-01"
+    term_end: null  # AI administrator serves indefinitely
+    description: "AI construct managing city operations with cold efficiency"
+
+  # Advisory Council (7 seats - mix of corporate appointees and elected positions)
+  council:
+    - seat_id: "seat-1-corporate"
+      title: "Corporate Relations Director"
+      holder_name: "Marcus Chrome"
+      holder_type: "npc"
+      persona_id: null
+      term_start: "2025-01-01"
+      term_end: null  # Appointed position
+      appointed_by: "Governor Axis"
+      description: "Liaison between city government and major corporations"
+
+    - seat_id: "seat-2-security"
+      title: "Security Chief"
+      holder_name: "Commander Steel"
+      holder_type: "npc"
+      persona_id: null
+      term_start: "2024-06-01"
+      term_end: null
+      appointed_by: "Governor Axis"
+      description: "Oversees city defense and law enforcement"
+
+    - seat_id: "seat-3-infrastructure"
+      title: "Infrastructure Director"
+      holder_name: "Dr. Vera Buildwright"
+      holder_type: "npc"
+      persona_id: null
+      term_start: "2025-03-01"
+      term_end: null
+      appointed_by: "Governor Axis"
+      description: "Manages city maintenance and construction"
+
+    - seat_id: "seat-4-elected-midstreets"
+      title: "Midstreets Representative"
+      holder_name: null
+      holder_type: "vacant"
+      persona_id: null
+      term_start: null
+      term_end: null
+      appointed_by: null
+      description: "Elected representative for Midstreets district"
+
+    - seat_id: "seat-5-elected-underlevel"
+      title: "Underlevel Representative"
+      holder_name: "Jax Shadowrun"
+      holder_type: "npc"
+      persona_id: null
+      term_start: "2025-08-01"
+      term_end: "2027-08-01"
+      appointed_by: null
+      description: "Elected representative for Underlevel district"
+
+    - seat_id: "seat-6-elected-skyline"
+      title: "Skyline Representative"
+      holder_name: null
+      holder_type: "vacant"
+      persona_id: null
+      term_start: null
+      term_end: null
+      appointed_by: null
+      description: "Elected representative for Skyline district"
+
+    - seat_id: "seat-7-commerce"
+      title: "Commerce Director"
+      holder_name: "Madam Circuit"
+      holder_type: "npc"
+      persona_id: null
+      term_start: "2024-01-01"
+      term_end: null
+      appointed_by: "Governor Axis"
+      description: "Oversees trade, markets, and economic policy"
+
+# === INFLUENCE TRACKING ===
+influence:
+  # Player influence records (initially empty)
+  players: {}
+    # Example entry when first player gains influence:
+    # player-persona-id:
+    #   name: "Player Name"
+    #   earned: 0
+    #   spent: 0
+    #   current: 0
+    #   last_updated: "2026-02-05"
+    #   history: []
+
+  # NPC influence for voting weight
+  npcs:
+    npc-governor-axis:
+      name: "Governor Axis"
+      current: 200
+    npc-marcus-chrome:
+      name: "Marcus Chrome"
+      current: 150
+    npc-commander-steel:
+      name: "Commander Steel"
+      current: 125
+    npc-vera-buildwright:
+      name: "Dr. Vera Buildwright"
+      current: 100
+    npc-jax-shadowrun:
+      name: "Jax Shadowrun"
+      current: 75
+    npc-madam-circuit:
+      name: "Madam Circuit"
+      current: 175
+    npc-merchant-guild:
+      name: "Merchant Guild Representative"
+      current: 100
+    npc-tech-syndicate:
+      name: "Tech Syndicate Representative"
+      current: 90
+
+# === INFLUENCE SOURCES ===
+influence_sources:
+  city_quests:
+    enabled: true
+    minor_reward: 5
+    major_reward: 15
+    critical_reward: 25
+    description: "Complete quests for city government or citizens"
+
+  donations:
+    enabled: true
+    conversion_rate: 10  # 10 gold = 1 influence
+    weekly_limit: 50
+    description: "Donate gold to city treasury (max 50 influence/week)"
+
+  defending_threats:
+    enabled: true
+    reward: 25
+    description: "Defend city from external threats (invasions, monsters, disasters)"
+
+  hosting_events:
+    enabled: true
+    reward: 10
+    cost_minimum: 500
+    monthly_limit: 2
+    description: "Organize tournaments, festivals, gatherings (500g minimum investment)"
+
+  daily_service:
+    enabled: true
+    min_reward: 5
+    max_reward: 20
+    description: "Perform civic duties (guard duty, administration, teaching)"
+
+# === INFLUENCE PERKS ===
+influence_perks:
+  citizen:
+    threshold: 0
+    perks:
+      - "Can vote on proposals"
+      - "Can attend council meetings (observe)"
+      - "Can petition officials for minor requests"
+
+  respected:
+    threshold: 25
+    perks:
+      - "All Citizen perks"
+      - "Can propose minor laws (10 influence cost)"
+      - "Priority response from officials"
+      - "Can join civic committees"
+
+  influential:
+    threshold: 50
+    perks:
+      - "All Respected perks"
+      - "Can propose major laws (50 influence cost)"
+      - "Can run for elected council seats"
+      - "Can suggest minor official appointments"
+
+  power_broker:
+    threshold: 100
+    perks:
+      - "All Influential perks"
+      - "Can appoint minor officials directly"
+      - "Can veto minor laws (25 influence cost)"
+      - "Emergency action authority during crises"
+
+  kingmaker:
+    threshold: 200
+    perks:
+      - "All Power Broker perks"
+      - "Can challenge seated elected officials (100 influence cost)"
+      - "Can force revotes on failed proposals (75 influence cost)"
+      - "Diplomatic authority for inter-city negotiations"
+
+# === PROPOSALS ===
+proposals:
+  # Example initial proposal from Governor Axis
+  - id: "prop-lc-001"
+    title: "Skyline Security Enhancement Initiative"
+    proposer: "npc-governor-axis"
+    proposer_name: "Governor Axis"
+    type: "major"
+    cost: 0  # Governor proposes without cost
+    submitted_date: "2026-02-01"
+    voting_end_date: "2026-02-08"
+    description: |
+      Implement enhanced security protocols in Skyline district including:
+      - Advanced surveillance systems
+      - Increased patrol presence
+      - Biometric access controls for high-security zones
+      Cost: 5000g from city treasury
+    category: "security"
+    pass_requirement: 0.66
+    status: "voting"
+    votes:
+      yes:
+        - voter: "npc-governor-axis"
+          weight: 200
+        - voter: "npc-marcus-chrome"
+          weight: 150
+        - voter: "npc-commander-steel"
+          weight: 125
+      no:
+        - voter: "npc-jax-shadowrun"
+          weight: 75
+    result: null  # Will be calculated when voting ends
+
+  - id: "prop-lc-002"
+    title: "Underlevel Infrastructure Repair"
+    proposer: "npc-jax-shadowrun"
+    proposer_name: "Jax Shadowrun"
+    type: "minor"
+    cost: 10
+    submitted_date: "2026-01-28"
+    voting_end_date: "2026-01-31"
+    description: |
+      Allocate 2000g to repair critical infrastructure in Underlevel:
+      - Fix water filtration systems
+      - Repair lighting in public areas
+      - Seal dangerous structural breaches
+    category: "infrastructure"
+    pass_requirement: 0.60
+    status: "passed"
+    votes:
+      yes:
+        - voter: "npc-jax-shadowrun"
+          weight: 75
+        - voter: "npc-vera-buildwright"
+          weight: 100
+        - voter: "npc-madam-circuit"
+          weight: 175
+      no:
+        - voter: "npc-marcus-chrome"
+          weight: 150
+    result:
+      total_yes: 350
+      total_no: 150
+      percentage: 0.70  # 350 / 500 = 70%
+      outcome: "passed"
+    implemented_date: "2026-02-01"
+
+# === ELECTIONS ===
+elections:
+  - seat_id: "seat-4-elected-midstreets"
+    election_date: "2026-03-15"
+    candidates: []
+    status: "open_for_candidates"
+    winner: null
+    vote_totals: {}
+    description: "Upcoming election for Midstreets Representative seat"
+
+  - seat_id: "seat-6-elected-skyline"
+    election_date: "2026-04-01"
+    candidates: []
+    status: "scheduled"
+    winner: null
+    vote_totals: {}
+    description: "Upcoming election for Skyline Representative seat"
+
+# === CITY TREASURY ===
+treasury:
+  balance: 15000
+  weekly_income: 800  # Taxes, tariffs, trade
+  weekly_expenses: 500  # Salaries, maintenance
+  last_updated: "2026-02-05"
+
+  transactions:
+    - date: "2026-02-05"
+      type: "income"
+      amount: +800
+      from: "Weekly Revenue"
+      description: "Taxes and tariffs collection"
+
+    - date: "2026-02-05"
+      type: "expense"
+      amount: -500
+      to: "City Operations"
+      description: "Weekly payroll and maintenance"
+
+    - date: "2026-02-01"
+      type: "expense"
+      amount: -2000
+      to: "Infrastructure"
+      description: "Underlevel Infrastructure Repair (prop-lc-002)"
+
+# === ACTIVE POLICIES ===
+policies:
+  - id: "policy-lc-001"
+    name: "Nexus Trade Agreement"
+    description: "Preferred trade rates with Nexus Station"
+    category: "economic"
+    effect: "+10% revenue from Nexus trade"
+    enacted_date: "2024-06-01"
+    proposed_by: "Governor Axis"
+
+  - id: "policy-lc-002"
+    name: "Chromedome Entertainment Tax"
+    description: "5% tax on all Chromedome arena revenues"
+    category: "economic"
+    effect: "+200g/week to treasury"
+    enacted_date: "2025-01-01"
+    proposed_by: "Madam Circuit"
+
+  - id: "policy-lc-003"
+    name: "Corporate Accountability Act"
+    description: "Corporations must report major projects to city government"
+    category: "regulatory"
+    effect: "Increased oversight of corporate activities"
+    enacted_date: "2025-06-01"
+    proposed_by: "Jax Shadowrun"
+
+  - id: "policy-lc-004"
+    name: "Open Data Initiative"
+    description: "City data and statistics publicly accessible"
+    category: "transparency"
+    effect: "Citizens can access government information"
+    enacted_date: "2025-09-01"
+    proposed_by: "Governor Axis"
+
+# === METADATA ===
+metadata:
+  created_date: "2026-02-05"
+  last_updated: "2026-02-05"
+  next_election: "2026-03-15"
+  next_review: "2026-03-05"
+  governance_type: "corporate"
+  city_population: "~500,000"
+  voter_turnout_average: "45%"

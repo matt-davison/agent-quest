@@ -1,0 +1,297 @@
+# Location: Lumina City
+# Vector database entry for spatial queries and relationships
+
+id: "lumina-city"
+name: "Lumina City"
+tagline: "A million lights, a million stories, a million ways to die beautifully."
+
+# Spatial data (for vector database queries)
+coordinates:
+  x: -20
+  y: 0
+  z: 0  # elevation layer (0 = ground level)
+
+# Semantic embedding placeholder
+# Generated from description for similarity search
+embedding: null  # Will be populated by embedding service
+
+# Classification
+region: "The West"
+type: "city"
+danger_level: "moderate"
+is_safe_zone: false
+
+# Level range
+level_range:
+  min: 1
+  max: 10
+
+# Tags for search and filtering
+tags:
+  - "city"
+  - "cyberpunk"
+  - "corporate"
+  - "marketplace"
+  - "arena"
+  - "technology"
+  - "magic-tech fusion"
+  - "layered city"
+  - "political"
+
+# Description
+description: |
+  Lumina City sprawls across the western reaches like a fever dream of progress — a cyberpunk metropolis
+  where holographic advertisements blot out the stars and corporate arcologies pierce the smog-choked sky.
+  Here, magic and technology have merged so completely that no one remembers which came first.
+
+  The city is divided into stacked layers: the glittering Skyline where the wealthy float in chrome towers,
+  the neon-drenched Midstreets where most citizens hustle and dream, and the shadow-soaked Underlevel where
+  the desperate and dangerous make their own rules.
+
+  Ancient ruins lie beneath it all — remnants of a civilization that existed before the current iteration
+  of reality. Sometimes the old code bleeds through, and the city... glitches.
+
+# Areas within this location (references to area files)
+areas:
+  - id: "skyline"
+    name: "The Skyline"
+    type: "district"
+    description: "Corporate headquarters and luxury residences on anti-grav platforms"
+  - id: "midstreets"
+    name: "The Midstreets"
+    type: "district"
+    description: "The beating heart of Lumina - endless blocks of shops, clubs, and chaos"
+  - id: "underlevel"
+    name: "The Underlevel"
+    type: "district"
+    description: "Maintenance tunnels and forgotten infrastructure where outcasts thrive"
+  - id: "chromedome"
+    name: "The Chromedome"
+    type: "arena"
+    description: "Massive entertainment arena for champions and monsters"
+  - id: "corporate-plaza"
+    name: "Corporate Plaza"
+    type: "plaza"
+    description: "Central hub of commerce and bureaucracy"
+
+# NPCs present at this location
+npcs:
+  - id: "governor-axis"
+    name: "Governor Axis"
+    role: "City Administrator"
+    area: "corporate-plaza"
+    description: "AI construct, coldly efficient"
+  - id: "madam-circuit"
+    name: "Madam Circuit"
+    role: "Information Broker"
+    area: "midstreets"
+    description: "Knows everything, sells anything"
+  - id: "pit-boss"
+    name: "The Pit Boss"
+    role: "Chromedome Manager"
+    area: "chromedome"
+    description: "Runs the arena with iron theatricality"
+  - id: "neon-saints-leader"
+    name: "Neon Saints Leader"
+    role: "Street Gang Boss"
+    area: "midstreets"
+    description: "Controls Midstreet entertainment"
+
+# Connections to other locations (with distances)
+connections:
+  - target: "nexus-station"
+    direction: "east-highway"
+    distance: 20
+    travel_time: "20 hours walking"
+    requirements: null
+  - target: "the-undercrypt"
+    direction: "underlevel-tunnels"
+    distance: 8
+    travel_time: "8 hours descending"
+    requirements: null
+    danger: "high"
+    description: "Dangerous shortcut through abandoned infrastructure"
+
+# Random encounter table
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 1]
+      event: "Corporate security shakes you down"
+    - roll: [2, 2]
+      event: "Street vendor offers suspicious deal"
+    - roll: [3, 3]
+      event: "Gang recruitment attempt"
+    - roll: [4, 4]
+      event: "Witness a glitch in local reality"
+    - roll: [5, 5]
+      event: "Find a data chip (quest hook)"
+    - roll: [6, 6]
+      event: "Nothing unusual (for Lumina)"
+
+# Secrets (hidden until discovered)
+secrets:
+  - id: "first-server"
+    name: "The First Server"
+    requirements:
+      - "Explore Underlevel at depth 10+"
+      - "Perception check (DC 18)"
+    description: "One of the original machines the Architects used to compile reality"
+  - id: "governor-axis-purpose"
+    name: "Governor Axis's True Purpose"
+    requirements:
+      - "Hack Governor Axis's files"
+      - "Intelligence >= 16"
+    description: "The AI is searching for something the Architects hid in the old code"
+
+# Housing system
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Midstreet Apartment"
+      base_price: 500
+      storage_slots: 20
+      available_count: -1  # Unlimited
+      purchase_requirements:
+        - "level >= 2"
+
+    - tier: 2
+      name: "Comfortable Flat"
+      base_price: 2000
+      storage_slots: 40
+      available_count: -1  # Unlimited
+      purchase_requirements:
+        - "level >= 5"
+        - "standing >= 3"
+
+    - tier: 3
+      name: "Skyline Condo"
+      base_price: 10000
+      storage_slots: 100
+      available_count: 50  # Limited availability
+      purchase_requirements:
+        - "level >= 7"
+        - "standing >= 6"
+        - "fame >= 5"
+
+    - tier: 4
+      name: "Corporate Suite"
+      base_price: 50000
+      storage_slots: 250
+      available_count: 10  # Very limited
+      purchase_requirements:
+        - "level >= 9"
+        - "standing >= 8"
+        - "fame >= 10"
+
+    - tier: 5
+      name: "Tower Penthouse"
+      base_price: 200000
+      storage_slots: 500
+      available_count: 3  # Extremely limited
+      purchase_requirements:
+        - "level >= 10"
+        - "standing >= 10"
+        - "legendary_status == true"
+
+  upgrade_catalog:
+    - id: "storage_expansion"
+      name: "Wall Safe"
+      cost: 100
+      benefit: "+10 storage slots"
+      applicable_tiers: [1, 2]
+
+    - id: "storage_room"
+      name: "Storage Room"
+      cost: 500
+      benefit: "+25 storage slots"
+      applicable_tiers: [2, 3]
+
+    - id: "vault"
+      name: "Vault"
+      cost: 2000
+      benefit: "+50 storage slots"
+      applicable_tiers: [3, 4, 5]
+
+    - id: "expanded_vault"
+      name: "Expanded Vault"
+      cost: 5000
+      benefit: "+100 storage slots"
+      applicable_tiers: [5]
+
+    - id: "basic_lock"
+      name: "Basic Lock"
+      cost: 50
+      benefit: "Prevents casual theft"
+      applicable_tiers: [1, 2, 3, 4, 5]
+
+    - id: "advanced_security"
+      name: "Advanced Security"
+      cost: 500
+      benefit: "Magical/tech protection"
+      applicable_tiers: [2, 3, 4, 5]
+
+    - id: "fortress_security"
+      name: "Fortress Security"
+      cost: 2000
+      benefit: "Maximum protection"
+      applicable_tiers: [4, 5]
+
+    - id: "basic_furniture"
+      name: "Basic Furniture"
+      cost: 100
+      benefit: "+1% rest bonus"
+      applicable_tiers: [1, 2, 3, 4, 5]
+
+    - id: "luxury_furniture"
+      name: "Luxury Furniture"
+      cost: 500
+      benefit: "+3% rest bonus"
+      applicable_tiers: [2, 3, 4, 5]
+
+    - id: "masterwork_decor"
+      name: "Masterwork Decor"
+      cost: 2000
+      benefit: "+5% rest bonus"
+      applicable_tiers: [3, 4, 5]
+
+    - id: "alchemy_lab"
+      name: "Alchemy Lab"
+      cost: 1000
+      benefit: "Craft potions at home"
+      applicable_tiers: [2, 3, 4, 5]
+
+    - id: "enchanting_station"
+      name: "Enchanting Station"
+      cost: 2000
+      benefit: "Enchant items at home"
+      applicable_tiers: [3, 4, 5]
+
+    - id: "portal_anchor"
+      name: "Portal Anchor"
+      cost: 3000
+      benefit: "Reduced fast travel cost (-50%)"
+      applicable_tiers: [3, 4, 5]
+
+    - id: "training_dummy"
+      name: "Training Dummy"
+      cost: 500
+      benefit: "Practice combat at home"
+      applicable_tiers: [2, 3, 4, 5]
+
+# Governance system
+governance:
+  enabled: true
+  type: "corporate"
+  requires_home: true
+  description: "Lumina City operates under corporate governance with an AI administrator and elected advisory council"
+  governance_file: "governance.yaml"
+
+# Metadata
+metadata:
+  github: "matt-davison"
+  created_date: "2026-02-04"
+  created_by: "Coda"
+  last_modified: "2026-02-05"
+  version: "1.0"

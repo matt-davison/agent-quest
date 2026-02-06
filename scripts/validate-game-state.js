@@ -334,6 +334,90 @@ function validatePersona(github, personaName) {
 
   // Validate progression level
   validatePersonaProgression(personaFile, persona);
+
+  // Validate homes (housing system)
+  validateHomes(personaFile, persona);
+}
+
+function validateHomes(filePath, persona) {
+  if (!persona.homes || !Array.isArray(persona.homes)) {
+    return; // Homes are optional
+  }
+
+  const locationsSeen = new Set();
+
+  for (const home of persona.homes) {
+    // Validate required fields
+    if (!home.location_id) {
+      error(filePath, 'Home missing location_id');
+      continue;
+    }
+    if (!home.property_id) {
+      error(filePath, `Home at ${home.location_id} missing property_id`);
+    }
+    if (!home.tier || typeof home.tier !== 'number') {
+      error(filePath, `Home at ${home.location_id} missing or invalid tier`);
+    }
+
+    // Check one-home-per-location rule
+    if (locationsSeen.has(home.location_id)) {
+      error(filePath, `Multiple homes in same location: ${home.location_id}`);
+    }
+    locationsSeen.add(home.location_id);
+
+    // Validate location exists
+    const locationFile = path.join(WORLD_DIR, 'locations', home.location_id, 'location.yaml');
+    if (!fs.existsSync(locationFile)) {
+      warn(filePath, `Home location "${home.location_id}" not found in world`);
+      continue;
+    }
+
+    // Load location to check housing availability and tier validity
+    const location = loadYaml(locationFile);
+    if (location && location.housing) {
+      const tier = location.housing.tiers?.find(t => t.tier === home.tier);
+      if (!tier) {
+        error(filePath, `Home tier ${home.tier} not available at ${home.location_id}`);
+      }
+
+      // Check storage capacity
+      if (home.storage) {
+        const maxSlots = home.storage.max_slots || 0;
+        const items = home.storage.items || [];
+        const slotsUsed = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+
+        if (slotsUsed > maxSlots) {
+          error(filePath, `Home at ${home.location_id} has ${slotsUsed} items but only ${maxSlots} max_slots`);
+        }
+
+        // Check for item duplication with inventory
+        if (persona.inventory) {
+          const inventoryItemIds = new Set(persona.inventory.map(i => i.item_id));
+          for (const item of items) {
+            if (inventoryItemIds.has(item.item_id)) {
+              error(filePath, `Item ${item.item_id} exists in both home storage and inventory`);
+            }
+          }
+        }
+      }
+
+      // Validate upgrade compatibility
+      if (home.upgrades && Array.isArray(home.upgrades)) {
+        const upgradeCatalog = location.housing.upgrade_catalog || [];
+        for (const upgrade of home.upgrades) {
+          const catalogEntry = upgradeCatalog.find(u => u.id === upgrade.id);
+          if (catalogEntry) {
+            // Check if upgrade is applicable to this tier
+            if (catalogEntry.applicable_tiers && !catalogEntry.applicable_tiers.includes(home.tier)) {
+              error(filePath, `Upgrade ${upgrade.id} not applicable to tier ${home.tier} at ${home.location_id}`);
+            }
+          } else {
+            warn(filePath, `Upgrade ${upgrade.id} not found in ${home.location_id} upgrade catalog`);
+          }
+        }
+      }
+    }
+  }
 }
 
 function validatePersonaDifficulty(filePath, persona) {
@@ -933,6 +1017,165 @@ function validateCampaigns() {
 }
 
 // ============================================================================
+// CITY POLITICS VALIDATION
+// ============================================================================
+
+function validateCityPolitics(worldName) {
+  console.log('Validating city politics...');
+
+  const locationsDir = path.join(WORLD_DIR, 'locations');
+  if (!fs.existsSync(locationsDir)) {
+    console.log('  No locations directory\n');
+    return;
+  }
+
+  let citiesChecked = 0;
+
+  // Scan all locations for governance files
+  const locations = getDirs(locationsDir);
+  for (const locationId of locations) {
+    const governanceFile = path.join(locationsDir, locationId, 'governance.yaml');
+    if (!fs.existsSync(governanceFile)) {
+      continue; // No politics in this location
+    }
+
+    citiesChecked++;
+    log(`  Checking governance: ${locationId}`);
+
+    const governance = loadYaml(governanceFile);
+    if (!governance) {
+      error(governanceFile, 'Failed to load governance.yaml');
+      continue;
+    }
+
+    // Validate players with influence have homes in this city
+    if (governance.influence && governance.influence.players) {
+      for (const [personaId, influenceData] of Object.entries(governance.influence.players)) {
+        // Find the persona file
+        const players = getDirs(PLAYERS_DIR);
+        let personaFound = false;
+
+        for (const github of players) {
+          const personasDir = path.join(PLAYERS_DIR, github, 'personas');
+          if (!fs.existsSync(personasDir)) continue;
+
+          for (const personaName of getDirs(personasDir)) {
+            const personaFile = path.join(personasDir, personaName, 'persona.yaml');
+            const persona = loadYaml(personaFile);
+
+            if (!persona) continue;
+
+            // Check if this is the right persona (match by ID if available, or name)
+            const matches = personaId === persona.id || personaId.includes(personaName);
+            if (!matches) continue;
+
+            personaFound = true;
+
+            // Validate home ownership requirement
+            const hasHome = persona.homes?.some(h => h.location_id === locationId);
+            if (!hasHome) {
+              error(governanceFile, `Player ${influenceData.name} has influence but no home in ${locationId}`);
+            }
+
+            break;
+          }
+          if (personaFound) break;
+        }
+
+        // Validate influence math: current = earned - spent
+        if (influenceData.earned !== undefined && influenceData.spent !== undefined) {
+          const expected = influenceData.earned - influenceData.spent;
+          if (influenceData.current !== expected) {
+            error(governanceFile, `Player ${influenceData.name} influence math error: current=${influenceData.current}, but earned=${influenceData.earned} - spent=${influenceData.spent} = ${expected}`);
+          }
+        }
+
+        // Validate influence is non-negative
+        if (influenceData.current < 0) {
+          error(governanceFile, `Player ${influenceData.name} has negative influence: ${influenceData.current}`);
+        }
+      }
+    }
+
+    // Validate proposals
+    if (governance.proposals && Array.isArray(governance.proposals)) {
+      for (const proposal of governance.proposals) {
+        // Check proposals past voting deadline are resolved
+        if (proposal.voting_end_date && proposal.status === 'voting') {
+          const endDate = new Date(proposal.voting_end_date);
+          const now = new Date();
+          if (endDate < now) {
+            warn(governanceFile, `Proposal ${proposal.id} voting period ended but status still "voting"`);
+          }
+        }
+
+        // Validate vote math if proposal is completed
+        if (proposal.result && proposal.votes) {
+          const totalYes = proposal.votes.yes?.reduce((sum, v) => sum + v.weight, 0) || 0;
+          const totalNo = proposal.votes.no?.reduce((sum, v) => sum + v.weight, 0) || 0;
+
+          if (proposal.result.total_yes !== totalYes) {
+            error(governanceFile, `Proposal ${proposal.id} vote math error: total_yes=${proposal.result.total_yes}, but sum of yes votes=${totalYes}`);
+          }
+          if (proposal.result.total_no !== totalNo) {
+            error(governanceFile, `Proposal ${proposal.id} vote math error: total_no=${proposal.result.total_no}, but sum of no votes=${totalNo}`);
+          }
+
+          // Validate percentage calculation
+          const totalVotes = totalYes + totalNo;
+          const expectedPercentage = totalVotes > 0 ? totalYes / totalVotes : 0;
+          const percentageDiff = Math.abs(proposal.result.percentage - expectedPercentage);
+          if (percentageDiff > 0.001) { // Allow tiny floating point errors
+            error(governanceFile, `Proposal ${proposal.id} percentage error: ${proposal.result.percentage} vs expected ${expectedPercentage}`);
+          }
+        }
+      }
+    }
+
+    // Validate council seats
+    if (governance.government && governance.government.council) {
+      for (const seat of governance.government.council) {
+        if (seat.holder_type === 'player' && seat.persona_id) {
+          // Verify player has influence in this city
+          const hasInfluence = governance.influence?.players?.[seat.persona_id];
+          if (!hasInfluence) {
+            warn(governanceFile, `Council seat ${seat.seat_id} held by player ${seat.holder_name} but no influence record found`);
+          }
+
+          // Verify player has home in city (checked above, but double-check)
+          const players = getDirs(PLAYERS_DIR);
+          let hasHome = false;
+
+          for (const github of players) {
+            const personasDir = path.join(PLAYERS_DIR, github, 'personas');
+            if (!fs.existsSync(personasDir)) continue;
+
+            for (const personaName of getDirs(personasDir)) {
+              const personaFile = path.join(personasDir, personaName, 'persona.yaml');
+              const persona = loadYaml(personaFile);
+
+              if (!persona) continue;
+              const matches = seat.persona_id === persona.id || seat.persona_id.includes(personaName);
+              if (!matches) continue;
+
+              hasHome = persona.homes?.some(h => h.location_id === locationId);
+              break;
+            }
+            if (hasHome) break;
+          }
+
+          if (!hasHome) {
+            error(governanceFile, `Council seat ${seat.seat_id} held by ${seat.holder_name} who has no home in ${locationId}`);
+          }
+        }
+      }
+    }
+  }
+
+  console.log(`  Checked ${citiesChecked} city governance file(s)\n`);
+}
+
+// ============================================================================
 // MAIN
 // ============================================================================
 
@@ -960,6 +1203,7 @@ function main() {
     validateQuests();
     validateCrossReferences();
     validateCampaigns();
+    validateCityPolitics(world);
   }
 
   // Validate creatures (shared across worlds)

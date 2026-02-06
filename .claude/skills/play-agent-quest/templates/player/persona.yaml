@@ -114,6 +114,28 @@ difficulty:
 location: "nexus-station" # Current location ID
 # Quest progress is tracked in a separate file: quests.yaml (same directory)
 
+# === HOMES ===
+# Properties owned by this persona (optional)
+# See rules/housing.md for home ownership system
+homes: []
+# Example:
+# - location_id: "lumina-city"
+#   property_id: "lc-apt-42"
+#   name: "Midstreet Apartment 42"
+#   type: "apartment"
+#   tier: 1
+#   acquired_date: "2026-02-05"
+#   purchase_price: 500
+#   upgrades: []
+#   storage:
+#     max_slots: 20
+#     items: []
+#   benefits:
+#     - "Can participate in Lumina City politics"
+#     - "Respawn point option"
+#     - "Fast travel destination"
+#   total_invested: 500
+
 # === CHRONICLE ===
 # Significant events in your character's history
 # Add entries as you play

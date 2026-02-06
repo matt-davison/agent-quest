@@ -54,6 +54,8 @@ Complete rules documentation with edge cases.
 | [afflictions.md](rules/afflictions.md) | combat-manager | - |
 | [difficulty.md](rules/difficulty.md) | combat-manager | quick-ref/difficulty.md |
 | [economy.md](rules/economy.md) | economy-validator | - |
+| [housing.md](rules/housing.md) | - | - |
+| [politics.md](rules/politics.md) | - | - |
 | [multiplayer.md](rules/multiplayer.md) | multiplayer-handler | quick-ref/multiplayer.md |
 | [narrative.md](rules/narrative.md) | - | quick-ref/storytelling.md |
 | [creation.md](rules/creation.md) | - | - |

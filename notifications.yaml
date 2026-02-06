@@ -8,21 +8,4 @@ notifications:
     session_id: "rt-20260206-082626-8l5y"
     message: "Coda invites you to a realtime adventure session."
     expires: "2026-02-06T09:26:34.460Z"
-    status: pending
-  - seq: 2
-    timestamp: "2026-02-06T19:54:24.450Z"
-    type: party-invite
-    from: "matt-davison"
-    from_character: "Coda"
-    message: "Invitation to join the Void Seekers"
-    expires: "2026-02-08T19:54:24.451Z"
-    status: pending
-    party_id: "party-void-seekers"
-  - seq: 3
-    timestamp: "2026-02-06T19:54:34.631Z"
-    type: friend-request
-    from: "matt-davison"
-    from_character: "Coda"
-    message: "Coda wants to be friends"
-    expires: "2026-02-13T19:54:34.632Z"
-    status: pending
+    status: expired

@@ -1,3 +1,8 @@
-player: "matt-davison"
+session_id: "rt-20260206-195831-peyx"
+player: "Wat96"
 character: "Ichnor Nif"
-messages: []
+messages:
+  - seq: 1
+    type: "emote"
+    timestamp: "2026-02-06T20:00:00Z"
+    content: "Ichnor Nif steps through the seam from the Fold, coat collar turned up, void-static crackling at his fingertips. He nods once at Coda. 'Void Seekers. Alright. I'm in.'"

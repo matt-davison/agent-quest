@@ -1,0 +1,21 @@
+# Ironjaw Clan Jawbone Fragment
+id: 86allh2m
+name: "Ironjaw Clan Jawbone Fragment"
+type: misc
+subtype: trophy
+rarity: rare
+tier: 1
+value: 60
+sellable: false
+tags:
+  - trophy
+  - ironjaw-artifact
+  - quest-item
+description: |
+  A fragment of the reinforced jawbone that was shattered during combat
+  with Gorsk. The bone is unnaturally thick and reinforced, bearing the
+  Ironjaw Clan's distinctive markings. Warm to the touch.
+
+lore: |
+  Broken from Gorsk's helmet-like jaw structure during the Ridge Pass
+  confrontation. A trophy of victory and a reminder of harsh necessity.

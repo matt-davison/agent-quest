@@ -1,0 +1,68 @@
+id: "delvin-marsh"
+name: "Delvin Marsh"
+full_name: "Delvin Marsh"
+
+public:
+  role: "Alchemical Supplies Merchant"
+  location: "nexus-station"
+
+  appearance: |
+    A thin, fidgety man in his mid-thirties with wire-rimmed spectacles
+    that sit crookedly on a long nose. His merchant's coat is well-made
+    but slightly too large, as if he bought it expecting to grow into it.
+    Ink stains on his fingers suggest he spends more time with ledgers
+    than goods. He sweats when nervous, which is always.
+
+  personality:
+    - "Anxious and talkative when stressed"
+    - "Surprisingly knowledgeable about alchemy"
+    - "Grateful to a fault when helped"
+    - "Terrible in a fight but won't admit it"
+
+  speech_patterns:
+    greeting: "Oh! Oh good, you're here. You ARE my escort, yes? Please say yes."
+    farewell: "Thank you, truly. I mean that. Really. Thank you."
+    nervous: "Is that— was that a noise? That was definitely a noise."
+
+stats:
+  level: 1
+  class: "Merchant"
+  hp: 30
+  armor: 2
+
+  attributes:
+    might: 1
+    agility: 2
+    mind: 4
+    spirit: 3
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *wringing hands* Oh thank the Weave. Commander Steele said she'd
+      send someone. I was starting to think— well, never mind what I was
+      thinking. Are you... are you it? Just you? *looks at STeve's fists*
+      Actually, you know what, just you might be fine.
+
+  topics:
+    the_route:
+      default: |
+        Two days through the Eastern Approach. Normally it's quiet but
+        the Ironjaw Clan has been raiding supply wagons for the past
+        month. Three merchants lost everything. One lost... more than
+        everything. *swallows* Hence the Guild escort.
+    the_supplies:
+      default: |
+        Alchemical reagents for Outpost Greyspire's apothecary. Healing
+        salves, antitoxins, stabilizing compounds. The outpost is running
+        low and people are getting sick. This shipment matters.
+    the_ironjaw_clan:
+      default: |
+        Bandits. Used to be miners until the eastern veins dried up.
+        Now they take what they need from people like me. Their leader
+        is called Gorsk — big fellow, wears a jawbone helmet. They say
+        he bites through iron chains. Probably an exaggeration. Probably.
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-08"

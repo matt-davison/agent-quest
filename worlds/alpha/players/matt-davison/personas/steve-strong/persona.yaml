@@ -1,0 +1,266 @@
+# STeve STrong - Codebreaker
+# Why think when you can punch?
+
+name: "STeve STrong"
+class: "Codebreaker"
+active: true
+backstory: |
+  STeve doesn't remember much about the world before the Weave. He remembers
+  lifting things. Heavy things. He remembers putting them down again. Sometimes
+  on top of other things. When the boundary between realities cracked open and
+  the code beneath bled through, most people panicked. STeve punched the crack.
+  It got bigger. He punched it again. Now he's here, and things still need punching.
+
+stats:
+  strength: 23    # Base 10 + 3 class bonus + 10 distributed
+  agility: 12     # Base 10 + 2 class bonus
+  mind: 10        # Base 10
+  spirit: 10      # Base 10
+  # Codebreaker bonus: +3 Strength, +2 Agility
+  # Distributed all 10 bonus points into Strength
+
+resources:
+  hp: 65
+  max_hp: 120          # Codebreaker bonus: 120 instead of 100
+  gold: 68              # World starting gold
+  willpower: 14
+  max_willpower: 20    # spirit(10) x multiplier(2) = 20
+  willpower_multiplier: 2
+
+# === ABILITIES ===
+abilities:
+  known:
+    - id: iklvbklj       # Shatter
+      level: 1
+      source: "class"
+      learned_date: "2026-02-08"
+    - id: fayrdef5       # Momentum
+      level: 1
+      source: "class"
+      learned_date: "2026-02-08"
+
+  usage:
+    combat: {}
+    short_rest: {}
+    long_rest: {}
+    location: {}
+    daily: {}
+
+  active_effects: []
+
+inventory:
+  - id: hoke7z13
+    name: "Gorsk's Spiked Club"
+    qty: 1
+    note: "Looted from Gorsk. Heavy spiked club, 1d10+3 damage."
+  - id: 86allh2m
+    name: "Ironjaw Clan Jawbone Fragment"
+    qty: 1
+    note: "Trophy from Gorsk's shattered helmet."
+
+equipped:
+  weapon: null
+  armor: null
+  accessory: null
+
+# === PROGRESSION ===
+progression:
+  level: 2
+  xp: 150
+  xp_to_next: 250
+  tier: 1
+  stat_points: 1
+  fame: 0
+
+location: "outpost-greyspire"
+
+# === DIFFICULTY ===
+difficulty:
+  setting: normal
+
+# === AFFLICTIONS ===
+afflictions: []
+
+# === ALIGNMENT ===
+alignment:
+  primary: "neutral"
+  secondary: null
+  axes:
+    empathy: -3
+    order: 0
+    risk: 1
+
+# === DECISIONS ===
+decisions: []
+
+chronicle:
+  - session: 1
+    date: "Year 1, Month 2, Day 3"
+    time: "12:00"
+    location: "nexus-station"
+    type: "milestone"
+    event: "STeve STrong materialized on the Arrival Platform. He punched the Awakening Obelisk to see what would happen."
+    detail: |
+      The crystalline tiles of the Arrival Platform flared white-hot as a new shape
+      slammed into existence — not the usual gentle materialization of a Weaver finding
+      their footing, but a full-body impact that cracked two tiles and sent GUIDE-7
+      spinning backwards. The figure stood up, dusted off hands the size of dinner plates,
+      and squinted at the neon-lit spires of Nexus Station. "Where's the things I gotta
+      punch?" he asked no one in particular. The Weave shuddered. It had made a mistake.
+      Or perhaps exactly the right one.
+    significance: "major"
+    facts:
+      - type: "location_change"
+        to: "nexus-station"
+      - type: "flag_set"
+        flag: "character_created"
+        value: true
+  - session: 1
+    date: "Year 1, Month 2, Day 3"
+    time: "12:15"
+    location: "nexus-station"
+    type: "quest"
+    event: "Arm-wrestled Commander Steele's mechanical arm. Lost by a hair. Impressed her enough to skip orientation and accept the Supply Escort mission."
+    detail: |
+      The Guild Hall desk cracked clean down the middle. Commander Steele's
+      mechanical arm — the one that killed an Architect construct — had to
+      recalibrate after STeve's grip. She lost the desk but gained something
+      rarer: a flicker of respect. Nobody had pushed that arm that far before.
+      She assigned the Supply Escort as a field evaluation, waiving the usual
+      orientation requirements. "Come back with the supplies delivered," she said.
+      The subtext was clear: come back alive.
+    significance: "moderate"
+    facts:
+      - type: "quest_accepted"
+        quest: "supply-escort"
+        from: "commander-steele"
+      - type: "npc_met"
+        npc: "commander-steele"
+      - type: "flag_set"
+        flag: "arm_wrestled_steele"
+        value: true
+      - type: "flag_set"
+        flag: "steele_field_evaluation"
+        value: true
+  - session: 1
+    date: "Year 1, Month 2, Day 3"
+    time: "14:30"
+    location: "eastern-approach"
+    type: "combat"
+    event: "Defeated Gorsk and the Ironjaw Clan ambush at Ridge Pass. Shattered a cliff wall onto the bandits, broke Gorsk's helmet with bare hands, and killed Gorsk brutally. Recruited Scraps."
+    detail: |
+      The Ironjaw Clan chose the wrong wagon. STeve shattered the cliff wall in
+      the first seconds of combat, burying the bandits in debris. He broke Gorsk's
+      jawbone helmet with his bare hands and sent the fragments into the remaining
+      fighters. Three bandits fled. The fourth — a scrappy kid called Scraps who
+      landed two critical hits with a rusty sword — was offered mercy and a better
+      life. He accepted. Gorsk was not offered the same courtesy. The way STeve
+      ended the Ironjaw leader sent a message, though perhaps not the one he intended.
+      Scraps follows out of fear. Delvin Marsh drives in silence.
+    significance: "major"
+    facts:
+      - type: "combat_started"
+        enemies: "Gorsk (leader), 4 Ironjaw Bandits"
+        location: "Ridge Pass, Eastern Approach"
+      - type: "combat_ended"
+        outcome: "victory"
+        method: "Shatter (x2) + melee"
+      - type: "stat_change"
+        field: "hp"
+        old: 120
+        new: 65
+        cause: "combat damage"
+      - type: "stat_change"
+        field: "willpower"
+        old: 20
+        new: 14
+        cause: "Shatter x2 (3 WP each)"
+      - type: "stat_change"
+        field: "gold"
+        old: 0
+        new: 18
+        cause: "looted from Gorsk"
+      - type: "stat_change"
+        field: "xp"
+        old: 0
+        new: 50
+        cause: "combat victory"
+      - type: "item_gained"
+        item: "Gorsk's Spiked Club"
+        source: "loot"
+      - type: "item_gained"
+        item: "Ironjaw Clan Jawbone Fragment"
+        source: "trophy"
+      - type: "npc_met"
+        npc: "Scraps (former Ironjaw Bandit)"
+      - type: "decision"
+        choice: "Killed Gorsk brutally after defeat"
+        consequence: "Empathy -2, Scraps follows from fear not loyalty"
+      - type: "flag_set"
+        flag: "gorsk_killed"
+        value: true
+      - type: "flag_set"
+        flag: "scraps_recruited"
+        value: true
+      - type: "quest_progress"
+        quest: "supply-escort"
+        objective: "survive-ambush"
+        status: "complete"
+  - session: 1
+    date: "Year 1, Month 2, Day 3"
+    time: "18:00"
+    location: "outpost-greyspire"
+    type: "quest"
+    event: "Delivered supplies to Outpost Greyspire. Quest complete. Intimidated Delvin Marsh into silence about Gorsk's death. Reached Level 2."
+    detail: |
+      The wagon rolled through Greyspire's gates with every crate intact and
+      the merchant alive, if shaken. The quartermaster signed off. The apothecary
+      wept with relief over the reagents. A successful mission by every measurable
+      standard. But before Delvin could climb down from the wagon, STeve made sure
+      the merchant understood — what happened at Ridge Pass stays at Ridge Pass.
+      Delvin agreed. He agreed very quickly. His report to Commander Steele will
+      describe a professional escort with no complications. Scraps lingered at
+      the gate, unsure if he was free to enter. STeve didn't tell him to leave.
+      That was enough.
+    significance: "major"
+    facts:
+      - type: "quest_completed"
+        quest: "supply-escort"
+        rewards: "50 gold, 100 XP, Steele standing +1"
+      - type: "stat_change"
+        field: "gold"
+        old: 18
+        new: 68
+        cause: "quest reward (50g)"
+      - type: "stat_change"
+        field: "xp"
+        old: 50
+        new: 150
+        cause: "quest reward (100 XP)"
+      - type: "level_up"
+        old_level: 1
+        new_level: 2
+        stat_points_gained: 1
+      - type: "location_change"
+        from: "eastern-approach"
+        to: "outpost-greyspire"
+      - type: "decision"
+        choice: "Intimidated Delvin Marsh into silence"
+        consequence: "Empathy -3, Delvin will cover up Gorsk killing in report"
+      - type: "npc_standing"
+        npc: "commander-steele"
+        change: +1
+        reason: "quest completion"
+      - type: "npc_standing"
+        npc: "delvin-marsh"
+        change: +1
+        reason: "standing +2 quest completion, -1 intimidation = net +1"
+      - type: "flag_set"
+        flag: "supply_escort_complete"
+        value: true
+      - type: "flag_set"
+        flag: "delvin_silenced"
+        value: true
+      - type: "flag_set"
+        flag: "orientation_waived"
+        value: true

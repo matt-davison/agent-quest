@@ -1,0 +1,5 @@
+id: "delvin-marsh"
+name: "Delvin Marsh"
+profile: "worlds/alpha/npcs/profiles/delvin-marsh.yaml"
+location: "nexus-station"
+status: "active"

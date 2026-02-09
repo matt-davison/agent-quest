@@ -18,6 +18,12 @@ members:
     status: "active"
     joined: "2026-02-06T03:19:08Z"
     last_active: "2026-02-06T03:19:08Z"
+  - github: "Wat96"
+    character: "Ichnor Nif"
+    role: "member"
+    status: "active"
+    joined: "2026-02-06T08:30:00Z"
+    last_active: "2026-02-06T08:30:00Z"
 
 # Party settings
 settings:
@@ -59,8 +65,12 @@ loot_rotation:
   order:
     - github: "matt-davison"
       character: "Coda"
+    - github: "Wat96"
+      character: "Ichnor Nif"
 
 # Party history (append-only)
 history:
   - timestamp: "2026-02-06T03:19:08Z"
     event: "Party created by Coda (Datamancer) - 'Void Seekers' formed to explore the Fold Network and uncover Architect secrets"
+  - timestamp: "2026-02-06T08:30:00Z"
+    event: "Ichnor Nif (Voidwalker) joined the party"

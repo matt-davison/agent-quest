@@ -1,0 +1,34 @@
+# Party Membership
+# Location: players/Wat96/personas/ichnor-nif/party-membership.yaml
+# Links Ichnor Nif to their current party
+
+# Character identification
+github: "Wat96"
+character: "Ichnor Nif"
+
+# Current party (null if not in a party)
+current_party:
+  party_id: "party-void-seekers"
+  party_name: "Void Seekers"
+  role: "member"
+  joined: "2026-02-06T08:30:00Z"
+
+# Pending invitations to this character
+pending_invites: []
+
+# Party history for this character
+party_history:
+  - party_id: "party-void-seekers"
+    party_name: "Void Seekers"
+    joined: "2026-02-06T08:30:00Z"
+    left: null                      # null = still member
+    reason: null                    # left | kicked | disbanded
+    role_at_departure: null
+
+# Cooldowns and restrictions
+restrictions:
+  # Cannot join new party until this time (after leaving)
+  party_join_cooldown: null         # ISO timestamp or null
+
+  # Cannot create new party until this time
+  party_create_cooldown: null

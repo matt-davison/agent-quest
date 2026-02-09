@@ -1,0 +1,12 @@
+# Friends List
+# Player: matt-davison (Coda)
+# World-agnostic social data
+
+github: "matt-davison"
+friends:
+  - github: "Wat96"
+    added: "2026-02-06T00:00:00Z"
+    note: ""
+pending_sent: []
+pending_received: []
+blocked: []

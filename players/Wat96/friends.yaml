@@ -1,0 +1,12 @@
+# Friends List
+# Player: Wat96 (Ichnor Nif)
+# World-agnostic social data
+
+github: "Wat96"
+friends:
+  - github: "matt-davison"
+    added: "2026-02-06T00:00:00Z"
+    note: ""
+pending_sent: []
+pending_received: []
+blocked: []

@@ -13,7 +13,7 @@ party:
   party_id: "party-void-seekers"
   party_name: "Void Seekers"
   leader: "matt-davison"
-  member_count: 1
+  member_count: 2
   max_members: 6
 
 # Who sent the invite
@@ -27,7 +27,7 @@ created: "2026-02-06T03:19:08Z"
 expires: "2026-02-08T03:19:08Z"  # 48h expiration
 
 # Status
-status: "pending"
+status: "accepted"
 
 # Message from Coda to Ichnor Nif
 message: |
@@ -48,6 +48,6 @@ message: |
 
 # Response (filled when acted upon)
 response:
-  timestamp: null
-  action: null
-  message: null
+  timestamp: "2026-02-06T08:30:00Z"
+  action: "accepted"
+  message: "I accept. The Fold calls to us both."

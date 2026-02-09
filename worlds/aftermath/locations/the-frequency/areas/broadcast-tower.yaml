@@ -1,0 +1,67 @@
+# Area: The Broadcast Tower
+# Part of: The Frequency
+
+id: "broadcast-tower"
+name: "The Broadcast Tower"
+parent_location: "the-frequency"
+type: "special"
+
+description: |
+  The top floor of WSCR-FM, converted into a working radio studio. Reel-to-reel
+  tape decks line the walls, their spindles turning slowly. A massive analog
+  mixing board — all chrome knobs and VU meters — dominates the center of the
+  room. Behind a glass partition, Switchboard Sally sits at the microphone,
+  headphones on, surrounded by a constellation of blinking vacuum tube amplifiers.
+  A hand-drawn map of The Scrap covers one wall, pins and string connecting
+  every known settlement. The broadcast tower itself rises through the ceiling,
+  its latticed steel groaning softly in the wind.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 3
+
+connected_areas:
+  - id: "the-trading-floor"
+    direction: "down-stairs"
+    distance: 0.01
+  - id: "the-rec-room"
+    direction: "down-stairs"
+    distance: 0.02
+
+interactions:
+  - action: "speak"
+    target: "Switchboard Sally"
+    description: "Get world news, quests, and settlement updates"
+  - action: "examine"
+    target: "Signal Map"
+    description: "Learn about distant locations and broadcast range"
+  - action: "listen"
+    target: "Radio Equipment"
+    description: "Eavesdrop on broadcasts from across The Scrap"
+
+npcs:
+  - id: "switchboard-sally"
+    name: "Switchboard Sally"
+    role: "DJ / Settlement Leader"
+    always_present: true
+
+items:
+  - id: "signal-map"
+    name: "The Signal Map"
+    type: "landmark"
+    interactive: true
+  - id: "broadcast-microphone"
+    name: "The Broadcast Microphone"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Warm amber glow from vacuum tube amplifiers, red blinking tower lights"
+  sounds: "Static hiss, Sally's voice on the mic, reel-to-reel tape spinning, distant wind through the tower"
+  smells: "Hot vacuum tubes, old vinyl, coffee brewed on a hot plate"

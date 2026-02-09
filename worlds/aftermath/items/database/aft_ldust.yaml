@@ -1,0 +1,20 @@
+# Leather Duster
+id: aft_ldust
+name: "Leather Duster"
+type: armor
+subtype: light
+rarity: common
+tier: 1
+value: 45
+sellable: true
+tags:
+  - armor
+  - light
+  - wasteland
+stats:
+  defense: 2
+  agility_penalty: 0
+description: |
+  A long leather coat, cracked and sun-bleached, patched with mismatched
+  hide. Doesn't stop bullets but keeps out dust, wind, and the worst of
+  the radiation. Looks good. Smells terrible. Standard wasteland fashion.

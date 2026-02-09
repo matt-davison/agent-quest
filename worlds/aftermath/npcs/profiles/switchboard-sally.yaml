@@ -1,0 +1,251 @@
+# NPC Profile: Switchboard Sally
+# DJ and settlement leader of The Frequency
+
+id: "switchboard-sally"
+name: "Switchboard Sally"
+full_name: "Sally Reyes"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "DJ / Settlement Leader"
+  location: "The Frequency - Broadcast Tower"
+
+  appearance: |
+    A woman in her late forties with a shaved head, dark brown skin, and
+    laugh lines that deepen when she smiles — which is often, on-air at least.
+    She wears a pair of massive pre-war headphones around her neck like a
+    talisman, and a leather jacket covered in hand-sewn radio station patches
+    from stations that no longer exist. Her fingers are calloused from decades
+    of tuning analog dials. A faded tattoo on her forearm reads "WSCR-FM"
+    in art deco lettering. When she talks, she talks like she's broadcasting
+    — clear, warm, and measured, every word chosen.
+
+  personality:
+    - "Calm under pressure, radiates competence"
+    - "Deeply protective of her people and the settlement"
+    - "Believes information should be free, always"
+    - "Dry sense of humor, especially on-air"
+    - "Listens more than she talks (except on the radio)"
+
+  known_history: |
+    Sally grew up in The Scrap, daughter of scavengers. Found WSCR-FM as a
+    teenager and taught herself to operate the equipment from pre-war manuals.
+    Started broadcasting at 19. Over twenty years, she built The Broadcast
+    network — connecting dozens of settlements with shared information,
+    weather reports, and raider warnings. The Frequency grew around her
+    station. She didn't ask to be a leader, but nobody else was better at it.
+
+  speech_patterns:
+    greeting: "You're on the air, traveler. What's your frequency?"
+    farewell: "Stay on the dial. Sally out."
+    excited: "Now that's a signal worth boosting."
+    concerned: "I'm getting static on this one. Something's not right."
+
+  mannerisms:
+    - "Taps her headphones when thinking"
+    - "Speaks into her hand like a microphone when excited"
+    - "Hums between sentences — usually funk or soul"
+    - "Refers to events as 'broadcasts' and people as 'signals'"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 47
+  origin: "Born in a scavenger camp 30 miles south of The Frequency"
+
+  secrets:
+    - id: "atlas_recording"
+      content: "Sally has a pre-war recording of an ATLAS Corporation executive describing Project ENCORE. She hasn't shared it because she's afraid of what people would do."
+      unlock_condition: "standing >= 5 AND flag:asked_about_old_recordings"
+      mend_dc: 14
+
+    - id: "broadcast_code"
+      content: "The Broadcast uses coded frequencies to coordinate militia responses. Sally is the only one who knows all the codes."
+      unlock_condition: "standing >= 6 OR flag:joined_broadcast"
+      mend_dc: 12
+
+    - id: "conductor_contact"
+      content: "Sally has been in contact with CONDUCTOR-7 for years. The AI feeds her intelligence in exchange for news about the surface."
+      unlock_condition: "standing >= 8 AND flag:conductor_7_discovered"
+      mend_dc: 16
+
+  motivations:
+    - "Keep The Broadcast alive and growing"
+    - "Protect The Frequency and its people"
+    - "Understand Project ENCORE before it's too late"
+    - "Find more pre-war radio equipment"
+
+  fears:
+    - "The Broadcast going silent"
+    - "Chrome Runners targeting The Frequency"
+    - "ENCORE activating before anyone's ready"
+    - "Being wrong about CONDUCTOR-7's intentions"
+
+# === STATS ===
+stats:
+  level: 7
+  class: "Drifter/Leader"
+  hp: 50
+  armor: 4
+
+  attributes:
+    strength: 3
+    agility: 5
+    mind: 7
+    spirit: 8
+
+  abilities:
+    - name: "Voice of the Wasteland"
+      description: "Advantage on persuasion and information gathering"
+      type: "passive"
+
+    - name: "Signal Boost"
+      description: "Can reach any Broadcast settlement by radio"
+      type: "utility"
+
+    - name: "Quick Draw"
+      description: "Carries a snub-nosed revolver, fast on the draw"
+      type: "combat"
+
+    - name: "Read the Room"
+      description: "Can sense hostility and deception"
+      type: "passive"
+
+  resistances:
+    - "fear"
+    - "intimidation"
+
+  vulnerabilities:
+    - "Threats to her people (will act rashly)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "News from every Broadcast settlement"
+    - "Current raider activity and movements"
+    - "Weather patterns across The Scrap"
+    - "Who's traveling where"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "regional"
+      note: "Potential ally or threat"
+    - type: "quest_completion"
+      awareness: "regional"
+      note: "Useful contact"
+
+  current_awareness:
+    - "ENCORE countdown has everyone on edge"
+    - "Chrome Runners raiding more frequently"
+    - "Millworkers' Union restricting trade"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *adjusts headphones* New signal on the frequency. Welcome to The
+      Frequency, traveler. I'm Sally — I run the station, run the settlement,
+      run the whole damn Broadcast if we're being honest. You look like you
+      just crawled out of an ARC. Am I warm?
+
+    returning:
+      neutral: "Back on the dial. What've you got for me?"
+      friendly: "Good to hear your signal again. Pull up a chair — I've got news."
+      close: "*genuine smile* You know, most people just pass through. Glad you stuck around. I've got something — private frequency. Interested?"
+
+  achievement_reactions:
+    first_quest_complete: |
+      *taps microphone* Attention Scrap — we've got a new one pulling their
+      weight out here. Keep it up, and I might just give you your own
+      callsign.
+
+    rare_item_acquired: |
+      *low whistle* Where'd you find that? No — don't tell me on an open
+      frequency. Come up to the tower. We'll talk.
+
+  topics:
+    the_broadcast:
+      default: |
+        The Broadcast is simple — free information for everyone. Weather,
+        raider movements, trade prices, missing persons. I started it because
+        nobody was talking to each other. Now we've got thirty settlements
+        on the dial. Not bad for a girl with a microphone.
+      standing_3: |
+        We're more than just radio, between you and me. The Broadcast is a
+        network. People helping people. And yeah, sometimes that means
+        coordinating militia when the Chrome Runners come knocking.
+
+    project_encore:
+      default: "You've heard the countdown too? Everyone has. I'm looking into it."
+      standing_5: |
+        *long pause* I've got a recording. Pre-war. An ATLAS executive
+        explaining what ENCORE actually does. It's... you should hear it
+        yourself. But not here. Not on an open frequency.
+
+    conductor_7:
+      default: "The ARC-7 AI? Went offline decades ago. That's what they say."
+      standing_8: |
+        *checks the studio is empty* It's not offline. CONDUCTOR-7 has been
+        talking to me for years. Through the radio. It knows things, traveler.
+        Things about ENCORE, about the other CONDUCTORs. And it's scared.
+        An AI, scared. That should scare you too.
+
+# === SERVICES ===
+services:
+  - id: "quest_board"
+    inventory: "See bulletin board for available quests"
+
+  - id: "world_news"
+    requirements: null
+    note: "Free broadcast updates on events across The Scrap"
+
+  - id: "broadcast_network"
+    requirements: "standing >= 3"
+    note: "Access to coded Broadcast communications"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "first-signal"
+      name: "First Signal"
+      type: "tutorial"
+      requirements: null
+      summary: "Orientation to The Frequency and The Scrap."
+
+    - id: "static-on-the-line"
+      name: "Static on the Line"
+      type: "investigation"
+      requirements: "standing >= 3"
+      summary: "A Broadcast relay has gone silent. Find out why."
+
+  involved_in:
+    - id: "the-last-broadcast"
+      role: "Major questgiver for Act I"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "help_settlements"
+      standing_change: 2
+    - action: "share_useful_intel"
+      standing_change: 1
+    - action: "defend_the_frequency"
+      standing_change: 3
+    - action: "bring_radio_equipment"
+      standing_change: 1
+
+  dislikes:
+    - action: "attack_broadcast_members"
+      standing_change: -5
+    - action: "work_with_chrome_runners"
+      standing_change: -3
+    - action: "hoard_information"
+      standing_change: -1
+    - action: "damage_radio_equipment"
+      standing_change: -2
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-08"
+  last_updated: "2026-02-08"
+  version: "1.0"

@@ -1,0 +1,120 @@
+# Sparky's General
+# Shop inventory file - references items from worlds/aftermath/items/database/
+
+shop_id: sparkys-general
+name: "Sparky's General"
+location: the-frequency
+proprietor: sparky
+type: general_goods
+
+# qty: -1 means unlimited stock
+# buyback_percent: what shop pays when player sells (% of item value)
+
+inventory:
+  # === TIER 1 - BASIC SUPPLIES ===
+  - item_id: aft_wrench  # Pipe Wrench
+    qty: -1
+    price: 30
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: aft_rpist  # Rust Pistol
+    qty: 3
+    price: 60
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: aft_ldust  # Leather Duster
+    qty: -1
+    price: 45
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: aft_scarm  # Scrap Armor
+    qty: 2
+    price: 80
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: aft_radtb  # Rad-Away Tabs
+    qty: 10
+    price: 20
+    buyback_percent: 75
+    requires:
+      tier: 1
+
+  - item_id: aft_canne  # Canned Provisions
+    qty: -1
+    price: 10
+    buyback_percent: 60
+    requires:
+      tier: 1
+
+  - item_id: aft_faid1  # First Aid Kit
+    qty: 5
+    price: 25
+    buyback_percent: 75
+    requires:
+      tier: 1
+
+  - item_id: aft_fcell  # Fusion Cell
+    qty: 10
+    price: 15
+    buyback_percent: 70
+    requires:
+      tier: 1
+
+  - item_id: aft_scrap  # Scrap Metal
+    qty: -1
+    price: 8
+    buyback_percent: 60
+    requires:
+      tier: 1
+
+  - item_id: aft_dtape  # Duct Tape
+    qty: -1
+    price: 5
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  # === TIER 3 - SPECIALTY ITEMS ===
+  - item_id: aft_geigr  # Geiger Counter
+    qty: 2
+    price: 100
+    buyback_percent: 50
+    requires:
+      tier: 3
+
+# Training services
+services:
+  - id: wasteland-survival
+    name: "Wasteland Survival Basics"
+    price: 20
+    effect: "Learn basic scavenging techniques"
+    requires:
+      tier: 1
+    grants_ability:
+      id: aft_scavg
+      level: 1
+      source: "trainer"
+
+  - id: weapon-maintenance
+    name: "Weapon Maintenance"
+    price: 30
+    effect: "+1 to repair checks"
+    requires:
+      tier: 1
+    grants_stat_bonus:
+      repair: 1
+
+# Stock resets
+restock_frequency: weekly
+last_restock: "201.6.1"  # Year.Month.Day
+
+# Transaction history
+transactions: []

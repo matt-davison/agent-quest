@@ -1,0 +1,183 @@
+# World State: Calendar System — Aftermath
+# Time is measured in years After the Fall (AF)
+
+version: "1.0"
+
+# === CALENDAR OVERVIEW ===
+calendar:
+  name: "The Scrap Calendar"
+  description: |
+    Time in Aftermath is measured in years After the Fall (AF). The calendar
+    was reconstructed by early survivors from pre-war almanacs. Twelve months,
+    roughly aligned with the old calendar but renamed for wasteland life.
+    Nobody remembers the original month names. Nobody cares.
+
+# === TIME STRUCTURE ===
+structure:
+  hours_per_day: 24
+  days_per_month: 30
+  months_per_year: 12
+
+  periods:
+    - id: "dawn"
+      name: "Dawn"
+      hours: [5, 6]
+      description: "Grey light filters through the cloud cover. Scavengers head out early."
+    - id: "morning"
+      name: "Morning"
+      hours: [7, 8, 9, 10]
+      description: "Settlements wake. Markets open. Patrols begin."
+    - id: "midday"
+      name: "Midday"
+      hours: [11, 12, 13]
+      description: "Peak activity. Radiation levels at their highest."
+    - id: "afternoon"
+      name: "Afternoon"
+      hours: [14, 15, 16]
+      description: "Trade caravans arrive. Slower pace in the heat."
+    - id: "evening"
+      name: "Evening"
+      hours: [17, 18, 19]
+      description: "Workers return. Bars fill. Radio broadcasts peak."
+    - id: "night"
+      name: "Night"
+      hours: [20, 21, 22, 23]
+      description: "Settlements lock down. Ferals emerge. Stay inside."
+    - id: "midnight"
+      name: "Midnight"
+      hours: [0, 1, 2, 3, 4]
+      description: "The dangerous hours. Only raiders and creatures move."
+
+# === MONTHS ===
+months:
+  - number: 1
+    name: "Thaw"
+    season: "late_winter"
+    description: "Ice breaks. Rivers flow again. First scavenging runs of the year."
+    themes: ["thawing", "renewal", "scavenging"]
+
+  - number: 2
+    name: "Sprout"
+    season: "early_spring"
+    description: "Mutated crops push through irradiated soil. Planting season."
+    themes: ["growth", "planting", "hope"]
+
+  - number: 3
+    name: "March"
+    season: "spring"
+    description: "Named for the march of caravans resuming trade routes."
+    themes: ["travel", "trade", "movement"]
+
+  - number: 4
+    name: "Bloom"
+    season: "late_spring"
+    description: "Irradiated wildflowers bloom in the ruins. Beautiful and toxic."
+    themes: ["beauty", "danger", "abundance"]
+
+  - number: 5
+    name: "Forge"
+    season: "early_summer"
+    description: "Manufacturing peaks. The Millworks runs double shifts."
+    themes: ["industry", "labor", "heat"]
+
+  - number: 6
+    name: "Scorch"
+    season: "summer"
+    description: "Peak heat. Radiation storms increase. Water is precious."
+    themes: ["heat", "radiation", "survival"]
+
+  - number: 7
+    name: "Haze"
+    season: "late_summer"
+    description: "Radiation haze blankets The Scrap. Visibility drops."
+    themes: ["fog", "mystery", "uncertainty"]
+
+  - number: 8
+    name: "Harvest"
+    season: "early_autumn"
+    description: "Crops come in. Settlements stock up for winter."
+    themes: ["harvest", "preparation", "trade"]
+
+  - number: 9
+    name: "Rust"
+    season: "autumn"
+    description: "The ruins take on deeper color as oxidation accelerates in autumn rains."
+    themes: ["decay", "change", "reflection"]
+
+  - number: 10
+    name: "Remembrance"
+    season: "late_autumn"
+    description: "The month of Fall Day. Survivors remember what was lost."
+    themes: ["memory", "grief", "solidarity"]
+
+  - number: 11
+    name: "Freeze"
+    season: "early_winter"
+    description: "First frost. Settlements seal up. Travel becomes dangerous."
+    themes: ["cold", "isolation", "endurance"]
+
+  - number: 12
+    name: "Endure"
+    season: "winter"
+    description: "The hardest month. Fuel is rationed. The strong survive."
+    themes: ["survival", "scarcity", "resilience"]
+
+# === ERAS ===
+eras:
+  - number: 0
+    name: "Before the Fall"
+    description: "The pre-war world. Analog computing, nuclear fusion, disco, and the Resource Wars."
+    duration: "~1940-1977"
+
+  - number: 1
+    name: "The Aftermath"
+    description: "The current era. 201 years since the bombs fell. Survivors rebuild in the ruins."
+    start_event: "The Fall — nuclear war, 1977"
+    status: "current"
+
+# === HOLIDAYS AND EVENTS ===
+holidays:
+  - name: "Fall Day"
+    month: 10
+    day: 15
+    description: "Anniversary of the nuclear war. A day of remembrance and silence."
+    effects:
+      - "No trade or commerce"
+      - "NPCs share stories of the old world"
+      - "Radio plays pre-war music all day"
+
+  - name: "Signal Night"
+    month: 12
+    day: 30
+    description: "The longest night. Every settlement broadcasts simultaneously — a defiant signal against the darkness."
+    effects:
+      - "All Broadcast settlements connected"
+      - "Temporary truces between factions"
+      - "Bonus rewards for cooperative quests"
+
+  - name: "Forge Festival"
+    month: 5
+    day: 1
+    days: 3
+    description: "Three days celebrating manufacturing and labor. The Millworks hosts."
+    effects:
+      - "Weapon and armor prices reduced 15%"
+      - "Crafting bonuses active"
+      - "Union recruitment events"
+
+# === TIME FLOW ===
+time_flow:
+  description: |
+    Time advances through player actions. Major actions advance time
+    by varying amounts. The ENCORE countdown ticks down with each
+    in-game day.
+
+  action_durations:
+    rest: 8
+    travel_local: 1
+    travel_regional: "varies"
+    combat: 1
+    dialogue: 0
+    shopping: 1
+    quest_step: "varies"
+    scavenging: 2

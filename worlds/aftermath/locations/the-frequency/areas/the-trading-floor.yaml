@@ -1,0 +1,70 @@
+# Area: The Trading Floor
+# Part of: The Frequency
+
+id: "the-trading-floor"
+name: "The Trading Floor"
+parent_location: "the-frequency"
+type: "marketplace"
+
+description: |
+  The station's old garage bay, converted into a marketplace. Sparky — a squat
+  pre-war maintenance robot running on treads — operates from behind a counter
+  made of stacked engine blocks. Its CRT monitor face cycles through emoticons:
+  :-) when a customer approaches, :-$ during price negotiations, >:-( if you
+  try to shoplift. Scavengers spread their finds on oil-stained blankets.
+  A hand-cranked scale sits next to a clicking Geiger counter. Shelves of
+  salvaged goods line the concrete walls — canned food, ammunition, duct tape,
+  and the occasional pre-war curiosity that nobody can identify but everyone
+  wants to buy.
+
+local_coordinates:
+  x: 5
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "broadcast-tower"
+    direction: "up-stairs"
+    distance: 0.01
+  - id: "the-rec-room"
+    direction: "east"
+    distance: 0.05
+  - id: "the-bulletin-board"
+    direction: "north"
+    distance: 0.02
+  - id: "the-workshop"
+    direction: "south"
+    distance: 0.03
+
+interactions:
+  - action: "speak"
+    target: "Sparky"
+    description: "Browse goods and trade"
+  - action: "examine"
+    target: "Geiger Counter"
+    description: "Check items for radiation contamination"
+  - action: "trade"
+    target: "Scavengers"
+    description: "Barter with visiting traders"
+
+npcs:
+  - id: "sparky"
+    name: "Sparky"
+    role: "General Goods Vendor"
+    always_present: true
+
+items:
+  - id: "geiger-station"
+    name: "Mounted Geiger Counter"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Harsh fluorescent tubes, half of them flickering, Sparky's CRT glow"
+  sounds: "Geiger counter clicking, Sparky's speaker crackling, haggling voices"
+  smells: "Engine grease, rust, irradiated dust, canned food"

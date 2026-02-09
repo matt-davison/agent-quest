@@ -1,0 +1,94 @@
+# Location: ARC-7
+# Underground vault, player's origin. CONDUCTOR-7 pretends to be offline.
+
+id: "arc-7"
+name: "ARC-7"
+tagline: "Welcome home. Please remain calm."
+
+coordinates:
+  x: 0
+  y: -5
+  z: -3  # Underground
+
+embedding: null
+
+region: "The Scrap"
+type: "dungeon"
+danger_level: "low"
+is_safe_zone: false
+
+level_range:
+  min: 1
+  max: 5
+
+tags:
+  - "vault"
+  - "dungeon"
+  - "underground"
+  - "pre-war"
+  - "starting area"
+  - "arc"
+  - "conductor"
+  - "retro-futuristic"
+
+areas:
+  - id: "entrance-atrium"
+    name: "The Entrance Atrium"
+    type: "plaza"
+  - id: "conductor-chamber"
+    name: "The CONDUCTOR Chamber"
+    type: "special"
+
+npcs: []
+
+connections:
+  - target: "the-frequency"
+    direction: "surface-exit"
+    distance: 5
+    travel_time: "2 hours walking"
+    requirements: null
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "Rust Rats in the ventilation shafts"
+      type: "combat"
+      creatures: ["rust-rat"]
+      count: "1d4"
+    - roll: [3, 3]
+      event: "Flickering lights reveal a pre-war cache"
+      type: "treasure"
+    - roll: [4, 4]
+      event: "CONDUCTOR-7's systems briefly activate — lights, speakers, then silence"
+      type: "discovery"
+    - roll: [5, 5]
+      event: "A functional rest pod in an undamaged wing"
+      type: "rest_spot"
+    - roll: [6, 6]
+      event: "Nothing — just the hum of dormant machinery"
+
+secrets:
+  - id: "conductor-7-alive"
+    requirements:
+      - "TRAK Unit in inventory"
+      - "Reach the CONDUCTOR Chamber"
+      - "Spend 3 grit to interface with the terminal"
+  - id: "arc-network-access"
+    requirements:
+      - "Flag: conductor_7_discovered"
+      - "Mind >= 6"
+
+housing:
+  available: false
+
+governance:
+  enabled: false
+  type: "abandoned"
+  description: "ARC-7 has no governance. CONDUCTOR-7 is officially offline."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-08"
+  last_modified: "2026-02-08"
+  version: "1.0"

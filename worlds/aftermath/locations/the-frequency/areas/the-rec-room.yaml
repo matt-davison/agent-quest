@@ -1,0 +1,76 @@
+# Area: The Rec Room
+# Part of: The Frequency
+
+id: "the-rec-room"
+name: "The Rec Room"
+parent_location: "the-frequency"
+type: "inn"
+
+description: |
+  The original WSCR-FM employee lounge, miraculously preserved. Brown leather
+  couches cratered with cigarette burns sink into orange shag carpet that
+  somehow survived nuclear war. Wood-paneled walls are covered in faded concert
+  posters — Parliament-Funkadelic, Earth, Wind & Fire, Stevie Wonder — and
+  Polaroids of DJs who died two centuries ago, still smiling. A working Wurlitzer
+  jukebox stands in the corner, loaded with 45 RPM records. Its chrome curves
+  catch the light from a genuine lava lamp on the bar.
+
+  Preacher Watts sits in a massive armchair, his luminescent skin casting a
+  faint blue glow. He serves moonshine from a repurposed chemistry set and
+  dispenses philosophy to anyone who'll listen.
+
+local_coordinates:
+  x: 10
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "the-trading-floor"
+    direction: "west"
+    distance: 0.05
+  - id: "broadcast-tower"
+    direction: "up-stairs"
+    distance: 0.02
+  - id: "the-bulletin-board"
+    direction: "north"
+    distance: 0.03
+
+interactions:
+  - action: "speak"
+    target: "Preacher Watts"
+    description: "Philosophy, lore, and psychic visions"
+  - action: "rest"
+    target: "Couch"
+    description: "Rest to recover HP (5 watts/night)"
+  - action: "use"
+    target: "Jukebox"
+    description: "Play a record (various minor effects)"
+  - action: "drink"
+    target: "Moonshine"
+    description: "Cheap drinks, possible rumors (3 watts)"
+
+npcs:
+  - id: "preacher-watts"
+    name: "Preacher Watts"
+    role: "Philosopher / Barkeep"
+    always_present: true
+
+items:
+  - id: "wurlitzer-jukebox"
+    name: "The Wurlitzer Jukebox"
+    type: "landmark"
+    interactive: true
+  - id: "lava-lamp"
+    name: "Pre-War Lava Lamp"
+    type: "landmark"
+    interactive: false
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Warm lava lamp glow, jukebox neon, Preacher Watts' bioluminescence"
+  sounds: "Jukebox playing funk and soul, low conversation, ice clinking"
+  smells: "Moonshine, old leather, shag carpet, whatever Watts is cooking"

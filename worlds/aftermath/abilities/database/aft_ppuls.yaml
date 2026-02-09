@@ -1,0 +1,61 @@
+# Psychic Pulse - Psycher combat ability
+id: aft_ppuls
+name: "Psychic Pulse"
+type: ability
+subtype: combat
+class: psycher
+tier: 1
+tags:
+  - combat
+  - psychic
+  - aoe
+  - psycher
+  - the-groove
+
+prerequisites:
+  min_spirit: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Release a burst of psychic energy. All enemies within 5m take 6 psychic damage and must save (Spirit DC 12) or be Dazed for 1 round."
+    willpower_cost: 3
+    effect:
+      damage:
+        targets: all_enemies
+        range: 5
+        amount: 6
+        type: psychic
+      debuff:
+        name: "dazed"
+        duration: 1
+        save_dc: 12
+        save_stat: spirit
+    learn_cost: 0
+  2:
+    description: "10m range, 10 psychic damage. Dazed enemies also have -2 to next attack. Save DC 14."
+    willpower_cost: 5
+    effect:
+      damage:
+        targets: all_enemies
+        range: 10
+        amount: 10
+        type: psychic
+      debuff:
+        name: "dazed"
+        duration: 1
+        save_dc: 14
+        save_stat: spirit
+        penalty: -2
+    learn_cost: 125
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 2
+  cooldown_rounds: 2
+
+action_type: major
+range: null
+target: area

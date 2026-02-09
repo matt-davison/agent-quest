@@ -1,0 +1,20 @@
+# Canned Provisions
+id: aft_canne
+name: "Canned Provisions"
+type: consumable
+subtype: food
+rarity: common
+tier: 1
+value: 10
+sellable: true
+tags:
+  - consumable
+  - food
+  - common
+stats:
+  hp_restore: 5
+  uses: 1
+description: |
+  A dented tin can with a faded label. Could be beans. Could be peaches.
+  Could be dog food. The label's too damaged to read and nobody cares
+  as long as it's not glowing. Expiration date: 1979. Still edible. Probably.

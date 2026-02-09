@@ -1,0 +1,90 @@
+id: "aftermath"
+name: "Aftermath"
+description: |
+  The Scrap — ruins of the industrial Midwest, 201 years after nuclear war.
+  The transistor was never invented. Analog computing, vacuum tubes, and nuclear
+  fusion powered a manufacturing golden age until the Resource Wars ended it all
+  in 1977. Now scavengers, mutants, rogue AIs, and would-be governments fight
+  over what remains. Disco is eternal. The bombs were not.
+
+settings:
+  starting_location: "the-frequency"
+  starting_gold: 50
+  currency_name: "watts"
+  currency_flavor: "fusion cell energy credits"
+  level_cap: 10
+  pvp_enabled: true
+  user_generation: disabled
+
+classes:
+  - id: scrapper
+    name: "Scrapper"
+    description: "Melee survivor. Masters of salvage, repair, and brutal improvised combat."
+    primary_attribute: strength
+    secondary_attribute: agility
+    starting_ability: scavenge
+
+  - id: sharpshooter
+    name: "Sharpshooter"
+    description: "Ranged specialist. Keen-eyed hunters and snipers who never miss."
+    primary_attribute: agility
+    secondary_attribute: mind
+    starting_ability: steady-aim
+
+  - id: mechwright
+    name: "Mechwright"
+    description: "Engineer and roboticist. Builds, repairs, and commands machines."
+    primary_attribute: mind
+    secondary_attribute: strength
+    starting_ability: jury-rig
+
+  - id: drifter
+    name: "Drifter"
+    description: "Charismatic wanderer. Smooth talker, shrewd trader, and survivor."
+    primary_attribute: spirit
+    secondary_attribute: agility
+    starting_ability: scavenge
+
+  - id: psycher
+    name: "Psycher"
+    description: "Groove-touched with latent psychic abilities. Feared and misunderstood."
+    primary_attribute: spirit
+    secondary_attribute: mind
+    starting_ability: psychic-pulse
+
+factions:
+  - id: the-broadcast
+    name: "The Broadcast"
+    description: "Settlements connected by radio operators. Free information, mutual aid. DJs as folk heroes."
+    alignment: good
+    headquarters: "the-frequency"
+
+  - id: millworkers-union
+    name: "Millworkers' Union"
+    description: "Factory workers controlling pre-war manufacturing. Union hierarchy, hoarding tech."
+    alignment: neutral
+    headquarters: "the-millworks"
+
+  - id: federal-remnant
+    name: "Federal Remnant"
+    description: "Pre-war government from hardened bunker. Authoritarian, best pre-war tech."
+    alignment: lawful
+    headquarters: null
+
+  - id: the-groove
+    name: "The Groove"
+    description: "Bioweapon mutants with psychic abilities. Culture of music and communion."
+    alignment: neutral
+    headquarters: null
+
+  - id: conductors-network
+    name: "Conductors' Network"
+    description: "ARC vault AIs that evolved over 200 years. Hidden force with varied agendas."
+    alignment: unknown
+    headquarters: null
+
+  - id: chrome-runners
+    name: "Chrome Runners"
+    description: "Raiders who worship speed and chrome. Muscle cars, raid caravans for fuel."
+    alignment: evil
+    headquarters: null

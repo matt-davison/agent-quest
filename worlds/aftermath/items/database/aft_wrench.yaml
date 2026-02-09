@@ -1,0 +1,22 @@
+# Pipe Wrench
+id: aft_wrench
+name: "Pipe Wrench"
+type: weapon
+subtype: melee
+rarity: common
+tier: 1
+value: 30
+sellable: true
+tags:
+  - melee
+  - blunt
+  - tool
+  - scrapper
+stats:
+  damage: 8
+  attack_bonus: 0
+  speed: normal
+description: |
+  A heavy steel pipe wrench, the universal tool of the wasteland. Good for
+  tightening bolts, loosening skulls, and everything in between. This one's
+  been used for both, judging by the dents.

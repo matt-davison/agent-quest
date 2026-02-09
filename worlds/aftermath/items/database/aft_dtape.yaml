@@ -1,0 +1,21 @@
+# Duct Tape
+id: aft_dtape
+name: "Duct Tape"
+type: material
+subtype: crafting
+rarity: common
+tier: 1
+value: 5
+sellable: true
+tags:
+  - material
+  - crafting
+  - repair
+  - common
+stats:
+  uses: 5
+description: |
+  A partial roll of silver duct tape, the most valuable substance in the
+  known wasteland. Fixes weapons, patches armor, seals wounds, repairs
+  shelters, and holds civilization together — literally. Wars have been
+  fought over less. Handle with the reverence it deserves.

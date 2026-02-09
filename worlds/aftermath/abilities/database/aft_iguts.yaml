@@ -1,0 +1,53 @@
+# Iron Guts - Universal passive survival ability
+id: aft_iguts
+name: "Iron Guts"
+type: ability
+subtype: passive
+class: null
+tier: 1
+tags:
+  - passive
+  - survival
+  - resistance
+  - universal
+
+prerequisites:
+  min_strength: 3
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Your body has adapted to wasteland conditions. Reduce radiation damage taken by 3. Contaminated food and water have no negative effects."
+    willpower_cost: 0
+    effect:
+      resistance:
+        type: radiation
+        reduction: 3
+      immunity:
+        type: "food_contamination"
+    learn_cost: 50
+  2:
+    description: "Reduce radiation damage by 5. Immune to poison from food and drink. Gain +1 HP when eating any food item."
+    willpower_cost: 0
+    effect:
+      resistance:
+        type: radiation
+        reduction: 5
+      immunity:
+        type: "food_contamination"
+        type_2: "food_poison"
+      bonus:
+        trigger: "eat_food"
+        hp_restore: 1
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+  cooldown_rounds: null
+
+action_type: passive
+range: null
+target: self

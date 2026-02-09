@@ -1,0 +1,57 @@
+# Area: The Union Hall
+# Part of: The Millworks
+
+id: "union-hall"
+name: "The Union Hall"
+parent_location: "the-millworks"
+type: "special"
+
+description: |
+  A cavernous factory floor converted into the seat of Union government. The
+  ceiling soars forty feet overhead, criss-crossed with steel I-beams from
+  which Union banners — gear and hammer on a red field — hang like medieval
+  tapestries. The floor boss's office sits on a steel mezzanine overlooking
+  the hall. Below, rows of wooden benches face a raised platform where Union
+  leaders address the workers. A massive chalkboard tracks production quotas,
+  trade agreements, and defense schedules. The air smells like machine oil
+  and chalk dust. Workers in coveralls and hard hats move with purpose.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 1
+
+connected_areas: []
+
+interactions:
+  - action: "speak"
+    target: "Union Representative"
+    description: "Apply for membership or request trade access"
+  - action: "examine"
+    target: "Production Board"
+    description: "View current Union manufacturing output and needs"
+  - action: "examine"
+    target: "Bounty Board"
+    description: "Check Union-specific quests and contracts"
+
+npcs: []
+
+items:
+  - id: "production-board"
+    name: "Production Chalkboard"
+    type: "landmark"
+    interactive: true
+  - id: "union-banner"
+    name: "Union Banner"
+    type: "landmark"
+    interactive: false
+
+properties:
+  safe_zone: true
+  fast_travel_point: true
+  spawn_point: false
+
+atmosphere:
+  lighting: "Industrial overhead lights, forge glow from adjacent foundries"
+  sounds: "Distant hammering, welding sparks, workers talking, boot steps on steel"
+  smells: "Machine oil, chalk dust, hot metal, sweat"

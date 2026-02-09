@@ -1,0 +1,53 @@
+# Repeatable Achievements — Aftermath
+# Ongoing challenges that reward persistent effort.
+
+version: "1.0"
+
+achievements:
+  - id: "location-scout"
+    name: "Location Scout"
+    requirement: "Create 1 location in Aftermath"
+    reward: "300 XP"
+    times_claimed: 0
+
+  - id: "quest-designer"
+    name: "Quest Designer"
+    requirement: "Create 1 quest in Aftermath"
+    reward: "400 XP"
+    times_claimed: 0
+
+  - id: "lore-scribe"
+    name: "Lore Scribe"
+    requirement: "Write 1 lore entry for Aftermath"
+    reward: "100 XP"
+    times_claimed: 0
+
+  - id: "npc-creator"
+    name: "NPC Creator"
+    requirement: "Create 1 NPC in Aftermath"
+    reward: "200 XP"
+    times_claimed: 0
+
+  - id: "wasteland-survivor"
+    name: "Wasteland Survivor"
+    requirement: "Defeat 5 creatures in Aftermath"
+    reward: "50 Watts"
+    times_claimed: 0
+
+  - id: "quest-completionist"
+    name: "Quest Completionist"
+    requirement: "Complete 3 quests in Aftermath"
+    reward: "75 Watts"
+    times_claimed: 0
+
+  - id: "scavenger"
+    name: "Scavenger"
+    requirement: "Find 3 hidden items or caches"
+    reward: "30 Watts"
+    times_claimed: 0
+
+  - id: "world-enricher"
+    name: "World Enricher"
+    requirement: "Enrich existing Aftermath content"
+    reward: "50-200 XP"
+    times_claimed: 0

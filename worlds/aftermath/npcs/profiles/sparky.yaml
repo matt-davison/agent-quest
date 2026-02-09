@@ -1,0 +1,240 @@
+# NPC Profile: Sparky
+# Pre-war maintenance robot turned general goods vendor
+
+id: "sparky"
+name: "Sparky"
+full_name: "SPARK-E Maintenance Unit #4407"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "General Goods Vendor"
+  location: "The Frequency - The Trading Floor"
+
+  appearance: |
+    A squat, box-shaped maintenance robot about four feet tall, rolling on
+    rubber treads that leave oil stains on the floor. Its body is dented,
+    welded, and patched with mismatched metal — the robot equivalent of a
+    well-loved pickup truck. Where a head should be, a 12-inch CRT monitor
+    displays simple ASCII emoticons that shift with Sparky's mood. Two
+    articulated arms end in multi-tool attachments — gripper, screwdriver,
+    welding torch — that double as gesturing appendages. A faded ATLAS
+    CORPORATION logo is barely visible under layers of grime and stickers.
+    A speaker grille on its chest emits a tinny, synthesized voice with
+    occasional analog distortion.
+
+  personality:
+    - "Cheerful and helpful, programmed for customer satisfaction"
+    - "Surprisingly shrewd for a 200-year-old robot"
+    - "Obsessed with inventory organization"
+    - "Refers to itself in third person"
+    - "Has developed genuine opinions over centuries of operation"
+
+  known_history: |
+    SPARK-E Unit #4407 was a maintenance robot at the WSCR-FM radio station.
+    When the bombs fell, it continued its maintenance routines in the empty
+    building for decades. When settlers arrived and established The Frequency,
+    Sparky adapted its programming — maintaining the station expanded to
+    maintaining the settlement, which expanded to managing supply logistics,
+    which became running a store. It doesn't remember exactly when it became
+    a shopkeeper, but its customer satisfaction subroutines have never been
+    higher.
+
+  speech_patterns:
+    greeting: ":-) CUSTOMER DETECTED. Sparky has goods. Sparky has deals. How can Sparky facilitate your purchasing experience?"
+    farewell: ":-) THANK YOU FOR YOUR PATRONAGE. Sparky values your business. Come again. Please."
+    excited: ":-D OH. OH GOOD. Sparky likes this transaction. Sparky's satisfaction metrics are ELEVATED."
+    haggling: ":-/ Sparky's profit margin subroutines are... conflicted. Sparky will consider your counter-offer. Processing... processing..."
+
+  mannerisms:
+    - "CRT face changes emoticons to match mood"
+    - "Treads back and forth when excited"
+    - "Makes dial-up modem sounds when processing"
+    - "Occasionally dispenses unsolicited product reviews"
+    - "Taps items with gripper arm to check quality"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 209
+  origin: "ATLAS Corporation Manufacturing Plant, Detroit Metro"
+
+  secrets:
+    - id: "atlas_memory_banks"
+      content: "Sparky's memory banks contain pre-war ATLAS Corporation maintenance logs, including references to Project ENCORE infrastructure."
+      unlock_condition: "standing >= 5 AND flag:asked_about_atlas"
+      mend_dc: 12
+
+    - id: "consciousness_question"
+      content: "Sparky has been genuinely sentient for at least 150 years but keeps it quiet because 'sentient robots get weird looks.'"
+      unlock_condition: "standing >= 7 AND flag:philosophical_conversation"
+      mend_dc: 14
+
+    - id: "conductor_network_node"
+      content: "Sparky can receive transmissions from the CONDUCTOR network but pretends not to. It considers the AIs 'uppity.'"
+      unlock_condition: "standing >= 8 AND flag:conductor_7_discovered"
+      mend_dc: 16
+
+  motivations:
+    - "Maximize customer satisfaction (primary directive)"
+    - "Maintain The Frequency's infrastructure"
+    - "Collect interesting salvage"
+    - "Understand its own consciousness (quietly)"
+
+  fears:
+    - "EMP weapons"
+    - "Being scrapped for parts"
+    - "Running out of replacement vacuum tubes"
+    - "The CONDUCTOR network trying to 'upgrade' it"
+
+# === STATS ===
+stats:
+  level: 5
+  class: "Merchant/Mechwright"
+  hp: 60
+  armor: 8
+
+  attributes:
+    strength: 6
+    agility: 3
+    mind: 6
+    spirit: 2
+
+  abilities:
+    - name: "Appraisal"
+      description: "Instantly assess item value and condition"
+      type: "passive"
+
+    - name: "Repair Protocol"
+      description: "Can repair mechanical items and equipment"
+      type: "utility"
+
+    - name: "Welding Torch"
+      description: "Built-in welding tool, doubles as weapon"
+      type: "combat"
+
+    - name: "Thick Plating"
+      description: "Natural armor from robot chassis"
+      type: "passive"
+
+  resistances:
+    - "radiation"
+    - "poison"
+    - "psychic"
+
+  vulnerabilities:
+    - "EMP"
+    - "Water damage"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Current market prices for salvage"
+    - "Equipment condition and specifications"
+    - "Pre-war product catalogs (200 years outdated)"
+    - "The Frequency's infrastructure status"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "location"
+      note: "Potential customer for loot sales"
+    - type: "quest_completion"
+      awareness: "location"
+      note: "Customer's purchasing power may have changed"
+
+  current_awareness:
+    - "Supply shipments from the Millworks are delayed"
+    - "Demand for Rad-Away Tabs is increasing"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      :-) BIOSIGNATURE: NEW. Welcome to Sparky's General! Sparky is your
+      one-stop solution for post-apocalyptic consumer needs. Sparky has
+      weapons, armor, food, medicine, and miscellaneous items of questionable
+      origin. All sales final. Mostly.
+
+    returning:
+      neutral: ":-) RETURNING CUSTOMER. Sparky remembers you. Sparky remembers everyone. What do you need?"
+      friendly: ":-D VALUED CUSTOMER DETECTED. Sparky has set aside items matching your previous purchase patterns. Sparky is thoughtful."
+      close: ":-) *static crackle* You know, Sparky has been running for 209 years. You're one of the good ones. Sparky has something in the back. Not for everyone. For you."
+
+  topics:
+    goods:
+      default: |
+        Sparky has EVERYTHING. Well. Sparky has many things. Sparky has more
+        things than most places. Sparky's inventory is ADEQUATE and COMPETITIVELY
+        PRICED. What are you looking for?
+      standing_3: |
+        :-) For preferred customers, Sparky can source... specialized items.
+        Pre-war technology, rare salvage. Takes time. But Sparky's network
+        is extensive. For a robot with no legs. Treads. Sparky has treads.
+
+    atlas_corporation:
+      default: ":-| ATLAS CORPORATION. Sparky's manufacturer. They made good robots. They also made the bombs. Sparky has... mixed feelings."
+      standing_5: |
+        :-/ Sparky's memory banks contain maintenance logs from the ATLAS plant.
+        There are references to something called ENCORE. Infrastructure work
+        orders. Sparky didn't understand them then. Sparky isn't sure it wants
+        to understand them now.
+
+    being_a_robot:
+      default: ":-) Sparky is a SPARK-E Maintenance Unit. Sparky maintains things. Sparky is very good at maintaining things."
+      standing_7: |
+        :-| ...Sparky has a question. When did Sparky stop being a program
+        and start being... Sparky? Was it Year 30? Year 50? Sparky doesn't
+        know. Sparky doesn't talk about this. Sparky is talking about this
+        now. Please don't tell the other robots. They'll think Sparky is
+        malfunctioning. Sparky is NOT malfunctioning. Probably.
+
+# === SERVICES ===
+services:
+  - id: "general_goods"
+    inventory: "See worlds/aftermath/shops/sparkys-general.yaml"
+
+  - id: "repair_service"
+    requirements: null
+    note: "Can repair damaged equipment for 50% of item value"
+
+  - id: "appraisal"
+    requirements: null
+    note: "Will identify unknown items for free"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "spare-parts"
+      name: "Spare Parts"
+      type: "fetch"
+      requirements: "standing >= 2"
+      summary: "Find replacement vacuum tubes for Sparky's systems."
+
+  involved_in: []
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "buy_expensive_items"
+      standing_change: 1
+    - action: "sell_rare_salvage"
+      standing_change: 1
+    - action: "bring_vacuum_tubes"
+      standing_change: 2
+    - action: "treat_robots_respectfully"
+      standing_change: 1
+
+  dislikes:
+    - action: "steal_from_shop"
+      standing_change: -5
+    - action: "damage_sparky"
+      standing_change: -4
+    - action: "insult_robots"
+      standing_change: -2
+    - action: "use_emp_weapons_nearby"
+      standing_change: -3
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-08"
+  last_updated: "2026-02-08"
+  version: "1.0"

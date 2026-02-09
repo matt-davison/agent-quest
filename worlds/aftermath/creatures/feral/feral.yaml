@@ -1,0 +1,196 @@
+# Feral
+# Tier: Standard | Role: Skirmisher
+
+id: "feral"
+name: "Feral"
+category: feral
+tier: standard
+level: 2
+
+description: |
+  Not all vault dwellers made it out sane. Ferals are humans who absorbed
+  too much radiation over too many years — their minds burned away, leaving
+  only animal instinct and rage. They're emaciated, scarred, and
+  fast — much faster than they should be. Their skin is mottled with
+  radiation burns, and they give off a faint glow in the dark. They don't
+  use weapons (anymore) but their fingernails have hardened into something
+  like claws, and they bite.
+
+  They haunt the ruins in small groups, nesting in dark places — basements,
+  collapsed buildings, vault corridors. They avoid daylight. They avoid
+  fire. They do not avoid anything else. Wasteland travelers learn to
+  check the shadows and listen for the wet, hitching breathing.
+
+stats:
+  hp: 20
+  defense: 11
+  attack_bonus: +3
+  damage: 8
+  speed: fast
+  initiative_bonus: +3
+
+role: skirmisher
+
+defenses:
+  resistances:
+    - radiation
+  immunities: []
+  vulnerabilities:
+    - fire
+
+abilities:
+  - name: "Claw"
+    type: active
+    description: |
+      Slashing attack with hardened fingernails.
+      Attack: +3 to hit, 8 damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 8
+    effects: []
+    ai_priority: high
+    ai_condition: "Standard attack, use every turn"
+
+  - name: "Radiation Aura"
+    type: passive
+    description: |
+      Ferals emit low-level radiation. Creatures that start their turn
+      adjacent to a Feral must make a Spirit DC 10 save or take 2
+      radiation damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: 2m_radius
+    damage: 2
+    effects:
+      - effect: "radiation_exposure"
+        save_dc: 10
+        save_stat: spirit
+    ai_priority: medium
+    ai_condition: "Passive - always active"
+
+  - name: "Frenzied Lunge"
+    type: active
+    description: |
+      The Feral charges up to 20 feet and attacks. +2 to hit on the
+      charge attack. Cannot use if movement is restricted.
+    cooldown: 1
+    cost: 0
+    range: 20ft_charge
+    area: null
+    damage: 8
+    effects: []
+    ai_priority: high
+    ai_condition: "Use to close distance to ranged targets"
+
+  - name: "Undying Rage"
+    type: triggered
+    description: |
+      When reduced to 0 HP, 25% chance the Feral gets back up with 5 HP
+      on its next turn. Only triggers once.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggers on death, 25% chance"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "darkness"
+      bonus: "+2 to initiative, advantage on first attack"
+    - terrain_type: "tight_spaces"
+      bonus: "Can ambush from crawlspaces and vents"
+
+  interactions:
+    - element: "light_sources"
+      behavior: "Avoids bright light when possible"
+      priority: medium
+      condition: "Alternative attack routes exist"
+
+  hazard_immunity:
+    - "radiation"
+  hazard_exploitation:
+    - hazard: "darkness"
+      tactic: "Attacks from total darkness for surprise"
+
+morale:
+  break_threshold: 15
+  break_behavior: flee_to_darkness
+  group_morale: true
+  leader_dependent: false
+  rally_condition: "When prey runs, Ferals chase instead of fleeing"
+
+targeting:
+  primary: nearest
+  secondary: wounded
+  avoids:
+    - "Targets with fire weapons"
+    - "Well-lit areas"
+  switches_target_when: "Target produces fire or bright light"
+
+pack_tactics:
+  enabled: true
+  flanking: true
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 3
+    max: 12
+  xp: 25
+  guaranteed_drops: []
+  chance_drops:
+    - item: "Tattered Clothing"
+      chance: 50
+      quantity: 1
+    - item: "Pre-War Trinket"
+      chance: 20
+      quantity: 1
+  rare_drops:
+    - item: "ARC Resident ID Card"
+      chance: 5
+      quantity: 1
+
+type_traits:
+  feral:
+    - "Radiation immune"
+    - "Emits radiation aura"
+    - "Avoids fire and bright light"
+    - "Chance to reanimate"
+
+encounter_notes: |
+  Ferals are the humanoid enemy that teaches players about radiation
+  mechanics and environmental advantages. They're tragic — each one
+  was a person once.
+
+  Combat tactics:
+  - Ambush from darkness with Frenzied Lunge
+  - Surround targets using speed advantage
+  - Radiation Aura punishes melee clustering
+  - Undying Rage creates uncertainty after kills
+
+  Counters:
+  - Fire damage and bright light sources
+  - Area attacks to handle groups
+  - Ranged attacks to avoid Radiation Aura
+  - Confirming kills (attack downed Ferals to prevent Undying Rage)
+  - Fighting in well-lit areas removes their ambush advantage
+
+  Note: Ferals occasionally wear scraps of vault jumpsuits or carry
+  personal items, reminding players these were people. Good for lore.
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  source: "Humans destroyed by prolonged radiation exposure"
+  cr_equivalent: 1

@@ -1,0 +1,67 @@
+version: "1.0"
+last_updated: "2026-02-08T12:00:00Z"
+time:
+  era: "The Aftermath"
+  era_number: 1
+  year: 201
+  month: 6
+  day: 1
+  hour: 12
+  minute: 0
+  period: midday
+weather:
+  global_modifier: irradiated
+  by_region:
+    the-scrap:
+      current: overcast
+      temperature: warm
+      visibility: hazy
+      notes: "Permanent cloud cover from nuclear winter remnants. Visibility varies with rad-storms."
+      hazards:
+        - low_radiation
+    the-frequency:
+      current: clear
+      temperature: comfortable
+      visibility: clear
+      notes: "Settlement is shielded from worst radiation by the ridge"
+    arc-7:
+      current: static
+      temperature: cool
+      visibility: varies
+      notes: "Underground climate, fusion-powered life support"
+    the-millworks:
+      current: smoggy
+      temperature: warm
+      visibility: reduced
+      notes: "Factory smoke mixes with ambient radiation haze"
+    the-lakeshore:
+      current: foggy
+      temperature: cool
+      visibility: low
+      notes: "Irradiated lake fog rolls in at dawn and dusk"
+      hazards:
+        - radiation_fog
+        - reduced_visibility
+active_events:
+  - id: encore-countdown
+    name: "ENCORE Countdown"
+    type: campaign
+    description: "Every radio picks up a signal: Project ENCORE activates in 30 days."
+    start_date: "201.6.1"
+    end_date: "201.7.1"
+    effects:
+      - "All factions on high alert"
+      - "Radio chatter increased"
+      - "CONDUCTOR activity detected"
+    regions:
+      - the-scrap
+npc_location_overrides: {}
+flags:
+  combat_system_exists: true
+  storytelling_system_exists: true
+  encore_countdown_active: true
+  encore_days_remaining: 30
+  conductor_7_status: "pretending_offline"
+  total_weavers_registered: 0
+  quests_completed_global: 0
+alerts: []

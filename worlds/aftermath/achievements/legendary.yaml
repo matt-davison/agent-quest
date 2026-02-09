@@ -1,0 +1,35 @@
+# Legendary Achievements — Aftermath
+# Special recognition for exceptional contributions. Claimable only once per achievement.
+
+version: "1.0"
+
+achievements:
+  - id: "first-survivor"
+    name: "First Survivor"
+    description: "The first player to complete the First Signal quest in Aftermath"
+    claimed_by: null
+
+  - id: "encore-decider"
+    name: "ENCORE Decider"
+    description: "The first player to trigger one of ENCORE's four endings"
+    claimed_by: null
+
+  - id: "conductor-whisperer"
+    name: "CONDUCTOR Whisperer"
+    description: "Make contact with all active CONDUCTOR AIs"
+    claimed_by: null
+
+  - id: "wasteland-cartographer"
+    name: "Wasteland Cartographer"
+    description: "Discover and map 10 locations in The Scrap"
+    claimed_by: null
+
+  - id: "faction-unifier"
+    name: "Faction Unifier"
+    description: "Reach maximum standing with 3 or more factions simultaneously"
+    claimed_by: null
+
+  - id: "chrome-breaker"
+    name: "Chrome Breaker"
+    description: "Defeat the Chrome Runners' war chief"
+    claimed_by: null

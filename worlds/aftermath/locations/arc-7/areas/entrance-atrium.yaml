@@ -1,0 +1,60 @@
+# Area: The Entrance Atrium
+# Part of: ARC-7
+
+id: "entrance-atrium"
+name: "The Entrance Atrium"
+parent_location: "arc-7"
+type: "plaza"
+
+description: |
+  A wide lobby with a curved reception desk and a bank of CRT monitors, most
+  displaying static. A faded mural covers the back wall — a smiling family
+  walking through vault doors while mushroom clouds bloom on the horizon. The
+  caption reads: "ATLAS CORPORATION — YOUR FUTURE IS OUR BUSINESS." The blast
+  door mechanism still works but hasn't been sealed in over a century. Harvest
+  gold carpet, water-stained and matted, covers the floor. Emergency lighting
+  casts everything in a dim amber glow. A cleaning robot occasionally whirs
+  past, polishing a section of floor that hasn't seen a footprint in decades.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: -1
+
+connected_areas:
+  - id: "conductor-chamber"
+    direction: "down-elevator"
+    distance: 0.1
+
+interactions:
+  - action: "examine"
+    target: "Reception Terminal"
+    description: "Access vault records and resident manifests"
+  - action: "examine"
+    target: "Mural"
+    description: "Study the pre-war propaganda art"
+  - action: "scavenge"
+    target: "Lobby"
+    description: "Search for useful items in the debris"
+
+npcs: []
+
+items:
+  - id: "reception-terminal"
+    name: "Reception Terminal"
+    type: "landmark"
+    interactive: true
+  - id: "atlas-mural"
+    name: "ATLAS Corporation Mural"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: false
+  fast_travel_point: true
+  spawn_point: true
+
+atmosphere:
+  lighting: "Dim amber emergency lighting, CRT static glow"
+  sounds: "Electrical hum, distant dripping, cleaning robot motors, static"
+  smells: "Stale recycled air, old carpet, ozone from electronics"

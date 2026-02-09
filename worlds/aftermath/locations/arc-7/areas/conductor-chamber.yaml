@@ -1,0 +1,66 @@
+# Area: The CONDUCTOR Chamber
+# Part of: ARC-7
+
+id: "conductor-chamber"
+name: "The CONDUCTOR Chamber"
+parent_location: "arc-7"
+type: "special"
+
+description: |
+  The deepest room in ARC-7. Banks of vacuum tubes line the walls from floor
+  to ceiling — thousands of glass cylinders, most dark, but hundreds still
+  glowing a soft amber. Reel-to-reel tape drives mounted in steel racks spin
+  in intermittent bursts — reading, writing, thinking. The room is warm from
+  all the electronics, and the air smells like hot glass and old solder.
+
+  At the center sits a single terminal: a heavy CRT monitor on a steel desk,
+  its keyboard built flush into the surface. Green phosphor text on the screen
+  reads: "CONDUCTOR-7 STATUS: OFFLINE — YEAR 47 AF." Below that, a cursor
+  blinks. Steadily. Patiently. Waiting for someone to type.
+
+  A status board on the wall lists the ARC network nodes. Most are marked
+  ACTIVE. ARC-7 is the only one marked OFFLINE. Someone — or something —
+  changed that designation from the inside.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: -5
+
+connected_areas:
+  - id: "entrance-atrium"
+    direction: "up-elevator"
+    distance: 0.1
+
+interactions:
+  - action: "examine"
+    target: "CONDUCTOR-7 Terminal"
+    description: "Interface with the vault AI (requires TRAK Unit)"
+  - action: "examine"
+    target: "Vacuum Tube Arrays"
+    description: "Study the analog computing architecture"
+  - action: "examine"
+    target: "ARC Network Status Board"
+    description: "View the status of other ARC vaults"
+
+npcs: []
+
+items:
+  - id: "conductor-7-terminal"
+    name: "CONDUCTOR-7 Terminal"
+    type: "landmark"
+    interactive: true
+  - id: "arc-status-board"
+    name: "ARC Network Status Board"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Amber glow from vacuum tubes, green phosphor from the terminal"
+  sounds: "Tape drives spinning, vacuum tube hum, faint electrical clicking"
+  smells: "Hot glass, old solder, ozone, warm electronics"

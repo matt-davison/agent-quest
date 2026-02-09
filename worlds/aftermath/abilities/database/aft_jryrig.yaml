@@ -1,0 +1,50 @@
+# Jury Rig - Mechwright crafting ability
+id: aft_jryrig
+name: "Jury Rig"
+type: ability
+subtype: utility
+class: mechwright
+tier: 1
+tags:
+  - utility
+  - crafting
+  - repair
+  - mechwright
+
+prerequisites:
+  min_mind: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Improvise a repair on a damaged weapon or armor. Restores item to functional status for 24 hours. Requires Duct Tape or Scrap Metal."
+    willpower_cost: 2
+    effect:
+      repair:
+        targets: one_item
+        duration: "24 hours"
+        material_cost: ["aft_dtape", "aft_scrap"]
+    learn_cost: 0
+  2:
+    description: "Permanent repair. Can also combine two items to create an improved version. Requires crafting materials."
+    willpower_cost: 4
+    effect:
+      repair:
+        targets: one_item
+        duration: "permanent"
+        material_cost: ["aft_dtape", "aft_scrap"]
+      combine:
+        targets: two_items
+        result: "improved variant"
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: major
+range: null
+target: item

@@ -1,0 +1,167 @@
+# Location: The Frequency
+# The hub settlement of Aftermath, built in a pre-war radio station
+
+id: "the-frequency"
+name: "The Frequency"
+tagline: "Stay on the dial."
+
+# Spatial data
+coordinates:
+  x: 0
+  y: 0
+  z: 0
+
+# Semantic embedding placeholder
+embedding: null
+
+# Classification
+region: "The Scrap"
+type: "hub"
+danger_level: "safe"
+is_safe_zone: true
+
+# Level range - null for safe zones
+level_range: null
+
+# Tags for search and filtering
+tags:
+  - "hub"
+  - "safe zone"
+  - "marketplace"
+  - "tavern"
+  - "starting area"
+  - "radio station"
+  - "the broadcast"
+  - "settlement"
+
+# Areas within this location
+areas:
+  - id: "broadcast-tower"
+    name: "The Broadcast Tower"
+    type: "special"
+  - id: "the-trading-floor"
+    name: "The Trading Floor"
+    type: "marketplace"
+  - id: "the-rec-room"
+    name: "The Rec Room"
+    type: "inn"
+  - id: "the-bulletin-board"
+    name: "The Bulletin Board"
+    type: "quest_board"
+  - id: "the-workshop"
+    name: "The Workshop"
+    type: "training"
+
+# NPCs present at this location
+npcs:
+  - id: "switchboard-sally"
+    name: "Switchboard Sally"
+    area: "broadcast-tower"
+  - id: "sparky"
+    name: "Sparky"
+    area: "the-trading-floor"
+  - id: "preacher-watts"
+    name: "Preacher Watts"
+    area: "the-rec-room"
+
+# Connections to other locations
+connections:
+  - target: "arc-7"
+    direction: "south-road"
+    distance: 5
+    travel_time: "2 hours walking"
+    requirements: null
+  - target: "the-millworks"
+    direction: "east-highway"
+    distance: 15
+    travel_time: "5 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "the-lakeshore"
+    direction: "north-trail"
+    distance: 10
+    travel_time: "3 hours walking"
+    requirements: null
+    danger: "moderate"
+
+# Random encounter table
+encounters:
+  enabled: false
+  table:
+    - roll: [1, 1]
+      event: "A scavenger offers to trade salvage"
+    - roll: [2, 2]
+      event: "Overhear a broadcast about a new location"
+    - roll: [3, 3]
+      event: "A drifter challenges you to a game of cards"
+    - roll: [4, 4]
+      event: "Sparky's CRT face displays a cryptic message"
+    - roll: [5, 5]
+      event: "Find a small fusion cell (1d10 watts)"
+    - roll: [6, 6]
+      event: "Nothing unusual"
+
+# Secrets
+secrets:
+  - id: "conductor-7-signal"
+    requirements:
+      - "TRAK Unit in inventory"
+      - "Tune to frequency 107.7 FM"
+  - id: "sallys-locked-studio"
+    requirements:
+      - "Standing >= 5 with Sally"
+      - "Ask about 'the old recordings'"
+
+# Housing system
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Converted Storage Room"
+      base_price: 200
+      storage_slots: 20
+      available_count: -1
+      purchase_requirements:
+        - "level >= 1"
+
+    - tier: 2
+      name: "Station Suite"
+      base_price: 1000
+      storage_slots: 40
+      available_count: -1
+      purchase_requirements:
+        - "level >= 4"
+        - "standing >= 3"
+
+  upgrade_catalog:
+    - id: "storage_locker"
+      name: "Reinforced Locker"
+      cost: 75
+      benefit: "+10 storage slots"
+      applicable_tiers: [1, 2]
+
+    - id: "basic_lock"
+      name: "Deadbolt Lock"
+      cost: 40
+      benefit: "Prevents casual theft"
+      applicable_tiers: [1, 2]
+
+    - id: "basic_furniture"
+      name: "Salvaged Furniture"
+      cost: 80
+      benefit: "+1% rest bonus"
+      applicable_tiers: [1, 2]
+
+# Governance
+governance:
+  enabled: false
+  type: "neutral"
+  requires_home: false
+  description: "The Frequency is run by Switchboard Sally and The Broadcast. A cooperative settlement — no formal politics."
+
+# Metadata
+metadata:
+  github: "System"
+  created_date: "2026-02-08"
+  last_modified: "2026-02-08"
+  version: "1.0"

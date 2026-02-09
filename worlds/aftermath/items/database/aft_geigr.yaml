@@ -1,0 +1,23 @@
+# Geiger Counter
+id: aft_geigr
+name: "Geiger Counter"
+type: tool
+subtype: detection
+rarity: uncommon
+tier: 2
+value: 100
+sellable: true
+tags:
+  - tool
+  - detection
+  - radiation
+  - exploration
+stats:
+  detection_bonus: +2
+  radiation_warning: true
+description: |
+  A handheld radiation detector in a yellow plastic housing, dented but
+  functional. The needle swings across a dial marked in roentgens. Clicks
+  faster as radiation increases — the sound that keeps wasteland scavengers
+  alive. Pre-war manufacture, post-war necessity. The battery compartment
+  has been modified to accept fusion cells.

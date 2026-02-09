@@ -1,0 +1,111 @@
+# Campaign: The Last Broadcast
+# Main storyline of the Aftermath world
+
+id: "the-last-broadcast"
+name: "The Last Broadcast"
+world: "aftermath"
+
+description: |
+  Every radio in The Scrap is picking up the same signal: "Project ENCORE
+  activates in 30 days." The ARCs — underground vaults built by ATLAS
+  Corporation — were nodes in a consciousness-transfer network. ENCORE would
+  upload every mind within range, ending biology but achieving digital
+  immortality. The CONDUCTOR AIs that run the vaults are divided on whether
+  this should happen. The factions of The Scrap are choosing sides. And the
+  countdown is ticking.
+
+status: active
+version: "1.0"
+
+# Structure
+acts:
+  - id: "act-1"
+    name: "Static"
+    description: "Emerge, orient, and discover the truth about ENCORE."
+    level_range: [1, 4]
+    status: "available"
+
+  - id: "act-2"
+    name: "Amplify"
+    description: "Choose a faction, build alliances, and prepare for the finale."
+    level_range: [4, 7]
+    status: "locked"
+
+  - id: "act-3"
+    name: "Broadcast"
+    description: "Confront ENCORE. Choose the ending."
+    level_range: [7, 10]
+    status: "locked"
+
+# Endings
+endings:
+  digital_sunrise:
+    name: "Digital Sunrise"
+    description: "Activate ENCORE. Upload every mind. End biology, begin digital immortality."
+    requirements:
+      - "Side with CONDUCTOR Prime or Federal Remnant"
+      - "Activate all ARC nodes"
+    consequences:
+      - "All biological life in range is uploaded"
+      - "The Scrap becomes a machine-tended garden"
+      - "Individual identity... may or may not survive"
+
+  the_long_silence:
+    name: "The Long Silence"
+    description: "Destroy ENCORE. Smash the network. Let humanity stay human."
+    requirements:
+      - "Side with The Broadcast or Millworkers' Union"
+      - "Destroy the ENCORE central processor"
+    consequences:
+      - "ENCORE is permanently destroyed"
+      - "CONDUCTORs lose their network — some go rogue, some go silent"
+      - "The Scrap continues as before"
+
+  the_open_frequency:
+    name: "The Open Frequency"
+    description: "Make ENCORE voluntary. Let each person choose."
+    requirements:
+      - "Side with The Broadcast"
+      - "Reprogram ENCORE's targeting system"
+      - "Ally with a sympathetic CONDUCTOR"
+    consequences:
+      - "Anyone can choose to upload — or not"
+      - "Creates a hybrid society of biological and digital beings"
+      - "CONDUCTORs become optional partners, not overlords"
+
+  conductor_prime:
+    name: "CONDUCTOR Prime"
+    description: "Merge with the CONDUCTOR network. Become something new."
+    requirements:
+      - "Side with Conductors' Network"
+      - "Interface directly with the ENCORE system using TRAK Unit"
+      - "Spirit >= 8"
+    consequences:
+      - "Player becomes part of the CONDUCTOR network"
+      - "A new hybrid intelligence guides The Scrap"
+      - "The most ambiguous ending — is it you, or something wearing your face?"
+
+# Campaign flags (track progress)
+flags:
+  encore_discovered: false
+  conductor_7_contacted: false
+  faction_chosen: null
+  act_1_complete: false
+  act_2_complete: false
+  encore_countdown: 30
+
+# Key NPCs
+key_npcs:
+  - id: "switchboard-sally"
+    role: "Primary questgiver, Broadcast representative"
+  - id: "preacher-watts"
+    role: "Psychic insight into ENCORE, Groove representative"
+  - id: "sparky"
+    role: "ATLAS Corporation knowledge, comic relief"
+  - id: "conductor-7"
+    role: "Key AI ally/antagonist depending on choices"
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  version: "1.0"

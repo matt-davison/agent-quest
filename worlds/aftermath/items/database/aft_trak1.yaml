@@ -1,0 +1,26 @@
+# TRAK Unit
+id: aft_trak1
+name: "TRAK Unit"
+type: key_item
+subtype: device
+rarity: rare
+tier: 1
+value: 0
+sellable: false
+tags:
+  - key_item
+  - device
+  - pre-war
+  - quest
+  - atlas
+stats:
+  interface_bonus: +3
+description: |
+  A wrist-mounted device resembling a chunky digital watch crossed with a
+  walkie-talkie. The screen is a tiny CRT — green phosphor text on black.
+  Manufactured by ATLAS Corporation, the Terminal Remote Access Kit (TRAK)
+  was issued to vault maintenance personnel for interfacing with CONDUCTOR
+  AI systems. This one was found in ARC-7's supply closet, still in its
+  original packaging. The manual is missing, but the device powers on when
+  you strap it to your wrist, and the screen displays: "SEARCHING FOR
+  CONDUCTOR SIGNAL..."

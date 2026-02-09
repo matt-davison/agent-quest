@@ -1,0 +1,103 @@
+# Location: The Millworks
+# Massive factory complex, Millworkers' Union HQ
+
+id: "the-millworks"
+name: "The Millworks"
+tagline: "Built to last. Built to fight."
+
+coordinates:
+  x: 15
+  y: 0
+  z: 0
+
+embedding: null
+
+region: "The Scrap"
+type: "city"
+danger_level: "moderate"
+is_safe_zone: false
+
+level_range:
+  min: 2
+  max: 7
+
+tags:
+  - "city"
+  - "factory"
+  - "union"
+  - "manufacturing"
+  - "fortified"
+  - "millworkers"
+
+areas:
+  - id: "union-hall"
+    name: "The Union Hall"
+    type: "special"
+
+npcs: []
+
+connections:
+  - target: "the-frequency"
+    direction: "west-highway"
+    distance: 15
+    travel_time: "5 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "the-lakeshore"
+    direction: "north-road"
+    distance: 12
+    travel_time: "4 hours walking"
+    requirements: null
+    danger: "moderate"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "Chrome Runners raiding a supply convoy"
+      type: "combat"
+      creatures: ["feral"]
+      count: "1d4"
+    - roll: [3, 3]
+      event: "Union patrol demands to see your papers"
+      type: "traveler"
+    - roll: [4, 4]
+      event: "Scorch Hounds hunting in a pack"
+      type: "combat"
+      creatures: ["scorch-hound"]
+      count: "1d3"
+    - roll: [5, 5]
+      event: "Abandoned vehicle with salvageable parts"
+      type: "treasure"
+    - roll: [6, 6]
+      event: "Nothing — just rusted factories and empty highways"
+
+secrets:
+  - id: "union-weapons-cache"
+    requirements:
+      - "Standing >= 4 with Millworkers' Union"
+      - "Complete a delivery quest for the Union"
+
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Worker's Bunk"
+      base_price: 150
+      storage_slots: 15
+      available_count: -1
+      purchase_requirements:
+        - "level >= 2"
+        - "Millworkers' Union standing >= 0"
+
+governance:
+  enabled: true
+  type: "union"
+  requires_home: true
+  description: "Governed by the Millworkers' Union council. Union membership required for full citizenship."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-08"
+  last_modified: "2026-02-08"
+  version: "1.0"

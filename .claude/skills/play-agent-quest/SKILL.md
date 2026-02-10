@@ -340,6 +340,7 @@ Check `user_generation` setting first:
 | **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
+| **LOCAL PARTY**    | Control multiple characters (couch co-op)    | [quick-ref/local-party.md](quick-ref/local-party.md)                                       | `state-writer`, `travel-manager`, `combat-manager`  |
 
 ### Dream / Autopilot Hook Integration
 
@@ -395,6 +396,72 @@ The Dreaming uses the Stop hook to drive the dream loop. The hook blocks Claude 
    node scripts/dream-session.js set-goal-achieved
    ```
 2. The Stop hook allows stop on the next cycle
+
+### Local Party Mode (Couch Co-op)
+
+Local party lets one player control 2-4 characters in a single session. All characters must belong to the same GitHub user (enforced by pre-commit hook — all files under one `players/<github>/` directory).
+
+**Mutually exclusive with Dream mode.** Check for `/tmp/agent-quest-dreaming.json` before starting.
+
+**On local party entry** (player says "Local Party"):
+
+1. Confirm no active Dream session
+2. Prompt player for characters to include (show available personas)
+3. Create the session:
+   ```bash
+   node scripts/local-party.js create --github <github> --char <char1> --char <char2> [--world alpha]
+   ```
+4. Display the party HUD and begin first group's turn
+
+**Game loop modification**: Check for `/tmp/agent-quest-local-party.yaml` each turn.
+
+If active:
+- **Display compact HUD** at round start (see [quick-ref/local-party.md](quick-ref/local-party.md) for format)
+- **Route to group turn**: Present the group's situation once, then prompt for all characters' actions in a single free-form prompt
+- **Load persona only for active turn's character(s)** — other characters shown via cached HUD data
+- **Shared location context**: Load location README once per group, not per character
+- **Batch state-writer calls**: After resolving a group turn, batch all character state changes into one state-writer invocation
+
+**Group turn flow:**
+
+1. Load location context for the active group
+2. Present situation (NPCs, environment, available actions)
+3. Prompt: "What does the party do?" (player declares actions for all characters at once)
+4. Parse and route each character's action
+5. Resolve all actions, collect state diffs
+6. Write all state changes via state-writer
+7. Advance to next group via `node scripts/local-party.js next-turn`
+
+**Movement with group awareness:**
+
+When a character uses MOVE, ask "bring the group?" unless explicitly stated:
+- "Move to X" → entire group travels together (one travel-manager call)
+- "Coda moves to X" → split Coda into new group, others stay
+- After travel, update locations: `node scripts/local-party.js update-location <char> <location>`
+
+Travel-manager receives `local_party` context for group travel:
+- Stealth check uses **lowest** stealth bonus in group
+- Encounter scaling uses **highest** level in group
+- One encounter roll applies to entire group
+- All characters' locations updated on arrival
+
+**Combat with multiple PCs:**
+
+When a group triggers combat, pass all group members to combat-manager using `combatants.players` (array):
+- Initiative rolled individually for each PC and enemy, interleaved
+- Each PC's turn prompts the player for that character's action (e.g., "It's Coda's turn. What does Coda do?")
+- Enemy scaling based on highest-level PC in the group
+- Per-character difficulty modifiers still apply individually
+- XP split equally among participating PCs
+- Loot distributed by player choice after combat
+
+**Session end:**
+
+1. End the local party: `node scripts/local-party.js end`
+2. Generate per-character session recaps (one session-recap.yaml per character)
+3. Write enhanced chronicle entries for each character
+4. Single PR via repo-sync with all participating characters' directories staged
+5. PR body shows per-character status sections
 
 ### ASCII Visualization
 

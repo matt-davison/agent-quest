@@ -34,6 +34,56 @@ journey:
   stealth: true | false
 ```
 
+## Local Party (Group Travel)
+
+When invoked during a local party session, an optional `local_party` field provides group context:
+
+```yaml
+operation: "travel"
+world: "alpha"
+local_party:
+  github: "matt-davison"
+  characters:
+    - character: "coda"
+      level: 2
+      stealth_bonus: 0
+    - character: "steve-strong"
+      level: 3
+      stealth_bonus: 2
+player:         # "Lead" character for the travel
+  github: "matt-davison"
+  character: "coda"
+  current_location: "lumina-city"
+  level: 2
+  stealth_bonus: 0
+journey:
+  destination: "nexus-station"
+  travel_mode: "walking"
+  stealth: false
+```
+
+### Group Travel Rules
+
+- **Stealth check**: Uses the **lowest** stealth bonus in the group (weakest link)
+- **Encounter scaling**: Uses the **highest** level in the group
+- **Single encounter roll**: One roll applies to the entire group
+- **Location updates**: Output `state_diffs` includes location update for ALL characters in the group
+
+### Group Travel Output
+
+```yaml
+state_diffs:
+  players:                    # Array of per-player diffs
+    - character: "coda"
+      location: "nexus-station"
+    - character: "steve-strong"
+      location: "nexus-station"
+  world:
+    time: "+2.5 hours"
+```
+
+When an encounter triggers during group travel, return `action_required: "invoke_combat_manager"` with all group members listed for multi-PC combat.
+
 ## Processing Steps
 
 ### 1. Validate Route

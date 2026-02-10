@@ -67,6 +67,127 @@ player_action:
   item_id: "<if-using-item>"
 ```
 
+## Local Party (Multi-PC) Combat
+
+When invoked during a local party session, the input uses `combatants.players` (array) instead of `combatants.player` (single):
+
+```yaml
+combatants:
+  players:     # Array of PCs for local party combat
+    - id: "coda"
+      github: "matt-davison"
+      character: "coda"
+      name: "Coda"
+      level: 2
+      hp: 100
+      max_hp: 100
+      willpower: 36
+      max_willpower: 36
+      difficulty: "normal"
+      stats:
+        might: 10
+        agility: 12
+        spirit: 16
+        mind: 14
+      defense: 11
+      weapon:
+        name: "Data Spike"
+        damage: "1d6"
+        type: "magic"
+      abilities:
+        known: [<resolved-ability-data>]
+        usage: { combat: {}, long_rest: {} }
+    - id: "steve"
+      github: "matt-davison"
+      character: "steve-strong"
+      name: "Steve Strong"
+      level: 3
+      hp: 85
+      max_hp: 120
+      willpower: 18
+      max_willpower: 20
+      difficulty: "normal"
+      stats:
+        might: 18
+        agility: 10
+        spirit: 8
+        mind: 10
+      defense: 14
+      weapon:
+        name: "Iron Greatsword"
+        damage: "2d6"
+        type: "melee"
+      abilities:
+        known: [<resolved-ability-data>]
+        usage: { combat: {}, long_rest: {} }
+  enemies:
+    - # ... unchanged from single-player format
+```
+
+### Multi-PC Combat Rules
+
+- **INIT_COMBAT**: Roll initiative for ALL PCs + enemies, interleave in order. Each PC rolls separately.
+- **RESOLVE_ROUND**: Accept `actor: "coda"` or `actor: "steve"` (not just `"player"`). Each PC gets their own turn in initiative order.
+- **END_COMBAT**: XP split equally among PCs (total_xp / num_pcs, rounded down). Loot listed for player distribution — not auto-assigned.
+- **Difficulty**: Per-character difficulty modifiers still apply individually (Coda on normal, Steve on hard = different damage modifiers).
+- **Enemy scaling**: Use the **highest** PC level in the group for creature level scaling.
+
+### Multi-PC Initiative Example
+
+```yaml
+initiative_order:
+  - id: "steve"
+    name: "Steve Strong"
+    roll: 18
+    total: 19
+  - id: "enemy-1"
+    name: "Scrap Golem"
+    roll: 15
+    total: 16
+  - id: "coda"
+    name: "Coda"
+    roll: 12
+    total: 15
+```
+
+### Multi-PC End Combat Example
+
+```yaml
+operation: "end_combat"
+outcome: "victory"
+resolution:
+  rounds_taken: 4
+  enemies_defeated:
+    - name: "Scrap Golem"
+      xp: 80
+  total_xp: 80
+  xp_per_pc: 40            # Split equally
+  loot:
+    - id: "scrap-metal"
+      name: "Scrap Metal"
+      quantity: 2
+    - gold: 50
+  loot_distribution: "pending"  # Player chooses who gets what
+player_final_states:        # Array instead of single
+  - id: "coda"
+    hp: 90
+    max_hp: 100
+    willpower_spent: 10
+  - id: "steve"
+    hp: 60
+    max_hp: 120
+    willpower_spent: 0
+state_diffs:
+  players:                  # Array of per-player diffs
+    - character: "coda"
+      hp: 90
+      xp: "+40"
+    - character: "steve"
+      hp: 60
+      xp: "+40"
+  # Loot gold/items added after player distributes
+```
+
 ## Operations
 
 ### INIT_COMBAT - Roll Initiative, Setup

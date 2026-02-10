@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 // scripts/local-party.js
+// DEPRECATED: Use scripts/multiplayer-session.js instead.
+// This script is maintained for backward compatibility only.
+// The unified multiplayer-session.js supports local, remote, and hybrid sessions.
+//
+// Migration: node scripts/multiplayer-session.js create --github <gh> --char <c> [--char <c>]
+//
 // Helper for local multiplayer (couch co-op) session management
 // Usage: node scripts/local-party.js <command> [args]
 

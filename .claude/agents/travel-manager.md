@@ -34,22 +34,29 @@ journey:
   stealth: true | false
 ```
 
-## Local Party (Group Travel)
+## Multiplayer Session (Group Travel)
 
-When invoked during a local party session, an optional `local_party` field provides group context:
+When invoked during a multiplayer session (local, remote, or hybrid), an optional `session_party` field provides group context. Each character includes a `transport` field:
 
 ```yaml
 operation: "travel"
 world: "alpha"
-local_party:
-  github: "matt-davison"
+session_party:
+  session_type: "hybrid"        # local | remote | hybrid
   characters:
     - character: "coda"
+      transport: "local"
       level: 2
       stealth_bonus: 0
     - character: "steve-strong"
+      transport: "local"
       level: 3
       stealth_bonus: 2
+    - character: "ichnor-nif"
+      transport: "remote"
+      github: "Wat96"
+      level: 4
+      stealth_bonus: 3
 player:         # "Lead" character for the travel
   github: "matt-davison"
   character: "coda"
@@ -78,11 +85,13 @@ state_diffs:
       location: "nexus-station"
     - character: "steve-strong"
       location: "nexus-station"
+    - character: "ichnor-nif"
+      location: "nexus-station"
   world:
     time: "+2.5 hours"
 ```
 
-When an encounter triggers during group travel, return `action_required: "invoke_combat_manager"` with all group members listed for multi-PC combat.
+When an encounter triggers during group travel, return `action_required: "invoke_combat_manager"` with all group members listed for multi-PC combat. Include `transport` per character so the combat manager knows which PCs need remote input.
 
 ## Processing Steps
 

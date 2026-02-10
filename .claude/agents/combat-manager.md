@@ -67,16 +67,17 @@ player_action:
   item_id: "<if-using-item>"
 ```
 
-## Local Party (Multi-PC) Combat
+## Multiplayer Session (Multi-PC) Combat
 
-When invoked during a local party session, the input uses `combatants.players` (array) instead of `combatants.player` (single):
+When invoked during a multiplayer session (local party, hybrid, or remote), the input uses `combatants.players` (array) instead of `combatants.player` (single). Each player entry includes a `transport` field indicating whether they are local (in-process) or remote (RT):
 
 ```yaml
 combatants:
-  players:     # Array of PCs for local party combat
+  players:     # Array of PCs for multi-PC combat
     - id: "coda"
       github: "matt-davison"
       character: "coda"
+      transport: "local"    # local = in-process, remote = needs RT input
       name: "Coda"
       level: 2
       hp: 100
@@ -100,6 +101,7 @@ combatants:
     - id: "steve"
       github: "matt-davison"
       character: "steve-strong"
+      transport: "local"
       name: "Steve Strong"
       level: 3
       hp: 85
@@ -131,6 +133,13 @@ combatants:
 - **END_COMBAT**: XP split equally among PCs (total_xp / num_pcs, rounded down). Loot listed for player distribution — not auto-assigned.
 - **Difficulty**: Per-character difficulty modifiers still apply individually (Coda on normal, Steve on hard = different damage modifiers).
 - **Enemy scaling**: Use the **highest** PC level in the group for creature level scaling.
+
+### Transport-Aware Combat
+
+When `transport: "remote"` on a combatant, the host knows that PC's action must come from the RT message bus (the player's outbox). The host should:
+- Prompt for local PC actions immediately
+- Wait for remote PC actions via the message check system
+- Resolve the round once all actions are collected
 
 ### Multi-PC Initiative Example
 

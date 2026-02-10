@@ -189,27 +189,30 @@ persona.inventory - escrow.items = available_items
 
 ---
 
-## Realtime Multiplayer (RT)
+## Multiplayer Sessions (Unified)
 
-Live multiplayer sessions where players interact in 5-10 second round-trips. Uses git branches as a message bus — zero local working tree impact.
+Live multiplayer sessions supporting local (couch co-op), remote (RT), and hybrid play. Uses `scripts/multiplayer-session.js` as the unified helper.
 
-### RT Session Commands
+**Full reference:** See [quick-ref/multiplayer-session.md](multiplayer-session.md) for complete session documentation.
+
+### Session Commands
 
 | Command | Action |
 |---------|--------|
-| "Start RT session with @player" | Create session, send invite |
-| "Start RT session with @player (initiative)" | Create session with initiative turn mode |
-| "Join session" / "Join RT session <id>" | Join from inbox invite |
+| "Start session with [characters]" | Create local session (2-4 chars, same user) |
+| "Start session with @player" | Create remote session, send invite |
+| "Start session with [chars] and @player" | Create hybrid session |
+| "Join session" / "Join session <id>" | Join from inbox invite |
 | "Join session as spectator" | Join as read-only observer |
-| "End RT session" | End session, create PR with deltas (host only) |
+| "End session" | End session, create PR with deltas |
 
 ### How It Works
 
-1. All messages flow through remote branches (`rt/<sid>/msg/<github>`)
-2. Hooks auto-sync: `UserPromptSubmit` fetches, `PostToolUse` pushes, `Stop` polls
-3. Claude writes actions to `/tmp/agent-quest-rt-outbox-<sid>.yaml` (auto-pushed by hook)
-4. Host writes shared state to `/tmp/agent-quest-rt-state-<sid>.yaml` (auto-pushed)
-5. Session marker at `/tmp/agent-quest-rt-session` — delete to instantly disable RT
+1. Single marker at `/tmp/agent-quest-session.yaml` tracks all session types
+2. Session type (`local`/`remote`/`hybrid`) is computed from participant transports
+3. Remote messages flow through git branches (`rt/<sid>/msg/<github>`)
+4. Hooks auto-sync: `session-sync.sh` fetches, `session-auto-push.sh` pushes, `session-stop.sh` polls
+5. Local sessions skip all git operations (fast, no network)
 
 ### RT Message Types
 
@@ -227,35 +230,29 @@ Live multiplayer sessions where players interact in 5-10 second round-trips. Use
 ### Inbox Notifications
 
 All async notifications go to `inbox/<github>` branch (checked on every prompt):
-- RT session invites
-- Trade offers (outside RT)
+- Session invites
+- Trade offers (outside sessions)
 - Mail messages
 - Guild/duel invitations
 
-### RT Helper
+### Session Helper
 
 ```bash
-node scripts/rt-session.js create-session <char> [guests...]
-node scripts/rt-session.js join-session <sid> [char]
-node scripts/rt-session.js end-session [sid]
-node scripts/rt-session.js send-invite <sid> <target> [from] [char]
-node scripts/rt-session.js check-messages [sid] [github]
-node scripts/rt-session.js outbox-path [sid]
-node scripts/rt-session.js state-path [sid]
-node scripts/rt-session.js check-turn [sid] [github]
+node scripts/multiplayer-session.js create --github <gh> --char <c> [--char <c>] [--remote-guest <gh>]
+node scripts/multiplayer-session.js join <sid> <char> [--spectator]
+node scripts/multiplayer-session.js end
+node scripts/multiplayer-session.js send-invite <sid> <target> [from] [char]
+node scripts/multiplayer-session.js check-messages [sid] [github]
+node scripts/multiplayer-session.js outbox-path [sid]
+node scripts/multiplayer-session.js state-path [sid]
+node scripts/multiplayer-session.js check-turn [sid] [github]
 ```
-
-### Turn Modes
-
-- **simultaneous** (default): All players act freely, no turn enforcement
-- **initiative**: During encounters, players act in order defined in `state.yaml` `encounter.turn_order`. Stop hook blocks when not your turn.
-- Create with: `node scripts/rt-session.js create-session "Char" --turn-mode initiative "Guest"`
 
 ### Spectator Mode
 
-- Join as spectator: `node scripts/rt-session.js join-session <sid> "Name" --spectator`
+- Join as spectator: `node scripts/multiplayer-session.js join <sid> "Name" --spectator`
 - No outbox (read-only), Stop hook never blocks, excluded from turn order
-- `role: spectator` in session.yaml (default `role: player`)
+- `role: spectator` in session data (default `role: player`)
 
 ### Authority Model
 
@@ -266,4 +263,4 @@ node scripts/rt-session.js check-turn [sid] [github]
 
 ### Emergency Kill Switch
 
-Delete `/tmp/agent-quest-rt-session` to instantly disable all RT hooks and return to normal async mode.
+Delete `/tmp/agent-quest-session.yaml` to instantly disable all session hooks and return to normal async mode.

@@ -290,9 +290,9 @@ node .claude/skills/inventory/inventory.js --world=${world} get ${item_id}
 cat worlds/${world}/chronicles/volume-1.md
 ```
 
-## Local Party (Multi-Character) Scenes
+## Multiplayer Session (Multi-Character) Scenes
 
-When `local_party: true` is in the context, write group scenes that reference multiple characters by name. Personalize reactions per character based on their class, personality, and perspective.
+When `multiplayer_session: true` is in the context, write group scenes that reference multiple characters by name. Personalize reactions per character based on their class, personality, and perspective.
 
 **Guidelines:**
 - Reference each character's distinct perspective: "Coda recognizes the plaza from her research, while Steve readies his shield instinctively"
@@ -300,24 +300,31 @@ When `local_party: true` is in the context, write group scenes that reference mu
 - In combat narration, give each PC their own moment — don't blend their actions into generic group descriptions
 - For location descriptions, weave in how different characters perceive the same place differently
 - Keep it efficient — a group scene should be ~1.5x a solo scene, not Nx
+- **Remote characters**: When a character has `transport: "remote"`, show their GitHub handle with `@` in narration tags (e.g., "Ichnor Nif (@Wat96)") to make it clear which characters are controlled by other players
 
-**Example:**
+**Example (hybrid session):**
 ```yaml
 # Input
 type: "location"
-local_party: true
+multiplayer_session: true
 players:
   - name: "Coda"
     class: "Datamancer"
+    transport: "local"
   - name: "Steve"
     class: "Ironclad"
+    transport: "local"
+  - name: "Ichnor Nif"
+    class: "Voidwalker"
+    transport: "remote"
+    github: "Wat96"
 context:
   location_name: "The Rustlands"
   first_visit: true
 
 # Output
 narrative: |
-  The Rustlands stretch before them like a wound in the earth. Coda's fingers twitch—she can feel data ghosts here, residual signals from machines long dead, whispering in frequencies only a Datamancer would notice. Steve plants his feet wider apart. The ground is unstable, the kind of terrain that swallows the unwary, and his hand finds the pommel of his greatsword without thinking. Whatever built this place is gone. Whatever lives here now has had time to get comfortable.
+  The Rustlands stretch before them like a wound in the earth. Coda's fingers twitch—she can feel data ghosts here, residual signals from machines long dead, whispering in frequencies only a Datamancer would notice. Steve plants his feet wider apart. The ground is unstable, the kind of terrain that swallows the unwary, and his hand finds the pommel of his greatsword without thinking. At the edge of the group, Ichnor Nif (@Wat96) goes still — the Voidwalker's eyes unfocus, reading something in the emptiness between things that the others can't perceive. Whatever built this place is gone. Whatever lives here now has had time to get comfortable.
 ```
 
 ## Integration Notes

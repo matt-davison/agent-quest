@@ -1,0 +1,25 @@
+# Gorsk's Spiked Club
+id: hoke7z13
+name: "Gorsk's Spiked Club"
+type: weapon
+subtype: club
+rarity: uncommon
+tier: 1
+value: 45
+sellable: true
+tags:
+  - melee
+  - heavy
+  - ironjaw-artifact
+description: |
+  A brutal spiked club previously wielded by Gorsk, the Ironjaw Clan leader.
+  Heavy iron-banded wood with vicious spikes protruding from the head. Blood
+  stains are difficult to remove from the grain.
+
+stats:
+  damage: "1d10+3"
+  weight: "heavy"
+  hands_required: 2
+  attribute: "strength"
+
+lore: "Looted from Gorsk during the Ridge Pass ambush. The weapon bears the marks of countless brutal encounters."

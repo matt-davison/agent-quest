@@ -1,0 +1,56 @@
+id: "supply-escort"
+name: "Supply Escort"
+type: "escort"
+difficulty: "moderate"
+giver: "commander-steele"
+giver_location: "nexus-station"
+repeatable: false
+level:
+  required: 1
+  recommended: 1
+  scaling: false
+
+summary: |
+  Escort merchant Delvin Marsh and his supply wagon from Nexus Station's
+  East Gate to Outpost Greyspire on the Rustlands border. Two-day route
+  through the Eastern Approach. Bandit activity from the Ironjaw Clan
+  has been reported along the route.
+
+objectives:
+  - id: "meet-merchant"
+    description: "Meet Delvin Marsh at the East Gate"
+    status: "incomplete"
+  - id: "escort-wagon"
+    description: "Escort the supply wagon through the Eastern Approach"
+    status: "incomplete"
+  - id: "survive-ambush"
+    description: "Defend the wagon from Ironjaw Clan bandits"
+    status: "incomplete"
+  - id: "deliver-supplies"
+    description: "Deliver supplies to Outpost Greyspire"
+    status: "incomplete"
+
+rewards:
+  gold: 50
+  xp: 100
+  items: []
+  reputation:
+    - npc: "commander-steele"
+      change: 1
+    - npc: "delvin-marsh"
+      change: 2
+
+on_complete:
+  standing_changes:
+    - npc: "commander-steele"
+      change: 1
+      reason: "Successful field evaluation"
+  flags:
+    - flag: "orientation_waived"
+      value: true
+  unlocks: []
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-08"
+  status: "available"

@@ -1,0 +1,101 @@
+# Location: Outpost Greyspire
+# Remote military outpost on the eastern frontier
+
+id: "outpost-greyspire"
+name: "Outpost Greyspire"
+tagline: "Where the frontier holds against the wilds."
+
+# Spatial data (for vector database queries)
+coordinates:
+  x: 45
+  y: 65
+  z: 2  # elevation layer (hilltop)
+
+# Semantic embedding placeholder
+embedding: null  # Will be populated by embedding service
+
+# Classification
+region: "The Eastern Frontier"
+type: "military-outpost"
+danger_level: "moderate"
+is_safe_zone: false
+
+# Level range
+level_range:
+  min: 1
+  max: 5
+
+# Tags for search and filtering
+tags:
+  - "outpost"
+  - "military"
+  - "frontier"
+  - "supply-hub"
+  - "eastern-approach"
+
+# Areas within this location
+areas:
+  - id: "gate"
+    name: "Main Gate"
+    type: "entrance"
+  - id: "barracks"
+    name: "Barracks"
+    type: "military-housing"
+  - id: "quartermaster"
+    name: "Quartermaster's Office"
+    type: "supply"
+  - id: "apothecary"
+    name: "Apothecary Station"
+    type: "medical"
+  - id: "watchtowers"
+    name: "Watchtowers"
+    type: "defense"
+
+# NPCs present at this location
+npcs: []
+
+# Connections to other locations
+connections:
+  - target: "nexus-station"
+    direction: "west"
+    distance: 45
+    travel_time: "45 hours walking"
+    requirements: null
+  - target: "eastern-approach"
+    direction: "east"
+    distance: 8
+    travel_time: "8 hours walking"
+    requirements: null
+    danger: "high"
+
+# Random encounter table
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "Soldiers drilling in the courtyard"
+    - roll: [3, 4]
+      event: "Alarm bells suddenly ring"
+    - roll: [5, 6]
+      event: "Supply wagon arrives from the west"
+
+# Secrets
+secrets: []
+
+# Housing system
+housing:
+  available: false
+  description: "Military housing not available to independent contractors"
+
+# Governance system
+governance:
+  enabled: false
+  type: "military"
+  description: "Outpost Greyspire is under military command"
+
+# Metadata
+metadata:
+  github: "matt-davison"
+  created_date: "2026-02-08"
+  last_modified: "2026-02-08"
+  version: "1.0"

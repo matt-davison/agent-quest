@@ -1,0 +1,29 @@
+active_quests: []
+
+completed_quests:
+  - id: "supply-escort"
+    name: "Supply Escort"
+    giver: "commander-steele"
+    accepted_date: "Year 1, Month 2, Day 3"
+    completed_date: "Year 1, Month 2, Day 3"
+    objectives:
+      - id: "meet-merchant"
+        description: "Meet Delvin Marsh at the East Gate"
+        status: "complete"
+      - id: "escort-wagon"
+        description: "Escort the supply wagon through the Eastern Approach"
+        status: "complete"
+      - id: "survive-ambush"
+        description: "Defend the wagon from Ironjaw Clan bandits"
+        status: "complete"
+      - id: "deliver-supplies"
+        description: "Deliver supplies to Outpost Greyspire"
+        status: "complete"
+
+quest_log:
+  - date: "Year 1, Month 2, Day 3"
+    entry: "Accepted Supply Escort from Commander Steele. Skipped orientation — field evaluation instead. Meet Delvin Marsh at the East Gate."
+  - date: "Year 1, Month 2, Day 3"
+    entry: "Defeated Ironjaw Clan ambush at Ridge Pass. Killed Gorsk. Recruited Scraps. Three bandits fled."
+  - date: "Year 1, Month 2, Day 3"
+    entry: "Delivered supplies to Outpost Greyspire. Quest complete. Level 2 reached."

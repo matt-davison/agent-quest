@@ -1,0 +1,90 @@
+session: 1
+date: "2026-02-08"
+world_date: "Year 1, Month 2, Day 3"
+
+narrative_summary: |
+  STeve STrong materialized at Nexus Station with nothing but 23 Strength and
+  a burning need to punch things. He skipped orientation entirely, arm-wrestled
+  Commander Steele's mechanical arm (lost by one point), and impressed her enough
+  to earn a field evaluation: escort a supply wagon to Outpost Greyspire. On the
+  road, the Ironjaw Clan ambushed the convoy at Ridge Pass. STeve shattered a
+  cliff wall onto the bandits, broke Gorsk's jawbone helmet with his bare hands,
+  and killed the bandit leader in a brutal fashion. He recruited a scrappy bandit
+  named Scraps and intimidated the merchant Delvin Marsh into silence. Supplies
+  delivered. Level 2 reached. The Rustlands frontier awaits.
+
+immediate_context:
+  description: "Just arrived at Outpost Greyspire after completing the Supply Escort quest. Standing at the frontier fort with Scraps, the recruited bandit. Has 1 unspent stat point and Gorsk's Spiked Club unequipped."
+  location: "outpost-greyspire"
+  activity: "post-quest, needs rest and resupply"
+
+open_threads:
+  - urgency: "high"
+    thread: "Scraps (recruited bandit) follows out of fear, not loyalty — relationship needs development"
+  - urgency: "medium"
+    thread: "Commander Steele expects a report — Delvin will cover up the brutal killing but Steele is perceptive"
+  - urgency: "medium"
+    thread: "1 unspent stat point from reaching Level 2"
+  - urgency: "medium"
+    thread: "Gorsk's Spiked Club not yet equipped — still fighting with fists"
+  - urgency: "low"
+    thread: "Three Ironjaw Clan bandits fled — they may regroup or seek revenge"
+  - urgency: "low"
+    thread: "Outpost Greyspire unexplored — frontier fort on Rustlands border"
+  - urgency: "low"
+    thread: "First Steps tutorial quest still available but orientation was waived"
+
+npc_interactions:
+  - npc: "Commander Steele"
+    summary: "Arm-wrestled her mechanical arm, lost by 1. She was impressed enough to assign field evaluation. Standing: +1"
+  - npc: "Delvin Marsh"
+    summary: "Escorted safely but intimidated into silence about Gorsk's brutal death. Standing: +1 net (+2 quest, -1 intimidation)"
+  - npc: "Gorsk"
+    summary: "Killed. Ironjaw Clan leader, defeated at Ridge Pass."
+  - npc: "Scraps"
+    summary: "Recruited from Ironjaw Clan. Follows STeve out of fear. Landed two nat 20s in combat. 19 years old."
+  - npc: "GUIDE-7"
+    summary: "Attempted orientation. Was ignored. Filed multiple concerned notes."
+
+player_goals:
+  - "Explore Outpost Greyspire"
+  - "Find more things to punch"
+  - "Develop Scraps as companion"
+
+active_effects: []
+
+event_log:
+  - seq: 1
+    event: "Character created: STeve STrong, Codebreaker, 23 STR"
+  - seq: 2
+    event: "Arrived at Nexus Station, Arrival Platform"
+  - seq: 3
+    event: "Went to Guild Hall, met Commander Steele"
+  - seq: 4
+    event: "Arm-wrestled Steele's mechanical arm. Lost 10 vs 11."
+  - seq: 5
+    event: "Accepted Supply Escort quest (field evaluation)"
+  - seq: 6
+    event: "Met Delvin Marsh at East Gate, departed immediately"
+  - seq: 7
+    event: "Day 1 travel: uneventful"
+  - seq: 8
+    event: "Day 2: Ironjaw Clan ambush at Ridge Pass"
+  - seq: 9
+    event: "Round 1: Shattered cliff wall (3 WP). Debris: 9-12 dmg to all enemies. Took 30 dmg from bandits (2 crits). Gorsk nat 1."
+  - seq: 10
+    event: "Round 2: Punched Gorsk for 10 dmg. All 5 enemies missed."
+  - seq: 11
+    event: "Round 3: Shattered Gorsk's helmet (3 WP). 8 dmg to Gorsk, 6-7 fragments to bandits. DEF reduced. Took 21 dmg."
+  - seq: 12
+    event: "Round 4: Crit punched Gorsk for 9 dmg. Recruited Scraps (persuasion 19). Bandits 1-3 fled (morale failures). Gorsk alone at 12 HP."
+  - seq: 13
+    event: "Round 5: Killed Gorsk (brutal). Alignment shift: empathy -2, risk +1."
+  - seq: 14
+    event: "Looted: Gorsk's Spiked Club, 18 gold, Jawbone Fragment"
+  - seq: 15
+    event: "Intimidated Delvin into silence. Empathy -3."
+  - seq: 16
+    event: "Arrived Outpost Greyspire. Supplies delivered. Quest complete."
+  - seq: 17
+    event: "Rewards: 50 gold, 100 XP. Total: 68 gold, 150 XP. Level 2. +1 stat point."

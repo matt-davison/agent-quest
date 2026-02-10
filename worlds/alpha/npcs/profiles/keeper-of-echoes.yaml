@@ -23,6 +23,13 @@ public:
     - "Neither alive nor dead — something adjacent"
     - "Protective of those who respect the pools"
 
+  traits:
+    moral_axis: amoral
+    temperament: serene
+    communication: cryptic
+    core_value: knowledge
+    quest_disposition: cryptic
+
   known_history: |
     The Keeper has been here since the Undercrypt was still the Architects'
     maintenance tunnels. Some say it was once a Weaver who looked too deep.

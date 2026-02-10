@@ -97,6 +97,23 @@ chain:
   # position: 1                       # Position in the chain (1, 2, 3...)
   # total: 3                          # Total quests in the chain (if known)
 
+# Quest theming (optional - guides narrative tone and consistency)
+# See reference/npc-quest-theming.md for full schema and vocabulary.
+# theming:
+#   archetype: "investigation"       # fetch, delivery, escort, investigation, hunt, defense,
+#                                     # puzzle, infiltration, discovery, diplomacy, collection, rescue
+#   tone: "mysterious"               # default, tense, triumphant, somber, mysterious, humorous,
+#                                     # desperate, conspiratorial, ominous, bittersweet
+#   theme: "hidden-truths"           # duty-vs-desire, hidden-truths, corruption-and-redemption,
+#                                     # price-of-progress, knowledge-and-power, bonds-tested,
+#                                     # legacy-and-memory, order-vs-chaos, survival-at-cost, the-unknown
+#   motifs: ["shadows", "echoes"]    # 1-3 from: shadows, neon-glow, flickering, echoes, static,
+#                                     # silence, whispers, rust, crystal, ash, broken-code, void,
+#                                     # thresholds, fractures, mirrors, mercury (or invent new ones)
+#   source:
+#     type: "npc"                    # npc | location | world-event | item | self-discovered
+#     id: "npc-id"                   # Source identifier (omit for self-discovered)
+
 # On completion (optional - side effects triggered when quest is turned in)
 # Not every quest needs this. Use it when completing a quest should change
 # the world, advance an NPC's story, or open new possibilities.

@@ -22,6 +22,20 @@ Fast lookup for campaign and narrative mechanics during play.
 - Not everything ties to campaigns
 - Create quest webs, not chains
 
+**NPC Trait Quick Reference:**
+
+| Trait Axis | → Influences | Fast Lookup |
+|------------|-------------|-------------|
+| `moral_axis` | theme | principled→duty-vs-desire, pragmatic→hidden-truths, self-interested→price-of-progress, amoral→the-unknown |
+| `temperament` | tone | stoic→somber, cautious→tense, mercurial→humorous, volatile→desperate, serene→mysterious |
+| `communication` | delivery | direct→clear orders, cryptic→riddles, performative→theater, empathic→personal, nonverbal→shown |
+| `core_value` | theme+archetype | duty→escort/defense, knowledge→investigation/puzzle, survival→hunt/defense, loyalty→escort/rescue, acquisition→fetch/delivery, freedom→infiltration, legacy→collection/discovery, connection→diplomacy/rescue |
+| `quest_disposition` | archetype | commanding→escort/defense, conspiratorial→investigation, desperate→rescue/hunt, transactional→delivery/fetch, cryptic→puzzle/discovery, mentoring→discovery/puzzle |
+
+**Non-NPC Quest Sources:** Location quests use atmosphere. World-event quests use severity. Item quests use lore/rarity. Self-discovered quests emerge from exploration context.
+
+See [reference/npc-quest-theming.md](../reference/npc-quest-theming.md) for full trait taxonomy and mapping tables.
+
 See [rules/narrative.md](../rules/narrative.md) for full quest generation philosophy.
 
 ---

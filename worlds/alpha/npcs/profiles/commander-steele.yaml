@@ -24,6 +24,13 @@ public:
     - "Respects competence over all else"
     - "Surprisingly fair despite strictness"
 
+  traits:
+    moral_axis: principled
+    temperament: stoic
+    communication: direct
+    core_value: duty
+    quest_disposition: commanding
+
   known_history: |
     Commander Steele served in the Guild's military arm for thirty years
     before taking over quest administration. She lost her arm and eye in

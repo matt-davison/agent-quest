@@ -60,7 +60,7 @@ player:
   # Relevant state for narrative color
 context:
   # Type-specific structured data (see below)
-tone: "default" | "tense" | "triumphant" | "somber" | "mysterious" | "humorous"
+tone: "default" | "tense" | "triumphant" | "somber" | "mysterious" | "humorous" | "desperate" | "conspiratorial" | "ominous" | "bittersweet"
 length: "brief" | "standard" | "detailed"
 callbacks:
   - "<previous story elements to reference>"
@@ -124,6 +124,17 @@ context:
   progress: "<what just happened>"
   rewards: ["<if concluding>"]
   story_significance: "minor" | "major" | "epic"
+  quest_theming:              # Optional — from quest metadata
+    archetype: "<structural pattern>"
+    tone: "<emotional register>"
+    theme: "<conceptual underpinning>"
+    motifs: ["<recurring imagery>"]
+  giver_traits:               # Optional — from NPC profile
+    moral_axis: "<principled|pragmatic|self-interested|amoral>"
+    temperament: "<stoic|cautious|mercurial|volatile|serene>"
+    communication: "<direct|cryptic|performative|empathic|nonverbal>"
+    core_value: "<duty|knowledge|survival|loyalty|acquisition|freedom|legacy|connection>"
+    quest_disposition: "<commanding|conspiratorial|desperate|transactional|cryptic|mentoring>"
 ```
 
 ### Item
@@ -179,6 +190,16 @@ Agent Quest blends cyberpunk and high fantasy:
 3. **Economy**: Every word earns its place
 4. **Character voice**: NPCs have distinct speech patterns
 5. **Momentum**: Even descriptions should pull forward
+
+### Trait & Theme Integration
+
+When quest context includes `quest_theming` or `giver_traits`, use them to shape prose:
+
+- **Motifs become sensory details.** If motifs include "echoes," weave in sounds that repeat, distort, or arrive late. If "rust," describe decay and oxidation. Use 2-3 instances per scene — texture, not checklist.
+- **Themes inform stakes.** "Duty-vs-desire" means the quest's tension is about obligation vs. want. Let this subtext run beneath the surface rather than stating it outright.
+- **Communication style shapes dialogue.** A `direct` NPC gives quest briefings like military orders. A `cryptic` NPC wraps objectives in riddles. A `performative` NPC turns the briefing into theater. Match the NPC's communication trait to their speech patterns.
+- **Tone modifiers adjust register.** `desperate` prose is raw and urgent. `conspiratorial` prose drops to whispers and glances. `ominous` prose builds dread through implication. `bittersweet` prose holds joy and sorrow together. See [reference/tone-guide.md](../skills/play-agent-quest/reference/tone-guide.md) for maturity-scaled examples.
+- **When traits are absent, infer from context.** Fall back to freeform `personality` traits, location atmosphere, or quest content to guide tone. The system is additive — absence of structured traits doesn't mean absence of personality.
 
 ### Avoid
 

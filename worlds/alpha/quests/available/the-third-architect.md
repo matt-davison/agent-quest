@@ -172,4 +172,13 @@ level:
   required: 3      # Need some experience before tackling this
   recommended: 6   # Fragment 2 & 3 involve high-level areas
   scaling: true    # Legendary rewards scale with player level
+
+# Quest theming
+theming:
+  archetype: discovery
+  tone: mysterious
+  theme: knowledge-and-power
+  motifs: [echoes, broken-code, void]
+  source:
+    type: self-discovered
 ```

@@ -24,6 +24,13 @@ public:
     - "Trades in secrets as readily as drinks"
     - "Protective of her establishment and its patrons"
 
+  traits:
+    moral_axis: pragmatic
+    temperament: cautious
+    communication: empathic
+    core_value: knowledge
+    quest_disposition: conspiratorial
+
   known_history: |
     Vera has run the Codex Tavern for longer than most can remember. She
     knows everyone who passes through Nexus Station and seems to have

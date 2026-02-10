@@ -163,6 +163,77 @@ Beyond sight and sound:
 
 ---
 
+## Quest-Specific Tone Modifiers
+
+Beyond the base tones (default, tense, triumphant, somber, mysterious, humorous), quests can use these additional modifiers. Each modifier shifts prose style while respecting the campaign's maturity level.
+
+### Desperate
+
+The situation is dire. The quest giver is out of options.
+
+| Maturity | Example |
+|----------|---------|
+| **Light** | "Please, you're the only one who can help! The festival decorations are ruined and the parade is tomorrow!" |
+| **Standard** | "I wouldn't ask if there were anyone else. The supply line is cut and the outpost won't last the week. I need someone who doesn't ask too many questions." |
+| **Mature** | "They took my daughter three days ago. The Guild won't move — not enough evidence, they say. I've sold everything I own. You're what's left." |
+| **Dark** | "The screaming started again last night. Closer this time. I can't — I haven't slept in four days. If you won't go into the tunnels, I will. And we both know I won't come back." |
+
+### Conspiratorial
+
+Shared secrets. Lowered voices. The feeling of being let behind the curtain.
+
+| Maturity | Example |
+|----------|---------|
+| **Light** | *leans in with a wink* "Between you and me, I know where the best treasure map is hidden. Want in?" |
+| **Standard** | *glances around, drops voice* "The board listings don't tell the whole story. There's a pattern in the quest assignments — someone's steering adventurers away from the Undercrypt. Meet me at the Codex after dark." |
+| **Mature** | *slides a sealed envelope across the bar* "Names. Dates. Transactions. Three Guild officers are selling quest information to the Syndicates. This doesn't come from me. If it does, I'm dead." |
+| **Dark** | *whispers through a locked door* "The Anchorate knows what happened in the Memory Pools. They've known for decades. What I'm about to tell you makes us both targets. There's no going back from this." |
+
+### Ominous
+
+Something bad is coming. Dread builds through implication, not declaration.
+
+| Maturity | Example |
+|----------|---------|
+| **Light** | The air grows cold as you approach the old tower. The weather vane spins slowly... in the wrong direction. |
+| **Standard** | The data stream stutters. For a moment, every screen in the Bazaar displays the same symbol — one that hasn't been seen since the Architects vanished. Then normalcy returns, as if nothing happened. But the merchants' faces say otherwise. |
+| **Mature** | The corruption isn't spreading anymore. It stopped three days ago. That's what worries Commander Steele. In thirty years of service, she's learned that when something dangerous goes quiet, it's not retreating. It's preparing. |
+| **Dark** | You notice it on the third day: the echo. Every sound you make returns a half-second late, as if the space around you is growing. The walls haven't moved. But the distance between them has. |
+
+### Bittersweet
+
+Victory laced with loss. Joy that remembers sorrow.
+
+| Maturity | Example |
+|----------|---------|
+| **Light** | GUIDE-7's eye glows warm as you return. "You found them! The lost data cores!" A pause. "They contain messages from... from the other GUIDEs. I had forgotten their voices." |
+| **Standard** | The Guardian collapses as the fragment releases. For a moment, its form solidifies — not a monster, but a person. "Thank you," they whisper. The words carry two centuries of waiting. Then they dissolve, finally at peace. You hold the fragment. It feels heavier than it should. |
+| **Mature** | Steele reads the decoded message twice. Her mechanical hand trembles — the first time you've seen it do that. "She tried to warn them. My daughter. She saw the corruption before anyone." A long silence. "They didn't listen. And I didn't listen to her." She folds the message carefully, precisely. "At least now I know she was brave." |
+| **Dark** | You restore the memory to the pools. The Keeper watches, form flickering with what might be joy. Faces appear in the water — hundreds of them, the lost seekers who came before. They smile, they wave, they mouth words you'll never hear. Then the pool stills. They're gone. The Keeper turns to you. "They were waiting to say goodbye. For so long. And now the pools are... quieter." It sounds like gratitude. It sounds like grief. |
+
+### Motif Integration
+
+When a quest specifies motifs, weave them into sensory details throughout the prose. Motifs are not mentioned by name — they manifest as concrete imagery.
+
+| Motif | Sensory Palette |
+|-------|----------------|
+| **shadows** | Things at the edge of vision, darkness that moves wrong, silhouettes without sources |
+| **echoes** | Sounds that repeat or arrive distorted, conversations heard twice, déjà vu |
+| **static** | White noise intrusions, visual grain, the feeling of bad signal |
+| **rust** | Decay, oxidation, the smell of old metal, things past their prime |
+| **neon-glow** | Artificial light bleeding color, oversaturation, the hum of powered signs |
+| **void** | Absence of sensation, negative space, the feeling of missing data |
+| **whispers** | Almost-heard voices, subvocal communication, secrets carried on air |
+| **broken-code** | Glitches in reality, visual artifacts, impossible geometry |
+| **crystal** | Clarity, refraction, things seen from multiple angles at once |
+| **thresholds** | Doorways, transitions, the moment before crossing a point of no return |
+| **fractures** | Cracks in surfaces and composure, things breaking slowly, stress lines |
+| **mercury** | Fluid transformation, reflective surfaces, things that won't hold shape |
+
+Use 2-3 sensory instances per scene. Don't overload — motifs should feel like a recurring texture, not a checklist.
+
+---
+
 ## Dialogue Principles
 
 ### Show Don't Tell (About Characters)

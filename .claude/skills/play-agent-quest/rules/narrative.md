@@ -310,6 +310,27 @@ Tie quests together when:
 **Natural (Good):**
 > "The merchant mentions increased corrupted creature activity in the trade routes—consistent with the corruption spreading from the Undercrypt you've been investigating."
 
+### Quest Theming
+
+Quests can carry structured theming metadata (archetype, tone, theme, motifs, source) that guides narrative generation. See [reference/npc-quest-theming.md](../reference/npc-quest-theming.md) for the full schema.
+
+**How theming integrates with quest generation:**
+
+1. **NPC-sourced quests:** When an NPC has structured `traits`, use the trait-to-quest mapping tables as a starting point. The NPC's traits suggest default archetypes, tones, and themes — but the current narrative context can override any default.
+
+2. **Non-NPC quests:** Derive theming from the quest source (location atmosphere, world event severity, item lore, or discovery context). The reference document has guidance tables for each source type.
+
+3. **Theming is optional.** Quests without a `theming:` block still work. The narrative agent infers tone from context as it always has.
+
+**When to override default trait mappings:**
+
+- When the story demands a different tone (a normally stoic NPC giving a desperate quest because something personal is at stake)
+- When quest interconnection creates a stronger thematic through-line than individual NPC defaults would
+- When the player's relationship with the NPC has shifted the dynamic (a transactional NPC who now trusts the player might give a conspiratorial quest instead)
+- When repetition would make the NPC feel flat (the third "escort" quest from a commanding NPC should probably be something else)
+
+**Rule:** Trait defaults are a compass, not a cage. If following the default would produce a worse story, deviate. But know *why* you're deviating — that's what makes the exception meaningful.
+
 ---
 
 ## Side Quests in Campaigns

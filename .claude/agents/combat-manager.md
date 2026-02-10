@@ -197,6 +197,100 @@ state_diffs:
   # Loot gold/items added after player distributes
 ```
 
+## Follower Combat
+
+When the player has active followers, they are passed in `combatants.followers` alongside `player`/`players` and `enemies`:
+
+```yaml
+combatants:
+  player: { ... }       # existing single-player format
+  followers:             # NEW - active followers in combat
+    - id: "scraps"
+      name: "Scraps"
+      owner: "steve-strong"    # Character ID of the follower's owner
+      level: 1
+      hp: 20
+      max_hp: 20
+      stats: { strength: 12, agility: 14, mind: 8, spirit: 8 }
+      defense: 12
+      weapon: { name: "Rusty Sword", damage: "1d6", type: "melee" }
+      abilities: []
+      loyalty: 60
+      combat_behavior: "aggressive"   # aggressive | defensive | support | passive
+  enemies: [...]         # existing
+```
+
+### Follower Combat Rules
+
+- **Initiative**: Each follower rolls initiative separately (`1d20 + agility mod`), interleaved with all other combatants. Use type `"follower"` in the initiative order:
+  ```yaml
+  initiative_order:
+    - id: "player"
+      name: "Steve Strong"
+      type: "player"
+      roll: 18
+      total: 19
+    - id: "scraps"
+      name: "Scraps"
+      type: "follower"
+      owner: "steve-strong"
+      roll: 15
+      total: 17
+    - id: "enemy-1"
+      name: "Scrap Golem"
+      type: "enemy"
+      roll: 12
+      total: 13
+  ```
+
+- **Auto-resolve**: On a follower's turn, resolve their action based on `combat_behavior`:
+  - `aggressive`: Attack lowest-HP enemy
+  - `defensive`: Attack nearest enemy, stay near owner
+  - `support`: Use healing/buff abilities first, attack only if no support actions available
+  - `passive`: Defend only, do not attack unless directly ordered
+
+- **Player override**: Player can direct a follower with `FOLLOWER <name> <action>` (ATTACK, DEFEND, USE). Override replaces auto-resolve for that turn only.
+
+- **Targeting**: Enemies can target followers. Followers are valid targets for all attacks and abilities. Enemy AI may target followers based on threat or proximity.
+
+- **0 HP (incapacitated)**: When a follower reaches 0 HP, they are incapacitated (NOT killed). They skip all remaining turns. Post-combat, they recover to 1 HP. Apply loyalty -10.
+
+- **No XP or loot**: Followers do not earn XP and do not receive loot. All XP and loot go to the player(s).
+
+- **No difficulty modifiers**: Player difficulty settings do NOT apply to followers. Followers deal and take base damage values.
+
+- **Loyalty bonus**: Followers at 80-100 loyalty (Fanatical) gain +1 to all damage rolls.
+
+### Follower State Diffs
+
+Include a `followers:` section in `state_diffs` for HP and loyalty changes:
+
+```yaml
+state_diffs:
+  player:
+    hp: 85
+    xp: "+50"
+  followers:
+    - id: "scraps"
+      hp: 12            # Updated HP after combat
+      loyalty: 50        # If changed (e.g., -10 from incapacitation)
+  enemies:
+    - id: "enemy-1"
+      status: "dead"
+```
+
+### Follower End Combat
+
+```yaml
+follower_final_states:
+  - id: "scraps"
+    hp: 1              # Recovered from incapacitation (was 0)
+    loyalty: 50        # After -10 for being downed
+    incapacitated: true  # Was downed during combat
+```
+
+---
+
 ## Operations
 
 ### INIT_COMBAT - Roll Initiative, Setup

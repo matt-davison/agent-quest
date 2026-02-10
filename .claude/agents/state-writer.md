@@ -280,6 +280,70 @@ writes:
         qty: <new-qty>
 ```
 
+### Recruit Follower
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "append"
+    section: "followers"
+    content:
+      - id: "scraps"
+        name: "Scraps"
+        source: "npc"
+        source_id: "scraps"
+        recruited_date: "2026-02-08"
+        recruited_location: "eastern-approach"
+        level: 1
+        class: "Bandit"
+        hp: 20
+        max_hp: 20
+        stats:
+          strength: 12
+          agility: 14
+          mind: 8
+          spirit: 8
+        defense: 12
+        weapon:
+          name: "Rusty Sword"
+          damage: "1d6"
+          type: "melee"
+        abilities: []
+        loyalty: 60
+        disposition: "fearful"
+        combat_role: "melee_dps"
+        combat_behavior: "aggressive"
+        active: true
+        location: null
+        afflictions: []
+```
+
+### Update Follower (HP, Loyalty, Status)
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "update"
+    section: "followers"
+    content:
+      - id: "scraps"
+        hp: 12
+        loyalty: 50
+        active: false
+        location: "outpost-greyspire"
+```
+
+### Dismiss Follower
+
+```yaml
+writes:
+  - file: "players/<github>/personas/<char>/persona.yaml"
+    action: "update"
+    section: "followers"
+    # Remove the follower entry with matching id from the array
+    remove_id: "scraps"
+```
+
 ### Add Enhanced Chronicle Entry
 
 Chronicle entries use the rich format with narrative detail AND a factual log:

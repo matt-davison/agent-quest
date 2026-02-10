@@ -93,6 +93,45 @@ state_diffs:
 
 When an encounter triggers during group travel, return `action_required: "invoke_combat_manager"` with all group members listed for multi-PC combat. Include `transport` per character so the combat manager knows which PCs need remote input.
 
+## Follower Travel
+
+When the player has active followers (`active: true`, `location: null`), an optional `followers` field is included in the travel input:
+
+```yaml
+operation: "travel"
+world: "alpha"
+player:
+  github: "matt-davison"
+  character: "steve-strong"
+  current_location: "outpost-greyspire"
+  level: 2
+  stealth_bonus: 0
+followers:
+  - id: "scraps"
+    name: "Scraps"
+    level: 1
+    stealth_bonus: -1
+journey:
+  destination: "eastern-approach"
+  travel_mode: "walking"
+  stealth: false
+```
+
+### Follower Travel Rules
+
+- **Stealth check**: Uses the **lowest** stealth bonus across the player AND all active followers (weakest link, consistent with group travel rules)
+- **Encounter scaling**: Uses the **highest** level across the player AND all active followers
+- **Auto-move**: Followers move with the player automatically. No separate location updates needed in `state_diffs`.
+- **Encounter triggers combat**: If an encounter triggers combat, pass the `followers` array to combat-manager as `combatants.followers`
+
+### Follower + Group Travel
+
+When both `session_party` and `followers` are present (multiplayer with followers), combine all characters and followers for stealth/scaling calculations:
+- Stealth: lowest across ALL party members AND ALL followers
+- Encounter scaling: highest level across ALL party members AND ALL followers
+
+---
+
 ## Processing Steps
 
 ### 1. Validate Route

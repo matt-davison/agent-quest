@@ -127,6 +127,52 @@ Manage player intentions and goals.
 
 ---
 
+## Follower Actions
+
+### RECRUIT
+Attempt to recruit an NPC as a follower.
+
+**Usage:** `RECRUIT <NPC>`
+
+**Requirements:** Narrative conditions (quest completion, reputation, persuasion). Max followers limited by level (see [followers.md](followers.md)).
+
+**Result:** NPC joins as follower with stats, loyalty, and combat behavior
+
+---
+
+### DISMISS
+Release a follower permanently.
+
+**Usage:** `DISMISS <follower>`
+
+**Result:** Follower leaves the party. May be re-recruited later if the NPC still exists.
+
+---
+
+### FOLLOWERS
+List all active followers.
+
+**Usage:** `FOLLOWERS`
+
+**Result:** Shows each follower's name, level, HP, loyalty, combat role, and status (active/parked)
+
+---
+
+### FOLLOWER
+Direct a specific follower.
+
+**Usage:**
+- `FOLLOWER <name> ATTACK <target>` - Attack specific enemy (in combat)
+- `FOLLOWER <name> DEFEND` - Take defensive stance (in combat)
+- `FOLLOWER <name> EQUIP <item>` - Give follower a weapon
+- `FOLLOWER <name> WAIT` - Park follower at current location
+- `FOLLOWER <name> FOLLOW` - Resume following (must be at follower's location)
+- `FOLLOWER <name> USE <ability>` - Use a specific ability (in combat)
+
+**See:** [followers.md](followers.md)
+
+---
+
 ## Economy Actions
 
 ### SHOP

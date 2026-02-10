@@ -1,0 +1,27 @@
+# Bone Spear
+id: ter_bsper
+name: "Bone Spear"
+type: weapon
+subtype: melee
+rarity: common
+tier: 1
+value: 20
+sellable: true
+tags:
+  - melee
+  - piercing
+  - throwable
+  - primitive
+stats:
+  damage: 7
+  attack_bonus: +2
+  range: adjacent
+  thrown_range: "3 spaces"
+  thrown_damage: 6
+description: |
+  A sharpened bone shaft with a chipped obsidian tip, bound with sinew.
+  Can be used in melee or thrown with reasonable accuracy. The obsidian
+  comes from Mount Tremor's lower slopes, where volcanic glass forms
+  naturally. The Tribe has been making these for generations. The design
+  hasn't changed because the design doesn't need to change. Pointy end
+  goes in the other thing. Done.

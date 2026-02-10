@@ -1,0 +1,26 @@
+# Curator Memo
+id: ter_cmemo
+name: "Curator Memo"
+type: misc
+subtype: lore_collectible
+rarity: uncommon
+tier: 1
+value: 15
+sellable: true
+tags:
+  - misc
+  - lore
+  - curator
+  - collectible
+stats: {}
+description: |
+  A thin crystalline wafer that, when activated (squeeze and shake),
+  projects a short holographic text in Curator script with a rough
+  translation below. These are internal project reports, meeting minutes,
+  and inter-departmental communications from Project 42-B's staff. They
+  range from the mundane ("Requisition Form 7742-C: Request for Additional
+  Bioluminescent Substrate") to the alarming ("Re: Unscheduled Mutation
+  Event — WHO APPROVED SPECIMEN T-001?") to the deeply bureaucratic
+  ("Synergize cross-functional deliverables by EOQ or face deprecation
+  of non-essential assets"). The inhabitants interpret them as prophecy.
+  They're performance reviews. Same thing, really.

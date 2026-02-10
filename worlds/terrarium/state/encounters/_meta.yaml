@@ -1,0 +1,158 @@
+# Encounter System Configuration — Terrarium
+# Route-specific encounters live in encounters/<route-id>.yaml
+
+version: "1.0"
+
+# === ENCOUNTER TYPES ===
+encounter_types:
+  combat:
+    description: "Hostile creatures, raptors, or kaiju parasites attack"
+    resolution: "Fight, flee, or negotiate (if intelligent)"
+    time_cost: 1
+    category: "negative"
+
+  hazard:
+    description: "Seismic tremor, toxic spores, gravity distortion, or environmental danger"
+    resolution: "Skill check to overcome or find alternate route"
+    time_cost: 0.5
+    category: "negative"
+
+  discovery:
+    description: "Find Curator ruins, a fossil cache, or something interesting"
+    resolution: "Investigate or ignore"
+    time_cost: 0
+    category: "neutral"
+
+  traveler:
+    description: "Meet another Terrarium inhabitant, Scaled Court diplomat, or Maintenance Orb"
+    resolution: "Interact, trade, or pass by"
+    time_cost: 0
+    category: "neutral"
+
+  rest_spot:
+    description: "Find a sheltered cavern or warm vent to rest"
+    resolution: "Rest to recover HP or continue"
+    time_cost: 0
+    category: "positive"
+    benefit: "Recover 1d6 HP, remove fatigue"
+
+  treasure:
+    description: "Discover shed kaiju teeth, Curator trinkets, or ancient fossils"
+    resolution: "Collect the salvage"
+    time_cost: 0
+    category: "positive"
+    benefit: "Teeth, items, or rare finds"
+
+  monolith:
+    description: "A Curator monolith activates nearby with a cryptic message"
+    resolution: "Read and interpret"
+    time_cost: 0
+    category: "positive"
+    benefit: "Quest hook, lore fragment, or Curator memo"
+
+  shortcut:
+    description: "Discover a root tunnel or Maintenance Orb-maintained passage"
+    resolution: "Take the shortcut"
+    time_cost: -2
+    category: "positive"
+    benefit: "Reduce remaining travel time by 2 hours"
+
+  fauna:
+    description: "A creature encounter that isn't combat — observation, bonding opportunity, or stampede"
+    resolution: "React appropriately"
+    time_cost: 0
+    category: "neutral"
+
+# === GENERIC ENCOUNTERS ===
+generic:
+  combat:
+    - name: "Snap-jaw Pack"
+      description: "Small pack predators burst from undergrowth"
+      difficulty: "easy"
+      count: "1d4"
+    - name: "Thornback"
+      description: "Armored dinosaur charges through your path"
+      difficulty: "moderate"
+      count: 1
+    - name: "Gloom Lurker"
+      description: "Cave ambusher drops from the ceiling"
+      difficulty: "moderate"
+      count: 1
+  hazard:
+    - name: "Tremor"
+      description: "Seismic activity shakes the ground"
+      check: "Agility DC 12"
+      failure: "1d6 damage and knocked prone"
+    - name: "Spore Cloud"
+      description: "Bioluminescent spore burst from disturbed fungi"
+      check: "Spirit DC 10"
+      failure: "Hallucinations for 1 hour, -2 to Mind checks"
+  discovery:
+    - name: "Curator Debris"
+      description: "Scattered alien tech components, half-buried in stone"
+      loot: "1d10 teeth of salvage"
+    - name: "Fossil Outcropping"
+      description: "Ancient bones exposed by erosion"
+      loot: "Lore fragment"
+  traveler:
+    - name: "Scaled Court Envoy"
+      description: "A well-dressed raptor on diplomatic business"
+      interaction: "News, rumors, possible quest"
+    - name: "Digger Scout"
+      description: "A Digger faction member mapping tunnels"
+      interaction: "Trade opportunity, tunnel information"
+  rest_spot:
+    - name: "Warm Vent Alcove"
+      description: "Sheltered spot near a geothermal vent"
+      benefit: "Full rest, recover all HP"
+    - name: "Root Hollow"
+      description: "Natural shelter formed by massive root system"
+      benefit: "Short rest, recover 1d4 HP"
+  treasure:
+    - name: "Tooth Cache"
+      description: "Pile of shed kaiju teeth, partially buried"
+      loot: "2d10 teeth"
+    - name: "Curator Container"
+      description: "Sealed alien storage pod, contents unknown"
+      loot: "1d6 teeth, 50% chance Curator Trinket"
+  monolith:
+    - name: "Monolith Broadcast"
+      description: "A nearby monolith hums and displays text in an alien script"
+      effect: "Curator Memo fragment, possible quest hook"
+    - name: "Maintenance Alert"
+      description: "A Maintenance Orb zips past, broadcasting a garbled status report"
+      effect: "Location information or hazard warning"
+  shortcut:
+    - name: "Root Tunnel"
+      description: "Natural passage through the root network"
+      effect: "Save 1-2 hours travel time"
+  fauna:
+    - name: "Stampede"
+      description: "A herd of herbivorous dinosaurs thunders past"
+      effect: "Agility DC 10 or take 1d4 damage, but find trampled path (travel bonus)"
+
+# === ENCOUNTER MODIFIERS ===
+modifiers:
+  time_of_day:
+    deepdim:
+      combat_chance: 1.5
+      predator_chance: 2.0
+      visibility: "reduced"
+    dimbreak:
+      combat_chance: 0.75
+      discovery_chance: 1.25
+    fullglow:
+      combat_chance: 1.0
+      monolith_chance: 1.5
+
+  weather:
+    tremor:
+      combat_chance: 0.5
+      hazard_chance: 2.0
+      travel_speed: 0.5
+    haze:
+      combat_chance: 1.25
+      visibility: "heavily reduced"
+    clear:
+      combat_chance: 1.0
+      discovery_chance: 1.25

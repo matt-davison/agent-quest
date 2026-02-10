@@ -1,0 +1,36 @@
+id: skitter
+default_location: "the-hollow/the-tinkerers-nook"
+stationary: false
+notes: "Mostly in the Nook, occasionally zips around The Hollow for repairs or to visit other Orbs"
+patterns:
+  - times: ["dimbreak"]
+    location: "the-hollow/the-tinkerers-nook"
+    activity: "Running morning diagnostics, self-repair"
+    interruptible: false
+
+  - times: ["brightrise"]
+    location: "the-hollow/the-tinkerers-nook"
+    activity: "Workshop open — repairs, training, tinkering"
+    interruptible: true
+
+  - times: ["fullglow"]
+    location: "the-hollow/the-tinkerers-nook"
+    activity: "Peak workshop hours, working on projects"
+    interruptible: true
+    interruptible_note: "Loves visitors but gets distracted easily"
+
+  - times: ["longlight"]
+    location: "the-hollow/the-gullet"
+    activity: "Visiting Rattlejaw, scavenging parts from the market"
+    interruptible: true
+
+  - times: ["fadefall"]
+    location: "the-hollow/the-tinkerers-nook"
+    activity: "Evening tinkering, experimental work"
+    interruptible: true
+    interruptible_note: "This is when the explosions happen"
+
+  - times: ["gloomtide", "deepdim"]
+    location: "the-hollow/the-tinkerers-nook"
+    activity: "Low-power mode, but never fully off — listening to the Maintenance network"
+    interruptible: "standing >= 3"

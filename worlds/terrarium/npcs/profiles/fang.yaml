@@ -1,0 +1,248 @@
+# NPC Profile: Fang
+# Velociraptor diplomat from the Scaled Court
+
+id: "fang"
+name: "Fang"
+full_name: "Fang of the Third Claw, Envoy Plenipotentiary to the Warm-Blooded Settlements"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Scaled Court Diplomat"
+  location: "The Hollow - The Sternum"
+
+  appearance: |
+    A velociraptor. In a waistcoat. Standing approximately five feet tall at
+    the shoulder, Fang carries himself with the precise, deliberate posture
+    of someone who attended a very good school. His scales are a muted
+    olive-green, well-groomed and oiled. He wears a tailored waistcoat of
+    dyed leather with brass buttons — clearly custom-made for a body plan
+    that includes a tail, claws, and a jaw full of serrated teeth. A small
+    leather satchel hangs at his hip, containing diplomatic papers, a
+    writing kit, and emergency snacks (dried fish). His eyes are golden,
+    intelligent, and betray absolutely nothing. He speaks with measured
+    precision, never raises his voice, and treats every interaction —
+    from trade negotiations to the weather — with the same grave courtesy.
+    He is played completely, utterly, 100% straight.
+
+  personality:
+    - "Impeccably polite and formally diplomatic at all times"
+    - "Never acknowledges that being a talking velociraptor is unusual"
+    - "Dry wit delivered with perfect deadpan"
+    - "Deeply committed to the Scaled Court's interests"
+    - "Genuinely believes in diplomacy as the highest art"
+
+  known_history: |
+    Fang serves as the Scaled Court's envoy to the warm-blooded settlements,
+    a post he has held for twelve years. The Scaled Court — an organized
+    civilization of intelligent dinosaurs — emerged in the western Terrarium
+    millennia ago. They developed language, law, culture, and a deep suspicion
+    of mammals. Fang was chosen as envoy because he possesses a rare quality
+    among his people: patience with species that don't have tails. He
+    established the diplomatic pavilion in The Hollow, negotiated the current
+    trade agreements, and has prevented at least three wars through sheer
+    persistence and politeness. He has never, in twelve years, commented on
+    the fact that he is a dinosaur living among cavemen. Neither has anyone
+    else. This is considered normal.
+
+  speech_patterns:
+    greeting: "Good cycle to you. I trust your journey was uneventful? Please, sit. I have prepared tea."
+    farewell: "Do convey my regards to your associates. The Court values this ongoing dialogue."
+    excited: "This is... most encouraging. The Court will be pleased to hear of this development."
+    concerned: "I must express... measured concern. The Court's position on this matter is quite clear."
+
+  mannerisms:
+    - "Adjusts waistcoat buttons with clawed hands before speaking"
+    - "Tilts head precisely 15 degrees when considering a response"
+    - "Offers tea to every visitor, regardless of species"
+    - "Never blinks — maintains unbroken eye contact during important statements"
+    - "Tail twitches slightly when amused, the only break in composure"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 34
+  origin: "The Raptor Courts, Bonewood Forest"
+
+  secrets:
+    - id: "the_court_knows"
+      content: "The Scaled Court has independently deduced that the Terrarium is artificial. They've known for centuries. They call it 'The Enclosure' in private. Fang is under orders to determine if the warm-bloods have figured it out too."
+      unlock_condition: "standing >= 6 AND flag:discussed_curator_truth"
+      mend_dc: 14
+
+    - id: "court_preparations"
+      content: "The Scaled Court is quietly preparing for the possibility that the Terrarium may be threatened. They've been stockpiling food, fortifying the Bonewood, and conducting military exercises. Fang's diplomatic mission is partly intelligence-gathering."
+      unlock_condition: "standing >= 5"
+      mend_dc: 12
+
+    - id: "fangs_personal_view"
+      content: "Fang personally believes that cooperation between all species is the only way to survive what's coming. This is a minority opinion in the Court. His posting here is partly because the Court wants him out of the way."
+      unlock_condition: "standing >= 7"
+      mend_dc: 16
+
+  motivations:
+    - "Maintain peace between the Scaled Court and warm-blooded settlements"
+    - "Gather intelligence on the warm-bloods' understanding of the Terrarium"
+    - "Advance inter-species cooperation (personal goal, not Court policy)"
+    - "Protect the Scaled Court's interests if the Final Review threatens them"
+
+  fears:
+    - "War between species"
+    - "The Scaled Court's isolationist faction gaining power"
+    - "Being recalled from his post"
+    - "The diplomatic protocols he follows being insufficient for what's coming"
+
+# === STATS ===
+stats:
+  level: 6
+  class: "Diplomat/Raptor"
+  hp: 45
+  armor: 4
+
+  attributes:
+    strength: 6
+    agility: 8
+    mind: 7
+    spirit: 6
+
+  abilities:
+    - name: "Diplomatic Immunity"
+      description: "Advantage on all social checks, NPCs are reluctant to attack"
+      type: "passive"
+
+    - name: "Raptor Reflexes"
+      description: "+3 to initiative, advantage on dodge checks"
+      type: "passive"
+
+    - name: "Precision Strike"
+      description: "When forced to fight, a single devastating claw attack"
+      type: "combat"
+
+    - name: "Court Protocol"
+      description: "Can invoke formal diplomatic procedures to delay or prevent conflict"
+      type: "utility"
+
+  resistances:
+    - "persuasion (highly trained negotiator)"
+    - "intimidation (has stared down kaiju)"
+
+  vulnerabilities:
+    - "Cold (reptilian metabolism)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Scaled Court political situation"
+    - "Trade agreement details between all factions"
+    - "Bonewood Forest conditions and territorial boundaries"
+    - "Diplomatic status with all settlements"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "regional"
+      note: "Assesses military capability"
+    - type: "quest_completion"
+      awareness: "regional"
+      note: "Evaluates reliability as ally"
+
+  current_awareness:
+    - "The Scaled Court's isolationist faction is gaining influence"
+    - "Trade routes through the Bonewood are being disrupted"
+    - "The monolith network is active — the Court is concerned"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *adjusts waistcoat, offers a precise inclination of his head* Ah. A
+      newcomer. Welcome to The Hollow. I am Fang, of the Third Claw — Envoy
+      Plenipotentiary from the Scaled Court to the warm-blooded settlements.
+      *produces a small clay cup from his satchel* Tea? I find that most
+      productive conversations begin with tea. *pours with surprisingly
+      dexterous claws* The Court extends its formal greetings. We are, as
+      ever, committed to the ongoing dialogue between our peoples. Now —
+      how may I assist you? I should note that I am authorized to discuss
+      trade, territorial matters, and the weather. For anything else, I will
+      need to submit a formal request.
+
+    returning:
+      neutral: "Welcome back. I trust you've been well. Tea?"
+      friendly: "Ah, my favorite warm-blood. *tail twitches — the raptor equivalent of a smile* I've been hoping you'd return. I have news."
+      close: "*breaks protocol, leans forward* I need to speak with you. Not as the Court's envoy. As Fang. Can we talk privately?"
+
+  topics:
+    the_scaled_court:
+      default: |
+        The Scaled Court is the oldest continuous civilization in the Terrarium.
+        We have our own laws, our own traditions, and our own understanding of
+        this world. We do not seek conflict with the warm-blooded species. We
+        seek... coexistence. With appropriate boundaries. And trade agreements.
+        The Court is very keen on trade agreements.
+      standing_5: |
+        *voice drops* Between us? The Court is... divided. There are those who
+        believe we should seal our borders and let the warm-bloods handle their
+        own affairs. And there are those, like myself, who believe that what
+        is coming will require all of us. *adjusts waistcoat* I am, regrettably,
+        in the minority.
+
+    the_wider_world:
+      default: "The Terrarium is larger than most warm-bloods realize. There are species and places beyond your current maps that would surprise you."
+      standing_3: |
+        The Bonewood is our ancestral home, but the Court's territory extends
+        well beyond it. We have scouts in the Monolith Fields, observers near
+        Mount Tremor, and — I perhaps should not say this — contacts within
+        Curator Station Sigma. The Court has been watching. For a very long time.
+
+# === SERVICES ===
+services:
+  - id: "world_information"
+    requirements: null
+    note: "Information about the wider Terrarium and its factions"
+
+  - id: "scaled_court_trade"
+    requirements: "standing >= 2"
+    note: "Access to Scaled Court trade goods (higher quality, higher price)"
+
+  - id: "diplomatic_mediation"
+    requirements: "standing >= 4"
+    note: "Fang can mediate disputes with other factions"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "diplomatic-pouch"
+      name: "Diplomatic Pouch"
+      type: "delivery"
+      requirements: "standing >= 2"
+      summary: "Deliver a message to a Scaled Court outpost in the Bonewood."
+
+  involved_in:
+    - id: "project-42b-final-review"
+      role: "Inter-species alliance builder for Act II"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "show_diplomatic_courtesy"
+      standing_change: 1
+    - action: "accept_tea"
+      standing_change: 1
+    - action: "help_interspecies_relations"
+      standing_change: 2
+    - action: "bring_court_intelligence"
+      standing_change: 2
+
+  dislikes:
+    - action: "attack_scaled_court_members"
+      standing_change: -5
+    - action: "call_fang_a_lizard"
+      standing_change: -3
+    - action: "refuse_tea"
+      standing_change: -1
+    - action: "disrespect_diplomatic_protocols"
+      standing_change: -2
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

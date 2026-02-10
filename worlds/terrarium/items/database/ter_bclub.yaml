@@ -1,0 +1,24 @@
+# Bone Club
+id: ter_bclub
+name: "Bone Club"
+type: weapon
+subtype: melee
+rarity: common
+tier: 1
+value: 15
+sellable: true
+tags:
+  - melee
+  - blunt
+  - bonecrusher
+  - primitive
+stats:
+  damage: 8
+  attack_bonus: +1
+  range: adjacent
+description: |
+  A femur bone from something that was very large and is now very dead.
+  Shaped by striking it against a rock until one end was thicker than the
+  other. This is the entirety of the manufacturing process. It works
+  surprisingly well. Grunk named his "Thoughtful." You do not have to
+  name yours. But you should.

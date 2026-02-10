@@ -1,0 +1,39 @@
+# The Guide
+id: ter_guide
+name: "The Guide"
+type: key_item
+subtype: device
+rarity: rare
+tier: 1
+value: 0
+sellable: false
+tags:
+  - key_item
+  - device
+  - curator
+  - chronicler
+  - lore
+  - hitchhiker
+stats:
+  info_bonus: +3
+  lore_reveal: true
+description: |
+  A stone tablet roughly the size of a large book, with a smooth face that
+  lights up when touched, displaying text in the local language. The Guide
+  is a self-updating information device — one of several distributed
+  throughout the Terrarium by a source that nobody can identify. Its
+  entries are comprehensive, suspiciously well-informed, and written in a
+  tone that suggests the author is both very knowledgeable and at least
+  mildly intoxicated. The Guide covers geography, creatures, factions,
+  history, and survival tips, all filtered through a perspective that is
+  simultaneously helpful and deeply unhelpful. The front page reads, in
+  large, friendly letters: "DON'T PANIC."
+
+  Sample entry: "SNAP-JAWS: Small pack predators. Individually manageable.
+  In groups, inadvisable. In large groups, reconsider your life choices.
+  The Scaled Court claims they are 'distant cousins.' This is like a
+  human claiming kinship with a particularly angry squirrel. Technically
+  accurate. Practically meaningless."
+
+  The Guide updates itself. Nobody knows how. Chroniclers start with one.
+  Everyone else has to earn it.

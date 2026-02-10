@@ -1,0 +1,85 @@
+version: "1.0"
+last_updated: "2026-02-09T12:00:00Z"
+time:
+  era: "The Observation"
+  era_number: 42
+  year: 42
+  month: 5
+  day: 1
+  hour: 12
+  minute: 0
+  period: fullglow
+weather:
+  global_modifier: bioluminescent
+  by_region:
+    the-hollow:
+      current: warm_glow
+      temperature: comfortable
+      visibility: clear
+      notes: "Bioluminescent fungi provide steady light inside the kaiju ribcage. Climate-controlled by ancient bone marrow vents."
+    the-monolith-fields:
+      current: bright
+      temperature: warm
+      visibility: clear
+      notes: "Open plains directly beneath The Bulb. Monoliths cast long shadows."
+    bonewood-forest:
+      current: dim
+      temperature: cool
+      visibility: reduced
+      notes: "Petrified canopy filters most light from The Bulb. Bioluminescent moss provides eerie ground-level glow."
+      hazards:
+        - territorial_raptors
+    the-sulphur-pools:
+      current: hazy
+      temperature: hot
+      visibility: reduced
+      notes: "Geothermal vents create perpetual steam. Excellent visibility up close, terrible at distance."
+      hazards:
+        - toxic_fumes
+        - scalding_water
+    mount-tremor:
+      current: overcast
+      temperature: variable
+      visibility: low
+      notes: "Volcanic smog and tremors from the dormant kaiju within. The mountain breathes."
+      hazards:
+        - seismic_activity
+        - volcanic_gas
+    curator-station-sigma:
+      current: static
+      temperature: cool
+      visibility: artificial_lighting
+      notes: "Internal environment systems partially functional. Flickering fluorescent lights. Smells like ozone and regret."
+    the-shell:
+      current: unknown
+      temperature: extreme_variable
+      visibility: disorienting
+      notes: "Gravity inverts near the inner surface of the hollow earth. The Bulb is directly overhead. Reality gets weird."
+      hazards:
+        - gravity_distortion
+        - bulb_radiation
+active_events:
+  - id: final-review-countdown
+    name: "Project 42-B: Final Review"
+    type: campaign
+    description: "Sub-Committee 7 has scheduled a final review of the Terrarium project. If it fails evaluation, the project gets 'decommissioned.' 42 days remain."
+    start_date: "42.5.1"
+    end_date: "42.6.12"
+    effects:
+      - "Maintenance Orbs behaving erratically"
+      - "Monolith activity increased"
+      - "Sub-Committee 7 memos appearing with increasing frequency"
+      - "Kaiju agitation levels elevated"
+    regions:
+      - all
+npc_location_overrides: {}
+flags:
+  combat_system_exists: true
+  storytelling_system_exists: true
+  final_review_countdown_active: true
+  final_review_days_remaining: 42
+  the_bulb_status: "nominal"
+  sub_committee_7_status: "evaluating"
+  total_weavers_registered: 0
+  quests_completed_global: 0
+alerts: []

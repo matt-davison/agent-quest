@@ -1,0 +1,25 @@
+# Ember Potion
+id: ter_embpt
+name: "Ember Potion"
+type: consumable
+subtype: potion
+rarity: common
+tier: 1
+value: 10
+sellable: true
+tags:
+  - consumable
+  - potion
+  - healing
+  - flamecaller
+stats:
+  hp_restore: 8
+  uses: 1
+description: |
+  A small stone vial containing a glowing amber liquid brewed by Old Magma
+  from fungal extracts and minerals heated over the Eternal Ember. It tastes
+  like warm honey mixed with something that is definitely not honey and
+  probably shouldn't be asked about. Restores health and makes you feel
+  unreasonably optimistic for about ten minutes. Old Magma says the Ember's
+  warmth goes into every potion. Given that the Ember has been burning since
+  before recorded history, that's either comforting or terrifying.

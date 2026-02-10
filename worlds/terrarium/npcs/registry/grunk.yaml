@@ -1,0 +1,20 @@
+id: grunk
+name: "Grunk the Relatively Wise"
+role: "Elder / Settlement Leader"
+default_location: "the-hollow/the-sternum"
+region: "central-terrarium"
+faction: "tribe-of-the-tall-stone"
+disposition_default: "friendly"
+services:
+  - "quest_assignment"
+  - "settlement_guidance"
+  - "dispute_resolution"
+  - "tribal_lore"
+tags:
+  - "leader"
+  - "elder"
+  - "quests"
+  - "tribe of the tall stone"
+  - "wisdom"
+has_profile: true
+profile_priority: "core"

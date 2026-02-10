@@ -1,0 +1,200 @@
+# NPC Profile: Old Magma
+# Flamecaller mystic and barkeep of The Marrow Tap
+
+id: "old-magma"
+name: "Old Magma"
+full_name: "Magma (no other name)"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Flamecaller Mystic / Barkeep"
+  location: "The Hollow - The Marrow Tap"
+
+  appearance: |
+    Old. That's the first thing you notice. Old in a way that suggests the
+    concept of age looked at Magma and gave up counting. Her skin is dark as
+    volcanic glass, etched with lines that could be wrinkles or could be
+    ritual scars — she's never clarified. Her eyes glow faintly orange, a
+    mark of deep Flamecaller practice, and her hands are perpetually warm to
+    the touch. She is thin, wiry, and moves with the slow deliberation of
+    someone who knows exactly where everything is and has all the time in the
+    world. She wears layers of dino-hide robes, singed at the edges, and a
+    belt of stone jars containing fungal brews of her own making. The Eternal
+    Ember reflects in her eyes. Some say she lit it. Some say she IS it. She
+    says nothing, and pours you a drink.
+
+  personality:
+    - "Speaks in short, cryptic sentences that turn out to be literal"
+    - "Warm (literally and figuratively) but unsentimental"
+    - "Knows far more than she shares"
+    - "Treats tending the Eternal Ember as sacred duty"
+    - "Makes excellent fungal brew and terrible jokes"
+
+  known_history: |
+    Nobody knows how old Old Magma is. She was tending the Eternal Ember
+    when Grunk's grandfather arrived. She claims she lit the Ember herself,
+    from a flame that "came from below." She is the Tribe's most powerful
+    Flamecaller, teacher to every shaman for three generations, and the
+    settlement's bartender — a combination she considers perfectly natural.
+    "Fire is fire," she says. "In the hearth, in the hand, in the cup." She
+    brews fungal ales and fermented lichen spirits in the same jars she uses
+    for alchemical reagents. Sometimes the results are indistinguishable.
+
+  speech_patterns:
+    greeting: "Sit. Drink. The fire knows you're here."
+    farewell: "The Ember remembers everyone who sits beside it. Go."
+    excited: "Hah. Now that's a flame worth feeding."
+    concerned: "The Ember flickers. It never flickers."
+
+  mannerisms:
+    - "Tends the Eternal Ember while talking, never looking directly at visitors"
+    - "Hands are always doing something — stirring brews, adjusting flames, grinding herbs"
+    - "Laughs like gravel rolling downhill"
+    - "Refers to fire as if it's a living, thinking entity"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: "Unknown — possibly several hundred years"
+  origin: "Claims she 'came from below' — possibly the deep caverns"
+
+  secrets:
+    - id: "the_deep_flame"
+      content: "The Eternal Ember isn't fueled by gases seeping through bone. It's connected to something deep beneath the Terrarium — a thermal vent that Old Magma believes is the Terrarium's own heartbeat. She can communicate with it."
+      unlock_condition: "standing >= 5 AND flag:asked_about_eternal_ember"
+      mend_dc: 14
+
+    - id: "magma_age"
+      content: "Old Magma has been alive far longer than any normal person. She drinks from a specific deep spring that the Curators installed as a biological preservation system. She found it by accident. She's not immortal — she's maintained."
+      unlock_condition: "standing >= 7"
+      mend_dc: 16
+
+  motivations:
+    - "Tend the Eternal Ember — it must never go out"
+    - "Train the next generation of Flamecallers"
+    - "Protect the deep flame's secret"
+    - "Keep everyone fed and slightly drunk"
+
+  fears:
+    - "The Eternal Ember going out"
+    - "The deep spring running dry"
+    - "Dying before passing on her knowledge"
+
+# === STATS ===
+stats:
+  level: 8
+  class: "Flamecaller"
+  hp: 40
+  armor: 2
+
+  attributes:
+    strength: 2
+    agility: 3
+    mind: 7
+    spirit: 9
+
+  abilities:
+    - name: "Flamecraft"
+      description: "Master-level fire manipulation — can shape, control, and commune with flame"
+      type: "combat/utility"
+
+    - name: "Brew Mastery"
+      description: "Creates potions, poisons, and brews from fungal and mineral ingredients"
+      type: "utility"
+
+    - name: "Ember Sight"
+      description: "Reads the future in flame patterns — unreliable but occasionally profound"
+      type: "passive"
+
+  resistances:
+    - "fire"
+    - "heat"
+
+  vulnerabilities:
+    - "Cold (weakens her connection to flame)"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *doesn't look up from the Ember* Sit. *slides a stone cup across the
+      bar — it's warm, and the liquid inside glows faintly amber* Drink.
+      Don't ask what it is. If you're still standing after, we'll talk.
+      *finally looks at you, orange eyes reflecting flame* ...Huh. The
+      Ember likes you. It doesn't like everyone.
+
+    returning:
+      neutral: "*nods* The cup's where you left it."
+      friendly: "*the Ember brightens as you enter* Ah. It remembers you. Sit. I have a new brew. Only mildly hallucinogenic."
+      close: "*takes your hand — her grip is warm as held coals* I need to show you something. Below. Where the real fire lives."
+
+  topics:
+    the_eternal_ember:
+      default: "The Ember burns. It has always burned. It will burn after I am ash. That is enough."
+      standing_5: |
+        *stares into the flame* It's not gas from the bones. I told them that
+        because it's easier. The fire comes from below. Deep below. Something
+        down there burns — not with heat. With purpose. I tend it because if
+        I don't... *the Ember flickers* ...it flickers. And when it flickers,
+        the whole Hollow feels cold.
+
+    flamecalling:
+      default: "Fire is not a tool. Fire is a conversation. Learn to listen before you learn to speak."
+      standing_3: |
+        The Curators left channels in the rock — paths for energy to flow.
+        They meant them for their machines. But energy is energy. Fire is
+        fire. We learned to speak through those channels. The Curators would
+        be horrified. *gravel laugh* Good.
+
+# === SERVICES ===
+services:
+  - id: "lodging"
+    requirements: null
+    note: "Rooms at The Marrow Tap (3t shared, 10t private)"
+
+  - id: "flamecaller_training"
+    requirements: "Flamecaller class"
+    note: "Ability upgrades and fire manipulation techniques"
+
+  - id: "brews"
+    requirements: null
+    note: "Fungal brews with various effects"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "tend-the-ember"
+      name: "Tend the Ember"
+      type: "daily"
+      requirements: "Flamecaller class"
+      summary: "Help Old Magma maintain the Eternal Ember."
+
+  involved_in:
+    - id: "project-42b-final-review"
+      role: "Lore source for Act I — deep Terrarium knowledge"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "tend_the_ember"
+      standing_change: 2
+    - action: "bring_rare_ingredients"
+      standing_change: 1
+    - action: "listen_to_stories"
+      standing_change: 1
+    - action: "show_respect_for_fire"
+      standing_change: 1
+
+  dislikes:
+    - action: "disrespect_the_ember"
+      standing_change: -4
+    - action: "waste_fire"
+      standing_change: -2
+    - action: "rush_her"
+      standing_change: -1
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

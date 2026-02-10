@@ -1,0 +1,73 @@
+# Area: The Tinkerer's Nook
+# Part of: The Hollow
+
+id: "the-tinkerers-nook"
+name: "The Tinkerer's Nook"
+parent_location: "the-hollow"
+type: "training"
+
+description: |
+  Wedged into the joint where two ribs meet the spine, accessible only by a
+  bone-rung ladder that Skitter insists is "perfectly safe, probably." The
+  Nook is a chaotic workspace crammed with Curator technology in various
+  states of disassembly, hand-carved bone tools, glowing components that
+  nobody should touch (but everyone does), and a workbench that Skitter
+  has bolted, glued, and sworn at into structural integrity. Skitter
+  themselves hovers in the center — a basketball-sized Maintenance Orb
+  with a cracked CRT eye that displays emoticons, a slightly bent antenna,
+  and a personality that oscillates between manic helpfulness and existential
+  crisis. Sparks happen here. Explosions happen here. Progress, occasionally,
+  also happens here.
+
+local_coordinates:
+  x: 1
+  y: -2
+  floor: 2
+
+connected_areas:
+  - id: "the-sternum"
+    direction: "down-ladder"
+    distance: 0.02
+  - id: "the-marrow-tap"
+    direction: "down-ladder"
+    distance: 0.03
+
+interactions:
+  - action: "speak"
+    target: "Skitter"
+    description: "Get repairs, identify Curator artifacts, learn tinkering"
+  - action: "train"
+    target: "Workbench"
+    description: "Train abilities (costs teeth)"
+  - action: "repair"
+    target: "Equipment"
+    description: "Repair damaged weapons and armor"
+  - action: "identify"
+    target: "Curator Artifacts"
+    description: "Have Skitter examine unknown Curator items"
+
+npcs:
+  - id: "skitter"
+    name: "Skitter"
+    role: "Maintenance Orb / Tinker"
+    always_present: true
+
+items:
+  - id: "workbench"
+    name: "Skitter's Workbench"
+    type: "landmark"
+    interactive: true
+  - id: "parts-pile"
+    name: "Curator Parts Pile"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Skitter's CRT glow, sparking components, a jury-rigged Curator light strip"
+  sounds: "Skitter's servo whine, crackling electricity, occasional small explosions"
+  smells: "Ozone, hot metal, Curator lubricant, singed bone"

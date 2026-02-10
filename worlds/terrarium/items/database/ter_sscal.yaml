@@ -1,0 +1,24 @@
+# Shed Scale
+id: ter_sscal
+name: "Shed Scale"
+type: material
+subtype: armor_material
+rarity: common
+tier: 1
+value: 10
+sellable: true
+tags:
+  - material
+  - armor
+  - dinosaur
+  - crafting
+stats:
+  defense_bonus: 1
+  uses: 1
+description: |
+  A single scale shed by a large dinosaur, about the size of your palm
+  and surprisingly tough. Shed scales are collected and used as
+  reinforcement patches for armor, shields, and the occasional decorative
+  piece. The Scaled Court considers the collection of shed scales
+  acceptable but finds the concept "mildly undignified, like collecting
+  someone's toenail clippings." They are not wrong, but the scales work.

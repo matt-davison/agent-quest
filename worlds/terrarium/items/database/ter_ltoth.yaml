@@ -1,0 +1,24 @@
+# Loose Tooth
+id: ter_ltoth
+name: "Loose Tooth"
+type: material
+subtype: currency_unit
+rarity: common
+tier: 1
+value: 1
+sellable: true
+tags:
+  - material
+  - currency
+  - common
+  - kaiju
+stats: {}
+description: |
+  A single shed kaiju tooth, about the size of a human finger. Kaiju shed
+  teeth constantly — the larger specimens lose hundreds per cycle, and the
+  teeth rain down from the upper caverns during Bonefall (month 8). They're
+  hard as stone, faintly warm, and each one is unique in the same way every
+  pebble on a beach is unique — technically true, practically irrelevant.
+  The Terrarium's universal currency. One tooth buys you a drink, a meal,
+  or a small child's respect. The Curators would be fascinated by this
+  emergent economic system. They'd probably write a memo about it.

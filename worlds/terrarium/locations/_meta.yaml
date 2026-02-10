@@ -1,0 +1,64 @@
+# Location System Configuration - Terrarium
+# Individual location data lives in <location-id>/location.yaml
+# Location descriptions in <location-id>/README.md
+# Area details in <location-id>/areas/<area-id>.yaml
+
+version: "1.0"
+
+# Coordinate system configuration
+coordinate_system:
+  type: "cartesian_3d"
+  unit: "spans"
+  unit_description: "1 span = ~0.5 miles. Measured in three dimensions due to hollow earth curvature."
+  origin: "the-hollow"
+
+# Travel speed reference (spans per hour)
+travel_speeds:
+  walking: 4
+  running: 8
+  mounted_dino: 12
+  crawler: 20
+  orb_transport: "fast"
+
+# Distance calculation methods
+distance_methods:
+  euclidean: "sqrt((x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2)"
+  tunnel: "actual travel distance through root tunnels and cavern passages"
+  shell_distance: "curved distance along the inner shell surface"
+
+# Similarity search configuration
+embeddings:
+  enabled: false
+  model: "text-embedding-3-small"
+  dimensions: 256
+
+# Unexplored connections (hints for future content)
+unexplored_connections:
+  - from: "the-hollow"
+    to: "the-root-warren"
+    notes: "Vast root tunnel network, Digger faction territory"
+    status: "unexplored"
+
+  - from: "mount-tremor"
+    to: "the-deep-caldera"
+    notes: "Interior of the volcanic kaiju mountain, extreme danger"
+    status: "unexplored"
+
+  - from: "the-shell"
+    to: "the-bulb-approach"
+    notes: "Path toward The Bulb itself, Curator-restricted zone"
+    status: "unexplored"
+
+  - from: "curator-station-sigma"
+    to: "curator-station-omega"
+    notes: "Secondary Curator facility, rumored to house the project archives"
+    status: "unexplored"
+
+# === ADDING NEW LOCATIONS ===
+# To add a new location:
+# 1. Create directory: locations/<location-id>/
+# 2. Create locations/<location-id>/location.yaml with coordinates, type, connections
+# 3. Create locations/<location-id>/README.md with narrative description
+# 4. Add connections to neighboring locations' location.yaml files
+# 5. Optionally create areas/<area-id>.yaml for sub-locations
+# 6. WORLD EXPANSION: Add frontier stubs as unexplored_connections above.

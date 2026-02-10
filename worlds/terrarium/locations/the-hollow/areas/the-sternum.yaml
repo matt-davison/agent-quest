@@ -1,0 +1,79 @@
+# Area: The Sternum
+# Part of: The Hollow
+
+id: "the-sternum"
+name: "The Sternum"
+parent_location: "the-hollow"
+type: "special"
+
+description: |
+  The central plaza of The Hollow, built on Gorath's massive sternum bone. The
+  bone has been worn smooth by generations of feet, stained dark with age and
+  firelight. It's fifty feet wide and slopes gently upward toward the spine,
+  where Grunk's throne — carved from a fused vertebra — overlooks everything.
+  Bioluminescent fungi trail from the ribs overhead, casting shifting blue-green
+  light that makes everything look slightly underwater. Fang's diplomatic
+  pavilion occupies the eastern edge: dyed dinosaur hide stretched over bone
+  poles, surprisingly elegant, with actual cushions. A carved bone message board
+  near the center displays transcriptions of Monolith Zero's latest pronouncements,
+  which nobody fully understands but everyone has opinions about.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 1
+
+connected_areas:
+  - id: "the-gullet"
+    direction: "north"
+    distance: 0.05
+  - id: "the-marrow-tap"
+    direction: "south"
+    distance: 0.04
+  - id: "monolith-zero"
+    direction: "east"
+    distance: 0.03
+  - id: "the-tinkerers-nook"
+    direction: "up-ladder"
+    distance: 0.02
+
+interactions:
+  - action: "speak"
+    target: "Grunk the Relatively Wise"
+    description: "Seek guidance, accept quests, or settle disputes"
+  - action: "speak"
+    target: "Fang"
+    description: "Diplomatic inquiries and Scaled Court news"
+  - action: "examine"
+    target: "Message Board"
+    description: "Read transcriptions of Monolith Zero broadcasts"
+
+npcs:
+  - id: "grunk"
+    name: "Grunk the Relatively Wise"
+    role: "Elder / Settlement Leader"
+    always_present: true
+  - id: "fang"
+    name: "Fang"
+    role: "Scaled Court Diplomat"
+    always_present: true
+
+items:
+  - id: "grunks-throne"
+    name: "Grunk's Throne"
+    type: "landmark"
+    interactive: false
+  - id: "message-board"
+    name: "Bone Message Board"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: true
+
+atmosphere:
+  lighting: "Bioluminescent fungi, shifting blue-green, firelight from torches"
+  sounds: "Low conversation, distant bone-creaking, the hum from Monolith Zero"
+  smells: "Warm stone, cooking fires, dinosaur hide from Fang's tent"

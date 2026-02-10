@@ -1,0 +1,94 @@
+# Location: Curator Station Sigma
+# Abandoned(?) alien research facility
+
+id: "curator-station-sigma"
+name: "Curator Station Sigma"
+tagline: "Please badge in at reception. Reception has been dead for 60 million years."
+
+coordinates:
+  x: 18
+  y: -3
+  z: 2
+
+embedding: null
+
+region: "Eastern Terrarium"
+type: "dungeon"
+danger_level: "high"
+is_safe_zone: false
+
+level_range:
+  min: 5
+  max: 9
+
+tags:
+  - "curator"
+  - "facility"
+  - "dungeon"
+  - "alien tech"
+  - "high danger"
+  - "maintenance orbs"
+  - "lore"
+
+areas: []
+
+npcs: []
+
+connections:
+  - target: "the-monolith-fields"
+    direction: "west-ridge"
+    distance: 12
+    travel_time: "3 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "mount-tremor"
+    direction: "north-ridge"
+    distance: 8
+    travel_time: "2 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "the-shell"
+    direction: "up-shaft"
+    distance: 30
+    travel_time: "varies"
+    requirements:
+      - "Curator Trinket OR Tinker class"
+    danger: "extreme"
+
+encounters:
+  enabled: true
+  check_interval: "every 10 minutes exploration"
+  chance: 50
+  table:
+    - roll: [1, 2]
+      type: "combat"
+      event: "Malfunctioning Probe — haywire maintenance bot with laser"
+      creatures: ["malfunctioning-probe"]
+      count: 1
+    - roll: [3, 3]
+      type: "hazard"
+      event: "Security system activates — energy barrier or gas trap"
+      check: "Mind DC 14"
+      failure: "2d4 energy damage"
+    - roll: [4, 4]
+      type: "discovery"
+      event: "Intact Curator data terminal — lore and maps"
+    - roll: [5, 5]
+      type: "treasure"
+      event: "Supply cache — Curator equipment in stasis"
+      loot: "Curator Trinket, 2d10 teeth"
+    - roll: [6, 6]
+      type: "monolith"
+      event: "A wall-mounted display activates — Station Sigma status report"
+
+secrets:
+  - id: "the-archive"
+    requirements:
+      - "Clear all three security zones"
+      - "Interface with the central terminal"
+
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

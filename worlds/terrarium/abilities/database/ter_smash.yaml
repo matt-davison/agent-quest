@@ -1,0 +1,49 @@
+# Smash - Bonecrusher starting ability
+id: ter_smash
+name: "Smash"
+type: ability
+subtype: melee_attack
+class: bonecrusher
+tier: 1
+tags:
+  - melee
+  - attack
+  - knockback
+  - bonecrusher
+
+prerequisites:
+  min_strength: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "A devastating overhead blow. Deals weapon damage +3 and pushes target back 1 space."
+    willpower_cost: 1
+    effect:
+      attack:
+        targets: one_creature
+        damage_bonus: 3
+        knockback: 1
+    learn_cost: 0
+  2:
+    description: "Deals weapon damage +6 and pushes target back 2 spaces. 25% chance to stun for 1 round."
+    willpower_cost: 2
+    effect:
+      attack:
+        targets: one_creature
+        damage_bonus: 6
+        knockback: 2
+        stun_chance: 25
+        stun_duration: 1
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 3
+  cooldown_rounds: 1
+
+action_type: major
+range: adjacent
+target: creature

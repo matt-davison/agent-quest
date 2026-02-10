@@ -1,0 +1,95 @@
+id: "terrarium"
+name: "Terrarium"
+description: |
+  Deep beneath the Earth lies the Terrarium — a massive hollow sphere lit by an
+  artificial bioluminescent sun called The Bulb, maintained by The Curators —
+  a hyper-advanced but hopelessly bureaucratic alien species. They created this
+  enclosed ecosystem as "Project 42-B: Sentient Life Viability Study"
+  approximately 65 million years ago. (They dropped the asteroid to "reset the
+  control group on the surface.") The Terrarium contains: prehistoric megafauna,
+  cavemen tribes, kaiju ("unscheduled mutations"), fantasy races ("variant
+  phenotype experiments"), and alien tech disguised as natural features. The
+  Curators communicate via monoliths, argue about funding, and leak memos the
+  inhabitants interpret as "prophecies." Don't Panic.
+
+settings:
+  starting_location: "the-hollow"
+  starting_gold: 25
+  currency_name: "teeth"
+  currency_flavor: "shed kaiju teeth, the universal currency of the Terrarium"
+  level_cap: 10
+  pvp_enabled: true
+  user_generation: disabled
+
+classes:
+  - id: bonecrusher
+    name: "Bonecrusher"
+    description: "Caveman warrior. Hits things with bigger things. Simple philosophy, devastating results."
+    primary_attribute: strength
+    secondary_attribute: agility
+    starting_ability: smash
+
+  - id: flamecaller
+    name: "Flamecaller"
+    description: "Shaman channeling primal forces the Curators left accessible. They meant it as a diagnostic tool. Oops."
+    primary_attribute: spirit
+    secondary_attribute: mind
+    starting_ability: ember-touch
+
+  - id: tinker
+    name: "Tinker"
+    description: "Uses Curator tech without understanding it. Neither do the Curators, anymore. It's been 65 million years."
+    primary_attribute: mind
+    secondary_attribute: agility
+    starting_ability: cobble
+
+  - id: beastwhisperer
+    name: "Beastwhisperer"
+    description: "Bonds with megafauna through empathy and bioluminescent pheromones. Some have befriended juvenile kaiju. HR is concerned."
+    primary_attribute: spirit
+    secondary_attribute: strength
+    starting_ability: call-companion
+
+  - id: chronicler
+    name: "Chronicler"
+    description: "Piecing together the truth about the Terrarium, one Curator memo at a time. Carries The Guide."
+    primary_attribute: mind
+    secondary_attribute: spirit
+    starting_ability: consult-the-guide
+
+factions:
+  - id: tribe-of-the-tall-stone
+    name: "Tribe of the Tall Stone"
+    description: "Largest caveman settlement, built around a Curator monolith they worship as a god. It's actually a firmware update terminal."
+    alignment: neutral
+    headquarters: "the-hollow"
+
+  - id: the-maintenance-orbs
+    name: "The Maintenance Orbs"
+    description: "Curator maintenance bots left running for 65 million years. They've developed personalities, opinions, and existential dread."
+    alignment: unknown
+    headquarters: null
+
+  - id: the-scaled-court
+    name: "The Scaled Court"
+    description: "An intelligent dinosaur civilization. Formally organized, diplomatically skilled, and impeccably dressed."
+    alignment: neutral
+    headquarters: null
+
+  - id: titan-cult
+    name: "Titan Cult"
+    description: "Kaiju worshippers who believe the great beasts are divine. They're technically correct — the Curators did design them."
+    alignment: chaotic
+    headquarters: null
+
+  - id: the-diggers
+    name: "The Diggers"
+    description: "Trying to dig UP to the surface. Nobody believes there IS a surface. They've been digging for generations."
+    alignment: good
+    headquarters: null
+
+  - id: sub-committee-7
+    name: "Sub-Committee 7"
+    description: "Actual Curator oversight body. Their pronouncements are deeply confusing bureaucratic jargon misinterpreted as divine prophecy."
+    alignment: lawful
+    headquarters: null

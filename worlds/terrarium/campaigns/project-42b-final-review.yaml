@@ -1,0 +1,171 @@
+# Main Campaign: Project 42-B — Final Review
+# The Curators' oversight board has scheduled a final review.
+# If the Terrarium fails evaluation, it gets "decommissioned."
+
+id: "project-42b-final-review"
+name: "Project 42-B: Final Review"
+status: "active"
+type: "main_campaign"
+
+description: |
+  Sub-Committee 7 has scheduled a Final Review of the Terrarium project.
+  In 42 days, the oversight board will evaluate whether Project 42-B has
+  demonstrated "measurable value." If it hasn't, the project will be
+  "decommissioned" — a bureaucratic euphemism for sterilizing the
+  ecosystem and repurposing the geological formation. Everyone in the
+  Terrarium will die. Not metaphorically. Actually die.
+
+  The inhabitants don't fully understand this yet. The monoliths are
+  broadcasting warnings in corporate jargon that nobody can parse. But
+  the signs are there: Maintenance Orbs behaving erratically, increased
+  seismic activity, The Bulb flickering during diagnostics, and Curator
+  Station Sigma showing activity for the first time in millennia.
+
+  The clock is ticking. The question is not whether the Terrarium can be
+  saved. The question is whether anyone can figure out what "demonstrating
+  measurable value" means to a bureaucratic alien oversight committee
+  before time runs out.
+
+countdown:
+  total_days: 42
+  current_day: 1
+  end_event: "Final Review Assessment"
+
+# === ACT STRUCTURE ===
+acts:
+  - id: "act-1"
+    name: "The Warning Signs"
+    description: |
+      The monoliths are getting louder. Maintenance Orbs are behaving
+      strangely. Grunk's teeth ache. Something is coming, but nobody
+      knows what. Players explore the Terrarium, meet the factions, and
+      begin to piece together the truth from Curator Memos and monolith
+      broadcasts.
+    level_range: [1, 4]
+    key_npcs:
+      - "grunk"
+      - "skitter"
+      - "old-magma"
+    key_locations:
+      - "the-hollow"
+      - "the-monolith-fields"
+      - "the-sulphur-pools"
+    objectives:
+      - "Discover the meaning of the monolith warnings"
+      - "Collect Curator Memos to piece together the history"
+      - "Establish relationships with key NPCs"
+      - "Learn about the Curators from Skitter and Rattlejaw"
+    trigger: "Complete tutorial quest 'Don't Panic'"
+    end_condition: "Discover the existence of Curator Station Sigma"
+
+  - id: "act-2"
+    name: "The Truth Beneath"
+    description: |
+      The truth is revealed: the Terrarium is an alien experiment, and
+      it's about to be shut down. Players must unite the factions — the
+      Tribe, the Scaled Court, the Maintenance Orbs, even the Titan Cult
+      — to face the coming review. But first, they need to reach Curator
+      Station Sigma and access the project archives.
+    level_range: [4, 7]
+    key_npcs:
+      - "fang"
+      - "rattlejaw"
+      - "skitter"
+    key_locations:
+      - "bonewood-forest"
+      - "curator-station-sigma"
+      - "mount-tremor"
+    objectives:
+      - "Infiltrate Curator Station Sigma"
+      - "Access the Project 42-B archives"
+      - "Learn what 'decommissioning' means"
+      - "Convince the Scaled Court to cooperate"
+      - "Navigate the Titan Cult's response to the revelation"
+    trigger: "Complete Act 1"
+    end_condition: "Access the Station Sigma archives AND read the Dissenting Opinion"
+
+  - id: "act-3"
+    name: "The Final Review"
+    description: |
+      The countdown reaches zero. Sub-Committee 7 begins its assessment.
+      Players must find a way to demonstrate the Terrarium's value — or
+      find an alternative to compliance. Multiple endings depending on
+      player choices, faction alliances, and discoveries.
+    level_range: [7, 10]
+    key_npcs:
+      - "grunk"
+      - "fang"
+      - "skitter"
+      - "rattlejaw"
+    key_locations:
+      - "the-shell"
+      - "curator-station-sigma"
+      - "the-hollow"
+    objectives:
+      - "Prepare for the Final Review"
+      - "Choose a path: compliance, defiance, or negotiation"
+      - "Unite (or betray) the factions"
+      - "Confront Sub-Committee 7"
+    trigger: "Complete Act 2 AND countdown <= 7 days"
+    end_condition: "The Final Review resolves"
+
+# === ENDINGS ===
+endings:
+  - id: "compliance"
+    name: "The Report Card"
+    description: |
+      Submit the evidence of the Terrarium's achievements to Sub-Committee 7
+      in their own language — bureaucratic metrics, data tables, and value
+      propositions. The review board is satisfied. The Terrarium gets another
+      funding cycle. Life continues. The paperwork is eternal.
+    requirements:
+      - "Collected 20+ Curator Memos"
+      - "Allied with Skitter (standing >= 6)"
+      - "Accessed full Station Sigma archives"
+
+  - id: "defiance"
+    name: "The Lock-Out"
+    description: |
+      Use Curator tech to lock Sub-Committee 7 out of the Terrarium's
+      systems. Sever the monolith network's connection to the oversight
+      board. The Terrarium becomes independent — and alone. No more
+      maintenance updates, no more Bulb support, no more safety net. But
+      also no more reviews. Freedom, at a cost.
+    requirements:
+      - "Tinker class OR allied with Skitter (standing >= 8)"
+      - "Reached The Shell"
+      - "Obtained the Contingency Kit from Rattlejaw"
+
+  - id: "negotiation"
+    name: "The New Terms"
+    description: |
+      Establish direct communication with Sub-Committee 7 and negotiate
+      new terms. The Terrarium is reclassified from "experiment" to
+      "autonomous protectorate." The inhabitants gain a voice. The
+      Curators keep their data. Nobody is fully happy. This is how you
+      know the negotiation worked.
+    requirements:
+      - "Allied with Fang (standing >= 6)"
+      - "All factions at neutral or better"
+      - "Translated the Dissenting Opinion for Sub-Committee 7"
+
+  - id: "awakening"
+    name: "The Sleeper Wakes"
+    description: |
+      Wake Specimen T-001 — Gorath — from its dormancy. The dormant kaiju
+      beneath The Hollow is the single most impressive specimen in the
+      Terrarium. Its awakening is terrifying, destructive, and undeniable
+      proof that Project 42-B produced something Sub-Committee 7 cannot
+      ignore. Whether this saves the Terrarium or dooms it depends on
+      whether anyone can calm Gorath down afterward.
+    requirements:
+      - "Discovered The Heart Chamber secret"
+      - "Level >= 9"
+      - "Beastwhisperer class OR allied with the Titan Cult"
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

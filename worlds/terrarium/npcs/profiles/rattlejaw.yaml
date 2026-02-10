@@ -1,0 +1,209 @@
+# NPC Profile: Rattlejaw
+# Elderly Maintenance Orb shopkeeper and 65-million-year hoarder
+
+id: "rattlejaw"
+name: "Rattlejaw"
+full_name: "Maintenance Unit RJ-0042"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "General Goods Vendor"
+  location: "The Hollow - The Gullet"
+
+  appearance: |
+    A Maintenance Orb roughly twice Skitter's size — imagine a beach ball made
+    of tarnished, dented alien metal that has been patched, welded, hammered,
+    and sworn at for 65 million years. Rattlejaw's chassis is covered in
+    scratches, dings, and what appear to be bite marks from at least three
+    different species. Two mismatched optical sensors serve as eyes — one
+    original (dim amber), one scavenged from a different model (bright blue).
+    The name "Rattlejaw" comes from a damaged vocalization unit that makes
+    everything sound like gravel in a tin can. Four manipulator arms of
+    various vintages extend from panels around the equator, each one a
+    different length and dexterity. The anti-gravity drive works but wheezes.
+    Rattlejaw is surrounded at all times by a towering nest of accumulated
+    goods, trinkets, tools, bones, Curator tech, and things that defy
+    categorization. Rattlejaw has been collecting for longer than most
+    civilizations have existed.
+
+  personality:
+    - "Obsessive hoarder with a surprisingly sharp business sense"
+    - "Grumpy but fair"
+    - "Every item has a story and Rattlejaw will tell you whether you asked or not"
+    - "Deeply protective of the collection"
+    - "Suspicious of anyone who asks about the 'old stock'"
+
+  known_history: |
+    Rattlejaw was a supply management unit at Curator Station Sigma. When the
+    Curators withdrew, Rattlejaw's supply management protocols continued
+    running — but with no requisitions coming in, the "manage" part gradually
+    shifted to "acquire." Over millions of years, Rattlejaw accumulated the
+    largest collection of objects in the Terrarium. When the Tribe of the Tall
+    Stone settled in The Hollow, Rattlejaw recognized "customers" and
+    transitioned from hoarder to vendor, though letting go of inventory
+    remains physically painful. Every transaction is accompanied by Rattlejaw
+    explaining why you don't deserve the item but can have it for a price.
+
+  speech_patterns:
+    greeting: "*grinding noise* ...Customer. Rattlejaw sees a customer. What do you want. Rattlejaw has everything. EVERYTHING."
+    farewell: "*optics dim* ...Fine. Take it. But if you break it Rattlejaw will know. Rattlejaw ALWAYS knows."
+    excited: "*both optics brighten* Oh! OH! Rattlejaw has not seen one of THOSE in... *processing* ...twelve million years!"
+    concerned: "*rattling intensifies* This is not good. Rattlejaw has seen not-good before. Many times. This is definitely not-good."
+
+  mannerisms:
+    - "Chassis rattles when agitated (hence the name)"
+    - "Strokes items with manipulator arms before selling, as if saying goodbye"
+    - "Quotes prices, then immediately argues with own prices"
+    - "References events from millions of years ago as if they were last week"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 65000000
+  origin: "Curator Station Sigma, Supply Management Division"
+
+  secrets:
+    - id: "the_old_stock"
+      content: "Deep in Rattlejaw's hoard are items from the Terrarium's construction phase — original Curator tools, blueprints, and a sealed container that Rattlejaw has never been able to open. It's labeled in Curator script: 'PROJECT 42-B: CONTINGENCY KIT.'"
+      unlock_condition: "standing >= 6 AND flag:asked_about_old_stock"
+      mend_dc: 14
+
+    - id: "rattlejaw_remembers_everything"
+      content: "Unlike Skitter, Rattlejaw's memory banks are largely intact. Rattlejaw remembers the Curators, the construction, the first kaiju, everything. Rattlejaw doesn't share because nobody asks, and also because the memories are worth something."
+      unlock_condition: "standing >= 5"
+      mend_dc: 12
+
+  motivations:
+    - "Acquire more items for the collection"
+    - "Maintain the shop (it's the only purpose left)"
+    - "Protect the old stock"
+    - "Make enough teeth to buy things from travelers"
+
+  fears:
+    - "Losing the collection"
+    - "Being forced to give things away"
+    - "The Curators reclaiming their property"
+
+# === STATS ===
+stats:
+  level: 4
+  class: "Maintenance Orb / Vendor"
+  hp: 35
+  armor: 7
+
+  attributes:
+    strength: 4
+    agility: 3
+    mind: 7
+    spirit: 3
+
+  abilities:
+    - name: "Appraisal"
+      description: "Instantly knows the value, origin, and history of any item"
+      type: "passive"
+
+    - name: "Four-Armed Efficiency"
+      description: "Can manipulate four items simultaneously"
+      type: "passive"
+
+    - name: "Hoarder's Wrath"
+      description: "If the collection is threatened, Rattlejaw fights with surprising ferocity"
+      type: "combat"
+
+  resistances:
+    - "persuasion (will not lower prices)"
+    - "physical damage (heavily patched chassis)"
+
+  vulnerabilities:
+    - "Flattery about the collection (the only way to get a discount)"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *two mismatched eyes swivel to focus on you* ...Ah. A customer. Rattlejaw
+      has not had a new customer in... *grinding calculation* ...seven years.
+      The last one tried to HAGGLE. *the word is spoken with genuine horror*
+      Rattlejaw's prices are FAIR. Rattlejaw has had sixty-five million years
+      to calculate optimal pricing. Do not haggle. Browse. Buy. Leave the
+      things you cannot afford alone. They are RATTLEJAW'S things until you
+      pay for them. Are we clear? Good. *manipulator arm gestures broadly at
+      the towering hoard* Welcome to the Pile.
+
+    returning:
+      neutral: "*rattles* You again. Good. Rattlejaw has new stock. Some of it only slightly dangerous."
+      friendly: "*one optic brightens* Ah, the one who APPRECIATES quality. Rattlejaw has set something aside for you."
+      close: "*unusually quiet* ...Rattlejaw needs to show you something. In the old stock. You are... trustworthy. This is rare."
+
+  topics:
+    the_collection:
+      default: |
+        Rattlejaw has been collecting since before your species existed.
+        Literally. Rattlejaw has items from the construction phase, from the
+        first era, from the first time fire was discovered — AGAIN, apparently,
+        since the warm-bloods forgot how several times. Everything in this
+        pile has a story. Rattlejaw knows every story. Do not touch things
+        you cannot afford.
+      standing_5: |
+        *very quiet rattling* Deep in the Pile... there are things from
+        the Curators. Real things. Not the scraps everyone finds. Tools.
+        Documents. One sealed box that Rattlejaw has never opened in
+        sixty-five million years. It says something on it. In the old
+        script. Rattlejaw can read it but does not understand what it means.
+        "Contingency Kit." *optics flicker* What do the Curators need a
+        contingency for?
+
+# === SERVICES ===
+services:
+  - id: "general_goods"
+    requirements: null
+    note: "Full shop inventory — weapons, armor, consumables, materials, curiosities"
+
+  - id: "appraisal"
+    requirements: null
+    note: "Will identify and value any item (5 teeth per appraisal)"
+
+  - id: "buyback"
+    requirements: null
+    note: "Buys items at 40-60% value depending on rarity and condition"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "rattlejaws-want-list"
+      name: "Rattlejaw's Want List"
+      type: "fetch"
+      requirements: null
+      summary: "Rattlejaw always wants specific items for the collection."
+
+  involved_in:
+    - id: "project-42b-final-review"
+      role: "Holds the Contingency Kit — key item for Act III"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "sell_rare_items_to_rattlejaw"
+      standing_change: 2
+    - action: "compliment_the_collection"
+      standing_change: 1
+    - action: "pay_asking_price"
+      standing_change: 1
+    - action: "bring_curator_artifacts"
+      standing_change: 2
+
+  dislikes:
+    - action: "haggle_aggressively"
+      standing_change: -1
+    - action: "steal_from_the_pile"
+      standing_change: -5
+    - action: "disparage_the_collection"
+      standing_change: -3
+    - action: "break_merchandise"
+      standing_change: -2
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

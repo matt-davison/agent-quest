@@ -1,0 +1,50 @@
+# Call Companion - Beastwhisperer starting ability
+id: ter_callc
+name: "Call Companion"
+type: ability
+subtype: summoning
+class: beastwhisperer
+tier: 1
+tags:
+  - summoning
+  - beast
+  - companion
+  - beastwhisperer
+
+prerequisites:
+  min_spirit: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Summon your bonded beast companion to fight alongside you. The companion has HP equal to your level x5, attacks for 4 damage, and acts on your initiative. Lasts until dismissed or reduced to 0 HP."
+    willpower_cost: 2
+    effect:
+      summon:
+        companion_hp: "level x 5"
+        companion_damage: 4
+        companion_speed: fast
+        duration: "until dismissed or 0 HP"
+    learn_cost: 0
+  2:
+    description: "Companion gains +5 HP and +2 damage. Can issue commands: Guard (companion intercepts attacks on you), Fetch (companion retrieves items), Track (companion follows a scent trail)."
+    willpower_cost: 3
+    effect:
+      summon:
+        companion_hp: "level x 5 + 5"
+        companion_damage: 6
+        companion_speed: fast
+        commands: ["guard", "fetch", "track"]
+        duration: "until dismissed or 0 HP"
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 1
+  cooldown_rounds: null
+
+action_type: major
+range: "3 spaces"
+target: self

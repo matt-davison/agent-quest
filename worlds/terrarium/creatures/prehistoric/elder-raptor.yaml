@@ -1,0 +1,184 @@
+# Elder Raptor
+# Tier: Elite | Role: Intelligent Predator / Possible Diplomat
+
+id: "elder-raptor"
+name: "Elder Raptor"
+category: prehistoric
+tier: elite
+level: 6
+
+description: |
+  Not all raptors in the Terrarium are mindless predators. The Elder Raptors
+  are senior members of the Scaled Court — intelligent, experienced, and
+  sophisticated enough to wear accessories. They stand about six feet tall,
+  with iridescent green-blue scales maintained to a mirror polish, and eyes
+  that assess you the way a chess grandmaster assesses a board. They carry
+  themselves with lethal grace and perfect posture. Elder Raptors may
+  negotiate before combat, may offer terms during combat, and may critique
+  your technique after combat. They are terrifyingly competent in a fight
+  but vastly prefer to resolve situations through what they call
+  "civilized discourse" — though their definition of civilized includes
+  the phrase "or I will eat you."
+
+stats:
+  hp: 50
+  defense: 14
+  attack_bonus: +5
+  damage: 12
+  speed: very_fast
+  initiative_bonus: +5
+
+role: elite_predator
+
+defenses:
+  resistances:
+    - fear
+  immunities: []
+  vulnerabilities:
+    - cold
+
+abilities:
+  - name: "Precision Claw"
+    type: active
+    description: |
+      A surgical claw strike targeting weak points.
+      Attack: +5 to hit, 12 damage. Ignores 2 armor.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 12
+    effects: []
+    ai_priority: high
+    ai_condition: "Standard attack"
+
+  - name: "Pounce"
+    type: active
+    description: |
+      Leaps up to 4 spaces and attacks with both claws.
+      Attack: +5 to hit, 18 damage. Target must pass Agility DC 14
+      or be pinned (cannot move for 1 round).
+    cooldown: 3
+    cost: 0
+    range: "4 spaces"
+    area: null
+    damage: 18
+    effects:
+      - effect: "pinned"
+        duration: 1
+        save_dc: 14
+        chance: 100
+    ai_priority: high
+    ai_condition: "Opening move or when target tries to flee"
+
+  - name: "Tactical Assessment"
+    type: passive
+    description: |
+      Elder Raptors study their opponents. After 2 rounds of combat,
+      they gain +2 to hit and +2 damage against all targets they've
+      observed.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Activates after round 2"
+
+  - name: "Parley"
+    type: special
+    description: |
+      At any point, the Elder Raptor may offer to negotiate. Players
+      can accept (Spirit check DC 12 for favorable terms) or refuse
+      (combat continues with Raptor gaining +1 morale from indignation).
+    cooldown: 0
+    cost: 0
+    range: "voice"
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "25% chance each round if opponent seems reasonable"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "forest"
+      bonus: "+2 to stealth, can attack from canopy"
+    - terrain_type: "elevated"
+      bonus: "Pounce range increased to 6 spaces"
+
+  interactions:
+    - element: "diplomatic_gesture"
+      behavior: "Pauses combat to assess sincerity"
+      priority: high
+      condition: "Player attempts communication"
+
+  hazard_immunity: []
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 25
+  break_behavior: tactical_withdrawal
+  group_morale: false
+  leader_dependent: false
+  rally_condition: "Reinforcements arrive"
+
+targeting:
+  primary: most_dangerous
+  secondary: most_intelligent
+  avoids:
+    - "Beastwhisperers (will attempt diplomacy first)"
+  switches_target_when: "A more dangerous threat emerges"
+
+pack_tactics:
+  enabled: false
+
+loot:
+  gold:
+    min: 10
+    max: 30
+  xp: 80
+  guaranteed_drops:
+    - item: "Raptor Scale"
+      quantity: 1
+  chance_drops:
+    - item: "Scaled Court Token"
+      chance: 20
+      quantity: 1
+  rare_drops:
+    - item: "Elder Raptor Claw"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  prehistoric:
+    - "Fully sentient and intelligent"
+    - "Member of the Scaled Court civilization"
+    - "May be wearing accessories or carrying diplomatic pouches"
+
+encounter_notes: |
+  Elder Raptors are unique enemies that can become allies mid-combat.
+
+  Combat tactics:
+  - Opens with Pounce to pin the most dangerous target
+  - Uses Precision Claw for sustained damage
+  - Tactical Assessment makes long fights increasingly dangerous
+  - May offer Parley — accepting can end combat peacefully
+
+  Counters:
+  - Cold damage slows them significantly
+  - Accepting Parley avoids combat entirely
+  - Beastwhisperers have advantage on Parley checks
+  - Area denial prevents Pounce
+
+  Special: Defeating an Elder Raptor reduces Scaled Court standing by 1.
+  Negotiating successfully increases standing by 1.
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Scaled Court senior members encountered outside their territory"
+  cr_equivalent: 4

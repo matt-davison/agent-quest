@@ -1,0 +1,67 @@
+# NPC System Configuration - Terrarium
+# Shared config for the NPC system. Individual NPC data lives in registry/<npc-id>.yaml
+# Profiles live in profiles/<npc-id>.yaml
+# Schedules live in schedules/<npc-id>.yaml
+
+version: "1.0"
+last_updated: "2026-02-09T12:00:00Z"
+
+# === FACTION DEFINITIONS ===
+factions:
+  tribe-of-the-tall-stone:
+    name: "Tribe of the Tall Stone"
+    description: "Largest caveman settlement, built around a monolith they worship. It's a firmware update terminal."
+    disposition_modifier: 0
+
+  the-maintenance-orbs:
+    name: "The Maintenance Orbs"
+    description: "Curator bots running for 65 million years. Personalities, existential dread, opinions about everything."
+    disposition_modifier: 0
+
+  the-scaled-court:
+    name: "The Scaled Court"
+    description: "Intelligent dinosaur civilization. Diplomatic, organized, impeccably dressed."
+    disposition_modifier: 0
+
+  titan-cult:
+    name: "Titan Cult"
+    description: "Kaiju worshippers. Believe the great beasts are divine. Technically correct."
+    disposition_modifier: -1
+
+  the-diggers:
+    name: "The Diggers"
+    description: "Trying to dig to the surface. Stubborn, brave, slightly mad."
+    disposition_modifier: 0
+
+  sub-committee-7:
+    name: "Sub-Committee 7"
+    description: "Actual Curator oversight. Bureaucratic pronouncements misread as prophecy."
+    disposition_modifier: 0
+
+  independents:
+    name: "Independents"
+    description: "Unaffiliated with major factions"
+    disposition_modifier: 0
+
+# === PROFILE GENERATION TRIGGERS ===
+profile_triggers:
+  interaction_threshold: 3
+  quest_involvement: true
+  combat_encounter: true
+  standing_threshold: 5
+  player_request: true
+
+# === UTILITIES ===
+disposition_map:
+  hostile: [-10, -6]
+  unfriendly: [-5, -3]
+  neutral: [-2, 2]
+  friendly: [3, 5]
+  close: [6, 8]
+  devoted: [9, 10]
+
+# === ADDING NEW NPCS ===
+# To add a new NPC:
+# 1. Create registry/<npc-id>.yaml with basic info (id, name, role, location, etc.)
+# 2. Optionally create profiles/<npc-id>.yaml for detailed NPC data
+# 3. Optionally create schedules/<npc-id>.yaml if they move around

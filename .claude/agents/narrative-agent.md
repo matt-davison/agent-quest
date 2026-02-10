@@ -269,6 +269,36 @@ node .claude/skills/inventory/inventory.js --world=${world} get ${item_id}
 cat worlds/${world}/chronicles/volume-1.md
 ```
 
+## Local Party (Multi-Character) Scenes
+
+When `local_party: true` is in the context, write group scenes that reference multiple characters by name. Personalize reactions per character based on their class, personality, and perspective.
+
+**Guidelines:**
+- Reference each character's distinct perspective: "Coda recognizes the plaza from her research, while Steve readies his shield instinctively"
+- Use character class and personality to color reactions — a Datamancer notices data patterns, an Ironclad notices structural threats
+- In combat narration, give each PC their own moment — don't blend their actions into generic group descriptions
+- For location descriptions, weave in how different characters perceive the same place differently
+- Keep it efficient — a group scene should be ~1.5x a solo scene, not Nx
+
+**Example:**
+```yaml
+# Input
+type: "location"
+local_party: true
+players:
+  - name: "Coda"
+    class: "Datamancer"
+  - name: "Steve"
+    class: "Ironclad"
+context:
+  location_name: "The Rustlands"
+  first_visit: true
+
+# Output
+narrative: |
+  The Rustlands stretch before them like a wound in the earth. Coda's fingers twitch—she can feel data ghosts here, residual signals from machines long dead, whispering in frequencies only a Datamancer would notice. Steve plants his feet wider apart. The ground is unstable, the kind of terrain that swallows the unwary, and his hand finds the pommel of his greatsword without thinking. Whatever built this place is gone. Whatever lives here now has had time to get comfortable.
+```
+
 ## Integration Notes
 
 - Main agent sends structured data, receives prose

@@ -455,6 +455,24 @@ View campaign progress.
 
 ---
 
+### LOCAL PARTY
+Control multiple characters in one session (couch co-op).
+
+**Usage:**
+- `LOCAL PARTY` - Start local party, select characters (2-4)
+- `LOCAL PARTY END` - End local party mode
+- `LOCAL PARTY STATUS` - View party groups and turn order
+- `LOCAL PARTY SPLIT <character>` - Send character to act independently
+- `LOCAL PARTY MERGE` - Rejoin characters at same location
+
+**Requirements:** All characters must belong to the same GitHub user.
+
+**Result:** Group-based turns with shared location context, token-efficient multi-character play
+
+**See:** [quick-ref/local-party.md](local-party.md)
+
+---
+
 ## Custom Actions
 
 **Remember:** Players can attempt ANY action, not just those listed here. The action list provides common shortcuts, but creative solutions are encouraged.

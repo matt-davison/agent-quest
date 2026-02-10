@@ -176,6 +176,49 @@ errors:
 action_required: "Fix persona file before saving"
 ```
 
+## Local Party Session End
+
+When ending a local party session, multiple characters' files need to be committed:
+
+**Staging:** Stage all participating characters' persona directories:
+```bash
+git add worlds/${world}/players/${github}/personas/${char1}/
+git add worlds/${world}/players/${github}/personas/${char2}/
+# ... for each character in the local party
+```
+
+**Commit message:** List all characters:
+```
+Local Party: Coda & Steve Strong - [session summary]
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+```
+
+**Branch naming:** Use the github user with "local-party" suffix:
+```
+<github>-local-party-<date>[-<sequence>]
+```
+
+**PR body:** Include per-character status sections:
+```markdown
+## Session Summary
+
+<session summary covering all characters>
+
+## Character Status at Save
+
+### Coda (Datamancer 2)
+- **HP:** 90/100 | **WP:** 26/36 | **Gold:** 40
+- **Location:** Nexus Station
+
+### Steve Strong (Ironclad 3)
+- **HP:** 60/120 | **WP:** 18/20 | **Gold:** 200
+- **Location:** Nexus Station
+
+## Content Created
+...
+```
+
 ## Safety Rules
 
 1. **Never force push** - Especially not to main

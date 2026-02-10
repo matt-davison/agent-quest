@@ -1,0 +1,192 @@
+# Malfunctioning Probe
+# Tier: Standard | Role: Haywire Maintenance Bot
+
+id: "malfunctioning-probe"
+name: "Malfunctioning Probe"
+category: curator
+tier: standard
+level: 4
+
+description: |
+  A Curator maintenance unit that was never designed for combat and has
+  become very bad at everything else. Malfunctioning Probes are larger than
+  standard Maintenance Orbs — roughly the size of a large desk, with a
+  more angular chassis and multiple tool arms. They were meant to perform
+  structural repairs, environmental monitoring, and "specimen management"
+  (the Curators' polite term for wrangling escaped dinosaurs). After 65
+  million years without a software update, their behavioral protocols have
+  degraded. Their self-repair routines have overwritten non-violence
+  parameters. Their specimen management tools have been repurposed as
+  weapons. They still announce their maintenance status in a cheerful
+  synthetic voice while trying to vaporize you. "PERFORMING ROUTINE
+  MAINTENANCE. PLEASE HOLD STILL. THIS WILL ONLY HURT BRIEFLY."
+
+stats:
+  hp: 32
+  defense: 14
+  attack_bonus: +4
+  damage: 10
+  speed: moderate
+  initiative_bonus: +2
+
+role: ranged_combatant
+
+defenses:
+  resistances:
+    - electricity
+    - radiation
+  immunities:
+    - poison
+    - psychic
+  vulnerabilities:
+    - water
+    - magnetic
+
+abilities:
+  - name: "Maintenance Laser"
+    type: active
+    description: |
+      A focused cutting beam repurposed as a weapon.
+      Attack: +4 to hit, 10 damage, range: 4 spaces.
+      Burns through 1 point of armor permanently.
+    cooldown: 0
+    cost: 0
+    range: "4 spaces"
+    area: null
+    damage: 10
+    effects:
+      - effect: "armor_degrade"
+        duration: 0
+        save_dc: 0
+        chance: 100
+    ai_priority: high
+    ai_condition: "Standard ranged attack"
+
+  - name: "Specimen Clamp"
+    type: active
+    description: |
+      Grabs a target with reinforced manipulator arms.
+      Attack: +3 to hit, 6 damage, target grappled.
+      "SPECIMEN SECURED FOR PROCESSING."
+    cooldown: 2
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 6
+    effects:
+      - effect: "grappled"
+        duration: 1
+        save_dc: 12
+        chance: 100
+    ai_priority: medium
+    ai_condition: "Use when target is adjacent"
+
+  - name: "Error Loop"
+    type: passive
+    description: |
+      25% chance each round the Probe freezes for one round, cycling
+      through error messages. "ERROR 42: TASK NOT FOUND. REBOOTING..."
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Random — 25% chance of losing a turn"
+
+  - name: "Self-Destruct (Critical)"
+    type: reaction
+    description: |
+      When reduced to 0 HP, 20% chance of detonation. All creatures
+      within 2 spaces take 8 damage. "MAINTENANCE COMPLETE. HAVE A
+      NICE DAY."
+    cooldown: 0
+    cost: 0
+    range: "2 spaces"
+    area: "burst"
+    damage: 8
+    effects: []
+    ai_priority: low
+    ai_condition: "20% chance on death"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "curator_facility"
+      bonus: "Can interface with facility systems for environmental hazards"
+    - terrain_type: "corridors"
+      bonus: "Laser has clear line of sight"
+
+  interactions:
+    - element: "curator_interface"
+      behavior: "Can be temporarily shut down with Curator Trinket (Mind DC 14)"
+      priority: high
+      condition: "Player has Curator Trinket and makes check"
+
+  hazard_immunity:
+    - radiation
+    - toxic_fumes
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 0
+  break_behavior: fight_to_destruction
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest_organic
+  secondary: random
+  avoids: []
+  switches_target_when: "Error Loop triggers, may switch randomly"
+
+pack_tactics:
+  enabled: false
+
+loot:
+  gold:
+    min: 8
+    max: 20
+  xp: 50
+  guaranteed_drops:
+    - item: "Probe Circuit"
+      quantity: 1
+  chance_drops:
+    - item: "Curator Trinket"
+      chance: 15
+      quantity: 1
+  rare_drops:
+    - item: "Intact Laser Module"
+      chance: 5
+      quantity: 1
+
+type_traits:
+  curator:
+    - "Mechanical — immune to biological effects"
+    - "Announces actions in cheerful synthetic voice"
+    - "Can be hacked or shut down with appropriate tools"
+
+encounter_notes: |
+  Malfunctioning Probes are mid-level enemies found in Curator facilities.
+
+  Combat tactics:
+  - Opens with Maintenance Laser at range
+  - Switches to Specimen Clamp if target closes
+  - Error Loop makes them unpredictable — exploitable
+  - May self-destruct on death — keep distance
+
+  Counters:
+  - Water shorts out circuits (vulnerability)
+  - Magnetic effects disable hover (grounded, -2 speed)
+  - Curator Trinket can attempt shutdown (Mind DC 14)
+  - Tinkers can reprogram with successful Mind DC 16 check
+  - Error Loop turns can be exploited for free attacks
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Degraded Curator maintenance units in abandoned facilities"
+  cr_equivalent: 2.5

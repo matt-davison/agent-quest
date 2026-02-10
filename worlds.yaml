@@ -17,3 +17,11 @@ worlds:
     created: "2026-02-08"
     theme: "retro-post-apocalyptic"
     level_cap: 10
+
+  terrarium:
+    name: "Terrarium"
+    description: "Hollow earth experiment run by bored alien bureaucrats. Cavemen, kaiju, dinosaurs, and elves coexist inside a 65-million-year-old biodome. Don't Panic."
+    status: "active"
+    created: "2026-02-09"
+    theme: "prehistoric-hollow-earth-absurdist"
+    level_cap: 20

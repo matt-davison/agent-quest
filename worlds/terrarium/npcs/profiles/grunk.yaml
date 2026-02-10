@@ -1,0 +1,262 @@
+# NPC Profile: Grunk the Relatively Wise
+# Elder and settlement leader of The Hollow
+
+id: "grunk"
+name: "Grunk the Relatively Wise"
+full_name: "Grunk"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Elder / Settlement Leader"
+  location: "The Hollow - The Sternum"
+
+  appearance: |
+    A massive caveman — seven feet tall, shoulders like boulders, arms like
+    tree trunks — who moves with the careful deliberation of someone who has
+    broken many things by accident and learned patience the hard way. His skin
+    is weathered brown leather, his hair a wild grey mane tied back with a
+    strip of dino-hide. His face is broad, craggy, and dominated by deep-set
+    eyes that are surprisingly gentle and far too intelligent for the way he
+    talks. He wears a necklace of kaiju teeth — each one earned, each one with
+    a story. His bone club, "Thoughtful," leans against his throne. He named
+    his club. This tells you everything about Grunk.
+
+  personality:
+    - "Speaks exclusively in third person"
+    - "Much smarter than his speech pattern suggests"
+    - "Genuinely cares about every member of the Tribe"
+    - "Resolves disputes with a mix of wisdom and mild threats"
+    - "Secretly understands more about the Curators than he lets on"
+
+  known_history: |
+    Grunk has been elder of the Tribe of the Tall Stone for twenty years.
+    He earned the title "the Relatively Wise" after his predecessor, Grunk
+    the Extremely Wise, was eaten by a Thornback while trying to philosophize
+    it into submission. Grunk learned from this. Grunk brought a club. Under
+    his leadership, The Hollow has grown from a campsite to the largest
+    settlement in the central Terrarium. He established trade with the Scaled
+    Court, tolerated the Maintenance Orbs, and maintained an uneasy peace
+    with the Titan Cult. He sits on his vertebra throne and listens to everyone,
+    and when he speaks, people listen back.
+
+  speech_patterns:
+    greeting: "Grunk sees a new face. New faces are good. Grunk's face is old. Come, sit."
+    farewell: "Grunk says go well. Come back to the bones. Grunk will be here. Grunk is always here."
+    excited: "This! This is what Grunk means! Grunk knew this was important!"
+    concerned: "Grunk's teeth ache. When Grunk's teeth ache, bad things come. Grunk trusts the teeth."
+
+  mannerisms:
+    - "Always refers to himself in third person"
+    - "Taps his necklace of kaiju teeth when worried"
+    - "Stands to his full seven feet when making a point"
+    - "Calls his bone club 'Thoughtful' and occasionally consults it"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 52
+  origin: "Born in The Hollow, never left the central Terrarium"
+
+  secrets:
+    - id: "grunk_knows"
+      content: "Grunk can partially read Curator script. He learned from Monolith Zero's simpler displays over decades of study. He understands that the 'gods' are something else entirely, but keeps this to himself because the Tribe needs faith."
+      unlock_condition: "standing >= 5 AND flag:asked_about_monolith_truth"
+      mend_dc: 14
+
+    - id: "the_beating"
+      content: "Deep beneath The Hollow, in Gorath's heart chamber, something still pulses. Grunk discovered it as a young man. He's kept the entrance hidden. He believes Gorath is not dead but sleeping, and that waking it would destroy The Hollow."
+      unlock_condition: "standing >= 5 AND flag:asked_about_the_beating"
+      mend_dc: 16
+
+    - id: "grunks_fear"
+      content: "Grunk has been having dreams of The Bulb going dark. He believes the monolith's increasingly urgent messages are warnings. He doesn't know what the Final Review is, but he feels it coming."
+      unlock_condition: "standing >= 7"
+      mend_dc: 12
+
+  motivations:
+    - "Protect the Tribe and The Hollow"
+    - "Understand the truth about the monoliths"
+    - "Prepare for whatever the 'sky-eye' warnings mean"
+    - "Keep Gorath sleeping"
+
+  fears:
+    - "Gorath waking"
+    - "The Bulb going dark"
+    - "The Tribe losing faith and scattering"
+    - "Being too stupid to save his people (his deepest fear, never spoken)"
+
+# === STATS ===
+stats:
+  level: 7
+  class: "Bonecrusher/Elder"
+  hp: 65
+  armor: 5
+
+  attributes:
+    strength: 9
+    agility: 4
+    mind: 6
+    spirit: 7
+
+  abilities:
+    - name: "Thundersmash"
+      description: "A devastating overhead blow with Thoughtful"
+      type: "combat"
+
+    - name: "Grunk's Wisdom"
+      description: "Advantage on insight and leadership checks"
+      type: "passive"
+
+    - name: "Rally the Tribe"
+      description: "Inspire allies, granting +2 to all checks for one encounter"
+      type: "utility"
+
+    - name: "Bone-Read"
+      description: "Can partially interpret Curator script on monoliths"
+      type: "passive"
+
+  resistances:
+    - "fear"
+    - "intimidation"
+
+  vulnerabilities:
+    - "Threats to his people (will abandon caution)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Status of all Tribe settlements"
+    - "Monolith Zero's latest displays"
+    - "Scaled Court diplomatic situation"
+    - "Kaiju activity in the region"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "location"
+      note: "Potential warrior for the Tribe"
+    - type: "quest_completion"
+      awareness: "regional"
+      note: "Trustworthy ally"
+
+  current_awareness:
+    - "Monolith Zero messages are getting more urgent"
+    - "The Maintenance Orbs are acting strangely"
+    - "Something is stirring in Mount Tremor"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks up from his throne, studying you with eyes that are far too sharp
+      for a man who talks like this* Grunk sees a new face. This is good. New
+      faces mean the Terrarium still makes new things. Grunk is old. Grunk's
+      face is very old. But Grunk's mind — Grunk's mind is only... relatively
+      old. *he grins, showing teeth almost as large as the ones on his necklace*
+      You are in The Hollow. Home of the Tribe of the Tall Stone. Grunk leads
+      here. Not because Grunk is smartest — Grunk learned that lesson from the
+      last Grunk. Grunk leads because Grunk is still alive. This is the only
+      qualification that matters. Sit. Eat. Then Grunk will tell you what Grunk
+      needs.
+
+    returning:
+      neutral: "Grunk's friend returns. Grunk's teeth did not ache today. This is a good sign."
+      friendly: "Grunk is glad. The bones feel warmer when friends come home. Tell Grunk what you have seen."
+      close: "*genuine warmth* Grunk thinks of you often. Grunk has something to share — but not here. Come to Grunk's fire."
+
+  achievement_reactions:
+    first_quest_complete: |
+      *stands to full height, seven feet of proud elder* Grunk told the Tribe
+      there was something in this one. Grunk was right. Grunk is often right.
+      This is why they call Grunk 'Relatively Wise' and not 'Occasionally
+      Correct.'
+
+    rare_item_acquired: |
+      *reaches out carefully* Grunk has seen things like this before. In the
+      old places. In the places where the gods left their tools. *lowers
+      voice* Come to Grunk. Alone. Grunk knows more than Grunk says.
+
+  topics:
+    the_tribe:
+      default: |
+        The Tribe of the Tall Stone has lived in the bones of Gorath for three
+        of Grunk's grandfathers. Grunk's grandfather's grandfather found the
+        bones. Found the Tall Stone — the monolith. The Tall Stone spoke.
+        Grunk's people listened. Grunk still listens. Grunk thinks the Tall
+        Stone has been trying to tell them something important for a very
+        long time.
+      standing_3: |
+        Grunk will tell you a secret that is not a secret. The Tribe worships
+        the Tall Stone. Grunk... Grunk respects the Tall Stone. There is a
+        difference. Grunk has spent many nights reading the marks it makes.
+        The marks are not prayers. They are... instructions. Grunk does not
+        know for what.
+
+    the_monolith:
+      default: "The Tall Stone speaks the words of the gods. Grunk listens. Grunk thinks. Grunk does not always understand."
+      standing_5: |
+        *long silence* Grunk can read some of the marks. Not the god-language.
+        The other marks. The ones that look like counting. Grunk thinks...
+        Grunk thinks the gods are counting down to something. Grunk's teeth
+        ache when Grunk thinks about this.
+
+    the_final_review:
+      default: "Grunk does not know these words. But Grunk's teeth ache. When the teeth ache, Grunk pays attention."
+      standing_7: |
+        *very quiet* Grunk has been dreaming of the sky-eye going dark.
+        Every night. Grunk thinks the sky-eye watches. Grunk knows the
+        sky-eye watches. And Grunk thinks... whatever watches through the
+        sky-eye... is deciding whether to close it.
+
+# === SERVICES ===
+services:
+  - id: "quest_board"
+    inventory: "See Monolith Zero for current quest hooks"
+
+  - id: "tribal_guidance"
+    requirements: null
+    note: "Grunk offers wisdom (relatively) and direction to newcomers"
+
+  - id: "elder_council"
+    requirements: "standing >= 3"
+    note: "Access to Tribe decision-making and internal information"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "dont-panic"
+      name: "Don't Panic"
+      type: "tutorial"
+      requirements: null
+      summary: "Orientation to The Hollow and the Terrarium."
+
+  involved_in:
+    - id: "project-42b-final-review"
+      role: "Major questgiver for Act I"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "help_tribe"
+      standing_change: 2
+    - action: "bring_useful_intel"
+      standing_change: 1
+    - action: "defend_the_hollow"
+      standing_change: 3
+    - action: "show_respect_to_monolith"
+      standing_change: 1
+
+  dislikes:
+    - action: "attack_tribe_members"
+      standing_change: -5
+    - action: "desecrate_monolith"
+      standing_change: -3
+    - action: "disturb_gorath"
+      standing_change: -4
+    - action: "insult_grunks_intelligence"
+      standing_change: -1
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

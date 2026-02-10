@@ -1,0 +1,57 @@
+# Ember Touch - Flamecaller starting ability
+id: ter_ember
+name: "Ember Touch"
+type: ability
+subtype: ranged_attack
+class: flamecaller
+tier: 1
+tags:
+  - ranged
+  - attack
+  - fire
+  - burn
+  - flamecaller
+
+prerequisites:
+  min_spirit: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Channel primal fire through your hands. Deals 6 fire damage at range 3. 20% chance to inflict Burning (2 damage per round for 2 rounds)."
+    willpower_cost: 2
+    effect:
+      attack:
+        targets: one_creature
+        damage: 6
+        damage_type: fire
+        range: 3
+        burn_chance: 20
+        burn_damage: 2
+        burn_duration: 2
+    learn_cost: 0
+  2:
+    description: "Deals 10 fire damage at range 4. 40% chance to inflict Burning (3 damage per round for 3 rounds). Can target area (2 spaces)."
+    willpower_cost: 3
+    effect:
+      attack:
+        targets: area
+        area_size: 2
+        damage: 10
+        damage_type: fire
+        range: 4
+        burn_chance: 40
+        burn_damage: 3
+        burn_duration: 3
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 3
+  cooldown_rounds: 1
+
+action_type: major
+range: "3 spaces"
+target: creature

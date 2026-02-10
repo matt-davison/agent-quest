@@ -1,0 +1,27 @@
+# Bioluminescent Fungus
+id: ter_bfung
+name: "Bioluminescent Fungus"
+type: consumable
+subtype: utility
+rarity: common
+tier: 1
+value: 5
+sellable: true
+tags:
+  - consumable
+  - utility
+  - light
+  - common
+stats:
+  light_radius: "3 spaces"
+  duration: "4 hours"
+  uses: 1
+description: |
+  A chunk of glowing fungus harvested from the cavern walls. When squeezed
+  or thrown, it emits a steady blue-green glow for several hours. Used as
+  portable light sources, trail markers, and improvised Gloom Lurker
+  deterrents. Every settlement has them. They grow everywhere. The
+  Terrarium's answer to the flashlight, except organic, slightly slimy,
+  and it makes your hands glow for a day after handling. The Curators
+  engineered the fungi as part of the ecosystem's lighting supplement.
+  It's one of the few things they got exactly right.

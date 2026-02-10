@@ -1,0 +1,36 @@
+id: grunk
+default_location: "the-hollow/the-sternum"
+stationary: false
+notes: "Holds court during the day, patrols at night, meditates at Monolith Zero"
+patterns:
+  - times: ["dimbreak"]
+    location: "the-hollow/monolith-zero"
+    activity: "Morning meditation at Monolith Zero — reading the latest displays"
+    interruptible: false
+
+  - times: ["brightrise"]
+    location: "the-hollow/the-sternum"
+    activity: "Holding court, hearing petitions, greeting visitors"
+    interruptible: true
+
+  - times: ["fullglow"]
+    location: "the-hollow/the-sternum"
+    activity: "Peak hours — settling disputes, assigning tasks"
+    interruptible: true
+    interruptible_note: "Brief interactions between council matters"
+
+  - times: ["longlight"]
+    location: "the-hollow/the-gullet"
+    activity: "Inspecting the market, checking on Rattlejaw, talking to traders"
+    interruptible: true
+
+  - times: ["fadefall"]
+    location: "the-hollow/the-marrow-tap"
+    activity: "Evening meal with Old Magma, listening to stories"
+    interruptible: "standing >= 0"
+    interruptible_note: "More approachable over food and drink"
+
+  - times: ["gloomtide", "deepdim"]
+    location: null
+    activity: "Sleeping or patrolling The Hollow's perimeter"
+    interruptible: false

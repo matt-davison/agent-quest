@@ -1,0 +1,28 @@
+# Curator Trinket
+id: ter_ctrnk
+name: "Curator Trinket"
+type: misc
+subtype: artifact
+rarity: uncommon
+tier: 2
+value: 30
+sellable: true
+tags:
+  - misc
+  - curator
+  - artifact
+  - uncommon
+  - tinker
+stats:
+  interface_bonus: +2
+description: |
+  A small, smooth piece of alien technology — could be a component, a tool,
+  or a particularly sophisticated doorstop. Curator Trinkets come in many
+  shapes: crystalline wafers, metallic cylinders, translucent orbs that
+  hum when touched. Nobody fully understands what any of them do. Tinkers
+  can coax limited functionality from them — basic interfaces with Curator
+  systems, minor energy output, and the occasional unscheduled holographic
+  display. They're found in Curator debris fields, Maintenance Orb nests,
+  and occasionally embedded in monoliths. Rattlejaw hoards them. Skitter
+  disassembles them. The Scaled Court studies them. The Titan Cult
+  worships them. Everyone else sells them.

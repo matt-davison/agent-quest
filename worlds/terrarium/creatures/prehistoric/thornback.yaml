@@ -1,0 +1,166 @@
+# Thornback
+# Tier: Standard | Role: Armored Charger
+
+id: "thornback"
+name: "Thornback"
+category: prehistoric
+tier: standard
+level: 3
+
+description: |
+  A heavily armored herbivorous dinosaur the size of a rhinoceros, covered
+  in bony plates and studded with sharp spines along its back and tail. The
+  Thornback is not aggressive by nature — it grazes peacefully on the fungal
+  meadows and crystal moss of the Terrarium. But its territorial instinct is
+  absolute. Cross into a Thornback's claimed grazing ground and it will
+  lower its head, display its spine ridge, and charge with the subtlety of
+  a boulder with opinions. The charge is devastating. The good news is that
+  Thornbacks are not fast. The bad news is that they don't need to be.
+
+stats:
+  hp: 35
+  defense: 15
+  attack_bonus: +3
+  damage: 10
+  speed: slow
+  initiative_bonus: -1
+
+role: tank
+
+defenses:
+  resistances:
+    - physical
+  immunities: []
+  vulnerabilities:
+    - fire
+    - flanking
+
+abilities:
+  - name: "Gore"
+    type: active
+    description: |
+      The Thornback rams with its armored head.
+      Attack: +3 to hit, 10 damage.
+      Pushes target back one space.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    damage: 10
+    area: null
+    effects:
+      - effect: "knockback"
+        duration: 0
+        save_dc: 0
+        chance: 100
+    ai_priority: high
+    ai_condition: "Standard attack, prioritizes closest threat"
+
+  - name: "Charge"
+    type: active
+    description: |
+      The Thornback charges in a straight line up to 3 spaces.
+      Attack: +4 to hit, 15 damage. Must move at least 2 spaces.
+      Target must pass Agility DC 13 or be knocked prone.
+    cooldown: 2
+    cost: 0
+    range: "3 spaces"
+    area: null
+    damage: 15
+    effects:
+      - effect: "prone"
+        duration: 1
+        save_dc: 13
+        chance: 100
+    ai_priority: high
+    ai_condition: "Use when target is 2-3 spaces away"
+
+  - name: "Spine Shield"
+    type: passive
+    description: |
+      Melee attackers hitting the Thornback take 3 damage from spines.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 3
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive — always active"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "open_ground"
+      bonus: "Charge range increased to 5 spaces"
+    - terrain_type: "narrow_passage"
+      bonus: "Cannot be flanked"
+
+  interactions:
+    - element: "loud_noise"
+      behavior: "Startles and charges toward source"
+      priority: high
+      condition: "Sudden loud noise within 5 spaces"
+
+  hazard_immunity: []
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 20
+  break_behavior: flee
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest
+  secondary: loudest
+  avoids:
+    - "Fire sources"
+  switches_target_when: "Knocked below 25% HP"
+
+pack_tactics:
+  enabled: false
+
+loot:
+  gold:
+    min: 5
+    max: 15
+  xp: 40
+  guaranteed_drops:
+    - item: "Thornback Plate"
+      quantity: 1
+  chance_drops:
+    - item: "Thornback Horn"
+      chance: 25
+      quantity: 1
+  rare_drops:
+    - item: "Pristine Spine"
+      chance: 5
+      quantity: 1
+
+type_traits:
+  prehistoric:
+    - "Herbivorous but territorial"
+    - "Armor plates grow throughout life"
+
+encounter_notes: |
+  Thornbacks teach players about armored enemies and positioning.
+
+  Combat tactics:
+  - Opens with Charge if at range
+  - Uses Gore in melee, pushes targets into hazards if possible
+  - Spine Shield punishes melee attackers
+  - Will flee when badly wounded
+
+  Counters:
+  - Ranged attacks avoid Spine Shield
+  - Fire damage bypasses armor resistance
+  - Flanking negates Spine Shield on the flanked side
+  - Can be calmed by Beastwhisperers (Spirit DC 14)
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Armored herbivore, common in plains and forest edges"
+  cr_equivalent: 2

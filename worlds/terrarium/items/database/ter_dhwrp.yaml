@@ -1,0 +1,26 @@
+# Dino-hide Wrap
+id: ter_dhwrp
+name: "Dino-hide Wrap"
+type: armor
+subtype: light
+rarity: common
+tier: 1
+value: 20
+sellable: true
+tags:
+  - armor
+  - light
+  - primitive
+  - dinosaur
+stats:
+  defense: 2
+  weight: light
+description: |
+  Several layers of cured dinosaur hide, stitched together with sinew
+  and draped over the shoulders and torso. It smells like leather and
+  something older. The hide comes from herbivorous dinosaurs — nobody's
+  brave enough to skin a predator. Provides decent protection against
+  claws and teeth while allowing free movement. Fashion-forward members
+  of the Tribe dye theirs with bioluminescent fungus. The effect is
+  either "ethereal warrior" or "walking nightlight" depending on the
+  craftsmanship.

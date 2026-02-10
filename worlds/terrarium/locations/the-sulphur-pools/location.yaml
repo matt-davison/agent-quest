@@ -1,0 +1,96 @@
+# Location: The Sulphur Pools
+# Geothermal area and dinosaur nesting grounds
+
+id: "the-sulphur-pools"
+name: "The Sulphur Pools"
+tagline: "Watch your step. Watch your lungs. Watch the eggs."
+
+coordinates:
+  x: 0
+  y: -4
+  z: -1
+
+embedding: null
+
+region: "Southern Terrarium"
+type: "wilderness"
+danger_level: "low"
+is_safe_zone: false
+
+level_range:
+  min: 1
+  max: 4
+
+tags:
+  - "geothermal"
+  - "nesting grounds"
+  - "dinosaurs"
+  - "hot springs"
+  - "low danger"
+  - "tutorial area"
+
+areas: []
+
+npcs: []
+
+connections:
+  - target: "the-hollow"
+    direction: "north-tunnel"
+    distance: 4
+    travel_time: "1 hour walking"
+    requirements: null
+  - target: "bonewood-forest"
+    direction: "northwest-path"
+    distance: 10
+    travel_time: "2.5 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "mount-tremor"
+    direction: "east-ridge"
+    distance: 18
+    travel_time: "4.5 hours walking"
+    requirements: null
+    danger: "high"
+
+encounters:
+  enabled: true
+  check_interval: "every 30 minutes travel"
+  chance: 30
+  table:
+    - roll: [1, 1]
+      type: "combat"
+      event: "Snap-jaws hunting near the warm pools"
+      creatures: ["snap-jaw"]
+      count: "1d3"
+    - roll: [2, 2]
+      type: "hazard"
+      event: "Steam vent erupts unexpectedly"
+      check: "Agility DC 10"
+      failure: "1d4 damage from scalding steam"
+    - roll: [3, 3]
+      type: "fauna"
+      event: "A nesting dinosaur eyes you warily — don't approach the eggs"
+    - roll: [4, 4]
+      type: "discovery"
+      event: "Mineral deposits in the cooling pools — shed scales and teeth"
+      loot: "1d6 teeth"
+    - roll: [5, 5]
+      type: "rest_spot"
+      event: "A warm pool at perfect temperature — natural hot spring"
+      benefit: "Recover 1d6 HP"
+    - roll: [6, 6]
+      type: "treasure"
+      event: "Crystallized mineral formations worth collecting"
+      loot: "2d6 teeth"
+
+secrets:
+  - id: "the-egg-keeper"
+    requirements:
+      - "Beastwhisperer class"
+      - "Approach the central nesting ground without hostility"
+
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

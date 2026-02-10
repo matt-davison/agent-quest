@@ -1,0 +1,66 @@
+# Area: The Marrow Tap
+# Part of: The Hollow
+
+id: "the-marrow-tap"
+name: "The Marrow Tap"
+parent_location: "the-hollow"
+type: "inn"
+
+description: |
+  Carved from Gorath's left femur — a bone so massive that the hollowed
+  interior comfortably fits a tavern, an inn, and Old Magma's meditation
+  alcove. The walls still faintly glow with residual bioluminescence, a
+  warm amber light that makes everything feel ancient and comfortable. The
+  Eternal Ember burns in a firepit at the center — a flame fed by gases
+  seeping through hairline cracks in the bone, tended by Old Magma for
+  longer than anyone can remember. Sleeping niches are carved into the
+  walls at various heights, accessible by bone-rung ladders. The bar is
+  a polished cross-section of rib bone, behind which fermenting fungal
+  brews bubble in stone jars. It's warm, it's close, and Old Magma's
+  stories make you forget you're living inside a dead monster.
+
+local_coordinates:
+  x: 0
+  y: -4
+  floor: 1
+
+connected_areas:
+  - id: "the-sternum"
+    direction: "north"
+    distance: 0.04
+  - id: "the-tinkerers-nook"
+    direction: "up-ladder"
+    distance: 0.03
+
+interactions:
+  - action: "speak"
+    target: "Old Magma"
+    description: "Listen to stories, learn about the Terrarium's history"
+  - action: "rest"
+    target: "Sleeping Niches"
+    description: "Rest to restore HP (3 teeth/night shared, 10 teeth/night private)"
+  - action: "drink"
+    target: "Fungal Brews"
+    description: "Sample the local beverages (various effects)"
+
+npcs:
+  - id: "old-magma"
+    name: "Old Magma"
+    role: "Flamecaller Mystic / Barkeep"
+    always_present: true
+
+items:
+  - id: "eternal-ember"
+    name: "The Eternal Ember"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "The Eternal Ember's orange glow, residual bone bioluminescence, amber and warm"
+  sounds: "Crackling fire, bubbling brews, Old Magma's gravelly voice, bone settling"
+  smells: "Woodsmoke (there is no wood), fermenting fungus, roasting lizard, warm stone"

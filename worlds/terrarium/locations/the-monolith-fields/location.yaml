@@ -1,0 +1,91 @@
+# Location: The Monolith Fields
+# Open plains dotted with Curator monoliths
+
+id: "the-monolith-fields"
+name: "The Monolith Fields"
+tagline: "The gods left voicemail."
+
+coordinates:
+  x: 6
+  y: 0
+  z: 0
+
+embedding: null
+
+region: "Central Terrarium"
+type: "wilderness"
+danger_level: "moderate"
+is_safe_zone: false
+
+level_range:
+  min: 2
+  max: 6
+
+tags:
+  - "plains"
+  - "monoliths"
+  - "curator"
+  - "open terrain"
+  - "dinosaurs"
+  - "sub-committee 7"
+
+areas: []
+
+npcs: []
+
+connections:
+  - target: "the-hollow"
+    direction: "west-passage"
+    distance: 6
+    travel_time: "1.5 hours walking"
+    requirements: null
+  - target: "mount-tremor"
+    direction: "northeast-trail"
+    distance: 15
+    travel_time: "4 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "curator-station-sigma"
+    direction: "east-ridge"
+    distance: 12
+    travel_time: "3 hours walking"
+    requirements: null
+    danger: "high"
+
+encounters:
+  enabled: true
+  check_interval: "every 30 minutes travel"
+  chance: 40
+  table:
+    - roll: [1, 2]
+      type: "combat"
+      event: "Snap-jaw pack hunting in the tall grass"
+      creatures: ["snap-jaw"]
+      count: "1d4"
+    - roll: [3, 3]
+      type: "combat"
+      event: "Thornback grazing — territorial if approached"
+      creatures: ["thornback"]
+      count: 1
+    - roll: [4, 4]
+      type: "monolith"
+      event: "A monolith activates as you pass, displaying a Curator memo"
+    - roll: [5, 5]
+      type: "discovery"
+      event: "Scattered Curator debris half-buried in grass"
+      loot: "1d10 teeth of salvage"
+    - roll: [6, 6]
+      type: "traveler"
+      event: "A Scaled Court patrol on diplomatic business"
+
+secrets:
+  - id: "the-pattern"
+    requirements:
+      - "Visit 5 different monoliths"
+      - "Chronicler class OR Curator Trinket"
+
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

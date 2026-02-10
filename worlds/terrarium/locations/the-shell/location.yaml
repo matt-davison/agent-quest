@@ -1,0 +1,89 @@
+# Location: The Shell
+# Inner surface of the hollow earth — weird gravity zone
+
+id: "the-shell"
+name: "The Shell"
+tagline: "Up is a suggestion. Down is a memory."
+
+coordinates:
+  x: -20
+  y: 0
+  z: 30
+
+embedding: null
+
+region: "Upper Terrarium"
+type: "wilderness"
+danger_level: "extreme"
+is_safe_zone: false
+
+level_range:
+  min: 7
+  max: 10
+
+tags:
+  - "shell"
+  - "gravity"
+  - "extreme"
+  - "the bulb"
+  - "diggers"
+  - "endgame"
+  - "curator"
+
+areas: []
+
+npcs: []
+
+connections:
+  - target: "bonewood-forest"
+    direction: "down-descent"
+    distance: 20
+    travel_time: "5 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "curator-station-sigma"
+    direction: "down-shaft"
+    distance: 30
+    travel_time: "varies"
+    requirements:
+      - "Curator Trinket OR Tinker class"
+    danger: "high"
+
+encounters:
+  enabled: true
+  check_interval: "every 10 minutes travel"
+  chance: 70
+  table:
+    - roll: [1, 2]
+      type: "hazard"
+      event: "Gravity distortion — up and down reverse without warning"
+      check: "Spirit DC 16"
+      failure: "Fall damage 2d8, disoriented for 1 hour"
+    - roll: [3, 3]
+      type: "combat"
+      event: "Kaiju Tick — adapted to low gravity, faster and more aggressive"
+      creatures: ["kaiju-tick"]
+      count: 1
+    - roll: [4, 4]
+      type: "hazard"
+      event: "Bulb radiation pulse — too close to the artificial sun"
+      check: "Mind DC 14"
+      failure: "Blinded for 1d4 hours"
+    - roll: [5, 5]
+      type: "discovery"
+      event: "A section of the Shell wall — actual metal beneath the stone"
+    - roll: [6, 6]
+      type: "traveler"
+      event: "A Digger expedition, close to breaking through"
+
+secrets:
+  - id: "the-outside"
+    requirements:
+      - "Level >= 9"
+      - "Help the Diggers breach the Shell"
+
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

@@ -1,0 +1,164 @@
+# Snap-jaw
+# Tier: Minion | Role: Pack Hunter
+
+id: "snap-jaw"
+name: "Snap-jaw"
+category: prehistoric
+tier: minion
+level: 1
+
+description: |
+  A small, fast predator about the size of a large dog — lean, feathered in
+  muted browns and greens, with an oversized jaw that snaps shut with enough
+  force to crack bone. Snap-jaws hunt in packs, communicating through rapid
+  chirps and coordinated flanking maneuvers that suggest an intelligence just
+  barely below the threshold of "we should probably negotiate." They're the
+  most common predator in the central Terrarium, filling the ecological niche
+  of "the thing that chases you when you leave the settlement." The Scaled
+  Court considers them distant, embarrassing cousins. The Snap-jaws do not
+  appear to reciprocate this awareness.
+
+stats:
+  hp: 10
+  defense: 11
+  attack_bonus: +2
+  damage: 5
+  speed: fast
+  initiative_bonus: +3
+
+role: pack_hunter
+
+defenses:
+  resistances: []
+  immunities: []
+  vulnerabilities:
+    - fire
+
+abilities:
+  - name: "Snap"
+    type: active
+    description: |
+      The snap-jaw bites with bone-crushing force.
+      Attack: +2 to hit, 5 damage.
+      10% chance to inflict Bleeding (2 damage per round for 2 rounds).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 5
+    effects:
+      - effect: "bleeding"
+        duration: 2
+        save_dc: 0
+        chance: 10
+    ai_priority: high
+    ai_condition: "Standard attack, use every turn"
+
+  - name: "Pack Tactics"
+    type: passive
+    description: |
+      Snap-jaws gain +1 to attack for each other Snap-jaw adjacent to
+      the same target. Maximum +3 bonus.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - always active when grouped"
+
+  - name: "Scatter"
+    type: reaction
+    description: |
+      When half the pack is defeated, surviving Snap-jaws may flee (40%)
+      or enter a frenzy (+3 damage for 2 rounds).
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggers when 50% of pack defeated"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "tall_grass"
+      bonus: "Advantage on ambush attacks"
+    - terrain_type: "open_ground"
+      bonus: "+1 to speed when running in packs"
+
+  interactions:
+    - element: "unattended_food"
+      behavior: "Prioritizes stealing food over combat"
+      priority: medium
+      condition: "Food visible and unguarded"
+
+  hazard_immunity: []
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 50
+  break_behavior: flee_or_frenzy
+  group_morale: true
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest
+  secondary: isolated
+  avoids:
+    - "Groups with fire sources"
+  switches_target_when: "Current target proves too difficult"
+
+pack_tactics:
+  enabled: true
+  flanking: true
+  focus_fire: true
+  protect_leader: false
+  swarm_threshold: 3
+  swarm_bonus: "+1 attack per adjacent ally"
+
+loot:
+  gold:
+    min: 1
+    max: 3
+  xp: 15
+  guaranteed_drops:
+    - item: "Snap-jaw Hide"
+      quantity: 1
+  chance_drops:
+    - item: "Snap-jaw Tooth"
+      chance: 30
+      quantity: 1
+  rare_drops: []
+
+type_traits:
+  prehistoric:
+    - "Feathered, warm-blooded"
+    - "Communicates through chirps and body language"
+
+encounter_notes: |
+  Snap-jaws are the tutorial enemy of Terrarium. They teach new players
+  about pack mechanics and the value of area attacks or fire.
+
+  Combat tactics:
+  - Attack in packs, exploiting Pack Tactics for bonus damage
+  - Flank isolated targets
+  - Use tall grass for ambush attacks
+  - Scatter or frenzy when losses mount
+
+  Counters:
+  - Fire damage scares them
+  - Area attacks break up packs
+  - Holding ground with shield prevents flanking
+  - Loud noises can trigger early scatter
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Small theropod predators, common throughout the Terrarium"
+  cr_equivalent: 0.5

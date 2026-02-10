@@ -1,0 +1,190 @@
+# World State: Calendar System — Terrarium
+# Time is measured in Cycles (one full Bulb oscillation = one year)
+
+version: "1.0"
+
+# === CALENDAR OVERVIEW ===
+calendar:
+  name: "The Bulb Calendar"
+  description: |
+    Time in the Terrarium is measured by the oscillation of The Bulb — the
+    artificial bioluminescent sun that lights the hollow earth. One full
+    brightness cycle equals one year. Twelve months, named by the inhabitants
+    for what they observe. The Curators call them "illumination phases" in
+    their paperwork. Nobody reads the paperwork.
+
+# === TIME STRUCTURE ===
+structure:
+  hours_per_day: 24
+  days_per_month: 30
+  months_per_year: 12
+
+  periods:
+    - id: "dimbreak"
+      name: "Dimbreak"
+      hours: [5, 6]
+      description: "The Bulb begins its brightening cycle. Nocturnal creatures retreat."
+    - id: "brightrise"
+      name: "Brightrise"
+      hours: [7, 8, 9, 10]
+      description: "Full illumination builds. Tribes stir, markets open, raptors hunt."
+    - id: "fullglow"
+      name: "Fullglow"
+      hours: [11, 12, 13]
+      description: "Peak Bulb intensity. Everything is lit. Everything can see you."
+    - id: "longlight"
+      name: "Longlight"
+      hours: [14, 15, 16]
+      description: "Extended brightness. Trade caravans arrive. Dinosaurs nap."
+    - id: "fadefall"
+      name: "Fadefall"
+      hours: [17, 18, 19]
+      description: "The Bulb dims. Bioluminescent fungi begin to glow. Taverns fill."
+    - id: "gloomtide"
+      name: "Gloomtide"
+      hours: [20, 21, 22, 23]
+      description: "Near-darkness. Only fungi and Curator tech provide light. Predators stalk."
+    - id: "deepdim"
+      name: "Deepdim"
+      hours: [0, 1, 2, 3, 4]
+      description: "Minimum Bulb output. The dangerous hours. Stay inside the ribcage."
+
+# === MONTHS ===
+months:
+  - number: 1
+    name: "Dimming"
+    season: "late_dark"
+    description: "The Bulb hits its annual minimum. Creatures hibernate. The Curators run diagnostics."
+    themes: ["darkness", "stillness", "maintenance"]
+
+  - number: 2
+    name: "Stillwater"
+    season: "early_cool"
+    description: "Underground rivers calm. The air is crisp. Good for travel if you're brave."
+    themes: ["calm", "travel", "preparation"]
+
+  - number: 3
+    name: "Brightening"
+    season: "cool"
+    description: "The Bulb increases output. Everything wakes up at once. Chaos."
+    themes: ["awakening", "growth", "noise"]
+
+  - number: 4
+    name: "Sporemarch"
+    season: "late_cool"
+    description: "Massive fungal blooms carpet the cavern floor. Beautiful, occasionally hallucinogenic."
+    themes: ["fungi", "beauty", "hazards"]
+
+  - number: 5
+    name: "Fullglow"
+    season: "warm"
+    description: "Peak Bulb output for the year. The Terrarium is at its brightest and most alive."
+    themes: ["peak", "celebration", "abundance"]
+
+  - number: 6
+    name: "Tremor"
+    season: "hot"
+    description: "Seismic activity peaks as kaiju shift in their dormancy. The ground shakes. Everyone pretends this is normal."
+    themes: ["earthquakes", "kaiju", "anxiety"]
+
+  - number: 7
+    name: "The Haze"
+    season: "late_hot"
+    description: "Geothermal vents peak. Steam and spores create a thick atmospheric haze."
+    themes: ["fog", "mystery", "disorientation"]
+
+  - number: 8
+    name: "Bonefall"
+    season: "early_cool"
+    description: "Shed kaiju scales, teeth, and bones rain from the upper caverns. Currency harvest season."
+    themes: ["harvest", "kaiju", "wealth"]
+
+  - number: 9
+    name: "The Quiet"
+    season: "cool"
+    description: "An eerie stillness. Even the Maintenance Orbs go quiet. Nobody knows why."
+    themes: ["silence", "unease", "reflection"]
+
+  - number: 10
+    name: "Rootshift"
+    season: "late_cool"
+    description: "The great root networks that line the cavern walls shift and reshape tunnels."
+    themes: ["change", "upheaval", "new_paths"]
+
+  - number: 11
+    name: "Coldvent"
+    season: "early_dark"
+    description: "Cold air vents open in the Shell. Temperature drops sharply."
+    themes: ["cold", "endurance", "scarcity"]
+
+  - number: 12
+    name: "Deepnight"
+    season: "dark"
+    description: "The Bulb dims to near-nothing. The longest darkness. Tribes gather close."
+    themes: ["darkness", "community", "survival"]
+
+# === ERAS ===
+eras:
+  - number: 0
+    name: "Before the Bulb"
+    description: "The Curators' construction phase. Asteroid drop, excavation, ecosystem seeding."
+    duration: "~65 million years ago"
+
+  - number: 1
+    name: "The Long Growing"
+    description: "Ecosystem development. Dinosaurs thrive, early sentient species emerge."
+    start_event: "The Bulb activation"
+    status: "historical"
+
+  - number: 42
+    name: "The Observation"
+    description: "Current era. Sub-Committee 7 has re-engaged oversight. The Final Review approaches."
+    start_event: "Sub-Committee 7 reactivation"
+    status: "current"
+
+# === HOLIDAYS AND EVENTS ===
+holidays:
+  - name: "Bulb Day"
+    month: 5
+    day: 15
+    description: "Peak illumination of the year. Tribes celebrate with feasts, games, and offerings to the monoliths."
+    effects:
+      - "All settlements hold festivals"
+      - "Trading prices reduced 10%"
+      - "Monoliths display unusual patterns"
+
+  - name: "The Shaking"
+    month: 6
+    day: 10
+    days: 3
+    description: "Three days of heightened seismic activity. The Titan Cult holds their holiest rites."
+    effects:
+      - "Travel dangerous due to tremors"
+      - "Titan Cult recruits actively"
+      - "Rare minerals exposed by quakes"
+
+  - name: "Deepnight Gathering"
+    month: 12
+    day: 30
+    description: "The darkest night. Every tribe lights their bioluminescent beacons simultaneously — a defiant glow against the dark."
+    effects:
+      - "All settlements visible across the Terrarium"
+      - "Temporary truces between factions"
+      - "Bonus rewards for cooperative quests"
+
+# === TIME FLOW ===
+time_flow:
+  description: |
+    Time advances through player actions. Major actions advance time
+    by varying amounts. The Final Review countdown ticks down with each
+    in-game day.
+
+  action_durations:
+    rest: 8
+    travel_local: 1
+    travel_regional: "varies"
+    combat: 1
+    dialogue: 0
+    shopping: 1
+    quest_step: "varies"
+    foraging: 2

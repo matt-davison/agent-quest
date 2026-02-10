@@ -1,0 +1,57 @@
+# Cobble - Tinker starting ability
+id: ter_cobbl
+name: "Cobble"
+type: ability
+subtype: utility
+class: tinker
+tier: 1
+tags:
+  - utility
+  - crafting
+  - repair
+  - tinker
+  - curator
+
+prerequisites:
+  min_mind: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Improvise a repair or create a simple device from Curator scraps and natural materials. Repairs one item to functional status for 24 hours. Or create a single-use tool (light source, trap, signal device)."
+    willpower_cost: 1
+    effect:
+      repair:
+        targets: one_item
+        duration: "24 hours"
+        material_cost: ["ter_ctrnk", "ter_sscal", "ter_ltoth"]
+      create:
+        targets: simple_device
+        uses: 1
+    learn_cost: 0
+  2:
+    description: "Permanent repair. Can combine two items to create an improved version. Create multi-use tools. Can attempt to interface with Curator systems (Mind DC 14)."
+    willpower_cost: 3
+    effect:
+      repair:
+        targets: one_item
+        duration: "permanent"
+        material_cost: ["ter_ctrnk"]
+      combine:
+        targets: two_items
+        result: "improved variant"
+      interface:
+        targets: curator_system
+        check_dc: 14
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: long_rest
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: item

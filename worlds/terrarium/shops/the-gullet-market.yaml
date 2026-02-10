@@ -1,0 +1,104 @@
+# Rattlejaw's Pile (The Gullet Market)
+# Shop inventory file - references items from worlds/terrarium/items/database/
+
+shop_id: the-gullet-market
+name: "Rattlejaw's Pile"
+location: the-hollow
+proprietor: rattlejaw
+type: general_goods
+
+# qty: -1 means unlimited stock
+# buyback_percent: what shop pays when player sells (% of item value)
+
+inventory:
+  # === TIER 1 - BASIC SUPPLIES ===
+  - item_id: ter_bclub  # Bone Club
+    qty: -1
+    price: 15
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: ter_bsper  # Bone Spear
+    qty: -1
+    price: 20
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: ter_dhwrp  # Dino-hide Wrap
+    qty: -1
+    price: 20
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  - item_id: ter_sscal  # Shed Scale
+    qty: 5
+    price: 10
+    buyback_percent: 60
+    requires:
+      tier: 1
+
+  - item_id: ter_embpt  # Ember Potion
+    qty: 10
+    price: 10
+    buyback_percent: 75
+    requires:
+      tier: 1
+
+  - item_id: ter_bfung  # Bioluminescent Fungus
+    qty: -1
+    price: 5
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: ter_ltoth  # Loose Tooth
+    qty: -1
+    price: 1
+    buyback_percent: 100
+    requires:
+      tier: 1
+
+  # === TIER 2 - UNCOMMON ===
+  - item_id: ter_ctrnk  # Curator Trinket
+    qty: 2
+    price: 30
+    buyback_percent: 50
+    requires:
+      tier: 2
+
+  - item_id: ter_cmemo  # Curator Memo
+    qty: 3
+    price: 15
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+# Training services
+services:
+  - id: basic-survival
+    name: "Basic Survival Training"
+    price: 15
+    effect: "Learn fundamental Terrarium survival techniques"
+    requires:
+      tier: 1
+    grants_stat_bonus:
+      survival: 1
+
+  - id: creature-identification
+    name: "Creature Identification"
+    price: 20
+    effect: "Learn to identify Terrarium creatures and their weaknesses"
+    requires:
+      tier: 1
+    grants_stat_bonus:
+      creature_knowledge: 1
+
+# Stock resets
+restock_frequency: weekly
+last_restock: "42.5.1"  # Cycle.Month.Day
+
+# Transaction history
+transactions: []

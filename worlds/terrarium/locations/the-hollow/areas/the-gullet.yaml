@@ -1,0 +1,65 @@
+# Area: The Gullet
+# Part of: The Hollow
+
+id: "the-gullet"
+name: "The Gullet"
+parent_location: "the-hollow"
+type: "marketplace"
+
+description: |
+  Gorath's petrified throat, now the busiest marketplace in the central
+  Terrarium. The ribbed esophageal walls — smooth, pale stone with organic
+  curves — create a natural tunnel roughly thirty feet wide and a hundred
+  feet long. Vendor stalls line both sides, built from bone, hide, and
+  scavenged Curator materials. Rattlejaw's shop dominates the far end: a
+  towering nest of accumulated junk that the elderly Maintenance Orb has
+  been collecting for longer than any civilization in the Terrarium has
+  existed. Bioluminescent fungi are strung like fairy lights. The acoustics
+  are appalling — every negotiation happens at full volume whether you want
+  it to or not.
+
+local_coordinates:
+  x: 0
+  y: 5
+  floor: 1
+
+connected_areas:
+  - id: "the-sternum"
+    direction: "south"
+    distance: 0.05
+  - id: "monolith-zero"
+    direction: "east"
+    distance: 0.04
+
+interactions:
+  - action: "speak"
+    target: "Rattlejaw"
+    description: "Browse goods and trade"
+  - action: "trade"
+    target: "Visiting Merchants"
+    description: "Barter with traveling traders"
+  - action: "examine"
+    target: "Supply Board"
+    description: "Check material requests and bounties"
+
+npcs:
+  - id: "rattlejaw"
+    name: "Rattlejaw"
+    role: "General Goods Vendor"
+    always_present: true
+
+items:
+  - id: "supply-board"
+    name: "Supply Board"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Strung bioluminescent fungi, Rattlejaw's flickering optics, torch sconces"
+  sounds: "Echoing haggling, Rattlejaw's grinding servos, clinking teeth-currency"
+  smells: "Cured hide, alien lubricant from Rattlejaw, spices, dried fungus"

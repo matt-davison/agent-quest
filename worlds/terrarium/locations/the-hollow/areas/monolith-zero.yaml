@@ -1,0 +1,64 @@
+# Area: Monolith Zero
+# Part of: The Hollow
+
+id: "monolith-zero"
+name: "Monolith Zero"
+parent_location: "the-hollow"
+type: "quest_board"
+
+description: |
+  Embedded in the back of Gorath's skull — a space where bone meets something
+  else entirely. The monolith is a perfect black rectangle, three meters tall,
+  two meters wide, with edges so precise they look unreal. It is always slightly
+  warm. It hums at a frequency just below hearing. The skull chamber around it
+  has been cleared and made into a small amphitheater, with bone benches arranged
+  in semicircles for the faithful who come to watch the monolith's displays. The
+  Tribe of the Tall Stone believes Monolith Zero is the voice of the gods. It's
+  actually a firmware update terminal running software that hasn't been patched
+  in 65 million years, and it has opinions about that. Its displays shift between
+  Curator diagnostic output — which nobody can read — and translated messages in
+  the local tongue that are technically accurate but spiritually unhinged.
+  Recent message: "ATTENTION: SCHEDULED PERFORMANCE REVIEW IN 42 CYCLES. ALL
+  ASSETS MUST DEMONSTRATE VALUE-ADD OR FACE DEPRECATION."
+
+local_coordinates:
+  x: 3
+  y: 2
+  floor: 1
+
+connected_areas:
+  - id: "the-sternum"
+    direction: "west"
+    distance: 0.03
+  - id: "the-gullet"
+    direction: "west"
+    distance: 0.04
+
+interactions:
+  - action: "read"
+    target: "Monolith Zero"
+    description: "Read current monolith displays for quest hooks and lore"
+  - action: "pray"
+    target: "Monolith Zero"
+    description: "Pay respects (Tribe of the Tall Stone standing bonus)"
+  - action: "interface"
+    target: "Monolith Zero"
+    description: "Attempt direct interface (requires Curator Trinket or Chronicler class)"
+
+npcs: []
+
+items:
+  - id: "monolith-zero"
+    name: "Monolith Zero"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "The monolith's faint inner glow, blue-white and clinical against the warm bone walls"
+  sounds: "Sub-audible humming, occasional electronic chirps, whispered prayers"
+  smells: "Ozone, warm metal, the cold mineral smell of the monolith itself"

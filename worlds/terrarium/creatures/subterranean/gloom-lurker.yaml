@@ -1,0 +1,181 @@
+# Gloom Lurker
+# Tier: Standard | Role: Cave Ambusher
+
+id: "gloom-lurker"
+name: "Gloom Lurker"
+category: subterranean
+tier: standard
+level: 4
+
+description: |
+  A creature evolved for the dark spaces between the Terrarium's lit zones.
+  The Gloom Lurker is roughly humanoid in shape — long limbs, a hunched
+  posture, skin the color and texture of wet cave rock. It clings to
+  ceilings and walls with adhesive pads on its hands and feet, remaining
+  perfectly still until prey passes below. Its eyes are huge, pale, and
+  adapted to absolute darkness. Its mouth is wider than it should be.
+  Gloom Lurkers are ambush predators — patient, silent, and devastating
+  in the first strike. After the initial attack, they're less formidable
+  but still dangerous. They never attack in the light if they can help it.
+  The Curators classified them as "opportunistic cavity dwellers" in a
+  memo that also suggested "enhanced lighting as a population control
+  measure." The budget for enhanced lighting was never approved.
+
+stats:
+  hp: 28
+  defense: 12
+  attack_bonus: +4
+  damage: 10
+  speed: fast
+  initiative_bonus: +4
+
+role: ambusher
+
+defenses:
+  resistances: []
+  immunities:
+    - fear
+  vulnerabilities:
+    - fire
+    - bright_light
+
+abilities:
+  - name: "Ceiling Drop"
+    type: active
+    description: |
+      Drops from above onto an unsuspecting target.
+      Attack: +6 to hit (only from stealth), 16 damage.
+      Target must pass Agility DC 13 or be grappled.
+    cooldown: 0
+    cost: 0
+    range: "directly above"
+    area: null
+    damage: 16
+    effects:
+      - effect: "grappled"
+        duration: 1
+        save_dc: 13
+        chance: 100
+    ai_priority: high
+    ai_condition: "Opening attack only — must have stealth"
+
+  - name: "Rend"
+    type: active
+    description: |
+      Standard claw attack after ambush is spent.
+      Attack: +4 to hit, 10 damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 10
+    effects: []
+    ai_priority: medium
+    ai_condition: "Standard attack after ambush"
+
+  - name: "Wall Crawl"
+    type: passive
+    description: |
+      Can move along walls and ceilings freely. Gains stealth bonus
+      in darkness or dim lighting.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive — always active"
+
+  - name: "Light Aversion"
+    type: passive
+    description: |
+      Bright light (torches, Flamecaller fire, bioluminescent bombs)
+      causes -2 to all attacks and forces morale check.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggered by bright light sources"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "darkness"
+      bonus: "+4 to stealth, advantage on ambush"
+    - terrain_type: "caves"
+      bonus: "Can use ceiling for movement and ambush"
+
+  interactions:
+    - element: "bright_light"
+      behavior: "Retreats from strong light sources"
+      priority: high
+      condition: "Light source within 3 spaces"
+
+  hazard_immunity: []
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 40
+  break_behavior: flee_to_darkness
+  group_morale: false
+  leader_dependent: false
+  rally_condition: "Lights go out"
+
+targeting:
+  primary: isolated
+  secondary: unarmored
+  avoids:
+    - "Groups with light sources"
+    - "Flamecallers"
+  switches_target_when: "Exposed to bright light"
+
+pack_tactics:
+  enabled: false
+
+loot:
+  gold:
+    min: 5
+    max: 12
+  xp: 45
+  guaranteed_drops:
+    - item: "Lurker Hide"
+      quantity: 1
+  chance_drops:
+    - item: "Adhesive Pad"
+      chance: 25
+      quantity: 1
+  rare_drops:
+    - item: "Lurker Eye"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  subterranean:
+    - "Adapted to complete darkness"
+    - "Ambush predator — deadly first strike, weaker in sustained combat"
+
+encounter_notes: |
+  Gloom Lurkers teach players about ambush mechanics and light management.
+
+  Combat tactics:
+  - Opens with Ceiling Drop for devastating first strike
+  - Uses Wall Crawl to reposition after initial attack
+  - Retreats to darkness to attempt another ambush
+  - Flees if exposed to sustained bright light
+
+  Counters:
+  - Fire or light sources prevent ambush
+  - Flamecallers are natural counter
+  - Bioluminescent Fungus can be thrown to illuminate area
+  - Looking up in dark areas reveals their pale eyes
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Cave predator evolved in the Terrarium's dark zones"
+  cr_equivalent: 2.5

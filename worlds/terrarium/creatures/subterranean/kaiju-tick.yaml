@@ -1,0 +1,188 @@
+# Kaiju Tick
+# Tier: Elite | Role: Bus-Sized Parasite
+
+id: "kaiju-tick"
+name: "Kaiju Tick"
+category: subterranean
+tier: elite
+level: 7
+
+description: |
+  A parasite the size of a bus. Let that sink in. The Kaiju Tick is a
+  bloated, armored arthropod that feeds on the blood of dormant kaiju —
+  burrowing into their calcified hide and drinking from veins that pulse
+  with something that isn't quite blood but is definitely terrifying. They
+  nest in the upper slopes of Mount Tremor and in deep caverns where kaiju
+  tissue is exposed. When a Kaiju Tick encounters a warm-blooded creature,
+  it registers it as "kaiju blood, but smaller and more convenient." Eight
+  armored legs, a drilling proboscis, and a carapace that shrugs off most
+  conventional weapons. The Curators' original memo on Kaiju Ticks
+  contained exactly one word: "Unfortunate."
+
+stats:
+  hp: 70
+  defense: 16
+  attack_bonus: +5
+  damage: 14
+  speed: moderate
+  initiative_bonus: +1
+
+role: elite_tank
+
+defenses:
+  resistances:
+    - physical
+    - poison
+  immunities: []
+  vulnerabilities:
+    - fire
+    - acid
+
+abilities:
+  - name: "Drill Bite"
+    type: active
+    description: |
+      The tick drives its proboscis into the target.
+      Attack: +5 to hit, 14 damage. If hit, target must pass
+      Strength DC 14 or be grappled as the tick begins to feed.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 14
+    effects:
+      - effect: "grappled"
+        duration: 0
+        save_dc: 14
+        chance: 100
+    ai_priority: high
+    ai_condition: "Standard attack, always attempts grapple"
+
+  - name: "Blood Drain"
+    type: active
+    description: |
+      While grappling, the tick drains blood. Deals 8 damage per round
+      and heals the tick for the same amount. Target must pass Strength
+      DC 14 each round to break free.
+    cooldown: 0
+    cost: 0
+    range: grappled
+    area: null
+    damage: 8
+    effects:
+      - effect: "heal_self"
+        duration: 0
+        save_dc: 0
+        chance: 100
+    ai_priority: high
+    ai_condition: "Use every round while grappling"
+
+  - name: "Armored Carapace"
+    type: passive
+    description: |
+      Physical attacks deal half damage. The carapace has weak points
+      at the leg joints (called shots at -4 attack bypass this).
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive — always active"
+
+  - name: "Engorge"
+    type: passive
+    description: |
+      After draining 20 or more HP total, the tick becomes Engorged.
+      Speed drops to slow, but HP increases by 20 and it gains
+      resistance to fire.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggers after draining 20+ HP"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "caves"
+      bonus: "Can cling to ceiling for ambush drop"
+    - terrain_type: "kaiju_proximity"
+      bonus: "Regenerates 2 HP per round near kaiju tissue"
+
+  interactions:
+    - element: "fire"
+      behavior: "Releases grapple and retreats from sustained fire"
+      priority: high
+      condition: "Fire damage sustained for 2+ rounds"
+
+  hazard_immunity:
+    - toxic_fumes
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 15
+  break_behavior: burrow_retreat
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: warmest
+  secondary: largest
+  avoids:
+    - "Maintenance Orbs (no blood)"
+  switches_target_when: "Current target breaks free AND another target is grappled-eligible"
+
+pack_tactics:
+  enabled: false
+
+loot:
+  gold:
+    min: 15
+    max: 40
+  xp: 100
+  guaranteed_drops:
+    - item: "Tick Carapace Shard"
+      quantity: 1
+  chance_drops:
+    - item: "Kaiju Blood Vial"
+      chance: 30
+      quantity: 1
+  rare_drops:
+    - item: "Intact Proboscis"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  subterranean:
+    - "Parasite adapted to kaiju-scale hosts"
+    - "Armored carapace grown from absorbed minerals"
+    - "The blood it drinks glows faintly — this is unsettling"
+
+encounter_notes: |
+  Kaiju Ticks are dangerous grapple-focused enemies.
+
+  Combat tactics:
+  - Opens with Drill Bite to grapple
+  - Uses Blood Drain every round while grappling
+  - Becomes harder to kill after Engorge triggers
+  - Will release grapple and flee from sustained fire
+
+  Counters:
+  - Fire forces it to release grapple
+  - Acid bypasses Armored Carapace
+  - Called shots to leg joints bypass physical resistance
+  - Tinker traps can immobilize before it grapples
+  - Two or more allies can make Strength checks to pull it off
+
+metadata:
+  created: "2026-02-09"
+  author: "System"
+  source: "Parasites adapted to feed on dormant kaiju"
+  cr_equivalent: 5

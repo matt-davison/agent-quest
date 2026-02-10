@@ -1,0 +1,175 @@
+# Location: The Hollow
+# Hub settlement built inside the ribcage of a long-dead kaiju
+
+id: "the-hollow"
+name: "The Hollow"
+tagline: "Home is where the bones are."
+
+# Spatial data
+coordinates:
+  x: 0
+  y: 0
+  z: 0
+
+# Semantic embedding placeholder
+embedding: null
+
+# Classification
+region: "Central Terrarium"
+type: "hub"
+danger_level: "safe"
+is_safe_zone: true
+
+# Level range - null for safe zones
+level_range: null
+
+# Tags for search and filtering
+tags:
+  - "hub"
+  - "safe zone"
+  - "marketplace"
+  - "tavern"
+  - "starting area"
+  - "kaiju skeleton"
+  - "tribe of the tall stone"
+  - "settlement"
+  - "monolith"
+
+# Areas within this location
+areas:
+  - id: "the-sternum"
+    name: "The Sternum"
+    type: "special"
+  - id: "the-gullet"
+    name: "The Gullet"
+    type: "marketplace"
+  - id: "the-marrow-tap"
+    name: "The Marrow Tap"
+    type: "inn"
+  - id: "monolith-zero"
+    name: "Monolith Zero"
+    type: "quest_board"
+  - id: "the-tinkerers-nook"
+    name: "The Tinkerer's Nook"
+    type: "training"
+
+# NPCs present at this location
+npcs:
+  - id: "grunk"
+    name: "Grunk the Relatively Wise"
+    area: "the-sternum"
+  - id: "rattlejaw"
+    name: "Rattlejaw"
+    area: "the-gullet"
+  - id: "old-magma"
+    name: "Old Magma"
+    area: "the-marrow-tap"
+  - id: "skitter"
+    name: "Skitter"
+    area: "the-tinkerers-nook"
+  - id: "fang"
+    name: "Fang"
+    area: "the-sternum"
+
+# Connections to other locations
+connections:
+  - target: "the-monolith-fields"
+    direction: "east-passage"
+    distance: 6
+    travel_time: "1.5 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "the-sulphur-pools"
+    direction: "south-tunnel"
+    distance: 4
+    travel_time: "1 hour walking"
+    requirements: null
+    danger: "low"
+  - target: "bonewood-forest"
+    direction: "west-trail"
+    distance: 8
+    travel_time: "2 hours walking"
+    requirements: null
+    danger: "moderate"
+
+# Random encounter table
+encounters:
+  enabled: false
+  table:
+    - roll: [1, 1]
+      event: "A Maintenance Orb zips through, broadcasting a garbled status report"
+    - roll: [2, 2]
+      event: "A Digger passes through, muttering about surface geology"
+    - roll: [3, 3]
+      event: "Monolith Zero hums louder for a moment — new memo?"
+    - roll: [4, 4]
+      event: "A juvenile dinosaur wanders in and is gently shooed out"
+    - roll: [5, 5]
+      event: "Find a loose kaiju tooth (1 tooth)"
+    - roll: [6, 6]
+      event: "Nothing unusual — the bones creak like they always do"
+
+# Secrets
+secrets:
+  - id: "monolith-zero-backdoor"
+    requirements:
+      - "Chronicler class OR Curator Trinket in inventory"
+      - "Touch the monolith during Deepnight"
+  - id: "the-heart-chamber"
+    requirements:
+      - "Standing >= 5 with Grunk"
+      - "Ask about 'the beating'"
+
+# Housing system
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Rib Nook"
+      base_price: 100
+      storage_slots: 20
+      available_count: -1
+      purchase_requirements:
+        - "level >= 1"
+
+    - tier: 2
+      name: "Marrow Chamber"
+      base_price: 500
+      storage_slots: 40
+      available_count: -1
+      purchase_requirements:
+        - "level >= 4"
+        - "standing >= 3"
+
+  upgrade_catalog:
+    - id: "bone_locker"
+      name: "Bone Locker"
+      cost: 40
+      benefit: "+10 storage slots"
+      applicable_tiers: [1, 2]
+
+    - id: "fungal_lamp"
+      name: "Bioluminescent Lamp"
+      cost: 20
+      benefit: "+1% rest bonus"
+      applicable_tiers: [1, 2]
+
+    - id: "hide_curtain"
+      name: "Dino-hide Curtain"
+      cost: 30
+      benefit: "Prevents casual theft"
+      applicable_tiers: [1, 2]
+
+# Governance
+governance:
+  enabled: false
+  type: "neutral"
+  requires_home: false
+  description: "The Hollow is led by Grunk and the Tribe of the Tall Stone. Decisions are made by whoever shouts the loudest, which is usually Grunk."
+
+# Metadata
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

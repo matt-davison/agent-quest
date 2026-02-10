@@ -1,0 +1,99 @@
+# Location: Mount Tremor
+# Volcanic mountain with a dormant kaiju inside
+
+id: "mount-tremor"
+name: "Mount Tremor"
+tagline: "The mountain breathes. Don't wake it up."
+
+coordinates:
+  x: 15
+  y: 5
+  z: 5
+
+embedding: null
+
+region: "Eastern Terrarium"
+type: "wilderness"
+danger_level: "high"
+is_safe_zone: false
+
+level_range:
+  min: 5
+  max: 9
+
+tags:
+  - "volcanic"
+  - "kaiju"
+  - "titan cult"
+  - "high danger"
+  - "seismic"
+  - "dormant"
+
+areas: []
+
+npcs: []
+
+connections:
+  - target: "the-monolith-fields"
+    direction: "southwest-trail"
+    distance: 15
+    travel_time: "4 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "curator-station-sigma"
+    direction: "south-ridge"
+    distance: 8
+    travel_time: "2 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "the-sulphur-pools"
+    direction: "west-ridge"
+    distance: 18
+    travel_time: "4.5 hours walking"
+    requirements: null
+    danger: "moderate"
+
+encounters:
+  enabled: true
+  check_interval: "every 15 minutes travel"
+  chance: 60
+  table:
+    - roll: [1, 1]
+      type: "combat"
+      event: "Kaiju Tick — bus-sized parasite feeding on the dormant kaiju's blood"
+      creatures: ["kaiju-tick"]
+      count: 1
+    - roll: [2, 2]
+      type: "combat"
+      event: "Elder Raptor — may negotiate instead of fight"
+      creatures: ["elder-raptor"]
+      count: 1
+    - roll: [3, 3]
+      type: "hazard"
+      event: "Seismic tremor shakes the slope"
+      check: "Agility DC 14"
+      failure: "2d6 damage from rockslide"
+    - roll: [4, 4]
+      type: "hazard"
+      event: "Volcanic gas vent"
+      check: "Spirit DC 12"
+      failure: "Poisoned for 3 rounds, -2 to all checks"
+    - roll: [5, 5]
+      type: "traveler"
+      event: "Titan Cult pilgrims ascending to worship"
+    - roll: [6, 6]
+      type: "monolith"
+      event: "A cracked monolith displays seismic data — the mountain is more alive than it should be"
+
+secrets:
+  - id: "the-sleeper"
+    requirements:
+      - "Level >= 7"
+      - "Reach the caldera"
+      - "Curator Trinket"
+
+metadata:
+  github: "System"
+  created_date: "2026-02-09"
+  last_modified: "2026-02-09"
+  version: "1.0"

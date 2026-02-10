@@ -1,0 +1,49 @@
+# Consult the Guide - Chronicler starting ability
+id: ter_cguide
+name: "Consult the Guide"
+type: ability
+subtype: utility
+class: chronicler
+tier: 1
+tags:
+  - utility
+  - lore
+  - information
+  - chronicler
+  - the_guide
+
+prerequisites:
+  min_mind: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Consult The Guide for information. Reveals hidden details about the current location, creature, NPC, or item. The Guide's entries are helpful, opinionated, and written by someone who may have been drinking."
+    willpower_cost: 1
+    effect:
+      reveal:
+        targets: "location, creature, NPC, or item"
+        detail_level: "basic hidden information"
+        flavor: "Guide entry in distinctive voice"
+    learn_cost: 0
+  2:
+    description: "Reveals deeper secrets including Curator data, hidden connections, and lore fragments. The Guide occasionally provides unsolicited commentary. Can detect Curator technology in a 5-space radius."
+    willpower_cost: 2
+    effect:
+      reveal:
+        targets: "location, creature, NPC, or item"
+        detail_level: "deep hidden information and Curator data"
+        detect_curator: true
+        detect_range: 5
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 3
+  cooldown_rounds: null
+
+action_type: minor
+range: null
+target: "location, creature, NPC, or item"

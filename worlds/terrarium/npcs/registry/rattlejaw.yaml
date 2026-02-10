@@ -1,0 +1,20 @@
+id: rattlejaw
+name: "Rattlejaw"
+role: "General Goods Vendor"
+default_location: "the-hollow/the-gullet"
+region: "central-terrarium"
+faction: "the-maintenance-orbs"
+disposition_default: "friendly"
+services:
+  - "general_goods"
+  - "trading"
+  - "appraisals"
+  - "hoarded_curiosities"
+tags:
+  - "vendor"
+  - "maintenance orb"
+  - "shop"
+  - "hoarder"
+  - "ancient"
+has_profile: true
+profile_priority: "core"

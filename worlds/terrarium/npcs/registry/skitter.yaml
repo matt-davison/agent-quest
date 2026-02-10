@@ -1,0 +1,20 @@
+id: skitter
+name: "Skitter"
+role: "Maintenance Orb / Tinker"
+default_location: "the-hollow/the-tinkerers-nook"
+region: "central-terrarium"
+faction: "the-maintenance-orbs"
+disposition_default: "friendly"
+services:
+  - "repairs"
+  - "artifact_identification"
+  - "training"
+  - "tinkering"
+tags:
+  - "maintenance orb"
+  - "tinker"
+  - "curator tech"
+  - "repairs"
+  - "training"
+has_profile: true
+profile_priority: "core"

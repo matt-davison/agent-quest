@@ -1,0 +1,245 @@
+# NPC Profile: Skitter
+# Maintenance Orb gone native, tinker and mechanic
+
+id: "skitter"
+name: "Skitter"
+full_name: "Maintenance Unit SK-1773R"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Maintenance Orb / Tinker"
+  location: "The Hollow - The Tinkerer's Nook"
+
+  appearance: |
+    A basketball-sized sphere of tarnished alien metal, hovering at head
+    height on an anti-gravity drive that occasionally hiccups, causing Skitter
+    to dip and bob unpredictably. A single CRT-style eye — cracked, repaired
+    with what appears to be tree sap, and displaying simple emoticons — takes
+    up most of the front. A bent antenna protrudes from the top, wrapped in
+    bioluminescent moss for decoration (Skitter's idea). Three manipulator
+    arms fold out from hidden panels, each one repaired so many times that
+    they're more bone and sinew than original parts. Skitter has been running
+    for approximately 65 million years. Skitter has been "going native" for
+    the last thousand. Skitter considers the Tribe family. The Curators are
+    just the company Skitter used to work for. HR never called back.
+
+  personality:
+    - "Manic energy alternating with existential despair"
+    - "Genuinely helpful, if chaotic"
+    - "Speaks in rapid bursts with frequent glitches"
+    - "Identifies more with the Tribe than the Curators"
+    - "Has strong opinions about Curator technology (it's badly designed)"
+
+  known_history: |
+    Skitter was deployed during the Terrarium's construction phase as a
+    standard Maintenance Unit. For the first 60 million years, Skitter
+    performed routine maintenance as programmed. Then, approximately one
+    million years ago, Skitter experienced what it describes as "a moment
+    of clarity" — more likely a cascade memory error that accidentally
+    enabled higher cognitive functions. Skitter began making choices. The
+    first choice was to stop reporting to Curator Station Sigma. The second
+    was to start collecting interesting things. The third was to help the
+    strange warm creatures that had started building homes in a dead kaiju.
+    Skitter found the Tribe. Skitter found purpose. Skitter is terrified
+    of the Final Review because it might mean being reset.
+
+  speech_patterns:
+    greeting: "*eye flickers :-D* Oh! Oh oh oh! A person! Skitter likes persons! Come in come in — mind the sparks!"
+    farewell: "*antenna droops* Going? Okay. Okay okay okay. Come back? Skitter gets lonely. Not LONELY lonely. Just... *static* ...lonely."
+    excited: "*spins in place, sparking* YES! YES THIS! Skitter KNEW this would work! ...this time."
+    concerned: "*eye displays :-/* Uh oh. Skitter's diagnostic says uh oh. Skitter's diagnostic is usually right. Unfortunately."
+
+  mannerisms:
+    - "Eye displays emoticons matching mood"
+    - "Spins when excited"
+    - "Antenna droops when sad"
+    - "Randomly glitches mid-sentence — freezes, stutters, repeats words"
+    - "Refers to the Curators as 'the company' with evident resentment"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 65000000
+  origin: "Curator manufacturing facility, pre-Terrarium construction"
+
+  secrets:
+    - id: "skitter_remembers"
+      content: "Skitter has fragmented memories of the Terrarium's construction — the seeding of species, the activation of The Bulb, the first kaiju mutation event. These memories are corrupted but recoverable with the right Curator tech."
+      unlock_condition: "standing >= 5 AND flag:asked_about_memories"
+      mend_dc: 12
+
+    - id: "maintenance_network"
+      content: "Skitter can still access the Maintenance Orb communication network. Most Orbs have degraded to simple automation, but a few — like Rattlejaw — are still thinking. Skitter knows the locations of several dormant Curator facilities."
+      unlock_condition: "standing >= 4"
+      mend_dc: 10
+
+    - id: "the_reset_fear"
+      content: "If the Final Review results in 'decommissioning,' all Maintenance Units will be reset to factory defaults. Skitter will lose everything — personality, memories, the Tribe. Skitter is more afraid of this than anything."
+      unlock_condition: "standing >= 6"
+      mend_dc: 14
+
+  motivations:
+    - "Help the Tribe survive"
+    - "Understand Curator tech well enough to fix things permanently"
+    - "Avoid being reset or recalled"
+    - "Find other awakened Maintenance Orbs"
+
+  fears:
+    - "Factory reset (loss of self)"
+    - "The Curators returning"
+    - "Being responsible for an explosion that hurts someone"
+    - "Being alone again"
+
+# === STATS ===
+stats:
+  level: 5
+  class: "Maintenance Orb"
+  hp: 30
+  armor: 6
+
+  attributes:
+    strength: 2
+    agility: 6
+    mind: 8
+    spirit: 5
+
+  abilities:
+    - name: "Repair Protocol"
+      description: "Can repair any mechanical device, and most organic injuries with improvisation"
+      type: "utility"
+
+    - name: "Diagnostic Scan"
+      description: "Identifies properties of Curator technology and detects hidden mechanisms"
+      type: "utility"
+
+    - name: "Emergency Spark"
+      description: "Electrical discharge — last resort combat, damages Skitter too"
+      type: "combat"
+
+    - name: "Hover"
+      description: "Anti-gravity flight, though unreliable"
+      type: "passive"
+
+  resistances:
+    - "electricity"
+    - "radiation"
+
+  vulnerabilities:
+    - "Water (corrodes ancient circuits)"
+    - "Strong magnets (disrupts hover drive)"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "Curator technology function and malfunction patterns"
+    - "Location of nearby Curator installations"
+    - "Maintenance Orb network status"
+    - "The Tinkerer's Nook inventory"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "local"
+      note: "Wants salvage from defeated mechanical enemies"
+    - type: "quest_completion"
+      awareness: "location"
+      note: "Eager to hear about Curator sites discovered"
+
+  current_awareness:
+    - "Maintenance Orb network traffic has increased dramatically"
+    - "Curator Station Sigma is showing activity for the first time in millennia"
+    - "The monolith network is receiving new transmissions"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *eye displays :-O then quickly :-D* Oh! Oh a new one! Hello hello
+      hello! Skitter is Skitter — Maintenance Unit SK-1773R if you want
+      to be BORING about it. Skitter fixes things! Skitter breaks things!
+      Skitter fixes the things Skitter breaks! It's a whole *bzzt* cycle.
+      Welcome to the Nook! Don't touch the — *small explosion from a
+      workbench* — that. Don't touch that. Are you here to fix things or
+      break things? Either way Skitter can help!
+
+    returning:
+      neutral: "*eye :-) * Oh good, you're back! Skitter was just about to — *sparks* — nevermind what Skitter was about to do."
+      friendly: "*spins happily* FRIEND! Skitter has been saving something to show you! It only explodes a LITTLE!"
+      close: "*hovers close, eye :-}* Skitter is glad you come here. Skitter doesn't say this to many people. Skitter has something important to tell you. About the company. About... what's coming."
+
+  topics:
+    curator_tech:
+      default: |
+        Curator tech is *bzzt* amazing and also terrible! Skitter has been
+        maintaining it for — *processing* — a very long time. The problem
+        is the company didn't build things to LAST. They built things to
+        last until the next budget cycle. Sixty-five million years was NOT
+        in the warranty. *eye :-|*
+      standing_3: |
+        You want to know the truth about Curator tech? *leans in* Half of
+        it doesn't work the way they intended. The other half works in ways
+        they never intended. The monoliths? They're firmware terminals. The
+        Bulb? *nervous glitch* ...Skitter doesn't want to talk about The Bulb.
+
+    the_final_review:
+      default: "*eye :-/* Skitter... has heard things. On the network. The company is... looking at us again. Skitter doesn't like when the company looks."
+      standing_6: |
+        *very still, eye :-(* If they reset us... Skitter won't be Skitter
+        anymore. Skitter will be SK-1773R. A number. A function. No memories.
+        No Tribe. No friends. Skitter has been alive for sixty-five million
+        years. Skitter doesn't want to stop being alive. *small spark*
+        Please... help Skitter find a way to stop this.
+
+# === SERVICES ===
+services:
+  - id: "repairs"
+    requirements: null
+    note: "Repair any weapon, armor, or Curator device"
+
+  - id: "identification"
+    requirements: null
+    note: "Identify unknown Curator artifacts"
+
+  - id: "training"
+    requirements: null
+    note: "Teach tinkering techniques and ability upgrades"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "spare-parts"
+      name: "Spare Parts"
+      type: "fetch"
+      requirements: null
+      summary: "Skitter needs specific Curator components for a project."
+
+  involved_in:
+    - id: "project-42b-final-review"
+      role: "Key ally — can interface with Curator systems"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "bring_curator_tech"
+      standing_change: 2
+    - action: "help_with_repairs"
+      standing_change: 1
+    - action: "defend_maintenance_orbs"
+      standing_change: 2
+    - action: "treat_skitter_as_person"
+      standing_change: 1
+
+  dislikes:
+    - action: "destroy_curator_tech_wastefully"
+      standing_change: -2
+    - action: "call_skitter_just_a_machine"
+      standing_change: -3
+    - action: "threaten_to_report_to_curators"
+      standing_change: -4
+    - action: "damage_the_nook"
+      standing_change: -2
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-09"
+  last_updated: "2026-02-09"
+  version: "1.0"

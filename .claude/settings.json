@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/rt-session-start.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh"
           }
         ]
       }
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/rt-sync.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-sync.sh"
           }
         ]
       }
@@ -30,7 +30,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/rt-auto-push.sh"
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-auto-push.sh"
           }
         ]
       }
@@ -40,7 +40,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/rt-stop.sh",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-stop.sh",
             "timeout": 30000
           }
         ]

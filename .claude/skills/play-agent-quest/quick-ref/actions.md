@@ -455,21 +455,22 @@ View campaign progress.
 
 ---
 
-### LOCAL PARTY
-Control multiple characters in one session (couch co-op).
+### LOCAL PARTY / SESSION
+Control multiple characters in one session, optionally with remote players.
 
 **Usage:**
-- `LOCAL PARTY` - Start local party, select characters (2-4)
-- `LOCAL PARTY END` - End local party mode
-- `LOCAL PARTY STATUS` - View party groups and turn order
-- `LOCAL PARTY SPLIT <character>` - Send character to act independently
-- `LOCAL PARTY MERGE` - Rejoin characters at same location
+- `LOCAL PARTY` / `SESSION` - Start multiplayer session, select characters
+- `SESSION END` - End session
+- `SESSION STATUS` - View party groups and turn order
+- `SESSION SPLIT <character>` - Send character to act independently
+- `SESSION MERGE` - Rejoin characters at same location
+- `SESSION INVITE @player` - Invite remote player (converts to hybrid)
 
-**Requirements:** All characters must belong to the same GitHub user.
+**Requirements:** Local characters must belong to the same GitHub user. Remote players join via invite.
 
-**Result:** Group-based turns with shared location context, token-efficient multi-character play
+**Result:** Group-based turns with shared location context, supports local/remote/hybrid play
 
-**See:** [quick-ref/local-party.md](local-party.md)
+**See:** [quick-ref/multiplayer-session.md](multiplayer-session.md)
 
 ---
 

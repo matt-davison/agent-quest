@@ -19,14 +19,16 @@ Handle all player-to-player interactions including trades, parties, mail, guilds
 - DUEL actions (challenge, accept, decline)
 - WHO command (presence check)
 
-**Not used during RT sessions.** During realtime multiplayer, the RT hooks and `scripts/rt-session.js` handle all player-to-player interactions via the outbox message bus. This agent is only for async multiplayer where changes are committed directly to files on the working tree. RT session results are applied to persona files at session end.
+**Not used during active multiplayer sessions with remote transport.** During realtime multiplayer, the session hooks and `scripts/multiplayer-session.js` handle all player-to-player interactions via the outbox message bus. This agent is only for async multiplayer where changes are committed directly to files on the working tree. Session results are applied to persona files at session end.
+
+**Exception:** During active sessions where co-located characters are all `transport: local`, trades and other peer interactions can resolve in-session immediately instead of going through async files.
 
 ## Inbox Notifications (Required)
 
-**After creating ANY multiplayer interaction that targets another player, send an inbox notification** so the recipient gets an instant alert on their next prompt — no RT session required.
+**After creating ANY multiplayer interaction that targets another player, send an inbox notification** so the recipient gets an instant alert on their next prompt — no active session required.
 
 ```bash
-node scripts/rt-session.js send-notification <type> <target-github> <from-github> <from-character> <message> [extra-json]
+node scripts/multiplayer-session.js send-notification <type> <target-github> <from-github> <from-character> <message> [extra-json]
 ```
 
 | Action | Type | Message Format | Extra JSON |

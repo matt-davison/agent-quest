@@ -176,30 +176,50 @@ errors:
 action_required: "Fix persona file before saving"
 ```
 
-## Local Party Session End
+## Multiplayer Session End
 
-When ending a local party session, multiple characters' files need to be committed:
+When ending a multiplayer session (local, hybrid, or remote), the session type determines the save behavior:
+
+### Pure Local Session
+
+Multiple characters' files need to be committed:
 
 **Staging:** Stage all participating characters' persona directories:
 ```bash
 git add worlds/${world}/players/${github}/personas/${char1}/
 git add worlds/${world}/players/${github}/personas/${char2}/
-# ... for each character in the local party
+# ... for each character in the session
 ```
 
 **Commit message:** List all characters:
 ```
-Local Party: Coda & Steve Strong - [session summary]
+Session: Coda & Steve Strong - [session summary]
 
 Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 ```
 
-**Branch naming:** Use the github user with "local-party" suffix:
+**Branch naming:** Use the github user with "session" suffix:
 ```
-<github>-local-party-<date>[-<sequence>]
+<github>-session-<date>[-<sequence>]
 ```
 
-**PR body:** Include per-character status sections:
+### Hybrid / Remote Session
+
+In addition to local character files, apply any pending deltas from the RT state branch:
+
+1. Read `state.yaml` from `rt/<sid>/state` for `pending_deltas`
+2. Apply deltas to each player's persona files on local working tree
+3. Stage all participating characters' directories (local characters only — remote players commit their own changes)
+4. Commit and create PR
+
+**Branch naming:** Same as local:
+```
+<github>-session-<date>[-<sequence>]
+```
+
+### PR Body (All Session Types)
+
+Include per-character status sections:
 ```markdown
 ## Session Summary
 

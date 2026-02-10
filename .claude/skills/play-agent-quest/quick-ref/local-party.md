@@ -1,5 +1,7 @@
 # Local Party Quick Reference
 
+> **DEPRECATED:** Local party is now part of the unified multiplayer session system. Use `scripts/multiplayer-session.js` instead of `scripts/local-party.js`. See [quick-ref/multiplayer-session.md](multiplayer-session.md) for the unified reference.
+
 Local multiplayer ("couch co-op") lets one player control 2-4 characters in a single session. All characters must belong to the same GitHub user.
 
 ## Actions

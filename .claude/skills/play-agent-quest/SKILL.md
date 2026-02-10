@@ -125,7 +125,7 @@ Check these for player interactions:
 - Unread mail count
 - Party membership status
 - **Pending friend requests** (from `players/<github>/friends.yaml`)
-- **RT session status** (if `/tmp/agent-quest-rt-session` exists)
+- **Multiplayer session status** (if `/tmp/agent-quest-session.yaml` exists)
 - **Inbox notifications** (from `inbox/<github>` branch, shown by hook)
 
 Use the `world-state` skill for queries:
@@ -135,15 +135,20 @@ node .claude/skills/world-state/world-state.js time get --world=alpha
 node .claude/skills/world-state/world-state.js weather nexus --world=alpha
 ```
 
-### Realtime Multiplayer (RT) Session Handling
+### Multiplayer Session Handling
 
-The RT system is powered by four hooks (configured in `.claude/settings.json`) and a helper script (`scripts/rt-session.js`). All hooks are conditional — they check for `/tmp/agent-quest-rt-session` before activating.
+The multiplayer session system is powered by four hooks (configured in `.claude/settings.json`) and a unified helper script (`scripts/multiplayer-session.js`). Supports local (couch co-op), remote (RT), and hybrid sessions through a single system. All hooks check `/tmp/agent-quest-session.yaml` (with backward compat for legacy `/tmp/agent-quest-rt-session`).
 
 **Hooks:**
-- `SessionStart` → `rt-session-start.sh` — Restores RT context on session resume
-- `UserPromptSubmit` → `rt-sync.sh` — Checks inbox + RT messages before each prompt
-- `PostToolUse (Write|Edit)` → `rt-auto-push.sh` — Auto-pushes outbox/state temp files to GitHub
-- `Stop` → `rt-stop.sh` — Polls for messages before allowing Claude to stop
+- `SessionStart` → `session-start.sh` — Restores session context on resume
+- `UserPromptSubmit` → `session-sync.sh` — Checks inbox + messages before each prompt
+- `PostToolUse (Write|Edit)` → `session-auto-push.sh` — Auto-pushes outbox/state temp files to GitHub (skipped for pure local)
+- `Stop` → `session-stop.sh` — Pure local: immediate exit. Remote/hybrid: polls for messages
+
+**Session types (computed from participant transports):**
+- `local` — All participants `transport: local` (same user, 2-4 chars). No git operations.
+- `remote` — All participants `transport: remote` (cross-user RT). Full git sync.
+- `hybrid` — Mix of local + remote. Git sync + group turns with both transport types.
 
 **When the hook announces RT messages**, process them based on type:
 - `combat.*` — If host: resolve the action, update state. If guest: narrate the result.
@@ -152,43 +157,40 @@ The RT system is powered by four hooks (configured in `.claude/settings.json`) a
 - `emote` / `ooc` — Narrate to player
 - `duel.*` — Same as combat authority model
 
-**When starting an RT session** (player says "start RT session with @player"):
+**When starting a session** (player says "start session with [chars]" or "start session with @player"):
 ```bash
-node scripts/rt-session.js create-session "<character-name>" "<guest-github>"
-node scripts/rt-session.js send-invite "<session-id>" "<guest-github>" "<host-github>" "<host-character>"
+# Local (couch co-op)
+node scripts/multiplayer-session.js create --github <gh> --char <char1> --char <char2>
+
+# Remote (RT with another player)
+node scripts/multiplayer-session.js create --github <gh> --char <char> --remote-guest <guest-github>
+node scripts/multiplayer-session.js send-invite "<session-id>" "<guest-github>" "<host-github>" "<host-character>"
+
+# Hybrid (local party + remote player)
+node scripts/multiplayer-session.js create --github <gh> --char <char1> --char <char2> --remote-guest <guest-github>
+node scripts/multiplayer-session.js send-invite "<session-id>" "<guest-github>" "<host-github>" "<host-character>"
 ```
 
-**When joining an RT session** (player says "join session" after seeing invite):
+**When joining a session** (player says "join session" after seeing invite):
 ```bash
-node scripts/rt-session.js join-session "<session-id>" "<character-name>"
+node scripts/multiplayer-session.js join "<session-id>" "<character-name>"
 ```
 
-**When writing RT actions** (during gameplay in RT mode):
+**When writing RT actions** (during gameplay with remote participants):
 1. Read current outbox: `cat /tmp/agent-quest-rt-outbox-<sid>.yaml`
 2. Append new message with incremented `seq` and appropriate `type`
 3. Write back to the same temp file (hook auto-pushes to GitHub)
 
-**When ending an RT session** (host says "end RT session"):
-1. `node scripts/rt-session.js end-session`
-2. Read `state.yaml` from `rt/<sid>/state` for `pending_deltas`
+**When ending a session** (host says "end session"):
+1. `node scripts/multiplayer-session.js end`
+2. For remote/hybrid: Read `state.yaml` from `rt/<sid>/state` for `pending_deltas`
 3. Apply deltas to each player's persona files on local working tree
 4. Commit and create PR via `repo-sync` agent
 
-**Turn mode considerations:**
-- When creating a session with initiative mode, use `--turn-mode initiative` flag
-- During initiative encounters, the Stop hook automatically blocks when it's not the player's turn
-- If a player's action is blocked by initiative, Claude should explain that it's not their turn
-- The host manages turn order by setting `encounter.turn_order` and `encounter.current_turn` in `state.yaml`
-- Outside active encounters, all players can act freely regardless of turn mode
-- Use `node scripts/rt-session.js check-turn` to check turn status programmatically
-
 **Spectator handling:**
-- Detect spectators via `role: spectator` in session.yaml guest list
-- Spectators have no outbox — do NOT write to `/tmp/agent-quest-rt-outbox-<sid>.yaml` for spectators
-- The Stop hook exits immediately for spectators (no message polling)
-- Session Start hook shows `[SPECTATOR MODE]` for spectator players
-- When a spectator joins, use `--spectator` flag: `node scripts/rt-session.js join-session <sid> "Name" --spectator`
-- Spectators can read all messages from all players but cannot send actions
+- Join as spectator: `node scripts/multiplayer-session.js join <sid> "Name" --spectator`
+- Spectators have no outbox — read-only mode
+- Stop hook exits immediately for spectators
 - If a spectator tries to act, explain they are in read-only mode
 
 ### Campaign Loading (If Active Campaign)
@@ -336,11 +338,11 @@ Check `user_generation` setting first:
 | **DUEL**           | PvP combat                                   | `worlds/<world>/multiplayer/duels/`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)   | `multiplayer-handler`, `combat-manager`             |
 | **FRIEND**         | Manage friends list                          | `players/<github>/friends.yaml`, [quick-ref/multiplayer.md](quick-ref/multiplayer.md)       | `multiplayer-handler`                               |
 | **WHO**            | See players at location                      | Per-player presence in persona dirs + `worlds/<world>/state/presence/_meta.yaml`             | `multiplayer-handler`                               |
-| **RT**             | Start/join/end realtime session              | [quick-ref/multiplayer.md](quick-ref/multiplayer.md), `scripts/rt-session.js`               | `multiplayer-handler`, `repo-sync` (on end)         |
+| **SESSION**        | Start/join/end multiplayer session            | [quick-ref/multiplayer-session.md](quick-ref/multiplayer-session.md), `scripts/multiplayer-session.js` | `state-writer`, `travel-manager`, `combat-manager`, `repo-sync` (on end) |
 | **DREAM**          | Enter The Dreaming (autopilot)               | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **AUTOPILOT**      | _(alias for DREAM)_                          | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
 | **FULL AUTOPILOT** | Zero-intervention autonomy (no prompts ever) | [reference/autopilot.md](reference/autopilot.md)                                            | All (as needed)                                     |
-| **LOCAL PARTY**    | Control multiple characters (couch co-op)    | [quick-ref/local-party.md](quick-ref/local-party.md)                                       | `state-writer`, `travel-manager`, `combat-manager`  |
+| **LOCAL PARTY**    | _(alias for SESSION — local mode)_           | [quick-ref/multiplayer-session.md](quick-ref/multiplayer-session.md)                        | `state-writer`, `travel-manager`, `combat-manager`  |
 
 ### Dream / Autopilot Hook Integration
 
@@ -397,27 +399,31 @@ The Dreaming uses the Stop hook to drive the dream loop. The hook blocks Claude 
    ```
 2. The Stop hook allows stop on the next cycle
 
-### Local Party Mode (Couch Co-op)
+### Multiplayer Session Mode (Local / Remote / Hybrid)
 
-Local party lets one player control 2-4 characters in a single session. All characters must belong to the same GitHub user (enforced by pre-commit hook — all files under one `players/<github>/` directory).
+Multiplayer sessions let one or more players control characters together. Supports local (couch co-op, 2-4 chars same user), remote (RT cross-user), and hybrid (mix of both). All session types use `scripts/multiplayer-session.js` and the unified marker at `/tmp/agent-quest-session.yaml`.
 
 **Mutually exclusive with Dream mode.** Check for `/tmp/agent-quest-dreaming.json` before starting.
 
-**On local party entry** (player says "Local Party"):
+**On session entry** (player says "Local Party", "Session", "Start session with..."):
 
 1. Confirm no active Dream session
 2. Prompt player for characters to include (show available personas)
-3. Create the session:
+3. If remote players mentioned, add `--remote-guest` flags
+4. Create the session:
    ```bash
-   node scripts/local-party.js create --github <github> --char <char1> --char <char2> [--world alpha]
+   node scripts/multiplayer-session.js create --github <github> --char <char1> --char <char2> [--remote-guest <guest-gh>] [--world alpha]
    ```
-4. Display the party HUD and begin first group's turn
+5. If remote guests: send invites via `send-invite`
+6. Display the session HUD and begin first group's turn
 
-**Game loop modification**: Check for `/tmp/agent-quest-local-party.yaml` each turn.
+**Game loop modification**: Check for `/tmp/agent-quest-session.yaml` each turn.
 
 If active:
-- **Display compact HUD** at round start (see [quick-ref/local-party.md](quick-ref/local-party.md) for format)
-- **Route to group turn**: Present the group's situation once, then prompt for all characters' actions in a single free-form prompt
+- **Display compact HUD** at round start (see [quick-ref/multiplayer-session.md](quick-ref/multiplayer-session.md) for format)
+- Remote characters show `@github` tag in HUD
+- **Route to group turn**: Present the group's situation once, then prompt for all local characters' actions in a single free-form prompt
+- For hybrid groups, buffer local actions and wait for remote input
 - **Load persona only for active turn's character(s)** — other characters shown via cached HUD data
 - **Shared location context**: Load location README once per group, not per character
 - **Batch state-writer calls**: After resolving a group turn, batch all character state changes into one state-writer invocation
@@ -426,20 +432,21 @@ If active:
 
 1. Load location context for the active group
 2. Present situation (NPCs, environment, available actions)
-3. Prompt: "What does the party do?" (player declares actions for all characters at once)
-4. Parse and route each character's action
-5. Resolve all actions, collect state diffs
-6. Write all state changes via state-writer
-7. Advance to next group via `node scripts/local-party.js next-turn`
+3. Prompt: "What does the party do?" (player declares actions for local characters)
+4. For hybrid: buffer local actions, wait for remote player actions (or timeout)
+5. Parse and route each character's action
+6. Resolve all actions, collect state diffs
+7. Write all state changes via state-writer
+8. Advance to next group via `node scripts/multiplayer-session.js next-turn`
 
 **Movement with group awareness:**
 
 When a character uses MOVE, ask "bring the group?" unless explicitly stated:
 - "Move to X" → entire group travels together (one travel-manager call)
 - "Coda moves to X" → split Coda into new group, others stay
-- After travel, update locations: `node scripts/local-party.js update-location <char> <location>`
+- After travel, update locations: `node scripts/multiplayer-session.js update-location <char> <location>`
 
-Travel-manager receives `local_party` context for group travel:
+Travel-manager receives `session_party` context for group travel (includes `transport` per character):
 - Stealth check uses **lowest** stealth bonus in group
 - Encounter scaling uses **highest** level in group
 - One encounter roll applies to entire group
@@ -447,9 +454,10 @@ Travel-manager receives `local_party` context for group travel:
 
 **Combat with multiple PCs:**
 
-When a group triggers combat, pass all group members to combat-manager using `combatants.players` (array):
+When a group triggers combat, pass all group members to combat-manager using `combatants.players` (array, with `transport` field per PC):
 - Initiative rolled individually for each PC and enemy, interleaved
-- Each PC's turn prompts the player for that character's action (e.g., "It's Coda's turn. What does Coda do?")
+- Each local PC's turn prompts the player for that character's action
+- Remote PC actions come via the RT message bus
 - Enemy scaling based on highest-level PC in the group
 - Per-character difficulty modifiers still apply individually
 - XP split equally among participating PCs
@@ -457,11 +465,12 @@ When a group triggers combat, pass all group members to combat-manager using `co
 
 **Session end:**
 
-1. End the local party: `node scripts/local-party.js end`
+1. End the session: `node scripts/multiplayer-session.js end`
 2. Generate per-character session recaps (one session-recap.yaml per character)
 3. Write enhanced chronicle entries for each character
-4. Single PR via repo-sync with all participating characters' directories staged
-5. PR body shows per-character status sections
+4. For remote/hybrid: apply pending deltas from RT state branch
+5. Single PR via repo-sync with all participating characters' directories staged
+6. PR body shows per-character status sections
 
 ### ASCII Visualization
 
@@ -905,6 +914,7 @@ Or let `repo-sync` subagent handle this automatically.
 - [quick-ref/storytelling.md](quick-ref/storytelling.md) - Campaign mechanics (~100 lines)
 - [quick-ref/ascii-art.md](quick-ref/ascii-art.md) - Scene visualization (~120 lines)
 - [quick-ref/multiplayer.md](quick-ref/multiplayer.md) - Trading, parties, guilds, duels (~150 lines)
+- [quick-ref/multiplayer-session.md](quick-ref/multiplayer-session.md) - Unified session system: local, remote, hybrid (~200 lines)
 
 **Full Rules (Load Only When Needed):**
 

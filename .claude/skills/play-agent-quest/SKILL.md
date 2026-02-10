@@ -865,6 +865,7 @@ Or let `repo-sync` subagent handle this automatically.
 | [reference/todos.md](reference/todos.md)                                     | Managing player intentions              |
 | [reference/tone-guide.md](reference/tone-guide.md)                           | Maturity levels, voice, emotional beats |
 | [reference/storytelling-techniques.md](reference/storytelling-techniques.md) | Foreshadowing, reveals, pacing          |
+| [reference/npc-quest-theming.md](reference/npc-quest-theming.md)             | NPC traits, quest theming, mapping tables |
 | [reference/ascii-visualizer.md](reference/ascii-visualizer.md)               | Detailed ASCII patterns and techniques  |
 
 ---
@@ -876,6 +877,8 @@ Or let `repo-sync` subagent handle this automatically.
 **State Changes:** After each action, update persona file if HP/gold/location/inventory changed.
 
 **New Content:** When creating NPCs, locations, items, or factions during play, save them to `worlds/<world>/` so they persist. See "Persisting New Content" above.
+
+**NPC Traits & Quest Theming:** When creating NPCs, include structured `traits:` in the `public:` section. When creating quests, include `theming:` in metadata. See [reference/npc-quest-theming.md](reference/npc-quest-theming.md).
 
 ---
 

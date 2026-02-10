@@ -24,6 +24,13 @@ public:
     - "Occasionally makes endearing attempts at humor"
     - "Becomes concerned if travelers seem lost or distressed"
 
+  traits:
+    moral_axis: principled
+    temperament: serene
+    communication: direct
+    core_value: duty
+    quest_disposition: mentoring
+
   known_history: |
     GUIDE-7 was created by early Weavers to help orient newcomers to the
     Nexus. It has greeted countless travelers and considers this duty

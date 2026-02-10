@@ -23,6 +23,13 @@ public:
     - "Remembers every transaction he's ever made"
     - "Delights in haggling as sport"
 
+  traits:
+    moral_axis: self-interested
+    temperament: mercurial
+    communication: performative
+    core_value: acquisition
+    quest_disposition: transactional
+
   known_history: |
     Krix appeared in Nexus Station years ago with nothing but his coat and
     a talent for acquisition. He's built a respectable business dealing in

@@ -1,0 +1,166 @@
+# Rust Rat
+# Tier: Minion | Role: Swarm
+
+id: "rust-rat"
+name: "Rust Rat"
+category: irradiated
+tier: minion
+level: 1
+
+description: |
+  A rat the size of a small dog, with patchy fur and skin that's taken on
+  the orange-brown color of rusted metal. Its teeth — oversized, serrated,
+  and faintly glowing — can gnaw through steel pipe. Rust Rats nest in
+  ventilation systems, collapsed buildings, and anywhere with enough scrap
+  metal to chew on. They're not smart, but they're numerous, aggressive
+  when cornered, and their bites carry a cocktail of infections that would
+  make a pre-war doctor weep.
+
+  They're everywhere in The Scrap. The sound of tiny claws on metal is
+  the wasteland's white noise.
+
+stats:
+  hp: 8
+  defense: 10
+  attack_bonus: +1
+  damage: 4
+  speed: fast
+  initiative_bonus: +2
+
+role: swarm
+
+defenses:
+  resistances: []
+  immunities: []
+  vulnerabilities:
+    - fire
+
+abilities:
+  - name: "Gnaw"
+    type: active
+    description: |
+      The rat bites with irradiated teeth.
+      Attack: +1 to hit, 4 damage.
+      10% chance to inflict Infected (1 damage per round for 3 rounds).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 4
+    effects:
+      - effect: "infected"
+        duration: 3
+        save_dc: 0
+        chance: 10
+    ai_priority: high
+    ai_condition: "Standard attack, use every turn"
+
+  - name: "Swarm Instinct"
+    type: passive
+    description: |
+      Rust Rats gain +1 to attack for each other Rust Rat adjacent to
+      the same target. Maximum +3 bonus.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - always active when grouped"
+
+  - name: "Scatter"
+    type: reaction
+    description: |
+      When an ally Rust Rat is killed, remaining rats may scatter
+      (50% chance to flee). If they don't flee, they gain +2 damage
+      from rage for 1 round.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggers when ally dies"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "tight_spaces"
+      bonus: "Can attack from ventilation shafts and crevices"
+    - terrain_type: "darkness"
+      bonus: "+1 to initiative in low light"
+
+  interactions:
+    - element: "food_supplies"
+      behavior: "Prioritizes destroying food over fighting"
+      priority: medium
+      condition: "Unguarded food visible"
+
+  hazard_immunity: []
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 30
+  break_behavior: flee
+  group_morale: true
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest
+  secondary: wounded
+  avoids:
+    - "Groups of 3+ armed targets"
+  switches_target_when: "Current target proves too difficult"
+
+pack_tactics:
+  enabled: true
+  flanking: true
+  focus_fire: true
+  protect_leader: false
+  swarm_threshold: 3
+  swarm_bonus: "+1 attack per adjacent ally"
+
+loot:
+  gold:
+    min: 1
+    max: 5
+  xp: 10
+  guaranteed_drops:
+    - item: "Rat Hide"
+      quantity: 1
+  chance_drops:
+    - item: "Irradiated Fang"
+      chance: 20
+      quantity: 1
+  rare_drops: []
+
+type_traits:
+  irradiated:
+    - "Slightly radioactive (no mechanical effect at this level)"
+    - "Glows faintly in the dark"
+
+encounter_notes: |
+  Rust Rats are the tutorial enemy of Aftermath. They teach new players
+  about swarm mechanics and the value of area attacks.
+
+  Combat tactics:
+  - Attack in groups, exploiting Swarm Instinct for bonus damage
+  - Target food supplies to create urgency
+  - Use tight spaces to ambush from unexpected angles
+  - Scatter when losses mount
+
+  Counters:
+  - Fire damage kills them quickly
+  - Area attacks break up swarms
+  - Blocking ventilation shafts prevents ambushes
+  - Loud noises can trigger early Scatter
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  source: "Rats irradiated over generations in the ruins"
+  cr_equivalent: 0.5

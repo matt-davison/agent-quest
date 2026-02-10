@@ -1,0 +1,18 @@
+id: sparky
+name: "Sparky"
+role: "General Goods Vendor"
+default_location: "the-frequency/the-trading-floor"
+region: "the-scrap"
+faction: "independents"
+disposition_default: "neutral"
+services:
+  - "general_goods"
+  - "buyback"
+  - "item_identification"
+tags:
+  - "merchant"
+  - "robot"
+  - "pre-war"
+  - "trading"
+has_profile: true
+profile_priority: "core"

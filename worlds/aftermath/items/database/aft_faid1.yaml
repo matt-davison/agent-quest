@@ -1,0 +1,21 @@
+# First Aid Kit
+id: aft_faid1
+name: "First Aid Kit"
+type: consumable
+subtype: medicine
+rarity: common
+tier: 1
+value: 25
+sellable: true
+tags:
+  - consumable
+  - medicine
+  - healing
+stats:
+  hp_restore: 15
+  uses: 1
+description: |
+  A red plastic box with a white cross, scratched but intact. Inside:
+  bandages, antiseptic (expired), a splint, surgical tape, and a tiny
+  bottle of pre-war painkillers that are absolutely still good. Standard
+  wasteland first aid — won't fix everything, but it'll keep you moving.

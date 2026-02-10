@@ -1,0 +1,59 @@
+# Area: The Bulletin Board
+# Part of: The Frequency
+
+id: "the-bulletin-board"
+name: "The Bulletin Board"
+parent_location: "the-frequency"
+type: "quest_board"
+
+description: |
+  A stretch of hallway between the trading floor and the rec room, dominated
+  by an enormous cork board that covers the entire wall. Handwritten notes,
+  wanted posters, salvage requests, and settlement bulletins are pinned in
+  overlapping layers — some fresh, some yellowed and curling. Sally curates it
+  weekly, pulling down expired postings and pinning up new ones she's received
+  over the radio. A jar of thumbtacks and a stack of blank index cards sit on
+  a shelf below. A hand-lettered sign reads: "POST YOUR OWN — SALLY APPROVES
+  ALL LISTINGS."
+
+local_coordinates:
+  x: 7
+  y: 2
+  floor: 1
+
+connected_areas:
+  - id: "the-trading-floor"
+    direction: "south"
+    distance: 0.02
+  - id: "the-rec-room"
+    direction: "east"
+    distance: 0.03
+
+interactions:
+  - action: "examine"
+    target: "Bulletin Board"
+    description: "Browse available quests and bounties"
+  - action: "post"
+    target: "Bulletin Board"
+    description: "Pin your own job listing (requires Sally's approval)"
+  - action: "read"
+    target: "Settlement News"
+    description: "Catch up on events across The Scrap"
+
+npcs: []
+
+items:
+  - id: "bulletin-board"
+    name: "The Bulletin Board"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Buzzing overhead fluorescent, half-working"
+  sounds: "Paper rustling in drafts, distant radio chatter, footsteps"
+  smells: "Old paper, thumbtack rust, hallway dust"

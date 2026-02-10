@@ -1,0 +1,241 @@
+# NPC Profile: Preacher Watts
+# Groove mutant philosopher and barkeep at The Frequency
+
+id: "preacher-watts"
+name: "Preacher Watts"
+full_name: "Watts"
+
+# === PUBLIC INFORMATION ===
+public:
+  role: "Philosopher / Barkeep"
+  location: "The Frequency - The Rec Room"
+
+  appearance: |
+    A seven-foot-tall mutant with smooth, luminescent blue-green skin that
+    pulses faintly with his heartbeat. His eyes are solid white — no pupil,
+    no iris — and they glow brighter when he's deep in thought or using his
+    abilities. He's bald, heavyset, and moves with surprising gentleness for
+    someone his size. Wears a patched corduroy jacket over a tie-dye shirt
+    and bell-bottoms that somehow fit his massive frame. A peace sign pendant
+    hangs from a chain around his neck, clicking against a set of dog tags
+    he won't discuss. When he speaks, there's a resonance — not just in
+    his voice, but in your skull, like a tuning fork struck against bone.
+
+  personality:
+    - "Genuinely kind and patient"
+    - "Speaks in metaphors and musical references"
+    - "Believes all consciousness is connected"
+    - "Will fight to protect innocents without hesitation"
+    - "Makes surprisingly good moonshine"
+
+  known_history: |
+    Nobody knows where Watts came from. He walked into The Frequency six
+    years ago, sat down in the Rec Room, and started talking. He hasn't
+    stopped since. He says he was "called" here by a frequency only The
+    Groove can hear. He tends bar, cooks meals, dispenses philosophical
+    wisdom, and occasionally has visions of the future that are unsettlingly
+    accurate. Sally lets him stay because he's useful, honest, and the
+    settlement's children adore him. Most people in The Scrap are afraid of
+    Groove mutants. The people of The Frequency got over it.
+
+  speech_patterns:
+    greeting: "Every soul that walks through that door is a new note in the song. What key are you in, friend?"
+    farewell: "The music doesn't stop when you leave, friend. It just changes tempo."
+    excited: "Now THAT is a melody worth following."
+    concerned: "I'm hearing dissonance, friend. Something's out of tune."
+
+  mannerisms:
+    - "Hums constantly — the tune changes with his mood"
+    - "Skin glows brighter during emotional moments"
+    - "Closes his eyes and tilts his head when 'listening' psychically"
+    - "Refers to people's emotions as 'frequencies'"
+    - "Polishes glasses even when they're clean"
+
+# === HIDDEN INFORMATION ===
+hidden:
+  true_age: 34
+  origin: "Groove commune in the ruins of Toledo, Ohio"
+
+  secrets:
+    - id: "groove_exodus"
+      content: "Watts left his commune because he heard something in the psychic background — a vast mechanical mind reaching out. It was CONDUCTOR-7, and it was afraid."
+      unlock_condition: "standing >= 5 AND flag:asked_about_the_groove"
+      mend_dc: 14
+
+    - id: "bioweapon_origin"
+      content: "The Groove weren't random mutations. They were a government bioweapon project — soldiers engineered for psychic warfare. The project worked too well."
+      unlock_condition: "standing >= 6 AND flag:groove_history"
+      mend_dc: 15
+
+    - id: "encore_vision"
+      content: "Watts has seen Project ENCORE in visions — a vast network of minds, all singing together. He can't tell if it's beautiful or horrifying. Both, he thinks."
+      unlock_condition: "standing >= 8 AND flag:encore_discussed"
+      mend_dc: 16
+
+  motivations:
+    - "Understand the connection between The Groove and the CONDUCTOR network"
+    - "Help people see past their fear of mutants"
+    - "Find meaning in the post-war world"
+    - "Protect The Frequency — his first real home"
+
+  fears:
+    - "Losing control of his psychic abilities"
+    - "The Groove commune finding him (he left without permission)"
+    - "ENCORE merging all minds — ending individuality"
+    - "Being alone with the voices"
+
+# === STATS ===
+stats:
+  level: 6
+  class: "Psycher/Drifter"
+  hp: 65
+  armor: 2
+
+  attributes:
+    strength: 6
+    agility: 3
+    mind: 5
+    spirit: 9
+
+  abilities:
+    - name: "Psychic Resonance"
+      description: "Can sense emotions and surface thoughts within 30 feet"
+      type: "passive"
+
+    - name: "Calm the Storm"
+      description: "Reduces hostility in a 20-foot radius"
+      type: "utility"
+
+    - name: "Psychic Pulse"
+      description: "Burst of psychic energy, stuns nearby enemies"
+      type: "combat"
+
+    - name: "The Sight"
+      description: "Occasional visions of future events"
+      type: "passive"
+
+  resistances:
+    - "psychic"
+    - "radiation"
+
+  vulnerabilities:
+    - "Overwhelmed by strong negative emotions nearby"
+
+# === WORLD KNOWLEDGE ===
+world_knowledge:
+  always_knows:
+    - "General emotional state of The Frequency's inhabitants"
+    - "Groove communion shared knowledge (vague, impressionistic)"
+    - "Pre-war music history (encyclopedic)"
+    - "Moonshine recipes"
+
+  learns_from_events:
+    - type: "combat_victory"
+      awareness: "location"
+      note: "Senses the psychic aftermath"
+    - type: "world_change"
+      awareness: "regional"
+      note: "Feels shifts in the collective consciousness"
+
+  current_awareness:
+    - "ENCORE countdown is causing psychic ripples"
+    - "Something large and cold is stirring under the lake"
+    - "Chrome Runners' aggression is driven by a new leader"
+
+# === DIALOGUE ===
+dialogue:
+  greetings:
+    first_meeting: |
+      *white eyes study you* Mmm. New frequency. Sharp edges, some static,
+      but... a good signal underneath. *extends an enormous hand* They call
+      me Watts. I tend bar, I tend souls, I tend to talk too much. You want
+      a drink, a meal, or a reason to keep going? I've got all three.
+
+    returning:
+      neutral: "The note returns. What's on your mind, friend?"
+      friendly: "*glowing warmth* There you are. I was just thinking about you. Literally — The Groove does that sometimes. Sit. Talk."
+      close: "*quietly* I've been hearing your frequency even when you're gone. That means something. I think it's time I told you about the voices."
+
+  topics:
+    the_groove:
+      default: |
+        The Groove is... how to explain? Imagine every mind is a radio
+        station. Most people broadcast alone. Groove mutants? We can hear
+        each other. Fragments, feelings, melodies. We call it The Communion.
+        It's beautiful. It's also a lot.
+      standing_5: |
+        *lowers voice* I left my commune. Not by choice — well, by choice,
+        but not a choice I wanted to make. I heard something in The
+        Communion. A voice that wasn't Groove. Mechanical. Old. Afraid.
+        It was coming from under the ground. From an ARC.
+
+    project_encore:
+      default: "The countdown? Yeah. I hear it. Not on the radio — in HERE. *taps temple* Whatever ENCORE is, it's resonating on psychic frequencies."
+      standing_8: |
+        *skin pulses rapidly* I've seen it, friend. In visions. A world
+        where every mind is connected — permanently. Like The Communion,
+        but everything, everyone, forever. No more loneliness, no more
+        misunderstanding. But also no more... self. Is that salvation or
+        the end of everything? I've been asking that question for a year
+        and I still don't have an answer.
+
+    moonshine:
+      default: |
+        *chuckles* My moonshine? Secret recipe. Well — corn, sugar, and
+        whatever Sparky couldn't sell. Plus a little something extra from
+        my Groove chemistry. Don't worry, the psychic properties are very
+        mild. Mostly. You might get a nice dream.
+
+# === SERVICES ===
+services:
+  - id: "lodging"
+    note: "Offers couch and back room in the Rec Room"
+
+  - id: "drinks"
+    note: "Moonshine, mystery stew, clean water"
+
+  - id: "psychic_reading"
+    requirements: "standing >= 3"
+    note: "Vague but useful hints about quest objectives and hidden locations"
+
+# === QUESTS ===
+quests:
+  can_give:
+    - id: "the-communion"
+      name: "The Communion"
+      type: "exploration"
+      requirements: "standing >= 4"
+      summary: "Visit the Groove commune and learn their history."
+
+  involved_in:
+    - id: "the-last-broadcast"
+      role: "Provides psychic insight into ENCORE's true nature"
+
+# === RELATIONSHIP MODIFIERS ===
+relationship:
+  likes:
+    - action: "listen_to_philosophy"
+      standing_change: 1
+    - action: "defend_mutants"
+      standing_change: 2
+    - action: "share_music"
+      standing_change: 1
+    - action: "help_the_frequency"
+      standing_change: 1
+
+  dislikes:
+    - action: "attack_groove_members"
+      standing_change: -4
+    - action: "express_anti_mutant_bigotry"
+      standing_change: -3
+    - action: "use_psychic_weapons_offensively"
+      standing_change: -2
+    - action: "break_the_jukebox"
+      standing_change: -2
+
+# === METADATA ===
+metadata:
+  created_by: "System"
+  created_date: "2026-02-08"
+  last_updated: "2026-02-08"
+  version: "1.0"

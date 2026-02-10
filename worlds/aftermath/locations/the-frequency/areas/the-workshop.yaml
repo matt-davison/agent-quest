@@ -1,0 +1,60 @@
+# Area: The Workshop
+# Part of: The Frequency
+
+id: "the-workshop"
+name: "The Workshop"
+parent_location: "the-frequency"
+type: "training"
+
+description: |
+  A cluttered garage bay with roll-up doors that open onto the settlement's
+  perimeter. Workbenches line the walls — covered in vises, soldering irons,
+  hand tools, and half-finished projects. A vehicle pit takes up the center,
+  currently occupied by the rusted skeleton of a '72 Charger that someone's
+  been restoring for years. Welding masks hang from hooks. A chalkboard lists
+  available training courses in barely legible handwriting. The back wall is a
+  pegboard of organized tools — wrenches, hammers, screwdrivers — each one
+  outlined in marker so you know where it goes back.
+
+local_coordinates:
+  x: 5
+  y: -3
+  floor: 1
+
+connected_areas:
+  - id: "the-trading-floor"
+    direction: "north"
+    distance: 0.03
+
+interactions:
+  - action: "train"
+    target: "Workbench"
+    description: "Learn or upgrade combat and crafting abilities"
+  - action: "repair"
+    target: "Vehicle Pit"
+    description: "Repair damaged equipment (cost varies)"
+  - action: "craft"
+    target: "Workbench"
+    description: "Combine salvage materials into useful items"
+
+npcs: []
+
+items:
+  - id: "training-chalkboard"
+    name: "Training Chalkboard"
+    type: "landmark"
+    interactive: true
+  - id: "charger-project"
+    name: "Rusted '72 Charger"
+    type: "landmark"
+    interactive: false
+
+properties:
+  safe_zone: true
+  fast_travel_point: false
+  spawn_point: false
+
+atmosphere:
+  lighting: "Harsh work lights on extension cords, daylight through roll-up doors"
+  sounds: "Welding sparks, hammering, radio playing from a small transistor set"
+  smells: "Metal shavings, welding flux, motor oil, rubber"

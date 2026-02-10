@@ -1,0 +1,60 @@
+# Area: The Docks
+# Part of: The Lakeshore
+
+id: "the-docks"
+name: "The Docks"
+parent_location: "the-lakeshore"
+type: "marketplace"
+
+description: |
+  A series of wooden and metal piers jutting into the faintly glowing lake.
+  Fishing boats of wildly different construction — welded oil drums, repurposed
+  aluminum canoes, one genuine pre-war pontoon boat held together with prayers
+  and duct tape — rock gently in the irradiated surf. Nets hang drying on
+  racks made of rebar. The dock house is a shipping container with windows
+  cut into it, serving as the co-op's trading post. Barrels of salted fish
+  are stacked on every flat surface. Seagulls the size of turkeys circle
+  overhead, waiting for scraps. The smell is extraordinary.
+
+local_coordinates:
+  x: 0
+  y: 0
+  floor: 1
+
+connected_areas: []
+
+interactions:
+  - action: "trade"
+    target: "Dock House"
+    description: "Buy and sell fish, salvage, and supplies"
+  - action: "hire"
+    target: "Fishing Boat"
+    description: "Hire a boat for lake exploration (15 watts)"
+  - action: "fish"
+    target: "Pier"
+    description: "Cast a line (various catches, some dangerous)"
+  - action: "speak"
+    target: "Fishers"
+    description: "Gather rumors and information"
+
+npcs: []
+
+items:
+  - id: "dock-house"
+    name: "The Dock House"
+    type: "landmark"
+    interactive: true
+  - id: "fishing-pier"
+    name: "Fishing Pier"
+    type: "landmark"
+    interactive: true
+
+properties:
+  safe_zone: false
+  fast_travel_point: true
+  spawn_point: false
+
+atmosphere:
+  lighting: "Overcast daylight, green glow from the lake at night"
+  sounds: "Waves lapping, seagulls screaming, boat hulls creaking, fish flopping"
+  smells: "Irradiated fish, brine, wet wood, diesel fuel"

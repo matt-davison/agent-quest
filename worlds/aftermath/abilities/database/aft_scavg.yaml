@@ -1,0 +1,50 @@
+# Scavenge - Universal survival ability
+id: aft_scavg
+name: "Scavenge"
+type: ability
+subtype: utility
+class: null
+tier: 1
+tags:
+  - utility
+  - exploration
+  - survival
+  - universal
+
+prerequisites:
+  min_spirit: 0
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Search an area for useful materials. Find 1d6 watts worth of salvage per search. One search per area per rest."
+    willpower_cost: 1
+    effect:
+      search:
+        targets: area
+        loot_roll: "1d6"
+        loot_type: "salvage"
+      limit: "once per area per rest"
+    learn_cost: 0
+  2:
+    description: "Find 2d6 watts of salvage. 25% chance of finding an uncommon item. Can search twice per area."
+    willpower_cost: 2
+    effect:
+      search:
+        targets: area
+        loot_roll: "2d6"
+        loot_type: "salvage"
+        bonus_item_chance: 25
+      limit: "twice per area per rest"
+    learn_cost: 75
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 2
+  cooldown_rounds: null
+
+action_type: major
+range: null
+target: area

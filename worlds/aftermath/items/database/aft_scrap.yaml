@@ -1,0 +1,21 @@
+# Scrap Metal
+id: aft_scrap
+name: "Scrap Metal"
+type: material
+subtype: crafting
+rarity: common
+tier: 1
+value: 8
+sellable: true
+tags:
+  - material
+  - crafting
+  - common
+  - metal
+stats:
+  weight: 2
+description: |
+  A chunk of salvaged metal — could be rebar, car panel, appliance casing,
+  or structural steel. The universal building material of the wasteland.
+  Scrappers turn it into armor, weapons, and shelter. Everyone else trades
+  it like currency. Rust is cosmetic.

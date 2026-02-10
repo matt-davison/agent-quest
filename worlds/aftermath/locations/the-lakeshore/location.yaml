@@ -1,0 +1,99 @@
+# Location: The Lakeshore
+# Fishing settlement on the irradiated Great Lake
+
+id: "the-lakeshore"
+name: "The Lakeshore"
+tagline: "Don't drink the water."
+
+coordinates:
+  x: 5
+  y: 10
+  z: 0
+
+embedding: null
+
+region: "The Scrap"
+type: "settlement"
+danger_level: "moderate"
+is_safe_zone: false
+
+level_range:
+  min: 2
+  max: 6
+
+tags:
+  - "settlement"
+  - "fishing"
+  - "lake"
+  - "irradiated"
+  - "trade"
+  - "aquatic"
+
+areas:
+  - id: "the-docks"
+    name: "The Docks"
+    type: "marketplace"
+
+npcs: []
+
+connections:
+  - target: "the-frequency"
+    direction: "south-trail"
+    distance: 10
+    travel_time: "3 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "the-millworks"
+    direction: "south-road"
+    distance: 12
+    travel_time: "4 hours walking"
+    requirements: null
+    danger: "moderate"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "Lake Lurker emerges from the shallows"
+      type: "combat"
+      creatures: ["lake-lurker"]
+      count: 1
+    - roll: [3, 3]
+      event: "Fisher offers fresh catch for trade"
+      type: "traveler"
+    - roll: [4, 4]
+      event: "Irradiated fog rolls in from the lake"
+      type: "hazard"
+    - roll: [5, 5]
+      event: "Pre-war wreckage washes ashore with salvage"
+      type: "treasure"
+    - roll: [6, 6]
+      event: "Nothing — just waves and the smell of irradiated fish"
+
+secrets:
+  - id: "sunken-arc"
+    requirements:
+      - "Speak to fishers about 'lights under the water'"
+      - "Agility >= 5 for diving"
+
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Fishing Shack"
+      base_price: 100
+      storage_slots: 15
+      available_count: -1
+      purchase_requirements:
+        - "level >= 2"
+
+governance:
+  enabled: false
+  type: "cooperative"
+  description: "Loosely organized fishing cooperative. No formal government."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-08"
+  last_modified: "2026-02-08"
+  version: "1.0"

@@ -1,0 +1,22 @@
+# Rust Pistol
+id: aft_rpist
+name: "Rust Pistol"
+type: weapon
+subtype: ranged
+rarity: common
+tier: 1
+value: 60
+sellable: true
+tags:
+  - ranged
+  - firearm
+  - sharpshooter
+stats:
+  damage: 10
+  attack_bonus: +1
+  range: medium
+  ammo_type: ".38 salvage"
+description: |
+  A battered revolver held together by rust, hope, and duct tape. It jams
+  on a natural 1 and the sights are crooked, but it fires. In the wasteland,
+  that's enough. The previous owner's initials are scratched into the grip.

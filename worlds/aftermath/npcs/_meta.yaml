@@ -1,0 +1,72 @@
+# NPC System Configuration - Aftermath
+# Shared config for the NPC system. Individual NPC data lives in registry/<npc-id>.yaml
+# Profiles live in profiles/<npc-id>.yaml
+# Schedules live in schedules/<npc-id>.yaml
+
+version: "1.0"
+last_updated: "2026-02-08T12:00:00Z"
+
+# === FACTION DEFINITIONS ===
+factions:
+  the-broadcast:
+    name: "The Broadcast"
+    description: "Settlements connected by radio operators. Free information, mutual aid. DJs as folk heroes."
+    disposition_modifier: 0
+
+  millworkers-union:
+    name: "Millworkers' Union"
+    description: "Factory workers controlling pre-war manufacturing. Union hierarchy, hoarding tech."
+    disposition_modifier: 0
+
+  federal-remnant:
+    name: "Federal Remnant"
+    description: "Pre-war government from hardened bunker. Authoritarian, best pre-war tech."
+    disposition_modifier: -1
+
+  the-groove:
+    name: "The Groove"
+    description: "Bioweapon mutants with psychic abilities. Culture of music and communion."
+    disposition_modifier: 0
+
+  conductors-network:
+    name: "Conductors' Network"
+    description: "ARC vault AIs evolved over 200 years. Hidden force with varied agendas."
+    disposition_modifier: 0
+
+  chrome-runners:
+    name: "Chrome Runners"
+    description: "Raiders who worship speed and chrome. Muscle cars, raid caravans for fuel."
+    disposition_modifier: -2
+
+  independents:
+    name: "Independents"
+    description: "Unaffiliated with major factions"
+    disposition_modifier: 0
+
+  settlers:
+    name: "Settlers"
+    description: "Common people trying to survive in The Scrap"
+    disposition_modifier: 0
+
+# === PROFILE GENERATION TRIGGERS ===
+profile_triggers:
+  interaction_threshold: 3
+  quest_involvement: true
+  combat_encounter: true
+  standing_threshold: 5
+  player_request: true
+
+# === UTILITIES ===
+disposition_map:
+  hostile: [-10, -6]
+  unfriendly: [-5, -3]
+  neutral: [-2, 2]
+  friendly: [3, 5]
+  close: [6, 8]
+  devoted: [9, 10]
+
+# === ADDING NEW NPCS ===
+# To add a new NPC:
+# 1. Create registry/<npc-id>.yaml with basic info (id, name, role, location, etc.)
+# 2. Optionally create profiles/<npc-id>.yaml for detailed NPC data
+# 3. Optionally create schedules/<npc-id>.yaml if they move around

@@ -1,0 +1,54 @@
+# Steady Aim - Sharpshooter precision ability
+id: aft_staim
+name: "Steady Aim"
+type: ability
+subtype: combat
+class: sharpshooter
+tier: 1
+tags:
+  - combat
+  - ranged
+  - precision
+  - sharpshooter
+
+prerequisites:
+  min_agility: 4
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Take careful aim. Your next ranged attack gains +3 to hit and deals +4 bonus damage. Must not move this turn."
+    willpower_cost: 2
+    effect:
+      buff:
+        name: "steady_aim"
+        attack_bonus: 3
+        damage_bonus: 4
+        duration: 1
+        condition: "no movement this turn"
+    learn_cost: 0
+  2:
+    description: "Next ranged attack gains +5 to hit and +6 damage. On a critical hit, the target is Stunned for 1 round."
+    willpower_cost: 3
+    effect:
+      buff:
+        name: "steady_aim"
+        attack_bonus: 5
+        damage_bonus: 6
+        duration: 1
+        condition: "no movement this turn"
+      crit_effect:
+        name: "stunned"
+        duration: 1
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: short_rest
+  max_uses: 3
+  cooldown_rounds: 1
+
+action_type: minor
+range: null
+target: self

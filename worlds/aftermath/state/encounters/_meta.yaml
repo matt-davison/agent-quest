@@ -1,0 +1,160 @@
+# Encounter System Configuration — Aftermath
+# Route-specific encounters live in encounters/<route-id>.yaml
+
+version: "1.0"
+
+# === ENCOUNTER TYPES ===
+encounter_types:
+  combat:
+    description: "Hostile creatures, raiders, or ferals attack"
+    resolution: "Fight, flee, or negotiate"
+    time_cost: 1
+    category: "negative"
+
+  hazard:
+    description: "Radiation storm, collapsed structure, or environmental danger"
+    resolution: "Skill check to overcome or find alternate route"
+    time_cost: 0.5
+    category: "negative"
+
+  discovery:
+    description: "Find pre-war ruins, a cache, or something interesting"
+    resolution: "Investigate or ignore"
+    time_cost: 0
+    category: "neutral"
+
+  traveler:
+    description: "Meet another wasteland traveler, caravan, or patrol"
+    resolution: "Interact, trade, or pass by"
+    time_cost: 0
+    category: "neutral"
+
+  rest_spot:
+    description: "Find a sheltered place to rest"
+    resolution: "Rest to recover HP or continue"
+    time_cost: 0
+    category: "positive"
+    benefit: "Recover 1d6 HP, remove fatigue"
+
+  treasure:
+    description: "Discover salvage, a hidden stash, or pre-war valuables"
+    resolution: "Collect the salvage"
+    time_cost: 0
+    category: "positive"
+    benefit: "Watts, items, or rare finds"
+
+  broadcast:
+    description: "Pick up a radio transmission with useful information"
+    resolution: "Listen and follow up"
+    time_cost: 0
+    category: "positive"
+    benefit: "Quest hook, location reveal, or faction intel"
+
+  shortcut:
+    description: "Discover a faster route through the ruins"
+    resolution: "Take the shortcut"
+    time_cost: -2
+    category: "positive"
+    benefit: "Reduce remaining travel time by 2 hours"
+
+  aid:
+    description: "A Broadcast operator or friendly settler offers help"
+    resolution: "Accept or decline help"
+    time_cost: 0
+    category: "positive"
+    benefit: "Healing, supplies, information, or escort"
+
+# === GENERIC ENCOUNTERS ===
+generic:
+  combat:
+    - name: "Feral Pack"
+      description: "Radiation-maddened humans emerge from the ruins"
+      difficulty: "easy-moderate"
+      count: "1d4"
+    - name: "Rust Rats"
+      description: "A swarm of irradiated rats"
+      difficulty: "easy"
+      count: "1d6"
+    - name: "Chrome Runner Scout"
+      description: "A raider on a motorcycle, probing for targets"
+      difficulty: "moderate"
+      count: 1
+  hazard:
+    - name: "Rad-Storm"
+      description: "Irradiated storm front rolls through"
+      check: "Spirit DC 12"
+      failure: "2d4 radiation damage"
+    - name: "Structural Collapse"
+      description: "Building or bridge gives way underfoot"
+      check: "Agility DC 12"
+      failure: "1d6 damage and lost 1 hour"
+  discovery:
+    - name: "Pre-War Ruins"
+      description: "Intact building worth exploring"
+      loot: "1d10 watts of salvage"
+    - name: "Old Billboard"
+      description: "Faded advertisement for ATLAS Corporation"
+      loot: "Lore fragment"
+  traveler:
+    - name: "Broadcast Courier"
+      description: "Radio operator carrying messages between settlements"
+      interaction: "News, rumors, possible quest"
+    - name: "Scavenger"
+      description: "Fellow wasteland picker"
+      interaction: "Trade opportunity"
+  rest_spot:
+    - name: "Intact Basement"
+      description: "Sheltered underground space"
+      benefit: "Full rest, recover all HP"
+    - name: "Overpass Camp"
+      description: "Defensible position on a highway overpass"
+      benefit: "Short rest, recover 1d4 HP"
+  treasure:
+    - name: "Buried Cache"
+      description: "Someone's emergency stash, marked by subtle signs"
+      loot: "2d10 watts, 50% chance uncommon item"
+    - name: "Wrecked Vehicle"
+      description: "Car with salvageable parts"
+      loot: "1d6 scrap metal, fusion cell"
+  broadcast:
+    - name: "Broadcast Warning"
+      description: "Sally's voice crackles through a nearby speaker"
+      effect: "Learn about nearby danger or opportunity"
+    - name: "Mystery Signal"
+      description: "Encrypted transmission on an unusual frequency"
+      effect: "Quest hook for CONDUCTOR-related content"
+  shortcut:
+    - name: "Maintenance Tunnel"
+      description: "Pre-war utility tunnel cuts under the ruins"
+      effect: "Save 1-2 hours travel time"
+  aid:
+    - name: "Broadcast Medic"
+      description: "Broadcast volunteer with medical supplies"
+      effect: "Free healing, Rad-Away Tabs"
+
+# === ENCOUNTER MODIFIERS ===
+modifiers:
+  time_of_day:
+    night:
+      combat_chance: 1.5
+      feral_chance: 2.0
+      visibility: "reduced"
+    dawn:
+      combat_chance: 0.75
+      discovery_chance: 1.25
+    midday:
+      combat_chance: 1.0
+      radiation_hazard_chance: 1.5
+
+  weather:
+    rad_storm:
+      combat_chance: 0.5
+      hazard_chance: 2.0
+      travel_speed: 0.5
+      radiation_damage: "1d4 per hour"
+    clear:
+      combat_chance: 1.0
+      discovery_chance: 1.25
+    fog:
+      combat_chance: 1.25
+      visibility: "heavily reduced"

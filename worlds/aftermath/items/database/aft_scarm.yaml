@@ -1,0 +1,22 @@
+# Scrap Armor
+id: aft_scarm
+name: "Scrap Armor"
+type: armor
+subtype: heavy
+rarity: uncommon
+tier: 2
+value: 80
+sellable: true
+tags:
+  - armor
+  - heavy
+  - crafted
+  - scrapper
+stats:
+  defense: 5
+  agility_penalty: -1
+description: |
+  A vest of welded scrap metal — car doors, road signs, and license plates
+  bolted to a leather harness. Heavy and loud, but it'll stop a pipe wrench
+  and slow down a bullet. One plate still reads "OHIO — THE HEART OF IT ALL."
+  Ironic.

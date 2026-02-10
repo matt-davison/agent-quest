@@ -1,0 +1,21 @@
+# Multiplayer System — Aftermath
+# Scaffolding for multiplayer features
+
+version: "1.0"
+world: "aftermath"
+
+# Multiplayer directories
+directories:
+  parties: "Active party groups"
+  trades: "Pending and completed trades"
+  mail: "Player-to-player messages"
+  guilds: "Guild definitions and membership"
+  duels: "Active and completed duels"
+
+# Configuration
+config:
+  max_party_size: 4
+  trade_escrow: true
+  mail_max_per_day: 10
+  guild_creation_cost: 500
+  duel_wager_limit: 200

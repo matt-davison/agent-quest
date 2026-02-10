@@ -1,0 +1,21 @@
+# Rad-Away Tabs
+id: aft_radtb
+name: "Rad-Away Tabs"
+type: consumable
+subtype: medicine
+rarity: common
+tier: 1
+value: 20
+sellable: true
+tags:
+  - consumable
+  - medicine
+  - radiation
+stats:
+  radiation_heal: 15
+  uses: 3
+description: |
+  Small yellow tablets in a foil blister pack stamped with the ATLAS
+  Corporation caduceus. Chelation therapy in pill form — binds to radioactive
+  isotopes and flushes them out. Tastes like chalk and regret. Three doses
+  per pack.

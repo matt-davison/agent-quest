@@ -1,0 +1,193 @@
+# Furnace Beetle
+# Tier: Standard | Role: Artillery
+
+id: "furnace-beetle"
+name: "Furnace Beetle"
+category: irradiated
+tier: standard
+level: 3
+
+description: |
+  A beetle the size of a golden retriever, its carapace a dull metallic
+  red that pulses with internal heat. Furnace Beetles nest in old
+  industrial sites — foundries, power plants, anywhere with residual
+  heat. Their bodies have evolved to process radioactive material as
+  fuel, converting it to intense thermal energy stored in a specialized
+  organ behind their mandibles.
+
+  When threatened, they rear up and spray a jet of superheated liquid
+  from glands in their thorax — essentially biological napalm. The
+  spray ignites on contact with air. Factory workers call them
+  "walking Zippos" and avoid their nests religiously.
+
+stats:
+  hp: 35
+  defense: 15
+  attack_bonus: +3
+  damage: 10
+  speed: slow
+  initiative_bonus: +0
+
+role: artillery
+
+defenses:
+  resistances:
+    - fire
+    - radiation
+  immunities: []
+  vulnerabilities:
+    - cold
+    - water
+
+abilities:
+  - name: "Mandible Crush"
+    type: active
+    description: |
+      The beetle bites with superheated mandibles.
+      Attack: +3 to hit, 10 damage (physical + fire).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 10
+    effects: []
+    ai_priority: medium
+    ai_condition: "Melee attack when targets are adjacent"
+
+  - name: "Fire Spray"
+    type: active
+    description: |
+      Spray superheated liquid in a 15-foot cone.
+      All creatures in the cone take 12 fire damage.
+      Agility DC 13 save for half damage.
+      Leaves burning ground for 2 rounds.
+    cooldown: 2
+    cost: 0
+    range: 15ft_cone
+    area: cone
+    damage: 12
+    effects:
+      - effect: "burning_ground"
+        duration: 2
+        save_dc: 13
+        save_stat: agility
+    ai_priority: high
+    ai_condition: "Use when 2+ targets in cone range"
+
+  - name: "Armored Carapace"
+    type: passive
+    description: |
+      Thick metallic shell provides +3 natural armor.
+      Attacks from behind bypass this bonus.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - always active, negated from behind"
+
+  - name: "Volatile Death"
+    type: triggered
+    description: |
+      When reduced to 0 HP, the beetle explodes. All creatures within
+      5 feet take 8 fire damage (Agility DC 12 for half).
+    cooldown: 0
+    cost: 0
+    range: self
+    area: 5ft_radius
+    damage: 8
+    effects: []
+    ai_priority: low
+    ai_condition: "Triggers on death"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "industrial"
+      bonus: "Can ignite fuel and chemicals for area denial"
+    - terrain_type: "narrow_corridors"
+      bonus: "Fire Spray covers entire width"
+
+  interactions:
+    - element: "fuel_tanks"
+      behavior: "Positions near fuel to create bigger explosions on death"
+      priority: medium
+      condition: "Below 30% HP"
+
+  hazard_immunity:
+    - "fire"
+    - "radiation"
+  hazard_exploitation:
+    - hazard: "flammable_materials"
+      tactic: "Ignites environment to create fire hazards"
+
+morale:
+  break_threshold: 0
+  break_behavior: fight_to_death
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: clustered_enemies
+  secondary: nearest
+  avoids:
+    - "Water sources"
+  switches_target_when: "Better cluster of enemies appears"
+
+pack_tactics:
+  enabled: false
+  flanking: false
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 8
+    max: 25
+  xp: 50
+  guaranteed_drops:
+    - item: "Beetle Carapace"
+      quantity: 1
+  chance_drops:
+    - item: "Fire Gland"
+      chance: 35
+      quantity: 1
+  rare_drops:
+    - item: "Fusion Core Fragment"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  irradiated:
+    - "Processes radiation as fuel"
+    - "Fire and radiation resistant"
+    - "Explodes on death"
+
+encounter_notes: |
+  Furnace Beetles are area-denial enemies that punish clustering.
+  They force players to spread out and use ranged attacks.
+
+  Combat tactics:
+  - Positions for maximum Fire Spray coverage
+  - Fights to the death near flammable materials
+  - Exploits narrow spaces for unavoidable cone attacks
+  - Death explosion punishes melee-heavy groups
+
+  Counters:
+  - Cold and water damage are highly effective
+  - Flanking bypasses Armored Carapace
+  - Ranged attacks avoid death explosion
+  - Spreading out limits Fire Spray effectiveness
+  - Kill from range to avoid Volatile Death
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  source: "Insects mutated in irradiated industrial sites"
+  cr_equivalent: 2

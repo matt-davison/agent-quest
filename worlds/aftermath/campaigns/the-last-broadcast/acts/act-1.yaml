@@ -1,0 +1,72 @@
+# Act I: Static
+# The opening act of The Last Broadcast campaign
+
+id: "act-1"
+name: "Static"
+campaign: "the-last-broadcast"
+
+description: |
+  The player emerges from ARC-7 into The Scrap. They find The Frequency,
+  learn about the ENCORE countdown, and begin to uncover the truth about
+  the CONDUCTOR network. By the end of Act I, they've made contact with
+  CONDUCTOR-7, learned about the four possible responses to ENCORE, and
+  chosen (or been forced into) initial faction allegiances.
+
+level_range: [1, 4]
+status: available
+
+# Quest chain
+quests:
+  - id: "first-signal"
+    name: "First Signal"
+    type: "tutorial"
+    description: "Emerge from ARC-7, reach The Frequency, meet the crew."
+    required: true
+    order: 1
+
+  - id: "dead-air"
+    name: "Dead Air"
+    type: "investigation"
+    description: "A Broadcast relay has gone silent. Investigate and discover it was jammed by a CONDUCTOR signal."
+    required: true
+    order: 2
+    prerequisites: ["first-signal"]
+
+  - id: "frequency-107-7"
+    name: "Frequency 107.7"
+    type: "main_quest"
+    description: "Return to ARC-7 with the TRAK Unit. Make contact with CONDUCTOR-7."
+    required: true
+    order: 3
+    prerequisites: ["dead-air"]
+
+  - id: "the-countdown"
+    name: "The Countdown"
+    type: "main_quest"
+    description: "CONDUCTOR-7 reveals the truth about ENCORE. Visit The Millworks and The Lakeshore to gauge faction responses."
+    required: true
+    order: 4
+    prerequisites: ["frequency-107-7"]
+
+# Act completion
+completion:
+  requirements:
+    - "Complete all required quests"
+    - "Visit at least 3 locations"
+    - "Reach level 4"
+  rewards:
+    xp: 500
+    gold: 100
+    items: []
+    unlocks: ["act-2"]
+
+# Flags set during this act
+flags_set:
+  - "encore_discovered"
+  - "conductor_7_contacted"
+  - "act_1_complete"
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  version: "1.0"

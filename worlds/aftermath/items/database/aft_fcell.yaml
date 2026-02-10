@@ -1,0 +1,23 @@
+# Fusion Cell
+id: aft_fcell
+name: "Fusion Cell"
+type: material
+subtype: power
+rarity: common
+tier: 1
+value: 15
+sellable: true
+tags:
+  - material
+  - power
+  - currency_component
+  - crafting
+stats:
+  charge: 100
+description: |
+  A cylindrical cell about the size of a D battery, containing a miniature
+  fusion reaction stabilized by magnetic fields. The backbone of pre-war
+  power infrastructure and the post-war economy. Watts — energy credits —
+  are measured against these. A full cell powers a household for a week
+  or a robot for a month. Handle with care; a cracked cell is a very small,
+  very bad day.

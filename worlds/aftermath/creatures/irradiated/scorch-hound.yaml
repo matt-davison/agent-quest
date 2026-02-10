@@ -1,0 +1,178 @@
+# Scorch Hound
+# Tier: Standard | Role: Pack Hunter
+
+id: "scorch-hound"
+name: "Scorch Hound"
+category: irradiated
+tier: standard
+level: 2
+
+description: |
+  Once a domestic dog, now something else entirely. Scorch Hounds are
+  lean, hairless canines with cracked, blackened skin that glows with
+  internal heat. Their eyes are embers. Their breath steams. When they
+  bark, sparks fly from their mouths. Radiation and decades of mutation
+  have turned their metabolism into a furnace — they run hot enough to
+  leave scorched paw prints on concrete.
+
+  They hunt in packs of 3-6, using coordinated tactics that suggest an
+  intelligence their ancestors lacked. Scorch Hound packs claim territory
+  along highways and ruins, attacking anything that enters. The only
+  warning is the smell of burning ozone and the distant sound of baying
+  that crackles like a campfire.
+
+stats:
+  hp: 25
+  defense: 12
+  attack_bonus: +3
+  damage: 8
+  speed: fast
+  initiative_bonus: +3
+
+role: pack_hunter
+
+defenses:
+  resistances:
+    - fire
+  immunities: []
+  vulnerabilities:
+    - cold
+
+abilities:
+  - name: "Scorching Bite"
+    type: active
+    description: |
+      The hound bites with superheated jaws.
+      Attack: +3 to hit, 8 damage (half physical, half fire).
+      Flammable targets catch fire (2 damage per round for 2 rounds).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 8
+    effects:
+      - effect: "burning"
+        duration: 2
+        save_dc: 0
+        condition: "flammable target"
+    ai_priority: high
+    ai_condition: "Standard attack, use every turn in melee"
+
+  - name: "Pack Howl"
+    type: active
+    description: |
+      One hound howls, granting all Scorch Hounds within 15m +2 to
+      their next attack. Uses the howler's turn.
+    cooldown: 3
+    cost: 0
+    range: 15m
+    area: 15m_radius
+    damage: 0
+    effects:
+      - effect: "pack_buff"
+        duration: 1
+    ai_priority: medium
+    ai_condition: "Use when 2+ pack members are in range and not yet buffed"
+
+  - name: "Heat Aura"
+    type: passive
+    description: |
+      Creatures that start their turn adjacent to a Scorch Hound take
+      2 fire damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: 2m_radius
+    damage: 2
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - always active"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "open_ground"
+      bonus: "Can use full speed for flanking"
+    - terrain_type: "flammable"
+      bonus: "Sets environment on fire, creating hazards"
+
+  interactions:
+    - element: "flammable_objects"
+      behavior: "Ignites surroundings to create fire hazards"
+      priority: medium
+      condition: "Can do so without endangering pack"
+
+  hazard_immunity:
+    - "fire"
+  hazard_exploitation:
+    - hazard: "fire"
+      tactic: "Fights from within burning areas"
+
+morale:
+  break_threshold: 25
+  break_behavior: flee
+  group_morale: true
+  leader_dependent: false
+  rally_condition: "Pack Howl restores morale"
+
+targeting:
+  primary: isolated
+  secondary: nearest
+  avoids:
+    - "Large groups in defensive formation"
+  switches_target_when: "Target reaches cover or reinforcements arrive"
+
+pack_tactics:
+  enabled: true
+  flanking: true
+  focus_fire: true
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 5
+    max: 15
+  xp: 25
+  guaranteed_drops:
+    - item: "Scorched Hide"
+      quantity: 1
+  chance_drops:
+    - item: "Ember Fang"
+      chance: 30
+      quantity: 1
+  rare_drops:
+    - item: "Heat Core"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  irradiated:
+    - "Resistant to fire damage"
+    - "Generates ambient heat"
+    - "Flammable environment interaction"
+
+encounter_notes: |
+  Scorch Hounds are the first real combat challenge in Aftermath. They
+  teach players about pack tactics, elemental damage, and environmental
+  hazards.
+
+  Combat tactics:
+  - Circle and flank, using Pack Howl to coordinate
+  - One hound howls while others attack
+  - Set environment on fire to create chokepoints
+  - Focus fire on isolated targets
+
+  Counters:
+  - Cold damage bypasses resistance AND hits vulnerability
+  - Staying grouped prevents flanking
+  - Extinguishing fires removes their environmental advantage
+  - Killing the howler disrupts coordination
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  source: "Domestic dogs mutated by centuries of radiation"
+  cr_equivalent: 1

@@ -1,0 +1,199 @@
+# Lake Lurker
+# Tier: Standard | Role: Brute
+
+id: "lake-lurker"
+name: "Lake Lurker"
+category: mutant
+tier: standard
+level: 3
+
+description: |
+  Something between a catfish and a nightmare. Lake Lurkers are massive
+  amphibious creatures that inhabit the irradiated Great Lakes — six feet
+  long, covered in armored scales that glow sickly green, with wide mouths
+  full of needle teeth and two muscular forelimbs that let them drag
+  themselves onto shore. Their eyes are milky white and oversized, adapted
+  to the murky irradiated water.
+
+  They're ambush predators. They lie just below the waterline, perfectly
+  still, until something edible comes close. Then they lunge — fast,
+  powerful, and surprisingly quiet for something that size. Fishers at
+  The Lakeshore lose someone to the Lurkers every season.
+
+stats:
+  hp: 50
+  defense: 14
+  attack_bonus: +4
+  damage: 14
+  speed: slow_on_land
+  initiative_bonus: +1
+
+role: brute
+
+defenses:
+  resistances:
+    - radiation
+  immunities: []
+  vulnerabilities:
+    - fire
+    - lightning
+
+abilities:
+  - name: "Lunge"
+    type: active
+    description: |
+      The Lurker lunges from water or cover.
+      Attack: +4 to hit, 14 damage. If attacking from hidden, gain
+      advantage and deal +6 bonus damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 14
+    effects: []
+    ai_priority: high
+    ai_condition: "Standard attack. Prioritize ambush from water."
+
+  - name: "Drag Under"
+    type: active
+    description: |
+      Grab a target and pull them into the water. Target must make
+      Strength DC 14 save or be dragged 10 feet toward water and
+      restrained for 1 round. Drowning begins if submerged.
+    cooldown: 2
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 0
+    effects:
+      - effect: "restrained"
+        duration: 1
+        save_dc: 14
+        save_stat: strength
+    ai_priority: high
+    ai_condition: "Use near water against melee fighters"
+
+  - name: "Armored Scales"
+    type: passive
+    description: |
+      Thick irradiated scales provide natural armor. Reduce physical
+      damage taken by 3.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - always active"
+
+  - name: "Toxic Slime"
+    type: passive
+    description: |
+      Creatures that attack the Lurker in melee must make a Spirit DC 12
+      save or take 3 radiation damage from its irradiated slime coating.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 3
+    effects:
+      - effect: "radiation_exposure"
+        save_dc: 12
+        save_stat: spirit
+    ai_priority: low
+    ai_condition: "Passive - triggers when hit in melee"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "water"
+      bonus: "Speed becomes fast, can hide perfectly"
+    - terrain_type: "shoreline"
+      bonus: "Can use Drag Under effectively"
+
+  interactions:
+    - element: "water"
+      behavior: "Retreats to water when wounded, heals 5 HP per round while submerged"
+      priority: high
+      condition: "Below 50% HP"
+
+  hazard_immunity:
+    - "radiation"
+    - "drowning"
+  hazard_exploitation:
+    - hazard: "deep_water"
+      tactic: "Drags victims into deep water for drowning kills"
+
+morale:
+  break_threshold: 20
+  break_behavior: retreat_to_water
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest_to_water
+  secondary: isolated
+  avoids:
+    - "Targets on high ground far from water"
+    - "Groups with fire weapons"
+  switches_target_when: "Target moves far from water or produces fire"
+
+pack_tactics:
+  enabled: false
+  flanking: false
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 10
+    max: 30
+  xp: 50
+  guaranteed_drops:
+    - item: "Lurker Scale"
+      quantity: 2
+  chance_drops:
+    - item: "Irradiated Fish Meat"
+      chance: 60
+      quantity: 1
+    - item: "Luminescent Slime"
+      chance: 25
+      quantity: 1
+  rare_drops:
+    - item: "Lurker Heart"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  mutant:
+    - "Amphibious — can breathe water and air"
+    - "Heals in irradiated water"
+    - "Radiation-coated body"
+
+encounter_notes: |
+  Lake Lurkers are positional challenges. They're dangerous near water
+  and manageable on dry land. They teach players to control the
+  battlefield.
+
+  Combat tactics:
+  - Ambush from waterline with Lunge
+  - Use Drag Under to isolate melee fighters
+  - Retreat to water when wounded to heal
+  - Toxic Slime punishes melee engagement
+
+  Counters:
+  - Fire and lightning bypass resistances
+  - Fighting on dry land removes most advantages
+  - Ranged attacks avoid Toxic Slime
+  - Destroying nearby water sources (rare) eliminates retreat
+
+metadata:
+  created: "2026-02-08"
+  author: "System"
+  source: "Aquatic life mutated by irradiated Great Lakes"
+  cr_equivalent: 2

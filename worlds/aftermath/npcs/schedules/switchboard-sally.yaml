@@ -1,0 +1,36 @@
+id: switchboard-sally
+default_location: "the-frequency/broadcast-tower"
+stationary: false
+notes: "Broadcasts during peak hours, handles settlement business otherwise"
+patterns:
+  - times: ["dawn"]
+    location: "the-frequency/broadcast-tower"
+    activity: "Morning broadcast — weather, news, raider warnings"
+    interruptible: false
+
+  - times: ["morning"]
+    location: "the-frequency/broadcast-tower"
+    activity: "On-air, taking reports from settlements"
+    interruptible: true
+    interruptible_note: "Brief interactions between broadcasts"
+
+  - times: ["midday"]
+    location: "the-frequency/the-bulletin-board"
+    activity: "Updating the board, reviewing quest postings"
+    interruptible: true
+
+  - times: ["afternoon"]
+    location: "the-frequency/broadcast-tower"
+    activity: "Afternoon broadcast, coordinating supply runs"
+    interruptible: true
+
+  - times: ["evening"]
+    location: "the-frequency/the-rec-room"
+    activity: "Off-duty, sharing drinks with Preacher Watts"
+    interruptible: "standing >= 0"
+    interruptible_note: "More approachable when off-air"
+
+  - times: ["night", "midnight"]
+    location: null
+    activity: "Sleeping (private quarters)"
+    interruptible: false

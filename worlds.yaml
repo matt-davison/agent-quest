@@ -9,3 +9,11 @@ worlds:
     created: "2026-02-02"
     theme: "cyberpunk-fantasy"
     level_cap: 10
+
+  aftermath:
+    name: "Aftermath"
+    description: "Post-apocalyptic Rust Belt wasteland, 201 years after nuclear war. Retro-futuristic 70s tech, mutants, and rogue AIs."
+    status: "active"
+    created: "2026-02-08"
+    theme: "retro-post-apocalyptic"
+    level_cap: 10

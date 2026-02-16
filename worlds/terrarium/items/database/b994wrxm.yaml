@@ -1,0 +1,31 @@
+# Flame-Touched Robes
+id: b994wrxm
+name: "Flame-Touched Robes"
+type: armor
+subtype: light
+rarity: uncommon
+tier: 1
+value: 22
+sellable: false
+tags:
+  - armor
+  - light
+  - fire
+  - flamecaller
+  - unique
+stats:
+  defense: 2
+  fire_resistance: 3
+  weight: light
+description: |
+  Voluminous robes stitched from layered dinosaur hide, dyed deep crimson
+  with mineral pigments from the Sulphur Pools and deliberately singed at
+  every hem and edge. The burn marks are not accidental — Ser Burgerboxxx
+  holds each new garment over fire as a "blessing" before wearing it. The
+  result looks like something a very large monk would wear to a bonfire
+  and is, against all probability, genuinely fire-resistant. The hides
+  were treated with a mineral solution that Old Magma provided, either
+  out of professional respect for a fellow fire-handler or because she
+  wanted to see if he'd actually douse himself in sulphur water. He did.
+  It worked. The robes billow dramatically when the Hovering Throne picks
+  up speed, which Ser Burgerboxxx considers essential to his ministry.

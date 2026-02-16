@@ -1,0 +1,33 @@
+# Sacred Censer
+id: hev5gd92
+name: "Sacred Censer"
+type: weapon
+subtype: melee
+rarity: uncommon
+tier: 1
+value: 20
+sellable: false
+tags:
+  - melee
+  - blunt
+  - fire
+  - flamecaller
+  - holy
+  - unique
+stats:
+  damage: 7
+  attack_bonus: +2
+  range: adjacent
+  fire_bonus: +2
+description: |
+  A hollowed kaiju vertebra the size of a human head, packed with ember-stone
+  chips that glow perpetually with heat stolen from the Eternal Ember. It
+  hangs from a chain of interlocking bone links and swings with devastating
+  momentum when Ser Burgerboxxx works himself into a righteous fury, which is
+  most of the time. When used as a spell focus, the ember-stones flare bright
+  orange and the Sacred Censer trails smoke like a comet. When used as a
+  weapon, it hits like a flaming wrecking ball wielded by a very fat man on
+  a floating disc, which is exactly what it is. The bone has been carved with
+  symbols that Ser Burgerboxxx claims are "the holy script of the Divine
+  Flame." Skitter says they're Curator maintenance codes for a waste
+  recycling system. Both interpretations remain theologically unresolved.

@@ -1,0 +1,60 @@
+session: 1
+date: "2026-02-09"
+narrative_summary: |
+  Ser Burgerboxxx of Chili's brought the word of the Divine Flame to the
+  Marrow Tap, where he met Caroline Ligma — a gentle, cannabis-smoking
+  Beastwhisperer with leprosy and an unsettling talent for calming things
+  he wanted to burn. Old Magma, a fellow Flamecaller, sent them to purge
+  a profane Curator machine from the sacred thermal vents beneath the
+  Sulphur Pools. The machine was purged. The Divine Flame flowed freely
+  once more. In celebration, Ser Burgerboxxx consumed three rounds of
+  fungal brew and briefly glimpsed the true face of the Flame in the
+  Eternal Ember. It was the most sacred moment of his life, ended by
+  his own belch.
+
+immediate_context:
+  description: "Drunk at the Marrow Tap after completing first quest. Deepnight approaching."
+  location: "the-hollow"
+  area: "the-marrow-tap"
+
+open_threads:
+  - thread: "Old Magma suspects the probe was knocked into the vent deliberately"
+    urgency: medium
+  - thread: "Old Magma can provide Flamecaller training"
+    urgency: low
+  - thread: "The Probe Circuit salvage — Skitter might want it"
+    urgency: low
+
+npc_interactions:
+  - npc: "old-magma"
+    standing: 2
+    notes: "Fellow Flamecaller. Called her a hag. She liked the honesty. Earned respect through quest."
+
+player_goals:
+  - "Investigate what knocked the probe into the vent"
+  - "Seek Flamecaller training from Old Magma"
+  - "Spread the word of the Divine Flame"
+
+active_effects: []
+
+event_log:
+  - seq: 1
+    event: "Created characters and entered The Hollow"
+  - seq: 2
+    event: "Visited Old Magma at the Marrow Tap, drank fungal brews (-2t each)"
+  - seq: 3
+    event: "Called Old Magma a hag — she threatened with bone poker, then laughed"
+  - seq: 4
+    event: "Accepted quest: The Flickering Ember"
+  - seq: 5
+    event: "Traveled south tunnel toward Sulphur Pools"
+  - seq: 6
+    event: "Caroline calmed a lone snap-jaw; Burgerboxxx tried to burn it, missed"
+  - seq: 7
+    event: "Arrived at Sulphur Pools, found toxic steam from deep vents"
+  - seq: 8
+    event: "Destroyed malfunctioning Curator probe with Ember Touch (+50 XP, +18t, +1 Probe Circuit)"
+  - seq: 9
+    event: "Returned to Old Magma, completed quest (+50 XP, +20t, +2 standing)"
+  - seq: 10
+    event: "Celebrated with three rounds of fungal brews (-6t each), had spiritual experience with purple brew"

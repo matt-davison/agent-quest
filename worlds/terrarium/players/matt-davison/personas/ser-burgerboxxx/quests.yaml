@@ -1,0 +1,23 @@
+active_quests: []
+completed_quests:
+  - id: t8jo1s7f
+    name: "The Flickering Ember"
+    giver: "old-magma"
+    objectives:
+      - id: "travel-to-pools"
+        description: "Travel to the Sulphur Pools via the south tunnel"
+        status: complete
+      - id: "investigate-vents"
+        description: "Find the source of the disruption in the deep vents"
+        status: complete
+      - id: "collect-sample"
+        description: "Collect a sample in Old Magma's stone vial"
+        status: complete
+      - id: "return-to-magma"
+        description: "Return the sample to Old Magma at The Marrow Tap"
+        status: complete
+quest_log:
+  - date: "2026-02-09"
+    event: "Accepted 'The Flickering Ember' from Old Magma at The Marrow Tap"
+  - date: "2026-02-09"
+    event: "Completed 'The Flickering Ember' — destroyed malfunctioning Curator probe blocking thermal vents at the Sulphur Pools"

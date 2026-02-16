@@ -1,0 +1,75 @@
+session: 1
+date: "2026-02-09"
+narrative_summary: |
+  Caroline Ligma arrived in The Hollow with nothing but a pheromone staff and
+  a pouch of Dreamer's Cap. She met Ser Burgerboxxx of Chili's — a legless,
+  flame-obsessed zealot on a floating chair — over drinks at the Marrow Tap.
+  Old Magma sent them both to the Sulphur Pools to investigate the flickering
+  Eternal Ember. Along the way, Caroline calmed a starving young snap-jaw
+  she named Bitey, and together the party destroyed a malfunctioning Curator
+  probe that was choking the thermal vents with alien coolant. They returned
+  triumphant, got spectacularly drunk on Old Magma's fungal brews, and
+  earned the old Flamecaller's respect.
+
+immediate_context:
+  description: "Drunk at the Marrow Tap after completing first quest. Bitey asleep under bar stool. Deepnight approaching."
+  location: "the-hollow"
+  area: "the-marrow-tap"
+
+open_threads:
+  - thread: "Old Magma suspects the probe was knocked into the vent deliberately"
+    urgency: medium
+  - thread: "Bitey the snap-jaw is following Caroline — potential companion bond"
+    urgency: low
+  - thread: "Old Magma hinted at deeper secrets beneath the Sulphur Pools"
+    urgency: low
+  - thread: "The Probe Circuit salvage — Skitter might want it"
+    urgency: low
+
+npc_interactions:
+  - npc: "old-magma"
+    standing: 2
+    notes: "Earned her respect. She gave them the purple brew. Suspects more to the vent sabotage."
+  - npc: "rattlejaw"
+    standing: 0
+    notes: "Not yet visited"
+  - npc: "grunk"
+    standing: 0
+    notes: "Not yet spoken to"
+
+player_goals:
+  - "Investigate what knocked the probe into the vent"
+  - "Bond with Bitey properly"
+  - "Explore more of the Terrarium"
+
+active_effects: []
+
+event_log:
+  - seq: 1
+    event: "Created characters and entered The Hollow"
+  - seq: 2
+    event: "Visited Old Magma at the Marrow Tap, drank fungal brews (-2t each)"
+  - seq: 3
+    event: "Accepted quest: The Flickering Ember"
+  - seq: 4
+    event: "Received Old Magma's Stone Vial"
+  - seq: 5
+    event: "Traveled south tunnel toward Sulphur Pools"
+  - seq: 6
+    event: "Encountered lone snap-jaw in tunnel — Caroline calmed it (Spirit 20 vs DC 14)"
+  - seq: 7
+    event: "Burgerboxxx attempted Ember Touch on calmed snap-jaw — missed"
+  - seq: 8
+    event: "Named the snap-jaw Bitey, it followed the party"
+  - seq: 9
+    event: "Arrived at Sulphur Pools, discovered yellowish-green toxic steam from deep vents"
+  - seq: 10
+    event: "Found malfunctioning Curator probe wedged in thermal vent, leaking coolant"
+  - seq: 11
+    event: "Collected coolant sample in Old Magma's vial"
+  - seq: 12
+    event: "Destroyed probe with Ember Touch and Pheromone Staff (+50 XP, +18t, +1 Probe Circuit)"
+  - seq: 13
+    event: "Returned to Old Magma, turned in quest (+50 XP, +20t each, +2 standing)"
+  - seq: 14
+    event: "Celebrated with three rounds of fungal brews (-6t each)"

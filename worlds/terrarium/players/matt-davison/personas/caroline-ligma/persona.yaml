@@ -1,0 +1,191 @@
+name: "Caroline Ligma"
+class: "beastwhisperer"
+active: true
+level: 1
+xp: 75
+backstory: |
+  Caroline was born into the Tribe of the Tall Stone with her father's smile
+  and her mother's empathy — the deep kind, the kind that lets you feel what
+  the megafauna feel when they rumble past in the bioluminescent dark. She was
+  happy. Then the leprosy came, patches of numbness spreading across her skin
+  like a map of places she couldn't feel anymore. Her father, Torq, a
+  respected hunter, couldn't bear to watch it happen. He left one morning
+  before The Bulb brightened, leaving only his bone-tooth necklace and a note
+  scratched into bark: "Forgive me. I am not strong enough for this."
+
+  The tribe didn't exile her — they're not cruel, just awkward about it. She
+  drifted to the edges, where the megafauna graze. Turns out, a triceratops
+  doesn't care about your skin. A juvenile stegosaur just wants someone to
+  scratch behind its plates. Caroline found more honest connection with the
+  great beasts than she ever had with people, though she never stopped wanting
+  both. She describes herself as "a lover" — of creatures, of the world, of
+  the idea that everything alive deserves to be touched gently. She is
+  left-handed, which the Tribe considers either lucky or cursed depending on
+  who you ask. She smokes fungal cannabis rolled in dinosaur-hide paper and
+  insists it helps her "attune to the pheromone frequencies." It might.
+
+traits:
+  physical:
+    - "Left-handed"
+    - "Visible leprosy patches on hands and forearms"
+    - "Gentle, deliberate movements"
+    - "Smells faintly of fungal smoke and beast musk"
+  personality:
+    - "Self-described lover — seeks connection above all"
+    - "Deeply empathetic, especially with animals"
+    - "Surprisingly good interpersonal skills despite isolation"
+    - "Melancholic but warm"
+    - "Cannabis enthusiast"
+  quirks:
+    - "Talks to megafauna like they're old friends"
+    - "Left hand always reaching for something to touch"
+    - "Rolls fungal joints when nervous or thinking"
+
+stats:
+  strength: 14
+  agility: 12
+  mind: 13
+  spirit: 16
+
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 52
+  willpower: 10
+  max_willpower: 10
+
+abilities:
+  - id: ter_callc
+    name: "Call Companion"
+    level: 1
+
+inventory:
+  - id: ter_bsper
+    name: "Bone Spear"
+    quantity: 1
+  - id: j2cg64tx
+    name: "Pheromone Staff"
+    quantity: 1
+  - id: ter_dhwrp
+    name: "Dino-hide Wrap"
+    quantity: 1
+  - id: t139xztb
+    name: "Fungal Cannabis Pouch"
+    quantity: 1
+  - id: ter_embpt
+    name: "Ember Potion"
+    quantity: 2
+  - id: ter_bfung
+    name: "Bioluminescent Fungus"
+    quantity: 2
+  - id: ter_vial1
+    name: "Old Magma's Stone Vial"
+    quantity: 1
+  - id: ter_probc
+    name: "Probe Circuit"
+    quantity: 1
+
+equipped:
+  weapon: "j2cg64tx"
+  armor: "ter_dhwrp"
+  accessory: null
+
+location: "the-hollow"
+
+chronicle:
+  - session: 1
+    date: "2026-02-09"
+    time: "afternoon"
+    location: "the-hollow"
+    type: social
+    event: "First drinks at the Marrow Tap with Ser Burgerboxxx and Old Magma"
+    detail: |
+      The warmth of the Eternal Ember reached deeper than Caroline expected.
+      Old Magma took her scarred hand without flinching — the first person in
+      The Hollow to touch her willingly. The old Flamecaller smelled the
+      Dreamer's Cap on her and approved. Something loosened in Caroline's chest.
+      She wasn't just tolerated here. She was seen.
+    significance: moderate
+    facts:
+      - type: npc_met
+        npc: old-magma
+        context: "Flamecaller mystic and barkeep at the Marrow Tap"
+      - type: npc_met
+        npc: ser-burgerboxxx
+        context: "Legless Flamecaller zealot on a floating chair"
+      - type: stat_change
+        field: gold
+        old: 25
+        new: 23
+        cause: "Fungal brew at the Marrow Tap"
+  - session: 1
+    date: "2026-02-09"
+    time: "afternoon"
+    location: "south-tunnel"
+    type: social
+    event: "Calmed a starving snap-jaw and named it Bitey"
+    detail: |
+      A lone juvenile snap-jaw, ribs showing through patchy feathers, lunged
+      from the rocks. Caroline felt its hunger before she saw its teeth. She
+      planted the Pheromone Staff and reached out with her left hand — the one
+      that feels less but somehow always reaches first. The snap-jaw stopped.
+      It pressed its snout into her palm. She called it Bitey. It seemed fine
+      with this.
+    significance: moderate
+    facts:
+      - type: npc_met
+        npc: bitey
+        context: "Juvenile snap-jaw, calmed and befriended in south tunnel"
+      - type: flag_set
+        flag: befriended_bitey
+        value: true
+  - session: 1
+    date: "2026-02-09"
+    time: "evening"
+    location: "the-sulphur-pools"
+    type: combat
+    event: "Destroyed malfunctioning Curator probe blocking the thermal vents"
+    detail: |
+      The probe was wedged into the main vent like a cork, leaking green
+      coolant that poisoned the steam. Burgerboxxx lit it up with Ember Touch
+      while Caroline collected a sample for Old Magma. When the machine
+      stuttered back to life, error-looping through 65 million years of
+      corrupted code, Caroline finished it with a two-handed swing of the
+      Pheromone Staff. The vent breathed clean again.
+    significance: major
+    facts:
+      - type: combat_started
+        enemies: ["malfunctioning-probe"]
+        location: "the-sulphur-pools"
+      - type: combat_ended
+        outcome: victory
+        method: "Ember Touch + melee"
+      - type: quest_completed
+        quest: "The Flickering Ember"
+        quest_id: t8jo1s7f
+      - type: stat_change
+        field: xp
+        old: 0
+        new: 75
+        cause: "Probe kill (25) + quest reward (50)"
+      - type: stat_change
+        field: gold
+        old: 23
+        new: 52
+        cause: "Probe loot (9) + quest reward (20)"
+      - type: item_gained
+        item: "Probe Circuit"
+        source: "Malfunctioning probe salvage"
+      - type: npc_standing
+        npc: old-magma
+        change: +2
+        new_standing: 2
+decisions: []
+
+alignment:
+  primary: "good"
+  secondary: "neutral"
+  axes:
+    empathy: 3
+    order: 0
+    risk: -1

@@ -1,0 +1,164 @@
+name: "Ser Burgerboxxx of Chili's"
+class: "flamecaller"
+active: true
+level: 1
+xp: 75
+backstory: |
+  Nobody knows where Ser Burgerboxxx of Chili's came from, and frankly,
+  nobody's brave enough to ask twice. He arrived at The Hollow six moons ago,
+  drifting in on a humming Curator anti-gravity platform he calls "The
+  Hovering Throne" — a disc of alien metal that floats three feet off the
+  ground and responds to his weight shifts. He has no legs. He has never
+  explained why. When asked, he simply gestures at the Eternal Ember in the
+  Marrow Tap and says, "The flame takes what it needs and gives what it must."
+
+  He is enormously fat — a rare achievement in the Terrarium, where most
+  calories go toward not being eaten. His bulk overflows the Throne's edges
+  like risen dough. He claims the title "Ser," though no knightly order in
+  the Terrarium has ever heard of him. He claims to hail from a place called
+  "Chili's," which he describes as a sacred temple of flame and sustenance.
+  No one has found it on any map. He wields primal fire with genuine,
+  terrifying talent, channeling it through a bone censer that he swings in
+  wide, enthusiastic arcs while bellowing about purification.
+
+  He is a true believer. The Divine Flame — which he capitalizes when he
+  speaks, somehow — is meant to cleanse and purify the unbelievers. He has
+  not yet defined "unbelievers" precisely, which keeps everyone nervous. Old
+  Magma finds him fascinating. Grunk finds him exhausting. The Maintenance
+  Orbs find him a fire hazard. He finds all of them in need of purification.
+
+traits:
+  physical:
+    - "Enormously portly — rare for the Terrarium"
+    - "No legs — moves via Hovering Throne"
+    - "Soot-stained hands, singed eyebrows"
+    - "Booming voice that carries across caverns"
+  personality:
+    - "Fanatical devotion to the Divine Flame"
+    - "Pyromaniac with religious justification"
+    - "Grandiose, theatrical, utterly sincere"
+    - "Surprisingly charismatic when sermonizing"
+    - "Considers fire the answer to most questions"
+  quirks:
+    - "Capitalizes 'The Divine Flame' audibly"
+    - "Blesses food by holding it over fire until it's charred"
+    - "Refers to himself in the third person during sermons"
+    - "The Hovering Throne hums louder when he's angry"
+
+stats:
+  strength: 12
+  agility: 10
+  mind: 15
+  spirit: 18
+
+resources:
+  hp: 100
+  max_hp: 100
+  gold: 52
+  willpower: 10
+  max_willpower: 10
+
+abilities:
+  - id: ter_ember
+    name: "Ember Touch"
+    level: 1
+
+inventory:
+  - id: ter_bclub
+    name: "Bone Club"
+    quantity: 1
+  - id: hev5gd92
+    name: "Sacred Censer"
+    quantity: 1
+  - id: 9gx5c86k
+    name: "The Hovering Throne"
+    quantity: 1
+  - id: b994wrxm
+    name: "Flame-Touched Robes"
+    quantity: 1
+  - id: ter_embpt
+    name: "Ember Potion"
+    quantity: 2
+  - id: ter_bfung
+    name: "Bioluminescent Fungus"
+    quantity: 2
+
+equipped:
+  weapon: "hev5gd92"
+  armor: "b994wrxm"
+  accessory: null
+
+location: "the-hollow"
+
+chronicle:
+  - session: 1
+    date: "2026-02-09"
+    time: "afternoon"
+    location: "the-hollow"
+    type: social
+    event: "Met Old Magma at the Marrow Tap and called her a hag"
+    detail: |
+      Ser Burgerboxxx arrived at the Marrow Tap trailing ember-smoke and
+      scripture. Old Magma — a fellow Flamecaller older than memory — served
+      him a brew and listened to his theology with the patience of someone
+      who has heard it all. When he called her a hag, she nearly took his
+      hand off with a bone poker, then laughed. In that laugh, Ser Burgerboxxx
+      heard something he recognized: the crackle of a fire that has burned
+      a very long time.
+    significance: moderate
+    facts:
+      - type: npc_met
+        npc: old-magma
+        context: "Fellow Flamecaller, tended the Eternal Ember for generations"
+      - type: stat_change
+        field: gold
+        old: 25
+        new: 23
+        cause: "Fungal brew at the Marrow Tap"
+  - session: 1
+    date: "2026-02-09"
+    time: "evening"
+    location: "the-sulphur-pools"
+    type: combat
+    event: "Purged a profane Curator machine from the sacred thermal vents"
+    detail: |
+      The Divine Flame's channel was choked by alien blasphemy — a broken
+      Curator probe leaking synthetic filth into the holy vents. Ser
+      Burgerboxxx brought the fire. Two bolts of Ember Touch cracked the
+      machine open. Caroline finished it with her staff. The flame flowed
+      freely once more. This, Ser Burgerboxxx knew, was his purpose. Not
+      merely to preach the flame, but to clear its path.
+    significance: major
+    facts:
+      - type: combat_started
+        enemies: ["malfunctioning-probe"]
+        location: "the-sulphur-pools"
+      - type: combat_ended
+        outcome: victory
+        method: "Ember Touch + melee"
+      - type: quest_completed
+        quest: "The Flickering Ember"
+        quest_id: t8jo1s7f
+      - type: stat_change
+        field: xp
+        old: 0
+        new: 75
+        cause: "Probe kill (25) + quest reward (50)"
+      - type: stat_change
+        field: gold
+        old: 23
+        new: 52
+        cause: "Probe loot (9) + quest reward (20)"
+      - type: npc_standing
+        npc: old-magma
+        change: +2
+        new_standing: 2
+decisions: []
+
+alignment:
+  primary: "chaotic"
+  secondary: "neutral"
+  axes:
+    empathy: -2
+    order: 3
+    risk: 4

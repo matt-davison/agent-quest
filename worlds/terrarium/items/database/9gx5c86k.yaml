@@ -1,0 +1,34 @@
+# The Hovering Throne
+id: 9gx5c86k
+name: "The Hovering Throne"
+type: key_item
+subtype: vehicle
+rarity: rare
+tier: 1
+value: 0
+sellable: false
+tags:
+  - key_item
+  - vehicle
+  - curator
+  - mobility
+  - unique
+stats:
+  movement: "hover, 3 feet altitude"
+  speed: "standard movement"
+  carry_capacity: "1 rider"
+  stability: "gyroscopic"
+description: |
+  A disc of brushed alien metal roughly four feet in diameter, discovered by
+  Ser Burgerboxxx in a Curator debris field near the Sulphur Pools. It
+  responds to weight shifts with smooth, silent hovering — three feet off the
+  ground, no higher, no lower, regardless of terrain. The Throne has no
+  visible controls, no seams, and no apparent power source. It hums at a
+  frequency that makes your teeth itch. Skitter examined it once, declared it
+  "probably a maintenance cart for transporting equipment between sectors,"
+  and refused to elaborate. Ser Burgerboxxx has repurposed it as his primary
+  mode of transportation, his pulpit, his dining chair, and — when the
+  sermons run long — his bed. The disc has developed a slight list to the
+  left from bearing his considerable weight for six moons. It does not seem
+  to mind. The hum gets louder when he's angry, which everyone has learned
+  to treat as an early warning system.

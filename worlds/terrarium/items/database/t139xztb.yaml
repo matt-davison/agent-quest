@@ -1,0 +1,30 @@
+# Fungal Cannabis Pouch
+id: t139xztb
+name: "Fungal Cannabis Pouch"
+type: consumable
+subtype: utility
+rarity: common
+tier: 1
+value: 8
+sellable: true
+tags:
+  - consumable
+  - utility
+  - fungal
+  - beastwhisperer
+  - recreational
+stats:
+  spirit_bonus: +1
+  duration: "1 hour"
+  uses: 5
+  side_effect: "mild hunger, giggles"
+description: |
+  A small dinosaur-hide pouch containing dried strips of Dreamer's Cap —
+  a bioluminescent fungus that grows in the warm, damp crevices of Gorath's
+  ribcage. When smoked in a rolled dino-hide paper, it produces a fragrant
+  blue-green haze and a gentle euphoria that Caroline swears enhances her
+  empathic connection with megafauna. She might be right — Dreamer's Cap
+  contains trace compounds that mimic the Terrarium's naturally occurring
+  bioluminescent pheromones. Or she might just like being high. Old Magma
+  sells the good stuff. Rattlejaw sells the mediocre stuff and claims it's
+  the good stuff. Caroline can tell the difference. The beasts can too.

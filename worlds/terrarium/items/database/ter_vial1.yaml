@@ -1,0 +1,21 @@
+# Old Magma's Stone Vial
+id: ter_vial1
+name: "Old Magma's Stone Vial"
+type: container
+subtype: vial
+rarity: uncommon
+tier: 1
+value: 15
+sellable: false
+tags:
+  - container
+  - quest_item
+  - unique
+capacity: 1
+description: |
+  A small stone vial with a cork stopper, handed to you by Old Magma herself
+  as a token of her trust. Its surface is warm to the touch, and inside you can
+  see something glimmering — a memory of the Eternal Ember, perhaps, or the
+  warmth of the first fire. Old Magma smiled when she gave it to you. "Keep it
+  safe," she said. "It holds something precious." Currently empty, waiting for
+  you to find what belongs inside.

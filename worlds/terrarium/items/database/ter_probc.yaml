@@ -1,0 +1,21 @@
+# Probe Circuit
+id: ter_probc
+name: "Probe Circuit"
+type: component
+subtype: tech
+rarity: uncommon
+tier: 1
+value: 20
+sellable: true
+tags:
+  - component
+  - tech
+  - curator
+  - salvage
+description: |
+  A singed circuit board from the malfunctioning Curator probe that was
+  clogging the thermal vents at the Sulphur Pools. Despite the damage it
+  sustained from the Ember Touch and Pheromone Staff strikes, it still hums
+  faintly with alien power. The green coolant has dried to a crust on its
+  surface. It might be salvageable by someone who understands Curator
+  technology, or it might just be an interesting trophy of your victory.

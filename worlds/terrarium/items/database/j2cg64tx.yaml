@@ -1,0 +1,30 @@
+# Pheromone Staff
+id: j2cg64tx
+name: "Pheromone Staff"
+type: weapon
+subtype: melee
+rarity: uncommon
+tier: 1
+value: 25
+sellable: false
+tags:
+  - melee
+  - blunt
+  - beastwhisperer
+  - pheromone
+  - unique
+stats:
+  damage: 6
+  attack_bonus: +1
+  range: adjacent
+  beast_calming: +3
+description: |
+  A gnarled staff carved from a petrified tree root, wrapped in strips of
+  shed kaiju skin that still faintly pulse with bioluminescent pheromones.
+  Caroline made it herself, left-handed, over the course of a long wet
+  season. The skin strips are from Gentle — a juvenile stegosaur who lets
+  Caroline scratch behind its plates and sheds regularly. When the staff
+  is planted in the ground, nearby megafauna grow calm and curious. When
+  swung at something's skull, it is slightly less calming. The pheromone
+  coating means it always smells like a large herbivore in a good mood,
+  which is either reassuring or confusing depending on your species.

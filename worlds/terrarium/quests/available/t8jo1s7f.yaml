@@ -1,0 +1,44 @@
+id: t8jo1s7f
+name: "The Flickering Ember"
+type: standard
+status: completed
+giver: "old-magma"
+giver_name: "Old Magma"
+location: "the-hollow"
+target_location: "the-sulphur-pools"
+description: |
+  The Eternal Ember has been flickering for three nights — something
+  unprecedented. Old Magma believes the thermal vents beneath the
+  Sulphur Pools are being choked by something. Investigate the deep
+  vents, collect a sample of whatever is disrupting the flow, and
+  return it to Old Magma.
+objectives:
+  - id: "travel-to-pools"
+    description: "Travel to the Sulphur Pools via the south tunnel"
+    status: incomplete
+  - id: "investigate-vents"
+    description: "Find the source of the disruption in the deep vents"
+    status: incomplete
+  - id: "collect-sample"
+    description: "Collect a sample in Old Magma's stone vial"
+    status: incomplete
+  - id: "return-to-magma"
+    description: "Return the sample to Old Magma at The Marrow Tap"
+    status: incomplete
+rewards:
+  xp: 50
+  gold: 20
+  items: []
+  standing:
+    - npc: "old-magma"
+      change: 2
+on_complete:
+  standing_changes:
+    - npc: "old-magma"
+      change: 2
+  flags:
+    - "investigated_sulphur_vents"
+  follow_up_hint: "Old Magma may have more to share about what lies beneath"
+difficulty: standard
+level_range: [1, 3]
+created: "2026-02-09"

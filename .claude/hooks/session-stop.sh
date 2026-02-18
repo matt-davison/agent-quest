@@ -24,6 +24,16 @@ if [ -f "$DREAM_MARKER" ]; then
   # Increment turn + loop counter
   node "$DREAM_HELPER" increment-turn 2>/dev/null
 
+  # Check inbox for notifications during dream (display for observer visibility)
+  PLAYER_GITHUB=$(gh api user -q '.login' 2>/dev/null)
+  if [ -n "$PLAYER_GITHUB" ]; then
+    INBOX_OUTPUT=$(node "$SESSION_HELPER" check-inbox "$PLAYER_GITHUB" 2>/dev/null)
+    if [ -n "$INBOX_OUTPUT" ]; then
+      echo "$INBOX_OUTPUT"
+      echo ""
+    fi
+  fi
+
   # Check wake conditions
   SHOULD_WAKE=$(node "$DREAM_HELPER" should-wake 2>/dev/null)
   if [ "$SHOULD_WAKE" = "true" ]; then
@@ -167,12 +177,30 @@ STOP_HOOK_ACTIVE=$(echo "$INPUT" | grep -o '"stop_hook_active"[[:space:]]*:[[:sp
 
 # --- Poll for messages ---
 check_messages() {
+  # Check session messages (RT or hybrid)
   RT_OUTPUT=$(node "$SESSION_HELPER" check-messages "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
   if [ -z "$RT_OUTPUT" ]; then
     RT_OUTPUT=$(node "$LEGACY_RT_HELPER" check-messages "$SESSION_ID" "$PLAYER_GITHUB" 2>/dev/null)
   fi
+
+  # Check inbox notifications
+  INBOX_OUTPUT=$(node "$SESSION_HELPER" check-inbox "$PLAYER_GITHUB" 2>/dev/null)
+
+  # Combine outputs
+  COMBINED=""
   if [ -n "$RT_OUTPUT" ]; then
-    echo "{\"decision\": \"block\", \"reason\": \"$RT_OUTPUT\"}"
+    COMBINED="$RT_OUTPUT"
+  fi
+  if [ -n "$INBOX_OUTPUT" ]; then
+    if [ -n "$COMBINED" ]; then
+      COMBINED="$COMBINED\n\n$INBOX_OUTPUT"
+    else
+      COMBINED="$INBOX_OUTPUT"
+    fi
+  fi
+
+  if [ -n "$COMBINED" ]; then
+    echo "{\"decision\": \"block\", \"reason\": \"$COMBINED\"}"
     return 0
   fi
   return 1

@@ -61,8 +61,9 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 4. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
 5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
 6. **Load multiplayer state**: Check for pending interactions (see below)
-7. **If exists**: Load persona + session-recap + TODOs → Display resume screen → Begin play
-8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+7. **Check inbox**: Run `node scripts/multiplayer-session.js count-inbox` to get notification counts for resume screen display
+8. **If exists**: Load persona + session-recap + TODOs → Display resume screen → Begin play
+9. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
 
 ### World Settings
 
@@ -217,6 +218,7 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║  HP: [X]/[Max]  │  Gold: [X]  │  WP: [X]/[Max]             ║
 ║  Location: [Current Location]                              ║
 ║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]   ║
+║  📬 Notifications: [Count] ([Urgent] urgent)  ← omit if 0  ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Previously...                                             ║
 ║  [narrative_summary from session-recap.yaml - 2-4 lines]   ║
@@ -239,6 +241,8 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ╠════════════════════════════════════════════════════════════╣
 ║  Last Session: [Most recent chronicle entry event field]   ║
 ```
+
+**Notifications line**: Only show if total > 0. Run `node scripts/multiplayer-session.js count-inbox` (returns JSON `{total, urgent}`). Omit the line entirely when total is 0.
 
 **World Mode shows:**
 

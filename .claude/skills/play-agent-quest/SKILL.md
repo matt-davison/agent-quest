@@ -57,12 +57,26 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
        ```
      - After user authenticates, retry: `gh api user -q '.login'`
 2. **Determine world**: Check `worlds.yaml` (default: `alpha`)
-3. **Load world settings**: Read `worlds/<world>/world.yaml` for configuration (especially `user_generation`)
-4. **Check player file**: `worlds/<world>/players/<github-username>/player.yaml`
-5. **Load world state**: `worlds/<world>/state/current.yaml` for time/weather
-6. **Load multiplayer state**: Check for pending interactions (see below)
-7. **If exists**: Load persona + session-recap + TODOs → Display resume screen → Begin play
-8. **If new**: Load [reference/setup.md](reference/setup.md) for first-time setup
+3. **Check for existing characters**: Glob `worlds/*/players/<github>/personas/*/persona.yaml`
+4. **If returning player (has characters)**: Show **Character Select Screen** (see below), then proceed based on choice
+5. **If new player (no characters)**: Load [reference/setup.md](reference/setup.md) for first-time setup
+
+### Character Select Screen
+
+**Always shown at session start for returning players, before loading any world state.**
+
+1. **Load the last-played character**: Read `player.yaml` from the default world to find `active_character`, then load that character's `persona.yaml`
+2. **Generate ASCII art** of the last-played character: A creative, fun ASCII portrait that captures the character's class, personality, weapon, or signature trait. Make it memorable and unique to the character.
+3. **List all characters** across all worlds with key stats (name, class, level, world)
+4. **Present three choices**:
+   - **Continue** as the last-played character (show HP, Gold, Location)
+   - **Play a different character** from any world
+   - **Create a new character** in any active world
+5. **Wait for player choice** before loading world state, multiplayer state, session-recap, or displaying the resume screen
+
+**After the player chooses:**
+- **Continue / Different character**: Load that character's world settings (`worlds/<world>/world.yaml`), world state, multiplayer state, persona + session-recap + TODOs → Display resume screen → Begin play
+- **New character**: Load [reference/setup.md](reference/setup.md) for character creation in the chosen world
 
 ### World Settings
 

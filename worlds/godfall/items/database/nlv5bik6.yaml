@@ -1,0 +1,28 @@
+# Ichor Ward
+id: nlv5bik6
+name: Ichor Ward
+type: armor
+subtype: amulet
+rarity: uncommon
+tier: 1
+value: 75
+sellable: true
+tags:
+  - protection
+  - divine
+  - ichor
+  - ward
+  - essential
+stats:
+  corruption_resistance: 5
+  ichor_immunity: true
+  rot_aura_immunity: true
+special: "Negates passive ichor poisoning and Rot Aura damage. Essential for deep wasteland travel."
+description: |
+  A crude amulet crafted from bonesteel wire and a sliver of crystallized
+  ichor, sealed in resin. Sylwen the Ash-Touched developed these after
+  months of research into divine corruption. The crystallized ichor at
+  its center has been alchemically neutralized, creating a resonance that
+  repels active ichor. The protection is not absolute — concentrated
+  divine attacks can still harm the wearer — but it prevents the slow,
+  creeping poisoning that kills most who enter the deep wasteland.

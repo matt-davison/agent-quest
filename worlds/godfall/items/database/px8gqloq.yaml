@@ -1,0 +1,28 @@
+# Godblood Vial
+id: px8gqloq
+name: Godblood Vial
+type: consumable
+subtype: vial
+rarity: rare
+tier: 3
+value: 200
+sellable: true
+max_uses: 1
+tags:
+  - consumable
+  - divine
+  - dangerous
+  - buff
+  - ichor
+stats:
+  spirit_bonus: 6
+  duration: "3 rounds"
+  side_effect: "5 corruption damage per round for 3 rounds"
+special: "Grants +6 Spirit for 3 rounds but inflicts 5 corruption damage per round. Ichor Ward does not prevent this damage."
+description: |
+  A small vial of pure divine ichor, sealed with wax and prayer. The
+  golden liquid within pulses with a faint heartbeat. Drinking it floods
+  the body with divine energy, massively amplifying spiritual power —
+  but the corruption is immediate and severe. Many scavengers have died
+  chasing the high of godblood. Those who survive speak of visions:
+  the face of the god whose blood they drank, screaming in the dark.

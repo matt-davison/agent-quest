@@ -1,0 +1,51 @@
+# Purifying Strike - Anti-corruption combat ability
+id: gh28r6fp
+name: "Purifying Strike"
+type: ability
+subtype: combat
+class: null
+tier: 3
+tags:
+  - combat
+  - damage
+  - purify
+  - divine
+  - anti-corruption
+
+prerequisites:
+  min_spirit: 12
+  min_might: 10
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Imbue your weapon with purifying fire. Next attack deals +8 fire damage and bypasses corruption-based resistances. Effective against Rot Heralds and Ichor Wraiths."
+    willpower_cost: 5
+    effect:
+      bonus_damage: 8
+      bonus_damage_type: fire
+      bypass_corruption_resistance: true
+      duration: 1
+    learn_cost: 100
+  2:
+    description: "Devastating purifying blow. Next attack deals +14 fire damage, bypasses corruption resistances. If target is corrupted creature, deals double bonus damage. Cleanses 1 corruption stack from self on hit."
+    willpower_cost: 8
+    effect:
+      bonus_damage: 14
+      bonus_damage_type: fire
+      bypass_corruption_resistance: true
+      double_vs_corrupted: true
+      self_cleanse: 1
+      duration: 1
+    learn_cost: 250
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+  cooldown_rounds: 3
+
+action_type: minor
+range: null
+target: self

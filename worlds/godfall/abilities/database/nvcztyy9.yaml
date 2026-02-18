@@ -1,0 +1,43 @@
+# Divine Rot Resistance - Passive survival ability
+id: nvcztyy9
+name: "Divine Rot Resistance"
+type: passive
+subtype: survival
+class: null
+tier: 1
+tags:
+  - passive
+  - survival
+  - divine
+  - resistance
+
+prerequisites:
+  min_spirit: 6
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Hardened against divine corruption. Reduce corruption damage by 3. Immune to passive ichor poisoning (same effect as Ichor Ward)."
+    willpower_cost: 0
+    effect:
+      corruption_reduction: 3
+      ichor_immunity: true
+    learn_cost: 40
+  2:
+    description: "Deep resistance. Reduce corruption damage by 6. Immune to passive ichor poisoning. +2 to Spirit saves against divine effects."
+    willpower_cost: 0
+    effect:
+      corruption_reduction: 6
+      ichor_immunity: true
+      spirit_save_bonus_divine: 2
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+
+action_type: passive
+range: null
+target: self

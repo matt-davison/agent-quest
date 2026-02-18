@@ -1,0 +1,83 @@
+# The Heart of the Defiant - Main Quest
+id: "the-heart-of-the-defiant"
+name: "The Heart of the Defiant"
+type: "main"
+difficulty: "legendary"
+giver: "marta-ironveil"
+giver_location: "the-gray-margin"
+repeatable: false
+level:
+  required: 1
+  recommended: 6
+  scaling: true
+
+summary: |
+  Five years ago, the flagship Defiant rammed the King of the Gods and
+  ended the War of Ascension. Both were destroyed. But the Arcane Engine
+  that powered the Defiant — the single most powerful device ever built
+  by mortal hands — may have survived the crash. Commander Ironveil has
+  organized an expedition to find it. If the Engine still works, it could
+  purify the poisoned wasteland and give the survivors a future. The
+  journey will take you through the Bonefield, past rotting god-corpses,
+  through poisoned marshes, and into the wreck itself. What you find
+  there may not be what anyone expected.
+
+objectives:
+  - id: "accept-mission"
+    description: "Speak with Commander Ironveil and accept the expedition mission"
+    status: "incomplete"
+  - id: "cross-bonefield"
+    description: "Cross the Bonefield and establish the route north"
+    status: "incomplete"
+  - id: "obtain-protection"
+    description: "Obtain an Ichor Ward or Divine Rot Resistance before entering the deep wasteland"
+    status: "incomplete"
+  - id: "survey-colossus"
+    description: "Survey the Fallen Colossus and report what's inside"
+    status: "incomplete"
+  - id: "reach-the-wreck"
+    description: "Navigate the Plague Barrens and reach the Wreck of the Defiant"
+    status: "incomplete"
+  - id: "breach-the-hull"
+    description: "Find a way into the sealed interior of the Defiant"
+    status: "incomplete"
+  - id: "reach-engine-vault"
+    description: "Navigate the wreck's interior to the Engine Vault"
+    status: "incomplete"
+  - id: "confront-guardian"
+    description: "Defeat or bypass the Engine Guardian"
+    status: "incomplete"
+  - id: "decide-engines-fate"
+    description: "Decide the fate of the Arcane Engine"
+    status: "incomplete"
+
+rewards:
+  gold: 500
+  xp: 2000
+  items:
+    - "Legendary reward based on Engine decision"
+  reputation:
+    - npc: "marta-ironveil"
+      change: 5
+    - npc: "grul-half-tusk"
+      change: 3
+    - npc: "sylwen-ash-touched"
+      change: 3
+
+on_complete:
+  standing_changes:
+    - npc: "marta-ironveil"
+      change: 5
+      reason: "Completing the expedition's primary objective"
+  flags:
+    - flag: "main_quest_complete"
+      value: true
+    - flag: "engine_fate_decided"
+      value: true
+  unlocks:
+    - "the-throne-of-ashes (endgame content)"
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  status: "available"

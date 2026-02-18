@@ -1,0 +1,211 @@
+# God-Maggot
+# Tier: Standard | Role: Brute
+
+id: "god-maggot"
+name: "God-Maggot"
+category: corrupted
+tier: standard
+level: 4
+
+description: |
+  Pale, bloated larvae the size of warhorses, burrowing through the
+  decaying flesh of dead gods. Their translucent skin reveals churning
+  golden ichor within. They have no eyes, navigating by vibration and
+  the scent of divine meat. Their mouths are circular pits of grinding
+  teeth designed to tear through god-flesh — mortal armor is nothing to
+  them. They are not aggressive by nature, preferring to feed, but they
+  are territorial and will attack anything that disturbs their meal.
+  The ichor in their bodies makes them toxic to the touch, and when
+  killed, they burst in a spray of half-digested divine matter.
+
+stats:
+  hp: 55
+  defense: 10
+  attack_bonus: +4
+  damage: 18
+  speed: slow
+  initiative_bonus: -2
+
+role: brute
+
+defenses:
+  resistances:
+    - poison    # Saturated with ichor
+    - acid      # Digestive system neutralizes acid
+  immunities:
+    - corruption
+    - disease
+  vulnerabilities:
+    - fire       # Extremely flammable ichor within
+    - slashing   # Soft body is easy to cut
+
+abilities:
+  - name: "Grinding Bite"
+    type: active
+    description: |
+      The maggot lunges forward and bites with its circular maw.
+      Attack: +4 to hit, 18 damage. If target is wearing armor,
+      reduce armor value by 2 permanently (represents armor degradation).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 18
+    effects:
+      - effect: "armor_degradation"
+        duration: 0
+        save_dc: 0
+        armor_reduction: 2
+    ai_priority: high
+    ai_condition: "Standard attack — prefer heavily armored targets"
+
+  - name: "Ichor Spray"
+    type: active
+    description: |
+      The maggot vomits a stream of half-digested divine matter.
+      All creatures in a 3m cone take 10 poison damage and must pass
+      Spirit DC 12 or be nauseated (-2 to all rolls for 2 rounds).
+    cooldown: 3
+    cost: 0
+    range: 3m_cone
+    area: 3m_cone
+    damage: 10
+    effects:
+      - effect: "nauseated"
+        duration: 2
+        save_dc: 12
+    ai_priority: high
+    ai_condition: "Use when 2+ enemies in cone"
+
+  - name: "Burrow"
+    type: active
+    description: |
+      The maggot burrows into soft ground or divine flesh, disappearing
+      for 1 round. It emerges adjacent to a target, making a surprise
+      Grinding Bite with +2 to hit.
+    cooldown: 4
+    cost: 0
+    range: 10m
+    area: null
+    damage: 18
+    effects: []
+    ai_priority: medium
+    ai_condition: "Use in god-corpse terrain or soft ground"
+
+  - name: "Death Burst"
+    type: triggered
+    description: |
+      When killed, the maggot explodes in a shower of ichor and bile.
+      All creatures within 3m take 8 poison damage and are coated in
+      ichor (Spirit DC 12 or take 3 corruption damage/round for 3 rounds).
+    cooldown: 0
+    cost: 0
+    range: self
+    area: 3m_radius
+    damage: 8
+    effects:
+      - effect: "ichor_coated"
+        duration: 3
+        save_dc: 12
+        damage_per_round: 3
+    ai_priority: critical
+    ai_condition: "Triggers on death"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "god_corpse"
+      bonus: "Regenerate 5 HP/round while on divine flesh. Can burrow freely."
+    - terrain_type: "underground"
+      behavior: "Comfortable. May be encountered in tunnels through divine remains."
+
+  interactions:
+    - element: "divine_flesh"
+      behavior: "Feeds if undisturbed. Territorial if interrupted."
+      priority: high
+      condition: "Within god-corpse area"
+
+  hazard_immunity:
+    - "poison"
+    - "ichor"
+    - "corruption"
+
+  hazard_exploitation:
+    - hazard: "narrow_passage"
+      tactic: "Blocks passage with bulk, forcing melee engagement"
+    - hazard: "divine_flesh_terrain"
+      tactic: "Burrows through flesh for ambush attacks"
+
+morale:
+  break_threshold: 25  # Will flee if badly hurt
+  break_behavior: "Burrows away to safety"
+  group_morale: true
+  leader_dependent: false
+  rally_condition: "Returns when threat leaves territory"
+
+targeting:
+  primary: nearest
+  secondary: "heavily_armored"  # Attracted to metal
+  avoids: ["fire_users"]
+  switches_target_when: "Taking fire damage or current target too dangerous"
+
+pack_tactics:
+  enabled: true
+  flanking: false   # Too large and clumsy
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 3
+  swarm_bonus: "Territory defense: all maggots gain +2 attack when 3+ present"
+
+loot:
+  gold:
+    min: 5
+    max: 15
+  xp: 60
+  guaranteed_drops:
+    - item: "Maggot Ichor"
+      quantity: 1
+  chance_drops:
+    - item: "Undigested Divine Fragment"
+      chance: 30
+      quantity: 1
+    - item: "Godblood Vial"
+      chance: 15
+      quantity: 1
+  rare_drops:
+    - item: "Celestial Bone Fragment"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  corrupted:
+    - "Immune to corruption, disease, and most poisons"
+    - "Vulnerable to fire (+50% damage) — ichor within is flammable"
+    - "Vulnerable to slashing (+25% damage) — soft body"
+    - "Territorial — will not pursue beyond feeding ground"
+    - "Death Burst — dangerous to kill in melee"
+
+encounter_notes: |
+  God-Maggots are territorial brutes found primarily on and around
+  divine corpses. They are not aggressive unless disturbed.
+
+  Combat patterns:
+  - Attacks anything that enters feeding territory
+  - Uses Grinding Bite as primary attack (degrades armor)
+  - Sprays ichor when multiple targets cluster
+  - Burrows for ambush on god-corpse terrain
+  - Explodes on death — ranged killing is safer
+
+  Key vulnerabilities:
+  - Extremely flammable due to ichor saturation
+  - Slow and predictable
+  - Will flee if badly hurt and not cornered
+  - Slashing weapons cut easily through soft body
+  - Can be avoided entirely by not entering feeding territory
+
+metadata:
+  created: "2026-02-17"
+  author: "System"
+  source: "Parasites feeding on divine corpses, mutated by ichor"
+  cr_equivalent: 4

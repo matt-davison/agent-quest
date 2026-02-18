@@ -25,3 +25,11 @@ worlds:
     created: "2026-02-09"
     theme: "prehistoric-hollow-earth-absurdist"
     level_cap: 20
+
+  godfall:
+    name: "Godfall"
+    description: "Five years after mortals slew the gods, their rotting corpses poison the wasteland. Seek the Arcane Engine of the flagship that killed the King of the Gods."
+    status: "active"
+    created: "2026-02-17"
+    theme: "grim-post-deicide-fantasy"
+    level_cap: 10

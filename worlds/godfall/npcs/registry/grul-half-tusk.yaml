@@ -1,0 +1,19 @@
+id: grul-half-tusk
+name: "Grul Half-Tusk"
+role: "Wasteland Guide"
+default_location: "the-gray-margin/the-cookfires"
+region: "the-margin"
+faction: "the-veterans"
+disposition_default: "neutral"
+services:
+  - "guide"
+  - "war_stories"
+  - "survival_training"
+tags:
+  - "orc"
+  - "veteran"
+  - "guide"
+  - "warrior"
+  - "survivor"
+has_profile: true
+profile_priority: "core"

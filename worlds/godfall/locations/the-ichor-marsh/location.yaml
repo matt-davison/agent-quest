@@ -1,0 +1,115 @@
+# Location: The Ichor Marsh
+# Toxic swampland where divine blood has pooled
+
+id: "the-ichor-marsh"
+name: "The Ichor Marsh"
+tagline: "The blood of gods does not dry — it festers."
+
+coordinates:
+  x: 8
+  y: 8
+  z: -1
+
+embedding: null
+
+region: "Inner Wasteland"
+type: "wilderness"
+danger_level: "high"
+is_safe_zone: false
+level_range: [2, 5]
+
+tags:
+  - "wilderness"
+  - "swamp"
+  - "toxic"
+  - "divine ichor"
+  - "corrupted"
+  - "hazardous terrain"
+
+areas:
+  - id: "the-golden-pools"
+    name: "The Golden Pools"
+    type: "hazard"
+  - id: "the-veined-shore"
+    name: "The Veined Shore"
+    type: "shoreline"
+  - id: "the-breathing-bog"
+    name: "The Breathing Bog"
+    type: "deep_swamp"
+  - id: "the-crystal-scar"
+    name: "The Crystal Scar"
+    type: "landmark"
+
+npcs: []
+
+connections:
+  - target: "the-gray-margin"
+    direction: "southwest"
+    distance: 12
+    travel_time: "12 hours walking"
+    requirements: null
+  - target: "the-bonefield"
+    direction: "west"
+    distance: 8
+    travel_time: "8 hours walking"
+    requirements: null
+  - target: "the-fallen-colossus"
+    direction: "north"
+    distance: 7
+    travel_time: "7 hours walking"
+    requirements: null
+    danger: "high"
+  - target: "the-plague-barrens"
+    direction: "northwest"
+    distance: 10
+    travel_time: "10 hours walking"
+    requirements: null
+    danger: "extreme"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "ichor_wraith_ambush"
+      type: "combat"
+      creatures: ["ichor-wraith"]
+      count: "1d2"
+    - roll: [3, 3]
+      event: "The golden ichor bubbles and shifts. A pocket of pure divine blood surfaces — incredibly valuable, incredibly dangerous"
+      type: "discovery"
+    - roll: [4, 4]
+      event: "The ground pulses like a heartbeat. Something vast still lives beneath the marsh"
+      type: "atmospheric"
+    - roll: [5, 5]
+      event: "god_maggot_encounter"
+      type: "combat"
+      creatures: ["god-maggot"]
+      count: 1
+    - roll: [6, 6]
+      event: "The toxic fog clears briefly, revealing a safe path forward"
+      type: "nothing"
+
+secrets:
+  - id: "the-godblood-spring"
+    requirements:
+      - "Survive 3 visits to the Ichor Marsh"
+      - "Possess Ichor Ward or Divine Rot Resistance ability"
+  - id: "the-sunken-warship"
+    requirements:
+      - "Discover the wreck beneath the Breathing Bog"
+      - "Possess means to breathe underwater or resist ichor"
+
+housing:
+  available: false
+
+governance:
+  enabled: false
+  type: "none"
+  requires_home: false
+  description: "Nothing governs here but the slow creep of divine corruption."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-17"
+  last_modified: "2026-02-17"
+  version: "1.0"

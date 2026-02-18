@@ -1,0 +1,172 @@
+# Bone Shambler
+# Tier: Minion | Role: Swarm
+
+id: "bone-shambler"
+name: "Bone Shambler"
+category: undead
+tier: minion
+level: 1
+
+description: |
+  A rattling mass of bones held together by residual divine energy — not
+  a single skeleton but dozens fused into a lurching, multi-limbed horror.
+  Arms jut at wrong angles. Skulls of different races stare from its torso.
+  It moves in a clattering, uneven gait, dragging itself forward with whatever
+  limbs touch the ground. These things rise spontaneously from the Bonefield
+  where the divine energy seeping from god-corpses animates the millions of
+  war dead. They are not intelligent. They are barely aware. But they are
+  relentless, and they are everywhere.
+
+stats:
+  hp: 20
+  defense: 8
+  attack_bonus: +2
+  damage: 8
+  speed: slow
+  initiative_bonus: -1
+
+role: swarm
+
+defenses:
+  resistances:
+    - piercing  # Bones — hard to stab
+  immunities:
+    - poison
+    - disease
+    - fear
+    - charm
+  vulnerabilities:
+    - bludgeoning  # Smash the bones apart
+    - fire         # Burns the divine residue binding them
+
+abilities:
+  - name: "Grasping Swipe"
+    type: active
+    description: |
+      A clumsy but powerful swing with mismatched limbs.
+      Attack: +2 to hit, 8 damage.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 8
+    effects: []
+    ai_priority: high
+    ai_condition: "Standard attack"
+
+  - name: "Bone Burst"
+    type: triggered
+    description: |
+      When destroyed, the Bone Shambler explodes into shrapnel.
+      All creatures within 2m take 4 piercing damage (Agility DC 10 to avoid).
+    cooldown: 0
+    cost: 0
+    range: self
+    area: 2m_radius
+    damage: 4
+    effects: []
+    ai_priority: critical
+    ai_condition: "Triggers on death"
+
+  - name: "Reassemble"
+    type: passive
+    description: |
+      If not destroyed by fire or bludgeoning, a Bone Shambler has a 25%
+      chance to reassemble 1 round after being reduced to 0 HP with 10 HP.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: medium
+    ai_condition: "Passive - triggers on death if conditions met"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "bonefield"
+      bonus: "Reassemble chance increases to 50%"
+    - terrain_type: "open_ground"
+      behavior: "Shambles directly toward nearest target"
+
+  interactions:
+    - element: "bone_piles"
+      behavior: "Absorbs nearby bones for +5 HP"
+      priority: low
+      condition: "Adjacent to bone pile and below 50% HP"
+
+  hazard_immunity:
+    - "poison_gas"
+    - "disease"
+
+  hazard_exploitation: []
+
+morale:
+  break_threshold: 0  # Mindless undead
+  break_behavior: fearless
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: nearest
+  secondary: nearest
+  avoids: []
+  switches_target_when: "Current target dies or moves out of range"
+
+pack_tactics:
+  enabled: true
+  flanking: false  # Too clumsy
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 3
+  swarm_bonus: "+1 attack per additional Shambler engaged with same target"
+
+loot:
+  gold:
+    min: 1
+    max: 5
+  xp: 15
+  guaranteed_drops: []
+  chance_drops:
+    - item: "Bonesteel Fragment"
+      chance: 30
+      quantity: 1
+    - item: "War Dog Tag"
+      chance: 20
+      quantity: 1
+  rare_drops:
+    - item: "Intact War Medal"
+      chance: 5
+      quantity: 1
+
+type_traits:
+  undead:
+    - "Immune to poison, disease, fear, charm"
+    - "Vulnerable to bludgeoning (+50% damage) and fire (+50% damage)"
+    - "Can reassemble after destruction unless killed by fire or bludgeoning"
+    - "Mindless — cannot be reasoned with or intimidated"
+
+encounter_notes: |
+  Bone Shamblers are the most common threat in the outer wasteland.
+  Individually weak, they are dangerous in numbers.
+
+  Combat patterns:
+  - Shamble toward nearest living creature
+  - Attack mindlessly until destroyed
+  - Explode on death (Bone Burst)
+  - May reassemble if not properly destroyed
+
+  Key vulnerabilities:
+  - Bludgeoning weapons shatter them permanently
+  - Fire destroys the divine residue that animates them
+  - Slow and clumsy — easily kited by mobile characters
+  - No tactics whatsoever
+
+metadata:
+  created: "2026-02-17"
+  author: "System"
+  source: "War dead animated by divine residual energy"
+  cr_equivalent: 1

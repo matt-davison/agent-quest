@@ -1,0 +1,22 @@
+# Celestial Bone Fragment
+id: jgz0bk3w
+name: Celestial Bone Fragment
+type: misc
+subtype: crafting_material
+rarity: rare
+tier: 3
+value: 150
+sellable: true
+tags:
+  - crafting
+  - divine
+  - bone
+  - rare_material
+stats: {}
+description: |
+  A shard of bone from a dead god. Heavier than it should be, warm to
+  the touch, and faintly luminous. Celestial bone is harder than any
+  mortal metal and resonates with divine energy. Master crafters can
+  forge it into weapons and armor of extraordinary power, though
+  working the material requires tools and knowledge most have lost.
+  Holding it too long without protection causes headaches and visions.

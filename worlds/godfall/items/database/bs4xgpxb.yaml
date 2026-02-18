@@ -1,0 +1,24 @@
+# Scavenger's Kit
+id: bs4xgpxb
+name: Scavenger's Kit
+type: misc
+subtype: tool
+rarity: common
+tier: 1
+value: 30
+sellable: true
+tags:
+  - utility
+  - tool
+  - scavenging
+  - exploration
+stats:
+  loot_bonus: "+10% chance for bonus loot from encounters"
+  lockpick_bonus: "+1 to lockpick and salvage checks"
+description: |
+  A leather roll containing essential scavenging tools: a small pry bar,
+  wire cutters, a hand drill, pliers, and various picks. Also includes
+  sealed vials for safe ichor collection and thick gloves for handling
+  contaminated objects. Every scavenger in the Gray Margin carries one.
+  Losing yours in the wasteland is considered worse luck than meeting
+  a Rot Herald.

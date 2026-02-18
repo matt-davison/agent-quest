@@ -1,0 +1,28 @@
+# Tome of Ichor Lance
+id: k8tkwnbs
+name: Tome of Ichor Lance
+type: consumable
+subtype: tome
+rarity: uncommon
+tier: 1
+value: 75
+sellable: true
+max_uses: 1
+tags:
+  - magic
+  - ability_tome
+  - consumable
+  - divine
+  - combat
+stats: {}
+grants_ability:
+  id: ryhjkx6n
+  level: 1
+  source: "item"
+description: |
+  A water-damaged journal recovered from a dead war-mage's pack. The
+  pages describe a combat technique developed during the war: channeling
+  ambient divine energy into a focused lance of corrupted power. The
+  spell turns the enemy's own poison against them. Reading it with
+  intent burns the pattern into the caster's memory. The pages then
+  dissolve into golden dust.

@@ -1,0 +1,28 @@
+# Bonesteel Longsword
+id: uab7ulgm
+name: Bonesteel Longsword
+type: weapon
+subtype: longsword
+rarity: uncommon
+tier: 1
+value: 60
+sellable: true
+tags:
+  - weapon
+  - melee
+  - bonesteel
+  - war_relic
+stats:
+  damage: 12
+  damage_type: slashing
+  attack_bonus: 1
+  bonus_vs_undead: 3
+special: "Bonesteel weapons deal +3 damage against undead creatures."
+description: |
+  A longsword forged from bonesteel — an alloy smelted from the bones
+  of the war dead, mixed with scavenged metal from shattered warships.
+  The blade has a faint gray-white sheen and is unnervingly light.
+  Bonesteel resonates with the energy that animates the undead, making
+  it devastatingly effective against Bone Shamblers and their ilk.
+  Crafting these weapons is considered disrespectful by some and
+  necessary by most.

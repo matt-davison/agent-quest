@@ -1,0 +1,46 @@
+# NPC System Configuration - Godfall
+# A world of survivors, scavengers, and those who remember the war
+
+version: "1.0"
+last_updated: "2026-02-17T00:00:00Z"
+
+factions:
+  the-expedition:
+    name: "The Expedition"
+    description: "Marta Ironveil's organized expedition into the wasteland. Military discipline, shared purpose. Seeks the Arcane Engine to rebuild civilization."
+    disposition_modifier: 0
+
+  the-reclaimers:
+    name: "The Reclaimers"
+    description: "Scavengers and survivors who pick through the wasteland for war relics. Loosely organized, pragmatic, and tough."
+    disposition_modifier: 0
+
+  the-ashen-faithful:
+    name: "The Ashen Faithful"
+    description: "Those who mourn the dead gods. Some seek to resurrect them, others simply tend their remains. Viewed with suspicion by most."
+    disposition_modifier: -1
+
+  the-veterans:
+    name: "The Veterans"
+    description: "Survivors of the War of Ascension — soldiers, engineers, medics who somehow lived. Haunted, experienced, and few in number."
+    disposition_modifier: 0
+
+  independents:
+    name: "Independents"
+    description: "Unaffiliated survivors fending for themselves"
+    disposition_modifier: 0
+
+profile_triggers:
+  interaction_threshold: 3
+  quest_involvement: true
+  combat_encounter: true
+  standing_threshold: 5
+  player_request: true
+
+disposition_map:
+  hostile: [-10, -6]
+  unfriendly: [-5, -3]
+  neutral: [-2, 2]
+  friendly: [3, 5]
+  close: [6, 8]
+  devoted: [9, 10]

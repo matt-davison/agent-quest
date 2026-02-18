@@ -1,0 +1,24 @@
+# Wayfinder's Compass
+id: 3tqihyai
+name: Wayfinder's Compass
+type: misc
+subtype: tool
+rarity: uncommon
+tier: 1
+value: 50
+sellable: true
+tags:
+  - utility
+  - navigation
+  - tool
+  - exploration
+stats:
+  travel_time_reduction: "10%"
+  encounter_avoidance: "+1 to encounter avoidance rolls"
+description: |
+  A battered brass compass salvaged from a warship's navigation station.
+  Its needle doesn't point north — it points away from the strongest
+  nearby source of divine corruption. In the wasteland, that means it
+  points toward safer ground. Experienced scavengers swear by them.
+  When the needle spins wildly, it means corruption is everywhere and
+  you should leave. Immediately.

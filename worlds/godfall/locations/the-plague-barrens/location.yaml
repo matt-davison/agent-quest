@@ -1,0 +1,128 @@
+# Location: The Plague Barrens
+# Open wasteland where divine rot is strongest
+
+id: "the-plague-barrens"
+name: "The Plague Barrens"
+tagline: "Where the sky weeps ash and the earth bleeds gold."
+
+coordinates:
+  x: -5
+  y: 20
+  z: 0
+
+embedding: null
+
+region: "Deep Wasteland"
+type: "wilderness"
+danger_level: "extreme"
+is_safe_zone: false
+level_range: [5, 8]
+
+tags:
+  - "wilderness"
+  - "hazardous"
+  - "divine rot"
+  - "extreme danger"
+  - "wasteland"
+  - "environmental hazard"
+
+areas:
+  - id: "the-ash-flats"
+    name: "The Ash Flats"
+    type: "open_field"
+  - id: "the-weeping-craters"
+    name: "The Weeping Craters"
+    type: "hazard"
+  - id: "the-petrified-host"
+    name: "The Petrified Host"
+    type: "landmark"
+  - id: "the-rot-front"
+    name: "The Rot Front"
+    type: "hazard"
+
+npcs: []
+
+connections:
+  - target: "the-bonefield"
+    direction: "southeast"
+    distance: 15
+    travel_time: "15 hours walking"
+    requirements: null
+  - target: "the-ichor-marsh"
+    direction: "east"
+    distance: 10
+    travel_time: "10 hours walking"
+    requirements: null
+  - target: "the-fallen-colossus"
+    direction: "east"
+    distance: 8
+    travel_time: "8 hours walking"
+    requirements: null
+  - target: "the-wreck-of-the-defiant"
+    direction: "north"
+    distance: 12
+    travel_time: "12 hours walking"
+    requirements:
+      - "Ichor Ward or Divine Rot Resistance"
+    danger: "extreme"
+  - target: "the-throne-of-ashes"
+    direction: "northwest"
+    distance: 18
+    travel_time: "18 hours walking"
+    requirements:
+      - "Level >= 7"
+      - "Ichor Ward or Divine Rot Resistance"
+    danger: "lethal"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 1]
+      event: "rot_herald_ambush"
+      type: "combat"
+      creatures: ["rot-herald"]
+      count: 1
+    - roll: [2, 2]
+      event: "ichor_wraith_pack"
+      type: "combat"
+      creatures: ["ichor-wraith"]
+      count: "1d3+1"
+    - roll: [3, 3]
+      event: "A fissure opens in the earth, venting golden ichor vapor. Exposure without protection deals ongoing damage"
+      type: "hazard"
+    - roll: [4, 4]
+      event: "The Petrified Host — thousands of soldiers frozen mid-charge, turned to stone by divine wrath. One of them still blinks"
+      type: "discovery"
+    - roll: [5, 5]
+      event: "god_maggot_horde"
+      type: "combat"
+      creatures: ["god-maggot"]
+      count: "2d4"
+    - roll: [6, 6]
+      event: "A brief respite. The rot recedes and you can see the horizon clearly"
+      type: "nothing"
+
+secrets:
+  - id: "the-petrified-general"
+    requirements:
+      - "Discover the petrified orc general in the Host"
+      - "Possess means to break divine petrification"
+  - id: "the-ichor-wellspring"
+    requirements:
+      - "Survive 5 rounds of ichor exposure"
+      - "Level >= 7"
+
+housing:
+  available: false
+
+governance:
+  enabled: false
+  type: "none"
+  requires_home: false
+  description: "No living thing claims dominion here. The rot itself rules."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-17"
+  last_modified: "2026-02-17"
+  version: "1.0"

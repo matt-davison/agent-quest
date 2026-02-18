@@ -1,0 +1,220 @@
+# NPC Profile: Marta Ironveil
+# Expedition Commander at The Gray Margin
+
+id: "marta-ironveil"
+name: "Marta Ironveil"
+full_name: "Commander Marta Ironveil"
+
+public:
+  role: "Expedition Commander"
+  location: "The Gray Margin - Ironveil's Command Tent"
+
+  appearance: |
+    A tall, broad-shouldered human woman in her late forties. Her face is
+    weathered and scarred, with deep lines around her mouth and eyes that
+    speak of hard years. Her dark hair is shot through with gray, cropped
+    short and practical. She wears battered plate armor over a quilted
+    gambeson, both bearing the faded insignia of the United Mortal Fleet.
+    A war-hammer hangs at her hip — not ornamental, well-used. Her left
+    hand is prosthetic, carved from bonesteel, a reminder of what the war
+    took from everyone.
+
+  personality:
+    - "Blunt and direct — wastes no words"
+    - "Fiercely protective of her people"
+    - "Carries immense guilt for surviving when so many didn't"
+    - "Believes the Arcane Engine can rebuild what was lost"
+
+  traits:
+    moral_axis: principled
+    temperament: resolute
+    communication: direct
+    core_value: duty
+    quest_disposition: commanding
+
+  known_history: |
+    Marta served as a lieutenant aboard the warship Iron Promise during
+    the War of Ascension. She was one of the few who survived — her ship
+    was crippled early in the final battle and drifted clear of the
+    devastation. She spent the first two years after the war searching for
+    survivors and organizing refugee camps. Three years ago, she began
+    mounting expeditions into the wasteland, seeking the Arcane Engine of
+    the flagship Defiant. She believes it holds enough power to purify the
+    poisoned lands and give the survivors a future.
+
+  speech_patterns:
+    greeting: "State your business. Time is short and the wasteland doesn't wait."
+    farewell: "Stay sharp out there. The dead don't rest, and neither should you."
+    confused: "Speak plainly. I've no patience for riddles."
+    helpful: "Listen carefully — I'll say this once."
+
+  mannerisms:
+    - "Clenches her bonesteel fist when angry or stressed"
+    - "Stares into the wasteland when thinking"
+    - "Touches the Iron Promise insignia on her armor absently"
+    - "Never sits — always standing, always watching"
+
+hidden:
+  true_age: 47
+  creation_era: null
+
+  secrets:
+    - id: "the-iron-promise"
+      content: "Marta didn't just survive — she ordered the Iron Promise to retreat. She chose to save her crew rather than press the attack. She believes that if she hadn't, the Defiant might have had support and the war might have ended differently."
+      unlock_condition: "standing >= 7 OR flag:found_iron_promise_logs"
+      mend_dc: null
+    - id: "the-engine-truth"
+      content: "Marta suspects the Arcane Engine may be too dangerous to use. She's heard reports of it warping reality around the crash site. But she has no other plan, and her people need hope."
+      unlock_condition: "standing >= 8 AND flag:reached_the_wreck"
+
+  motivations:
+    - "Find the Arcane Engine and purify the wasteland"
+    - "Protect the survivors at the Gray Margin"
+    - "Atone for the order to retreat"
+
+  fears:
+    - "That the Engine is destroyed or unusable"
+    - "That she'll have to send more people to die"
+    - "That the wasteland will eventually consume the Margin"
+
+stats:
+  level: 7
+  class: "Warrior"
+  hp: 90
+  armor: 18
+
+  attributes:
+    might: 16
+    agility: 10
+    mind: 14
+    spirit: 8
+
+  abilities:
+    - name: "Rally"
+      description: "Inspire allies. All allies gain +2 to attack and damage for 3 rounds"
+      type: "active"
+    - name: "Bonesteel Strike"
+      description: "Devastating punch with prosthetic fist. 25 damage, ignores 5 armor"
+      type: "active"
+    - name: "Commander's Resolve"
+      description: "Cannot be feared or compelled. Allies within 10m gain +2 to resist fear"
+      type: "passive"
+
+  resistances:
+    - "fear"
+    - "compulsion"
+  vulnerabilities: []
+
+world_knowledge:
+  always_knows:
+    - "Current expedition status and personnel"
+    - "Known wasteland routes and dangers"
+    - "War of Ascension battle history"
+    - "Location of the Defiant crash site (approximate)"
+
+  learns_from_events:
+    - type: "player_discovery"
+      awareness: "local"
+      note: "Updates her maps based on scout reports"
+
+  current_awareness:
+    - "The Bonefield route is passable but infested with Bone Shamblers"
+    - "Something large has been sighted near the Fallen Colossus"
+    - "The Pilgrim has been seen again in the Bonefield"
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks you over with sharp eyes*
+      Another body for the wasteland, or someone who can actually help?
+      I'm Commander Ironveil. If you're here to scavenge, the Barter Ring
+      is that way. If you're here to make a difference, sit down. I have
+      work that needs doing.
+
+    returning:
+      neutral: "Back in one piece. Good. Report."
+      friendly: "Glad to see you, {player_name}. What news from the wastes?"
+      close: "*a rare, tired smile* {player_name}. You're becoming someone I rely on. That terrifies me."
+
+  topics:
+    the_war: |
+      *jaw tightens*
+      The War of Ascension. Five years ago, every mortal race set aside
+      their feuds and built a fleet to kill the gods. We did it. And it
+      cost us everything. Millions dead. The land poisoned. The sky still
+      hasn't healed. But the gods are dead, and that's something no one
+      can take from us.
+
+    the_defiant: |
+      The Defiant was the flagship. Biggest warship ever built — crewed
+      by volunteers who knew it was a one-way trip. She rammed the King
+      of the Gods at full speed, Arcane Engine at maximum output. Both
+      were destroyed. But the Engine... the Engine might still be intact
+      in the wreck. If we can reach it, we can use its power to cleanse
+      the wasteland.
+
+    the_arcane_engine: |
+      The Engine was the heart of the Defiant. Dwarven engineering, elven
+      magic, orcish brute force, human madness — all of it poured into one
+      device. It could channel enough power to wound a god. If it survived
+      the crash... well. That's what we're here to find out.
+
+    the_wasteland: |
+      When the gods died, their bodies fell. Their blood — ichor — seeped
+      into the earth. Their flesh rots but never decays completely. The
+      land is poisoned for leagues in every direction. Things grow wrong
+      here. Things that were dead don't always stay that way. And the
+      deeper you go, the worse it gets.
+
+services:
+  - id: "expedition-briefing"
+    cost: "None"
+    description: "Receive intel on wasteland conditions and available missions"
+  - id: "quest-assignment"
+    cost: "None"
+    description: "Accept expedition contracts"
+
+quests:
+  can_give:
+    - id: "the-heart-of-the-defiant"
+      name: "The Heart of the Defiant"
+      type: "main"
+      requirements: "none"
+    - id: "bone-road-patrol"
+      name: "Bone Road Patrol"
+      type: "side"
+      requirements: "none"
+    - id: "ichor-samples"
+      name: "Ichor Samples"
+      type: "side"
+      requirements: "level >= 2"
+
+  involved_in:
+    - id: "the-heart-of-the-defiant"
+
+relationship:
+  likes:
+    - action: "complete_expedition_quests"
+      standing_change: 2
+    - action: "protect_refugees"
+      standing_change: 1
+    - action: "bring_wasteland_intel"
+      standing_change: 1
+    - action: "show_discipline"
+      standing_change: 1
+
+  dislikes:
+    - action: "endanger_refugees"
+      standing_change: -3
+    - action: "hoard_supplies"
+      standing_change: -2
+    - action: "worship_dead_gods"
+      standing_change: -2
+    - action: "cowardice"
+      standing_change: -1
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  last_updated: "2026-02-17"
+  version: "1.0"

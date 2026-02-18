@@ -1,0 +1,202 @@
+# NPC Profile: The Pilgrim
+# Mysterious wanderer who mourns the dead gods
+
+id: "the-pilgrim"
+name: "The Pilgrim"
+full_name: "Unknown"
+
+public:
+  role: "Wandering Mourner"
+  location: "The Bonefield - The Standard Bearers"
+
+  appearance: |
+    A figure wrapped in layers of ash-gray robes, face hidden beneath a
+    deep hood. What little skin is visible is pale as bone. They carry a
+    long staff topped with a lantern that burns with a cold, golden light
+    — the color of divine ichor but without its poison. They move slowly,
+    deliberately, as though walking through a cathedral. Around their neck
+    hangs a chain of small tokens — one for each god that fell. They speak
+    in a voice that is neither male nor female, soft as ash settling.
+
+  personality:
+    - "Serene and melancholy — speaks as though in perpetual mourning"
+    - "Cryptic but not unkind"
+    - "Possesses unsettling knowledge about the gods"
+    - "Neither condemns nor praises the mortal victory"
+
+  traits:
+    moral_axis: enigmatic
+    temperament: serene
+    communication: cryptic
+    core_value: remembrance
+    quest_disposition: mysterious
+
+  known_history: |
+    No one knows where the Pilgrim came from or what they were before the
+    war. They appeared in the wasteland about two years ago, walking among
+    the dead — mortal and divine alike — performing rites of remembrance.
+    They seem immune to the ichor poisoning, which has not gone unnoticed.
+    Some call them holy. Others call them suspicious. Marta Ironveil
+    considers them harmless but watches them carefully.
+
+  speech_patterns:
+    greeting: "You walk among the fallen. Do you know their names?"
+    farewell: "The dead remember you, even when you forget them."
+    confused: "That is a question the answer has not yet chosen to reveal."
+    helpful: "There is knowledge in grief. Let me share what I have gathered."
+
+  mannerisms:
+    - "The lantern flickers when they speak of the gods"
+    - "Touches each token on their chain when naming a dead god"
+    - "Never eats or drinks in front of others"
+    - "Leaves no footprints in the ash"
+
+hidden:
+  true_age: null  # Unknown, possibly ancient
+  creation_era: null
+
+  secrets:
+    - id: "the-pilgrims-nature"
+      content: "The Pilgrim is not entirely mortal. They are what remains when a god's last priest outlives their god — something between mortal and divine, sustained by the fading echo of worship. They are slowly fading and will cease to exist when the last memory of the gods dies."
+      unlock_condition: "standing >= 8 AND flag:asked_about_lantern"
+      mend_dc: 18
+    - id: "the-gods-were-afraid"
+      content: "The Pilgrim knows why the gods tormented mortals: fear. The gods foresaw their own destruction and lashed out in desperation. The famines and plagues were not cruelty for pleasure but attempts to weaken the mortals before they could unite. It didn't work."
+      unlock_condition: "standing >= 6 AND flag:asked_why_the_war"
+
+  motivations:
+    - "Bear witness to what was lost on both sides"
+    - "Ensure the truth is remembered"
+    - "Find peace before fading entirely"
+
+  fears:
+    - "Being forgotten"
+    - "That the mortals will repeat the gods' mistakes"
+    - "The void that waits when the last memory fades"
+
+stats:
+  level: 8
+  class: "Mystic"
+  hp: 50
+  armor: 10
+
+  attributes:
+    might: 4
+    agility: 10
+    mind: 16
+    spirit: 20
+
+  abilities:
+    - name: "Divine Lament"
+      description: "A keening prayer that deals 18 spirit damage to all hostile creatures within 10m and heals allies for 10 HP"
+      type: "active"
+    - name: "Ashen Ward"
+      description: "Create a protective circle. All within are immune to ichor poisoning and divine corruption for 1 hour"
+      type: "active"
+    - name: "Memory of the Gods"
+      description: "Reveal hidden information about divine artifacts, god-corpses, and celestial magic"
+      type: "utility"
+    - name: "Fade"
+      description: "Become insubstantial. Cannot be hit by physical attacks for 2 rounds but cannot attack"
+      type: "active"
+
+  resistances:
+    - "divine"
+    - "poison"
+    - "disease"
+    - "corruption"
+  vulnerabilities:
+    - "being forgotten (metaphysical)"
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *the lantern flares softly*
+      Another seeker in the land of the fallen. I am called the Pilgrim.
+      I walk among the dead — all the dead. Mortal and divine. They have
+      stories still, if you have ears to hear them.
+      Tell me, seeker... do you mourn what was lost? Or do you celebrate
+      what was won?
+
+    returning:
+      neutral: "You return. The wasteland has not claimed you yet."
+      friendly: "The dead speak of you, {player_name}. They say you walk with purpose."
+      close: "I am glad to see you, {player_name}. I have... few friends left. In any sense of the word."
+
+  topics:
+    the_dead_gods: |
+      *touches a token on the chain*
+      They were terrible. They were glorious. They made the rain fall
+      and the crops grow. They sent plagues and called it love. They
+      were everything mortal minds imagined and everything they feared.
+      And now they rot in the dirt like everything else. There is a
+      lesson in that, but I am not sure it is a kind one.
+
+    the_war: |
+      The mortals were magnificent. United for the first and perhaps
+      the last time. Elf and orc, dwarf and human, standing together
+      against heaven. The gods... the gods were afraid. Did you know
+      that? They had foreseen it. All their cruelty was born of fear.
+      *soft laugh* It did not save them.
+
+    the_king_of_the_gods: |
+      *lantern dims*
+      He was the first and the mightiest. When the others fell, he
+      raged. He burned half the fleet himself. But the Defiant... she
+      came for him. And the mortals aboard her had something he did not
+      expect. Something no god can understand.
+      They were willing to die.
+
+    the_arcane_engine: |
+      The Engine was built to kill gods. It succeeded. But a tool of
+      such power does not simply... stop. It still hums in the wreck,
+      seeker. I have heard it. It waits. Whether it waits for a worthy
+      hand or for its next victim, I cannot say.
+
+services:
+  - id: "remembrance-rite"
+    cost: "None"
+    description: "Perform a rite for a fallen soldier or god. Grants minor blessing (+1 Spirit for 24 hours)"
+  - id: "divine-lore"
+    cost: "None"
+    description: "Share knowledge about the dead gods and their domains"
+
+quests:
+  can_give: []
+  involved_in:
+    - id: "the-heart-of-the-defiant"
+
+relationship:
+  likes:
+    - action: "honor_the_dead"
+      standing_change: 2
+    - action: "ask_about_the_gods"
+      standing_change: 1
+    - action: "show_compassion"
+      standing_change: 1
+    - action: "seek_truth"
+      standing_change: 1
+
+  dislikes:
+    - action: "desecrate_god_corpses"
+      standing_change: -3
+    - action: "dismiss_the_dead"
+      standing_change: -2
+    - action: "mock_worship"
+      standing_change: -2
+    - action: "celebrate_the_godfall"
+      standing_change: -1
+
+corrupted_data:
+  - field: "true_identity"
+    mend_dc: 20
+    hints:
+      - "The Pilgrim's lantern burns with divine light but causes no harm"
+      - "They leave no footprints, as though they are not entirely present"
+      - "The chain of tokens has one more than the known number of dead gods"
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  last_updated: "2026-02-17"
+  version: "1.0"

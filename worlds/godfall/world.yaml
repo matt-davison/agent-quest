@@ -1,0 +1,28 @@
+id: "godfall"
+name: "Godfall"
+description: |
+  Five years ago, the mortal races united against the gods who had
+  tormented them with famine, plague, and cruelty for sport. Elves,
+  orcs, dwarves, humans, and every kindred folk built a fleet of
+  arcane warships and waged war on the heavens. In the final battle,
+  the flagship engaged the King of the Gods in single combat above
+  the world. Both were destroyed. Every god fell. Every fighter
+  perished. Now the gray wasteland where they died stretches for
+  hundreds of leagues, the land poisoned by divine ichor and rotting
+  celestial flesh. The survivors eke out existence on the margins,
+  and the brave or desperate venture inward seeking relics of the
+  war — chief among them, the Arcane Engine that powered the flagship.
+
+settings:
+  starting_location: "the-gray-margin"
+  starting_gold: 10
+  level_cap: 10
+  pvp_enabled: true
+  user_generation: disabled
+  followers:
+    max_by_level:
+      1: 1
+      3: 2
+      5: 3
+      7: 4
+      10: 5

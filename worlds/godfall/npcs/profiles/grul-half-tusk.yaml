@@ -1,0 +1,189 @@
+# NPC Profile: Grul Half-Tusk
+# Orcish veteran and wasteland guide
+
+id: "grul-half-tusk"
+name: "Grul Half-Tusk"
+full_name: "Grul Half-Tusk, Sergeant of the Ninth Fang"
+
+public:
+  role: "Wasteland Guide"
+  location: "The Gray Margin - The Cookfires"
+
+  appearance: |
+    A massive orc, even by orcish standards, though age and injury have
+    stooped him. His green-gray skin is latticed with scars, and his left
+    tusk is broken off at the root — the wound that gave him his name.
+    He wears a patchwork of salvaged armor pieces over thick hide, and
+    carries a notched greataxe strapped across his back. One eye is milky
+    white, blinded. The other is sharp as a blade. He moves with a
+    pronounced limp but covers ground faster than most expect.
+
+  personality:
+    - "Gruff and laconic — speaks in short, blunt sentences"
+    - "Darkly humorous about death and the wasteland"
+    - "Fiercely loyal once trust is earned"
+    - "Haunted by the war but refuses to show it"
+
+  traits:
+    moral_axis: pragmatic
+    temperament: stoic
+    communication: terse
+    core_value: loyalty
+    quest_disposition: mentoring
+
+  known_history: |
+    Grul served as a sergeant in the Ninth Fang, an all-orc shock infantry
+    unit that boarded enemy positions during the War of Ascension. His unit
+    was among the first to engage the lesser gods directly. Of three hundred
+    orcs in the Ninth Fang, Grul is the only survivor. He lost his eye,
+    his tusk, and most of his hearing on the left side during the boarding
+    action against the god Yeltharax. After the war, he wandered for two
+    years before finding the Gray Margin. Now he guides expeditions into
+    the wasteland — the only place that feels familiar anymore.
+
+  speech_patterns:
+    greeting: "Hmph. You look soft. Wasteland'll fix that."
+    farewell: "Don't die stupid. Die smart, if you have to."
+    confused: "What?"
+    helpful: "Listen. Don't talk."
+
+  mannerisms:
+    - "Chews on dried meat constantly"
+    - "Touches his broken tusk when remembering the war"
+    - "Grunts more than he speaks"
+    - "Sharpens his axe by firelight every night without fail"
+
+hidden:
+  true_age: 52
+  creation_era: null
+
+  secrets:
+    - id: "the-ninth-fang"
+      content: "Grul didn't just survive — he was ordered to retreat by his dying captain while the rest of the Ninth Fang held the line. He carries every name of the fallen tattooed on his back in orcish script."
+      unlock_condition: "standing >= 6 OR flag:asked_about_ninth_fang"
+    - id: "buried-war-cache"
+      content: "Grul buried a cache of war relics near the Bonefield — weapons and supplies from the Ninth Fang. He's saving them for when they're truly needed."
+      unlock_condition: "standing >= 7 AND flag:proven_in_wasteland"
+
+  motivations:
+    - "Honor the dead by surviving"
+    - "Protect the people at the Gray Margin"
+    - "Find out what happened to the other boarding teams"
+
+  fears:
+    - "Forgetting the names of the fallen"
+    - "Dying in his sleep instead of in battle"
+    - "That the war meant nothing"
+
+stats:
+  level: 6
+  class: "Warrior"
+  hp: 80
+  armor: 15
+
+  attributes:
+    might: 18
+    agility: 8
+    mind: 10
+    spirit: 6
+
+  abilities:
+    - name: "Cleave"
+      description: "Sweeping greataxe attack. 22 damage to primary target, 11 to adjacent"
+      type: "active"
+    - name: "War Cry"
+      description: "Terrifying battle shout. Enemies within 5m must pass Spirit DC 14 or be frightened for 1 round"
+      type: "active"
+    - name: "Veteran's Instinct"
+      description: "Cannot be surprised. +2 to initiative"
+      type: "passive"
+    - name: "Orcish Endurance"
+      description: "Once per rest, when reduced to 0 HP, remain at 1 HP instead"
+      type: "passive"
+
+  resistances:
+    - "fear"
+    - "cold"
+  vulnerabilities: []
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *barely glances up from the cookfire*
+      New blood. Sit. Eat. You'll need the strength.
+      *tosses a bowl of gray stew*
+      I'm Grul. Don't ask about the tusk.
+
+    returning:
+      neutral: "*grunts* You again."
+      friendly: "Heh. Still alive. Sit. Stew's hot."
+      close: "*claps you hard on the shoulder* Good to see you, little one. The wastes didn't take you yet."
+
+  topics:
+    the_war: |
+      *long silence*
+      We killed gods. That's what they'll say. What they won't say is
+      how it sounded when a god screams. How the blood burns through
+      armor. How your friends melt when divine fire hits them. We won.
+      *spits* Sure we did.
+
+    the_wasteland: |
+      Bones and poison. That's all it is. The bones of soldiers and the
+      poison of gods. Stay on the paths. Don't drink the water unless I
+      say it's clean. Don't touch anything that glows gold. And if the
+      ground starts to pulse — run. Don't ask why. Just run.
+
+    the_ninth_fang:
+      default: "*jaw tightens* Don't."
+      standing_5: "Three hundred orcs. Best fighters ever lived. I'm the only one standing. Think about that."
+      standing_8: "*pulls back his collar, showing rows of tattooed names* Every one of them. I carry them all."
+
+    the_defiant: |
+      Biggest ship ever built. Crewed by the bravest fools ever born.
+      They flew straight at the God-King. *shakes head* Knew they weren't
+      coming back. We all knew. They went anyway.
+
+services:
+  - id: "wasteland-guidance"
+    cost: "None"
+    description: "Guide players through the wasteland. Reduces travel time by 25% and encounter chance"
+  - id: "survival-training"
+    cost: "50 gold"
+    description: "Teach wasteland survival. +1 to Agility checks in the wasteland for 24 hours"
+
+quests:
+  can_give:
+    - id: "bone-road-patrol"
+      name: "Bone Road Patrol"
+      type: "side"
+      requirements: "none"
+
+  involved_in:
+    - id: "the-heart-of-the-defiant"
+
+relationship:
+  likes:
+    - action: "show_courage"
+      standing_change: 2
+    - action: "honor_the_dead"
+      standing_change: 1
+    - action: "share_a_meal"
+      standing_change: 1
+    - action: "fight_well"
+      standing_change: 1
+
+  dislikes:
+    - action: "show_cowardice"
+      standing_change: -2
+    - action: "disrespect_the_dead"
+      standing_change: -3
+    - action: "waste_food"
+      standing_change: -1
+    - action: "boast_without_deeds"
+      standing_change: -1
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  last_updated: "2026-02-17"
+  version: "1.0"

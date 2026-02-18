@@ -1,0 +1,25 @@
+# Rot-Resistant Bandages
+id: ynfnuwlg
+name: Rot-Resistant Bandages
+type: consumable
+subtype: medical
+rarity: common
+tier: 1
+value: 15
+sellable: true
+max_uses: 1
+tags:
+  - consumable
+  - healing
+  - anti-corruption
+  - medical
+stats:
+  heal: 10
+  corruption_cleanse: 1
+special: "Heals 10 HP and removes 1 stack of corruption or rot."
+description: |
+  Cloth bandages soaked in Sylwen's anti-ichor tincture and dried.
+  They smell sharply of herbs and alcohol. Applied to wounds, they
+  both heal and draw out minor divine corruption. A necessity for
+  anyone venturing into the wasteland. The supply is always running
+  low.

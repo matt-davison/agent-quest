@@ -1,0 +1,31 @@
+# Godfall World State
+# Current state of the world
+
+time:
+  era: 1
+  month: 1
+  day: 1
+  hour: 8
+  period: "morning"
+
+calendar:
+  months_per_era: 12
+  days_per_month: 30
+  hours_per_day: 24
+
+weather:
+  current: "ash_overcast"
+  temperature: "cold"
+  wind: "moderate"
+  precipitation: "ash_fall"
+  special: "The sky is perpetually gray. Ash falls like snow. On bad days, ichor rain stains everything gold."
+
+events:
+  active: []
+  upcoming: []
+
+notes: |
+  Year 5 After the Godfall. The wasteland is stable but slowly expanding.
+  The Gray Margin is the largest surviving settlement on the wasteland's
+  southern edge. Expeditions into the interior have increased as resources
+  on the margin grow scarce.

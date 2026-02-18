@@ -1,0 +1,46 @@
+# Location System Configuration - Godfall
+# The Gray Wasteland and its surroundings
+
+version: "1.0"
+
+coordinate_system:
+  type: "cartesian_2d"
+  unit: "leagues"
+  unit_description: "1 league ~ 3 miles, roughly 1 hour of travel on foot"
+  origin: "the-gray-margin"
+
+travel_speeds:
+  walking: 1
+  running: 1.5        # Terrain is treacherous, running is harder
+  mounted: 2           # Few beasts survive here; mounts are rare
+  flying: 4            # Toxic fumes at low altitude slow flight
+  portal: "instant"
+
+distance_methods:
+  euclidean: "sqrt((x2-x1)^2 + (y2-y1)^2)"
+  manhattan: "|x2-x1| + |y2-y1|"
+  travel: "actual travel distance considering ichor pools, bone drifts, and divine rot zones"
+
+embeddings:
+  enabled: false
+
+unexplored_connections:
+  - from: "the-fallen-colossus"
+    to: "the-god-gut"
+    notes: "Rumored passage through the dead god's ribcage into its hollow interior"
+    status: "unexplored"
+
+  - from: "the-throne-of-ashes"
+    to: "the-shattered-heaven"
+    notes: "Where the sky itself cracked open during the final battle; fragments of the divine realm hang in the air"
+    status: "unexplored"
+
+  - from: "the-ichor-marsh"
+    to: "the-sunken-fleet"
+    notes: "Wrecks of mortal warships half-submerged in pools of divine blood"
+    status: "unexplored"
+
+  - from: "the-bonefield"
+    to: "the-war-memorial"
+    notes: "A crude monument built by the first scavengers to honor the dead"
+    status: "unexplored"

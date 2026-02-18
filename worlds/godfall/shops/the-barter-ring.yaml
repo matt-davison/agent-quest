@@ -1,0 +1,85 @@
+# The Barter Ring
+# General marketplace at the Gray Margin
+
+shop_id: the-barter-ring
+name: "The Barter Ring"
+location: the-gray-margin
+proprietor: null  # Rotating merchants and scavengers
+type: general_market
+
+inventory:
+  # === TIER 1 - WEAPONS & ARMOR ===
+  - item_id: uab7ulgm  # Bonesteel Longsword
+    qty: 2
+    price: 60
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: ttuc0dtg  # Salvaged Warplate
+    qty: 2
+    price: 80
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+  # === TIER 1 - TOOLS & SUPPLIES ===
+  - item_id: 3tqihyai  # Wayfinder's Compass
+    qty: 3
+    price: 50
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: bs4xgpxb  # Scavenger's Kit
+    qty: -1
+    price: 30
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: lpxp0g9b  # Wasteland Rations
+    qty: -1
+    price: 5
+    buyback_percent: 30
+    requires:
+      tier: 1
+
+  # === TIER 1 - ABILITY TOMES ===
+  - item_id: k8tkwnbs  # Tome of Ichor Lance
+    qty: 1
+    price: 75
+    buyback_percent: 40
+    requires:
+      tier: 1
+
+services:
+  - id: weapon-repair
+    name: "Weapon Repair"
+    price: 20
+    effect: "Restore weapon durability to full"
+    requires:
+      tier: 1
+
+  - id: armor-repair
+    name: "Armor Repair"
+    price: 30
+    effect: "Restore armor durability and reverse degradation"
+    requires:
+      tier: 1
+
+  - id: bonesteel-fortitude-training
+    name: "Combat Hardening"
+    price: 40
+    effect: "Learn Bonesteel Fortitude defensive ability"
+    requires:
+      tier: 1
+    grants_ability:
+      id: wiueoed5
+      level: 1
+      source: "trainer"
+
+restock_frequency: weekly
+last_restock: "1.1.1"
+
+transactions: []

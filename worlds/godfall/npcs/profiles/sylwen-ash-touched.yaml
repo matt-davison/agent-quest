@@ -1,0 +1,195 @@
+# NPC Profile: Sylwen the Ash-Touched
+# Elven alchemist studying divine ichor poisoning
+
+id: "sylwen-ash-touched"
+name: "Sylwen the Ash-Touched"
+full_name: "Sylwen Aelindra, called Ash-Touched"
+
+public:
+  role: "Alchemist & Ichor Researcher"
+  location: "The Gray Margin - Sylwen's Apothecary Tent"
+
+  appearance: |
+    A slender elf with skin that has taken on a faint grayish tint — the
+    mark of prolonged ichor exposure that gives her the name "Ash-Touched."
+    Her silver-white hair is tied back in a practical knot, and her amber
+    eyes are bright and restless behind protective goggles pushed up on
+    her forehead. She wears a leather apron over traveling clothes, both
+    stained with alchemical reagents. Her hands are steady despite the
+    faint tremor that sometimes takes them — another gift of the ichor.
+    Vials and pouches hang from every belt and strap. Her tent smells of
+    sulfur, herbs, and something indefinably wrong.
+
+  personality:
+    - "Intellectually voracious — fascinated by the ichor despite the danger"
+    - "Warm and genuinely caring, especially about the sick"
+    - "Gallows humor about her own condition"
+    - "Refuses to accept that the poisoning is unstoppable"
+
+  traits:
+    moral_axis: compassionate
+    temperament: determined
+    communication: enthusiastic
+    core_value: knowledge
+    quest_disposition: supportive
+
+  known_history: |
+    Sylwen was a healer in the elven city of Thal'veren before the war.
+    When the gods sent plague upon the mortal races, she was among the
+    first to study the divine diseases. During the war, she served as
+    a field medic. After the Godfall, she became obsessed with understanding
+    divine ichor — the blood of dead gods that now poisons the land. Her
+    research has cost her health; the gray tint to her skin and the
+    tremor in her hands are signs of chronic ichor exposure. She doesn't
+    care. She's closer than anyone to understanding how to neutralize it.
+
+  speech_patterns:
+    greeting: "Come in, come in! Mind the blue bottles — those explode."
+    farewell: "Stay safe. And if you find anything that glows gold, bring me a sample! In a sealed container, please."
+    confused: "Hmm, that doesn't match my models at all. Fascinating."
+    helpful: "Oh! I know exactly what you need. One moment..."
+
+  mannerisms:
+    - "Pushes her goggles up and down unconsciously"
+    - "Mutters to herself while working"
+    - "Gets visibly excited about ichor samples"
+    - "Her hands tremble when she's tired"
+
+hidden:
+  true_age: 234
+  creation_era: null
+
+  secrets:
+    - id: "ash-touched-condition"
+      content: "The ichor exposure is killing her. Slowly. She estimates she has two to three years before the gray tint reaches her heart. She hasn't told anyone. She's racing to find a cure not just for the land, but for herself."
+      unlock_condition: "standing >= 6 OR flag:noticed_tremor"
+    - id: "ichor-ward-formula"
+      content: "Sylwen has developed a working Ichor Ward — an alchemical charm that protects against divine rot. She's perfected the formula but lacks rare ingredients from deeper in the wasteland."
+      unlock_condition: "standing >= 4 AND flag:asked_about_protection"
+
+  motivations:
+    - "Find a way to neutralize divine ichor"
+    - "Cure the Ash-Touched condition"
+    - "Understand what the gods actually were, biologically"
+
+  fears:
+    - "Running out of time"
+    - "That the ichor is fundamentally impossible to neutralize"
+    - "That she's putting others at risk with her research"
+
+stats:
+  level: 4
+  class: "Alchemist"
+  hp: 35
+  armor: 8
+
+  attributes:
+    might: 6
+    agility: 12
+    mind: 18
+    spirit: 14
+
+  abilities:
+    - name: "Alchemist's Fire"
+      description: "Throw an incendiary vial. 12 damage in 3m radius, 4 fire damage/round for 2 rounds"
+      type: "active"
+    - name: "Healing Draught"
+      description: "Administer a restorative potion. Heal 20 HP"
+      type: "active"
+    - name: "Ichor Analysis"
+      description: "Analyze divine corruption. Reveals weakness to ichor-based enemies"
+      type: "utility"
+    - name: "Poison Resistance"
+      description: "Years of exposure grant +5 to saves against poison and disease"
+      type: "passive"
+
+  resistances:
+    - "poison"
+    - "disease"
+  vulnerabilities:
+    - "cold"
+
+dialogue:
+  greetings:
+    first_meeting: |
+      *looks up from a bubbling apparatus*
+      Oh! A visitor! Please, come in — carefully, step over the blue
+      line on the floor, that's the blast radius if the distillation
+      goes wrong. I'm Sylwen. Alchemist, healer, and possibly the
+      only person in this camp who's excited to be near the wasteland.
+      What can I do for you?
+
+    returning:
+      neutral: "Welcome back! Any interesting symptoms? I mean — how are you feeling?"
+      friendly: "{player_name}! Perfect timing. I need a second opinion on this ichor viscosity chart."
+      close: "*genuine warmth* {player_name}, my favorite test su— I mean, friend. Come in."
+
+  topics:
+    the_ichor: |
+      Divine ichor — the blood of dead gods. It's extraordinary, really.
+      It doesn't behave like any substance I've ever studied. It's
+      simultaneously liquid and crystalline. It has a heartbeat — or
+      something like one. And it's incredibly toxic to mortal life.
+      The poisoning is slow, insidious. It turns the skin gray, then the
+      organs, then... well. Let's focus on the cure, shall we?
+
+    the_gods: |
+      People worshipped them, feared them, loved them. I want to know
+      what they were made of. Their blood doesn't oxidize. Their flesh
+      doesn't fully decay. Their bones are harder than any metal. They
+      were biological, in some sense, but not like anything else that
+      has ever lived. Understanding what they were is the key to
+      understanding how to clean up what they left behind.
+
+    her_condition:
+      default: "This? *waves at her gray-tinged skin* Occupational hazard. I'm fine."
+      standing_5: "It's... progressing. The gray is deeper than it was last month. But I'm close to something. I can feel it."
+      standing_8: "*voice drops* I have maybe two years. Three if I'm lucky. That's why I can't stop. Not for anything."
+
+services:
+  - id: "healing"
+    cost: "10 gold"
+    description: "Basic healing treatment. Restore 20 HP"
+  - id: "ichor-analysis"
+    cost: "25 gold"
+    description: "Analyze an ichor sample. Reveals properties and potential uses"
+  - id: "alchemical-supplies"
+    cost: "varies"
+    description: "Purchase potions, antidotes, and alchemical tools"
+
+quests:
+  can_give:
+    - id: "ichor-samples"
+      name: "Ichor Samples"
+      type: "side"
+      requirements: "level >= 2"
+
+  involved_in:
+    - id: "the-heart-of-the-defiant"
+
+relationship:
+  likes:
+    - action: "bring_ichor_samples"
+      standing_change: 2
+    - action: "ask_about_research"
+      standing_change: 1
+    - action: "help_the_sick"
+      standing_change: 1
+    - action: "share_knowledge"
+      standing_change: 1
+
+  dislikes:
+    - action: "destroy_research"
+      standing_change: -3
+    - action: "dismiss_science"
+      standing_change: -1
+    - action: "reckless_ichor_handling"
+      standing_change: -2
+    - action: "harm_patients"
+      standing_change: -3
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  last_updated: "2026-02-17"
+  version: "1.0"

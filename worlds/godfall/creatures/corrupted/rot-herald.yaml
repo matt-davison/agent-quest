@@ -1,0 +1,263 @@
+# Rot Herald
+# Tier: Elite | Role: Controller
+
+id: "rot-herald"
+name: "Rot Herald"
+category: corrupted
+tier: elite
+level: 7
+
+description: |
+  Where the divine rot is thickest, where ichor pools deep and god-flesh
+  decays in mountains, the corruption sometimes coalesces into something
+  with intent. The Rot Heralds are towering figures of putrefied divine
+  matter — ten feet tall, vaguely humanoid, draped in robes of rotting
+  god-skin. Their faces are smooth and featureless except for a single
+  crack that splits the head vertically, from which golden light pours.
+  They do not speak, but they sing — a low, resonant hum that drives
+  mortals mad and accelerates the spread of divine rot. They are not
+  undead. They are not alive. They are the wasteland itself given form
+  and terrible purpose.
+
+stats:
+  hp: 100
+  defense: 14
+  attack_bonus: +7
+  damage: 22
+  speed: medium
+  initiative_bonus: +2
+
+role: controller
+
+defenses:
+  resistances:
+    - physical    # Dense, compacted divine matter
+    - poison      # IS poison
+    - corruption  # IS corruption
+  immunities:
+    - disease
+    - fear
+    - charm
+    - psychic
+  vulnerabilities:
+    - fire          # Purifying flame
+    - divine_purify # Holy cleansing effects
+
+abilities:
+  - name: "Rot Strike"
+    type: active
+    description: |
+      A heavy blow with a fist of compressed divine decay.
+      Attack: +7 to hit, 22 damage. Target must pass Spirit DC 15
+      or contract Accelerated Rot (lose 5 HP at the start of each
+      turn for 3 turns, no save to end early).
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 22
+    effects:
+      - effect: "accelerated_rot"
+        duration: 3
+        save_dc: 15
+        damage_per_round: 5
+    ai_priority: high
+    ai_condition: "Standard melee attack"
+
+  - name: "Herald's Song"
+    type: active
+    description: |
+      The Rot Herald begins its terrible hum. All creatures within 10m
+      must pass Spirit DC 14 or be compelled to move toward the Herald
+      (lose movement control for 1 round). Creatures that reach the
+      Herald take 10 corruption damage.
+    cooldown: 3
+    cost: 0
+    range: self
+    area: 10m_radius
+    damage: 10
+    effects:
+      - effect: "compelled"
+        duration: 1
+        save_dc: 14
+    ai_priority: critical
+    ai_condition: "Use when 2+ enemies are within range and not adjacent"
+
+  - name: "Ichor Geyser"
+    type: active
+    description: |
+      The Herald stomps the ground, rupturing an ichor vein beneath.
+      A geyser of divine blood erupts at a target point within 15m.
+      4m radius, 15 poison damage. Creates an ichor pool hazard that
+      persists for 3 rounds (3 damage/round to creatures in pool).
+    cooldown: 4
+    cost: 0
+    range: 15m
+    area: 4m_radius
+    damage: 15
+    effects:
+      - effect: "ichor_pool_hazard"
+        duration: 3
+        save_dc: 0
+        damage_per_round: 3
+    ai_priority: high
+    ai_condition: "Use to create terrain control or hit ranged attackers"
+
+  - name: "Rot Aura"
+    type: passive
+    description: |
+      The Herald radiates divine corruption. All creatures within 5m
+      take 3 corruption damage at the start of their turn. Ichor Wards
+      negate this effect.
+    cooldown: 0
+    cost: 0
+    range: 5m
+    area: 5m_radius
+    damage: 3
+    effects:
+      - effect: "rot_aura"
+        duration: 0
+        save_dc: 0
+    ai_priority: high
+    ai_condition: "Passive — always active"
+
+  - name: "Reconstitute"
+    type: triggered
+    description: |
+      When reduced to 25% HP or below, the Herald collapses into a
+      pool of divine matter. Next round, it reforms with 30 HP unless
+      the pool is burned or purified during that round.
+    cooldown: 0
+    cost: 0
+    range: self
+    area: null
+    damage: 0
+    effects: []
+    ai_priority: critical
+    ai_condition: "Triggers once when first reduced below 25% HP"
+
+phases:
+  - phase: 1
+    name: "Herald"
+    hp_range: [51, 100]
+    behavior: "Uses Rot Strike and Herald's Song. Creates ichor pools for terrain control."
+
+  - phase: 2
+    name: "Unleashed"
+    hp_range: [1, 50]
+    behavior: "Uses all abilities aggressively. Herald's Song cooldown reduced to 2. Rot Aura damage increases to 5."
+
+environment:
+  preferred_terrain:
+    - terrain_type: "ichor_pool"
+      bonus: "Regenerate 8 HP/round while standing in ichor"
+    - terrain_type: "god_corpse"
+      bonus: "All abilities deal +5 damage. Reconstitute heals to 50 HP instead."
+    - terrain_type: "open_ground"
+      behavior: "Creates ichor pools to reshape terrain"
+
+  interactions:
+    - element: "ichor_pools"
+      behavior: "Positions near pools for regeneration"
+      priority: critical
+      condition: "Below 50% HP"
+
+    - element: "bone_piles"
+      behavior: "Animates nearby bones as Bone Shamblers (1/encounter)"
+      priority: medium
+      condition: "Adjacent to bone pile, combat round 3+"
+
+  hazard_immunity:
+    - "poison"
+    - "ichor"
+    - "corruption"
+    - "disease"
+
+  hazard_exploitation:
+    - hazard: "ichor_pool"
+      tactic: "Stands in pool for regeneration, uses Geyser to create more pools"
+    - hazard: "narrow_passage"
+      tactic: "Herald's Song forces enemies into chokepoint"
+
+morale:
+  break_threshold: 0  # The wasteland does not fear
+  break_behavior: fearless
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: highest_threat
+  secondary: "healer"
+  avoids: []
+  switches_target_when: "Healer is actively restoring allies or target uses fire/purifying abilities"
+
+pack_tactics:
+  enabled: false  # Solitary apex predator
+  flanking: false
+  focus_fire: false
+  protect_leader: false
+  swarm_threshold: 0
+  swarm_bonus: null
+
+loot:
+  gold:
+    min: 30
+    max: 80
+  xp: 200
+  guaranteed_drops:
+    - item: "Rot Herald Core"
+      quantity: 1
+    - item: "Concentrated Divine Ichor"
+      quantity: 2
+  chance_drops:
+    - item: "Godblood Vial"
+      chance: 40
+      quantity: 1
+    - item: "Celestial Bone Fragment"
+      chance: 30
+      quantity: 1
+  rare_drops:
+    - item: "Herald's Mask"
+      chance: 10
+      quantity: 1
+      note: "The smooth, cracked face-plate of the Herald. Radiates faint golden light."
+
+type_traits:
+  corrupted:
+    - "Immune to disease, fear, charm, and psychic effects"
+    - "Resistant to physical damage and poison"
+    - "Vulnerable to fire (+50% damage) and purifying effects"
+    - "Regenerates in ichor pools"
+    - "Can reconstitute after apparent death unless burned or purified"
+    - "Rot Aura damages nearby creatures passively"
+
+encounter_notes: |
+  Rot Heralds are the apex predators of the wasteland. They are rare,
+  powerful, and terrifying. Each one guards a region of deep corruption.
+
+  Combat patterns:
+  - Opens with Herald's Song to pull enemies close
+  - Creates ichor pools with Geyser for terrain control and self-healing
+  - Uses Rot Strike against adjacent enemies (heavy damage + rot)
+  - Rot Aura punishes melee fighters without Ichor Wards
+  - Reconstitutes when nearly destroyed — MUST be burned or purified
+
+  Key vulnerabilities:
+  - Fire is devastatingly effective
+  - Purifying abilities (if available) bypass all resistances
+  - Keep distance to avoid Rot Aura and Herald's Song
+  - Destroy the ichor pool during Reconstitute to prevent reformation
+  - Ichor Wards negate the passive Rot Aura damage
+
+  Encounter design:
+  - Usually found alone near major ichor concentrations
+  - Terrain should include at least one ichor pool
+  - Bone piles nearby allow it to summon reinforcements
+  - Consider providing Ichor Ward access before this fight
+
+metadata:
+  created: "2026-02-17"
+  author: "System"
+  source: "The wasteland's divine corruption given form and intent"
+  cr_equivalent: 7

@@ -1,0 +1,55 @@
+# Ichor Lance - Combat spell using ambient divine energy
+id: ryhjkx6n
+name: "Ichor Lance"
+type: spell
+subtype: evocation
+class: null
+tier: 1
+tags:
+  - combat
+  - damage
+  - divine
+  - corruption
+
+prerequisites:
+  min_spirit: 8
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Channel ambient divine energy into a searing lance. 12 divine damage. Target must pass Spirit DC 11 or take 3 corruption damage/round for 2 rounds."
+    willpower_cost: 4
+    effect:
+      damage: 12
+      damage_type: divine
+      debuff:
+        name: "corruption"
+        damage_per_round: 3
+        duration: 2
+        save_dc: 11
+    learn_cost: 50
+  2:
+    description: "Empowered lance. 18 divine damage, Spirit DC 13 or 5 corruption/round for 2 rounds. Can target 2 creatures within 3m of each other."
+    willpower_cost: 6
+    effect:
+      damage: 18
+      damage_type: divine
+      targets: 2
+      target_range: 3
+      debuff:
+        name: "corruption"
+        damage_per_round: 5
+        duration: 2
+        save_dc: 13
+    learn_cost: 125
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+  cooldown_rounds: null
+
+action_type: major
+range: 30
+target: single

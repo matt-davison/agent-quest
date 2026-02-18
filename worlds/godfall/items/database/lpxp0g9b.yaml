@@ -1,0 +1,22 @@
+# Wasteland Rations
+id: lpxp0g9b
+name: Wasteland Rations
+type: consumable
+subtype: food
+rarity: common
+tier: 1
+value: 5
+sellable: true
+max_uses: 1
+tags:
+  - consumable
+  - food
+  - travel
+stats:
+  heal: 5
+  travel_bonus: "Prevents exhaustion for 8 hours of travel"
+description: |
+  Dense, unappetizing cakes of pressed grain, dried meat, and rendered
+  fat. They taste like despair. But they keep you moving when the
+  wasteland would rather you stopped. Wrapped in waxed cloth to keep
+  out the ash.

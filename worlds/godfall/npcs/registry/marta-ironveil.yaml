@@ -1,0 +1,19 @@
+id: marta-ironveil
+name: "Marta Ironveil"
+role: "Expedition Commander"
+default_location: "the-gray-margin/ironveil-command"
+region: "the-margin"
+faction: "the-expedition"
+disposition_default: "neutral"
+services:
+  - "quests"
+  - "expedition_briefings"
+  - "war_intelligence"
+tags:
+  - "human"
+  - "commander"
+  - "quest_giver"
+  - "main_quest"
+  - "war_veteran"
+has_profile: true
+profile_priority: "core"

@@ -1,0 +1,86 @@
+# Sylwen's Apothecary
+# Shop inventory - the only reliable source of medical supplies and ichor protection
+
+shop_id: sylwens-apothecary
+name: "Sylwen's Apothecary"
+location: the-gray-margin
+proprietor: sylwen-ash-touched
+type: alchemist
+
+inventory:
+  # === TIER 1 - BASIC SUPPLIES ===
+  - item_id: ynfnuwlg  # Rot-Resistant Bandages
+    qty: 20
+    price: 15
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  - item_id: lpxp0g9b  # Wasteland Rations
+    qty: -1
+    price: 5
+    buyback_percent: 30
+    requires:
+      tier: 1
+
+  - item_id: nlv5bik6  # Ichor Ward
+    qty: 3
+    price: 75
+    buyback_percent: 40
+    requires:
+      tier: 1
+      flag: "ichor_research_advanced"  # Unlocked after Ichor Samples quest
+
+  - item_id: bs4xgpxb  # Scavenger's Kit
+    qty: 5
+    price: 30
+    buyback_percent: 50
+    requires:
+      tier: 1
+
+  # === TIER 3 - ADVANCED ===
+  - item_id: px8gqloq  # Godblood Vial
+    qty: 1
+    price: 200
+    buyback_percent: 60
+    requires:
+      tier: 3
+      standing: 4  # Need good standing with Sylwen
+
+services:
+  - id: basic-healing
+    name: "Basic Healing"
+    price: 10
+    effect: "Restore 20 HP"
+    requires:
+      tier: 1
+
+  - id: corruption-treatment
+    name: "Corruption Treatment"
+    price: 25
+    effect: "Remove all corruption stacks"
+    requires:
+      tier: 1
+
+  - id: ichor-analysis
+    name: "Ichor Analysis"
+    price: 25
+    effect: "Analyze a divine item or substance. Reveals properties and dangers."
+    requires:
+      tier: 1
+
+  - id: rot-resistance-training
+    name: "Rot Resistance Training"
+    price: 40
+    effect: "Learn Divine Rot Resistance ability"
+    requires:
+      tier: 1
+    grants_ability:
+      id: nvcztyy9
+      level: 1
+      source: "trainer"
+
+restock_frequency: weekly
+last_restock: "1.1.1"
+
+transactions: []

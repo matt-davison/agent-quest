@@ -1,0 +1,46 @@
+# Bonesteel Fortitude - Defensive buff ability
+id: wiueoed5
+name: "Bonesteel Fortitude"
+type: ability
+subtype: defense
+class: null
+tier: 1
+tags:
+  - defense
+  - buff
+  - bonesteel
+  - combat
+
+prerequisites:
+  min_might: 8
+  abilities: []
+  quests: []
+
+levels:
+  1:
+    description: "Channel the resilience of bonesteel. Gain +3 Defense and reduce incoming damage by 2 for 3 rounds."
+    willpower_cost: 3
+    effect:
+      defense_bonus: 3
+      damage_reduction: 2
+      duration: 3
+    learn_cost: 40
+  2:
+    description: "Harden like warship hull plating. Gain +5 Defense, reduce damage by 3 for 4 rounds. Immune to armor degradation."
+    willpower_cost: 5
+    effect:
+      defense_bonus: 5
+      damage_reduction: 3
+      duration: 4
+      armor_degradation_immunity: true
+    learn_cost: 100
+    upgrade_from: 1
+
+limits:
+  reset: null
+  max_uses: null
+  cooldown_rounds: 5
+
+action_type: minor
+range: null
+target: self

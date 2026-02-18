@@ -1,0 +1,210 @@
+# Ichor Wraith
+# Tier: Standard | Role: Striker
+
+id: "ichor-wraith"
+name: "Ichor Wraith"
+category: corrupted
+tier: standard
+level: 3
+
+description: |
+  A shimmering, translucent figure wreathed in golden mist — the color of
+  divine blood. Ichor Wraiths coalesce where god-blood pools in sufficient
+  concentration, forming spectral shapes that echo the agony of the dying
+  gods. They have no true form, shifting between vaguely humanoid shapes
+  and formless clouds of toxic vapor. Their touch burns with the fire of
+  divine corruption, and the air around them reeks of the sweet, cloying
+  stench of ichor. Where they pass, the ground stains gold and nothing
+  grows for years.
+
+stats:
+  hp: 40
+  defense: 12
+  attack_bonus: +5
+  damage: 14
+  speed: fast
+  initiative_bonus: +3
+
+role: striker
+
+defenses:
+  resistances:
+    - physical  # Semi-incorporeal
+    - fire      # Born of divine energy
+  immunities:
+    - poison
+    - disease
+    - corruption
+  vulnerabilities:
+    - cold      # Crystallizes the ichor
+    - spirit    # Disrupts the divine echo
+
+abilities:
+  - name: "Ichor Touch"
+    type: active
+    description: |
+      The wraith reaches through armor to burn the flesh beneath.
+      Attack: +5 to hit, 14 divine damage. Ignores physical armor.
+      Target must pass Spirit DC 12 or take 4 corruption damage per
+      round for 2 rounds.
+    cooldown: 0
+    cost: 0
+    range: adjacent
+    area: null
+    damage: 14
+    effects:
+      - effect: "corruption"
+        duration: 2
+        save_dc: 12
+        damage_per_round: 4
+    ai_priority: high
+    ai_condition: "Standard attack — prioritize unprotected targets"
+
+  - name: "Golden Mist"
+    type: active
+    description: |
+      The wraith disperses into a cloud of ichor vapor, filling a 5m area.
+      All creatures in the area take 6 poison damage per round and have
+      disadvantage on attack rolls. The wraith cannot attack while
+      dispersed but is immune to all damage. Lasts 2 rounds.
+    cooldown: 4
+    cost: 0
+    range: self
+    area: 5m_radius
+    damage: 6
+    effects:
+      - effect: "obscured"
+        duration: 2
+        save_dc: 0
+    ai_priority: high
+    ai_condition: "Use when below 40% HP or when 3+ enemies are clustered"
+
+  - name: "Phase Shift"
+    type: active
+    description: |
+      The wraith blinks through physical space, teleporting up to 10m
+      and making an Ichor Touch attack on arrival.
+    cooldown: 3
+    cost: 0
+    range: 10m
+    area: null
+    damage: 14
+    effects: []
+    ai_priority: high
+    ai_condition: "Use to reach backline targets or flee danger"
+
+  - name: "Divine Echo"
+    type: passive
+    description: |
+      The wraith emanates the death-scream of a god. All creatures within
+      5m have -1 to Spirit checks. This effect stacks with multiple wraiths.
+    cooldown: 0
+    cost: 0
+    range: 5m
+    area: 5m_radius
+    damage: 0
+    effects:
+      - effect: "spirit_penalty"
+        duration: 0
+        save_dc: 0
+    ai_priority: medium
+    ai_condition: "Passive — always active"
+
+phases: null
+
+environment:
+  preferred_terrain:
+    - terrain_type: "ichor_pool"
+      bonus: "Regenerate 5 HP/round while in contact with ichor"
+    - terrain_type: "enclosed_space"
+      behavior: "Golden Mist fills the entire room"
+
+  interactions:
+    - element: "ichor_pools"
+      behavior: "Draws strength from nearby pools. +2 attack, +5 damage"
+      priority: high
+      condition: "Within 5m of ichor pool"
+
+    - element: "divine_remains"
+      behavior: "Gravitates toward god-corpse areas"
+      priority: medium
+      condition: "Near divine remains"
+
+  hazard_immunity:
+    - "poison"
+    - "ichor"
+    - "divine_rot"
+
+  hazard_exploitation:
+    - hazard: "ichor_pool"
+      tactic: "Lures enemies into pools where it gains strength"
+    - hazard: "enclosed_space"
+      tactic: "Uses Golden Mist to fill entire area"
+
+morale:
+  break_threshold: 0  # Mindless manifestation
+  break_behavior: fearless
+  group_morale: false
+  leader_dependent: false
+  rally_condition: null
+
+targeting:
+  primary: lowest_spirit
+  secondary: nearest
+  avoids: ["targets_with_ichor_ward"]
+  switches_target_when: "Current target uses cold or spirit damage"
+
+pack_tactics:
+  enabled: true
+  flanking: true   # Phase Shift enables flanking
+  focus_fire: true
+  protect_leader: false
+  swarm_threshold: 2
+  swarm_bonus: "Divine Echo stacks: -1 Spirit per wraith"
+
+loot:
+  gold:
+    min: 8
+    max: 20
+  xp: 50
+  guaranteed_drops:
+    - item: "Ichor Residue"
+      quantity: 1
+  chance_drops:
+    - item: "Crystallized Ichor"
+      chance: 25
+      quantity: 1
+  rare_drops:
+    - item: "Godblood Vial"
+      chance: 10
+      quantity: 1
+
+type_traits:
+  corrupted:
+    - "Immune to poison, disease, and corruption"
+    - "Semi-incorporeal: physical attacks deal half damage"
+    - "Vulnerable to cold (+50% damage) and spirit damage (+50% damage)"
+    - "Strengthened near divine ichor sources"
+    - "Cannot be reasoned with — it is not truly alive"
+
+encounter_notes: |
+  Ichor Wraiths are dangerous, mobile threats that ignore armor and
+  inflict lasting corruption.
+
+  Combat patterns:
+  - Phase Shifts to reach high-value targets
+  - Uses Ichor Touch to bypass armor
+  - Disperses into Golden Mist when surrounded or low on HP
+  - Gravitates toward ichor pools for healing
+
+  Key vulnerabilities:
+  - Cold damage crystallizes them, making them solid and targetable
+  - Spirit damage disrupts their divine echo core
+  - Ichor Wards repel them, forcing them to choose other targets
+  - Cannot maintain Golden Mist and attack simultaneously
+
+metadata:
+  created: "2026-02-17"
+  author: "System"
+  source: "Manifestations of concentrated divine blood"
+  cr_equivalent: 3

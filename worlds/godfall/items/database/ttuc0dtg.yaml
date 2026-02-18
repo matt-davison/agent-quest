@@ -1,0 +1,24 @@
+# Salvaged Warplate
+id: ttuc0dtg
+name: Salvaged Warplate
+type: armor
+subtype: heavy_armor
+rarity: uncommon
+tier: 1
+value: 80
+sellable: true
+tags:
+  - armor
+  - heavy
+  - war_relic
+  - salvaged
+stats:
+  defense: 6
+  speed_penalty: -1
+  durability: 30
+description: |
+  Plate armor assembled from salvaged warship hull plating. Dented,
+  scarred, and bearing the faded insignia of the United Mortal Fleet,
+  it is ugly but functional. The arcane-hardened metal that once
+  shielded ships from divine fire still offers excellent protection.
+  Too heavy for extended travel but invaluable in a fight.

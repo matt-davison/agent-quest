@@ -1,0 +1,19 @@
+id: the-pilgrim
+name: "The Pilgrim"
+role: "Wandering Mourner"
+default_location: "the-bonefield/the-standard-bearers"
+region: "outer-wasteland"
+faction: "the-ashen-faithful"
+disposition_default: "neutral"
+services:
+  - "lore"
+  - "blessings"
+  - "divine_knowledge"
+tags:
+  - "mysterious"
+  - "religious"
+  - "wanderer"
+  - "lore"
+  - "divine"
+has_profile: true
+profile_priority: "core"

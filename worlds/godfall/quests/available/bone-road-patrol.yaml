@@ -1,0 +1,51 @@
+# Bone Road Patrol - Side Quest
+id: "bone-road-patrol"
+name: "Bone Road Patrol"
+type: "combat"
+difficulty: "easy"
+giver: "marta-ironveil"
+giver_location: "the-gray-margin"
+repeatable: true
+level:
+  required: 1
+  recommended: 1
+  scaling: false
+
+summary: |
+  The route from the Gray Margin to the Bonefield — called the Bone Road
+  by scavengers — has seen increased Bone Shambler activity. Commander
+  Ironveil needs someone to patrol the road, clear out any undead, and
+  ensure safe passage for supply runners and scouts. It's grim, repetitive
+  work, but the camp depends on it.
+
+objectives:
+  - id: "patrol-bone-road"
+    description: "Patrol the Bone Road from the Gray Margin to the Bonefield"
+    status: "incomplete"
+  - id: "clear-shamblers"
+    description: "Destroy at least 3 Bone Shamblers"
+    status: "incomplete"
+  - id: "report-back"
+    description: "Report to Commander Ironveil"
+    status: "incomplete"
+
+rewards:
+  gold: 25
+  xp: 50
+  items: []
+  reputation:
+    - npc: "marta-ironveil"
+      change: 1
+
+on_complete:
+  standing_changes:
+    - npc: "marta-ironveil"
+      change: 1
+      reason: "Reliable patrol work"
+  flags: []
+  unlocks: []
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  status: "available"

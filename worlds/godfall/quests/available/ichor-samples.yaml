@@ -1,0 +1,64 @@
+# Ichor Samples - Side Quest
+id: "ichor-samples"
+name: "Ichor Samples"
+type: "gathering"
+difficulty: "moderate"
+giver: "sylwen-ash-touched"
+giver_location: "the-gray-margin"
+repeatable: false
+level:
+  required: 2
+  recommended: 3
+  scaling: false
+
+summary: |
+  Sylwen needs fresh ichor samples from different sources to continue
+  her research into neutralizing divine corruption. She needs a sample
+  from the Ichor Marsh (pooled ichor), a sample from the Bonefield
+  (ichor-saturated bone), and if possible, a sample from a living
+  Ichor Wraith. The last one is particularly dangerous, but Sylwen
+  insists the data from a "living" ichor manifestation is invaluable.
+  She'll provide sealed collection vials and basic protective equipment.
+
+objectives:
+  - id: "get-collection-kit"
+    description: "Receive Sylwen's collection kit and briefing"
+    status: "incomplete"
+  - id: "marsh-sample"
+    description: "Collect a pooled ichor sample from the Ichor Marsh"
+    status: "incomplete"
+  - id: "bone-sample"
+    description: "Collect ichor-saturated bone from the Bonefield"
+    status: "incomplete"
+  - id: "wraith-sample"
+    description: "(Optional) Collect a sample from an Ichor Wraith during combat"
+    status: "incomplete"
+  - id: "deliver-samples"
+    description: "Return the samples to Sylwen"
+    status: "incomplete"
+
+rewards:
+  gold: 75
+  xp: 150
+  items:
+    - "Ichor Ward (crafted by Sylwen as thanks)"
+  reputation:
+    - npc: "sylwen-ash-touched"
+      change: 3
+
+on_complete:
+  standing_changes:
+    - npc: "sylwen-ash-touched"
+      change: 3
+      reason: "Vital research contribution"
+  flags:
+    - flag: "ichor_research_advanced"
+      value: true
+  unlocks:
+    - "Sylwen can now craft Ichor Wards for the player"
+    - "Sylwen's shop inventory expands"
+
+metadata:
+  created_by: "System"
+  created_date: "2026-02-17"
+  status: "available"

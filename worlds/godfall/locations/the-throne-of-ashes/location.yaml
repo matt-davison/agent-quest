@@ -1,0 +1,113 @@
+# Location: The Throne of Ashes
+# Where the King of the Gods fell — the final battleground
+
+id: "the-throne-of-ashes"
+name: "The Throne of Ashes"
+tagline: "Here fell the last and greatest of tyrants."
+
+coordinates:
+  x: -10
+  y: 38
+  z: 5
+
+embedding: null
+
+region: "The Epicenter"
+type: "endgame"
+danger_level: "lethal"
+is_safe_zone: false
+level_range: [8, 10]
+
+tags:
+  - "endgame"
+  - "boss"
+  - "god corpse"
+  - "king of the gods"
+  - "divine"
+  - "final battle"
+  - "epicenter"
+  - "legendary"
+
+areas:
+  - id: "the-ashen-approach"
+    name: "The Ashen Approach"
+    type: "approach"
+  - id: "the-shattered-crown"
+    name: "The Shattered Crown"
+    type: "landmark"
+  - id: "the-divine-wound"
+    name: "The Divine Wound"
+    type: "hazard"
+  - id: "the-gods-eye"
+    name: "The God's Eye"
+    type: "boss_room"
+  - id: "the-heaven-scar"
+    name: "The Heaven-Scar"
+    type: "anomaly"
+
+npcs: []
+
+connections:
+  - target: "the-wreck-of-the-defiant"
+    direction: "east"
+    distance: 10
+    travel_time: "10 hours walking"
+    requirements:
+      - "Level >= 7"
+    danger: "lethal"
+  - target: "the-plague-barrens"
+    direction: "southeast"
+    distance: 18
+    travel_time: "18 hours walking"
+    requirements:
+      - "Level >= 7"
+      - "Ichor Ward or Divine Rot Resistance"
+    danger: "lethal"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 2]
+      event: "rot_herald_elite"
+      type: "combat"
+      creatures: ["rot-herald"]
+      count: "1d2"
+      note: "Empowered by proximity to the God-King's corpse"
+    - roll: [3, 3]
+      event: "Reality fractures. For a moment you see the battle as it happened — warships burning, gods screaming, the sky on fire"
+      type: "atmospheric"
+    - roll: [4, 4]
+      event: "The God-King's blood still flows from the Divine Wound. Standing near it, you hear whispers promising power"
+      type: "hazard"
+    - roll: [5, 5]
+      event: "A fragment of the God-King's crown, still radiating malevolent will. It tries to compel you to kneel (Spirit DC 18)"
+      type: "hazard"
+    - roll: [6, 6]
+      event: "Ash falls like snow. In the silence, you understand why they fought"
+      type: "nothing"
+
+secrets:
+  - id: "the-gods-final-word"
+    requirements:
+      - "Reach the God's Eye"
+      - "Resist the Crown's compulsion (Spirit DC 18)"
+      - "Level >= 9"
+  - id: "the-shattered-heaven"
+    requirements:
+      - "Find the crack in the sky above the Heaven-Scar"
+      - "Level >= 10"
+
+housing:
+  available: false
+
+governance:
+  enabled: false
+  type: "none"
+  requires_home: false
+  description: "The God-King's malice lingers. Even dead, his will poisons the minds of those who linger too long."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-17"
+  last_modified: "2026-02-17"
+  version: "1.0"

@@ -1,0 +1,133 @@
+# Location: The Gray Margin
+# Starting safe zone — refugee camp on the edge of the wasteland
+
+id: "the-gray-margin"
+name: "The Gray Margin"
+tagline: "Where the living cling to the edge of a dead world."
+
+coordinates:
+  x: 0
+  y: 0
+  z: 0
+
+embedding: null
+
+region: "The Margin"
+type: "hub"
+danger_level: "safe"
+is_safe_zone: true
+level_range: null
+
+tags:
+  - "hub"
+  - "safe zone"
+  - "starting area"
+  - "refugee camp"
+  - "trading post"
+  - "expedition staging"
+
+areas:
+  - id: "the-cookfires"
+    name: "The Cookfires"
+    type: "plaza"
+  - id: "ironveil-command"
+    name: "Ironveil's Command Tent"
+    type: "quest_hub"
+  - id: "the-barter-ring"
+    name: "The Barter Ring"
+    type: "marketplace"
+  - id: "sylwens-tent"
+    name: "Sylwen's Apothecary Tent"
+    type: "shop"
+  - id: "the-watchtower"
+    name: "The Watchtower"
+    type: "overlook"
+
+npcs:
+  - id: "marta-ironveil"
+    name: "Marta Ironveil"
+    area: "ironveil-command"
+  - id: "grul-half-tusk"
+    name: "Grul Half-Tusk"
+    area: "the-cookfires"
+  - id: "sylwen-ash-touched"
+    name: "Sylwen the Ash-Touched"
+    area: "sylwens-tent"
+
+connections:
+  - target: "the-bonefield"
+    direction: "north"
+    distance: 5
+    travel_time: "5 hours walking"
+    requirements: null
+    danger: "moderate"
+  - target: "the-ichor-marsh"
+    direction: "northeast"
+    distance: 12
+    travel_time: "12 hours walking"
+    requirements: null
+    danger: "high"
+
+encounters:
+  enabled: false
+  table:
+    - roll: [1, 1]
+      event: "A scavenger returns with a relic to trade"
+    - roll: [2, 2]
+      event: "Refugees arrive with news from deeper in the wasteland"
+    - roll: [3, 3]
+      event: "The wind shifts and the stench of divine rot intensifies"
+    - roll: [4, 4]
+      event: "An old veteran shares a story of the war"
+    - roll: [5, 5]
+      event: "Find a forgotten supply cache (1d6 gold)"
+    - roll: [6, 6]
+      event: "Nothing unusual"
+
+secrets:
+  - id: "gruuls-war-cache"
+    requirements:
+      - "Standing >= 5 with Grul Half-Tusk"
+      - "Ask about 'what he buried'"
+  - id: "the-last-transmission"
+    requirements:
+      - "Find a working signal crystal"
+      - "Bring it to the watchtower at night"
+
+housing:
+  available: true
+  tiers:
+    - tier: 1
+      name: "Canvas Lean-to"
+      base_price: 100
+      storage_slots: 15
+      available_count: -1
+      purchase_requirements:
+        - "level >= 1"
+    - tier: 2
+      name: "Reinforced Shelter"
+      base_price: 500
+      storage_slots: 30
+      available_count: -1
+      purchase_requirements:
+        - "level >= 3"
+        - "standing >= 2"
+
+  upgrade_catalog:
+    - id: "supply_chest"
+      name: "Salvaged Supply Chest"
+      cost: 75
+      benefit: "+8 storage slots"
+      applicable_tiers: [1, 2]
+
+governance:
+  enabled: false
+  type: "military"
+  requires_home: false
+  description: "The Gray Margin is run by Marta Ironveil's expedition command. Martial law, but fair."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-17"
+  last_modified: "2026-02-17"
+  version: "1.0"

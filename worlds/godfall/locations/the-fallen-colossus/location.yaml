@@ -1,0 +1,122 @@
+# Location: The Fallen Colossus
+# The corpse of a lesser god, now a landmark and dungeon
+
+id: "the-fallen-colossus"
+name: "The Fallen Colossus"
+tagline: "Even in death, a god reshapes the world."
+
+coordinates:
+  x: 5
+  y: 15
+  z: 0
+
+embedding: null
+
+region: "Inner Wasteland"
+type: "dungeon"
+danger_level: "high"
+is_safe_zone: false
+level_range: [3, 6]
+
+tags:
+  - "dungeon"
+  - "god corpse"
+  - "divine"
+  - "corrupted"
+  - "exploration"
+  - "landmark"
+  - "boss"
+
+areas:
+  - id: "the-shadow-of-the-hand"
+    name: "The Shadow of the Hand"
+    type: "approach"
+  - id: "the-ribcage-cathedral"
+    name: "The Ribcage Cathedral"
+    type: "interior"
+  - id: "the-skull-throne"
+    name: "The Skull Throne"
+    type: "interior"
+  - id: "the-heartchamber"
+    name: "The Heartchamber"
+    type: "boss_room"
+  - id: "the-marrow-tunnels"
+    name: "The Marrow Tunnels"
+    type: "passage"
+
+npcs: []
+
+connections:
+  - target: "the-bonefield"
+    direction: "south"
+    distance: 10
+    travel_time: "10 hours walking"
+    requirements: null
+  - target: "the-ichor-marsh"
+    direction: "southeast"
+    distance: 7
+    travel_time: "7 hours walking"
+    requirements: null
+  - target: "the-plague-barrens"
+    direction: "west"
+    distance: 8
+    travel_time: "8 hours walking"
+    requirements: null
+    danger: "extreme"
+  - target: "the-wreck-of-the-defiant"
+    direction: "north"
+    distance: 20
+    travel_time: "20 hours walking"
+    requirements: null
+    danger: "extreme"
+
+encounters:
+  enabled: true
+  table:
+    - roll: [1, 1]
+      event: "god_maggot_swarm"
+      type: "combat"
+      creatures: ["god-maggot"]
+      count: "1d4"
+    - roll: [2, 2]
+      event: "ichor_wraith_guardian"
+      type: "combat"
+      creatures: ["ichor-wraith"]
+      count: "1d2"
+    - roll: [3, 3]
+      event: "The god's flesh twitches — a reflex five years dead. The ground shifts and new passages open"
+      type: "discovery"
+    - roll: [4, 4]
+      event: "You hear a sound like distant thunder. It is the god's chest cavity settling"
+      type: "atmospheric"
+    - roll: [5, 5]
+      event: "A scavenger's camp, abandoned. Their journal describes something moving in the Heartchamber"
+      type: "discovery"
+    - roll: [6, 6]
+      event: "Nothing stirs but the wind through ancient bones"
+      type: "nothing"
+
+secrets:
+  - id: "the-divine-spark"
+    requirements:
+      - "Reach the Heartchamber"
+      - "Defeat the Rot Herald guardian"
+  - id: "the-god-gut"
+    requirements:
+      - "Find the passage in the Marrow Tunnels"
+      - "Level >= 5"
+
+housing:
+  available: false
+
+governance:
+  enabled: false
+  type: "none"
+  requires_home: false
+  description: "The dead god's body is a lawless ruin, claimed by no one and feared by all."
+
+metadata:
+  github: "System"
+  created_date: "2026-02-17"
+  last_modified: "2026-02-17"
+  version: "1.0"

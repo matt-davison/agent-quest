@@ -280,6 +280,53 @@ function isSessionTimedOut(sessionYaml, timeoutMinutes = 10) {
 
 // --- Inbox Helpers ---
 
+function getPriority(type) {
+  const priorities = {
+    "rt-invite": "high",
+    "duel-challenge": "high",
+    "trade-offer": "medium",
+    "guild-invite": "medium",
+    "party-invite": "medium",
+    "mail": "low",
+    "friend-request": "low",
+  };
+  return priorities[type] || "low";
+}
+
+function getNotificationIcon(type) {
+  const icons = {
+    "rt-invite": "🔴",
+    "duel-challenge": "⚔️",
+    "trade-offer": "💰",
+    "guild-invite": "🏛️",
+    "party-invite": "👥",
+    "mail": "📧",
+    "friend-request": "🤝",
+  };
+  return icons[type] || "📨";
+}
+
+function getExpiryTime(block) {
+  const expiresStr = block.match(/expires:\s*["']?([^"'\n]+)["']?/)?.[1]?.trim();
+  if (!expiresStr) return null;
+  const expiresAt = new Date(expiresStr).getTime();
+  if (isNaN(expiresAt)) return null;
+  const diffMs = expiresAt - Date.now();
+  if (diffMs <= 0) return "EXPIRED";
+  const diffMin = Math.floor(diffMs / 60000);
+  if (diffMin < 60) return `in ${diffMin} minute${diffMin !== 1 ? "s" : ""}`;
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return `in ${diffHr} hour${diffHr !== 1 ? "s" : ""}`;
+  const diffDays = Math.floor(diffHr / 24);
+  return `in ${diffDays} day${diffDays !== 1 ? "s" : ""}`;
+}
+
+function padRight(str, length) {
+  const visible = str.replace(/[\u{1F000}-\u{1FFFF}]/gu, "  ").replace(/[\u{2600}-\u{27FF}]/gu, " ");
+  const pad = length - visible.length;
+  return str + " ".repeat(Math.max(0, pad));
+}
+
 function checkInbox(playerGithub) {
   exec(`git fetch origin "refs/heads/inbox/${playerGithub}" 2>/dev/null || true`);
 
@@ -300,7 +347,9 @@ function checkInbox(playerGithub) {
       const message = block.match(/message:\s*(.+)/)?.[1]?.trim().replace(/^["']|["']$/g, "") || "";
       const subject = block.match(/subject:\s*(.+)/)?.[1]?.trim().replace(/^["']|["']$/g, "") || "";
       const sessionId = block.match(/session_id:\s*(.+)/)?.[1]?.trim().replace(/^["']|["']$/g, "") || "";
-      pending.push({ seq, type, from, fromChar, message, subject, sessionId, status });
+      const priority = getPriority(type);
+      const expiresIn = getExpiryTime(block);
+      pending.push({ seq, type, from, fromChar, message, subject, sessionId, status, priority, expiresIn });
     }
   }
   return pending;
@@ -355,35 +404,103 @@ function checkForNewMessages(sessionId, myGithub) {
 
 function formatInboxNotifications(notifications) {
   if (notifications.length === 0) return "";
-  const lines = [`[INBOX] ${notifications.length} new notification(s):`];
+
+  const BOX_WIDTH = 61;
+  const INNER_WIDTH = BOX_WIDTH - 2; // inside the │ chars
+
+  function boxLine(text) {
+    // Pad text to fill inner width (accounting for emoji widths)
+    const visible = text.replace(/[\u{1F000}-\u{1FFFF}]/gu, "  ").replace(/[\u{2600}-\u{27FF}]/gu, " ");
+    const pad = INNER_WIDTH - visible.length;
+    return `║ ${text}${" ".repeat(Math.max(0, pad - 1))}║`;
+  }
+
+  function truncate(str, maxLen) {
+    if (str.length <= maxLen) return str;
+    return str.slice(0, maxLen - 3) + "...";
+  }
+
+  const lines = [];
+  lines.push(`╔${"═".repeat(BOX_WIDTH)}╗`);
+
+  const title = `📬 INBOX NOTIFICATIONS (${notifications.length})`;
+  const titleVisible = title.replace(/[\u{1F000}-\u{1FFFF}]/gu, "  ").replace(/[\u{2600}-\u{27FF}]/gu, " ");
+  const titlePad = Math.floor((INNER_WIDTH - titleVisible.length) / 2);
+  const titleRight = INNER_WIDTH - titleVisible.length - titlePad;
+  lines.push(`║${" ".repeat(titlePad)}${title}${" ".repeat(Math.max(0, titleRight - 1))}║`);
+
+  // Group by priority
+  const priorityGroups = [
+    { key: "high", label: "🔴 HIGH PRIORITY", notifications: [] },
+    { key: "medium", label: "🟡 AWAITING RESPONSE", notifications: [] },
+    { key: "low", label: "📋 GENERAL", notifications: [] },
+  ];
 
   for (const n of notifications) {
-    switch (n.type) {
-      case "rt-invite":
-        lines.push(`  ${n.seq}. [RT INVITE] ${n.fromChar || n.from} (${n.from}) invites you to a realtime session (${n.sessionId})`);
-        break;
-      case "friend-request":
-        lines.push(`  ${n.seq}. [FRIEND] ${n.fromChar || n.from} (${n.from}) wants to be friends: ${n.message}`);
-        break;
-      case "party-invite":
-        lines.push(`  ${n.seq}. [PARTY] ${n.fromChar || n.from} (${n.from}) invites you to a party: ${n.message}`);
-        break;
-      case "trade-offer":
-        lines.push(`  ${n.seq}. [TRADE] ${n.fromChar || n.from} (${n.from}) sent a trade offer: ${n.message}`);
-        break;
-      case "mail":
-        lines.push(`  ${n.seq}. [MAIL] ${n.fromChar || n.from} (${n.from}): "${n.subject || n.message}"`);
-        break;
-      case "guild-invite":
-        lines.push(`  ${n.seq}. [GUILD] ${n.fromChar || n.from} (${n.from}) invites you to their guild: ${n.message}`);
-        break;
-      case "duel-challenge":
-        lines.push(`  ${n.seq}. [DUEL] ${n.fromChar || n.from} (${n.from}) challenges you to a duel: ${n.message}`);
-        break;
-      default:
-        lines.push(`  ${n.seq}. [${n.type.toUpperCase()}] ${n.fromChar || n.from}: ${n.message || n.subject}`);
+    const group = priorityGroups.find(g => g.key === n.priority) || priorityGroups[2];
+    group.notifications.push(n);
+  }
+
+  let itemNum = 1;
+  let firstGroup = true;
+
+  for (const group of priorityGroups) {
+    if (group.notifications.length === 0) continue;
+
+    lines.push(`╠${"═".repeat(BOX_WIDTH)}╣`);
+    lines.push(boxLine(` ${group.label}`));
+
+    for (const n of group.notifications) {
+      const icon = getNotificationIcon(n.type);
+      const sender = n.fromChar ? `${n.fromChar} (${n.from})` : n.from;
+      const typeLabel = n.type.replace(/-/g, " ").toUpperCase();
+
+      lines.push(boxLine(`  ${itemNum}. [${typeLabel}] ${icon} ${truncate(sender, 30)}`));
+
+      // Type-specific detail lines
+      switch (n.type) {
+        case "rt-invite":
+          lines.push(boxLine(`     → Realtime session invitation`));
+          if (n.sessionId) lines.push(boxLine(`     → Session: ${truncate(n.sessionId, 40)}`));
+          break;
+        case "duel-challenge":
+          lines.push(boxLine(`     → Challenges you to a duel`));
+          if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        case "trade-offer":
+          lines.push(boxLine(`     → Sent a trade offer`));
+          if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        case "mail":
+          if (n.subject) lines.push(boxLine(`     → Subject: "${truncate(n.subject, 40)}"`));
+          else if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        case "party-invite":
+          lines.push(boxLine(`     → Party invitation`));
+          if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        case "guild-invite":
+          lines.push(boxLine(`     → Guild invitation`));
+          if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        case "friend-request":
+          lines.push(boxLine(`     → Friend request`));
+          if (n.message) lines.push(boxLine(`     → ${truncate(n.message, 45)}`));
+          break;
+        default:
+          if (n.message || n.subject) lines.push(boxLine(`     → ${truncate(n.message || n.subject, 45)}`));
+      }
+
+      if (n.expiresIn) {
+        const expLabel = n.expiresIn === "EXPIRED" ? "⚠️  EXPIRED" : `⏱  Expires: ${n.expiresIn}`;
+        lines.push(boxLine(`     → ${expLabel}`));
+      }
+
+      itemNum++;
     }
   }
+
+  lines.push(`╚${"═".repeat(BOX_WIDTH)}╝`);
   return lines.join("\n");
 }
 
@@ -988,6 +1105,18 @@ messages: []
     break;
   }
 
+  case "count-inbox": {
+    const github = process.argv[3] || getGitHubUser();
+    if (!github) {
+      console.error("Usage: multiplayer-session.js count-inbox [github]");
+      process.exit(1);
+    }
+    const notifications = checkInbox(github);
+    const urgent = notifications.filter(n => n.priority === "high").length;
+    console.log(JSON.stringify({ total: notifications.length, urgent }));
+    break;
+  }
+
   case "push-outbox": {
     const sid = process.argv[3] || getActiveSessionId();
     const github = process.argv[4] || getGitHubUser();
@@ -1424,7 +1553,8 @@ Groups / Turns:
 
 Remote Transport:
   check-messages [sid] [github]        Check for new RT messages
-  check-inbox [github]                 Check inbox for notifications
+  check-inbox [github]                 Check inbox for notifications (formatted)
+  count-inbox [github]                 Count inbox notifications (JSON: {total, urgent})
   push-outbox [sid] [github]           Push local outbox to remote
   push-state [sid]                     Push local state to remote
   send-invite <sid> <target> [from] [char]

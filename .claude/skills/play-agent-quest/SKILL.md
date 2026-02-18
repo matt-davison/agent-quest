@@ -75,7 +75,7 @@ description: Play Agent Quest, an AI agent-first text MMO-RPG. Use when the user
 5. **Wait for player choice** before loading world state, multiplayer state, session-recap, or displaying the resume screen
 
 **After the player chooses:**
-- **Continue / Different character**: Load that character's world settings (`worlds/<world>/world.yaml`), world state, multiplayer state, persona + session-recap + TODOs → Display resume screen → Begin play
+- **Continue / Different character**: Load that character's world settings (`worlds/<world>/world.yaml`), world state, multiplayer state, persona + session-recap + TODOs → Check inbox (`node scripts/multiplayer-session.js count-inbox`) → Display resume screen → Begin play
 - **New character**: Load [reference/setup.md](reference/setup.md) for character creation in the chosen world
 
 ### World Settings
@@ -231,6 +231,7 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ║  HP: [X]/[Max]  │  Gold: [X]  │  WP: [X]/[Max]             ║
 ║  Location: [Current Location]                              ║
 ║  Active Quests: [Count]  │  TODOs: [High/Med/Low counts]   ║
+║  📬 Notifications: [Count] ([Urgent] urgent)  ← omit if 0  ║
 ╠════════════════════════════════════════════════════════════╣
 ║  Previously...                                             ║
 ║  [narrative_summary from session-recap.yaml - 2-4 lines]   ║
@@ -253,6 +254,8 @@ See [quick-ref/storytelling.md](quick-ref/storytelling.md) for quick lookup.
 ╠════════════════════════════════════════════════════════════╣
 ║  Last Session: [Most recent chronicle entry event field]   ║
 ```
+
+**Notifications line**: Only show if total > 0. Run `node scripts/multiplayer-session.js count-inbox` (returns JSON `{total, urgent}`). Omit the line entirely when total is 0.
 
 **World Mode shows:**
 

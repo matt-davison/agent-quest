@@ -1,0 +1,24 @@
+# Dr. Voss's ID Badge
+id: aft_fof5rv2j
+name: "Dr. Voss's ID Badge"
+type: quest_item
+subtype: keycard
+rarity: uncommon
+tier: 1
+value: 0
+sellable: false
+tags:
+  - quest_item
+  - keycard
+  - biosystems
+  - arc-7
+stats:
+  clearance: "level-3"
+  division: "BioSystems"
+  special: "May grant access to BioSystems Division doors"
+description: |
+  A cracked plastic badge with a faded photo of a stern-faced woman
+  in a lab coat. Dr. Elara Voss, BioSystems Division, Level 3
+  Clearance. The magnetic strip on the back is scratched but intact.
+  Found in a Rust Rat's nest in the maintenance crawlspace of ARC-7.
+  Someone carried this badge when Fleetwood's mother was still alive.

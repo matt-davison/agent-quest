@@ -1,0 +1,98 @@
+name: "Fleetwood"
+class: "drifter"
+level: 1
+xp: 0
+active: true
+
+backstory: |
+  Fleetwood was never supposed to exist. Her parents were subjects in an
+  ATLAS Corporation repopulation experiment deep inside ARC-7 — test-tube
+  breeding stock for a post-apocalyptic future. Her mother died during
+  childbirth and the scientists discarded the body outside the bunker like
+  medical waste. An old wanderer named Cinder found the corpse with its
+  belly still moving, cut Fleetwood free, and raised her on the road.
+  Cinder taught her to read faces the way other children learn to read
+  words — to see the lie behind the smile, the fear behind the anger.
+  She taught her to take what she needed and give what she could. Now
+  Cinder is gone, Fleetwood is grown, and she has come back to ARC-7
+  to find the people who threw her mother away.
+
+stats:
+  strength: 10
+  agility: 12
+  mind: 10
+  spirit: 23
+
+resources:
+  hp: 100
+  max_hp: 100
+  willpower: 23
+  max_willpower: 23
+  gold: 50
+
+abilities:
+  - id: aft_scavg
+    name: "Scavenge"
+    level: 1
+
+inventory:
+  - id: aft_17s3q275
+    name: "Bone-Handled Switchblade"
+    quantity: 1
+  - id: aft_pld0q5eo
+    name: "Lockpick Set"
+    quantity: 1
+  - id: aft_ldust
+    name: "Leather Duster"
+    quantity: 1
+  - id: aft_canne
+    name: "Canned Provisions"
+    quantity: 2
+  - id: aft_fof5rv2j
+    name: "Dr. Voss's ID Badge"
+    quantity: 1
+
+equipped:
+  weapon: aft_17s3q275
+  armor: aft_ldust
+  accessory: null
+
+location: "arc-7"
+
+alignment:
+  primary: "chaotic good"
+  secondary: null
+  axes:
+    empathy: 2
+    order: -2
+    risk: 1
+
+chronicle:
+  - session: 1
+    date: "Year 201 AF, Day 1"
+    time: "late night"
+    location: "arc-7"
+    type: exploration
+    event: "Fleetwood infiltrates ARC-7 to confront the scientists who killed her mother."
+    detail: |
+      The blast door hangs half-open like a mouth mid-scream. Fleetwood slides
+      through sideways, Cinder's switchblade warm against her thigh, lockpicks
+      riding her hip. The air inside tastes like recycled nothing — two hundred
+      years of the same molecules breathing in and out of the same vents. Orange
+      shag carpet under her boots. Emergency lighting painting everything the color
+      of a dying sunset. She's spent her whole life hearing stories about this place.
+      Now she's here. Somewhere in these corridors are the people — or the records
+      of the people — who treated her mother like a disposable container.
+    significance: major
+    facts:
+      - type: location_change
+        from: "the-scrap-wilderness"
+        to: "arc-7"
+      - type: flag_set
+        flag: "arc7_infiltrated"
+        value: true
+      - type: knowledge_gained
+        topic: "ARC-7 interior layout"
+        source: "direct observation"
+
+decisions: []

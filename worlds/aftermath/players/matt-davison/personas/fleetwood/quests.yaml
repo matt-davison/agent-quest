@@ -1,0 +1,37 @@
+active_quests:
+  - id: "fleetwood-revenge-arc7"
+    name: "Sins of the Fathers"
+    importance: major
+    giver: "self"
+    description: |
+      Find out who ran the repopulation experiments in ARC-7 and what
+      happened to the scientists responsible. Are they still alive?
+      Did the CONDUCTOR AI help them? The answers are somewhere in
+      this vault.
+    objectives:
+      - id: "explore-arc7"
+        description: "Explore ARC-7 and find records of the repopulation experiments"
+        status: "active"
+      - id: "find-scientists"
+        description: "Dr. Elara Voss and Director Harlan ran Project Genesis Cradle. Both transferred to ARC-11. Find them."
+        status: "active"
+      - id: "confront-or-forgive"
+        description: "Decide what to do with what you find"
+        status: "pending"
+    rewards:
+      xp: 200
+      gold: 0
+    theming:
+      tone: "personal vengeance tempered by empathy"
+      themes:
+        - identity
+        - justice
+        - letting go
+
+completed_quests: []
+
+quest_log:
+  - date: "Year 201 AF, Day 1"
+    entry: "Infiltrated ARC-7. The hunt begins."
+  - date: "Year 201 AF, Day 1"
+    entry: "Found Genesis Cradle file. Mother: Maren Falk (GC-09, deceased). Father: Dex Calloway (GC-12, transferred to ARC-11). Project lead Dr. Elara Voss and Director Harlan also transferred to ARC-11. Someone else has been searching these files recently."

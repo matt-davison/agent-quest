@@ -1,0 +1,23 @@
+# Lockpick Set
+id: aft_pld0q5eo
+name: "Lockpick Set"
+type: tool
+subtype: infiltration
+rarity: uncommon
+tier: 1
+value: 40
+sellable: true
+tags:
+  - tool
+  - infiltration
+  - stealth
+  - drifter
+stats:
+  skill_bonus: "+3 to lockpicking and bypass checks"
+  uses: -1
+description: |
+  A rolled leather pouch containing eight hand-filed picks, a tension
+  wrench, and a rake — all fashioned from pre-war dental tools. Each
+  pick is wrapped in cloth tape for grip. The old woman taught
+  Fleetwood that every lock is just a conversation you haven't
+  started yet.

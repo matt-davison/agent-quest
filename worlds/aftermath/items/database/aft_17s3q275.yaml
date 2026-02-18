@@ -1,0 +1,25 @@
+# Bone-Handled Switchblade
+id: aft_17s3q275
+name: "Bone-Handled Switchblade"
+type: weapon
+subtype: melee
+rarity: common
+tier: 1
+value: 35
+sellable: true
+tags:
+  - melee
+  - blade
+  - concealable
+  - drifter
+stats:
+  damage: 8
+  attack_bonus: +2
+  range: melee
+  special: "+3 to hit when attacking from stealth"
+description: |
+  A pre-war stiletto with a yellowed bone handle, its spring mechanism
+  still snapping open with a satisfying click. The blade is pitted but
+  holds an edge. Fleetwood's adoptive mother carried it for decades
+  before passing it down. The handle is warm to the touch, always,
+  like it remembers being alive.

@@ -1,0 +1,7 @@
+# Core game infrastructure - requires maintainer approval
+/.claude/                @matt-davison
+/scripts/                @matt-davison
+/worlds.yaml             @matt-davison
+/package.json            @matt-davison
+/pnpm-lock.yaml          @matt-davison
+/.github/                @matt-davison
